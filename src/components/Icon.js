@@ -4,6 +4,7 @@ import './Icon.scss';
 export const Icon = ({
   type = 'material-icons',
   src = '',
+  oriSize = false,
   children,
   ...restProps
 }) =>
@@ -12,7 +13,7 @@ export const Icon = ({
       {children}
     </i>
   ) : type === 'image' ? (
-    <img src={src} {...restProps} className="Icon--image" />
+    <img src={src} {...restProps} className={oriSize ? '' : 'Icon--image'} />
   ) : (
     <React.Fragment>{children}</React.Fragment>
   );

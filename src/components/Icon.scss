@@ -1,6 +1,7 @@
 .Icon {
   &--image {
-    width: 24px;
-    height: 24px;
+    max-height: 24px;
+    width: auto;
+    height: auto;
   }
 }
