@@ -4,7 +4,7 @@ date: "2018-05-01"
 title: "My first Meetup"
 ---
 
-Last week, I have hosted my first Meetup. Even though only one attendee show up, but in overall experience is quite good.
+Last week, I have hosted my first Meetup. Even though only one attendee show up, but in overall the experience is quite good.
 
 It sounds a bit crazy that I never join any Meetup as an attendee and straightaway become a host, but that is just because I could not find any active Meetup on Javascript that is active, and I am desperate to join one.
 

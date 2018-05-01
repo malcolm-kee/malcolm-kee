@@ -63,6 +63,7 @@
   .heading {
     position: relative;
     max-width: 960px;
+    margin: 0 auto;
     animation: heading-enter 1s 1s cubic-bezier(0.61, 0, 0.2, 1) both;
     &:after {
       content: '';
