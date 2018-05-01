@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
+import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
 import twitterIcon from '../assets/twitter-icon.png';
@@ -26,6 +27,7 @@ const ContactItem = ({ link, children }) => (
 
 const ContactPage = () => (
   <div>
+    <Helmet title="Contact - Malcolm Kee" />
     <h1>Get in Touch</h1>
     <div>
       <ContactItem link="mailto:malcolm.keeweesiong@gmail.com">

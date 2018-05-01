@@ -7,9 +7,16 @@ const IndexPage = () => (
     <h1>Hi people</h1>
     <p>Welcome to Malcolm Kee's personal website.</p>
     <p>This site is currently WIP.</p>
-    <Button color="primary" component={Link} to="/contact/" raised>
-      Get in touch
-    </Button>
+    <div>
+      <Button color="primary" component={Link} to="/contact/" raised>
+        Get in touch
+      </Button>
+    </div>
+    <div>
+      <Button color="primary" component={Link} to="/blog" raised>
+        Read my Blogs
+      </Button>
+    </div>
   </div>
 );
 
