@@ -2,6 +2,8 @@ $primary-color: #663399;
 $primary-color-light: #9760ca;
 $primary-color-dark: #36036a;
 $grey-200: #eeeeee;
+$grey-300: #e0e0e0;
+$grey-400: #bdbdbd;
 
 $spacing-unit: 8px;
 $font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
@@ -10,6 +12,9 @@ $text-color: rgba(0, 0, 0, 0.87);
 $text-color-light: rgba(0, 0, 0, 0.54);
 
 $timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+/* media queries */
+$media-mobile: 576px;
 
 /* shadows */
 $box-shadow-1: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),

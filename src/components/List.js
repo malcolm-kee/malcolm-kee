@@ -32,11 +32,12 @@ export const ListItem = ({
 
 export const ListItemText = ({
   primaryText = '',
+  boldPrimary = false,
   secondaryText,
   tertiaryText,
 }) => (
   <div className="List--ListItemText">
-    <p className="primary">{primaryText}</p>
+    <p className={`primary ${boldPrimary ? 'bold' : ''}`}>{primaryText}</p>
     {secondaryText ? <p className="secondary">{secondaryText}</p> : null}
     {tertiaryText ? <p className="tertiary">{tertiaryText}</p> : null}
   </div>

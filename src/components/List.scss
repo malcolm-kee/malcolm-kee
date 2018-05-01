@@ -30,23 +30,22 @@
     .primary {
       font-family: $font-family;
       font-size: 1rem;
-      font-weight: 400;
       line-height: 1.5em;
       color: $text-color;
     }
     .secondary {
       font-family: $font-family;
       font-size: 0.875rem;
-      font-weight: 400;
       line-height: 1.4em;
       color: $text-color;
+      text-align: justify;
     }
     .tertiary {
       font-family: $font-family;
       font-size: 0.75rem;
-      font-weight: 400;
       line-height: 1.375em;
       color: $text-color-light;
+      text-align: justify;
     }
   }
   &--ListItemIcon {

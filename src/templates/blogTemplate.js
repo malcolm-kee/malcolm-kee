@@ -1,6 +1,8 @@
 import React from 'react';
+import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
 import { Icon } from '../components/Icon';
+import { Button } from '../components/Button';
 import './blogTemplate.scss';
 
 export default function Template({
@@ -22,6 +24,9 @@ export default function Template({
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </article>
+      <Button color="primary" component={Link} to="/blog" raised>
+        <Icon>arrow_back</Icon>
+      </Button>
     </div>
   );
 }

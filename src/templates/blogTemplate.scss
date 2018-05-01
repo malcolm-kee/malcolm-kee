@@ -1,6 +1,8 @@
 @import '../constants/variable';
 
 .blog-post {
+  border-bottom: 1px solid $grey-400;
+  margin-bottom: $spacing-unit;
   &--date {
     display: flex;
     align-items: center;
@@ -12,12 +14,24 @@
   }
   &--content {
     padding: $spacing-unit 0;
+    font-family: $font-family;
     p {
-      font-family: $font-family;
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       font-weight: 400;
-      line-height: 1.464em;
+      line-height: 1.6em;
       color: rgba(0, 0, 0, 0.87);
+      text-align: justify;
+      margin-bottom: $spacing-unit * 2;
+      @media (min-width: $media-mobile) {
+        font-size: 0.875rem;
+        line-height: 1.464em;
+      }
+    }
+    hr {
+      margin: 0 0 $spacing-unit * 2;
+      padding: 0;
+      height: 1px;
+      background: $grey-300;
     }
   }
 }
