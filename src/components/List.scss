@@ -1,0 +1,59 @@
+@import '../constants/variable';
+
+.List {
+  margin: 0;
+  position: relative;
+  padding: 0 $spacing-unit;
+  &--ListItem {
+    width: 100%;
+    padding: 1.5 * $spacing-unit 2 * $spacing-unit;
+    position: relative;
+    align-items: center;
+    background-color: transparent;
+    justify-content: flex-start;
+    text-decoration: none;
+    text-align: left;
+    display: flex;
+    &.divider {
+      border-bottom: 1px solid $grey-200;
+    }
+    &.button {
+      transition: background-color 150ms $timing-function 0ms;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+  &--ListItemText {
+    flex: 1 1 auto;
+    padding: 0 2 * $spacing-unit;
+    .primary {
+      font-family: $font-family;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5em;
+      color: $text-color;
+    }
+    .secondary {
+      font-family: $font-family;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.4em;
+      color: $text-color;
+    }
+    .tertiary {
+      font-family: $font-family;
+      font-size: 0.75rem;
+      font-weight: 400;
+      line-height: 1.375em;
+      color: $text-color-light;
+    }
+  }
+  &--ListItemIcon {
+    margin-right: $spacing-unit;
+    flex-shrink: 0;
+    height: auto;
+    display: inline-flex;
+    color: rgba(0, 0, 0, 0.54);
+  }
+}

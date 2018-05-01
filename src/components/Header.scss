@@ -1,0 +1,93 @@
+@import '../constants/variable';
+
+@keyframes heading-enter {
+  from {
+    transform: translateX(calc(-100% + 0.5rem));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes heading-container-enter {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes heading-container-enter-border {
+  from {
+    border-color: white;
+  }
+  50% {
+    border-color: white;
+  }
+  to {
+    border-color: transparent;
+  }
+}
+
+@keyframes heading-text-enter {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+.Header {
+  background: $primary-color;
+  margin-bottom: $spacing-unit * 2;
+  .heading {
+    position: relative;
+    animation: heading-enter 1s 1s cubic-bezier(0.61, 0, 0.2, 1) both;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0.5rem;
+      background: white;
+      height: 100%;
+      animation: blink 1s step-start both;
+    }
+    h1 {
+      border: 1px solid white;
+      padding: $spacing-unit $spacing-unit * 2;
+      display: inline-block;
+      width: 100%;
+      animation: heading-container-enter 1s 1s cubic-bezier(0.61, 0, 0.2, 1)
+          both,
+        heading-container-enter-border 2s 1s cubic-bezier(0.61, 0, 0.2, 1) both;
+    }
+    span {
+      &:first-child {
+        display: inline-block;
+        animation: heading-text-enter 1s 1.4s cubic-bezier(0.61, 0, 0.2, 1) both;
+      }
+      &:nth-child(2) {
+        display: inline-block;
+        animation: heading-text-enter 1s 1.6s cubic-bezier(0.61, 0, 0.2, 1) both;
+      }
+    }
+  }
+}

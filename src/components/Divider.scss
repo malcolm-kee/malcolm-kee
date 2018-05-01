@@ -1,0 +1,9 @@
+@import '../constants/variable';
+
+.Divider {
+  height: 1px;
+  margin: 0px;
+  border: none;
+  flex-shrink: 0;
+  background-color: $grey-200;
+}

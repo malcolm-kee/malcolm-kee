@@ -1,0 +1,23 @@
+@import '../constants/variable';
+
+.blog-post {
+  &--date {
+    display: flex;
+    align-items: center;
+    font-family: $font-family;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.375em;
+    color: $text-color-light;
+  }
+  &--content {
+    padding: $spacing-unit 0;
+    p {
+      font-family: $font-family;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.464em;
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+}

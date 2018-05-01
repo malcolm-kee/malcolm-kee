@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
+import { List, ListItem, ListItemText } from '../components/List';
 
 const BlogPage = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;
@@ -9,17 +10,22 @@ const BlogPage = ({ data }) => {
     <div>
       <Helmet title="Blogs - Malcolm Kee" />
       <h1>Recent Blogs</h1>
-      <div>
+      <List>
         {posts.map(({ node: post }) => (
-          <div>
-            <h1>
-              <Link to={post.frontmatter.path}>{post.frontmatter.title}</Link>
-            </h1>
-            <h2>{post.frontmatter.date}</h2>
-            <p>{post.excerpt}</p>
-          </div>
+          <ListItem
+            button
+            component={Link}
+            to={post.frontmatter.path}
+            key={post.frontmatter.path}
+          >
+            <ListItemText
+              primaryText={post.frontmatter.title}
+              secondaryText={post.excerpt}
+              tertiaryText={post.frontmatter.date}
+            />
+          </ListItem>
         ))}
-      </div>
+      </List>
     </div>
   );
 };

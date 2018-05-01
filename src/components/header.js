@@ -1,14 +1,10 @@
-import React from 'react'
-import Link from 'gatsby-link'
+import React from 'react';
+import Link from 'gatsby-link';
 
-const Header = ({ siteTitle }) => (
-  <header
-    className="site-header"
-    style={{
-      background: 'rebeccapurple',
-      marginBottom: '1.45rem',
-    }}
-  >
+import './Header.scss';
+
+export const Header = ({ siteTitle }) => (
+  <header className="Header">
     <div
       style={{
         margin: '0 auto',
@@ -33,6 +29,4 @@ const Header = ({ siteTitle }) => (
       </div>
     </div>
   </header>
-)
-
-export default Header
+);
