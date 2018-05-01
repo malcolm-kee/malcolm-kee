@@ -2,5 +2,5 @@ module.exports = {
   siteMetadata: {
     title: 'Malcolm Kee',
   },
-  plugins: ['gatsby-plugin-react-helmet'],
-}
+  plugins: ['gatsby-plugin-sass', 'gatsby-plugin-react-helmet'],
+};

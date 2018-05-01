@@ -1,3 +1,5 @@
+@import '../constants/variable';
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -206,17 +208,6 @@ body {
   -ms-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   font-feature-settings: 'kern', 'liga', 'clig', 'calt';
-}
-img {
-  max-width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0;
-  margin-bottom: 1.45rem;
 }
 h1 {
   margin-left: 0;
@@ -684,7 +675,7 @@ pre tt:after {
 
 .heading h1 {
   border: 1px solid white;
-  padding: 0.5rem 1rem;
+  padding: $spacing-unit $spacing-unit * 2;
   display: inline-block;
   width: 100%;
   animation: heading-container-enter 1s 1s cubic-bezier(0.61, 0, 0.2, 1) both,
@@ -711,13 +702,4 @@ pre tt:after {
   background: white;
   height: 100%;
   animation: blink 1s step-start both;
-}
-
-.ContactItem a {
-  padding: 8px 16px;
-  border-bottom: 1px solid #eeeeee;
-}
-
-.ContactItem a:hover {
-  background: #eeeeee;
 }
