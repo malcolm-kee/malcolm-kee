@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
+import { Button } from '../components/Button';
+import { Icon } from '../components/Icon';
 
 const BlogPage = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;
@@ -27,6 +29,9 @@ const BlogPage = ({ data }) => {
           </ListItem>
         ))}
       </List>
+      <Button color="primary" component={Link} to="/tags">
+        <Icon>local_offer</Icon> See all tags
+      </Button>
     </div>
   );
 };

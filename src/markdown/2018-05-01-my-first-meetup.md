@@ -2,6 +2,7 @@
 path: "/blog/my-first-meetup"
 date: "2018-05-01"
 title: "My first Meetup"
+tags: ["meetup"]
 ---
 
 Last week, I have hosted my first Meetup. Even though only one attendee show up, but in overall the experience is quite good.
