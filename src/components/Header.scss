@@ -2,7 +2,7 @@
 
 @keyframes heading-enter {
   from {
-    transform: translateX(calc(-100% + 0.5rem));
+    transform: translateX(calc(-100%));
   }
   to {
     transform: translateX(0);
@@ -55,8 +55,12 @@
 
 .Header {
   background: $primary-color;
-  margin: 0 auto $spacing-unit * 2;
-  padding: $spacing-unit * 2;
+  margin: 0 auto;
+  padding: $spacing-unit * 2 $spacing-unit;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   @media (min-width: $media-mobile) {
     padding: $spacing-unit * 2 $spacing-unit * 3;
   }
@@ -64,6 +68,7 @@
     position: relative;
     max-width: 960px;
     margin: 0 auto;
+    overflow: hidden;
     animation: heading-enter 1s 1s cubic-bezier(0.61, 0, 0.2, 1) both;
     &:after {
       content: '';

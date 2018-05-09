@@ -18,12 +18,15 @@ export const ListItem = ({
   component: Component = 'div',
   divider = true,
   button,
+  noGutter = false,
   ...restProps
 }) => (
   <Component
     className={`List--ListItem ${divider ? 'divider' : ''} ${
       button ? 'button' : ''
-    }`}
+    }
+    ${noGutter ? 'no-gutter' : ''}
+    `}
     {...restProps}
   >
     {children}
@@ -35,8 +38,9 @@ export const ListItemText = ({
   boldPrimary = false,
   secondaryText,
   tertiaryText,
+  hideOverflow = false,
 }) => (
-  <div className="List--ListItemText">
+  <div className={`List--ListItemText ${hideOverflow ? 'hide-overflow' : ''}`}>
     <p className={`primary ${boldPrimary ? 'bold' : ''}`}>{primaryText}</p>
     {secondaryText ? <p className="secondary">{secondaryText}</p> : null}
     {tertiaryText ? <p className="tertiary">{tertiaryText}</p> : null}

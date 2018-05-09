@@ -6,6 +6,7 @@
   &--detail-container {
     display: flex;
     flex-wrap: wrap;
+    padding: $spacing-unit / 2 $spacing-unit * 2;
   }
   &--date,
   &--tag {
@@ -21,7 +22,7 @@
     color: $text-color-light;
   }
   &--content {
-    padding: $spacing-unit 0;
+    padding: $spacing-unit $spacing-unit * 2;
     font-family: $font-family;
     p {
       font-size: 0.9rem;

@@ -19,6 +19,7 @@ const BlogPage = ({ data }) => {
             component={Link}
             to={post.frontmatter.path}
             key={post.frontmatter.path}
+            noGutter
           >
             <ListItemText
               primaryText={post.frontmatter.title}
@@ -29,9 +30,14 @@ const BlogPage = ({ data }) => {
           </ListItem>
         ))}
       </List>
-      <Button color="primary" component={Link} to="/tags">
-        <Icon>local_offer</Icon> See all tags
-      </Button>
+      <div className="Toolbar">
+        <Button color="primary" component={Link} to="/" raised>
+          <Icon>home</Icon> Home
+        </Button>
+        <Button color="primary" component={Link} to="/tags">
+          <Icon>local_offer</Icon> all tags
+        </Button>
+      </div>
     </div>
   );
 };

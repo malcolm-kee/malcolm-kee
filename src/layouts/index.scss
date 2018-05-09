@@ -134,9 +134,11 @@ html {
   font-family: $font-family;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 body {
   margin: 0;
+  min-height: 100vh;
 }
 article,
 aside,
@@ -336,14 +338,13 @@ body {
   font-feature-settings: 'kern', 'liga', 'clig', 'calt';
 }
 h1 {
-  margin: 0 0 $spacing-unit;
-  padding: 0;
+  padding: $spacing-unit / 2 $spacing-unit * 2;
   font-family: $font-family;
   color: inherit;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 2.25rem;
-  line-height: 1.1;
+  margin-bottom: $spacing-unit;
 }
 h2 {
   margin-left: 0;
@@ -624,16 +625,32 @@ pre tt:after {
   }
 }
 main {
-  margin: 0 auto;
+  margin: 0 $spacing-unit;
   max-width: 960px;
-  padding: 0 $spacing-unit * 2 $spacing-unit * 2;
+  min-width: 80%;
+  flex: 1;
+  overflow: auto;
+  padding-top: calc(1.5rem + #{$spacing-unit} * 6);
+  padding-left: 0;
+  padding-right: 0;
   @media (min-width: $media-mobile) {
-    padding: 0 $spacing-unit * 3 $spacing-unit * 3;
+    padding-top: calc(2.25rem + #{$spacing-unit} * 7);
+    padding-left: $spacing-unit * 3;
+    padding-right: $spacing-unit * 3;
+    margin: 0 auto;
+    min-width: 80%;
   }
 }
 .StandardSpacing {
-  padding: $spacing-unit $spacing-unit * 2;
+  padding: 0 $spacing-unit * 2 $spacing-unit;
 }
 .bold {
   font-weight: bold;
+}
+
+.Toolbar {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  padding-left: $spacing-unit;
 }

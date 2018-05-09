@@ -7,6 +7,8 @@ import kebabCase from 'lodash/kebabCase';
 // Components
 import Helmet from 'react-helmet';
 import Link from 'gatsby-link';
+import { Button } from '../components/Button';
+import { Icon } from '../components/Icon';
 import { List, ListItemText, ListItem } from '../components/List';
 
 const TagsPage = ({
@@ -32,6 +34,14 @@ const TagsPage = ({
           </ListItem>
         ))}
       </List>
+      <div className="Toolbar">
+        <Button color="primary" component={Link} to="/" raised>
+          <Icon>home</Icon> Home
+        </Button>
+        <Button color="primary" component={Link} to="/blog">
+          <Icon>description</Icon> Blogs
+        </Button>
+      </div>
     </div>
   </div>
 );

@@ -32,9 +32,11 @@ export default function Template({
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </article>
-      <Button color="primary" component={Link} to="/blog" raised>
-        <Icon>arrow_back</Icon>
-      </Button>
+      <div className="Toolbar">
+        <Button color="primary" component={Link} to="/blog" raised>
+          <Icon>arrow_back</Icon>
+        </Button>
+      </div>
     </div>
   );
 }
