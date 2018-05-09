@@ -15,9 +15,17 @@ export default function Template({
       <Helmet title={`${frontmatter.title} - Malcolm Kee's blog`} />
       <article className="blog-post">
         <h1>{frontmatter.title}</h1>
-        <div className="blog-post--date">
-          <Icon>today</Icon>
-          <span>{frontmatter.date}</span>
+        <div className="blog-post--detail-container">
+          <div className="blog-post--date">
+            <Icon>today</Icon>
+            <span>{frontmatter.date}</span>
+          </div>
+          {frontmatter.tags && frontmatter.tags.length > 0 ? (
+            <div className="blog-post--tag">
+              <Icon>local_offer</Icon>
+              <span>{frontmatter.tags.join(', ')}</span>
+            </div>
+          ) : null}
         </div>
         <div
           className="blog-post--content"
@@ -39,6 +47,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         path
         title
+        tags
       }
     }
   }

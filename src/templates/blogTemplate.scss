@@ -3,8 +3,16 @@
 .blog-post {
   border-bottom: 1px solid $grey-400;
   margin-bottom: $spacing-unit;
-  &--date {
+  &--detail-container {
     display: flex;
+    flex-wrap: wrap;
+  }
+  &--date,
+  &--tag {
+    flex: 1;
+    display: flex;
+    flex-shrink: 0;
+    flex-basis: 125px;
     align-items: center;
     font-family: $font-family;
     font-size: 1rem;

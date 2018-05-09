@@ -25,4 +25,4 @@ And that is the end of my first Meetup.
 
 <hr />
 
-If you're a ReactJS developer or interested to learn, come join my <a href="https://www.meetup.com/Kuala-Lumpur-React-JS-Meetup/" target="_BLANK">Meetup group</a>.
+If you're a ReactJS developer or interested to learn React, come join my <a href="https://www.meetup.com/Kuala-Lumpur-React-JS-Meetup/" target="_BLANK">Meetup group</a>.
