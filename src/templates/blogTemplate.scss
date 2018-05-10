@@ -24,12 +24,23 @@
   &--content {
     padding: $spacing-unit $spacing-unit * 2;
     font-family: $font-family;
+    h2 {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    h3 {
+      margin-top: 0.7rem;
+      margin-bottom: 0.5rem;
+    }
     p {
+      margin-bottom: 0.5rem;
+    }
+    p,
+    li {
       font-size: 0.9rem;
       font-weight: 400;
       line-height: 1.6em;
       color: rgba(0, 0, 0, 0.87);
-      margin-bottom: $spacing-unit * 2;
       @media (min-width: $media-mobile) {
         font-size: 0.875rem;
         line-height: 1.464em;

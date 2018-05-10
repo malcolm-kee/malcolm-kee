@@ -73,7 +73,7 @@ const ContactPage = () => (
         />
       </ListItem>
     </List>
-    <div className="Toolbar">
+    <div className="Toolbar center">
       <Button color="primary" component={Link} to="/" raised>
         <Icon>home</Icon> Home
       </Button>

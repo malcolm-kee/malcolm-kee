@@ -11,7 +11,7 @@ const IndexPage = () => (
     <h1>Hi people</h1>
     <section className="StandardSpacing">
       <Typography>Welcome to Malcolm Kee's personal website.</Typography>
-      <Typography>This site is currently WIP.</Typography>
+      <Typography>This site is currently under construction.</Typography>
     </section>
     <List component="nav">
       <Divider />

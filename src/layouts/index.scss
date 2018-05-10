@@ -51,9 +51,6 @@ center,
 dl,
 dt,
 dd,
-ol,
-ul,
-li,
 fieldset,
 form,
 label,
@@ -89,7 +86,6 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
   vertical-align: baseline;
 }
@@ -109,10 +105,6 @@ section {
 }
 body {
   line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
 }
 blockquote,
 q {
@@ -512,13 +504,11 @@ dt {
 th {
   font-weight: bold;
 }
-li {
+ul {
+  margin-top: 0.3rem;
   margin-bottom: calc(1.45rem / 2);
 }
 ol li {
-  padding-left: 0;
-}
-ul li {
   padding-left: 0;
 }
 li > ol {
@@ -653,4 +643,7 @@ main {
   display: flex;
   align-items: center;
   padding-left: $spacing-unit;
+  &.center {
+    justify-content: center;
+  }
 }
