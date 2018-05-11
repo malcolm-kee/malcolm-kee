@@ -304,6 +304,10 @@ textarea {
   -webkit-appearance: button;
   font: inherit;
 }
+html,
+body {
+  height: 100%;
+}
 html {
   font: 112.5%/1.45em georgia, serif;
   box-sizing: border-box;
@@ -618,6 +622,7 @@ main {
   margin: 0 $spacing-unit;
   max-width: 960px;
   min-width: 80%;
+  min-height: 100vh;
   flex: 1;
   overflow: auto;
   padding-top: calc(1.5rem + #{$spacing-unit} * 6);

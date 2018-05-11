@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
+import kebabCase from 'lodash/kebabCase';
 import { Icon } from '../components/Icon';
 import { Button } from '../components/Button';
 import './blogTemplate.scss';
@@ -23,7 +24,15 @@ export default function Template({
           {frontmatter.tags && frontmatter.tags.length > 0 ? (
             <div className="blog-post--tag">
               <Icon>local_offer</Icon>
-              <span>{frontmatter.tags.join(', ')}</span>
+              <span>
+                {frontmatter.tags.map((tag, index, list) => (
+                  <span>
+                    {' '}
+                    <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
+                    {index === list.length - 1 ? '' : ','}
+                  </span>
+                ))}
+              </span>
             </div>
           ) : null}
         </div>

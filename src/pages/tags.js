@@ -1,31 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
+import Link from 'gatsby-link';
 // Utilities
 import kebabCase from 'lodash/kebabCase';
-
+import PropTypes from 'prop-types';
+import React from 'react';
 // Components
 import Helmet from 'react-helmet';
-import Link from 'gatsby-link';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
-import { List, ListItemText, ListItem } from '../components/List';
+import { List, ListItem, ListItemText } from '../components/List';
+import './tags.scss';
 
 const TagsPage = ({
   data: {
     allMarkdownRemark: { group },
   },
 }) => (
-  <div>
+  <div className="TagPage">
     <Helmet title="Tags" />
-    <div>
+    <div className="TagPage--panel">
       <h1>Tags</h1>
+    </div>
+    <div className="TagPage--panel">
       <List>
         {group.map(tag => (
           <ListItem
             component={Link}
             to={`/tags/${kebabCase(tag.fieldValue)}/`}
             key={tag.fieldValue}
+            button
           >
             <ListItemText
               primaryText={tag.fieldValue}

@@ -1,9 +1,9 @@
-import React from 'react';
 import Link from 'gatsby-link';
+import React from 'react';
 import Helmet from 'react-helmet';
-import { List, ListItem, ListItemText } from '../components/List';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
+import { List, ListItem, ListItemText } from '../components/List';
 
 const BlogPage = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;

@@ -1,0 +1,23 @@
+@import '../constants/variable';
+
+.TagPage {
+  @media (min-width: $media-tablet) {
+    display: flex;
+    align-items: center;
+  }
+  h1 {
+    @media (min-width: $media-tablet) {
+      font-size: 5rem;
+      font-weight: 400;
+      line-height: 1.2em;
+      text-align: right;
+      color: $text-color-light;
+    }
+  }
+  &--panel {
+    display: block;
+    @media (min-width: $media-tablet) {
+      flex: 1;
+    }
+  }
+}

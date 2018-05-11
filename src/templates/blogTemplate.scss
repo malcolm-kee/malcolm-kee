@@ -6,20 +6,24 @@
   &--detail-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     padding: $spacing-unit / 2 $spacing-unit * 2;
   }
   &--date,
   &--tag {
-    flex: 1;
     display: flex;
     flex-shrink: 0;
-    flex-basis: 125px;
+    flex-basis: 250px;
     align-items: center;
     font-family: $font-family;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.375em;
+    margin-bottom: $spacing-unit;
     color: $text-color-light;
+    a {
+      text-decoration: none;
+    }
   }
   &--content {
     padding: $spacing-unit $spacing-unit * 2;

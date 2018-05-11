@@ -1,0 +1,23 @@
+@import '../constants/variable';
+
+.IndexPage {
+  @media (min-width: $media-tablet) {
+    display: flex;
+    flex-flow: row-reverse;
+    align-items: center;
+    min-height: 50vh;
+  }
+  h1 {
+    @media (min-width: $media-tablet) {
+      font-size: 5rem;
+      font-weight: 400;
+      line-height: 1.2em;
+      color: $text-color-light;
+    }
+  }
+  &--panel {
+    @media (min-width: $media-tablet) {
+      flex: 1;
+    }
+  }
+}
