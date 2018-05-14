@@ -11,8 +11,10 @@ const IndexPage = () => (
     <div className="IndexPage--panel">
       <h1>Hi</h1>
       <section className="StandardSpacing">
-        <Typography>Welcome to Malcolm Kee's personal website.</Typography>
-        <Typography>This site is currently under construction.</Typography>
+        <Typography>
+          I'm Malcolm Kee, a web developer in Kuala Lumpur, Malaysia.
+        </Typography>
+        <Typography>I code, I read, I teach.</Typography>
       </section>
     </div>
     <div className="IndexPage--panel">

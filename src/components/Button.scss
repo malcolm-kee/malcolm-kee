@@ -18,12 +18,16 @@
     box-shadow 250ms $timing-function 0ms;
   &:focus {
     outline: none;
+    filter: brightness(120%);
   }
   &:hover {
     background: #eeeeee;
   }
   &.primary {
     color: $primary-color;
+    &:focus {
+      border: 1px solid $primary-color;
+    }
     &:hover {
       color: $primary-color-dark;
     }
