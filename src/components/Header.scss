@@ -104,11 +104,12 @@
     span {
       &:first-child {
         display: inline-block;
-        animation: heading-text-enter 1.5s 1s cubic-bezier(0.61, 0, 0.2, 1) both;
+        animation: heading-text-enter 1.5s 1s cubic-bezier(0.61, 0, 0.74, 1.4)
+          both;
       }
       &:nth-child(2) {
         display: inline-block;
-        animation: heading-text-enter 1.5s 1.2s cubic-bezier(0.61, 0, 0.2, 1)
+        animation: heading-text-enter 1.5s 1.2s cubic-bezier(0.61, 0, 0.74, 1.4)
           both;
       }
     }

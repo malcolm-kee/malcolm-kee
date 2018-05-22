@@ -5,9 +5,10 @@ export const Typography = ({
   children,
   className,
   variant = 'body',
+  component: Component = 'p',
   ...restProps
 }) => (
-  <p className={`Typography--${variant}`} {...restProps}>
+  <Component className={`Typography--${variant} ${className}`} {...restProps}>
     {children}
-  </p>
+  </Component>
 );

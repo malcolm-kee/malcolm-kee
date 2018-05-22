@@ -4,17 +4,34 @@ import { Divider } from '../components/Divider';
 import { Icon } from '../components/Icon';
 import { List, ListItem, ListItemIcon, ListItemText } from '../components/List';
 import { Typography } from '../components/Typography';
+import malcolmPhoto from '../assets/malcolm.jpg';
 import './index.scss';
 
 const IndexPage = () => (
   <div className="IndexPage">
     <div className="IndexPage--panel">
-      <h1>Hi</h1>
+      <div className="IndexPage--greeting">
+        <div className="IndexPage--hi">
+          <h1>Hi</h1>
+        </div>
+        <div>
+          <div className="IndexPage--photo-frame">
+            <div className="IndexPage--inner-photo-frame">
+              <div className="IndexPage--photo-container">
+                <img src={malcolmPhoto} alt="Malcolm" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <section className="StandardSpacing">
-        <Typography>
+        <Typography className="IndexPage--text" component="span">
           I'm Malcolm Kee, a web developer in Kuala Lumpur, Malaysia.
         </Typography>
-        <Typography>I code, I read, I teach.</Typography>
+        <br />
+        <Typography className="IndexPage--text" component="span">
+          I code, I read, I teach.
+        </Typography>
       </section>
     </div>
     <div className="IndexPage--panel">

@@ -1,5 +1,83 @@
 @import '../constants/variable';
 
+@-webkit-keyframes jump {
+  from {
+    transform: tranlsateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes jump {
+  from {
+    transform: tranlsateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@-webkit-keyframes rotateToOrigin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateToOrigin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotateClockwise {
+  from {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(225deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes rotateClockwise {
+  from {
+    transform: rotate(45deg);
+  }
+  50% {
+    transform: rotate(225deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+@-webkit-keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 .IndexPage {
   @media (min-width: $media-tablet) {
     display: flex;
@@ -7,7 +85,22 @@
     align-items: center;
     min-height: 50vh;
   }
+  &--hi {
+    &:hover {
+      h1 {
+        -webkit-animation-play-state: running;
+        animation-play-state: running;
+      }
+    }
+  }
   h1 {
+    position: relative;
+    -webkit-animation: jump 0.5s cubic-bezier(0.25, -0.6, 0.285, 0.99) alternate
+      infinite both;
+    animation: jump 0.5s cubic-bezier(0.25, -0.6, 0.285, 0.99) alternate
+      infinite both;
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
     @media (min-width: $media-tablet) {
       font-size: 5rem;
       font-weight: 400;
@@ -19,5 +112,62 @@
     @media (min-width: $media-tablet) {
       flex: 1;
     }
+  }
+  &--greeting {
+    display: flex;
+    justify-content: space-between;
+    margin-right: $spacing-unit * 2;
+    position: relative;
+  }
+  &--photo-frame {
+    z-index: 1;
+    position: absolute;
+    right: $spacing-unit * 2;
+    top: -$spacing-unit * 3;
+    -webkit-animation: scale 1s 3s ease-in-out 1 both;
+    animation: scale 1s 3s ease-in-out 1 both;
+  }
+  &--inner-photo-frame {
+    -webkit-animation: rotateToOrigin 0.5s 3s linear 2 both;
+    animation: rotateToOrigin 0.5s 3s linear 2 both;
+  }
+  &--photo-container {
+    width: 70px;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-animation: rotateClockwise 2s linear infinite both;
+    -webkit-animation-play-state: paused;
+    animation: rotateClockwise 2s linear infinite both;
+    animation-play-state: paused;
+    @media (min-width: $media-tablet) {
+      width: 100px;
+    }
+    > img {
+      width: 100px;
+      margin: -15px;
+      -webkit-animation: rotateClockwise 2s linear infinite reverse both;
+      -webkit-animation-delay: -0.5s;
+      -webkit-animation-play-state: paused;
+      animation: rotateClockwise 2s linear infinite reverse both;
+      animation-delay: -0.5s;
+      animation-play-state: paused;
+      &:hover {
+        -webkit-animation-play-state: running;
+        animation-play-state: running;
+      }
+      @media (min-width: $media-tablet) {
+        width: 142px; // sqrt(2) * 100;
+        margin: -21px;
+      }
+    }
+    &:hover {
+      -webkit-animation-play-state: running;
+      animation-play-state: running;
+    }
+  }
+  &--text {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.5);
   }
 }
