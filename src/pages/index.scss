@@ -79,6 +79,8 @@
 }
 
 .IndexPage {
+  max-width: 960px;
+  margin: 0 auto;
   @media (min-width: $media-tablet) {
     display: flex;
     flex-flow: row-reverse;
@@ -133,6 +135,7 @@
   }
   &--photo-container {
     width: 70px;
+    height: 70px;
     display: inline-block;
     overflow: hidden;
     -webkit-animation: rotateClockwise 2s linear infinite both;
@@ -141,10 +144,17 @@
     animation-play-state: paused;
     @media (min-width: $media-tablet) {
       width: 100px;
+      height: 100px;
+    }
+    @media (min-width: $media-desktop) {
+      width: 150px;
+      height: 150px;
     }
     > img {
       width: 100px;
-      margin: -15px;
+      height: 100px;
+      margin-left: -15px;
+      margin-top: -15px;
       -webkit-animation: rotateClockwise 2s linear infinite reverse both;
       -webkit-animation-delay: -0.5s;
       -webkit-animation-play-state: paused;
@@ -157,7 +167,15 @@
       }
       @media (min-width: $media-tablet) {
         width: 142px; // sqrt(2) * 100;
-        margin: -21px;
+        height: 142px;
+        margin-left: -21px;
+        margin-top: -21px;
+      }
+      @media (min-width: $media-desktop) {
+        width: 212px;
+        height: 212px;
+        margin-left: -31px;
+        margin-top: -31px;
       }
     }
     &:hover {
