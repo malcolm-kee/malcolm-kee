@@ -12,7 +12,9 @@ import './contact.scss';
 
 const ContactPage = () => (
   <div className="ContactPage">
-    <Helmet title="Contact - Malcolm Kee" />
+    <Helmet>
+      <title>Contact - Malcolm Kee</title>
+    </Helmet>
     <div className="ContactPage--panel">
       <h1>Get in Touch</h1>
     </div>

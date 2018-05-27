@@ -126,12 +126,6 @@
     position: absolute;
     right: $spacing-unit * 2;
     top: -$spacing-unit * 3;
-    -webkit-animation: scale 1s 3s ease-in-out 1 both;
-    animation: scale 1s 3s ease-in-out 1 both;
-  }
-  &--inner-photo-frame {
-    -webkit-animation: rotateToOrigin 0.5s 3s linear 2 both;
-    animation: rotateToOrigin 0.5s 3s linear 2 both;
   }
   &--photo-container {
     width: 70px;

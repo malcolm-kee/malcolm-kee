@@ -14,7 +14,9 @@ function Tags({ data, pathContext }) {
 
   return (
     <div>
-      <Helmet title={`Tag - ${tag}`} />
+      <Helmet>
+        <title>Tag - {tag}</title>
+      </Helmet>
       <h1>{tagTitle}</h1>
       <List>
         {posts.map(({ node: { frontmatter: { path, title } } }) => (

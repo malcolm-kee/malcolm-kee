@@ -7,12 +7,11 @@
 // You can delete this file if you're not using it
 const path = require('path');
 const _ = require('lodash');
+const blogPostTemplate = path.resolve(`src/templates/blogTemplate.js`);
+const tagTemplate = path.resolve(`src/templates/tagTemplate.js`);
 
 exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators;
-
-  const blogPostTemplate = path.resolve(`src/templates/blogTemplate.js`);
-  const tagTemplate = path.resolve(`src/templates/tagTemplate.js`);
 
   return graphql(`
     {
@@ -25,6 +24,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
             frontmatter {
               path
               tags
+              keywords
             }
           }
         }

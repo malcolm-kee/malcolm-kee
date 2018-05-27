@@ -10,23 +10,32 @@ export default function Template({
   data, // this prop will be injected by the GraphQL query below.
 }) {
   const { markdownRemark } = data; // data.markdownRemark holds our post data
-  const { frontmatter, html } = markdownRemark;
+  const {
+    frontmatter: { title, date, tags, keywords },
+    html,
+  } = markdownRemark;
   return (
     <div className="blog-post-container">
-      <Helmet title={`${frontmatter.title} - Malcolm Kee's blog`} />
+      <Helmet>
+        <title>{title} - Malcolm Kee's blog</title>
+        {keywords &&
+          keywords.length > 0 && (
+            <meta name="keywords" content={keywords.join(',')} />
+          )}
+      </Helmet>
       <article className="blog-post">
-        <h1>{frontmatter.title}</h1>
+        <h1>{title}</h1>
         <div className="blog-post--detail-container">
           <div className="blog-post--date">
             <Icon>today</Icon>
-            <span>{frontmatter.date}</span>
+            <span>{date}</span>
           </div>
-          {frontmatter.tags && frontmatter.tags.length > 0 ? (
+          {tags && tags.length > 0 ? (
             <div className="blog-post--tag">
               <Icon>local_offer</Icon>
               <span>
-                {frontmatter.tags.map((tag, index, list) => (
-                  <span>
+                {tags.map((tag, index, list) => (
+                  <span key={tag}>
                     {' '}
                     <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
                     {index === list.length - 1 ? '' : ','}
@@ -59,6 +68,7 @@ export const pageQuery = graphql`
         path
         title
         tags
+        keywords
       }
     }
   }

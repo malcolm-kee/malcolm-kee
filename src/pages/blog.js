@@ -10,7 +10,9 @@ const BlogPage = ({ data }) => {
 
   return (
     <div>
-      <Helmet title="Blogs - Malcolm Kee" />
+      <Helmet>
+        <title>Blogs - Malcolm Kee</title>
+      </Helmet>
       <h1>Recent Blogs</h1>
       <List>
         {posts.map(({ node: post }) => (
