@@ -3,7 +3,7 @@ import React from 'react';
 import { Icon } from '../components/Icon';
 import { List, ListItem, ListItemIcon, ListItemText } from '../components/List';
 import { Typography } from '../components/Typography';
-import malcolmPhoto from '../assets/malcolm.jpg';
+import malcolmImg from '../assets/malcolm.jpg';
 import './index.scss';
 
 const IndexPage = () => (
@@ -11,7 +11,7 @@ const IndexPage = () => (
     <div className="IndexPage--panel">
       <section className="StandardSpacing">
         <img
-          src={malcolmPhoto}
+          src={malcolmImg}
           alt="Malcolm"
           className="IndexPage--profile-photo"
         />
