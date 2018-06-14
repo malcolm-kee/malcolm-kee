@@ -13,19 +13,21 @@ function Tags({ data, pathContext }) {
   } tagged with "${tag}"`;
 
   return (
-    <div>
-      <Helmet>
-        <title>Tag - {tag}</title>
-      </Helmet>
-      <h1>{tagTitle}</h1>
-      <List>
-        {posts.map(({ node: { frontmatter: { path, title } } }) => (
-          <ListItem button component={Link} to={path} key={path}>
-            <ListItemText primaryText={title} boldPrimary />
-          </ListItem>
-        ))}
-      </List>
-    </div>
+    <main>
+      <div>
+        <Helmet>
+          <title>Tag - {tag}</title>
+        </Helmet>
+        <h1>{tagTitle}</h1>
+        <List>
+          {posts.map(({ node: { frontmatter: { path, title } } }) => (
+            <ListItem button component={Link} to={path} key={path}>
+              <ListItemText primaryText={title} boldPrimary />
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    </main>
   );
 }
 

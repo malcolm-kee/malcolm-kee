@@ -17,7 +17,7 @@ const Layout = ({ children, data }) => (
       <meta name="keywords" content="Malcolm Kee, Frontend Engineer, ReactJS" />
     </Helmet>
     <Header siteTitle={data.site.siteMetadata.title} />
-    <main>{children()}</main>
+    {children()}
   </div>
 );
 
