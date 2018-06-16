@@ -3,6 +3,7 @@
 .IndexPage {
   max-width: 960px;
   margin: 0 $spacing-unit * 2;
+  padding-top: $spacing-unit * 4;
   display: flex;
   min-height: 100vh;
   flex-flow: column;

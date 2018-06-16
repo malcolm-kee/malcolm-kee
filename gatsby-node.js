@@ -25,6 +25,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
               path
               tags
               keywords
+              summary
             }
           }
         }

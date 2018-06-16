@@ -25,11 +25,20 @@
       text-decoration: none;
     }
   }
+  &--summary {
+    color: $text-color;
+    padding: 0 $spacing-unit * 2;
+    p {
+      padding: $spacing-unit 0;
+      line-height: 1.4em;
+      border-bottom: 1px solid $grey-300;
+    }
+  }
   &--content {
     padding: $spacing-unit $spacing-unit * 2;
     font-family: $font-family;
     h2 {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       margin-bottom: 0.5rem;
     }
     h3 {

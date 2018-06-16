@@ -11,7 +11,7 @@ export default function Template({
 }) {
   const { markdownRemark } = data; // data.markdownRemark holds our post data
   const {
-    frontmatter: { title, date, tags, keywords },
+    frontmatter: { title, date, tags, keywords, summary },
     html,
   } = markdownRemark;
   return (
@@ -23,6 +23,8 @@ export default function Template({
             keywords.length > 0 && (
               <meta name="keywords" content={keywords.join(',')} />
             )}
+          {summary &&
+            summary.length > 0 && <meta name="abstract" content={summary} />}
         </Helmet>
         <article className="blog-post">
           <h1>{title}</h1>
@@ -46,6 +48,11 @@ export default function Template({
               </div>
             ) : null}
           </div>
+          {summary && (
+            <div className="blog-post--summary">
+              <p>{summary}</p>
+            </div>
+          )}
           <div
             className="blog-post--content"
             dangerouslySetInnerHTML={{ __html: html }}
@@ -71,6 +78,7 @@ export const pageQuery = graphql`
         title
         tags
         keywords
+        summary
       }
     }
   }

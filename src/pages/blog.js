@@ -27,7 +27,7 @@ const BlogPage = ({ data }) => {
               <ListItemText
                 primaryText={post.frontmatter.title}
                 secondaryText={post.frontmatter.date}
-                tertiaryText={post.excerpt}
+                tertiaryText={post.frontmatter.summary}
                 boldPrimary
               />
             </ListItem>
@@ -51,12 +51,12 @@ export const pageQuery = graphql`
     allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
       edges {
         node {
-          excerpt(pruneLength: 150)
           id
           frontmatter {
             title
             date(formatString: "MMMM DD, YYYY")
             path
+            summary
           }
         }
       }
