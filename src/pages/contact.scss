@@ -1,23 +1,101 @@
 @import '../constants/variable';
 
 .ContactPage {
-  @media (min-width: $media-tablet) {
-    display: flex;
-    align-items: center;
-  }
-  h1 {
-    @media (min-width: $media-tablet) {
-      font-size: 5rem;
-      font-weight: 400;
-      line-height: 1.2em;
-      text-align: right;
-      color: $text-color-light;
+  padding-top: calc(1.5rem + #{$spacing-unit} * 6);
+
+  .List {
+    &--ListItem {
+      border-radius: $spacing-unit;
+      border-bottom: 0;
+      margin-bottom: $spacing-unit;
+      box-shadow: $box-shadow-1;
+      position: relative;
     }
   }
-  &--panel {
-    display: block;
-    @media (min-width: $media-tablet) {
+
+  @media (min-width: $media-mobile) {
+    padding-top: calc(2.25rem + #{$spacing-unit} * 6);
+  }
+
+  @media (min-width: $media-tablet) {
+    display: flex;
+    min-height: 100vh;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 400;
+      line-height: 1.2em;
+      padding-bottom: $spacing-unit * 4;
+      max-width: 3.8em;
+      margin-left: auto;
+      text-align: right;
+      color: $text-color-light;
+      &::after {
+        content: '';
+        display: inline-block;
+        width: $spacing-unit * 4;
+      }
+    }
+    &--content-container {
+      display: flex;
+      align-items: center;
+    }
+    &--panel {
       flex: 1;
+    }
+
+    .List {
+      &--ListItem {
+        border-radius: 0;
+        margin-bottom: $spacing-unit * 2;
+        width: 150px;
+        transform: skew(-25deg);
+        .List--ListItemIcon,
+        .List--ListItemText {
+          transform: skew(25deg);
+        }
+
+        &Text {
+          overflow: visible;
+          .tertiary {
+            position: absolute;
+            width: 150px;
+            top: 0;
+            visibility: hidden;
+            z-index: 2;
+            left: 100%;
+            left: calc(100% + 24px);
+          }
+        }
+
+        &:hover {
+          .tertiary {
+            visibility: visible;
+          }
+        }
+
+        &:first-child {
+          margin-left: 10 * $spacing-unit;
+        }
+
+        &:nth-child(2) {
+          margin-left: 6 * $spacing-unit;
+        }
+
+        &:nth-child(3) {
+          margin-left: 2 * $spacing-unit;
+        }
+
+        &:nth-child(4) {
+          margin-left: -2 * $spacing-unit;
+        }
+
+        &:nth-child(5) {
+          margin-left: -6 * $spacing-unit;
+        }
+      }
     }
   }
 }

@@ -3,7 +3,7 @@ import './Typography.scss';
 
 export const Typography = ({
   children,
-  className,
+  className = '',
   variant = 'body',
   component: Component = 'p',
   ...restProps

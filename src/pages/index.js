@@ -24,8 +24,16 @@ const IndexPage = () => (
           engineer as I prefer to create things with my own hand.
         </Typography>
         <Typography className="IndexPage--text" component="p">
-          Waiting for: React Async mode and Real Steel 2.
+          My work philosophy:
         </Typography>
+        <blockquote>
+          <Typography component="p">
+            Be so good they can't ignore you.
+          </Typography>
+          <footer>
+            <cite>Steve Martin</cite>
+          </footer>
+        </blockquote>
       </section>
     </div>
     <div className="IndexPage--panel">

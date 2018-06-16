@@ -11,14 +11,12 @@ import { List, ListItem, ListItemIcon, ListItemText } from '../components/List';
 import './contact.scss';
 
 const ContactPage = () => (
-  <main>
-    <div className="ContactPage">
-      <Helmet>
-        <title>Contact - Malcolm Kee</title>
-      </Helmet>
-      <div className="ContactPage--panel">
-        <h1>Get in Touch</h1>
-      </div>
+  <div className="ContactPage">
+    <Helmet>
+      <title>Contact - Malcolm Kee</title>
+    </Helmet>
+    <div className="ContactPage--content-container">
+      <h1>Get in Touch</h1>
       <div className="ContactPage--panel">
         <List>
           <ListItem
@@ -80,14 +78,14 @@ const ContactPage = () => (
             />
           </ListItem>
         </List>
-        <div className="Toolbar center">
-          <Button color="primary" component={Link} to="/" raised>
-            <Icon>home</Icon> Home
-          </Button>
-        </div>
       </div>
     </div>
-  </main>
+    <div className="Toolbar center">
+      <Button color="primary" component={Link} to="/" raised>
+        <Icon>home</Icon> Home
+      </Button>
+    </div>
+  </div>
 );
 
 export default ContactPage;

@@ -15,39 +15,41 @@ const TagsPage = ({
     allMarkdownRemark: { group },
   },
 }) => (
-  <div className="TagPage">
-    <Helmet>
-      <title>Tags</title>
-    </Helmet>
-    <div className="TagPage--panel">
-      <h1>Tags</h1>
-    </div>
-    <div className="TagPage--panel">
-      <List>
-        {group.map(tag => (
-          <ListItem
-            component={Link}
-            to={`/tags/${kebabCase(tag.fieldValue)}/`}
-            key={tag.fieldValue}
-            button
-          >
-            <ListItemText
-              primaryText={tag.fieldValue}
-              secondaryText={`${tag.totalCount} post(s)`}
-            />
-          </ListItem>
-        ))}
-      </List>
-      <div className="Toolbar">
-        <Button color="primary" component={Link} to="/" raised>
-          <Icon>home</Icon> Home
-        </Button>
-        <Button color="primary" component={Link} to="/blog">
-          <Icon>description</Icon> Blogs
-        </Button>
+  <main>
+    <div className="TagPage">
+      <Helmet>
+        <title>Tags</title>
+      </Helmet>
+      <div className="TagPage--panel">
+        <h1>Tags</h1>
+      </div>
+      <div className="TagPage--panel">
+        <List>
+          {group.map(tag => (
+            <ListItem
+              component={Link}
+              to={`/tags/${kebabCase(tag.fieldValue)}/`}
+              key={tag.fieldValue}
+              button
+            >
+              <ListItemText
+                primaryText={tag.fieldValue}
+                secondaryText={`${tag.totalCount} post(s)`}
+              />
+            </ListItem>
+          ))}
+        </List>
+        <div className="Toolbar">
+          <Button color="primary" component={Link} to="/" raised>
+            <Icon>home</Icon> Home
+          </Button>
+          <Button color="primary" component={Link} to="/blog">
+            <Icon>description</Icon> Blogs
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
 );
 
 TagsPage.propTypes = {
