@@ -76,6 +76,28 @@
       margin: $spacing-unit;
       padding: $spacing-unit;
       background: $grey-200;
+      position: relative;
+      &::before {
+        content: '\275d';
+        position: absolute;
+        font-size: 1.6rem;
+        color: $text-color-light;
+      }
+      &::after {
+        content: '\275e';
+        position: absolute;
+        right: $spacing-unit;
+        bottom: $spacing-unit;
+        font-size: 1.6rem;
+        color: $text-color-light;
+      }
+      > p {
+        position: relative;
+        text-indent: $spacing-unit * 2;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }
