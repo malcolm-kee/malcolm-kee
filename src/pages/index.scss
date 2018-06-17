@@ -45,8 +45,7 @@
     height: 100px;
     float: left;
     object-fit: cover;
-    margin-right: $spacing-unit;
-    margin-bottom: $spacing-unit;
+    margin: $spacing-unit $spacing-unit $spacing-unit 0;
     border-radius: 50%;
     shape-outside: circle(52%);
     @media (min-width: $media-tablet) {
@@ -76,7 +75,6 @@
   .List {
     &--ListItem {
       border-radius: $spacing-unit;
-      border-bottom: 0;
       margin-bottom: $spacing-unit * 2;
       box-shadow: $box-shadow-1;
     }

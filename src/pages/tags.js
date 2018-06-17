@@ -25,19 +25,22 @@ const TagsPage = ({
       </div>
       <div className="TagPage--panel">
         <List>
-          {group.map(tag => (
-            <ListItem
-              component={Link}
-              to={`/tags/${kebabCase(tag.fieldValue)}/`}
-              key={tag.fieldValue}
-              button
-            >
-              <ListItemText
-                primaryText={tag.fieldValue}
-                secondaryText={`${tag.totalCount} post(s)`}
-              />
-            </ListItem>
-          ))}
+          {[]
+            .concat(group)
+            .sort((a, b) => b.totalCount - a.totalCount)
+            .map(tag => (
+              <ListItem
+                component={Link}
+                to={`/tags/${kebabCase(tag.fieldValue)}/`}
+                key={tag.fieldValue}
+                button
+              >
+                <ListItemText
+                  primaryText={tag.fieldValue}
+                  secondaryText={`${tag.totalCount} post(s)`}
+                />
+              </ListItem>
+            ))}
         </List>
         <div className="Toolbar">
           <Button color="primary" component={Link} to="/" raised>

@@ -16,15 +16,12 @@ export const ListItem = ({
   children,
   className,
   component: Component = 'div',
-  divider = true,
   button,
   noGutter = false,
   ...restProps
 }) => (
   <Component
-    className={`List--ListItem ${divider ? 'divider' : ''} ${
-      button ? 'button' : ''
-    }
+    className={`List--ListItem ${button ? 'button' : ''}
     ${noGutter ? 'no-gutter' : ''}
     `}
     {...restProps}

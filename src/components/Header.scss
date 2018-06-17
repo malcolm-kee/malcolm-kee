@@ -101,6 +101,10 @@
         font-size: 2.25rem;
         padding: $spacing-unit $spacing-unit * 2;
       }
+      a:focus {
+        outline: none;
+        border-bottom: 1px solid white;
+      }
     }
     span {
       &:first-child {

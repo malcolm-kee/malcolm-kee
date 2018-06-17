@@ -54,8 +54,6 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       }
     });
 
-    tags = _.uniq(tags);
-
     tags.forEach(tag => {
       createPage({
         path: `tags/${_.kebabCase(tag)}`,

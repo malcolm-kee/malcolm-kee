@@ -14,16 +14,23 @@
     text-decoration: none;
     text-align: left;
     display: flex;
+    border: 2px solid;
+    border-color: transparent;
     &.no-gutter {
       padding: 1.5 * $spacing-unit 0;
     }
-    &.divider {
-      border-bottom: 1px solid $grey-200;
-    }
     &.button {
       transition: background-color 150ms $timing-function 0ms;
+      -webkit-tap-highlight-color: transparent;
       &:hover {
         background-color: rgba(0, 0, 0, 0.08);
+      }
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+      }
+      &:active {
+        box-shadow: $box-shadow-5;
       }
     }
   }
