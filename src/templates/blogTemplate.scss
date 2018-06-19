@@ -49,9 +49,19 @@
     }
     p {
       margin-bottom: 0.5rem;
-      > a:first-child:last-child {
-        display: flex;
-        justify-content: center;
+    }
+    a[href^="https://www.youtube.com"] {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      &::after {
+        content: '\25BA';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 120px;
+        color: rgba(255, 255, 255, 0.4);
       }
     }
     p,

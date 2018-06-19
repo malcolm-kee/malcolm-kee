@@ -15,44 +15,44 @@ const TagsPage = ({
     allMarkdownRemark: { group },
   },
 }) => (
-  <main>
-    <div className="TagPage">
-      <Helmet>
-        <title>Tags</title>
-      </Helmet>
-      <div className="TagPage--panel">
-        <h1>Tags</h1>
-      </div>
-      <div className="TagPage--panel">
-        <List>
-          {[]
-            .concat(group)
-            .sort((a, b) => b.totalCount - a.totalCount)
-            .map(tag => (
-              <ListItem
-                component={Link}
-                to={`/tags/${kebabCase(tag.fieldValue)}/`}
-                key={tag.fieldValue}
-                button
-              >
-                <ListItemText
-                  primaryText={tag.fieldValue}
-                  secondaryText={`${tag.totalCount} post(s)`}
-                />
-              </ListItem>
-            ))}
-        </List>
-        <div className="Toolbar">
-          <Button color="primary" component={Link} to="/" raised>
-            <Icon>home</Icon> Home
-          </Button>
-          <Button color="primary" component={Link} to="/blog">
-            <Icon>description</Icon> Blogs
-          </Button>
-        </div>
+  <div className="TagPage">
+    <Helmet>
+      <title>Tags</title>
+    </Helmet>
+    <div className="TagPage--panel">
+      <h1>Tags</h1>
+    </div>
+    <div className="TagPage--panel tag-list">
+      <List>
+        {[]
+          .concat(group)
+          .sort((a, b) => b.totalCount - a.totalCount)
+          .map(tag => (
+            <ListItem
+              component={Link}
+              to={`/tags/${kebabCase(tag.fieldValue)}/`}
+              key={tag.fieldValue}
+              button
+            >
+              <ListItemText
+                primaryText={tag.fieldValue}
+                tertiaryText={`${tag.totalCount} ${
+                  tag.totalCount > 1 ? 'posts' : 'post'
+                }`}
+              />
+            </ListItem>
+          ))}
+      </List>
+      <div className="Toolbar">
+        <Button color="primary" component={Link} to="/" raised>
+          <Icon>home</Icon> Home
+        </Button>
+        <Button color="primary" component={Link} to="/blog">
+          <Icon>description</Icon> Blogs
+        </Button>
       </div>
     </div>
-  </main>
+  </div>
 );
 
 TagsPage.propTypes = {

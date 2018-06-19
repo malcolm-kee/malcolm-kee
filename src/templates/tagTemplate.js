@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
+import { Button } from '../components/Button';
+import { Icon } from '../components/Icon';
 
 function Tags({ data, pathContext }) {
   console.log(data, pathContext);
@@ -20,12 +22,21 @@ function Tags({ data, pathContext }) {
         </Helmet>
         <h1>{tagTitle}</h1>
         <List>
-          {posts.map(({ node: { frontmatter: { path, title } } }) => (
+          {posts.map(({ node: { frontmatter: { path, title, summary } } }) => (
             <ListItem button component={Link} to={path} key={path}>
-              <ListItemText primaryText={title} boldPrimary />
+              <ListItemText
+                primaryText={title}
+                boldPrimary
+                tertiaryText={summary}
+              />
             </ListItem>
           ))}
         </List>
+        <div className="Toolbar">
+          <Button color="primary" component={Link} to="/tags" raised>
+            <Icon>arrow_back</Icon>
+          </Button>
+        </div>
       </div>
     </main>
   );
@@ -44,6 +55,7 @@ Tags.propTypes = {
             frontmatter: PropTypes.shape({
               path: PropTypes.string.isRequired,
               title: PropTypes.string.isRequired,
+              summary: PropTypes.string.isRequired,
             }),
           }),
         }).isRequired
@@ -67,6 +79,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             path
+            summary
           }
         }
       }

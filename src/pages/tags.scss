@@ -1,23 +1,42 @@
 @import '../constants/variable';
 
 .TagPage {
+  height: 100vh;
+  padding-top: 5rem;
   @media (min-width: $media-tablet) {
+    overflow: hidden;
     display: flex;
     align-items: center;
   }
-  h1 {
-    @media (min-width: $media-tablet) {
+  &--panel {
+    display: block;
+  }
+  @media (min-width: $media-tablet) {
+    h1 {
       font-size: 5rem;
       font-weight: 400;
       line-height: 1.2em;
       text-align: right;
       color: $text-color-light;
+      padding-bottom: 1em;
     }
-  }
-  &--panel {
-    display: block;
-    @media (min-width: $media-tablet) {
+    &--panel {
       flex: 1;
+      &.tag-list {
+        height: 100%;
+        overflow-y: auto;
+      }
+    }
+    .List {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-content: space-between;
+      min-height: 65vh;
+      &--ListItem {
+        width: auto;
+        margin: $spacing-unit;
+      }
     }
   }
 }
