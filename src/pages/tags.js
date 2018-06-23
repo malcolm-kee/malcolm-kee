@@ -1,9 +1,7 @@
 import Link from 'gatsby-link';
-// Utilities
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
-// Components
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
