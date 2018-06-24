@@ -4,6 +4,7 @@ date: "2018-06-23"
 title: "How to say no to friends and family that want to borrow money"
 tags: ["social", "borrow money"]
 summary: "When friends/family want to borrow money from you, instead of asking how much they want to borrow first, ask why they want to borrow, and respond accordingly."
+published: true
 ---
 
 ## The common dilemma: to borrow or not to borrow

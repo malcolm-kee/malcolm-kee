@@ -4,6 +4,7 @@ date: "2018-06-17"
 title: "React Patterns: Container-Presenter"
 tags: ["react", "design pattern"]
 summary: "There are a few design patterns of React component, and the easiest one is the Component-Presenter pattern, which is actually to separate mapping/states/transformation from the rendered content"
+published: true
 ---
 
 ## Background

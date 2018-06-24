@@ -4,6 +4,7 @@ date: "2018-05-01"
 title: "My first Meetup"
 tags: ["meetup"]
 summary: "A journal on my first Meetup experience"
+published: true
 ---
 
 Last week, I have hosted my first Meetup. Even though only one attendee show up, but in overall the experience is quite good.
