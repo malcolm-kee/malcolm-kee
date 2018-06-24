@@ -80,7 +80,7 @@ When we're agreeing with them, they would likely explaning further that it's not
 
 Now, since both of you also facing the same kind of pressure, pursuing same goal, he can't be pressuring you further, saying "but my wife give me more pressure!!!"
 
-The effectiveness of this trick is that, when someone give a reason, they would think that that reason is persuasive, therefore it is hard for him to pressure you when the same situation is happening to you.
+The effectiveness of this trick is that, when someone give a reason, he would think that that reason is persuasive, therefore it is hard for him to pressure you when the same situation is happening to you.
 
 ## Final thoughts
 
