@@ -48,6 +48,7 @@
     .List {
       &--ListItem {
         border-radius: 0;
+        position: relative;
         margin-bottom: $spacing-unit * 2;
         width: 150px;
         transform: skew(-25deg);
@@ -62,16 +63,21 @@
             position: absolute;
             width: 150px;
             top: 0;
-            visibility: hidden;
             z-index: 2;
-            left: 100%;
-            left: calc(100% + 24px);
+            left: -24px;
+            opacity: 0;
+            transition-timing-function: $timing-function-1;
+            transition-duration: 0.5s;
+            transition-property: left, opacity;
           }
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
           .tertiary {
-            visibility: visible;
+            left: 100%;
+            left: calc(100% + 24px);
+            opacity: 1;
           }
         }
 

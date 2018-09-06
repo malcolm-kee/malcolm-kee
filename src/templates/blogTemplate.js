@@ -27,7 +27,7 @@ export default function Template({
             summary.length > 0 && <meta name="abstract" content={summary} />}
         </Helmet>
         <article className="blog-post">
-          <h1>{title}</h1>
+          <h1 className="blog-post--title">{title}</h1>
           <div className="blog-post--detail-container">
             <div className="blog-post--date">
               <Icon>today</Icon>
