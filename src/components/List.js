@@ -1,4 +1,5 @@
 import React from 'react';
+import { getClassName } from '../helper';
 import './List.scss';
 
 export const List = ({
@@ -21,9 +22,12 @@ export const ListItem = ({
   ...restProps
 }) => (
   <Component
-    className={`List--ListItem ${button ? 'button' : ''}
-    ${noGutter ? 'no-gutter' : ''}
-    `}
+    className={getClassName(
+      'List--ListItem',
+      button && 'button',
+      noGutter && 'no-gutter',
+      className
+    )}
     {...restProps}
   >
     {children}
@@ -37,10 +41,17 @@ export const ListItemText = ({
   tertiaryText,
   hideOverflow = false,
 }) => (
-  <div className={`List--ListItemText ${hideOverflow ? 'hide-overflow' : ''}`}>
-    <p className={`primary ${boldPrimary ? 'bold' : ''}`}>{primaryText}</p>
-    {secondaryText ? <p className="secondary">{secondaryText}</p> : null}
-    {tertiaryText ? <p className="tertiary">{tertiaryText}</p> : null}
+  <div
+    className={getClassName(
+      'List--ListItemText',
+      hideOverflow && 'hide-overflow'
+    )}
+  >
+    <p className={getClassName('primary', boldPrimary && 'bold')}>
+      {primaryText}
+    </p>
+    {secondaryText && <p className="secondary">{secondaryText}</p>}
+    {tertiaryText && <p className="tertiary">{tertiaryText}</p>}
   </div>
 );
 

@@ -91,15 +91,18 @@
         flex-flow: row-reverse;
         text-align: center;
         box-shadow: $box-shadow-1;
-        transform: skew(25deg);
+        transform: skew(20deg);
         margin-right: 0;
         margin-left: auto;
         &Text,
         &Icon {
-          transform: skew(-25deg);
+          transform: skew(-20deg);
         }
         &:first-child {
-          margin-right: 4 * $spacing-unit;
+          margin-right: 6 * $spacing-unit;
+        }
+        &:nth-child(2) {
+          margin-right: 3 * $spacing-unit;
         }
       }
       &--ListItemIcon {

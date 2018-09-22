@@ -1,0 +1,14 @@
+@import '../constants/variable';
+
+.card {
+  background: white;
+  box-shadow: $box-shadow-2;
+
+  &--content {
+    padding: $spacing-unit $spacing-unit * 2;
+  }
+
+  &--actions {
+    padding: $spacing-unit * 2;
+  }
+}

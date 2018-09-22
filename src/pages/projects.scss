@@ -1,0 +1,63 @@
+@import '../constants/variable';
+
+.ProjectPage {
+  &--project {
+    margin: $spacing-unit 0;
+    h2 {
+      margin-bottom: $spacing-unit;
+    }
+
+    dt,
+    dd {
+      line-height: 1.3;
+    }
+
+    dt {
+      color: rgba(0, 0, 0, 0.6);
+      margin-top: $spacing-unit;
+      font-size: 1.1rem;
+    }
+
+    dd {
+      font-size: 0.9rem;
+    }
+
+    ul {
+      margin-bottom: 0;
+    }
+  }
+
+  &--demo-image {
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid $grey-300;
+    padding: $spacing-unit 0;
+    > img {
+      max-width: 100%;
+    }
+  }
+
+  @media screen and (min-width: $media-mobile) {
+    &--project {
+      display: flex;
+    }
+
+    &--demo-image {
+      order: -1;
+      width: 250px;
+      min-width: 250px;
+      border-top: 0;
+      padding: 0;
+      > img {
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (min-width: $media-tablet) {
+    &--demo-image {
+      width: 300px;
+      min-width: 300px;
+    }
+  }
+}

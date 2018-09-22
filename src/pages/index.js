@@ -38,6 +38,12 @@ const IndexPage = () => (
     </div>
     <div className="IndexPage--panel">
       <List component="nav">
+        <ListItem button component={Link} to="/projects">
+          <ListItemIcon>
+            <Icon>assignment_turned_in</Icon>
+          </ListItemIcon>
+          <ListItemText primaryText="Past Projects" />
+        </ListItem>
         <ListItem button component={Link} to="/contact/">
           <ListItemIcon>
             <Icon>person_add</Icon>
