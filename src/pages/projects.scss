@@ -27,6 +27,12 @@
     }
   }
 
+  &--project-links {
+    > .btn {
+      margin: 0 $spacing-unit;
+    }
+  }
+
   &--demo-image {
     width: 100%;
     text-align: center;

@@ -15,13 +15,15 @@
   align-items: center;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  border: 1px solid;
+  border-width: 1px;
+  border-style: solid;
   border-color: transparent;
   transition: background-color 250ms $timing-function 0ms,
     box-shadow 250ms $timing-function 0ms;
   &:focus {
     outline: none;
     filter: brightness(120%);
+    border-color: $primary-color;
   }
   &:hover {
     background: #eeeeee;
@@ -37,9 +39,10 @@
   }
   &.raised {
     box-shadow: $box-shadow-2;
-    border: 2px solid;
-    border-color: transparent;
+    border-width: 2px;
+    border-style: solid;
     &.primary {
+      border-color: transparent;
       color: white;
       background: $primary-color;
       &:hover {

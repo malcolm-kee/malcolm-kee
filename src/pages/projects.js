@@ -176,7 +176,7 @@ const ProjectPage = () => (
                 </dd>
               </dl>
             </CardContent>
-            <CardActions>
+            <CardActions className="ProjectPage--project-links">
               <Button
                 component="a"
                 href="https://vue-movie-app.netlify.com"
@@ -185,6 +185,14 @@ const ProjectPage = () => (
                 raised
               >
                 <Icon>launch</Icon> View
+              </Button>
+              <Button
+                component="a"
+                href="https://github.com/malcolm-kee/vue-movie-app"
+                target="_BLANK"
+                raised
+              >
+                <Icon>code</Icon> Code
               </Button>
             </CardActions>
           </div>
