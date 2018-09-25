@@ -135,7 +135,7 @@ const ProjectPage = () => (
                 </dd>
               </dl>
             </CardContent>
-            <CardActions>
+            <CardActions className="ProjectPage--project-links">
               <Button
                 component="a"
                 href="https://wizard-form.netlify.com"
@@ -144,6 +144,14 @@ const ProjectPage = () => (
                 raised
               >
                 <Icon>launch</Icon> View
+              </Button>
+              <Button
+                component="a"
+                href="https://bitbucket.org/malcolmkee/wizard-form"
+                target="_BLANK"
+                raised
+              >
+                <Icon>code</Icon> Code
               </Button>
             </CardActions>
           </div>
