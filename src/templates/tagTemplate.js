@@ -15,7 +15,7 @@ function Tags({ data, pathContext }) {
   } tagged with "${tag}"`;
 
   return (
-    <main>
+    <main className="main-content">
       <div>
         <Helmet>
           <title>Tag - {tag}</title>

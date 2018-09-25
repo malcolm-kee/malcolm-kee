@@ -15,7 +15,7 @@ const ContactPage = () => (
     <Helmet>
       <title>Contact - Malcolm Kee</title>
     </Helmet>
-    <div className="ContactPage--content-container">
+    <main className="ContactPage--content-container">
       <h1>Get in Touch</h1>
       <div className="ContactPage--panel">
         <List>
@@ -79,12 +79,12 @@ const ContactPage = () => (
           </ListItem>
         </List>
       </div>
-    </div>
-    <div className="Toolbar center">
+    </main>
+    <nav className="Toolbar center">
       <Button color="primary" component={Link} to="/" raised>
         <Icon>home</Icon> Home
       </Button>
-    </div>
+    </nav>
   </div>
 );
 

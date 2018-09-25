@@ -15,7 +15,7 @@ export default function Template({
     html,
   } = markdownRemark;
   return (
-    <main>
+    <div className="main-content">
       <div className="blog-post-container">
         <Helmet>
           <title>{title} - Malcolm Kee's blog</title>
@@ -26,45 +26,47 @@ export default function Template({
           {summary &&
             summary.length > 0 && <meta name="abstract" content={summary} />}
         </Helmet>
-        <article className="blog-post">
-          <h1 className="blog-post--title">{title}</h1>
-          <div className="blog-post--detail-container">
-            <div className="blog-post--date">
-              <Icon>today</Icon>
-              <span>{date}</span>
-            </div>
-            {tags && tags.length > 0 ? (
-              <div className="blog-post--tag">
-                <Icon>local_offer</Icon>
-                <span>
-                  {tags.map((tag, index, list) => (
-                    <span key={tag}>
-                      {' '}
-                      <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
-                      {index === list.length - 1 ? '' : ','}
-                    </span>
-                  ))}
-                </span>
+        <main>
+          <article className="blog-post">
+            <h1 className="blog-post--title">{title}</h1>
+            <div className="blog-post--detail-container">
+              <div className="blog-post--date">
+                <Icon>today</Icon>
+                <span>{date}</span>
               </div>
-            ) : null}
-          </div>
-          {summary && (
-            <div className="blog-post--summary">
-              <p>{summary}</p>
+              {tags && tags.length > 0 ? (
+                <div className="blog-post--tag">
+                  <Icon>local_offer</Icon>
+                  <span>
+                    {tags.map((tag, index, list) => (
+                      <span key={tag}>
+                        {' '}
+                        <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
+                        {index === list.length - 1 ? '' : ','}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+              ) : null}
             </div>
-          )}
-          <div
-            className="blog-post--content"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
-        </article>
-        <div className="Toolbar">
+            {summary && (
+              <div className="blog-post--summary">
+                <p>{summary}</p>
+              </div>
+            )}
+            <div
+              className="blog-post--content"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          </article>
+        </main>
+        <nav className="Toolbar">
           <Button color="primary" component={Link} to="/blog" raised>
             <Icon>arrow_back</Icon>
           </Button>
-        </div>
+        </nav>
       </div>
-    </main>
+    </div>
   );
 }
 

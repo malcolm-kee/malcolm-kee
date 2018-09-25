@@ -9,11 +9,11 @@ const BlogPage = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;
 
   return (
-    <main>
-      <div>
-        <Helmet>
-          <title>Blogs - Malcolm Kee</title>
-        </Helmet>
+    <div className="main-content">
+      <Helmet>
+        <title>Blogs - Malcolm Kee</title>
+      </Helmet>
+      <main>
         <h1>Recent Blogs</h1>
         <List>
           {posts.map(({ node: post }) => (
@@ -33,16 +33,16 @@ const BlogPage = ({ data }) => {
             </ListItem>
           ))}
         </List>
-        <div className="Toolbar">
-          <Button color="primary" component={Link} to="/" raised>
-            <Icon>home</Icon> Home
-          </Button>
-          <Button color="primary" component={Link} to="/tags">
-            <Icon>local_offer</Icon> all tags
-          </Button>
-        </div>
-      </div>
-    </main>
+      </main>
+      <nav className="Toolbar">
+        <Button color="primary" component={Link} to="/" raised>
+          <Icon>home</Icon> Home
+        </Button>
+        <Button color="primary" component={Link} to="/tags">
+          <Icon>local_offer</Icon> all tags
+        </Button>
+      </nav>
+    </div>
   );
 };
 
