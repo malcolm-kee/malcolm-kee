@@ -3,10 +3,11 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import krelosesMobileImg from '../assets/kreloses-mobile.gif';
 import simpleCartImg from '../assets/simple-cart.gif';
-import wizardFormImg from '../assets/wizard-form.gif';
+import msiaEmploymentImg from '../assets/msia-employment.gif';
 import vueAppImg from '../assets/vue-movie-app.gif';
+import wizardFormImg from '../assets/wizard-form.gif';
 import { Button } from '../components/Button';
-import { Card, CardContent, CardActions, CardImage } from '../components/Card';
+import { Card, CardActions, CardContent, CardImage } from '../components/Card';
 import { Icon } from '../components/Icon';
 import './projects.scss';
 
@@ -207,6 +208,57 @@ const ProjectPage = () => (
           <CardImage
             src={vueAppImg}
             alt="Demo of Vue Movie App"
+            className="ProjectPage--demo-image"
+          />
+        </Card>
+        <Card className="ProjectPage--project">
+          <div>
+            <CardContent>
+              <h2>Malaysia Employment Data Visualization</h2>
+              <dl>
+                <dt>description</dt>
+                <dd>
+                  Data visualization based on employment data from{' '}
+                  <a
+                    href="https://www.dosm.gov.my/v1/index.php?r=column3/accordion&menu_id=aHhRYUpWS3B4VXlYaVBOeUF0WFpWUT09"
+                    target="_BLANK"
+                  >
+                    Department of Statistics Malaysia
+                  </a>.
+                </dd>
+                <dt>technology/library</dt>
+                <dd>
+                  <ul>
+                    <li>D3.js</li>
+                    <li>React</li>
+                    <li>Webpack</li>
+                  </ul>
+                </dd>
+              </dl>
+            </CardContent>
+            <CardActions className="ProjectPage--project-links">
+              <Button
+                component="a"
+                href="https://msia-employment.netlify.com/"
+                target="_BLANK"
+                color="primary"
+                raised
+              >
+                <Icon>launch</Icon> View
+              </Button>
+              <Button
+                component="a"
+                href="https://github.com/malcolm-kee/msia-employment"
+                target="_BLANK"
+                raised
+              >
+                <Icon>code</Icon> Code
+              </Button>
+            </CardActions>
+          </div>
+          <CardImage
+            src={msiaEmploymentImg}
+            alt="Demo of Malaysia Employment Data Visualization"
             className="ProjectPage--demo-image"
           />
         </Card>
