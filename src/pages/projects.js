@@ -24,8 +24,9 @@ const ProjectPage = () => (
               <dl>
                 <dt>description</dt>
                 <dd>
-                  Business application that operations of service business. UI
-                  and interactions optimized for mobile browser.
+                  Business application for daily operations of service business.
+                  UI and interactions are designed and optimized for mobile
+                  browser.
                 </dd>
                 <dt>technology/library</dt>
                 <dd>
