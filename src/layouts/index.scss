@@ -658,3 +658,9 @@ pre tt:after {
     margin: 0 $spacing-unit;
   }
 }
+
+.Layout {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 60px;
+}

@@ -13,6 +13,7 @@ $text-color-light: rgba(0, 0, 0, 0.54);
 
 $timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 $timing-function-1: cubic-bezier(0.61, 0, 0.2, 1);
+$timing-function-overshoot: cubic-bezier(0.5, -0.5, 0.5, 1.5);
 
 /* media queries */
 $media-mobile: 576px;

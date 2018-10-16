@@ -42,19 +42,13 @@ const IndexPage = () => (
           <ListItemIcon>
             <Icon>assignment_turned_in</Icon>
           </ListItemIcon>
-          <ListItemText primaryText="Past Projects" />
-        </ListItem>
-        <ListItem button component={Link} to="/contact/">
-          <ListItemIcon>
-            <Icon>person_add</Icon>
-          </ListItemIcon>
-          <ListItemText primaryText="Get In Touch" />
+          <ListItemText primaryText="Projects" />
         </ListItem>
         <ListItem button component={Link} to="/blog">
           <ListItemIcon>
             <Icon>notes</Icon>
           </ListItemIcon>
-          <ListItemText primaryText="Read Blogs" />
+          <ListItemText primaryText="Blogs" />
         </ListItem>
       </List>
     </div>

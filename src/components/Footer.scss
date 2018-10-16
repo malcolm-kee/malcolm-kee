@@ -1,0 +1,27 @@
+@import '../constants/variable';
+
+.Footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  background: $primary-color;
+  padding: $spacing-unit * 2 $spacing-unit;
+
+  &--contacts {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: 0;
+    display: flex;
+    justify-content: space-around;
+    a {
+      color: white;
+      text-decoration: none;
+      transition: transform 0.3s $timing-function-overshoot;
+      &:focus {
+        outline: none;
+        transform: scale(1.5);
+      }
+    }
+  }
+}
