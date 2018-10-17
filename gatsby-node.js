@@ -10,8 +10,8 @@ const _ = require('lodash');
 const blogPostTemplate = path.resolve(`src/templates/blogTemplate.js`);
 const tagTemplate = path.resolve(`src/templates/tagTemplate.js`);
 
-exports.createPages = ({ boundActionCreators, graphql }) => {
-  const { createPage } = boundActionCreators;
+exports.createPages = ({ actions, graphql }) => {
+  const { createPage } = actions;
 
   return graphql(`
     {

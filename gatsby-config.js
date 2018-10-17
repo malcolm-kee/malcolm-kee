@@ -3,7 +3,9 @@ module.exports = {
     title: 'Malcolm Kee',
   },
   plugins: [
+    'gatsby-plugin-layout',
     'gatsby-plugin-sass',
+    'gatsby-plugin-postcss',
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',

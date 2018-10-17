@@ -1,4 +1,4 @@
-import Link from 'gatsby-link';
+import { Link } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
 import krelosesMobileImg from '../assets/kreloses-mobile.gif';
@@ -142,6 +142,7 @@ const ProjectPage = () => (
                 component="a"
                 href="https://wizard-form.netlify.com"
                 target="_BLANK"
+                rel="noopener noreferrer"
                 color="primary"
                 raised
               >
@@ -151,6 +152,7 @@ const ProjectPage = () => (
                 component="a"
                 href="https://bitbucket.org/malcolmkee/wizard-form"
                 target="_BLANK"
+                rel="noopener noreferrer"
                 raised
               >
                 <Icon>code</Icon> Code
@@ -172,7 +174,11 @@ const ProjectPage = () => (
                 <dd>
                   A site to view popular movies. <br />
                   The data is retrieved from{' '}
-                  <a href="https://www.themoviedb.org/" target="_BLANK">
+                  <a
+                    href="https://www.themoviedb.org/"
+                    target="_BLANK"
+                    rel="noopener noreferrer"
+                  >
                     TMDb
                   </a>.
                 </dd>
@@ -223,6 +229,7 @@ const ProjectPage = () => (
                   <a
                     href="https://www.dosm.gov.my/v1/index.php?r=column3/accordion&menu_id=aHhRYUpWS3B4VXlYaVBOeUF0WFpWUT09"
                     target="_BLANK"
+                    rel="noopener noreferrer"
                   >
                     Department of Statistics Malaysia
                   </a>.

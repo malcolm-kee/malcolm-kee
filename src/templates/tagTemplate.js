@@ -1,14 +1,14 @@
+import { graphql } from 'gatsby';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'gatsby-link';
+import { Link } from 'gatsby';
 import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
 
-function Tags({ data, pathContext }) {
-  console.log(data, pathContext);
-  const { tag } = pathContext;
+function Tags({ data, pageContext }) {
+  const { tag } = pageContext;
   const { edges: posts, totalCount } = data.allMarkdownRemark;
   const tagTitle = `${totalCount} post${
     totalCount === 1 ? '' : 's'
@@ -43,7 +43,7 @@ function Tags({ data, pathContext }) {
 }
 
 Tags.propTypes = {
-  pathContext: PropTypes.shape({
+  pageContext: PropTypes.shape({
     tag: PropTypes.string.isRequired,
   }),
   data: PropTypes.shape({

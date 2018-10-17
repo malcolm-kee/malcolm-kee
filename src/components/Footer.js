@@ -14,18 +14,31 @@ export class Footer extends React.Component {
           <a href="mailto:malcolm.keeweesiong@gmail.com">
             <Icon>email</Icon>
           </a>
-          <a href="https://www.linkedin.com/in/malcolmkee" target="_BLANK">
+          <a
+            href="https://www.linkedin.com/in/malcolmkee"
+            target="_BLANK"
+            rel="noopener noreferrer"
+          >
             <Icon type="image" src={linkedInIcon} alt="LinkedIn" />
           </a>
-          <a href="https://github.com/malcolm-kee" target="_BLANK">
+          <a
+            href="https://github.com/malcolm-kee"
+            target="_BLANK"
+            rel="noopener noreferrer"
+          >
             <Icon type="image" src={githubLogo} alt="github" />
           </a>
-          <a href="https://twitter.com/Malcolm_Kee" target="_BLANK">
+          <a
+            href="https://twitter.com/Malcolm_Kee"
+            target="_BLANK"
+            rel="noopener noreferrer"
+          >
             <Icon type="image" src={twitterIcon} alt="twitter" />
           </a>
           <a
             href="https://www.meetup.com/Kuala-Lumpur-React-JS-Meetup"
             target="_BLANK"
+            rel="noopener noreferrer"
           >
             <Icon type="image" src={meetupIcon} alt="meetup" />
           </a>

@@ -13,7 +13,12 @@ export const Icon = ({
       {children}
     </i>
   ) : type === 'image' ? (
-    <img src={src} {...restProps} className={oriSize ? '' : 'Icon--image'} />
+    <img
+      src={src}
+      alt=""
+      {...restProps}
+      className={oriSize ? '' : 'Icon--image'}
+    />
   ) : (
     <React.Fragment>{children}</React.Fragment>
   );

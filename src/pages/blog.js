@@ -1,4 +1,5 @@
-import Link from 'gatsby-link';
+import { graphql } from 'gatsby';
+import { Link } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';

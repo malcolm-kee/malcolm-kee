@@ -1,4 +1,5 @@
-import Link from 'gatsby-link';
+import { graphql } from 'gatsby';
+import { Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
