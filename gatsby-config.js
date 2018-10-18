@@ -45,6 +45,7 @@ module.exports = {
         name: 'Malcolm Kee',
         short_name: 'Malcolm Kee',
         start_url: '/',
+        display: 'standalone',
         background_color: 'white',
         theme_color: '#639',
         icon: 'src/assets/icon.png',
