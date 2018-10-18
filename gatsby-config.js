@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: 'Malcolm Kee',
+    siteUrl: 'https://malcolmkee.com/',
   },
   plugins: [
     'gatsby-plugin-layout',
@@ -38,5 +39,18 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: 'Malcolm Kee',
+        short_name: 'Malcolm Kee',
+        start_url: '/',
+        background_color: 'white',
+        theme_color: '#639',
+        icon: 'src/assets/icon.png',
+      },
+    },
+    'gatsby-plugin-sitemap',
+    'gatsby-plugin-netlify',
   ],
 };
