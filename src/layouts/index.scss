@@ -517,6 +517,9 @@ ul {
 ol li {
   padding-left: 0;
 }
+li > p:last-child {
+  margin-bottom: 0;
+}
 li > ol {
   margin-left: 1.45rem;
   margin-bottom: calc(1.45rem / 2);
@@ -528,9 +531,6 @@ li > ul {
   margin-top: calc(1.45rem / 2);
 }
 blockquote *:last-child {
-  margin-bottom: 0;
-}
-li *:last-child {
   margin-bottom: 0;
 }
 p *:last-child {

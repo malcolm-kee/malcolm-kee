@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: 'Malcolm Kee',
+    description: 'Personal website of Malcolm Kee',
     siteUrl: 'https://malcolmkee.com/',
   },
   plugins: [
