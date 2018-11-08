@@ -23,6 +23,7 @@ module.exports = {
         name: 'images',
       },
     },
+    'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-transformer-remark',
@@ -34,9 +35,7 @@ module.exports = {
               maxWidth: 590,
             },
           },
-          {
-            resolve: 'gatsby-remark-prismjs',
-          },
+          'gatsby-remark-prismjs',
         ],
       },
     },

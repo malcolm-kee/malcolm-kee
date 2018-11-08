@@ -1,20 +1,16 @@
-import { Link } from 'gatsby';
+import { graphql, Link, StaticQuery } from 'gatsby';
+import Img from 'gatsby-image';
 import React from 'react';
 import { Icon } from '../components/Icon';
 import { List, ListItem, ListItemIcon, ListItemText } from '../components/List';
 import { Typography } from '../components/Typography';
-import malcolmImg from '../assets/malcolm.jpg';
 import './index.scss';
 
 const IndexPage = () => (
   <div className="IndexPage">
     <div className="IndexPage--panel">
       <section className="StandardSpacing">
-        <img
-          src={malcolmImg}
-          alt="Malcolm"
-          className="IndexPage--profile-photo"
-        />
+        <SharpImage alt="Malcolm" className="IndexPage--profile-photo" />
         <h1>Hi</h1>
         <Typography className="IndexPage--text" component="p">
           I'm Malcolm Kee, a frontend engineer in Kuala Lumpur, Malaysia.
@@ -53,6 +49,25 @@ const IndexPage = () => (
       </List>
     </div>
   </div>
+);
+
+export const SharpImage = props => (
+  <StaticQuery
+    query={graphql`
+      query {
+        placeholderImage: file(relativePath: { eq: "malcolm.jpg" }) {
+          childImageSharp {
+            fluid(maxWidth: 150) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    `}
+    render={data => (
+      <Img fluid={data.placeholderImage.childImageSharp.fluid} {...props} />
+    )}
+  />
 );
 
 export default IndexPage;
