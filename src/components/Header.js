@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { joinClassName } from 'join-string';
 
-import { throttle, getClassName } from '../helper';
+import { throttle } from '../helper';
 import './Header.scss';
 
 const shrinkOn = 20;
@@ -13,7 +14,9 @@ export class Header extends React.Component {
 
   render() {
     return (
-      <header className={getClassName('Header', this.state.shrink && 'shrink')}>
+      <header
+        className={joinClassName('Header', this.state.shrink && 'shrink')}
+      >
         <div className="heading">
           <h1>
             <Link
