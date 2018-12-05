@@ -1,5 +1,5 @@
 import React from 'react';
-import { getClassName } from '../helper';
+import { joinClassName } from 'join-string';
 import './Button.scss';
 
 export const Button = ({
@@ -11,7 +11,7 @@ export const Button = ({
   ...restProps
 }) => (
   <Component
-    className={getClassName('btn', color, raised && 'raised', className)}
+    className={joinClassName('btn', color, raised && 'raised', className)}
     {...restProps}
   >
     {children}

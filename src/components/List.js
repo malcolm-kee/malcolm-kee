@@ -1,5 +1,5 @@
 import React from 'react';
-import { getClassName } from '../helper';
+import { joinClassName } from 'join-string';
 import './List.scss';
 
 export const List = ({
@@ -22,7 +22,7 @@ export const ListItem = ({
   ...restProps
 }) => (
   <Component
-    className={getClassName(
+    className={joinClassName(
       'List--ListItem',
       button && 'button',
       noGutter && 'no-gutter',
@@ -42,12 +42,12 @@ export const ListItemText = ({
   hideOverflow = false,
 }) => (
   <div
-    className={getClassName(
+    className={joinClassName(
       'List--ListItemText',
       hideOverflow && 'hide-overflow'
     )}
   >
-    <p className={getClassName('primary', boldPrimary && 'bold')}>
+    <p className={joinClassName('primary', boldPrimary && 'bold')}>
       {primaryText}
     </p>
     {secondaryText && <p className="secondary">{secondaryText}</p>}

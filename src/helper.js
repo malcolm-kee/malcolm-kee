@@ -27,14 +27,3 @@ export function throttle(fn, wait = 250, context = this) {
     }
   };
 }
-
-export const joinStrings = delimiter => (...items) =>
-  items
-    .filter(
-      item =>
-        (typeof item === 'string' && item.length > 0) ||
-        typeof item === 'number'
-    )
-    .join(delimiter);
-
-export const getClassName = joinStrings(' ');

@@ -7556,6 +7556,11 @@ joi@^11.1.1:
     isemail "3.x.x"
     topo "2.x.x"
 
+join-string@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/join-string/-/join-string-1.0.2.tgz#f054363d16ecb48a1fdf4542379ea1a6daebc749"
+  integrity sha512-CUxTTS7vNpG5aEh49xw4LmZ5TgKoRa83V9hAaMe6nV7qb+9E9+0jtwObp6cN+JERvanhmPn6pDE5wRazpSkO9g==
+
 jpeg-js@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.2.0.tgz#53e448ec9d263e683266467e9442d2c5a2ef5482"
