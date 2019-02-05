@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from '../components/Button';
 import { ContactForm } from '../components/ContactForm';
 import { LandingPageHeader } from '../components/LandingPageHeader';
+import { OutLink } from '../components/OutLink';
 import { SiteMetadata } from '../components/SiteMetadata';
 import { Typography } from '../components/Typography';
 import './index.scss';
@@ -27,13 +28,9 @@ const IndexPage = () => (
       </Typography>
       <Typography>
         He conducted workshops in{' '}
-        <a
-          href="https://www.meetup.com/kl-react/"
-          target="_BLANK"
-          rel="noopener noreferrer"
-        >
+        <OutLink href="https://www.meetup.com/kl-react/">
           local meetup that he organize
-        </a>{' '}
+        </OutLink>{' '}
         to teach others on React and web development, as teaching is his passion
         since childhood.
       </Typography>
@@ -61,10 +58,8 @@ const IndexPage = () => (
         <Button
           color="primary"
           raised
-          component="a"
+          component={OutLink}
           href="https://intro-to-react-js.netlify.com/"
-          target="_BLANK"
-          rel="noopener noreferrer"
         >
           Intro to React
         </Button>

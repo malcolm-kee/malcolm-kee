@@ -54,6 +54,13 @@ module.exports = {
         icon: 'src/assets/icon.png',
       },
     },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: 'UA-53298674-1',
+        anonymize: true,
+      },
+    },
     'gatsby-plugin-sitemap',
     'gatsby-plugin-netlify',
     'gatsby-plugin-offline',

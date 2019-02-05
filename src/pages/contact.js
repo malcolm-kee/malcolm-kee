@@ -6,6 +6,7 @@ import linkedInIcon from '../assets/linkedin-icon.png';
 import meetupIcon from '../assets/meetup-icon.svg';
 import twitterIcon from '../assets/twitter-icon.png';
 import { Button } from '../components/Button';
+import { OutLink } from '../components/OutLink';
 import { Icon } from '../components/Icon';
 import { Layout } from '../components/Layout';
 import { List, ListItem, ListItemIcon, ListItemText } from '../components/List';
@@ -36,7 +37,7 @@ const ContactPage = () => (
               />
             </ListItem>
             <ListItem
-              component="a"
+              component={OutLink}
               href="https://www.linkedin.com/in/malcolmkee/"
               button
             >
@@ -49,7 +50,7 @@ const ContactPage = () => (
               />
             </ListItem>
             <ListItem
-              component="a"
+              component={OutLink}
               href="https://github.com/malcolm-kee"
               button
             >
@@ -62,7 +63,7 @@ const ContactPage = () => (
               />
             </ListItem>
             <ListItem
-              component="a"
+              component={OutLink}
               href="https://twitter.com/Malcolm_Kee"
               button
             >
@@ -75,8 +76,8 @@ const ContactPage = () => (
               />
             </ListItem>
             <ListItem
-              component="a"
-              href="https://www.meetup.com/Kuala-Lumpur-React-JS-Meetup/"
+              component={OutLink}
+              href="https://www.meetup.com/kl-react/"
               button
             >
               <ListItemIcon>

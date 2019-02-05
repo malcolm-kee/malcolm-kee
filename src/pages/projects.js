@@ -10,6 +10,7 @@ import vueAppImg from '../assets/vue-movie-app.gif';
 import wizardFormImg from '../assets/wizard-form.gif';
 import { Button } from '../components/Button';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
+import { OutLink } from '../components/OutLink';
 import { Icon } from '../components/Icon';
 import { Layout } from '../components/Layout';
 import './projects.scss';
@@ -46,20 +47,16 @@ const ProjectPage = () => (
               </CardContent>
               <CardActions className="ProjectPage--project-links">
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://redux-code-generator.netlify.com/"
-                  target="_BLANK"
-                  rel="noopener noreferrer"
                   color="primary"
                   raised
                 >
                   <Icon>launch</Icon> View
                 </Button>
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://github.com/malcolm-kee/redux-code-generator"
-                  target="_BLANK"
-                  rel="noopener noreferrer"
                   raised
                 >
                   <Icon>code</Icon> Code
@@ -102,9 +99,8 @@ const ProjectPage = () => (
               </CardContent>
               <CardActions>
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://mobile.kreloses.com"
-                  target="_BLANK"
                   color="primary"
                   raised
                 >
@@ -142,9 +138,8 @@ const ProjectPage = () => (
               </CardContent>
               <CardActions>
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://real-quiz-app.firebaseapp.com"
-                  target="_BLANK"
                   color="primary"
                   raised
                 >
@@ -195,9 +190,8 @@ const ProjectPage = () => (
               </CardContent>
               <CardActions>
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://seek-shopping-cart.netlify.com/"
-                  target="_BLANK"
                   color="primary"
                   raised
                 >
@@ -234,20 +228,16 @@ const ProjectPage = () => (
               </CardContent>
               <CardActions className="ProjectPage--project-links">
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://wizard-form.netlify.com"
-                  target="_BLANK"
-                  rel="noopener noreferrer"
                   color="primary"
                   raised
                 >
                   <Icon>launch</Icon> View
                 </Button>
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://bitbucket.org/malcolmkee/wizard-form"
-                  target="_BLANK"
-                  rel="noopener noreferrer"
                   raised
                 >
                   <Icon>code</Icon> Code
@@ -269,13 +259,7 @@ const ProjectPage = () => (
                   <dd>
                     A site to view popular movies. <br />
                     The data is retrieved from{' '}
-                    <a
-                      href="https://www.themoviedb.org/"
-                      target="_BLANK"
-                      rel="noopener noreferrer"
-                    >
-                      TMDb
-                    </a>.
+                    <OutLink href="https://www.themoviedb.org/">TMDb</OutLink>.
                   </dd>
                   <dt>technology/library</dt>
                   <dd>
@@ -289,18 +273,16 @@ const ProjectPage = () => (
               </CardContent>
               <CardActions className="ProjectPage--project-links">
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://vue-movie-app.netlify.com"
-                  target="_BLANK"
                   color="primary"
                   raised
                 >
                   <Icon>launch</Icon> View
                 </Button>
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://github.com/malcolm-kee/vue-movie-app"
-                  target="_BLANK"
                   raised
                 >
                   <Icon>code</Icon> Code
@@ -321,13 +303,9 @@ const ProjectPage = () => (
                   <dt>description</dt>
                   <dd>
                     Data visualization based on employment data from{' '}
-                    <a
-                      href="https://www.dosm.gov.my/v1/index.php?r=column3/accordion&menu_id=aHhRYUpWS3B4VXlYaVBOeUF0WFpWUT09"
-                      target="_BLANK"
-                      rel="noopener noreferrer"
-                    >
+                    <OutLink href="https://www.dosm.gov.my/v1/index.php?r=column3/accordion&menu_id=aHhRYUpWS3B4VXlYaVBOeUF0WFpWUT09">
                       Department of Statistics Malaysia
-                    </a>.
+                    </OutLink>.
                   </dd>
                   <dt>technology/library</dt>
                   <dd>
@@ -341,18 +319,16 @@ const ProjectPage = () => (
               </CardContent>
               <CardActions className="ProjectPage--project-links">
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://msia-employment.netlify.com/"
-                  target="_BLANK"
                   color="primary"
                   raised
                 >
                   <Icon>launch</Icon> View
                 </Button>
                 <Button
-                  component="a"
+                  component={OutLink}
                   href="https://github.com/malcolm-kee/msia-employment"
-                  target="_BLANK"
                   raised
                 >
                   <Icon>code</Icon> Code
