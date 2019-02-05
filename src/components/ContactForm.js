@@ -20,6 +20,7 @@ export const ContactForm = () => (
       InputComponent="textarea"
       required
     />
+    <input type="hidden" name="form-name" value="contact-form" />
     <div className="Toolbar">
       <Button type="submit" color="primary" raised fullWidth>
         Send
