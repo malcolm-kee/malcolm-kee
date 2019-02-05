@@ -5,6 +5,8 @@ import { Field } from './Field';
 export const ContactForm = () => (
   <form
     name="contact-form"
+    method="POST"
+    action="/message-received"
     netlify-honeypot="trap"
     data-netlify="true"
     className="contact-form"
