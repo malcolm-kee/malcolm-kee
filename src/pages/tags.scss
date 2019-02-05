@@ -1,8 +1,9 @@
 @import '../constants/variable';
 
 .TagPage {
-  height: 100vh;
   padding-top: 5rem;
+  max-width: 960px;
+  margin: 0 auto;
   @media (min-width: $media-tablet) {
     overflow: hidden;
     display: flex;

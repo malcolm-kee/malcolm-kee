@@ -5,45 +5,48 @@ import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
 import { List, ListItem, ListItemText } from '../components/List';
+import { Layout } from '../components/Layout';
 
 const BlogPage = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;
 
   return (
-    <div className="main-content">
-      <Helmet>
-        <title>Blogs - Malcolm Kee</title>
-      </Helmet>
-      <main>
-        <h1>Recent Blogs</h1>
-        <List>
-          {posts.map(({ node: post }) => (
-            <ListItem
-              button
-              component={Link}
-              to={post.frontmatter.path}
-              key={post.frontmatter.path}
-              noGutter
-            >
-              <ListItemText
-                primaryText={post.frontmatter.title}
-                secondaryText={post.frontmatter.date}
-                tertiaryText={post.frontmatter.summary}
-                boldPrimary
-              />
-            </ListItem>
-          ))}
-        </List>
-      </main>
-      <nav className="Toolbar">
-        <Button color="primary" component={Link} to="/" raised>
-          <Icon>home</Icon> Home
-        </Button>
-        <Button color="primary" component={Link} to="/tags">
-          <Icon>local_offer</Icon> all tags
-        </Button>
-      </nav>
-    </div>
+    <Layout>
+      <div className="main-content">
+        <Helmet>
+          <title>Blogs - Malcolm Kee</title>
+        </Helmet>
+        <main>
+          <h1>Recent Blogs</h1>
+          <List>
+            {posts.map(({ node: post }) => (
+              <ListItem
+                button
+                component={Link}
+                to={post.frontmatter.path}
+                key={post.frontmatter.path}
+                noGutter
+              >
+                <ListItemText
+                  primaryText={post.frontmatter.title}
+                  secondaryText={post.frontmatter.date}
+                  tertiaryText={post.frontmatter.summary}
+                  boldPrimary
+                />
+              </ListItem>
+            ))}
+          </List>
+        </main>
+        <nav className="Toolbar">
+          <Button color="primary" component={Link} to="/" raised>
+            <Icon>home</Icon> Home
+          </Button>
+          <Button color="primary" component={Link} to="/tags">
+            <Icon>local_offer</Icon> all tags
+          </Button>
+        </nav>
+      </div>
+    </Layout>
   );
 };
 

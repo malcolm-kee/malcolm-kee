@@ -1,4 +1,4 @@
-@import '../constants/variable';
+@import './constants/variable';
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -663,5 +663,13 @@ pre tt:after {
 .Layout {
   min-height: 100vh;
   position: relative;
-  padding-bottom: 60px;
+  padding-bottom: 4 * $spacing-unit;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
 }

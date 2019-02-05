@@ -1,0 +1,35 @@
+@import '../constants/variable';
+
+.label {
+  display: block;
+  padding-bottom: 8px;
+  color: $primary-color-light;
+  text-align: left;
+}
+
+.field {
+  padding: 8px 0;
+
+  &:focus-within .label {
+    color: $primary-color-dark;
+  }
+}
+
+.form-control {
+  display: block;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  padding: 6px 0 7px;
+  outline: none;
+  box-sizing: content-box;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1rem;
+  &:focus {
+    padding: 6px 0;
+    border-bottom: 2px solid $primary-color-dark;
+  }
+  &:invalid {
+    box-shadow: none;
+  }
+}

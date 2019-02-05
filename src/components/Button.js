@@ -8,10 +8,19 @@ export const Button = ({
   raised = false,
   className,
   children,
+  type = Component === 'button' ? 'button' : undefined,
+  fullWidth,
   ...restProps
 }) => (
   <Component
-    className={joinClassName('btn', color, raised && 'raised', className)}
+    type={type}
+    className={joinClassName(
+      'btn',
+      color,
+      raised && 'raised',
+      fullWidth && 'full-width',
+      className
+    )}
     {...restProps}
   >
     {children}

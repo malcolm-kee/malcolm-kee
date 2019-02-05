@@ -1,73 +1,82 @@
-import { graphql, Link, StaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
+import { Link } from 'gatsby';
 import React from 'react';
-import { Icon } from '../components/Icon';
-import { List, ListItem, ListItemIcon, ListItemText } from '../components/List';
+import { Button } from '../components/Button';
+import { ContactForm } from '../components/ContactForm';
+import { LandingPageHeader } from '../components/LandingPageHeader';
+import { SiteMetadata } from '../components/SiteMetadata';
 import { Typography } from '../components/Typography';
 import './index.scss';
 
-const IndexPage = () => (
-  <div className="IndexPage">
-    <div className="IndexPage--panel">
-      <section className="StandardSpacing">
-        <SharpImage alt="Malcolm" className="IndexPage--profile-photo" />
-        <h1>Hi</h1>
-        <Typography className="IndexPage--text" component="p">
-          I'm Malcolm Kee, a frontend engineer in Kuala Lumpur, Malaysia.
-        </Typography>
-        <Typography className="IndexPage--text" component="p">
-          Previously a Business Analyst, I switch my career path as a software
-          engineer as I prefer to create things with my own hand.
-        </Typography>
-        <Typography className="IndexPage--text" component="p">
-          My work philosophy:
-        </Typography>
-        <blockquote>
-          <Typography component="p">
-            Be so good they can't ignore you.
-          </Typography>
-          <footer>
-            <cite>Steve Martin</cite>
-          </footer>
-        </blockquote>
-      </section>
-    </div>
-    <div className="IndexPage--panel">
-      <List component="nav">
-        <ListItem button component={Link} to="/projects">
-          <ListItemIcon>
-            <Icon>assignment_turned_in</Icon>
-          </ListItemIcon>
-          <ListItemText primaryText="Projects" />
-        </ListItem>
-        <ListItem button component={Link} to="/blog">
-          <ListItemIcon>
-            <Icon>notes</Icon>
-          </ListItemIcon>
-          <ListItemText primaryText="Blogs" />
-        </ListItem>
-      </List>
-    </div>
+const LandingPageSection = ({ children }) => (
+  <div className="landing-page-section">
+    <section className="landing-page-section-content">{children}</section>
   </div>
 );
 
-export const SharpImage = props => (
-  <StaticQuery
-    query={graphql`
-      query {
-        placeholderImage: file(relativePath: { eq: "malcolm.jpg" }) {
-          childImageSharp {
-            fluid(maxWidth: 150) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-    `}
-    render={data => (
-      <Img fluid={data.placeholderImage.childImageSharp.fluid} {...props} />
-    )}
-  />
+const IndexPage = () => (
+  <div className="landing-page">
+    <SiteMetadata />
+    <div className="landing-page-section">
+      <LandingPageHeader />
+    </div>
+    <LandingPageSection>
+      <h2>About Me</h2>
+      <Typography>
+        Malcolm Kee is a frontend engineer making web applications and enjoy
+        doing it.
+      </Typography>
+      <Typography>
+        He conducted workshops in{' '}
+        <a
+          href="https://www.meetup.com/kl-react/"
+          target="_BLANK"
+          rel="noopener noreferrer"
+        >
+          local meetup that he organize
+        </a>{' '}
+        to teach others on React and web development, as teaching is his passion
+        since childhood.
+      </Typography>
+      <Typography>He is currently learning to play guitar.</Typography>
+    </LandingPageSection>
+    <LandingPageSection>
+      <h2 className="text-right">Projects</h2>
+      <div className="text-right">
+        <Button color="primary" raised component={Link} to="/projects">
+          See My Work
+        </Button>
+      </div>
+    </LandingPageSection>
+    <LandingPageSection>
+      <h2>Writing</h2>
+      <div>
+        <Button color="primary" raised component={Link} to="/blog">
+          Read Blog
+        </Button>
+      </div>
+    </LandingPageSection>
+    <LandingPageSection>
+      <h2 className="text-right">Teaching</h2>
+      <div className="text-right">
+        <Button
+          color="primary"
+          raised
+          component="a"
+          href="https://intro-to-react-js.netlify.com/"
+          target="_BLANK"
+          rel="noopener noreferrer"
+        >
+          Intro to React
+        </Button>
+      </div>
+    </LandingPageSection>
+    <LandingPageSection>
+      <h2 className="text-center">Contact Me</h2>
+      <div className="landing-page-form-container">
+        <ContactForm />
+      </div>
+    </LandingPageSection>
+  </div>
 );
 
 export default IndexPage;

@@ -3,12 +3,11 @@
 .btn {
   padding: $spacing-unit $spacing-unit * 2;
   cursor: pointer;
-  text-transform: uppercase;
+  text-transform: capitalize;
   text-decoration: none;
   min-height: 36px;
   min-width: 88px;
   font-family: $font-family;
-  border-radius: $spacing-unit;
   color: $primary-color;
   display: inline-flex;
   justify-content: center;
@@ -55,5 +54,9 @@
     &.active {
       box-shadow: $box-shadow-8;
     }
+  }
+
+  &.full-width {
+    width: 100%;
   }
 }
