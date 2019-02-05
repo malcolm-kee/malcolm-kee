@@ -37,4 +37,4 @@ The best way is to **Improve Yourself**.
 
 <hr />
 
-If you're a ReactJS developer or interested to learn React, come join my <a href="https://www.meetup.com/Kuala-Lumpur-React-JS-Meetup/" target="_BLANK">Meetup group</a>.
+If you're a ReactJS developer or interested to learn React, come join my [Meetup group](https://www.meetup.com/kl-react/).
