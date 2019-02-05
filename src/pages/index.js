@@ -56,6 +56,21 @@ const IndexPage = () => (
       </div>
     </LandingPageSection>
     <LandingPageSection>
+      <h2 className="text-right">Teaching</h2>
+      <div className="text-right">
+        <Button
+          color="primary"
+          raised
+          component="a"
+          href="https://intro-to-react-js.netlify.com/"
+          target="_BLANK"
+          rel="noopener noreferrer"
+        >
+          Intro to React
+        </Button>
+      </div>
+    </LandingPageSection>
+    <LandingPageSection>
       <h2 className="text-center">Contact Me</h2>
       <div className="landing-page-form-container">
         <ContactForm />

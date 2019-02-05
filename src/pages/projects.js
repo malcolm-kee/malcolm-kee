@@ -3,6 +3,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import krelosesMobileImg from '../assets/kreloses-mobile.gif';
 import realQuizApp from '../assets/real-quiz.gif';
+import reduxCodeGenerator from '../assets/redux-code-generator.gif';
 import simpleCartImg from '../assets/simple-cart.gif';
 import msiaEmploymentImg from '../assets/msia-employment.gif';
 import vueAppImg from '../assets/vue-movie-app.gif';
@@ -16,10 +17,61 @@ import './projects.scss';
 const ProjectPage = () => (
   <Layout>
     <div className="ProjectPage">
-      <Helmet>Past Projects</Helmet>
+      <Helmet>
+        <title>Past Projects</title>
+      </Helmet>
       <main className="main-content">
         <h1>Past Projects</h1>
         <div className="ProjectPage--project-container">
+          <Card className="ProjectPage--project">
+            <div>
+              <CardContent>
+                <h2>Redux Code Generator</h2>
+                <dl>
+                  <dt>description</dt>
+                  <dd>
+                    An application to generate redux code and unit tests based
+                    on initial states.
+                  </dd>
+                  <dt>technology/library</dt>
+                  <dd>
+                    <ul>
+                      <li>React</li>
+                      <li>Redux</li>
+                      <li>Typescript</li>
+                      <li>Bootstrap</li>
+                    </ul>
+                  </dd>
+                </dl>
+              </CardContent>
+              <CardActions className="ProjectPage--project-links">
+                <Button
+                  component="a"
+                  href="https://redux-code-generator.netlify.com/"
+                  target="_BLANK"
+                  rel="noopener noreferrer"
+                  color="primary"
+                  raised
+                >
+                  <Icon>launch</Icon> View
+                </Button>
+                <Button
+                  component="a"
+                  href="https://github.com/malcolm-kee/redux-code-generator"
+                  target="_BLANK"
+                  rel="noopener noreferrer"
+                  raised
+                >
+                  <Icon>code</Icon> Code
+                </Button>
+              </CardActions>
+            </div>
+            <CardImage
+              src={reduxCodeGenerator}
+              alt="Demo of Redux Code Generator"
+              className="ProjectPage--demo-image"
+            />
+          </Card>
           <Card className="ProjectPage--project">
             <div>
               <CardContent>

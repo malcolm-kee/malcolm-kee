@@ -663,7 +663,7 @@ pre tt:after {
 .Layout {
   min-height: 100vh;
   position: relative;
-  padding-bottom: 60px;
+  padding-bottom: 4 * $spacing-unit;
 }
 
 .text-right {
