@@ -1,11 +1,14 @@
+const packageJson = require('./package.json');
+
 module.exports = {
   siteMetadata: {
     title: 'Malcolm Kee',
-    description: 'Personal website of Malcolm Kee',
-    siteUrl: 'https://malcolmkee.com/',
+    description: packageJson.description,
+    siteUrl: packageJson.homepage,
+    author: packageJson.author,
+    keywords: packageJson.keywords,
   },
   plugins: [
-    'gatsby-plugin-layout',
     'gatsby-plugin-sass',
     'gatsby-plugin-postcss',
     'gatsby-plugin-react-helmet',
@@ -47,7 +50,7 @@ module.exports = {
         start_url: '/',
         display: 'standalone',
         background_color: 'white',
-        theme_color: '#639',
+        theme_color: '#37474f',
         icon: 'src/assets/icon.png',
       },
     },

@@ -1,4 +1,5 @@
 import React from 'react';
+import { joinClassName } from 'join-string';
 import './Typography.scss';
 
 export const Typography = ({
@@ -8,7 +9,10 @@ export const Typography = ({
   component: Component = 'p',
   ...restProps
 }) => (
-  <Component className={`Typography--${variant} ${className}`} {...restProps}>
+  <Component
+    className={joinClassName(`Typography--${variant}`, className)}
+    {...restProps}
+  >
     {children}
   </Component>
 );

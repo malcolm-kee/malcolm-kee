@@ -6,7 +6,6 @@
   "dependencies": {
     "gatsby": "2.0.35",
     "gatsby-image": "^2.0.15",
-    "gatsby-plugin-layout": "^1.0.3",
     "gatsby-plugin-manifest": "^2.0.8",
     "gatsby-plugin-netlify": "^2.0.1",
     "gatsby-plugin-offline": "^2.0.7",
@@ -33,15 +32,19 @@
     "react-helmet": "^5.2.0"
   },
   "keywords": [
-    "gatsby"
+    "Malcolm Kee",
+    "Frontend Engineer",
+    "ReactJS",
+    "Redux",
+    "ReactJS Training"
   ],
   "license": "MIT",
   "scripts": {
+    "start": "npm run dev",
     "build": "gatsby build",
     "dev": "gatsby develop",
     "serve": "gatsby serve",
-    "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write 'src/**/*.js'"
   },
   "devDependencies": {
     "prettier": "^1.12.0",
@@ -51,5 +54,6 @@
     ">1%",
     "last 4 versions",
     "not ie < 9"
-  ]
+  ],
+  "homepage": "https://malcolmkee.com/"
 }
