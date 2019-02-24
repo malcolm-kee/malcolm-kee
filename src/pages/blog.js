@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
 import { Layout } from '../components/Layout';
 import { List, ListItem, ListItemText } from '../components/List';
+import { getReadtimeText } from '../helper';
 
 const BlogPage = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;
@@ -34,8 +35,7 @@ const BlogPage = ({ data }) => {
                       {post.timeToRead && (
                         <span className="italic">
                           {' '}
-                          ({post.timeToRead}{' '}
-                          {post.timeToRead === 1 ? 'minute' : 'minutes'} read)
+                          ({getReadtimeText(post.timeToRead)} read)
                         </span>
                       )}
                     </>

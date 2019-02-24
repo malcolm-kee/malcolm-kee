@@ -53,9 +53,9 @@ exports.createPages = ({ actions, graphql }) => {
         path: node.frontmatter.path,
         component: blogPostTemplate,
         context: {
-          next,
-          previous,
-        }, // additional data can be passed via context
+          next: previous, // we need to invert these 2 because we query date descending
+          previous: next,
+        },
       });
     });
 

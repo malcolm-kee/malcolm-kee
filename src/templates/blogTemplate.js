@@ -1,20 +1,43 @@
-import { graphql } from 'gatsby';
-import React from 'react';
-import { Link } from 'gatsby';
-import Helmet from 'react-helmet';
+import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
-import { Icon } from '../components/Icon';
+import React from 'react';
+import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
+import { Icon } from '../components/Icon';
 import { Layout } from '../components/Layout';
+import { getReadtimeText } from '../helper';
 import './blogTemplate.scss';
+
+function AdjacentArticles({ previous, next }) {
+  return (
+    <ul className="blog-post-adjacent-articles">
+      {previous && (
+        <li>
+          <Link to={previous.frontmatter.path} rel="prev">
+            ← {previous.frontmatter.title}
+          </Link>
+        </li>
+      )}
+      {next && (
+        <li>
+          <Link to={next.frontmatter.path} rel="next">
+            {next.frontmatter.title} →
+          </Link>
+        </li>
+      )}
+    </ul>
+  );
+}
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
+  pageContext,
 }) {
   const { markdownRemark } = data; // data.markdownRemark holds our post data
   const {
     frontmatter: { title, date, tags, keywords, summary },
     html,
+    timeToRead,
   } = markdownRemark;
   return (
     <Layout>
@@ -36,6 +59,12 @@ export default function Template({
                 <div className="blog-post--date">
                   <Icon>today</Icon>
                   <span>{date}</span>
+                  {timeToRead && (
+                    <>
+                      <span>{` • `}</span>
+                      <span>{getReadtimeText(timeToRead)} read</span>
+                    </>
+                  )}
                 </div>
                 {tags && tags.length > 0 ? (
                   <div className="blog-post--tag">
@@ -63,6 +92,10 @@ export default function Template({
               />
             </article>
           </main>
+          <AdjacentArticles
+            previous={pageContext.previous}
+            next={pageContext.next}
+          />
           <nav className="Toolbar">
             <Button
               color="primary"
@@ -93,6 +126,7 @@ export const pageQuery = graphql`
         keywords
         summary
       }
+      timeToRead
     }
   }
 `;

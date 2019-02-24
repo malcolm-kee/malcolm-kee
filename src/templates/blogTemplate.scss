@@ -13,14 +13,12 @@
     }
   }
   &--detail-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     padding: $spacing-unit / 2 $spacing-unit * 2;
   }
   &--date,
   &--tag {
     display: flex;
+    flex: 1;
     flex-shrink: 0;
     flex-basis: 250px;
     align-items: center;
@@ -32,6 +30,19 @@
     color: $text-color-light;
     a {
       text-decoration: none;
+      color: inherit;
+    }
+    > * {
+      margin: 0 $spacing-unit / 2;
+      @media (min-width: $media-mobile) {
+        margin: 0 $spacing-unit;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
   &--summary {
@@ -68,6 +79,19 @@
     }
     em {
       font-style: italic;
+    }
+    a {
+      text-decoration: none;
+      border-bottom-color: transparent;
+      border-bottom-style: solid;
+      border-bottom-width: 2px;
+      transition-duration: 500ms;
+      transition-timing-function: ease-in-out;
+      transition-property: border-bottom-color, color;
+    }
+    a:hover {
+      color: $primary-color;
+      border-bottom-color: $primary-color-light;
     }
     a[href^="https://www.youtube.com"] {
       display: flex;
@@ -127,6 +151,21 @@
           margin-bottom: 0;
         }
       }
+    }
+  }
+  &-adjacent-articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: $spacing-unit 0;
+
+    a {
+      display: inline-block;
+      margin: $spacing-unit 0;
+      line-height: 1.2;
+      vertical-align: middle;
     }
   }
 }

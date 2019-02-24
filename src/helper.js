@@ -27,3 +27,13 @@ export function throttle(fn, wait = 250, context = this) {
     }
   };
 }
+
+/**
+ *
+ * @param {number} readtime
+ */
+export function getReadtimeText(readtime) {
+  return readtime && readtime > 1
+    ? `${readtime} minutes`
+    : `${readtime} minute`;
+}
