@@ -8,7 +8,7 @@ import { List, ListItem, ListItemText } from '../components/List';
 import { getReadtimeText } from '../helper';
 
 const BlogPage = ({ data }) => {
-  const { edges: posts } = data.allMarkdownRemark;
+  const { posts } = data.allMarkdownRemark;
 
   return (
     <Layout>
@@ -66,12 +66,12 @@ export const pageQuery = graphql`
       filter: { frontmatter: { published: { eq: true } } }
       sort: { order: DESC, fields: [frontmatter___date] }
     ) {
-      edges {
+      posts: edges {
         node {
           id
           frontmatter {
             title
-            date(formatString: "MMMM DD, YYYY")
+            date(formatString: "MMM DD, YYYY")
             path
             summary
           }

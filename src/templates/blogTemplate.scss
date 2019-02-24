@@ -161,11 +161,21 @@
     padding: 0;
     margin: $spacing-unit 0;
 
+    > li {
+      max-width: 100%;
+    }
+
     a {
       display: inline-block;
-      margin: $spacing-unit 0;
-      line-height: 1.2;
+      margin: $spacing-unit;
+      line-height: 1.5;
       vertical-align: middle;
+      text-decoration: none;
+      border-bottom: 1px solid;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }

@@ -20,9 +20,11 @@
       padding: 1.5 * $spacing-unit 0;
     }
     &.button {
-      transition: background-color 150ms $timing-function 0ms;
+      transition-delay: 100ms;
+      transition: background-color 300ms $timing-function;
       -webkit-tap-highlight-color: transparent;
       &:hover {
+        transition-delay: 0;
         background-color: rgba(0, 0, 0, 0.08);
       }
       &:focus {

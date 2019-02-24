@@ -32,6 +32,9 @@
         font-size: 2.25rem;
         padding: $spacing-unit $spacing-unit * 2;
       }
+      a:hover {
+        border-bottom: none;
+      }
       a:focus {
         outline: none;
         border-bottom: 1px solid white;

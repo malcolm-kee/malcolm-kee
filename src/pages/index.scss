@@ -1,17 +1,28 @@
 @import '../constants/variable';
 
 .landing-page {
-  max-height: 100vh;
-  scroll-snap-type: y proximity;
-  overflow-y: auto;
-
   &-section {
     scroll-snap-align: start;
 
     &-content {
-      padding: $spacing-unit * 3 $spacing-unit;
+      padding: $spacing-unit * 3 $spacing-unit * 2;
       max-width: 960px;
       margin: 0 auto;
+
+      a {
+        text-decoration: none;
+        border-bottom-color: transparent;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        transition-duration: 500ms;
+        transition-timing-function: ease-in-out;
+        transition-property: color, border-bottom-color;
+      }
+
+      a:hover {
+        color: $primary-color;
+        border-bottom-color: $primary-color;
+      }
     }
   }
 
