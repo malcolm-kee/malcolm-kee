@@ -12,6 +12,7 @@ module.exports = {
   plugins: [
     'gatsby-plugin-sass',
     'gatsby-plugin-postcss',
+    'gatsby-plugin-layout',
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',
@@ -65,6 +66,6 @@ module.exports = {
     },
     'gatsby-plugin-sitemap',
     'gatsby-plugin-netlify',
-    'gatsby-plugin-offline',
+    'gatsby-plugin-remove-serviceworker',
   ],
 };

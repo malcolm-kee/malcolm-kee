@@ -128,10 +128,11 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  background-color: $primary-color;
 }
 body {
   margin: 0;
-  min-height: 100vh;
+  background-color: #fff;
 }
 article,
 aside,
@@ -305,8 +306,7 @@ textarea {
   -webkit-appearance: button;
   font: inherit;
 }
-html,
-body {
+html {
   height: 100%;
 }
 html {
@@ -630,6 +630,7 @@ pre tt:after {
   padding-top: calc(1.5rem + #{$spacing-unit} * 6);
   padding-left: 0;
   padding-right: 0;
+  padding-bottom: $spacing-unit * 3;
   @media (min-width: $media-mobile) {
     padding-top: calc(2.25rem + #{$spacing-unit} * 7);
     padding-left: $spacing-unit * 3;
@@ -663,7 +664,6 @@ pre tt:after {
 .Layout {
   min-height: 100vh;
   position: relative;
-  padding-bottom: 4 * $spacing-unit;
 }
 
 .text-right {

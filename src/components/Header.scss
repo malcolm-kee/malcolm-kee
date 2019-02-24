@@ -1,36 +1,62 @@
 @import '../constants/variable';
 
 .Header {
-  background: $primary-color;
+  background-color: $primary-color;
   margin: 0 auto;
-  padding: $spacing-unit * 2 $spacing-unit;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 56px;
   z-index: 1;
-  transition: padding 0.5s $timing-function-1;
+  transition-duration: 500ms;
+  transition-timing-function: $timing-function-1;
+  transition-property: min-height, background-color;
   @media (min-width: $media-mobile) {
-    padding: $spacing-unit * 2 $spacing-unit * 3;
+    min-height: 92px;
+  }
+  .heading-container {
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    transition: top 500ms $timing-function-1;
+    @media (min-width: $media-mobile) {
+      top: $spacing-unit * 2;
+    }
   }
   .heading {
-    position: relative;
+    position: absolute;
+    right: $spacing-unit * 2;
     max-width: 960px;
     margin: 0 auto;
     overflow: hidden;
+    white-space: nowrap;
+    transition-duration: 500ms;
+    transform: translateX(0);
+    transition-timing-function: $timing-function-1;
+    transition-property: right, transform;
+    @media (min-width: $media-mobile) {
+      right: $spacing-unit * 4;
+    }
     h1 {
       margin: 0;
-      text-align: right;
       padding: $spacing-unit / 2 $spacing-unit;
       display: inline-block;
       font-size: 1.5rem;
       width: 100%;
       transition-duration: 0.5s;
       transition-timing-function: $timing-function-1;
-      transition-property: font-size, padding;
+      transition-property: font-size, padding, text-shadow;
       @media (min-width: $media-mobile) {
         font-size: 2.25rem;
         padding: $spacing-unit $spacing-unit * 2;
+      }
+      a {
+        pointer-events: auto;
+        -webkit-tap-highlight-color: transparent;
+        text-decoration: none;
+        color: #fff;
+        transition: color 500ms $timing-function-1;
       }
       a:hover {
         border-bottom: none;
@@ -56,9 +82,9 @@
   }
 
   &.shrink {
-    padding: $spacing-unit;
-    @media (min-width: $media-mobile) {
-      padding: $spacing-unit $spacing-unit * 3;
+    min-height: 48px;
+    .heading-container {
+      top: $spacing-unit;
     }
     .heading {
       &:after {
@@ -71,6 +97,39 @@
     }
     .hideable {
       font-size: 0;
+    }
+  }
+
+  &.Header--banner {
+    background-color: inherit;
+    color: $primary-color;
+    pointer-events: none;
+    .heading-container {
+      @media (min-width: $media-tablet) {
+        top: 180px;
+      }
+    }
+    .heading {
+      right: 50%;
+      transform: translateX(50%);
+      h1 {
+        text-shadow: 1px 1px 10px #fff, 1px 1px 10px #ccc;
+        @media (min-width: $media-tablet) {
+          font-size: 4rem;
+        }
+        a {
+          color: $primary-color;
+          &:focus {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+
+    &.shrink {
+      .heading-container {
+        top: $spacing-unit * 2;
+      }
     }
   }
 }

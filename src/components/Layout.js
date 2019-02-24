@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import { Header } from './Header';
 import { SiteMetadata } from './SiteMetadata';
 
-export const Layout = ({ children }) => (
+export const Layout = ({ isRoot, children }) => (
   <div className="Layout">
     <SiteMetadata />
     <Helmet>
@@ -12,7 +12,7 @@ export const Layout = ({ children }) => (
         rel="stylesheet"
       />
     </Helmet>
-    <Header siteTitle="Malcolm Kee" />
+    <Header siteTitle="Malcolm Kee" isBanner={isRoot} />
     {children}
   </div>
 );

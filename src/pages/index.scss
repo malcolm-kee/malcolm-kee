@@ -1,15 +1,18 @@
 @import '../constants/variable';
 
 .landing-page {
-  &-section {
-    scroll-snap-align: start;
+  &-content {
+    background-color: #efefef;
+    background-image: linear-gradient(#fff, #eee);
+  }
 
+  &-section {
     &-content {
       padding: $spacing-unit * 3 $spacing-unit * 2;
       max-width: 960px;
       margin: 0 auto;
 
-      a {
+      a:not(.btn) {
         text-decoration: none;
         border-bottom-color: transparent;
         border-bottom-style: solid;
@@ -19,7 +22,7 @@
         transition-property: color, border-bottom-color;
       }
 
-      a:hover {
+      a:not(.btn):hover {
         color: $primary-color;
         border-bottom-color: $primary-color;
       }

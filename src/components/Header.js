@@ -13,28 +13,29 @@ export class Header extends React.Component {
   };
 
   render() {
+    const { isBanner } = this.props;
     return (
       <header
-        className={joinClassName('Header', this.state.shrink && 'shrink')}
+        className={joinClassName(
+          'Header',
+          this.state.shrink && 'shrink',
+          isBanner && 'Header--banner'
+        )}
       >
-        <div className="heading">
-          <h1>
-            <Link
-              to="/"
-              style={{
-                color: 'white',
-                textDecoration: 'none',
-              }}
-            >
-              <span>
-                M<span className="hideable">alcolm&nbsp;</span>
-              </span>
-              <span>
-                K<span className="hideable">ee</span>
-              </span>
-              &nbsp;
-            </Link>
-          </h1>
+        <div className="heading-container">
+          <div className="heading">
+            <h1>
+              <Link to="/">
+                <span>
+                  M<span className="hideable">alcolm&nbsp;</span>
+                </span>
+                <span>
+                  K<span className="hideable">ee</span>
+                </span>
+                &nbsp;
+              </Link>
+            </h1>
+          </div>
         </div>
       </header>
     );

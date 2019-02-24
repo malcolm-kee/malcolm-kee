@@ -78,3 +78,12 @@ exports.createPages = ({ actions, graphql }) => {
     });
   });
 };
+
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage } = actions;
+
+  if (page.path === '/') {
+    page.context.isRoot = true;
+    createPage(page);
+  }
+};
