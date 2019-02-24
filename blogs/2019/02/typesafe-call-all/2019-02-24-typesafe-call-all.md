@@ -9,7 +9,7 @@ published: true
 
 When writing React components, one of the utility functions that I find useful and commonly use is the `callAll` function, which I learnt from [Kent C. Dodds][kentcdodds] from one of his classes.
 
-The use of `callAll` is to wrap few functions together, and create another function that will call each of them with the parameters.
+The use of `callAll` is to wrap few functions together (some of them option, which could be `undefined`), and create another function that will call each of them with the parameters.
 
 For example:
 
@@ -22,19 +22,23 @@ function fn2(x, y) {
   console.log('result from fn2: ', x + y);
 }
 
-const wrapperFn = callAll(fn1, fn2);
+const missingFn = undefined;
+
+const wrapperFn = callAll(fn1, fn2, missingFn);
 
 wrapperFn(2, 3);
 // x from fn1: 2
 // result from fn2: 5
 ```
 
-It is commonly used in React when you want to wrap some component to have additional callBack, without writing the ugly arrow function in jsx:
+It is commonly used in React when you want to wrap some component to have additional callBack, without writing the null check in the already ugly arrow function in jsx:
 
 ```jsx
 // instead of this
 <input onChange={ev => {
-    props.onChange(ev);
+    if (props.onChange) {
+        props.onChange(ev);
+    }
     onChangeValue(ev);
 }} />
 
@@ -54,7 +58,7 @@ However, when I wanted to use that function in Typescript, I had problem providi
 ```typescript
 type CallBack = (...args: any[]) => void;
 
-const callAll = (...fns: Array<CallBack>) => (...args: any[]) =>
+const callAll = (...fns: Array<CallBack | undefined>) => (...args: any[]) =>
   fns.forEach(fn => typeof fn === 'function' && fn(...args));
 ```
 
@@ -67,9 +71,10 @@ interface CallBack<Params extends any[]> {
   (...args: Params): void;
 }
 
-const callAll = <Params extends any[]>(...fns: Array<CallBack<Params>>) => (
-  ...args: Params
-) => fns.forEach(fn => typeof fn === 'function' && fn(...args));
+const callAll = <Params extends any[]>(
+  ...fns: Array<CallBack<Params> | undefined>
+) => (...args: Params) =>
+  fns.forEach(fn => typeof fn === 'function' && fn(...args));
 ```
 
 [kentcdodds]: https://kentcdodds.com/
