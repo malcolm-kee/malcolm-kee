@@ -1,3 +1,4 @@
+const path = require('path');
 const packageJson = require('./package.json');
 
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/markdown`,
+        path: path.join(__dirname, 'blogs'),
         name: 'markdown-pages',
       },
     },

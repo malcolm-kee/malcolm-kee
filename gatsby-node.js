@@ -26,6 +26,18 @@ exports.createPages = ({ actions, graphql }) => {
               summary
             }
           }
+          next {
+            frontmatter {
+              path
+              title
+            }
+          }
+          previous {
+            frontmatter {
+              path
+              title
+            }
+          }
         }
       }
     }
@@ -36,11 +48,14 @@ exports.createPages = ({ actions, graphql }) => {
 
     const posts = result.data.allMarkdownRemark.edges;
 
-    posts.forEach(({ node }) => {
+    posts.forEach(({ node, next, previous }) => {
       createPage({
         path: node.frontmatter.path,
         component: blogPostTemplate,
-        context: {}, // additional data can be passed via context
+        context: {
+          next,
+          previous,
+        }, // additional data can be passed via context
       });
     });
 

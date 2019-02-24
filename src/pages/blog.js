@@ -1,11 +1,10 @@
-import { graphql } from 'gatsby';
-import { Link } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
 import { Icon } from '../components/Icon';
-import { List, ListItem, ListItemText } from '../components/List';
 import { Layout } from '../components/Layout';
+import { List, ListItem, ListItemText } from '../components/List';
 
 const BlogPage = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;
@@ -29,7 +28,18 @@ const BlogPage = ({ data }) => {
               >
                 <ListItemText
                   primaryText={post.frontmatter.title}
-                  secondaryText={post.frontmatter.date}
+                  secondaryText={
+                    <>
+                      <span>{post.frontmatter.date}</span>
+                      {post.timeToRead && (
+                        <span className="italic">
+                          {' '}
+                          ({post.timeToRead}{' '}
+                          {post.timeToRead === 1 ? 'minute' : 'minutes'} read)
+                        </span>
+                      )}
+                    </>
+                  }
                   tertiaryText={post.frontmatter.summary}
                   boldPrimary
                 />
@@ -65,6 +75,7 @@ export const pageQuery = graphql`
             path
             summary
           }
+          timeToRead
         }
       }
     }
