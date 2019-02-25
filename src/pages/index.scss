@@ -12,20 +12,7 @@
       max-width: 960px;
       margin: 0 auto;
 
-      a:not(.btn) {
-        text-decoration: none;
-        border-bottom-color: transparent;
-        border-bottom-style: solid;
-        border-bottom-width: 2px;
-        transition-duration: 500ms;
-        transition-timing-function: ease-in-out;
-        transition-property: color, border-bottom-color;
-      }
-
-      a:not(.btn):hover {
-        color: $primary-color;
-        border-bottom-color: $primary-color;
-      }
+      @include link('a:not(.btn)');
     }
   }
 

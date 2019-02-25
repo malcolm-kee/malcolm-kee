@@ -2,6 +2,9 @@
 
 .ProjectPage {
   &--project {
+    .card--content {
+      @include link(a);
+    }
     margin: $spacing-unit 0;
     h2 {
       margin-bottom: $spacing-unit;

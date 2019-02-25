@@ -80,19 +80,9 @@
     em {
       font-style: italic;
     }
-    a {
-      text-decoration: none;
-      border-bottom-color: transparent;
-      border-bottom-style: solid;
-      border-bottom-width: 2px;
-      transition-duration: 500ms;
-      transition-timing-function: ease-in-out;
-      transition-property: border-bottom-color, color;
-    }
-    a:hover {
-      color: $primary-color;
-      border-bottom-color: $primary-color-light;
-    }
+
+    @include link(a);
+
     a[href^="https://www.youtube.com"] {
       display: flex;
       justify-content: center;

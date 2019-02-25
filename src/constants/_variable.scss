@@ -74,3 +74,19 @@ $box-shadow-23: 0px 11px 14px -7px rgba(0, 0, 0, 0.2),
   0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12);
 $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
   0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+
+@mixin link($selector) {
+  #{$selector} {
+    text-decoration: none;
+    border-bottom-color: transparent;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+    transition-property: border-bottom-color, color;
+  }
+  #{$selector}:hover {
+    color: $primary-color;
+    border-bottom-color: $primary-color-light;
+  }
+}
