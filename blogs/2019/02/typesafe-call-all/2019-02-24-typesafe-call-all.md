@@ -9,7 +9,7 @@ published: true
 
 When writing React components, one of the utility functions that I find useful and commonly use is the `callAll` function, which I learnt from [Kent C. Dodds][kentcdodds] from one of his classes.
 
-The use of `callAll` is to wrap few functions together (some of them option, which could be `undefined`), and create another function that will call each of them with the parameters.
+The use of `callAll` is to wrap few functions together (some of them optional, thus could be `undefined`), and create another function that will call each of them with the parameters.
 
 For example:
 
