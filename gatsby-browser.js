@@ -1,2 +1,2 @@
 require('./src/styles/global.scss');
-require('./src/styles/prisms.scss');
+require('./src/styles/prism.scss');
