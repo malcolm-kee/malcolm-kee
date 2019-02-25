@@ -32,7 +32,6 @@ export class Header extends React.Component {
                 <span>
                   K<span className="hideable">ee</span>
                 </span>
-                &nbsp;
               </Link>
             </h1>
           </div>

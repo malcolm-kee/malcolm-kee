@@ -113,7 +113,7 @@
       right: 50%;
       transform: translateX(50%);
       h1 {
-        text-shadow: 1px 1px 10px #fff, 1px 1px 10px #ccc;
+        text-shadow: 0px 2px 10px #eee, 0px 2px 10px #ccc;
         @media (min-width: $media-tablet) {
           font-size: 4rem;
         }
