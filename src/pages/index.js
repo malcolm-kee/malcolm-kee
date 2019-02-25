@@ -18,7 +18,8 @@ const IndexPage = () => (
     <LandingPageHeader />
     <div className="landing-page-content">
       <LandingPageSection>
-        <h2>About Me</h2>
+        <h2>About</h2>
+        <div className="landing-page-center-gap">
         <Typography>
           Malcolm Kee is a frontend engineer making web applications and enjoy
           doing it.
@@ -32,6 +33,7 @@ const IndexPage = () => (
           passion since childhood.
         </Typography>
         <Typography>He is currently learning to play guitar.</Typography>
+        </div>
       </LandingPageSection>
       <LandingPageSection>
         <h2 className="text-right">Projects</h2>

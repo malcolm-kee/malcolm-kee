@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
-import { Icon } from '../components/Icon';
 import { List, ListItem, ListItemText } from '../components/List';
 import './tags.scss';
 
@@ -43,10 +42,10 @@ const TagsPage = ({
       </List>
       <div className="Toolbar">
         <Button color="primary" component={Link} to="/" raised>
-          <Icon>home</Icon> Home
+          Home
         </Button>
         <Button color="primary" component={Link} to="/blog">
-          <Icon>description</Icon> Blogs
+          Blogs
         </Button>
       </div>
     </div>

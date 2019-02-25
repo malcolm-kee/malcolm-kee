@@ -29,6 +29,14 @@
     }
   }
 
+  &-center-gap {
+    column-count: 2;
+    column-gap: 36px;
+    @media (min-width: $media-mobile) {
+      column-gap: 140px;
+    }
+  }
+
   &-form-container {
     max-width: 500px;
     text-align: center;

@@ -2,7 +2,6 @@ import { graphql, Link } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
-import { Icon } from '../components/Icon';
 import { List, ListItem, ListItemText } from '../components/List';
 import { getReadtimeText } from '../helper';
 
@@ -47,10 +46,10 @@ const BlogPage = ({ data }) => {
       </main>
       <nav className="Toolbar">
         <Button color="primary" component={Link} to="/" raised>
-          <Icon>home</Icon> Home
+          Home
         </Button>
         <Button color="primary" component={Link} to="/tags">
-          <Icon>local_offer</Icon> all tags
+          All tags
         </Button>
       </nav>
     </div>

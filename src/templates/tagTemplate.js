@@ -1,11 +1,9 @@
-import { graphql } from 'gatsby';
-import React from 'react';
+import { graphql, Link } from 'gatsby';
 import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
+import React from 'react';
 import Helmet from 'react-helmet';
-import { List, ListItem, ListItemText } from '../components/List';
 import { Button } from '../components/Button';
-import { Icon } from '../components/Icon';
+import { List, ListItem, ListItemText } from '../components/List';
 
 function Tags({ data, pageContext }) {
   const { tag } = pageContext;
@@ -34,7 +32,7 @@ function Tags({ data, pageContext }) {
         </List>
         <div className="Toolbar">
           <Button color="primary" component={Link} to="/tags" raised>
-            <Icon>arrow_back</Icon>
+            All Tags
           </Button>
         </div>
       </div>
