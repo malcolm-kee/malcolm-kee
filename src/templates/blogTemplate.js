@@ -3,7 +3,6 @@ import kebabCase from 'lodash/kebabCase';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
-import { Icon } from '../components/Icon';
 import { getReadtimeText } from '../helper';
 import './blogTemplate.scss';
 
@@ -55,7 +54,6 @@ export default function Template({
             <h1 className="blog-post--title">{title}</h1>
             <div className="blog-post--detail-container">
               <div className="blog-post--date">
-                <Icon>today</Icon>
                 <span>{date}</span>
                 {timeToRead && (
                   <>
@@ -66,7 +64,7 @@ export default function Template({
               </div>
               {tags && tags.length > 0 ? (
                 <div className="blog-post--tag">
-                  <Icon>local_offer</Icon>
+                  <span>Tags:</span>
                   <span>
                     {tags.map((tag, index, list) => (
                       <span key={tag}>
@@ -103,7 +101,7 @@ export default function Template({
             title="all blogs"
             raised
           >
-            <Icon>arrow_back</Icon>
+            All Blogs
           </Button>
         </nav>
       </div>

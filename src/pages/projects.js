@@ -10,7 +10,6 @@ import vueAppImg from '../assets/vue-movie-app.gif';
 import wizardFormImg from '../assets/wizard-form.gif';
 import { Button } from '../components/Button';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
-import { Icon } from '../components/Icon';
 import { OutLink } from '../components/OutLink';
 import './projects.scss';
 
@@ -50,14 +49,14 @@ const ProjectPage = () => (
                 color="primary"
                 raised
               >
-                <Icon>launch</Icon> View
+                Demo
               </Button>
               <Button
                 component={OutLink}
                 href="https://github.com/malcolm-kee/redux-code-generator"
                 raised
               >
-                <Icon>code</Icon> Code
+                Code
               </Button>
             </CardActions>
           </div>
@@ -102,7 +101,7 @@ const ProjectPage = () => (
                 color="primary"
                 raised
               >
-                <Icon>launch</Icon> View (Login Required)
+                View (Login Required)
               </Button>
             </CardActions>
           </div>
@@ -141,7 +140,7 @@ const ProjectPage = () => (
                 color="primary"
                 raised
               >
-                <Icon>launch</Icon> View
+                Demo
               </Button>
             </CardActions>
           </div>
@@ -193,7 +192,7 @@ const ProjectPage = () => (
                 color="primary"
                 raised
               >
-                <Icon>launch</Icon> View
+                Demo
               </Button>
             </CardActions>
           </div>
@@ -231,14 +230,14 @@ const ProjectPage = () => (
                 color="primary"
                 raised
               >
-                <Icon>launch</Icon> View
+                Demo
               </Button>
               <Button
                 component={OutLink}
                 href="https://bitbucket.org/malcolmkee/wizard-form"
                 raised
               >
-                <Icon>code</Icon> Code
+                Code
               </Button>
             </CardActions>
           </div>
@@ -276,14 +275,14 @@ const ProjectPage = () => (
                 color="primary"
                 raised
               >
-                <Icon>launch</Icon> View
+                Demo
               </Button>
               <Button
                 component={OutLink}
                 href="https://github.com/malcolm-kee/vue-movie-app"
                 raised
               >
-                <Icon>code</Icon> Code
+                Code
               </Button>
             </CardActions>
           </div>
@@ -322,14 +321,14 @@ const ProjectPage = () => (
                 color="primary"
                 raised
               >
-                <Icon>launch</Icon> View
+                Demo
               </Button>
               <Button
                 component={OutLink}
                 href="https://github.com/malcolm-kee/msia-employment"
                 raised
               >
-                <Icon>code</Icon> Code
+                Code
               </Button>
             </CardActions>
           </div>
@@ -343,7 +342,7 @@ const ProjectPage = () => (
     </main>
     <nav className="Toolbar center">
       <Button color="primary" component={Link} to="/" raised>
-        <Icon>home</Icon> Home
+        Home
       </Button>
     </nav>
   </div>

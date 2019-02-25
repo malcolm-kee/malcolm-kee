@@ -1,7 +1,6 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import { Button } from '../components/Button';
-import { Icon } from '../components/Icon';
 import { Typography } from '../components/Typography';
 
 const MessageReceived = () => (
@@ -11,7 +10,7 @@ const MessageReceived = () => (
     <Typography>You will receive my response soon!</Typography>
     <div className="Toolbar">
       <Button component={Link} to="/" color="primary" raised>
-        <Icon>home</Icon> Home
+        Home
       </Button>
     </div>
   </main>
