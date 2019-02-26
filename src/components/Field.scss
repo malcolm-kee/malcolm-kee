@@ -8,10 +8,31 @@
 }
 
 .field {
-  padding: 8px 0;
+  padding: $spacing-unit 0;
+  margin: $spacing-unit 0;
+  position: relative;
 
-  &:focus-within .label {
-    color: $primary-color-dark;
+  .label {
+    position: absolute;
+    top: $spacing-unit * 2;
+    transition-timing-function: ease-in-out;
+    transition-duration: 250ms;
+    transition-property: top, font-size;
+  }
+
+  &--filled {
+    .label {
+      top: 0;
+      font-size: 0.7rem;
+    }
+  }
+
+  &--focused {
+    .label {
+      color: $primary-color-dark;
+      top: 0;
+      font-size: 0.7rem;
+    }
   }
 }
 

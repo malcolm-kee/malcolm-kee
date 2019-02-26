@@ -14,7 +14,7 @@ export const ContactForm = () => (
     <Field label="Your Name" id="name" name="name" required />
     <Field label="Your Email" id="email" name="email" type="email" required />
     <Field
-      label="Your Message"
+      label="Message"
       id="message"
       name="message"
       InputComponent="textarea"
