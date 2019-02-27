@@ -3,27 +3,30 @@ import kebabCase from 'lodash/kebabCase';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
+import { OutLink } from '../components/OutLink';
 import { getReadtimeText } from '../helper';
 import './blogTemplate.scss';
 
 function AdjacentArticles({ previous, next }) {
   return (
-    <ul className="blog-post-adjacent-articles">
-      {previous && (
-        <li>
-          <Link to={previous.frontmatter.path} rel="prev">
-            ← {previous.frontmatter.title}
-          </Link>
-        </li>
-      )}
-      {next && (
-        <li>
-          <Link to={next.frontmatter.path} rel="next">
-            {next.frontmatter.title} →
-          </Link>
-        </li>
-      )}
-    </ul>
+    <aside>
+      <ul className="blog-post-adjacent-articles">
+        {previous && (
+          <li>
+            <Link to={previous.frontmatter.path} rel="prev">
+              ← {previous.frontmatter.title}
+            </Link>
+          </li>
+        )}
+        {next && (
+          <li>
+            <Link to={next.frontmatter.path} rel="next">
+              {next.frontmatter.title} →
+            </Link>
+          </li>
+        )}
+      </ul>
+    </aside>
   );
 }
 
@@ -33,10 +36,14 @@ export default function Template({
 }) {
   const { markdownRemark } = data; // data.markdownRemark holds our post data
   const {
-    frontmatter: { title, date, tags, keywords, summary },
+    frontmatter: { title, date, tags, keywords, summary, path },
     html,
     timeToRead,
   } = markdownRemark;
+  const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
+    `https://malcolmkee.com${path}`
+  )}`;
+
   return (
     <div className="main-content">
       <div className="blog-post-container">
@@ -87,6 +94,11 @@ export default function Template({
               dangerouslySetInnerHTML={{ __html: html }}
             />
           </article>
+          <footer className="blog-post--actions">
+            <p>
+              <OutLink href={discussUrl}>Discuss on Twitter</OutLink>
+            </p>
+          </footer>
         </main>
         <AdjacentArticles
           previous={pageContext.previous}

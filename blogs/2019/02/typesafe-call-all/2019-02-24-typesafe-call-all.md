@@ -77,5 +77,7 @@ const callAll = <Params extends any[]>(
   fns.forEach(fn => typeof fn === 'function' && fn(...args));
 ```
 
+That's it!
+
 [kentcdodds]: https://kentcdodds.com/
 [rest-tuple-types]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-0.html#rest-elements-in-tuple-types
