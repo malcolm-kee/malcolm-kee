@@ -96,14 +96,9 @@
     }
     p,
     li {
-      font-size: 0.9rem;
       font-weight: 400;
       line-height: 1.6em;
       color: rgba(0, 0, 0, 0.87);
-      @media (min-width: $media-mobile) {
-        font-size: 0.875rem;
-        line-height: 1.464em;
-      }
     }
     hr {
       margin: 0 0 $spacing-unit * 2;
