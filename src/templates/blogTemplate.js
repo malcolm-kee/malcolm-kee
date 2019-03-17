@@ -32,29 +32,34 @@ function AdjacentArticles({ previous, next }) {
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
-  pageContext,
+  pageContext
 }) {
   const { markdownRemark } = data; // data.markdownRemark holds our post data
   const {
     frontmatter: { title, date, tags, keywords, summary, path },
     html,
-    timeToRead,
+    timeToRead
   } = markdownRemark;
   const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
     `https://malcolmkee.com${path}`
   )}`;
+
+  const hasSummary = !!summary && summary.length > 0;
 
   return (
     <div className="main-content">
       <div className="blog-post-container">
         <Helmet>
           <title>{title} - Malcolm Kee's blog</title>
+          <meta name="og:title" content={title} />
+          <meta name="twitter:title" content={title} />
           {keywords &&
             keywords.length > 0 && (
               <meta name="keywords" content={keywords.join(',')} />
             )}
-          {summary &&
-            summary.length > 0 && <meta name="abstract" content={summary} />}
+          {hasSummary && <meta name="abstract" content={summary} />}
+          {hasSummary && <meta name="og:description" content={summary} />}
+          {hasSummary && <meta name="twitter:description" content={summary} />}
         </Helmet>
         <main>
           <article className="blog-post">

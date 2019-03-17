@@ -8,6 +8,9 @@ module.exports = {
     siteUrl: packageJson.homepage,
     author: packageJson.author,
     keywords: packageJson.keywords,
+    social: {
+      twitter: '@Malcolm_Kee'
+    }
   },
   plugins: [
     'gatsby-plugin-sass',
@@ -18,15 +21,15 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: path.join(__dirname, 'blogs'),
-        name: 'markdown-pages',
-      },
+        name: 'markdown-pages'
+      }
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/src/assets`,
-        name: 'images',
-      },
+        name: 'images'
+      }
     },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
@@ -38,12 +41,12 @@ module.exports = {
           {
             resolve: 'gatsby-remark-images',
             options: {
-              maxWidth: 590,
-            },
+              maxWidth: 590
+            }
           },
-          'gatsby-remark-prismjs',
-        ],
-      },
+          'gatsby-remark-prismjs'
+        ]
+      }
     },
     {
       resolve: 'gatsby-plugin-manifest',
@@ -54,18 +57,18 @@ module.exports = {
         display: 'standalone',
         background_color: 'white',
         theme_color: '#37474f',
-        icon: 'src/assets/icon.png',
-      },
+        icon: 'src/assets/icon.png'
+      }
     },
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: 'UA-53298674-1',
-        anonymize: true,
-      },
+        anonymize: true
+      }
     },
     'gatsby-plugin-sitemap',
     'gatsby-plugin-netlify',
-    'gatsby-plugin-remove-serviceworker',
-  ],
+    'gatsby-plugin-remove-serviceworker'
+  ]
 };
