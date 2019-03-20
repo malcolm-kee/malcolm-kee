@@ -17,13 +17,13 @@ I think that's how a good society should be, not giving disabled people privileg
 
 ## How Disabled People Use Internet
 
-While it may be seems obvious that physical space should be accessible to everyone, it's not so obvious when coming to virtual space, i.e. websites.
+While it may seems obvious that physical space should be accessible to everyone, it's not so obvious when coming to virtual space, i.e. websites.
 
 The problem is people seldom think of how disabled people use websites. A normal people like me (and probably you) usually use mouse to click or finger to tap, and switch to use keyboard when need to type something. If you are disabled, or partially disabled, how do you browse website?
 
-For some people that has motor skill difficulty, they may only use keyboard only without mouse because mouse is too challenging for them. For them, web browser is all about tabbing to what they interest, and press space/enter to navigate.
+For some people that has motor skill difficulty, they may only use keyboard only without mouse because mouse is too challenging for them. For them, web browser is all about tabbing to what get they interest, and press space/enter to navigate.
 
-For blind people, you use something called screen reader, which is a piece of software that will read through website, and read it to them. For them, it's almost similar to the keyboard-only user, but they listens instead of see.
+For blind people, you use screen reader, which actually software that will read the website to them while they can tab through the content. It's almost similar to the keyboard-only user, but they listens instead of see, so all fancy icon and image means nothing to them.
 
 ![A blind person using screen reader](screen-reader.jpg)
 
