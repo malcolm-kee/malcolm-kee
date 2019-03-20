@@ -46,15 +46,16 @@
   }
   &--summary {
     color: $text-color;
-    padding: 0 $spacing-unit * 2;
+    padding: $spacing-unit * 2;
+    border-bottom: 1px solid $grey-300;
     p {
       padding: $spacing-unit 0;
       line-height: 1.4em;
-      border-bottom: 1px solid $grey-300;
+      font-style: italic;
     }
   }
   &--content {
-    padding: $spacing-unit $spacing-unit * 2;
+    padding: $spacing-unit * 2;
     font-family: $font-family;
     h2 {
       font-size: 1.6rem;
@@ -140,7 +141,19 @@
   }
   &--content,
   &--actions {
-    @include link(a);
+    a:not(.gatsby-resp-image-link) {
+      text-decoration: none;
+      border-bottom-color: transparent;
+      border-bottom-style: solid;
+      border-bottom-width: 2px;
+      transition-duration: 500ms;
+      transition-timing-function: ease-in-out;
+      transition-property: border-bottom-color, color;
+      :hover {
+        color: $primary-color;
+        border-bottom-color: $primary-color-light;
+      }
+    }
   }
   &-adjacent-articles {
     border-top: 1px solid $grey-400;
