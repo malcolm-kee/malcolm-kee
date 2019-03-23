@@ -10,19 +10,38 @@
     @media only screen and (max-width: 480px) {
       font-size: 1.8rem;
     }
+    @media (min-width: $media-mobile) {
+      text-align: center;
+      margin: $spacing-unit * 4 auto;
+      max-width: 650px;
+    }
   }
   &--detail-container {
     padding: $spacing-unit / 2 $spacing-unit * 2;
+
+    @media (min-width: $media-tablet) {
+      display: flex;
+      justify-content: space-between;
+
+      > :first-child {
+        text-align: left;
+        flex-basis: auto;
+      }
+
+      > :last-child {
+        text-align: right;
+        flex-basis: auto;
+      }
+    }
   }
   &--date,
   &--tag {
     display: flex;
-    flex: 1;
     flex-shrink: 0;
     flex-basis: 250px;
     align-items: center;
     font-family: $font-family;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 400;
     line-height: 1.375em;
     margin-bottom: $spacing-unit;
