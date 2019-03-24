@@ -29,8 +29,8 @@ const ProjectPage = () => (
                 <dl>
                   <dt>description</dt>
                   <dd>
-                    An application to generate redux code and unit tests based on
-                    initial states.
+                    An application to generate redux code and unit tests based
+                    on initial states.
                   </dd>
                   <dt>technology/library</dt>
                   <dd>
@@ -74,9 +74,9 @@ const ProjectPage = () => (
                 <dl>
                   <dt>description</dt>
                   <dd>
-                    Business application for daily operations of service business.
-                    UI and interactions are designed and optimized for mobile
-                    browser.
+                    Business application for daily operations of service
+                    business. UI and interactions are designed and optimized for
+                    mobile browser.
                   </dd>
                   <dt>technology/library</dt>
                   <dd>
@@ -342,9 +342,9 @@ const ProjectPage = () => (
         </div>
       </main>
       <nav className="Toolbar center">
-        <Button color="primary" component={Link} to="/" raised>
+        <Link to="/" className="link-primary">
           Home
-        </Button>
+        </Link>
       </nav>
     </div>
   </div>

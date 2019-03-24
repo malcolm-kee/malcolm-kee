@@ -13,6 +13,10 @@
       margin: 0 auto;
 
       @include link('a:not(.btn)');
+
+      h2 {
+        margin-bottom: $spacing-unit * 2;
+      }
     }
   }
 

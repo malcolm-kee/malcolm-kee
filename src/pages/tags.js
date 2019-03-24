@@ -3,14 +3,13 @@ import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Button } from '../components/Button';
 import { List, ListItem, ListItemText } from '../components/List';
 import './tags.scss';
 
 const TagsPage = ({
   data: {
-    allMarkdownRemark: { group },
-  },
+    allMarkdownRemark: { group }
+  }
 }) => (
   <div className="TagPage">
     <Helmet>
@@ -41,12 +40,12 @@ const TagsPage = ({
           ))}
       </List>
       <div className="Toolbar">
-        <Button color="primary" component={Link} to="/" raised>
+        <Link to="/" className="link-primary">
           Home
-        </Button>
-        <Button color="primary" component={Link} to="/blog">
+        </Link>
+        <Link to="/blog" className="link-primary">
           Blogs
-        </Button>
+        </Link>
       </div>
     </div>
   </div>
@@ -58,16 +57,16 @@ TagsPage.propTypes = {
       group: PropTypes.arrayOf(
         PropTypes.shape({
           fieldValue: PropTypes.string.isRequired,
-          totalCount: PropTypes.number.isRequired,
+          totalCount: PropTypes.number.isRequired
         }).isRequired
-      ),
+      )
     }),
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-      }),
-    }),
-  }),
+        title: PropTypes.string.isRequired
+      })
+    })
+  })
 };
 
 export default TagsPage;

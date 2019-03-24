@@ -9,34 +9,41 @@ const shrinkOn = 20;
 
 export class Header extends React.Component {
   state = {
-    shrink: false,
+    shrink: false
   };
 
   render() {
     const { isBanner } = this.props;
     return (
-      <header
+      <div
         className={joinClassName(
-          'Header',
-          this.state.shrink && 'shrink',
-          isBanner && 'Header--banner'
+          'Header-outer-container',
+          isBanner && 'Header-outer-container-banner'
         )}
       >
-        <div className="heading-container">
-          <div className="heading">
-            <h1>
-              <Link to="/">
-                <span>
-                  M<span className="hideable">alcolm&nbsp;</span>
-                </span>
-                <span>
-                  K<span className="hideable">ee</span>
-                </span>
-              </Link>
-            </h1>
+        <header
+          className={joinClassName(
+            'Header',
+            this.state.shrink && 'shrink',
+            isBanner && 'Header--banner'
+          )}
+        >
+          <div className="heading-container">
+            <div className="heading">
+              <h1>
+                <Link to="/">
+                  <span>
+                    M<span className="hideable">alcolm&nbsp;</span>
+                  </span>
+                  <span>
+                    K<span className="hideable">ee</span>
+                  </span>
+                </Link>
+              </h1>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
     );
   }
 
@@ -45,11 +52,11 @@ export class Header extends React.Component {
 
     if (scroll >= shrinkOn && !this.state.shrink) {
       this.setState({
-        shrink: true,
+        shrink: true
       });
     } else if (scroll < shrinkOn && this.state.shrink) {
       this.setState({
-        shrink: false,
+        shrink: false
       });
     }
   });

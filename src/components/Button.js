@@ -2,6 +2,11 @@ import React from 'react';
 import { joinClassName } from 'join-string';
 import './Button.scss';
 
+/**
+ *
+ * @param {Object} props
+ * @param {'primary' | 'secondary'} [props.color]
+ */
 export const Button = ({
   component: Component = 'button',
   color = '',

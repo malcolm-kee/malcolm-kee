@@ -3,12 +3,12 @@
 .label {
   display: block;
   padding-bottom: 8px;
-  color: $primary-color-light;
+  color: $text-color-light;
   text-align: left;
 }
 
 .field {
-  padding: $spacing-unit 0;
+  padding: $spacing-unit * 2 0 $spacing-unit;
   margin: $spacing-unit 0;
   position: relative;
 

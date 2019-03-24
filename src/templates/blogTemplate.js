@@ -100,9 +100,17 @@ export default function Template({
             />
           </article>
           <footer className="blog-post--actions">
-            <p>
-              <OutLink href={discussUrl}>Discuss on Twitter</OutLink>
-            </p>
+            <div>
+              <Button
+                color="primary"
+                raised
+                component={OutLink}
+                href={discussUrl}
+              >
+                Discuss on Twitter
+              </Button>
+              {/* <OutLink href={discussUrl}>Discuss on Twitter</OutLink> */}
+            </div>
           </footer>
         </main>
         <AdjacentArticles
@@ -110,16 +118,9 @@ export default function Template({
           next={pageContext.next}
         />
         <nav className="Toolbar">
-          <Button
-            color="primary"
-            component={Link}
-            to="/blog"
-            aria-label="all blogs"
-            title="all blogs"
-            raised
-          >
+          <Link className="link-primary" to="/blog">
             All Blogs
-          </Button>
+          </Link>
         </nav>
       </div>
     </div>

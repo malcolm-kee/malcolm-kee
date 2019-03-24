@@ -3,12 +3,7 @@
 .Header {
   background-color: $primary-color;
   margin: 0 auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
   min-height: 56px;
-  z-index: 1;
   transition-duration: 500ms;
   transition-timing-function: $timing-function-1;
   transition-property: min-height, background-color;
@@ -130,6 +125,19 @@
       .heading-container {
         top: $spacing-unit * 2;
       }
+    }
+  }
+
+  &-outer-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    clip-path: ellipse(100% 100% at 90% 0);
+
+    &-banner {
+      clip-path: none;
     }
   }
 }

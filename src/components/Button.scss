@@ -36,6 +36,13 @@
       color: $primary-color-dark;
     }
   }
+  &.secondary {
+    color: $secondary-color-dark;
+    border-color: transparent;
+    &:focus {
+      border-color: $secondary-color;
+    }
+  }
   &.raised {
     box-shadow: $box-shadow-2;
     border-width: 2px;
@@ -46,6 +53,17 @@
       background: $primary-color;
       &:hover {
         background: $primary-color-dark;
+      }
+      &:focus {
+        border-color: white;
+      }
+    }
+    &.secondary {
+      border-color: transparent;
+      color: #444;
+      background: $secondary-color;
+      &:hover {
+        background: $secondary-color-light;
       }
       &:focus {
         border-color: white;

@@ -132,7 +132,7 @@ html {
 }
 body {
   margin: 0;
-  background-color: #fff;
+  background-color: #fbfaef;
 }
 article,
 aside,
@@ -166,6 +166,7 @@ template {
   display: none;
 }
 a {
+  color: $primary-color;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
@@ -676,4 +677,12 @@ pre tt:after {
 
 .italic {
   font-style: italic;
+}
+
+@include link('.link-primary');
+
+.link-primary {
+  line-height: 1.5;
+  min-width: 100px;
+  text-align: center;
 }

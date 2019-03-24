@@ -1,6 +1,5 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import { Button } from '../components/Button';
 import { ContactForm } from '../components/ContactForm';
 import { LandingPageHeader } from '../components/LandingPageHeader';
 import { OutLink } from '../components/OutLink';
@@ -36,40 +35,37 @@ const IndexPage = () => (
       <LandingPageSection>
         <h2 className="text-right">Projects</h2>
         <div className="text-right">
-          <Button color="primary" raised component={Link} to="/projects">
-            See My Work
-          </Button>
+          <Link to="/projects" className="link-primary">
+            See My Works
+          </Link>
         </div>
       </LandingPageSection>
       <LandingPageSection>
         <h2>Writing</h2>
         <div>
-          <Button color="primary" raised component={Link} to="/blog">
+          <Link to="/blog" className="link-primary">
             Read Blog
-          </Button>
+          </Link>
         </div>
       </LandingPageSection>
       <LandingPageSection>
         <h2 className="text-right">Teaching</h2>
         <div className="text-right">
           <div>
-            <Button
-              raised
-              component={OutLink}
+            <OutLink
               href="https://intro-to-react-js.netlify.com/"
+              className="link-primary"
             >
               Intro to React
-            </Button>
+            </OutLink>
           </div>
           <div>
-            <Button
-              color="primary"
-              raised
-              component={OutLink}
+            <OutLink
               href="https://intro-to-react-js-v2.netlify.com/"
+              className="link-primary"
             >
               Intro to React v2
-            </Button>
+            </OutLink>
           </div>
         </div>
       </LandingPageSection>
