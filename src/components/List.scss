@@ -20,12 +20,22 @@
       padding: 1.5 * $spacing-unit 0;
     }
     &.button {
-      transition-delay: 100ms;
-      transition: background-color 300ms $timing-function;
+      transition-delay: 50ms;
+      transition-duration: 300ms;
+      transition-timing-function: $timing-function;
+      transition-property: background-color, transform;
+      transform: scale(1);
       -webkit-tap-highlight-color: transparent;
       &:hover {
         transition-delay: 0;
-        background-color: rgba(0, 0, 0, 0.08);
+        background-color: $background-color-dark;
+        transform: scale(1.02);
+
+        .List--ListItemText {
+          .primary {
+            color: $primary-color;
+          }
+        }
       }
       &:focus {
         outline: none;
@@ -54,6 +64,7 @@
       font-size: 1rem;
       line-height: 1.5em;
       color: $text-color;
+      transition: color 300ms $timing-function;
     }
     .secondary {
       font-family: $font-family;

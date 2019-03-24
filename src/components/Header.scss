@@ -6,7 +6,7 @@
   min-height: 56px;
   transition-duration: 500ms;
   transition-timing-function: $timing-function-1;
-  transition-property: min-height, background-color;
+  transition-property: background-color;
   @media (min-width: $media-mobile) {
     min-height: 92px;
   }
@@ -71,34 +71,11 @@
     }
   }
 
-  .hideable {
-    font-size: inherit;
-    transition: font-size 0.5s $timing-function-1;
-  }
-
-  &.shrink {
-    min-height: 48px;
-    .heading-container {
-      top: $spacing-unit;
-    }
-    .heading {
-      &:after {
-        width: 0.15rem;
-      }
-      h1 {
-        font-size: 1.2rem;
-        padding: $spacing-unit/2;
-      }
-    }
-    .hideable {
-      font-size: 0;
-    }
-  }
-
   &.Header--banner {
     background-color: inherit;
     color: $primary-color;
     pointer-events: none;
+
     .heading-container {
       @media (min-width: $media-tablet) {
         top: 180px;
@@ -107,6 +84,7 @@
     .heading {
       right: 50%;
       transform: translateX(50%);
+
       h1 {
         text-shadow: 0px 2px 10px #eee, 0px 2px 10px #ccc;
         @media (min-width: $media-tablet) {
@@ -120,16 +98,10 @@
         }
       }
     }
-
-    &.shrink {
-      .heading-container {
-        top: $spacing-unit * 2;
-      }
-    }
   }
 
   &-outer-container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
