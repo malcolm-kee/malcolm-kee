@@ -1,3 +1,5 @@
+import { isFunction } from 'typesafe-is';
+
 export function debounce(fn, wait) {
   var timeout;
 
@@ -39,4 +41,4 @@ export function getReadtimeText(readtime) {
 }
 
 export const callAll = (...fns) => (...args) =>
-  fns.forEach(fn => typeof fn === 'function' && fn(...args));
+  fns.forEach(fn => isFunction(fn) && fn(...args));

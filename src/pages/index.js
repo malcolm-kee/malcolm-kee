@@ -67,6 +67,14 @@ const IndexPage = () => (
               Intro to React v2
             </OutLink>
           </div>
+          <div>
+            <OutLink
+              href="https://intro-to-web-dev.netlify.com/"
+              className="link-primary"
+            >
+              Intro to Web Dev
+            </OutLink>
+          </div>
         </div>
       </LandingPageSection>
       <LandingPageSection>
