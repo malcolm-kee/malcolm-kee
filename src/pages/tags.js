@@ -6,12 +6,17 @@ import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import './tags.scss';
 
+const getItemClassName = count =>
+  count >= 4 ? 'tag-count-4' : `tag-count-${count}`;
+
+const randomSort = () => (Math.random() > 0.5 ? -1 : 1);
+
 const TagsPage = ({
   data: {
     allMarkdownRemark: { group }
   }
 }) => (
-  <div className="TagPage">
+  <div className="TagPage main-content">
     <Helmet>
       <title>Tags</title>
     </Helmet>
@@ -22,12 +27,13 @@ const TagsPage = ({
       <List>
         {[]
           .concat(group)
-          .sort((a, b) => b.totalCount - a.totalCount)
+          .sort(randomSort)
           .map(tag => (
             <ListItem
               component={Link}
               to={`/tags/${kebabCase(tag.fieldValue)}/`}
               key={tag.fieldValue}
+              className={getItemClassName(tag.totalCount)}
               button
             >
               <ListItemText

@@ -2,7 +2,6 @@ import { graphql, Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Button } from '../components/Button';
 import { List, ListItem, ListItemText } from '../components/List';
 
 function Tags({ data, pageContext }) {
@@ -31,9 +30,9 @@ function Tags({ data, pageContext }) {
           ))}
         </List>
         <div className="Toolbar">
-          <Button color="primary" component={Link} to="/tags" raised>
+          <Link to="/tags" className="link-primary">
             All Tags
-          </Button>
+          </Link>
         </div>
       </div>
     </main>
@@ -42,7 +41,7 @@ function Tags({ data, pageContext }) {
 
 Tags.propTypes = {
   pageContext: PropTypes.shape({
-    tag: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired
   }),
   data: PropTypes.shape({
     allMarkdownRemark: PropTypes.shape({
@@ -53,13 +52,13 @@ Tags.propTypes = {
             frontmatter: PropTypes.shape({
               path: PropTypes.string.isRequired,
               title: PropTypes.string.isRequired,
-              summary: PropTypes.string.isRequired,
-            }),
-          }),
+              summary: PropTypes.string.isRequired
+            })
+          })
         }).isRequired
-      ),
-    }),
-  }),
+      )
+    })
+  })
 };
 
 export default Tags;
