@@ -88,7 +88,8 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
     border-bottom-width: 2px;
     transition-duration: 500ms;
     transition-timing-function: ease-in-out;
-    transition-property: border-bottom-color, color;
+    transition-property: border-bottom-color, color, transform,
+      $background-color;
   }
   #{$selector}:hover {
     color: $primary-color;

@@ -682,7 +682,18 @@ pre tt:after {
 @include link('.link-primary');
 
 .link-primary {
+  display: inline-block;
   line-height: 1.5;
   min-width: 100px;
   text-align: center;
+  margin: $spacing-unit 0;
+  padding: $spacing-unit / 2 $spacing-unit;
+  transform: scale(1);
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: $spacing-unit / 2 $spacing-unit / 2 0 0;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.1);
+  }
 }
