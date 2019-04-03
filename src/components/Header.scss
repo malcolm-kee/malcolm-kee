@@ -30,8 +30,11 @@
     transform: translateX(0);
     transition-timing-function: $timing-function-1;
     transition-property: right, transform;
-    @media (min-width: $media-mobile) {
+    @media (min-width: $media-tablet) {
       right: $spacing-unit * 4;
+    }
+    @media (min-width: $media-desktop) {
+      right: $spacing-unit * 8;
     }
     h1 {
       margin: 0;
@@ -82,11 +85,15 @@
       }
     }
     .heading {
-      right: 50%;
-      transform: translateX(50%);
+      right: 53%;
+
+      @media (min-width: $media-tablet) {
+        right: 50%;
+        transform: translateX(50%);
+      }
 
       h1 {
-        text-shadow: 0px 2px 10px #eee, 0px 2px 10px #ccc;
+        text-shadow: 0px 2px 10px #222, 0px 2px 10px #444;
         @media (min-width: $media-tablet) {
           font-size: 4rem;
         }
