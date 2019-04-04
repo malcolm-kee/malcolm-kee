@@ -65,7 +65,9 @@
       }
     }
 
-    @supports not (background-attachment: fixed) {
+    @media (max-width: $media-mobile) {
+      // background-attachment is disabled in mobile due to performance issue
+      // for that let's just disable the smaller bg
       &::before {
         content: none !important;
       }
