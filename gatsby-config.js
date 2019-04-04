@@ -57,7 +57,7 @@ module.exports = {
         display: 'standalone',
         background_color: 'white',
         theme_color: '#e44d26',
-        icon: 'src/assets/icon.png'
+        icon: 'src/assets/new-icon.png'
       }
     },
     {
