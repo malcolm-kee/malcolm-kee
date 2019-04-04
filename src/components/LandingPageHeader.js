@@ -6,7 +6,7 @@ import './LandingPageHeader.scss';
 export const LandingPageHeader = () => {
   const data = useStaticQuery(graphql`
     query {
-      desktop: file(relativePath: { eq: "malcolm-kee.jpg" }) {
+      background: file(relativePath: { eq: "malcolm-kee.jpg" }) {
         childImageSharp {
           fluid(quality: 100, maxWidth: 2000) {
             ...GatsbyImageSharpFluid_withWebp
@@ -16,7 +16,7 @@ export const LandingPageHeader = () => {
     }
   `);
 
-  const imageData = data.desktop.childImageSharp.fluid;
+  const imageData = data.background.childImageSharp.fluid;
 
   return (
     <BackgroundImg
@@ -26,7 +26,12 @@ export const LandingPageHeader = () => {
       backgroundColor="#2a1e12"
     >
       <div className="landing-page-header-content">
-        <ul className="landing-page-header-subtitle">
+        <BackgroundImg
+          tag="ul"
+          className="landing-page-header-subtitle"
+          fluid={imageData}
+          backgroundColor="#2a1e12"
+        >
           <li>
             <span>Frontend Engineer</span>
           </li>
@@ -36,7 +41,7 @@ export const LandingPageHeader = () => {
           <li>
             <span>Open Source Contributor</span>
           </li>
-        </ul>
+        </BackgroundImg>
       </div>
     </BackgroundImg>
   );
