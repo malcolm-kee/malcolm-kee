@@ -85,7 +85,8 @@
       }
     }
     .heading {
-      right: 53%;
+      right: 100%;
+      transform: translateX(105%);
 
       @media (min-width: $media-tablet) {
         right: 50%;
