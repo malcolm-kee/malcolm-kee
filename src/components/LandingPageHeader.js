@@ -8,7 +8,7 @@ export const LandingPageHeader = () => {
     query {
       desktop: file(relativePath: { eq: "malcolm-kee.jpg" }) {
         childImageSharp {
-          fluid(quality: 100, maxWidth: 4160) {
+          fluid(quality: 100, maxWidth: 2000) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }
