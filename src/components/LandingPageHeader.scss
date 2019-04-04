@@ -65,6 +65,15 @@
       }
     }
 
+    @supports not (background-attachment: fixed) {
+      &::before {
+        content: none !important;
+      }
+      &::after {
+        content: none !important;
+      }
+    }
+
     li {
       list-style-type: none;
       padding: $spacing-unit * 2;
