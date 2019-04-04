@@ -18,11 +18,54 @@
         margin-bottom: $spacing-unit * 2;
       }
     }
+    &-group {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: $media-mobile) {
+      &-group {
+        display: flex;
+      }
+
+      &-group &-content,
+      &-group &-content .text-right {
+        text-align: center;
+      }
+    }
   }
 
   &-form-container {
     max-width: 500px;
     text-align: center;
     margin: 0 auto;
+    padding: $spacing-unit * 2;
+    color: white;
+    text-shadow: 0px 1px 5px #222, 0px 1px 5px #333;
+
+    &::before {
+      filter: blur(12px);
+      margin: -30px;
+      top: 30px !important;
+      left: 30px !important;
+    }
+
+    .form-control,
+    .label {
+      color: inherit;
+    }
+
+    .form-control {
+      &:focus {
+        color: $primary-color-light;
+        border-bottom: 2px solid $primary-color-light;
+      }
+    }
+
+    .field--focused {
+      label {
+        color: $primary-color-light;
+      }
+    }
   }
 }

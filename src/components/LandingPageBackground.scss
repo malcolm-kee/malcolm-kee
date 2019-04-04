@@ -1,0 +1,7 @@
+@import '../constants/variable';
+
+.landing-page-background {
+  &::before {
+    background-attachment: fixed;
+  }
+}

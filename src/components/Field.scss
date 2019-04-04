@@ -55,3 +55,7 @@
     box-shadow: none;
   }
 }
+
+textarea.form-control {
+  resize: vertical;
+}

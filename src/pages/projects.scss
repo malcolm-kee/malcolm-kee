@@ -5,7 +5,7 @@
     .card--content {
       @include link(a);
     }
-    margin: $spacing-unit 0;
+    margin: $spacing-unit 0 $spacing-unit * 2;
     h2 {
       margin-bottom: $spacing-unit;
     }

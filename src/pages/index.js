@@ -1,6 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import { ContactForm } from '../components/ContactForm';
+import { LandingPageBackground } from '../components/LandingPageBackground';
 import { LandingPageHeader } from '../components/LandingPageHeader';
 import { OutLink } from '../components/OutLink';
 import { SiteMetadata } from '../components/SiteMetadata';
@@ -32,57 +33,59 @@ const IndexPage = () => (
         </Typography>
         <Typography>He is currently learning to play guitar.</Typography>
       </LandingPageSection>
-      <LandingPageSection>
-        <h2 className="text-right">Projects</h2>
-        <div className="text-right">
-          <Link to="/projects" className="link-primary">
-            See My Works
-          </Link>
-        </div>
-      </LandingPageSection>
-      <LandingPageSection>
-        <h2>Writing</h2>
-        <div>
-          <Link to="/blog" className="link-primary">
-            Read Blog
-          </Link>
-        </div>
-      </LandingPageSection>
-      <LandingPageSection>
-        <h2 className="text-right">Teaching</h2>
-        <div className="text-right">
-          <div>
-            <OutLink
-              href="https://intro-to-react-js.netlify.com/"
-              className="link-primary"
-            >
-              Intro to React
-            </OutLink>
+      <div className="landing-page-section-group">
+        <LandingPageSection>
+          <h2 className="text-right">Projects</h2>
+          <div className="text-right">
+            <Link to="/projects" className="link-primary">
+              See My Works
+            </Link>
           </div>
+        </LandingPageSection>
+        <LandingPageSection>
+          <h2>Writing</h2>
           <div>
-            <OutLink
-              href="https://intro-to-react-js-v2.netlify.com/"
-              className="link-primary"
-            >
-              Intro to React v2
-            </OutLink>
+            <Link to="/blog" className="link-primary">
+              Read Blog
+            </Link>
           </div>
-          <div>
-            <OutLink
-              href="https://intro-to-web-dev.netlify.com/"
-              className="link-primary"
-            >
-              Intro to Web Dev
-            </OutLink>
+        </LandingPageSection>
+        <LandingPageSection>
+          <h2 className="text-right">Teaching</h2>
+          <div className="text-right">
+            <div>
+              <OutLink
+                href="https://intro-to-react-js.netlify.com/"
+                className="link-primary"
+              >
+                Intro to React
+              </OutLink>
+            </div>
+            <div>
+              <OutLink
+                href="https://intro-to-react-js-v2.netlify.com/"
+                className="link-primary"
+              >
+                Intro to React v2
+              </OutLink>
+            </div>
+            <div>
+              <OutLink
+                href="https://intro-to-web-dev.netlify.com/"
+                className="link-primary"
+              >
+                Intro to Web Dev
+              </OutLink>
+            </div>
           </div>
-        </div>
-      </LandingPageSection>
-      <LandingPageSection>
-        <h2 className="text-center">Contact Me</h2>
-        <div className="landing-page-form-container">
+        </LandingPageSection>
+      </div>
+      <LandingPageBackground Tag="section">
+        <LandingPageBackground className="landing-page-form-container">
+          <h2 className="text-center">Contact Me</h2>
           <ContactForm />
-        </div>
-      </LandingPageSection>
+        </LandingPageBackground>
+      </LandingPageBackground>
     </div>
   </div>
 );
