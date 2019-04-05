@@ -3,7 +3,8 @@
 .label {
   display: block;
   padding-bottom: 8px;
-  color: $text-color-light;
+  color: $text-light-pale;
+  color: var(--text-pale);
   text-align: left;
 }
 

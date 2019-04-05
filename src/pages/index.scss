@@ -2,8 +2,8 @@
 
 .landing-page {
   &-content {
-    background-color: #fbfaef;
-    background-image: linear-gradient(#fbfaef, #eee);
+    background-color: $bg-color-light;
+    background-color: var(--bg);
   }
 
   &-section {

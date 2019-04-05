@@ -98,13 +98,12 @@ figure,
 footer,
 header,
 hgroup,
+main,
 menu,
 nav,
-section {
+section,
+summary {
   display: block;
-}
-body {
-  line-height: 1;
 }
 blockquote,
 q {
@@ -120,33 +119,6 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-
-html {
-  font-family: $font-family;
-  font-display: swap;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  background-color: $primary-color;
-}
-body {
-  margin: 0;
-  background-color: $background-color;
-}
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-main,
-menu,
-nav,
-section,
-summary {
-  display: block;
 }
 audio,
 canvas,
@@ -166,13 +138,14 @@ template {
   display: none;
 }
 a {
-  color: $primary-color;
+  color: $link-light;
+  color: var(--link);
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
-}
-a:active,
-a:hover {
-  outline-width: 0;
+  &:active,
+  &:hover {
+    outline-width: 0;
+  }
 }
 abbr[title] {
   border-bottom: none;
@@ -186,10 +159,6 @@ strong {
 }
 dfn {
   font-style: italic;
-}
-mark {
-  background-color: #ff0;
-  color: #000;
 }
 small {
   font-size: 80%;
@@ -307,25 +276,28 @@ textarea {
   -webkit-appearance: button;
   font: inherit;
 }
-html {
-  height: 100%;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 html {
+  font-family: $font-family;
+  font-display: swap;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background-color: $primary-color;
+  height: 100%;
   font: 112.5%/1.45em georgia, serif;
   box-sizing: border-box;
   overflow-y: scroll;
 }
-* {
-  box-sizing: inherit;
-}
-*:before {
-  box-sizing: inherit;
-}
-*:after {
-  box-sizing: inherit;
-}
 body {
-  color: hsla(0, 0%, 0%, 0.8);
+  margin: 0;
+  line-height: 1;
+  background-color: $bg-color-light;
+  color: $text-light;
   font-family: $font-family;
   font-weight: normal;
   word-wrap: break-word;
@@ -334,11 +306,31 @@ body {
   -ms-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+  transition: background-color 200ms ease-in-out;
+  &.light {
+    background-color: $bg-color-light;
+    color: $text-light;
+    --bg: #{$bg-color-light};
+    --bg-pale: #{$bg-color-light-pale};
+    --text: #{$text-light};
+    --text-pale: #{$text-light-pale};
+    --link: #{$link-light};
+  }
+  &.dark {
+    background-color: $bg-color-dark;
+    color: $text-dark;
+    --bg: #{$bg-color-dark};
+    --bg-pale: #{$bg-color-dark-pale};
+    --text: #{$text-dark};
+    --text-pale: #{$text-dark-pale};
+    --link: #{$link-dark};
+  }
 }
 h1 {
   padding: $spacing-unit / 2 $spacing-unit * 2;
   font-family: $font-family;
-  color: $text-color-light;
+  color: $text-light-pale;
+  color: var(--text-pale);
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 2.25rem;

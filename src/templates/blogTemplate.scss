@@ -45,7 +45,8 @@
     font-weight: 400;
     line-height: 1.375em;
     margin-bottom: $spacing-unit;
-    color: $text-color-light;
+    color: $text-light-pale;
+    color: var(--text-pale);
     a {
       text-decoration: none;
       color: inherit;
@@ -64,7 +65,8 @@
     }
   }
   &--summary {
-    color: $text-color;
+    color: $text-light;
+    color: var(--text);
     padding: $spacing-unit * 2;
     border-bottom: 1px solid $grey-300;
     p {
@@ -129,7 +131,8 @@
     li {
       font-weight: 400;
       line-height: 1.6em;
-      color: rgba(0, 0, 0, 0.87);
+      color: $text-light;
+      color: var(--text);
     }
     hr {
       margin: 2em 0 0;
@@ -141,13 +144,15 @@
       border-radius: $spacing-unit;
       margin: 2em $spacing-unit;
       padding: $spacing-unit;
-      background: $grey-200;
+      background-color: $bg-color-light-pale;
+      background-color: var(--bg-pale);
       position: relative;
       &::before {
         content: '\275d';
         position: absolute;
         font-size: 1.6rem;
-        color: $text-color-light;
+        color: $text-light-pale;
+        color: var(--text-pale);
       }
       &::after {
         content: '\275e';
@@ -155,7 +160,8 @@
         right: $spacing-unit;
         bottom: $spacing-unit;
         font-size: 1.6rem;
-        color: $text-color-light;
+        color: $text-light-pale;
+        color: var(--text-pale);
       }
       > p {
         position: relative;
@@ -172,6 +178,9 @@
   }
   &--actions {
     padding: $spacing-unit * 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   &--content,
   &--actions {
@@ -183,7 +192,7 @@
       text-decoration: none;
       border-bottom-color: transparent;
       border-bottom-style: solid;
-      border-bottom-width: 2px;
+      border-bottom-width: 1px;
       transition-duration: 500ms;
       transition-timing-function: ease-in-out;
       transition-property: border-bottom-color, color;
@@ -219,5 +228,11 @@
       white-space: nowrap;
       text-overflow: ellipsis;
     }
+  }
+}
+
+body.dark .blog-post {
+  img.gatsby-resp-image-image {
+    filter: brightness(0.7);
   }
 }

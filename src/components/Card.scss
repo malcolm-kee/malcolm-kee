@@ -11,4 +11,9 @@
   &--actions {
     padding: $spacing-unit * 2;
   }
+
+  color: $text-light;
+  h2 {
+    color: $text-light-pale;
+  }
 }

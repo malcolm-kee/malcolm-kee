@@ -1,3 +1,4 @@
+// light theme
 $primary-color: #e44d26;
 $primary-color-light: #ff7f52;
 $primary-color-dark: #aa1100;
@@ -7,15 +8,22 @@ $secondary-color-dark: #00b178;
 $grey-200: #eeeeee;
 $grey-300: #e0e0e0;
 $grey-400: #bdbdbd;
-$background-color: #fbfaef;
-$background-color-dark: rgba(228, 224, 205, 0.5);
+$bg-color-light: #fbfaef;
+$bg-color-light-pale: rgba(228, 224, 205, 0.5);
+$text-light: rgba(0, 0, 0, 0.87);
+$text-light-pale: rgba(0, 0, 0, 0.54);
+$link-light: $primary-color;
+
+// dark theme
+$bg-color-dark: #282c35;
+$bg-color-dark-pale: #232323;
+$text-dark: rgba(255, 255, 255, 0.88);
+$text-dark-pale: #fff;
+$link-dark: $secondary-color;
 
 $spacing-unit: 8px;
 $font-family: 'Roboto', 'Helvetica', 'Arial', 'Microsoft Yahei', '微软雅黑',
   STXihei, '华文细黑', sans-serif;
-
-$text-color: rgba(0, 0, 0, 0.87);
-$text-color-light: rgba(0, 0, 0, 0.54);
 
 $timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 $timing-function-1: cubic-bezier(0.61, 0, 0.2, 1);
@@ -85,14 +93,15 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
     text-decoration: none;
     border-bottom-color: transparent;
     border-bottom-style: solid;
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
     transition-duration: 500ms;
     transition-timing-function: ease-in-out;
-    transition-property: border-bottom-color, color, transform,
-      $background-color;
+    transition-property: border-bottom-color, color, transform, background-color;
   }
   #{$selector}:hover {
-    color: $primary-color;
-    border-bottom-color: $primary-color-light;
+    color: $link-light;
+    color: var(--link);
+    border-bottom-color: $link-light;
+    border-bottom-color: var(--link);
   }
 }

@@ -3,6 +3,8 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import { getReadtimeText } from '../helper';
+import { ThemeToggle } from '../components/theme-toggle';
+import './blog.scss';
 
 const BlogPage = ({ data }) => {
   const { posts } = data.allMarkdownRemark;
@@ -13,7 +15,10 @@ const BlogPage = ({ data }) => {
         <title>Blogs - Malcolm Kee</title>
       </Helmet>
       <main>
-        <h1>Recent Blogs</h1>
+        <div className="blog-list-title-container">
+          <h1>Recent Blogs</h1>
+          <ThemeToggle />
+        </div>
         <List>
           {posts.map(({ node: post }) => (
             <ListItem

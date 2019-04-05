@@ -4,6 +4,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
 import { OutLink } from '../components/OutLink';
+import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
 import './blogTemplate.scss';
 
@@ -100,17 +101,15 @@ export default function Template({
             />
           </article>
           <footer className="blog-post--actions">
-            <div>
-              <Button
-                color="primary"
-                raised
-                component={OutLink}
-                href={discussUrl}
-              >
-                Discuss on Twitter
-              </Button>
-              {/* <OutLink href={discussUrl}>Discuss on Twitter</OutLink> */}
-            </div>
+            <Button
+              color="primary"
+              raised
+              component={OutLink}
+              href={discussUrl}
+            >
+              Discuss on Twitter
+            </Button>
+            <ThemeToggle />
           </footer>
         </main>
         <AdjacentArticles

@@ -28,18 +28,21 @@
       -webkit-tap-highlight-color: transparent;
       &:hover {
         transition-delay: 0;
-        background-color: $background-color-dark;
+        background-color: $bg-color-light-pale;
+        background-color: var(--bg-pale);
         transform: scale(1.02);
 
         .List--ListItemText {
           .primary {
-            color: $primary-color;
+            color: $link-light;
+            color: var(--link);
           }
         }
       }
       &:focus {
         outline: none;
-        border-color: $primary-color;
+        border-color: $link-light;
+        border-color: var(--link);
       }
       &:active {
         box-shadow: $box-shadow-5;
@@ -63,21 +66,24 @@
       font-family: $font-family;
       font-size: 1rem;
       line-height: 1.5em;
-      color: $text-color;
+      color: $text-light;
+      color: var(--text);
       transition: color 300ms $timing-function;
     }
     .secondary {
       font-family: $font-family;
       font-size: 0.875rem;
       line-height: 1.4em;
-      color: $text-color;
+      color: $text-light;
+      color: var(--text);
       text-align: justify;
     }
     .tertiary {
       font-family: $font-family;
       font-size: 0.75rem;
       line-height: 1.375em;
-      color: $text-color-light;
+      color: $text-light-pale;
+      color: var(--text-pale);
       text-align: justify;
     }
   }

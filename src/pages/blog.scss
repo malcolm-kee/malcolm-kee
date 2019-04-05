@@ -1,0 +1,15 @@
+@import '../constants/variable';
+
+.blog-list-title-container {
+  display: flex;
+
+  h1 {
+    flex: 1;
+  }
+
+  @media screen and (max-width: $media-mobile) {
+    .theme-toggle {
+      display: none;
+    }
+  }
+}

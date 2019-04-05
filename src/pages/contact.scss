@@ -30,7 +30,8 @@
       max-width: 3.8em;
       margin-left: auto;
       text-align: right;
-      color: $text-color-light;
+      color: $text-light-pale;
+      color: var(--text-pale);
       &::after {
         content: '';
         display: inline-block;
