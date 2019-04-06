@@ -10,6 +10,7 @@ import vueAppImg from '../assets/vue-movie-app.gif';
 import wizardFormImg from '../assets/wizard-form.gif';
 import { Button } from '../components/Button';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
+import { ThemeToggle } from '../components/theme-toggle';
 import { OutLink } from '../components/OutLink';
 import './projects.scss';
 
@@ -20,7 +21,10 @@ const ProjectPage = () => (
     </Helmet>
     <div className="main-content">
       <main>
-        <h1>Past Projects</h1>
+        <div className="ProjectPage-title-container">
+          <h1>Past Projects</h1>
+          <ThemeToggle />
+        </div>
         <div className="ProjectPage--project-container">
           <Card className="ProjectPage--project">
             <div>

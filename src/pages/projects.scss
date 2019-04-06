@@ -1,6 +1,20 @@
 @import '../constants/variable';
 
 .ProjectPage {
+  &-title-container {
+    display: flex;
+
+    h1 {
+      flex: 1;
+    }
+
+    @media screen and (max-width: $media-mobile) {
+      .theme-toggle {
+        display: none;
+      }
+    }
+  }
+
   &--project {
     .card--content {
       @include link(a);
@@ -41,6 +55,9 @@
     text-align: center;
     border-top: 1px solid $grey-300;
     padding: $spacing-unit 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     > img {
       max-width: 100%;
     }
@@ -67,6 +84,16 @@
     &--demo-image {
       width: 300px;
       min-width: 300px;
+    }
+  }
+}
+
+body.dark {
+  .ProjectPage {
+    &--demo-image {
+      > img {
+        @include darkenImg();
+      }
     }
   }
 }

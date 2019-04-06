@@ -18,7 +18,7 @@ $link-light: $primary-color;
 $bg-color-dark: #282c35;
 $bg-color-dark-pale: #232323;
 $text-dark: rgba(255, 255, 255, 0.88);
-$text-dark-pale: #fff;
+$text-dark-pale: rgba(255, 255, 255, 0.6);
 $link-dark: $secondary-color;
 
 $spacing-unit: 8px;
@@ -104,4 +104,8 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
     border-bottom-color: $link-light;
     border-bottom-color: var(--link);
   }
+}
+
+@mixin darkenImg() {
+  filter: brightness(0.8);
 }

@@ -233,6 +233,6 @@
 
 body.dark .blog-post {
   img.gatsby-resp-image-image {
-    filter: brightness(0.7);
+    @include darkenImg();
   }
 }

@@ -1,18 +1,17 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import { Button } from '../components/Button';
 import { Typography } from '../components/Typography';
 
 const MessageReceived = () => (
-  <main className="main-content">
-    <h1>Thank You</h1>
+  <main className="main-content text-center">
+    <h1>Thank You!</h1>
     <Typography>I've received your message.</Typography>
     <Typography>You will receive my response soon!</Typography>
-    <div className="Toolbar">
-      <Button component={Link} to="/" color="primary" raised>
+    <nav className="Toolbar center">
+      <Link to="/" className="link-primary">
         Home
-      </Button>
-    </div>
+      </Link>
+    </nav>
   </main>
 );
 

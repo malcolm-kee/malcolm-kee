@@ -2,6 +2,7 @@
 
 .card {
   background: white;
+  background: var(--bg-absolute);
   box-shadow: $box-shadow-2;
 
   &--content {
@@ -13,7 +14,9 @@
   }
 
   color: $text-light;
+  color: var(--text);
   h2 {
     color: $text-light-pale;
+    color: var(--text-pale);
   }
 }

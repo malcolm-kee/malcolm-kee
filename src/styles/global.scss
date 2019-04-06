@@ -312,6 +312,7 @@ body {
     color: $text-light;
     --bg: #{$bg-color-light};
     --bg-pale: #{$bg-color-light-pale};
+    --bg-absolute: white;
     --text: #{$text-light};
     --text-pale: #{$text-light-pale};
     --link: #{$link-light};
@@ -321,6 +322,7 @@ body {
     color: $text-dark;
     --bg: #{$bg-color-dark};
     --bg-pale: #{$bg-color-dark-pale};
+    --bg-absolute: black;
     --text: #{$text-dark};
     --text-pale: #{$text-dark-pale};
     --link: #{$link-dark};
