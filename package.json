@@ -50,12 +50,13 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run dev",
-    "build": "gatsby build",
+    "build:site": "gatsby build",
     "dev": "gatsby develop",
     "serve": "gatsby serve",
     "format": "prettier --write 'src/**/*.js'",
     "build:lambda": "netlify-lambda build lambda",
-    "serve:lambda": "netlify-lambda serve lambda"
+    "serve:lambda": "netlify-lambda serve lambda",
+    "build": "gatsby build && netlify-lambda build lambda"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.3.3",
@@ -66,10 +67,6 @@
     "prop-types": "^15.6.1",
     "typescript": "^3.4.2"
   },
-  "browserslist": [
-    ">1%",
-    "last 4 versions",
-    "not ie < 9"
-  ],
+  "browserslist": [">1%", "last 4 versions", "not ie < 9"],
   "homepage": "https://malcolmkee.com/"
 }
