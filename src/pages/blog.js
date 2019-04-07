@@ -1,17 +1,18 @@
 import { graphql, Link } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { OutLink } from '../components/OutLink';
 import { List, ListItem, ListItemText } from '../components/List';
-import { getReadtimeText } from '../helper';
+import { MainContent } from '../components/main-content';
+import { OutLink } from '../components/OutLink';
 import { ThemeToggle } from '../components/theme-toggle';
+import { getReadtimeText } from '../helper';
 import './blog.scss';
 
 const BlogPage = ({ data }) => {
   const { posts } = data.allMarkdownRemark;
 
   return (
-    <div className="main-content">
+    <MainContent as="div">
       <Helmet>
         <title>Blogs - Malcolm Kee</title>
       </Helmet>
@@ -62,7 +63,7 @@ const BlogPage = ({ data }) => {
           RSS
         </OutLink>
       </nav>
-    </div>
+    </MainContent>
   );
 };
 

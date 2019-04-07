@@ -3,10 +3,11 @@ import kebabCase from 'lodash/kebabCase';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
+import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
-import './blogTemplate.scss';
+import './blog-template.scss';
 
 function AdjacentArticles({ previous, next }) {
   return (
@@ -48,7 +49,7 @@ export default function Template({
   const hasSummary = !!summary && summary.length > 0;
 
   return (
-    <div className="main-content">
+    <MainContent as="div">
       <div className="blog-post-container">
         <Helmet>
           <title>{title} - Malcolm Kee's blog</title>
@@ -125,7 +126,7 @@ export default function Template({
           </OutLink>
         </nav>
       </div>
-    </div>
+    </MainContent>
   );
 }
 

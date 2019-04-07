@@ -1,8 +1,9 @@
 import { Link } from 'gatsby';
 import React from 'react';
+import { MainContent } from '../components/main-content';
 
 const NotFoundPage = () => (
-  <main className="main-content">
+  <MainContent>
     <div className="text-center">
       <h1>NOT FOUND</h1>
       <div>
@@ -14,7 +15,7 @@ const NotFoundPage = () => (
         </nav>
       </div>
     </div>
-  </main>
+  </MainContent>
 );
 
 export default NotFoundPage;

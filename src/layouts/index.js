@@ -5,12 +5,6 @@ import { ThemeProvider } from '../theme';
 const LayoutContainer = ({ children, pageContext }) => {
   const [theme, setTheme] = React.useState(null);
 
-  function toggle() {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    window.__setPreferredTheme(newTheme);
-  }
-
   React.useEffect(() => {
     if (theme !== window.__theme) {
       setTheme(window.__theme);
@@ -22,7 +16,11 @@ const LayoutContainer = ({ children, pageContext }) => {
 
   const themeValue = React.useMemo(
     () => ({
-      toggle,
+      toggle: function() {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        window.__setPreferredTheme(newTheme);
+      },
       value: theme
     }),
     [theme]

@@ -1,0 +1,21 @@
+@import '../constants/variable';
+
+.main-content {
+  margin: 0 $spacing-unit;
+  max-width: 960px;
+  min-width: 80%;
+  min-height: 100vh;
+  flex: 1;
+  overflow: auto;
+  padding-top: calc(1.5rem + #{$spacing-unit} * 6);
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: $spacing-unit * 3;
+  @media (min-width: $media-mobile) {
+    padding-top: calc(2.25rem + #{$spacing-unit} * 7);
+    padding-left: $spacing-unit * 3;
+    padding-right: $spacing-unit * 3;
+    margin: 0 auto;
+    min-width: 80%;
+  }
+}

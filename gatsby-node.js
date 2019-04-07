@@ -1,8 +1,8 @@
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
 const _ = require('lodash');
-const blogPostTemplate = path.resolve(`src/templates/blogTemplate.js`);
-const tagTemplate = path.resolve(`src/templates/tagTemplate.js`);
+const blogPostTemplate = path.resolve('src/templates/blog-template.jsx');
+const tagTemplate = path.resolve('src/templates/tag-template.jsx');
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
@@ -84,6 +84,7 @@ exports.onCreatePage = ({ page, actions }) => {
   }
 };
 
+// this method is added for `gatsby-plugin-feed`, but not really sure how it works :|
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 

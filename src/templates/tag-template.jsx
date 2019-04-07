@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
+import { MainContent } from '../components/main-content';
 
-function Tags({ data, pageContext }) {
+function BlogsWithTag({ data, pageContext }) {
   const { tag } = pageContext;
   const { edges: posts, totalCount } = data.allMarkdownRemark;
   const tagTitle = `${totalCount} post${
@@ -12,7 +13,7 @@ function Tags({ data, pageContext }) {
   } tagged with "${tag}"`;
 
   return (
-    <main className="main-content">
+    <MainContent>
       <div>
         <Helmet>
           <title>Tag - {tag}</title>
@@ -35,11 +36,11 @@ function Tags({ data, pageContext }) {
           </Link>
         </div>
       </div>
-    </main>
+    </MainContent>
   );
 }
 
-Tags.propTypes = {
+BlogsWithTag.propTypes = {
   pageContext: PropTypes.shape({
     tag: PropTypes.string.isRequired
   }),
@@ -61,7 +62,7 @@ Tags.propTypes = {
   })
 };
 
-export default Tags;
+export default BlogsWithTag;
 
 export const pageQuery = graphql`
   query TagPage($tag: String) {

@@ -1,9 +1,10 @@
 import { Link } from 'gatsby';
 import React from 'react';
+import { MainContent } from '../components/main-content';
 import { Typography } from '../components/Typography';
 
 const MessageReceived = () => (
-  <main className="main-content text-center">
+  <MainContent className="text-center">
     <h1>Thank You!</h1>
     <Typography>I've received your message.</Typography>
     <Typography>You will receive my response soon!</Typography>
@@ -12,7 +13,7 @@ const MessageReceived = () => (
         Home
       </Link>
     </nav>
-  </main>
+  </MainContent>
 );
 
 export default MessageReceived;

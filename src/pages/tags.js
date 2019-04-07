@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
+import { MainContent } from '../components/main-content';
 import './tags.scss';
 
 const getItemClassName = count =>
@@ -16,7 +17,7 @@ const TagsPage = ({
     allMarkdownRemark: { group }
   }
 }) => (
-  <div className="TagPage main-content">
+  <MainContent className="TagPage">
     <Helmet>
       <title>Tags</title>
     </Helmet>
@@ -54,7 +55,7 @@ const TagsPage = ({
         </Link>
       </div>
     </div>
-  </div>
+  </MainContent>
 );
 
 TagsPage.propTypes = {
