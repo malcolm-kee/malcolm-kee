@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Malcolm Kee <malcolm.keeweesiong@gmail.com>",
   "dependencies": {
+    "@types/request-promise-native": "^1.0.15",
     "gatsby": "^2.1.18",
     "gatsby-background-image": "^0.2.8-beta",
     "gatsby-image": "^2.0.15",
@@ -38,6 +39,8 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-helmet": "^5.2.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
     "typesafe-is": "^1.1.1"
   },
   "keywords": [
@@ -55,7 +58,7 @@
     "serve": "gatsby serve",
     "format": "prettier --write 'src/**/*.js'",
     "build:lambda": "netlify-lambda build lambda",
-    "serve:lambda": "netlify-lambda serve lambda",
+    "serve:lambda": "netlify-lambda serve lambda --config ./webpack.functions.js",
     "build": "gatsby build && netlify-lambda build lambda"
   },
   "devDependencies": {
@@ -63,10 +66,15 @@
     "@types/aws-lambda": "^8.10.23",
     "@types/node": "^11.13.0",
     "@types/react": "^16.8.5",
+    "dotenv-webpack": "^1.7.0",
     "prettier": "^1.12.0",
     "prop-types": "^15.6.1",
     "typescript": "^3.4.2"
   },
-  "browserslist": [">1%", "last 4 versions", "not ie < 9"],
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "not ie < 9"
+  ],
   "homepage": "https://malcolmkee.com/"
 }

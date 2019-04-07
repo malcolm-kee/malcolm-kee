@@ -3,6 +3,9 @@
 node_modules
 yarn-error.log
 
+# Secrets
+.env
+
 # Build directory
 /public
 .DS_Store
