@@ -1,6 +1,7 @@
 import { graphql, Link } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
+import { OutLink } from '../components/OutLink';
 import { List, ListItem, ListItemText } from '../components/List';
 import { getReadtimeText } from '../helper';
 import { ThemeToggle } from '../components/theme-toggle';
@@ -48,13 +49,18 @@ const BlogPage = ({ data }) => {
           ))}
         </List>
       </main>
-      <nav className="Toolbar">
-        <Link to="/" className="link-primary">
-          Home
-        </Link>
-        <Link to="/tags" className="link-primary">
-          All tags
-        </Link>
+      <nav className="Toolbar space-between">
+        <span>
+          <Link to="/" className="link-primary">
+            Home
+          </Link>
+          <Link to="/tags" className="link-primary">
+            All tags
+          </Link>
+        </span>
+        <OutLink href="/rss.xml" className="link-primary">
+          RSS
+        </OutLink>
       </nav>
     </div>
   );

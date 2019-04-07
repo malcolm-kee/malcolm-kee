@@ -1,9 +1,5 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
 const path = require('path');
+const { createFilePath } = require('gatsby-source-filesystem');
 const _ = require('lodash');
 const blogPostTemplate = path.resolve(`src/templates/blogTemplate.js`);
 const tagTemplate = path.resolve(`src/templates/tagTemplate.js`);
@@ -54,8 +50,8 @@ exports.createPages = ({ actions, graphql }) => {
         component: blogPostTemplate,
         context: {
           next: previous, // we need to invert these 2 because we query date descending
-          previous: next,
-        },
+          previous: next
+        }
       });
     });
 
@@ -72,8 +68,8 @@ exports.createPages = ({ actions, graphql }) => {
         path: `tags/${_.kebabCase(tag)}`,
         component: tagTemplate,
         context: {
-          tag,
-        },
+          tag
+        }
       });
     });
   });
@@ -85,5 +81,18 @@ exports.onCreatePage = ({ page, actions }) => {
   if (page.path === '/') {
     page.context.isRoot = true;
     createPage(page);
+  }
+};
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === `MarkdownRemark`) {
+    const value = createFilePath({ node, getNode });
+    createNodeField({
+      name: `slug`,
+      node,
+      value
+    });
   }
 };

@@ -67,6 +67,7 @@ module.exports = {
         anonymize: true
       }
     },
+    'gatsby-plugin-feed',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-netlify',
     'gatsby-plugin-remove-serviceworker'

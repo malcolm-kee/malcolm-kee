@@ -116,10 +116,13 @@ export default function Template({
           previous={pageContext.previous}
           next={pageContext.next}
         />
-        <nav className="Toolbar">
+        <nav className="Toolbar space-between">
           <Link className="link-primary" to="/blog">
             All Blogs
           </Link>
+          <OutLink href="/rss.xml" className="link-primary">
+            RSS
+          </OutLink>
         </nav>
       </div>
     </div>

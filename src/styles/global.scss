@@ -651,6 +651,9 @@ pre tt:after {
   &.center {
     justify-content: center;
   }
+  &.space-between {
+    justify-content: space-between;
+  }
   > .btn {
     margin: 0 $spacing-unit;
   }
@@ -678,10 +681,10 @@ pre tt:after {
 .link-primary {
   display: inline-block;
   line-height: 1.5;
-  min-width: 100px;
   text-align: center;
   margin: $spacing-unit 0;
-  padding: $spacing-unit / 2 $spacing-unit;
+  padding: $spacing-unit / 2;
+  min-width: 80px;
   transform: scale(1);
   background-color: rgba(0, 0, 0, 0);
   border-radius: $spacing-unit / 2 $spacing-unit / 2 0 0;
@@ -689,5 +692,10 @@ pre tt:after {
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
     transform: scale(1.1);
+  }
+
+  @media (min-width: $media-mobile) {
+    min-width: 100px;
+    padding: $spacing-unit / 2 $spacing-unit;
   }
 }
