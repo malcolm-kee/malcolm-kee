@@ -10,7 +10,7 @@ function getBody(event: APIGatewayEvent) {
 }
 
 /**
- * Call when the site deployment succeeds
+ * Call when the site deployment fails
  */
 export const handler: Handler = async (event: APIGatewayEvent) => {
   const body = getBody(event);
@@ -18,9 +18,9 @@ export const handler: Handler = async (event: APIGatewayEvent) => {
 
   try {
     await sendMessage(
-      `*Deploy Success*
-      [malcolmkee.com](https://malcolmkee.com) has been deployed successfully!
-      [Commit that triggers the deploy](${commitUrl})
+      `*Deploy Failure*
+      [malcolmkee.com](https://malcolmkee.com) having problem to deploy!
+      [Commit that is causing the issue](${commitUrl})
       `,
       {
         format: 'Markdown'
@@ -29,7 +29,7 @@ export const handler: Handler = async (event: APIGatewayEvent) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Deploy Successful!' })
+      body: JSON.stringify({ message: 'Deploy Fail!' })
     };
   } catch (e) {
     console.log(e);
