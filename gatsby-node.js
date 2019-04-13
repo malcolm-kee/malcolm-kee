@@ -1,5 +1,4 @@
 const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
 const _ = require('lodash');
 const blogPostTemplate = path.resolve('src/templates/blog-template.jsx');
 const tagTemplate = path.resolve('src/templates/tag-template.jsx');
@@ -81,19 +80,5 @@ exports.onCreatePage = ({ page, actions }) => {
   if (page.path === '/') {
     page.context.isRoot = true;
     createPage(page);
-  }
-};
-
-// this method is added for `gatsby-plugin-feed`, but not really sure how it works :|
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions;
-
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode });
-    createNodeField({
-      name: `slug`,
-      node,
-      value
-    });
   }
 };
