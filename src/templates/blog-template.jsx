@@ -53,14 +53,14 @@ export default function Template({
       <div className="blog-post-container">
         <Helmet>
           <title>{title} - Malcolm Kee's blog</title>
-          <meta name="og:title" content={title} />
+          <meta property="og:title" content={title} />
           <meta name="twitter:title" content={title} />
           {keywords &&
             keywords.length > 0 && (
               <meta name="keywords" content={keywords.join(',')} />
             )}
           {hasSummary && <meta name="abstract" content={summary} />}
-          {hasSummary && <meta name="og:description" content={summary} />}
+          {hasSummary && <meta property="og:description" content={summary} />}
           {hasSummary && <meta name="twitter:description" content={summary} />}
         </Helmet>
         <main>

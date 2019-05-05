@@ -29,10 +29,10 @@ export const SiteMetadata = () => (
           name="keywords"
           content={data.site.siteMetadata.keywords.join()}
         />
-        <meta name="og:url" content={data.site.siteMetadata.siteUrl} />
-        <meta name="og:title" content={data.site.siteMetadata.title} />
+        <meta property="og:url" content={data.site.siteMetadata.siteUrl} />
+        <meta property="og:title" content={data.site.siteMetadata.title} />
         <meta
-          name="og:description"
+          property="og:description"
           content={data.site.siteMetadata.description}
         />
         <meta name="twitter:card" content="summary" />
