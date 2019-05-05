@@ -110,6 +110,16 @@
     em {
       font-style: italic;
     }
+    img.blog-gif {
+      display: block;
+      width: 100%;
+      &--narrow {
+        @media (min-width: $media-mobile) {
+          max-width: 500px;
+          margin: 0 auto;
+        }
+      }
+    }
 
     @include link('a:not(.gatsby-resp-image-link)');
 
@@ -232,7 +242,8 @@
 }
 
 body.dark .blog-post {
-  img.gatsby-resp-image-image {
+  img.gatsby-resp-image-image,
+  img.blog-gif {
     @include darkenImg();
   }
 }

@@ -1,0 +1,9 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#e44d26",
+    "titleBar.activeForeground": "#fff"
+  },
+  "[markdown]": {
+    "editor.quickSuggestions": true
+  }
+}
