@@ -1,7 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import { joinClassName } from 'join-string';
 import React from 'react';
-import { BackgroundImg } from './BackgroundImage';
+import BackgroundImage from 'gatsby-background-image';
 import './LandingPageBackground.scss';
 
 export const LandingPageBackground = ({ className, ...props }) => {
@@ -20,7 +20,7 @@ export const LandingPageBackground = ({ className, ...props }) => {
   const imageData = data.background.childImageSharp.fluid;
 
   return (
-    <BackgroundImg
+    <BackgroundImage
       fluid={imageData}
       backgroundColor="#2a1e12"
       className={joinClassName('landing-page-background', className)}

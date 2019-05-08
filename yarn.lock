@@ -792,10 +792,10 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@^7.4.2":
-  version "7.4.3"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.3.tgz#79888e452034223ad9609187a0ad1fe0d2ad4bdc"
-  integrity sha512-9lsJwJLxDh/T3Q3SZszfWOTkk3pHbkmH+3KY+zwIDmsNlxsumuhS2TH3NIpktU4kNvfzy+k3eLT7aTJSPTo0OA==
+"@babel/runtime@^7.4.4":
+  version "7.4.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.4.tgz#dc2e34982eb236803aa27a07fea6857af1b9171d"
+  integrity sha512-w0+uT71b6Yi7i5SE0co4NioIpSYS6lLiXvCzWzGSKvpK5vdQtCbICHMj+gbAKAOtxiV6HsVh/MBdaF9EQ6faSg==
   dependencies:
     regenerator-runtime "^0.13.2"
 
@@ -5547,12 +5547,13 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-gatsby-background-image@^0.2.8-beta:
-  version "0.2.8-beta"
-  resolved "https://registry.yarnpkg.com/gatsby-background-image/-/gatsby-background-image-0.2.8-beta.tgz#9ffdc014e5cab7ae01bfa963a1fd444c82f8ec8a"
-  integrity sha512-K5ujY1Ze8EB2moxHla3GKELGuGHTqQvYRpG7euV0dwNfQ9Ib/isXcXK63kiybN4ExPLbZuZ+01WlYPEEQ0jWMg==
+gatsby-background-image@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/gatsby-background-image/-/gatsby-background-image-0.5.5.tgz#a177f36189f0fed28a9542f36255b5a943b74700"
+  integrity sha512-EvOvMLIYGPCltoVGsp331JGzIvGAb0jMSuznjAkDxdT7aHY9WCoWFcPak6T43bfixouPeFwT06v1wanWDdDAog==
   dependencies:
-    "@babel/runtime" "^7.4.2"
+    "@babel/runtime" "^7.4.4"
+    global "^4.3.2"
     prop-types "^15.7.2"
 
 gatsby-cli@^2.4.11:
@@ -6150,7 +6151,7 @@ global-prefix@^1.0.1:
     is-windows "^1.0.1"
     which "^1.2.14"
 
-global@^4.3.0, global@~4.3.0:
+global@^4.3.0, global@^4.3.2, global@~4.3.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/global/-/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
   integrity sha1-52mJJopsdMOJCLEwWxD8DjlOnQ8=
