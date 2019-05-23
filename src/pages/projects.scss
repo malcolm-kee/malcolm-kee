@@ -30,8 +30,9 @@
     }
 
     dt {
-      color: rgba(0, 0, 0, 0.6);
-      margin-top: $spacing-unit;
+      color: $text-light-pale;
+      color: var(--text-pale);
+      margin-top: $spacing-unit * 2;
       font-size: 1.1rem;
     }
 

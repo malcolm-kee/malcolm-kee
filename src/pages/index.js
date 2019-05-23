@@ -37,7 +37,7 @@ const IndexPage = () => (
         <LandingPageSection>
           <h2 className="text-right">Projects</h2>
           <div className="text-right">
-            <Link to="/projects" className="link-primary">
+            <Link to="/projects" className="link-highlight">
               See My Works
             </Link>
           </div>
@@ -45,7 +45,7 @@ const IndexPage = () => (
         <LandingPageSection>
           <h2>Writing</h2>
           <div>
-            <Link to="/blog" className="link-primary">
+            <Link to="/blog" className="link-highlight">
               Read Blog
             </Link>
           </div>
@@ -56,7 +56,7 @@ const IndexPage = () => (
             <div>
               <OutLink
                 href="https://intro-to-react-js.netlify.com/"
-                className="link-primary"
+                className="link-highlight"
               >
                 Intro to React
               </OutLink>
@@ -64,7 +64,7 @@ const IndexPage = () => (
             <div>
               <OutLink
                 href="https://intro-to-react-js-v2.netlify.com/"
-                className="link-primary"
+                className="link-highlight"
               >
                 Intro to React v2
               </OutLink>
@@ -72,9 +72,17 @@ const IndexPage = () => (
             <div>
               <OutLink
                 href="https://intro-to-web-dev.netlify.com/"
-                className="link-primary"
+                className="link-highlight"
               >
                 Intro to Web Dev
+              </OutLink>
+            </div>
+            <div>
+              <OutLink
+                href="https://js-the-react-parts.netlify.com/"
+                className="link-highlight"
+              >
+                JS: The React Parts
               </OutLink>
             </div>
           </div>

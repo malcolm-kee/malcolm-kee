@@ -90,19 +90,32 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
 
 @mixin link($selector) {
   #{$selector} {
+    position: relative;
     text-decoration: none;
-    border-bottom-color: transparent;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
     transition-duration: 500ms;
     transition-timing-function: ease-in-out;
     transition-property: border-bottom-color, color, transform, background-color;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $link-light;
+      background-color: var(--link);
+      transform-origin: center;
+      transform: translate(-50%, 0) scaleX(0);
+      transition: transform 0.3s ease-in-out;
+    }
   }
   #{$selector}:hover {
     color: $link-light;
     color: var(--link);
-    border-bottom-color: $link-light;
-    border-bottom-color: var(--link);
+    &::before {
+      transform: translate(-50%, 0) scaleX(1);
+    }
   }
 }
 

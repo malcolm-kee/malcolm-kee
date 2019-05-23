@@ -666,13 +666,55 @@ pre tt:after {
   margin: $spacing-unit 0;
   padding: $spacing-unit / 2;
   min-width: 80px;
-  transform: scale(1);
   background-color: rgba(0, 0, 0, 0);
   border-radius: $spacing-unit / 2 $spacing-unit / 2 0 0;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
-    transform: scale(1.1);
+  }
+
+  @media (min-width: $media-mobile) {
+    min-width: 100px;
+    padding: $spacing-unit / 2 $spacing-unit;
+  }
+}
+
+.link-highlight {
+  display: inline-block;
+  line-height: 1.5;
+  text-align: center;
+  margin: $spacing-unit 0;
+  padding: $spacing-unit / 2;
+  min-width: 80px;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: -0.25em;
+    right: -0.25em;
+    background-color: $link-light;
+    background-color: var(--link);
+    transform-origin: center right;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &:hover {
+    color: $bg-color-light;
+    color: var(--bg);
+    border-bottom-color: transparent;
+    &::before {
+      transform: scaleX(1);
+      transform-origin: center left;
+    }
   }
 
   @media (min-width: $media-mobile) {

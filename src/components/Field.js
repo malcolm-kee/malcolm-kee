@@ -31,6 +31,7 @@ export const Field = ({
         onBlur={callAll(inputProps.onBlur, () => setIsFocused(false))}
         ref={inputRef}
       />
+      <span />
     </div>
   );
 };
