@@ -35,15 +35,22 @@ const IndexPage = () => (
       </LandingPageSection>
       <div className="landing-page-section-group">
         <LandingPageSection>
-          <h2 className="text-right">Projects</h2>
+          <h2 className="text-right">Works</h2>
           <div className="text-right">
-            <Link to="/projects" className="link-highlight">
-              See My Works
-            </Link>
+            <div>
+              <Link to="/projects" className="link-highlight">
+                Projects
+              </Link>
+            </div>
+            <div>
+              <Link to="/libraries" className="link-highlight">
+                Libraries
+              </Link>
+            </div>
           </div>
         </LandingPageSection>
         <LandingPageSection>
-          <h2>Writing</h2>
+          <h2>Writings</h2>
           <div>
             <Link to="/blog" className="link-highlight">
               Read Blog
@@ -51,7 +58,7 @@ const IndexPage = () => (
           </div>
         </LandingPageSection>
         <LandingPageSection>
-          <h2 className="text-right">Teaching</h2>
+          <h2 className="text-right">Teachings</h2>
           <div className="text-right">
             <div>
               <OutLink

@@ -25,6 +25,15 @@ module.exports = {
       }
     },
     {
+      resolve: 'gatsby-source-npmsio',
+      options: {
+        name: 'malcolm',
+        qualifier: {
+          author: `malcolmkee`
+        }
+      }
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/src/assets`,
