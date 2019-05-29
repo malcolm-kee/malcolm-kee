@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
+import { RssIcon } from '../components/rss-icon';
 import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
 import './blog.scss';
@@ -59,8 +60,8 @@ const BlogPage = ({ data }) => {
             All tags
           </Link>
         </span>
-        <OutLink href="/rss.xml" className="link-primary">
-          RSS
+        <OutLink href="/rss.xml">
+          <RssIcon />
         </OutLink>
       </nav>
     </MainContent>

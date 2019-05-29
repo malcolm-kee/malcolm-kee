@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 import { Button } from '../components/Button';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
+import { RssIcon } from '../components/rss-icon';
 import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
 import './blog-template.scss';
@@ -121,8 +122,8 @@ export default function Template({
           <Link className="link-primary" to="/blog">
             All Blogs
           </Link>
-          <OutLink href="/rss.xml" className="link-primary">
-            RSS
+          <OutLink href="/rss.xml">
+            <RssIcon />
           </OutLink>
         </nav>
       </div>
