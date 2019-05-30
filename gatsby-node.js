@@ -75,10 +75,13 @@ exports.createPages = ({ actions, graphql }) => {
 };
 
 exports.onCreatePage = ({ page, actions }) => {
-  const { createPage } = actions;
+  const { createPage, deletePage } = actions;
+
+  const oldPage = Object.assign({}, page);
 
   if (page.path === '/') {
     page.context.isRoot = true;
+    deletePage(oldPage);
     createPage(page);
   }
 };
