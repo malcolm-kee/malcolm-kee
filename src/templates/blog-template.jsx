@@ -2,7 +2,7 @@ import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Button } from '../components/Button';
+import { Comments } from '../components/comments';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { RssIcon } from '../components/rss-icon';
@@ -33,19 +33,17 @@ function AdjacentArticles({ previous, next }) {
   );
 }
 
-export default function Template({
-  data, // this prop will be injected by the GraphQL query below.
-  pageContext
-}) {
-  const { markdownRemark } = data; // data.markdownRemark holds our post data
+export default function Template({ data, pageContext }) {
   const {
-    frontmatter: { title, date, tags, keywords, summary, path },
-    html,
-    timeToRead
-  } = markdownRemark;
-  const discussUrl = `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `https://malcolmkee.com${path}`
-  )}`;
+    markdownRemark: {
+      frontmatter: { title, date, tags, keywords, summary, path },
+      html,
+      timeToRead
+    },
+    github: {
+      search: { nodes: comments }
+    }
+  } = data;
 
   const hasSummary = !!summary && summary.length > 0;
 
@@ -91,6 +89,9 @@ export default function Template({
                   </span>
                 </div>
               ) : null}
+              <div className="blog-post--actions">
+                <ThemeToggle />
+              </div>
             </div>
             {summary && (
               <div className="blog-post--summary">
@@ -102,18 +103,8 @@ export default function Template({
               dangerouslySetInnerHTML={{ __html: html }}
             />
           </article>
-          <footer className="blog-post--actions">
-            <Button
-              color="primary"
-              raised
-              component={OutLink}
-              href={discussUrl}
-            >
-              Discuss on Twitter
-            </Button>
-            <ThemeToggle />
-          </footer>
         </main>
+        <Comments comments={comments} articlePath={path} />
         <AdjacentArticles
           previous={pageContext.previous}
           next={pageContext.next}
@@ -132,7 +123,7 @@ export default function Template({
 }
 
 export const pageQuery = graphql`
-  query BlogPostByPath($path: String!) {
+  query BlogPostByPath($path: String!, $commentsSearch: String!) {
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
       frontmatter {
@@ -144,6 +135,25 @@ export const pageQuery = graphql`
         summary
       }
       timeToRead
+    }
+    github {
+      search(query: $commentsSearch, type: ISSUE, first: 100) {
+        nodes {
+          ... on GitHub_Issue {
+            id
+            url
+            bodyHTML
+            createdAt
+            author {
+              ... on GitHub_User {
+                name
+              }
+              avatarUrl
+              url
+            }
+          }
+        }
+      }
     }
   }
 `;

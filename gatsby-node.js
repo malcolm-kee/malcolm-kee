@@ -49,7 +49,10 @@ exports.createPages = ({ actions, graphql }) => {
         component: blogPostTemplate,
         context: {
           next: previous, // we need to invert these 2 because we query date descending
-          previous: next
+          previous: next,
+          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${
+            node.frontmatter.path
+          } in:title sort:created-asc`
         }
       });
     });

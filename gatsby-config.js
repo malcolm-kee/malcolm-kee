@@ -1,3 +1,6 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+});
 const path = require('path');
 const packageJson = require('./package.json');
 
@@ -8,6 +11,7 @@ module.exports = {
     siteUrl: packageJson.homepage,
     author: packageJson.author,
     keywords: packageJson.keywords,
+    repositoryUrl: packageJson.repository.url,
     social: {
       twitter: '@Malcolm_Kee'
     }
@@ -17,6 +21,21 @@ module.exports = {
     'gatsby-plugin-postcss',
     'gatsby-plugin-layout',
     'gatsby-plugin-react-helmet',
+    {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        typeName: 'GitHub',
+        fieldName: 'github',
+        // Url to query from
+        url: 'https://api.github.com/graphql',
+        // HTTP headers
+        headers: {
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`
+        },
+        // Additional options to pass to node-fetch
+        fetchOptions: {}
+      }
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {

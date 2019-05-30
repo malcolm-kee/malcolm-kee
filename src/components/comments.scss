@@ -1,0 +1,49 @@
+@import '../constants/variable';
+
+.article-comments {
+  padding: $spacing-unit * 2;
+  border: 1px solid var(--bg-pale);
+  box-shadow: $box-shadow-2;
+
+  &-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: $spacing-unit;
+  }
+
+  &-actions {
+    padding-top: $spacing-unit;
+  }
+}
+
+.article-comment {
+  display: flex;
+  padding: $spacing-unit 0;
+  @media screen and (min-width: $media-tablet) {
+    padding: $spacing-unit;
+  }
+  &-avatar {
+    margin-right: $spacing-unit;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: $spacing-unit;
+      @media screen and (min-width: $media-tablet) {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+      }
+    }
+  }
+  &-author {
+    font-size: 0.8em;
+    padding: 0 $spacing-unit;
+    line-height: 1.5;
+    > a {
+      text-decoration: none;
+    }
+  }
+  &-content {
+    padding: $spacing-unit;
+  }
+}

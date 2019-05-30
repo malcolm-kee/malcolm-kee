@@ -187,10 +187,8 @@
     }
   }
   &--actions {
-    padding: $spacing-unit * 2;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: $spacing-unit 0;
+    float: right;
   }
   &--content,
   &--actions {

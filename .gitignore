@@ -5,6 +5,8 @@ yarn-error.log
 
 # Secrets
 .env
+.env.development
+.env.production
 
 # Build directory
 /public
