@@ -11,8 +11,8 @@ import wizardFormImg from '../assets/wizard-form.gif';
 import { Button } from '../components/Button';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
 import { MainContent } from '../components/main-content';
-import { ThemeToggle } from '../components/theme-toggle';
 import { OutLink } from '../components/OutLink';
+import { PageTitleContainer } from '../components/page-title-container';
 import './projects.scss';
 
 const ProjectPage = () => (
@@ -22,10 +22,7 @@ const ProjectPage = () => (
     </Helmet>
     <MainContent as="div">
       <main>
-        <div className="ProjectPage-title-container">
-          <h1>Past Projects</h1>
-          <ThemeToggle />
-        </div>
+        <PageTitleContainer title="Past Projects" />
         <div className="ProjectPage--project-container">
           <Card className="ProjectPage--project">
             <div>

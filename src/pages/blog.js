@@ -4,10 +4,9 @@ import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
+import { PageTitleContainer } from '../components/page-title-container';
 import { RssIcon } from '../components/rss-icon';
-import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
-import './blog.scss';
 
 const BlogPage = ({ data }) => {
   const { posts } = data.allMarkdownRemark;
@@ -18,10 +17,7 @@ const BlogPage = ({ data }) => {
         <title>Blogs - Malcolm Kee</title>
       </Helmet>
       <main>
-        <div className="blog-list-title-container">
-          <h1>Recent Blogs</h1>
-          <ThemeToggle />
-        </div>
+        <PageTitleContainer title="Blogs" />
         <List>
           {posts.map(({ node: post }) => (
             <ListItem

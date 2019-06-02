@@ -35,8 +35,8 @@ const IndexPage = () => (
       </LandingPageSection>
       <div className="landing-page-section-group">
         <LandingPageSection>
-          <h2 className="text-right">Works</h2>
-          <div className="text-right">
+          <h2>Works</h2>
+          <div>
             <div>
               <Link to="/projects" className="link-highlight">
                 Projects
@@ -47,6 +47,11 @@ const IndexPage = () => (
                 Libraries
               </Link>
             </div>
+            <div>
+              <Link to="/workshops" className="link-highlight">
+                Workshops
+              </Link>
+            </div>
           </div>
         </LandingPageSection>
         <LandingPageSection>
@@ -55,43 +60,6 @@ const IndexPage = () => (
             <Link to="/blog" className="link-highlight">
               Read Blog
             </Link>
-          </div>
-        </LandingPageSection>
-        <LandingPageSection>
-          <h2 className="text-right">Teachings</h2>
-          <div className="text-right">
-            <div>
-              <OutLink
-                href="https://intro-to-react-js.netlify.com/"
-                className="link-highlight"
-              >
-                Intro to React
-              </OutLink>
-            </div>
-            <div>
-              <OutLink
-                href="https://intro-to-react-js-v2.netlify.com/"
-                className="link-highlight"
-              >
-                Intro to React v2
-              </OutLink>
-            </div>
-            <div>
-              <OutLink
-                href="https://intro-to-web-dev.netlify.com/"
-                className="link-highlight"
-              >
-                Intro to Web Dev
-              </OutLink>
-            </div>
-            <div>
-              <OutLink
-                href="https://js-the-react-parts.netlify.com/"
-                className="link-highlight"
-              >
-                JS: The React Parts
-              </OutLink>
-            </div>
           </div>
         </LandingPageSection>
       </div>

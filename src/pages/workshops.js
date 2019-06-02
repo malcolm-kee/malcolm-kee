@@ -3,24 +3,21 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
-import { PageTitleContainer } from '../components/page-title-container';
 import { OutLink } from '../components/OutLink';
+import { PageTitleContainer } from '../components/page-title-container';
 
-const LibrariesPage = () => {
+const WorkshopsPage = () => {
   const {
-    allNpmsIoMalcolm: { edges }
+    allWorkshopsJson: { edges }
   } = useStaticQuery(graphql`
     query {
-      allNpmsIoMalcolm(sort: { fields: [date], order: DESC }) {
+      allWorkshopsJson {
         edges {
           node {
+            id
+            url
             name
-            version
             description
-            date(formatString: "DD MMM YYYY")
-            links {
-              npm
-            }
           }
         }
       }
@@ -30,23 +27,16 @@ const LibrariesPage = () => {
   return (
     <MainContent as="div">
       <Helmet>
-        <title>Libraries - Malcolm Kee</title>
+        <title>Workshops</title>
       </Helmet>
       <main>
-        <PageTitleContainer title="Libraries" />
+        <PageTitleContainer title="Workshops" />
         <List>
-          {edges.map(({ node: { name, description, version, links } }) => (
-            <ListItem
-              button
-              component={OutLink}
-              href={links.npm}
-              key={name}
-              noGutter
-            >
+          {edges.map(({ node: { id, name, url, description } }) => (
+            <ListItem button component={OutLink} href={url} key={id} noGutter>
               <ListItemText
                 primaryText={name}
-                secondaryText={description}
-                tertiaryText={version}
+                tertiaryText={description}
                 boldPrimary
               />
             </ListItem>
@@ -62,4 +52,4 @@ const LibrariesPage = () => {
   );
 };
 
-export default LibrariesPage;
+export default WorkshopsPage;

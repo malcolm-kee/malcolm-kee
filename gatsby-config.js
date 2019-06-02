@@ -21,6 +21,7 @@ module.exports = {
     'gatsby-plugin-postcss',
     'gatsby-plugin-layout',
     'gatsby-plugin-react-helmet',
+    'gatsby-transformer-json',
     {
       resolve: 'gatsby-source-graphql',
       options: {
@@ -41,6 +42,13 @@ module.exports = {
       options: {
         path: path.join(__dirname, 'blogs'),
         name: 'markdown-pages'
+      }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: path.join(__dirname, 'src', 'data'),
+        name: 'data'
       }
     },
     {

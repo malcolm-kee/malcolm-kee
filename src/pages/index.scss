@@ -9,7 +9,7 @@
   &-section {
     &-content {
       padding: $spacing-unit * 3 $spacing-unit * 2;
-      max-width: 960px;
+      max-width: 800px;
       margin: 0 auto;
 
       @include link('a:not(.btn):not(.link-highlight)');
@@ -19,8 +19,12 @@
       }
     }
     &-group {
-      max-width: 960px;
+      display: flex;
+      max-width: 800px;
       margin: 0 auto;
+    }
+    &-group &-content {
+      text-align: center;
     }
 
     @media (max-width: $media-mobile) {
@@ -28,17 +32,6 @@
         text-align: inherit;
         padding-left: 0;
         padding-right: 0;
-      }
-    }
-
-    @media (min-width: $media-mobile) {
-      &-group {
-        display: flex;
-      }
-
-      &-group &-content,
-      &-group &-content .text-right {
-        text-align: center;
       }
     }
   }

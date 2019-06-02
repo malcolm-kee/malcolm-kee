@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
+import { PageTitleContainer } from '../components/page-title-container';
 import { MainContent } from '../components/main-content';
 import './tags.scss';
 
@@ -21,9 +22,7 @@ const TagsPage = ({
     <Helmet>
       <title>Tags</title>
     </Helmet>
-    <div className="TagPage--panel">
-      <h1>Tags</h1>
-    </div>
+    <PageTitleContainer title="Tags" />
     <div className="TagPage--panel tag-list">
       <List>
         {[]

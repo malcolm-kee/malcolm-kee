@@ -1,20 +1,6 @@
 @import '../constants/variable';
 
 .ProjectPage {
-  &-title-container {
-    display: flex;
-
-    h1 {
-      flex: 1;
-    }
-
-    @media screen and (max-width: $media-mobile) {
-      .theme-toggle {
-        display: none;
-      }
-    }
-  }
-
   &--project {
     .card--content {
       @include link(a);
