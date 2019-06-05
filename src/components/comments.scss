@@ -17,6 +17,7 @@
 }
 
 .article-comment {
+  position: relative;
   display: flex;
   padding: $spacing-unit 0;
   @media screen and (min-width: $media-tablet) {
@@ -38,6 +39,7 @@
   &-author {
     font-size: 0.8em;
     padding: 0 $spacing-unit;
+    margin-right: 40px;
     line-height: 1.5;
     > a {
       text-decoration: none;
@@ -45,5 +47,13 @@
   }
   &-content {
     padding: $spacing-unit;
+  }
+  &-link {
+    position: absolute;
+    top: $spacing-unit;
+    right: $spacing-unit;
+    a {
+      text-decoration: none;
+    }
   }
 }

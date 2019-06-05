@@ -75,20 +75,6 @@ export default function Template({ data, pageContext }) {
                   </>
                 )}
               </div>
-              {tags && tags.length > 0 ? (
-                <div className="blog-post--tag">
-                  <span>Tags:</span>
-                  <span>
-                    {tags.map((tag, index, list) => (
-                      <span key={tag}>
-                        {' '}
-                        <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
-                        {index === list.length - 1 ? '' : ','}
-                      </span>
-                    ))}
-                  </span>
-                </div>
-              ) : null}
               <div className="blog-post--actions">
                 <ThemeToggle />
               </div>
@@ -104,6 +90,21 @@ export default function Template({ data, pageContext }) {
             />
           </article>
         </main>
+        {tags &&
+          tags.length > 0 && (
+            <div className="blog-post--tag">
+              <span>Tags:</span>
+              <span>
+                {tags.map((tag, index, list) => (
+                  <span key={tag}>
+                    {' '}
+                    <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
+                    {index === list.length - 1 ? '' : ','}
+                  </span>
+                ))}
+              </span>
+            </div>
+          )}
         <Comments comments={comments} articlePath={path} />
         <AdjacentArticles
           previous={pageContext.previous}
@@ -150,6 +151,20 @@ export const pageQuery = graphql`
               }
               avatarUrl
               url
+            }
+            comments(first: 100) {
+              nodes {
+                id
+                bodyHTML
+                createdAt
+                author {
+                  ... on GitHub_User {
+                    name
+                  }
+                  avatarUrl
+                  url
+                }
+              }
             }
           }
         }
