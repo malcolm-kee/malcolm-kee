@@ -1,6 +1,12 @@
+import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
+import { CodeEditor } from '../components/code-editor';
 import { Layout } from '../components/Layout';
 import { ThemeProvider } from '../theme';
+
+const mdxComponents = {
+  code: CodeEditor
+};
 
 const LayoutContainer = ({ children, pageContext }) => {
   const [theme, setTheme] = React.useState(null);
@@ -28,7 +34,9 @@ const LayoutContainer = ({ children, pageContext }) => {
 
   return (
     <ThemeProvider value={themeValue}>
-      <Layout isRoot={pageContext.isRoot}>{children}</Layout>
+      <MDXProvider components={mdxComponents}>
+        <Layout isRoot={pageContext.isRoot}>{children}</Layout>
+      </MDXProvider>
     </ThemeProvider>
   );
 };

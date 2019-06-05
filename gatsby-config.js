@@ -70,18 +70,18 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
-      resolve: 'gatsby-transformer-remark',
+      resolve: `gatsby-mdx`,
       options: {
-        plugins: [
-          'gatsby-remark-copy-linked-files',
-          'gatsby-remark-external-links',
+        extensions: ['.mdx', '.md'],
+        gatsbyRemarkPlugins: [
+          `gatsby-remark-copy-linked-files`,
+          `gatsby-remark-external-links`,
           {
             resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 590
             }
-          },
-          'gatsby-remark-prismjs'
+          }
         ]
       }
     },
@@ -105,7 +105,7 @@ module.exports = {
       }
     },
     {
-      resolve: 'gatsby-plugin-feed',
+      resolve: `gatsby-plugin-feed`,
       options: {
         query: `
           {
@@ -122,7 +122,7 @@ module.exports = {
           {
             query: `
               {
-                allMarkdownRemark(
+                allMdx(
                   filter: { frontmatter: { published: { eq: true } } }
                   sort: { order: DESC, fields: [frontmatter___date] }
                 ) {
@@ -140,8 +140,8 @@ module.exports = {
                 }
               }
             `,
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.frontmatter.summary,
                   date: edge.node.frontmatter.date,

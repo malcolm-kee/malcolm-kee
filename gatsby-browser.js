@@ -1,5 +1,4 @@
 require('./src/styles/global.scss');
-require('./src/styles/prism.scss');
 
 exports.onClientEntry = () => {
   // IntersectionObserver polyfill for gatsby-image (Safari, IE)

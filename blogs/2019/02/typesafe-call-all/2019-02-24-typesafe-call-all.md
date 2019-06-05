@@ -13,7 +13,7 @@ The use of `callAll` is to wrap few functions together (some of them optional, t
 
 For example:
 
-```js
+```javascript
 function fn1(x) {
   console.log('x from fn1: ', x);
 }

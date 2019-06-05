@@ -9,7 +9,7 @@ import { RssIcon } from '../components/rss-icon';
 import { getReadtimeText } from '../helper';
 
 const BlogPage = ({ data }) => {
-  const { posts } = data.allMarkdownRemark;
+  const { posts } = data.allMdx;
 
   return (
     <MainContent as="div">
@@ -66,7 +66,7 @@ const BlogPage = ({ data }) => {
 
 export const pageQuery = graphql`
   query BlogIndexQuery {
-    allMarkdownRemark(
+    allMdx(
       filter: { frontmatter: { published: { eq: true } } }
       sort: { order: DESC, fields: [frontmatter___date] }
     ) {

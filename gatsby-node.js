@@ -8,12 +8,10 @@ exports.createPages = ({ actions, graphql }) => {
 
   return graphql(`
     {
-      allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date] }
-        limit: 1000
-      ) {
+      allMdx(sort: { order: DESC, fields: [frontmatter___date] }, limit: 1000) {
         edges {
           node {
+            id
             frontmatter {
               path
               tags
@@ -41,13 +39,14 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(result.errors);
     }
 
-    const posts = result.data.allMarkdownRemark.edges;
+    const posts = result.data.allMdx.edges;
 
     posts.forEach(({ node, next, previous }) => {
       createPage({
         path: node.frontmatter.path,
         component: blogPostTemplate,
         context: {
+          id: node.id,
           next: previous, // we need to invert these 2 because we query date descending
           previous: next,
           commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${

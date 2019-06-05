@@ -1,0 +1,57 @@
+@import '../constants/variable';
+
+.code-editor {
+  padding: 0 $spacing-unit / 2 $spacing-unit / 2;
+  border-radius: $spacing-unit / 2;
+  background-color: var(--bg-pale);
+  line-height: 1.25rem;
+
+  > header {
+    font-family: $font-family;
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: right;
+    padding: 0 $spacing-unit;
+    line-height: 1.75rem;
+  }
+}
+
+.code-preview {
+  font-family: $font-family;
+  padding: 0 $spacing-unit;
+
+  .log-output {
+    width: 100%;
+    overflow: auto;
+    &::before {
+      content: '> ';
+    }
+  }
+}
+
+.code-error {
+  padding: $spacing-unit;
+  margin-bottom: 0;
+  background-color: #f44336;
+  font-weight: bold;
+}
+
+.code-snippet {
+  $code-padding: 1.3125rem;
+  $highlight-width: 0.25rem;
+
+  font-size: 0.9rem;
+  padding: $code-padding;
+  line-height: 1.25rem;
+  overflow-x: auto;
+
+  .highlighted-code-line {
+    background-color: hsla(207, 95%, 15%, 1);
+    display: block;
+    margin-right: -$code-padding;
+    margin-left: -$code-padding;
+    padding-right: $code-padding;
+    padding-left: $code-padding - $highlight-width;
+    border-left: $highlight-width solid $secondary-color;
+  }
+}

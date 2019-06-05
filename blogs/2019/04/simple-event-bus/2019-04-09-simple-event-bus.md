@@ -34,7 +34,7 @@ eventBus.publish('hello again');
 
 ## Implementation
 
-```javascript
+```js
 function createEventBus() {
   const subscribers = [];
 

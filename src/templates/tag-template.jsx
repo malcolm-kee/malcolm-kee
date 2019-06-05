@@ -7,7 +7,7 @@ import { MainContent } from '../components/main-content';
 
 function BlogsWithTag({ data, pageContext }) {
   const { tag } = pageContext;
-  const { edges: posts, totalCount } = data.allMarkdownRemark;
+  const { edges: posts, totalCount } = data.allMdx;
   const tagTitle = `${totalCount} post${
     totalCount === 1 ? '' : 's'
   } tagged with "${tag}"`;
@@ -66,7 +66,7 @@ export default BlogsWithTag;
 
 export const pageQuery = graphql`
   query TagPage($tag: String) {
-    allMarkdownRemark(
+    allMdx(
       limit: 2000
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { tags: { in: [$tag] } } }

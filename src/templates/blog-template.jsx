@@ -1,4 +1,5 @@
 import { graphql, Link } from 'gatsby';
+import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import kebabCase from 'lodash/kebabCase';
 import React from 'react';
 import Helmet from 'react-helmet';
@@ -35,9 +36,9 @@ function AdjacentArticles({ previous, next }) {
 
 export default function Template({ data, pageContext }) {
   const {
-    markdownRemark: {
+    mdx: {
       frontmatter: { title, date, tags, keywords, summary, path },
-      html,
+      code,
       timeToRead
     },
     github: {
@@ -84,10 +85,9 @@ export default function Template({ data, pageContext }) {
                 <p>{summary}</p>
               </div>
             )}
-            <div
-              className="blog-post--content"
-              dangerouslySetInnerHTML={{ __html: html }}
-            />
+            <div className="blog-post--content">
+              <MDXRenderer>{code.body}</MDXRenderer>
+            </div>
           </article>
         </main>
         {tags &&
@@ -124,9 +124,11 @@ export default function Template({ data, pageContext }) {
 }
 
 export const pageQuery = graphql`
-  query BlogPostByPath($path: String!, $commentsSearch: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
-      html
+  query BlogPostByPath($id: String!, $commentsSearch: String!) {
+    mdx(id: { eq: $id }) {
+      code {
+        body
+      }
       frontmatter {
         date(formatString: "MMM DD, YYYY")
         path

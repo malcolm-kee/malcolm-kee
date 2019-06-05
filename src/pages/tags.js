@@ -15,7 +15,7 @@ const randomSort = () => (Math.random() > 0.5 ? -1 : 1);
 
 const TagsPage = ({
   data: {
-    allMarkdownRemark: { group }
+    allMdx: { group }
   }
 }) => (
   <MainContent className="TagPage">
@@ -84,10 +84,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(
-      filter: { frontmatter: { published: { eq: true } } }
-      limit: 2000
-    ) {
+    allMdx(filter: { frontmatter: { published: { eq: true } } }, limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
         totalCount

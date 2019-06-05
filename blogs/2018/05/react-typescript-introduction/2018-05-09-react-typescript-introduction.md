@@ -53,7 +53,6 @@ npm start
 Take a `Profile` component that shows username and email address as an example:
 
 ```jsx
-// javascript
 import React from 'react';
 
 export const Profile = props => {
@@ -69,7 +68,6 @@ export const Profile = props => {
 Creating similar version in typescript with typing for the `props` would be:
 
 ```tsx
-// typescript
 import * as React from 'react';
 
 interface IProps {
@@ -97,7 +95,6 @@ Note that:
 Reusing the previous `Profile` example, but making it as Class Component:
 
 ```jsx
-// javascript
 export class Profile extends React.Component{
     render() {
         return (
@@ -113,7 +110,6 @@ export class Profile extends React.Component{
 Typescript version:
 
 ```tsx
-// typescript
 interface IProps {
     username: string;
     email: string;
@@ -142,16 +138,14 @@ Only Class Component can has its own state.
 Using a button that use the label on it to indicate its current status:
 
 ```jsx
-// javascript
-
 export class Button extends React.Component {
   state = {
-    on: false,
+    on: false
   };
 
   handleToggleOn = () => {
     this.setState(prevState => ({
-      on: !prevState.on,
+      on: !prevState.on
     }));
   };
 
@@ -168,20 +162,18 @@ export class Button extends React.Component {
 Including typing of the state in Typescript version:
 
 ```tsx
-// typescript
-
 interface IState {
   on: boolean;
 }
 
 export class Button extends React.Component<{}, IState> {
   state: IState = {
-    on: false,
+    on: false
   };
 
   handleToggleOn = () => {
     this.setState(prevState => ({
-      on: !prevState.on,
+      on: !prevState.on
     }));
   };
 
