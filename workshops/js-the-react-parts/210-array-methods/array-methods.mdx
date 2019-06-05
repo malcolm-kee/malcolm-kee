@@ -1,0 +1,396 @@
+---
+title: 'Array Methods'
+path: '/js-the-react-parts/array-methods'
+description: ''
+section: 'new features'
+---
+
+The second new JavaScript features we'll look into are the new Array methods that you'll use heavily in React.
+
+## Traditional Approach to Loop Through Array
+
+The traditional approach, or introduction-to-programming approach to loop through an array and do something about is to use the `for` loop:
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+const result = [];
+
+for (let index = 0; index < numbers.length; index++) {
+  const element = numbers[index];
+  result.push(element * 2);
+}
+
+console.log(result);
+```
+
+What does the code above do? Try to use a single statement to describe the whole purpose of the `for` loop?
+
+<details>
+  <summary>Possible Answer (Click to show)</summary>
+  <p>
+    It doubles each item in <code>numbers</code> array.
+  </p>
+</details>
+
+For us to figure out the behavior of the code, we need to read though the `for` loop initialization, wondering if we have [off-by-one error][off-by-one-error], and then only look at the actual computation (`element * 2`).
+
+Because transformation of array item is such a common use case, utilities libraries such as [underscore] and [lodash] have the `map` function for this purpose:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+const result = map(numbers, x => x * 2); // [2, 3, 6, 8, 10];
+```
+
+The implementation of `map` is just few lines of code:
+
+```js
+const map = (array, callback) => {
+  const output = [];
+  for (let index = 0; index < array.length; index++) {
+    output.push(callback(array[index]));
+  }
+  return output;
+};
+```
+
+Note: `map` use callback function as parameter. If this pattern is new to you, have a read at [callback function](/callback-function/).
+
+In fact, transformation of array item is not the only operation you may do when you loop though an array, other common use cases are:
+
+- filter the items based on some condition. Example: keep only number that is larger than 5
+- generate a single value from all the items. Example: get sum of all items
+- do something with based on each item. Example: append a `div` in body with html equal to the item.
+
+Each of these use case has equivalent utility function:
+
+| Use case                        | Utility function |
+| ------------------------------- | ---------------- |
+| Transform each item             | `map`            |
+| Filter item                     | `filter`         |
+| Generate a single value         | `reduce`         |
+| Do something based on each item | `forEach`        |
+
+Since these are so common, the group that maintain the JavaScript (TC39) decided to include them in JavaScript as part of the methods of `Array` object.
+
+Now we will go through each of them below.
+
+## Array.map
+
+`map` is the method to do data transformation. `map` will create a new array; the original array will kept unchanged.
+
+```js
+const numbers = [1, 2, 3];
+const doubles = numbers.map(num => num * 2);
+
+console.log(doubles); // [2, 4, 6]
+console.log(numbers); // no change
+
+const persons = [
+  { firstName: 'Bill', lastName: 'Gates' },
+  { firstName: 'Michael', lastName: 'Jackson' },
+  { firstName: 'Tiger', lastName: 'Woods' },
+  { firstName: 'Steve', lastName: 'Jobs' }
+];
+
+const names = persons.map(person => `${person.firstName} ${person.lastName}`);
+
+console.log(names);
+```
+
+The callback that you provide will receive three parameters: element, index, and the whole array, so you can use them for your data transformation.
+
+```js
+const numbers = [1, 2, 3];
+const doubleAfterSecond = numbers.map((num, index) =>
+  index >= 2 ? num * 2 : num
+);
+
+console.log(doubleAfterSecond); // [1, 2, 6];
+```
+
+### Exercise
+
+Given the following array:
+
+```js
+const participants = [
+  { name: 'Abu', ic: '880505-23-4955', gender: 'male' },
+  { name: 'Mary', ic: '920505-10-9958', gender: 'female' },
+  { name: 'T Chakra', ic: '900505-23-5775', gender: 'male' },
+  { name: 'Suzi', ic: '880505-23-4958', gender: 'female' }
+];
+```
+
+Get the IC numbers for all the participants
+
+## Array.filter
+
+`filter` method is used to filter elements in an array. You do so by providing it a function that will returns `true` or `false`. If `true`, the element will be kept, else it will be discarded. `filter` will create a new Array instead of changing the original array.
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+
+console.log(evenNumbers); // [2, 4]
+console.log(numbers); // still [1, 2, 3, 4, 5], because `filter` doesn't change the original array
+
+const persons = [
+  { name: 'Bossku', isMalaysian: true },
+  { name: 'Susanto', isMalaysian: false },
+  { name: 'John Smith', isMalaysian: false },
+  { name: 'Siti Nurhaliza', isMalaysian: true }
+];
+
+const malaysians = persons.filter(person => person.isMalaysian);
+
+console.log(malaysians);
+```
+
+<aside>
+
+The term and behavior is slightly confusing because in our daily use,
+"filter" means exclude, thus return `true` to `filter` implies "exclude it",
+but the behavior is return `true` to keep it. In my opinion,
+a better alternative is to call it `keep` or invert the behavior.
+However, there is nothing we can do now other than use it more often and get used to this misalignment.
+
+</aside>
+
+Similar to `map` method, the callback that you pass to `filter` will receive three parameters: the element, the index, and the whole array. You can use these parameters to determine if an element should be filtered.
+
+```js
+const numbers = [1, 2, 3, 4, 5, 6];
+
+const afterFourth = numbers.filter((num, index) => index >= 4); // this will keep fifth items onwards
+
+console.log(afterFourth); // [5, 6];
+
+const half = numbers.filter(
+  (num, index, allNumbers) => index >= Math.round(allNumbers.length / 2)
+); // this will keep second half of array
+
+console.log(half); // [4, 5, 6]
+```
+
+Because both `filter` and `map` returns a new array, it's common to chain them together.
+
+```js
+const numbers = [1, 2, 3, 4];
+const doubleOddNumbers = numbers
+  .filter(num => num % 2 === 1) // this will returns [1, 3]
+  .map(num => num * 2); // this will returns [2, 6]
+
+console.log(doubleOddNumbers);
+```
+
+A common use case of `filter` is to pass it the `Boolean` constructor to remove all the falsy value (`undefined`, `null`).
+
+```js
+const numbersWithUndefined = [1, undefined, 4, null];
+const numbers = numbersWithUndefined.filter(Boolean);
+// the code above is equivalent to
+// const numbers = numbersWithUndefined.filter(num => Boolean(num));
+
+console.log(numbers); // [1, 4]
+```
+
+### Exercise
+
+1. Given the following numbers:
+
+   ```js
+   const numbers = [3, -2, 1000, 201, 50, 33, -21];
+   ```
+
+   - Get all the positive numbers (above or equal to 0)
+   - Get all the odd numbers
+   - Get all the number that is larger than the number before it (exclude the first number)
+
+1. Given the following array:
+
+   ```js
+   const participants = [
+     { name: 'Abu', ic: '880505-23-4955', gender: 'male' },
+     { name: 'Mary', ic: '920505-10-9958', gender: 'female' },
+     { name: 'T Chakra', ic: '900505-23-5775', gender: 'male' },
+     { name: 'Suzi', ic: '880505-23-4958', gender: 'female' }
+   ];
+   ```
+
+   - Get the IC numbers for all the participants
+   - Get the names for female participants only
+
+## Array.reduce
+
+`reduce` method is used to derive a single value by looping through the whole array. It's more abstract and slighlty harder to understand than `filter` and `map`, but it's more powerful.
+
+```js
+const numbers = [1, 2, 3];
+const sum = numbers.reduce((total, num) => total + num, 0);
+
+console.log(sum); // 6
+```
+
+The `reduce` method accepts 2 parameter, a function and an initial value.
+
+The function you provide accepts four parameters:
+
+- `accumulator` - this is the value that will be changed while you loop through the array. Its initial value is the second parameter you provide to `reduce` method.
+- `item` - the array item
+- `index` - the index of the item
+- `originalArray` - the original array
+
+The value returned by the function will be passed as `accumulator` for the next item, until there is no more item, then the return value will be the output for the whole expression.
+
+Let's walkthough the example above:
+
+```js
+const numbers = [1, 2, 3];
+const sum = numbers.reduce(
+  (total, num) => total + num,
+  0
+); /* This line could be breakdown as following three steps:
+    1. total is 0 (initial value), num is 1 (first item), thus the function returns 1 (0 + 1)
+    2. total is 1 (value returned by step 1), num is 2 (second item), thus the function returns 3 (1 + 2)
+    3. total is 3 (value returned by step 2), num is 3 (third item), thus the function returns 6 (3 + 3)
+    4. because no more items, sum will be 6 (value returned by step 3)
+*/
+console.log(sum);
+```
+
+`reduce` doesn't dictate the type of the `accumulator`, thus you can use it for many purposes:
+
+```js
+// counting occurrence
+const alphabets = ['a', 'b', 'c', 'a', 'c', 'z'];
+
+const summary = alphabets.reduce((result, alphabet) => {
+  if (result[alphabet]) {
+    return {
+      ...result,
+      [alphabet]: result[alphabet] + 1
+    };
+  } else {
+    return {
+      ...result,
+      [alphabet]: 1
+    };
+  }
+}, {});
+
+console.log(summary);
+```
+
+```js
+// grouping
+const numbers = [1, 2, 3, 4];
+const numberGroups = numbers.reduce(
+  (result, num) => {
+    if (num % 2 === 0) {
+      // it's an even number, concat the item to the `even` array
+      return {
+        ...result,
+        even: result.even.concat(num)
+      };
+    } else {
+      // concat the item to the `odd` array.
+      return {
+        ...result,
+        odd: result.odd.concat(num)
+      };
+    }
+  },
+  { odd: [], even: [] }
+);
+
+console.log(numberGroups.odd);
+console.log(numberGroups.even);
+```
+
+In fact, you can even use `reduce` to do what `filter` and `map` do. However, this is not advisable because `map` and `filter` (specific use case) communicates the your code's intention better than `reduce` (generic).
+
+```js
+// filtering
+const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = numbers.reduce(
+  (result, num) => (num % 2 === 0 ? result.concat(num) : result),
+  []
+); // this is equivalent to numbers.filter(num => num % 2 === 0);
+
+// mapping
+const doubles = numbers.reduce((result, num) => result.concat(num * 2), []); // this is equivalent to numbers.map(num => num * 2);
+```
+
+### Exercise
+
+Given the following array:
+
+```js
+const participants = [
+  { name: 'Abu', gender: 'male', paid: true },
+  { name: 'Mary', gender: 'female', paid: true },
+  { name: 'T Chakra', gender: 'male', paid: false },
+  { name: 'Suzi', gender: 'female', paid: true }
+];
+```
+
+By using `reduce` method, get an object with two properties `paid` and `unPaid`, which are each an array of participants.
+
+## Array.forEach
+
+`forEach` is a method to perform some operation for each item. It doesn't returns anything.
+
+```js
+const numbers = [1, 4, 7];
+
+numbers.forEach((num, index) =>
+  console.log(`Item at index ${index} is ${num}`)
+); /* This will logs:
+Item at index 0 is 1
+Item at index 1 is 4
+Item at index 2 is 7
+*/
+```
+
+Similar to `filter` and `map`, `forEach` also provide three parameters to the function you pass to it: item, index, and the original array.
+
+<aside>
+
+`forEach` can replace most use cases of `for` loop, thus you seldom need to write for loop anymore.
+
+</aside>
+
+### Exercise
+
+Given the following array:
+
+```js
+const participants = [
+  { name: 'Abu', gender: 'male', paid: true },
+  { name: 'Mary', gender: 'female', paid: true },
+  { name: 'T Chakra', gender: 'male', paid: false },
+  { name: 'Suzi', gender: 'female', paid: true }
+];
+```
+
+By using `forEach` method, get an object with two properties `paid` and `unPaid`, which are each an array of participants.
+
+## Other useful Array methods
+
+There are other handy `Array` methods that I use frequently:
+
+- `Array.find` - get the first item that fulfills a condition. [MDN docs][array-find]
+- `Array.includes` - check if an item is in the array. [MDN docs][array-includes]
+- `Array.some` - check if at least one item fulfills a condition. [MDN docs][array-some]
+- `Array.every` - check if all items fulfills a condition. [MDN docs][array-every]
+
+As your homework, look up the MDN documentations on them.
+
+[off-by-one-error]: https://en.wikipedia.org/wiki/Off-by-one_error
+[underscore]: https://underscorejs.org
+[lodash]: https://lodash.com/
+[array-find]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+[array-includes]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+[array-some]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+[array-every]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every

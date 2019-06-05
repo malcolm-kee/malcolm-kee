@@ -40,6 +40,13 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
+        path: path.join(__dirname, 'workshops'),
+        name: 'workshops'
+      }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
         path: path.join(__dirname, 'blogs'),
         name: 'markdown-pages'
       }
