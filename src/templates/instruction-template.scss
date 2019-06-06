@@ -1,6 +1,6 @@
 @import '../constants/variable';
 
-$right-nav-offset: 244px;
+$right-nav-offset: 224px;
 
 @keyframes expandX {
   from {
@@ -18,6 +18,11 @@ $right-nav-offset: 244px;
 
   &-container {
     padding: $appbar-height + $spacing-unit $spacing-unit 32px;
+
+    @media screen and (min-width: $media-tablet) {
+      padding-left: $spacing-unit * 2;
+      padding-right: $spacing-unit * 2;
+    }
   }
 
   h1 {
