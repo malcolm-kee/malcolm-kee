@@ -3,7 +3,7 @@
 .footer {
   &-content {
     margin: 0 * 2 auto;
-    padding: $spacing-unit;
+    padding: $spacing-unit $spacing-unit * 2;
     max-width: 960px;
     text-align: center;
     font-size: 0.8rem;

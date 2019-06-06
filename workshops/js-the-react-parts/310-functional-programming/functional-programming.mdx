@@ -108,7 +108,7 @@ function double(x = 1) {
 }
 ```
 
-`double` utilize the default parameter that we've discussed in [previous section](/destructuring/#destructuring-in-function-parameter), therefore it can be invoked without parameter:
+`double` utilize the default parameter that we've discussed in [previous section](/js-the-react-parts/destructuring#destructuring-in-function-parameter), therefore it can be invoked without parameter:
 
 ```javascript
 double(); // 2
@@ -243,7 +243,7 @@ const groupPersonByWeirdness = persons => {
 
 ## First Class Function
 
-Another concept in functional programming is "first class function". When we say function is "first class", what we actually means is that they are just like everyone else... which means we treat them just like other data type like number or boolean, e.g. passing them around, storing it in array, assign to parameter etc (a characteristic that we discuss briefly in the [closure section](/closure/)).
+Another concept in functional programming is "first class function". When we say function is "first class", what we actually means is that they are just like everyone else... which means we treat them just like other data type like number or boolean, e.g. passing them around, storing it in array, assign to parameter etc (a characteristic that we discuss briefly in the [closure section](/js-the-react-parts/closure)).
 
 Functional programming utilizes this features to compute function just like how we usually compute data. I would like to introduce you a few more techniques to illustrate what this means.
 
@@ -376,7 +376,7 @@ With those utilities, you can create complex computation and logics.
 
 ## Array Methods from Functional Programming Perspective
 
-Now you have some understanding about function programming, let's review the methods that we learn in [Array Methods](/array-methods/) sections.
+Now you have some understanding about function programming, let's review the methods that we learn in [Array Methods](/js-the-react-parts/array-methods) sections.
 
 - The callback that you pass to `Array.filter`, `Array.map`, and `Array.reduce` should be pure function. Besides, those methods are functional because they don't change the original array. Instead, they always returns a new function.
 - The callback that you pass to `Array.forEach` would not be functional. However, this doesn't mean that you shouldn't avoid using it, sometimes using `forEach` is cleaner than using `reduce`.

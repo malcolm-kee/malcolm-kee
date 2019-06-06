@@ -161,9 +161,13 @@ $right-nav-offset: 224px;
     }
 
     details {
-      padding: 0 $spacing-unit $spacing-unit * 3;
+      padding: 0 $spacing-unit $spacing-unit * 2;
       > summary {
         cursor: pointer;
+      }
+
+      p {
+        margin-top: $spacing-unit;
       }
     }
   }

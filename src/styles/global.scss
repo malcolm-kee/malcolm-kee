@@ -329,6 +329,13 @@ body {
     --link: #{$link-dark};
     --tocBg: #{$grey-dark};
     --tocSelected: #{$toc-dark-selected};
+
+    table,
+    tr,
+    th,
+    td {
+      border-color: #666666;
+    }
   }
 }
 h1,
@@ -348,6 +355,20 @@ h1 {
   font-size: 2.25rem;
   margin-bottom: $spacing-unit;
   line-height: 1.1;
+}
+table {
+  width: 100%;
+  padding: 0;
+  margin: $spacing-unit * 2 0;
+}
+td,
+th {
+  font-size: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
+  padding-right: 1.16667rem;
+  padding-top: 0.875rem;
+  padding-bottom: calc(0.875rem - 1px);
 }
 .StandardSpacing {
   padding: 0 $spacing-unit * 2 $spacing-unit;
