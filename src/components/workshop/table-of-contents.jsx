@@ -20,8 +20,6 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
       setIsOpen(false);
       const activatedSection = findActiveSection(sections, pathname);
 
-      console.log({ activatedSection });
-
       if (activatedSection && activatedSection.title !== activeSection) {
         setActiveSection(activatedSection.title);
       }
