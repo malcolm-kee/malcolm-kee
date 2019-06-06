@@ -61,7 +61,7 @@
     "react-live": "^2.1.2",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
-    "typesafe-is": "^1.1.1"
+    "typesafe-is": "^1.1.2"
   },
   "keywords": [
     "Malcolm Kee",
