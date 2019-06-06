@@ -315,6 +315,8 @@ body {
     --text: #{$text-light};
     --text-pale: #{$text-light-pale};
     --link: #{$link-light};
+    --tocBg: #{$grey-100};
+    --tocSelected: #{$toc-light-selected};
   }
   &.dark {
     background-color: $bg-color-dark;
@@ -325,6 +327,15 @@ body {
     --text: #{$text-dark};
     --text-pale: #{$text-dark-pale};
     --link: #{$link-dark};
+    --tocBg: #{$grey-dark};
+    --tocSelected: #{$toc-dark-selected};
+
+    table,
+    tr,
+    th,
+    td {
+      border-color: #666666;
+    }
   }
 }
 h1,
@@ -345,6 +356,20 @@ h1 {
   margin-bottom: $spacing-unit;
   line-height: 1.1;
 }
+table {
+  width: 100%;
+  padding: 0;
+  margin: $spacing-unit * 2 0;
+}
+td,
+th {
+  font-size: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.12);
+  padding-right: 1.16667rem;
+  padding-top: 0.875rem;
+  padding-bottom: calc(0.875rem - 1px);
+}
 .StandardSpacing {
   padding: 0 $spacing-unit * 2 $spacing-unit;
 }
@@ -361,6 +386,9 @@ h1 {
   padding: 0 $spacing-unit;
   &.center {
     justify-content: center;
+  }
+  &.right {
+    justify-content: flex-end;
   }
   &.space-between {
     justify-content: space-between;
@@ -450,5 +478,152 @@ h1 {
   @media (min-width: $media-mobile) {
     min-width: 100px;
     padding: $spacing-unit / 2 $spacing-unit;
+  }
+}
+
+.article-content {
+  padding: $spacing-unit * 2;
+  font-family: $font-family;
+
+  .header-link-icon {
+    float: left;
+    padding-left: 4px;
+    margin-left: -20px;
+    svg path {
+      fill: $link-light;
+      fill: var(--link);
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    &[id]:before {
+      display: block;
+      content: ' ';
+      margin-top: -75px; // Set the Appropriate Height
+      height: 75px; // Set the Appropriate Height
+      visibility: hidden;
+    }
+
+    .header-link-icon svg {
+      visibility: hidden;
+    }
+
+    &:hover {
+      .header-link-icon svg {
+        visibility: visible;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-top: 1em;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    @media only screen and (max-width: 480px) {
+      font-size: 1.4rem;
+    }
+  }
+  h3 {
+    margin: 1em 0 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.8em;
+    @media only screen and (max-width: 480px) {
+      font-size: 1.4rem;
+    }
+  }
+  p {
+    margin-bottom: 0;
+    margin-top: 2em;
+  }
+  ol,
+  ul {
+    li:first-child {
+      p {
+        margin-top: 0.5em;
+      }
+    }
+  }
+  em {
+    font-style: italic;
+  }
+  img.blog-gif {
+    display: block;
+    width: 100%;
+    &--narrow {
+      @media (min-width: $media-mobile) {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  @include link('a:not(.gatsby-resp-image-link)');
+
+  a[href^="https://www.youtube.com"] {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    &::after {
+      content: '\25BA';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 120px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+  p,
+  li {
+    font-weight: 400;
+    line-height: 1.6em;
+    color: $text-light;
+    color: var(--text);
+  }
+  hr {
+    margin: 2em 0 0;
+    padding: 0;
+    height: 1px;
+    background: $grey-300;
+  }
+  blockquote {
+    border-radius: $spacing-unit;
+    margin: 2em $spacing-unit;
+    padding: $spacing-unit;
+    background-color: $bg-color-light-pale;
+    background-color: var(--bg-pale);
+    position: relative;
+    &::before {
+      content: '\275d';
+      position: absolute;
+      font-size: 1.6rem;
+      color: $text-light-pale;
+      color: var(--text-pale);
+    }
+    &::after {
+      content: '\275e';
+      position: absolute;
+      right: $spacing-unit;
+      bottom: $spacing-unit;
+      font-size: 1.6rem;
+      color: $text-light-pale;
+      color: var(--text-pale);
+    }
+    > p {
+      position: relative;
+      text-indent: $spacing-unit * 2;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .gatsby-highlight {
+    margin-top: 1.75rem;
   }
 }

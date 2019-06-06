@@ -1,6 +1,7 @@
 @import '../constants/variable';
 
 .btn {
+  position: relative;
   padding: $spacing-unit $spacing-unit * 2;
   cursor: pointer;
   text-transform: capitalize;
@@ -29,7 +30,7 @@
   &:hover {
     background-color: $grey-200;
   }
-  &.primary {
+  &-primary {
     border-color: transparent;
     &:focus {
       border-color: $primary-color;
@@ -38,18 +39,54 @@
       color: $primary-color-dark;
     }
   }
-  &.secondary {
+  &-secondary {
     color: $secondary-color-dark;
     border-color: transparent;
     &:focus {
       border-color: $secondary-color;
     }
   }
-  &.raised {
+  &-bubble {
+    background-color: #306b7b;
+    color: #fff;
+    z-index: 1;
+    overflow: hidden;
+    transition: color 0.3s ease-in-out;
+    border: 2px solid transparent;
+
+    &::before {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      top: 100%;
+      right: 100%;
+      width: 1em;
+      height: 1em;
+      border-radius: 50%;
+      background-color: $react-color;
+      transform-origin: center;
+      transform: translate(50%, -50%) scale(0);
+      transition: transform 0.35s ease-in-out;
+    }
+
+    &:hover {
+      background-color: #306b7b;
+      color: #161616;
+
+      &::before {
+        transform: translate(50%, -50%) scale(20);
+      }
+    }
+
+    &:focus {
+      border-color: $react-color;
+    }
+  }
+  &-raised {
     box-shadow: $box-shadow-2;
     border-width: 2px;
     border-style: solid;
-    &.primary {
+    &.btn-primary {
       border-color: transparent;
       color: white;
       background: $primary-color;
@@ -60,7 +97,7 @@
         border-color: white;
       }
     }
-    &.secondary {
+    &.btn-secondary {
       border-color: transparent;
       color: #444;
       background: $secondary-color;
@@ -76,7 +113,13 @@
     }
   }
 
-  &.full-width {
+  &-large {
+    min-height: 56px;
+    min-width: 180px;
+    font-size: 1.3rem;
+  }
+
+  &-full-width {
     width: 100%;
   }
 }

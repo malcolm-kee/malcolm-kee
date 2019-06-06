@@ -1,0 +1,78 @@
+---
+title: 'Callback Function'
+path: '/js-the-react-parts/callback-function'
+description: ''
+section: 'extra'
+---
+
+In JavaScript, when we want to create a block of reusable code, we create a `function`.
+
+```js
+// instead of
+console.log(Math.abs(10));
+console.log(Math.abs(-100));
+console.log(Math.abs(26));
+
+// let's create a function to remove duplication
+function logAbsolute(number) {
+  console.log(Math.abs(number));
+}
+
+logAbsolute(10);
+logAbsolute(-100);
+logAbsolute(26);
+```
+
+The example above shows how we can create a block of reusable code with different **data** (different value of `number` parameter). But is it possible to create reusable code with different **behavior**?
+
+Let's consider the code below:
+
+```js
+var numbers = [1, 2, 3, 4, 5];
+
+var doubleNumbers = [];
+for (var index = 0; index < numbers.length; index++) {
+  var element = numbers[index];
+  doubleNumbers.push(element * 2);
+}
+console.log(doubleNumbers);
+
+var biggerNumbers = [];
+for (var index = 0; index < numbers.length; index++) {
+  var element = numbers[index];
+  biggerNumbers.push(element + 2);
+}
+console.log(biggerNumbers);
+```
+
+There are many duplications between the computation of `doubleNumbers` and `biggerNumbers`, but how do you create a reusable function that able to have slightly different behavior (`* 2` and `+ 2`)?
+
+Enter callback function:
+
+```js
+var numbers = [1, 2, 3, 4, 5];
+function map(array, callback) {
+  var result = [];
+  for (var index = 0; index < array.length; index++) {
+    var element = array[index];
+    result.push(callback(element));
+  }
+  return result;
+}
+
+var doubleNumbers = map(numbers, function(el) {
+  return el * 2;
+});
+console.log(doubleNumbers);
+
+var biggerNumbers = map(numbers, function(el) {
+  return el + 1;
+});
+console.log(biggerNumbers);
+```
+
+Thanks to the fact that [function is first class in JavaScript](/js-the-react-parts/functional-programming#first-class-function), we can pass function as parameter. With that, we can create a function that has different behavior based on the function parameter.
+
+This function that you pass to another function is usually known as callback function, due to the fact that that function will be "callback"ed by the function you call.
+
+Besides creating JavaScript function with dynamic behavior, callback function is also a [common pattern in asynchronous programming](/js-the-react-parts/asynchronous-js#asynchronous-programming-with-callback).

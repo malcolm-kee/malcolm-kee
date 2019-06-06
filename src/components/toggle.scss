@@ -108,11 +108,11 @@
 .react-toggle--checked {
   .react-toggle-thumb {
     left: 27px;
-    border-color: #19ab27;
+    // border-color: #19ab27;
   }
-  .react-toggle-track {
-    background-color: $secondary-color-dark;
-  }
+  // .react-toggle-track {
+  //   background-color: $secondary-color-dark;
+  // }
 }
 
 .react-toggle--focus .react-toggle-thumb {

@@ -23,6 +23,7 @@
   .log-output {
     width: 100%;
     overflow: auto;
+    line-height: 1.75;
     &::before {
       content: '> ';
     }

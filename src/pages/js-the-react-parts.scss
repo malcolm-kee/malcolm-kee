@@ -1,0 +1,159 @@
+@import '../constants/variable';
+
+@keyframes delay-fade {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes change-color {
+  0% {
+    fill: #000;
+    stroke: transparent;
+  }
+
+  100% {
+    fill: $react-color;
+    stroke: #000;
+  }
+}
+
+@keyframes change-color-yellow {
+  0% {
+    fill: $js-color;
+  }
+
+  100% {
+    fill: #cfb707;
+  }
+}
+
+#js-the-react-parts-landing {
+  padding-top: 56px;
+
+  .logo-section {
+    text-align: center;
+  }
+
+  .icon-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .landing-title-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: $spacing-unit * 2;
+  }
+
+  .landing-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: $react-color;
+    text-shadow: 1px 1px 10px #000, 1px 1px 10px #bbb;
+    padding: 0 $spacing-unit * 2;
+    margin: 0 0 $spacing-unit * 2;
+
+    .javascript-text {
+      color: $js-color;
+      display: block;
+      font-size: 2em;
+    }
+
+    .react-text {
+      animation: delay-fade 3s ease-in-out;
+    }
+
+    @media screen and (max-width: $media-mobile) {
+      font-size: 1.5rem;
+      padding: 8px;
+      text-align: center;
+    }
+  }
+
+  .js-icon {
+    display: inline-block;
+    width: 150px;
+    margin: 0;
+
+    @media screen and (min-width: $media-mobile) {
+      width: 200px;
+    }
+
+    path,
+    rect {
+      transition-duration: 1s;
+      transition-timing-function: ease-in-out;
+      transition-property: fill, stroke;
+    }
+
+    path {
+      animation: change-color 1.8s ease-in-out 2 alternate;
+      stroke: transparent;
+    }
+
+    rect {
+      animation: change-color-yellow 1.8s ease-in-out 2 alternate;
+    }
+
+    &:hover {
+      rect {
+        fill: #cfb707;
+      }
+
+      path {
+        fill: $react-color;
+        stroke: #000;
+      }
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .react-icon {
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-play-state: running;
+    filter: drop-shadow(2px 2px 4px #444);
+    width: 80px;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+
+    @media screen and (min-width: $media-mobile) {
+      width: 100px;
+    }
+
+    &-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+    }
+
+    &-inner-container {
+      animation: delay-fade 3s ease-in-out;
+    }
+  }
+}

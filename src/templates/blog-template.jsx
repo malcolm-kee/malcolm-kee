@@ -85,7 +85,7 @@ export default function Template({ data, pageContext }) {
                 <p>{summary}</p>
               </div>
             )}
-            <div className="blog-post--content">
+            <div className="blog-post--content article-content">
               <MDXRenderer>{code.body}</MDXRenderer>
             </div>
           </article>

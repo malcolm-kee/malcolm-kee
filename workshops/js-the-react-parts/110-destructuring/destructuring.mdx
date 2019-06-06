@@ -1,0 +1,705 @@
+---
+title: 'Destructuring'
+path: '/js-the-react-parts/destructuring'
+description: ''
+section: 'syntactic sugar'
+---
+
+The second syntactic sugar that we will learn is _destructuring_.
+
+There are two types of destructuring, array destructuring and object destructuring. Let's discuss them one by one.
+
+## Array Destructuring
+
+A common use case in JavaScript is to access item of an array at specific position, e.g.
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau', 'Muthu'];
+}
+
+var persons = getPersons();
+
+var person1 = persons[0]; // 'Ali'
+var person2 = persons[1]; // 'Ahkau'
+var person3 = persons[2]; // 'Muthu'
+
+log(`person1: ${person1}`);
+log(`person2: ${person2}`);
+log(`person3: ${person3}`);
+```
+
+With array destructuring:
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau', 'Muthu'];
+}
+
+var [person1, person2, person3] = getPersons();
+
+log(`person1: ${person1}`);
+log(`person2: ${person2}`);
+log(`person3: ${person3}`);
+```
+
+The thing that may confuse people when first learn about destructuring is they may confuse the expression on the left hand side (`[]`) as "creating a new array".
+
+Instead, think of the left hand side as "describing the shape" of the result of right hand side.
+
+The great thing about the destructuring is it is very visual, you can virtually do a visual mapping between the result and the assigned variables. Besides, it's like a self documenting code, where it document the expected shape of the result of `getPersons` call.
+
+### Ignoring Some Item
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau', 'Muthu'];
+}
+
+var persons = getPersons();
+
+var person1 = persons[0]; // 'Ali'
+var person3 = persons[2]; // 'Muthu'
+
+log(`person1: ${person1}`);
+log(`person3: ${person3}`);
+```
+
+With destructuring,
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau', 'Muthu'];
+}
+var [person1, , person3] = getPersons();
+
+log(`person1: ${person1}`);
+log(`person3: ${person3}`);
+```
+
+### ...Rest
+
+Sometimes, you want to get the first few items of an array, and group all the remaining items into separate array.
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau', 'Muthu', 'Siti', 'Lily'];
+}
+
+var persons = getPersons();
+var person1 = persons[0]; // 'Ali'
+var person2 = persons[1]; // 'Ahkau'
+var others = persons.slice(2); // ['Muthu', 'Siti', 'Lily']
+
+log(`person1: ${person1}`);
+log(`person2: ${person2}`);
+log(`others: ${others}`);
+```
+
+With the `...` (rest) syntax, you can do this:
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau', 'Muthu', 'Siti', 'Lily'];
+}
+
+var [person1, person2, ...others] = getPersons();
+
+log(`person1: ${person1}`);
+log(`person2: ${person2}`);
+log(`others: ${others}`);
+```
+
+### With Default Value
+
+Sometimes, while getting a value from an array, you may want to assign a default value:
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau'];
+}
+
+var persons = getPersons();
+
+var person1 = persons[0];
+var person2 = persons[1];
+var person3 = persons[2] || 'Unknown Person';
+```
+
+Same code\* with destructuring:
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau'];
+}
+
+var [person1, person2, person3 = 'Unknown Person'] = getPersons();
+```
+
+There is a slight difference between the two versions of code: the default value in destructuring only kicks in only if the value is `undefined`, if the value is falsy (`0`, `null`, or `""`), the value will not get assigned but it would for the first version.
+
+```js
+function getPersons() {
+  return ['Ali', 'Ahkau', ''];
+}
+
+var persons = getPersons();
+
+var oldPerson3 = persons[2] || 'Unknown Person';
+
+var [person1, person2, person3 = 'Unknown Person'] = persons;
+
+console.log(oldPerson3); // 'Unknown Person'
+console.log(person3); // ''
+```
+
+You may ask, why only `undefined`?
+
+That's because in most cases, `undefined` value is usually a out-of-bound case or unassigned scenario, while others values are assigned intentionally.
+
+```js
+var persons = ['Ali', 'Ahkau'];
+
+persons[2]; // undefined, because out of bound
+
+var person1 = 'A';
+var person2 = 'B';
+var person3;
+
+var personsGroup2 = [person1, person2, person3];
+
+personsGroup2[2]; // undefined, unassigned
+```
+
+### Nested Array Destructuring
+
+Sometimes the data structure can be nested array (array in array).
+
+```js
+function getPersons() {
+  var managers = ['Ali', 'Ahkau'];
+  var staffs = ['Eric', 'Ricky'];
+  return [managers, staffs];
+}
+
+var allGroups = getPersons();
+var group1 = allGroups[0];
+var group2 = allGroups[1];
+
+var manager1 = group1[0];
+var manager2 = group1[1];
+
+var staff1 = group2[0];
+var staff2 = group2[1];
+```
+
+We can use destructuring here too!
+
+```js
+function getPersons() {
+  var managers = ['Ali', 'Ahkau'];
+  var staffs = ['Eric', 'Ricky'];
+  return [managers, staffs];
+}
+
+var [
+  [manager1, manager2], // destructure managers
+  [staff1, staff2] // destructure staffs
+] = getPersons();
+```
+
+With nested destructuring, you need to be careful as it may throw you error!
+
+```js
+function getPersons() {
+  var managers = ['Ali', 'Ahkau'];
+  return [managers];
+}
+
+// var [[manager1, manager2], [staff1, staff2]] = getPersons(); // Error!
+```
+
+That's because when you try to do the inner destructuring, the code is trying to destructure `undefined`. It's clearer if you translate the new syntax to the old syntax:
+
+```js
+function getPersons() {
+  var managers = ['Ali', 'Ahkau'];
+  return [managers];
+}
+
+var allGroups = getPersons();
+var group1 = allGroups[0]; // ['Ali', 'Ahkau']
+var group2 = allGroups[1]; // undefined
+
+// var staff1 = group2[0]; // Error!
+// var staff2 = group2[1];
+```
+
+So what should we do? Use the default value.
+
+```js
+function getPersons() {
+  var managers = ['Ali', 'Ahkau'];
+  return [managers];
+}
+
+var [[manager1, manager2], [staff1, staff2] = []] = getPersons();
+```
+
+### Exercise
+
+Rewrite the following code with destructuring.
+
+```js
+function logTodosPlan(activities) {
+  var firstActivity = activities[0];
+  var secondActivity = activities[1];
+  var thirdActivity = activities[2];
+  var doLaters = activities.slice(3);
+  console.log('I will start my day with ' + firstActivity);
+  console.log('Then I will ' + secondActivity);
+  console.log('Finally, I ' + thirdActivity);
+  console.log('Activities that I will do later are: ' + doLaters.join(', '));
+}
+
+logTodosPlan(['eat', 'sleep', 'code', 'read', 'watch Avengers', 'get a gf/bf']);
+```
+
+```js
+function announceParticipants(event, participants) {
+  var teachers = participants[0];
+  var students = participants[1] || [];
+
+  var firstTeacher = teachers[0] || 'N/A';
+  var secondTeacher = teachers[1] || 'N/A';
+  var firstStudent = students[0] || 'N/A';
+  var secondStudent = students[1] || 'N/A';
+
+  console.log('Announcing participants for ' + event);
+  console.log(
+    'The first two teachers are: ' + firstTeacher + ' and ' + secondTeacher
+  );
+  console.log(
+    'The first two students are: ' + firstStudent + ' and ' + secondStudent
+  );
+}
+
+announceParticipants('Kung Fu Competition', [
+  ['Yoda', 'Master Sifu', 'Ip Man', 'Wong Fei Hong'],
+  ['Luke Skywalker', 'Kungfu Panda', 'Bruce Lee']
+]);
+
+announceParticipants('Hackathon', [['Kyle Simpsons'], ['Noob']]);
+
+announceParticipants('Quidditch', [['Naruto', 'Lufee']]);
+```
+
+## Object Destructuring
+
+A more common use case in JavaScript is to get specific properties from a object.
+
+```js
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee',
+    age: 29
+  };
+}
+
+var me = getPerson();
+var myFirstName = me.firstName;
+var myLastName = me.lastName;
+var myAge = me.age;
+
+console.log(`I am ${myFirstName} ${myLastName}, aged ${myAge}`);
+```
+
+With destructuring:
+
+```js
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee',
+    age: 29
+  };
+}
+
+var {
+  firstName: myFirstName, // get firstName property and assign it to myFirstName
+  lastName: myLastName, // get lastName property and assign it to myLastName
+  age: myAge // get age property and assign it to myAge
+} = getPerson();
+
+console.log(`I am ${myFirstName} ${myLastName}, aged ${myAge}`);
+```
+
+### Shorthand
+
+In most cases, your variable name will be similar to the property name:
+
+```js
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee',
+    age: 29
+  };
+}
+
+var me = getPerson();
+var firstName = me.firstName;
+var lastName = me.lastName;
+var age = me.age;
+
+console.log(`I am ${firstName} ${lastName}, aged ${age}`);
+```
+
+In that case, the destructuring syntax can be even shorter:
+
+```js
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee',
+    age: 29
+  };
+}
+
+var { firstName, lastName, age } = getPerson();
+
+console.log(`I am ${firstName} ${lastName}, aged ${age}`);
+```
+
+### Ignoring Some Item
+
+```js
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee',
+    age: 29
+  };
+}
+
+var { firstName, lastName } = getPerson(); // age is not destructured, thus will be ignored
+
+console.log(`I am ${firstName} ${lastName}`);
+```
+
+### ...Rest
+
+Similar to array where you can collect all the remaining items into an array, you can do something similar for object:
+
+Old syntax:
+
+```js
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee',
+    age: 29
+  };
+}
+
+var person = getPerson();
+var firstName = person.firstName;
+var otherDetails = Object.assign({}, person); // we need to create a new object by cloning it
+delete otherDetails.firstName; // then we delete specific property on this new object
+
+console.log(firstName); // 'Malcolm'
+console.log(otherDetails); // { lastName: 'Kee', age: 29 }
+```
+
+With destructuring:
+
+```javascript
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee',
+    age: 29
+  };
+}
+
+var { firstName, ...otherDetails } = getPerson();
+
+console.log(firstName); // 'Malcolm'
+console.log(otherDetails); // { lastName: 'Kee', age: 29 }
+```
+
+### With Default Value
+
+You can provide default value during destructuring.
+
+```js
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee'
+  };
+}
+
+var person = getPerson();
+var firstName = person.firstName || '';
+var age = person.age || 18;
+```
+
+With new syntax:
+
+```js
+function getPerson() {
+  return {
+    firstName: 'Malcolm',
+    lastName: 'Kee'
+  };
+}
+
+var { firstName = '', age = 18 } = getPerson();
+
+// this is how you want to provide default while rename it
+var { age: myAge = 18 } = getPerson();
+```
+
+### Nested Object Destructuring
+
+Similar to array, you may have nested object
+
+```js
+function getPerson() {
+  return {
+    name: {
+      firstName: 'Malcolm',
+      lastName: 'Kee'
+    },
+    address: {
+      street: '9, Jln Besar',
+      state: 'KL'
+    },
+    age: 29
+  };
+}
+
+var person = getPerson();
+var name = person.name;
+var firstName = name.firstName;
+var address = person.address;
+var livingState = address.state;
+var age = person.age;
+
+console.log(`${firstName}, aged ${age}, lives in ${livingState}`);
+```
+
+With destructuring
+
+```js
+function getPerson() {
+  return {
+    name: {
+      firstName: 'Malcolm',
+      lastName: 'Kee'
+    },
+    address: {
+      street: '9, Jln Besar',
+      state: 'KL'
+    },
+    age: 29
+  };
+}
+
+var {
+  name: { firstName },
+  address: { state: livingState },
+  age
+} = getPerson();
+
+console.log(`${firstName}, aged ${age}, lives in ${livingState}`);
+```
+
+Similar to nested object destructuring, you may need to provide default empty object to avoid error.
+
+```js
+function getPerson() {
+  return {
+    name: {
+      firstName: 'Malcolm',
+      lastName: 'Kee'
+    }
+  };
+}
+
+var {
+  name: { firstName }
+  // address: { state } // this would cause error
+} = getPerson();
+```
+
+To avoid that, do this
+
+```js
+function getPerson() {
+  return {
+    name: {
+      firstName: 'Malcolm',
+      lastName: 'Kee'
+    }
+  };
+}
+
+var {
+  name: { firstName },
+  address: { state } = {}
+} = getPerson();
+```
+
+### Combining Object and Array Destructuring
+
+Example for Array of Object
+
+```js
+function getPersons() {
+  return [
+    { name: 'Spiderman', age: 18 },
+    { name: 'Thanos', age: 2000 },
+    { name: 'Ironman', age: 40 }
+  ];
+}
+
+var [
+  { name: heroName, age: heroAge },
+  { name: villainName, age: villainAge }
+] = getPersons();
+```
+
+Example for Object containing Array
+
+```js
+function getPerson() {
+  return {
+    name: 'Malcolm',
+    friends: ['Mickey', 'Tom', 'Jerry']
+  };
+}
+
+var {
+  name,
+  friends: [firstFriend, secondFriend, thirdFriend]
+} = getPerson();
+```
+
+### Exercise
+
+Rewrite the following code with destructuring.
+
+```js
+function logPerson(person) {
+  var name = person.name;
+  var firstName = name.firstName;
+  var lastName = name.lastName;
+  var age = person.age;
+
+  console.log(firstName + ' ' + lastName + ', aged ' + age);
+}
+
+var persons = [
+  {
+    name: { firstName: 'Malcolm', lastName: 'Kee' },
+    age: 29
+  },
+  {
+    name: { firstName: 'Andy', lastName: 'Lau' },
+    age: 55
+  }
+];
+
+logPerson(persons[0]);
+logPerson(persons[1]);
+```
+
+```js
+function getStyles(styles) {
+  var stylesVal = styles || {};
+  var display = stylesVal.display || 'block';
+  var dimensions = stylesVal.dimensions || {};
+  var width = dimensions.width || '100%';
+
+  return {
+    display,
+    width
+  };
+}
+
+console.log(getStyles({ display: 'inline', dimensions: { width: '50px' } }));
+console.log(getStyles());
+```
+
+## Destructuring in Function Parameter
+
+All the destructuring that we have discussed can be applied to function parameters.
+
+```js
+function calculateTotal(data) {
+  var price = data.price;
+  var tax = data.tax || 6;
+  return price * (1 + tax / 100);
+}
+```
+
+```js
+function calculateTotal({ price, tax = 6 }) {
+  return price * (1 + tax / 100);
+}
+```
+
+In fact, the `...` syntax has special meaning as function parameters: it converts the parameters into an array.
+
+```js
+function addAll(...allNumbers) {
+  // all the parameters becomes an item of allNumbers array
+  var sum = 0;
+  for (var x = 0; x < allNumbers.length; x++) {
+    sum += allNumbers[x];
+  }
+  return sum;
+}
+
+addAll(2); // 2;
+addAll(2, 3); // 5;
+addAll(2, 3, 4); // 9;
+```
+
+### Default Parameter for Function
+
+In addition of concept of destructuring and rest could be applied to function parameter, the concept of default value applies to function parameter too.
+
+```js
+function formatMoney(value, symbol = 'RM') {
+  return `${symbol} ${value}`;
+}
+
+formatMoney(100, '$'); // "$ 100"
+formatMoney(100); // "RM 100"
+formatMoney(100, null); // "null 2"
+```
+
+`formatMoney` is a function that will join the value of a number with the currency symbol. However, the currency symbol (second parameter) will be default to `'RM'` if not provided.
+
+Similar to default value during destructuring, function default parameter only works if that parameter is `undefined`, as demonstrated in the third usage example.
+
+### Exercise
+
+Rewrite the function to use destructuring to assign default
+
+```js
+function formatNumber(number, options) {
+  var actualOptions = options || {};
+  var prefix = actualOptions.prefix || 'RM ';
+  var suffix = actualOptions.suffix || '.00';
+  return prefix + number + suffix;
+}
+
+console.log(formatNumber(100));
+console.log(formatNumber(2, { prefix: '$ ' }));
+console.log(formatNumber(2, { prefix: 'DKK ', suffix: ',00' }));
+```

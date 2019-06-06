@@ -1,0 +1,300 @@
+---
+title: '...Spread'
+path: '/js-the-react-parts/spread'
+description: ''
+section: 'syntactic sugar'
+---
+
+The third syntactic sugar that we will cover is _spread_ operator.
+
+You can see spread operator as opposite of [destructuring](/js-the-react-parts/destructuring); destructuring decomposes an array or object to its smaller item/ properties, while spread operator is used to merge smaller array/object into a bigger one.
+
+Similar to destructuring, we have array spread and object spread.
+
+## Array Spread
+
+How do you merge multiple array item a single array?
+
+```js
+var array1 = [1, 2, 3];
+var middle = 4;
+var array2 = [5, 6, 7];
+
+var result = array1.concat(middle).concat(array2);
+
+console.log(result); // [1, 2, 3, 4, 5, 6, 7];
+```
+
+Using the array spread:
+
+```js
+var array1 = [1, 2, 3];
+var middle = 4;
+var array2 = [5, 6, 7];
+
+var result = [...array1, middle, ...array2];
+
+console.log(result); // [1, 2, 3, 4, 5, 6, 7];
+```
+
+It may be confusing at first because both spread and rest use the same syntax (`...`). The difference is on the context that you're using them. `...` during destructuring means rest, while in other context it means spread.
+
+### Spreading Array to Function Invocation
+
+You can spread an array to an function invocation so the array item will be provided as the parameters of the function call.
+
+```js
+function add(x, y) {
+  return x + y;
+}
+
+var ages = [4, 6];
+
+var result = add(...ages);
+
+console.log(result);
+```
+
+A useful case is to spread an array to a function that accepts any numbers of parameters, e.g. `Math.max`.
+
+```js
+var maxNumber = Math.max(100, 0, 500, 10);
+
+console.log(maxNumber); // 500
+
+var numbers = [100, 0, 500, 10];
+
+var result = Math.max(...numbers);
+
+console.log(result); // 500
+```
+
+### Exercise
+
+1. Given three variables below:
+
+   ```js
+   var arr1 = ['a', 'b', 'c'];
+   var x = 'd';
+   var arr2 = ['e', 'f', 'g'];
+   ```
+
+   write the expression to join them to produce:
+
+   - `['a', 'b', 'c', 'd', 'e', 'f', 'g']`
+   - `['d', 'e', 'f', 'g', 'a', 'b', 'c']`
+   - `['a', 'b', 'c', 'a', 'b', 'c']`
+
+   You may not need to use all three variables.
+
+1. Write a function `min` that accepts a parameter `numbers` which is an array of numbers and return the smallest number in the array. (Hint: use [`Math.min`][math-min])
+
+   ```js
+   function min(numbers) {
+     // write your implementation.
+   }
+
+   console.log(min([0, 1, 2, 3])); // this should output 0
+   console.log(min([100, 2, -10, 50])); // this should output -10
+   ```
+
+## Object Spread
+
+To merge multiple object into a single object:
+
+```js
+var base = {
+  currency: 'RM',
+  decimalPlaces: 2,
+  thousandSeparators: ',',
+  address: {
+    country: 'Malaysia',
+    city: 'KL'
+  }
+};
+
+var options = {
+  currency: 'USD',
+  roundOff: true,
+  address: {
+    country: 'United States'
+  }
+};
+
+var result = Object.assign({}, base, options);
+
+console.log(result);
+```
+
+- `Object.assign` is an utility function that will merge objects from right to left, i.e. properties of object on right will override properties of object of the left.
+- The properties are merged shallowly, e.g. it override the whole `address` property instead of merge recursively.
+
+Using object spread:
+
+```javascript
+var base = {
+  currency: 'RM',
+  decimalPlaces: 2,
+  thousandSeparators: ',',
+  address: {
+    country: 'Malaysia',
+    city: 'KL'
+  }
+};
+
+var options = {
+  currency: 'USD',
+  roundOff: true,
+  address: {
+    country: 'United States'
+  }
+};
+
+var result = { ...base, ...options };
+
+console.log(result); /*
+{
+    currency: 'USD',
+    roundOff: true,
+    decimalPlaces: 2,
+    thousandSeparators: ',',
+    address: {
+        country: 'United States'
+    }
+} */
+```
+
+The good thing about object spread is to express nested merge it's quite self-explanatory:
+
+```javascript
+var base = {
+  currency: 'RM',
+  decimalPlaces: 2,
+  thousandSeparators: ',',
+  address: {
+    country: 'Malaysia',
+    city: 'KL'
+  }
+};
+
+var options = {
+  currency: 'USD',
+  roundOff: true,
+  address: {
+    country: 'United States'
+  }
+};
+
+var result = {
+  ...base,
+  ...options,
+  // highlight-next-line
+  address: {
+    // highlight-next-line
+    ...base.address,
+    // highlight-next-line
+    ...options.address
+    // highlight-next-line
+  }
+};
+
+console.log(result); /*
+{
+    currency: 'USD',
+    roundOff: true,
+    decimalPlaces: 2,
+    thousandSeparators: ',',
+    address: {
+        country: 'United States',
+        city: 'KL'
+    }
+} */
+```
+
+### Override Function Default
+
+A use case of object spread is to wrap a third-party function which you like to override its default.
+
+For example, a `formatMoney` function that will format a number so it's in the common money format. Its signature could be:
+
+```ts
+function formatMoney(value, options) {}
+```
+
+where options is an optional parameters, and is an object with following properties:
+
+```javascript
+{
+    prefix: '$',
+    thousandSeparator: ',',
+    decimalSeparator: '.',
+    decimalPlaces: 2
+}
+```
+
+Assume that for your application, the most common prefix is `'RM'` instead of `'$'`, so you would like to create a wrapper function that default `prefix` to `'RM'`, you can use spread and rest syntax to achieve that:
+
+```javascript
+function myFormatMoney(value, { prefix = 'RM', ...otherOptions } = {}) {
+  return formatMoney(value, { prefix, ...otherOptions });
+}
+```
+
+Now `myFormatMoney` works similar to `formatMoney`, just the default is customized for your convenience!
+
+### Exercise
+
+1. Write the `merge` function that would merge `objA` and `objB` to produce the desired result:
+
+   ```javascript
+   var objA = {
+     theme: 'light',
+     fontFamily: 'Tahoma',
+     mediaQuery: {
+       mobile: 560,
+       tablet: 720,
+       desktop: 1020
+     }
+   };
+
+   var objB = {
+     theme: 'dark',
+     mediaQuery: {
+       mobile: 500
+     }
+   };
+
+   function merge(defaultStyle, customized) {
+     // write your code
+   }
+
+   var result = merge(objA, objB);
+   ```
+
+   - Expected `result`:
+
+     ```javascript
+     {
+         theme: 'dark',
+         fontFamily: 'Tahoma',
+         mediaQuery: {
+            mobile: 500
+         }
+     }
+     ```
+
+   - Expected `result`:
+
+     ```javascript
+     {
+         theme: 'dark',
+         fontFamily: 'Tahoma',
+         mediaQuery: {
+             mobile: 500,
+             tablet: 720,
+             desktop: 1020
+         }
+     }
+     ```
+
+[math-min]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min

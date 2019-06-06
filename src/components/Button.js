@@ -1,3 +1,4 @@
+import { Link } from 'gatsby';
 import React from 'react';
 import { joinClassName } from 'join-string';
 import './Button.scss';
@@ -11,6 +12,7 @@ export const Button = ({
   component: Component = 'button',
   color = '',
   raised = false,
+  large,
   className,
   children,
   type = Component === 'button' ? 'button' : undefined,
@@ -21,9 +23,10 @@ export const Button = ({
     type={type}
     className={joinClassName(
       'btn',
-      color,
-      raised && 'raised',
-      fullWidth && 'full-width',
+      color && `btn-${color}`,
+      raised && 'btn-raised',
+      fullWidth && 'btn-full-width',
+      large && 'btn-large',
       className
     )}
     {...restProps}
@@ -31,3 +34,5 @@ export const Button = ({
     {children}
   </Component>
 );
+
+export const LinkButton = props => <Button component={Link} {...props} />;

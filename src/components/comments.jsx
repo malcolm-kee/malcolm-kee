@@ -1,8 +1,8 @@
-import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
-import { OutLink } from './OutLink';
+import { useRepositoryUrl } from '../hooks/use-repository-url';
 import { Button } from './Button';
 import './comments.scss';
+import { OutLink } from './OutLink';
 
 const parseDate = dateString =>
   new Date(dateString).toLocaleString('en-GB', {
@@ -14,19 +14,7 @@ const parseDate = dateString =>
   });
 
 export const Comments = ({ comments, articlePath }) => {
-  const {
-    site: {
-      siteMetadata: { repositoryUrl }
-    }
-  } = useStaticQuery(graphql`
-    {
-      site {
-        siteMetadata {
-          repositoryUrl
-        }
-      }
-    }
-  `);
+  const repositoryUrl = useRepositoryUrl();
 
   const hasComments = comments.length > 0;
 

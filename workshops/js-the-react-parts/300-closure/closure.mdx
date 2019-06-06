@@ -1,0 +1,556 @@
+---
+title: 'Closure'
+path: '/js-the-react-parts/closure'
+description: ''
+section: 'advanced'
+---
+
+Closure is a concept in JavaScript that you would encounter if you're long enough in JavaScript, but you would seldom see it's being explained clearly. However, I would say without knowing what closure is, it's very likely there is some gaps in your understanding of JavaScript that you don't even aware of.
+
+Because without closure, actually a lot JavaScript code would not work at all.
+
+## A Deeper Look at Scope
+
+Let's look at a code snippet below.
+
+```javascript
+let x = 100;
+
+function doA() {
+  let x = 5;
+  function innerDoA() {
+    console.log(x);
+  }
+  return innerDoA;
+}
+
+const logX = doA();
+
+logX(); // what does this log?
+```
+
+Before you run it in your console, try to predict what `logX` would log. Is it 5 or is it 100?
+
+<details>
+  <summary>Answer (Click to show)</summary>
+  <p>5</p>
+</details>
+
+**Why?**
+
+Let's try to reason how you may expect it to be 100:
+
+1. Where we run `logX`, we trying to trace back, what's `logX`?
+1. `logX` is the result returned by `doA` function. When you looking into `doA`, you realize it actually returns `innerDoA` function, which is declared inside it.
+1. Looking into `innerDoA`, where the value of `x` is being logged, we're thinking, what's the value of `x`?
+1. To answer the question, we ask ourselves: is there any `x` in `innerDoA` function?
+1. Since there is no `x` in `innerDoA`, where should we look at next?
+
+   - By instinct, you may think that that would be global, e.g. the outer `x` (100).
+   - `x` at line 4 seems irrelevant because `x` at line 4 is within `doA` function, and the place you call `logX` is outside `doA` function.
+
+However, the reasoning above must has a gap that causing us to predict incorrectly that `x` at line 4 is irrelevant, and that gap is closure.
+
+What is closure?
+
+> Closure is the ability of a function to access variables where the function is **declared**.
+
+With closure, when the line 6 is being executed, how JavaScript lookup `x` works like this:
+
+1. Is there any `x` within the `innerDoA` function? No.
+1. Is there any `x` that could be accessed with closure of `innerDoA` function? Yes! `x` at line 4!
+1. (If previous check is false), then only will check if `x` is available globally.
+
+Now, you may think, huh, that's interesting, but what's the use of that? I seldom do this returns function pattern in my code, I'm fine!
+
+But the fact is, you may not realize you can returns function, but you do pass function around as a callback right? Then, you're utilizing closure!
+
+Let's see an example:
+
+```js
+function getServerTime(callback) {
+  const xmlHttp = new XMLHttpRequest();
+
+  xmlHttp.open('HEAD', window.location.href);
+  xmlHttp.setRequestHeader('Content-Type', 'text/html');
+  xmlHttp.addEventListener('load', () => {
+    // invocation happens here!
+    callback(xmlHttp.getResponseHeader('Date'));
+  });
+  xmlHttp.send('');
+}
+
+function checkNetwork() {
+  const localTime = new Date();
+  function logTime(serverTime) {
+    console.log(`localTime: ${localTime}`);
+    console.log(`serverTime: ${serverTime}`);
+  }
+  getServerTime(logTime);
+}
+
+checkNetwork();
+```
+
+- `getServerTime` is a function that able to get time based on server without any server code. Similar to many function that is asynchronous, it accepts a `callback` parameter so it can call it later.
+- `checkNetwork` is a function that will store the local time before call `getServerTime`, and then log both local time and server time.
+- Note that the `logTime` is declared within `checkNetwork` function, but the invocation is in `getServerTime`. Without closure, `logTime` would not has access to `localTime` variable.
+
+So, you've been utilizing closure when you learn to program with callback, it's just you never realize it.
+
+With a better understanding of closure (and thus how scope works in JavaScript), let's see the technique we can use with this knowledge.
+
+- currying
+- private variables and methods
+
+## Currying with Closure
+
+Currying is a technique that allows you to provide parameters to a function sequentially (instead of in single invocation).
+
+```js
+function multiply(x, y) {
+  return x * y;
+}
+
+console.log(multiply(2, 3));
+```
+
+`add` is a function that takes two parameters `x` and `y` and multiply them together.
+
+However, what if you get the value of `x` and `y` in different time? (Imagine a calculator app, where user enter first number, then enter second number later).
+
+You can use currying to achieve that:
+
+```js
+function createMultiplier(x) {
+  return function multiply(y) {
+    return x * y;
+  };
+}
+// the function above can be rewritten as const createMultiplier => x => y => x * y;
+
+const double = createMultiplier(2);
+// later
+console.log(double(3));
+```
+
+`multiply` function works, because it has access to `x` due to closure.
+
+Let's see a more fun example:
+
+```js
+document.getElementById('bulbasaur').addEventListener('click', function(ev) {
+  document.getElementById(ev.target.dataset.sound).play();
+  document.getElementById('selected-pokemon').innerHTML = 'Bulbasaur!';
+});
+
+document.getElementById('charmander').addEventListener('click', function(ev) {
+  document.getElementById(ev.target.dataset.sound).play();
+  document.getElementById('selected-pokemon').innerHTML = 'Charmander!';
+});
+
+document.getElementById('squirtle').addEventListener('click', function(ev) {
+  document.getElementById(ev.target.dataset.sound).play();
+  document.getElementById('selected-pokemon').innerHTML = 'Squirtle!';
+});
+```
+
+<div id="currying-example" style="margin-bottom:32px;">
+  <h2 id="selected-pokemon">Select your Pokemon:</h2>
+  <audio id="bulbasaur-sound" src="bulbasaur.ogg" />
+  <audio id="charmander-sound" src="charmander.ogg" />
+  <audio id="squirtle-sound" src="squirtle.ogg" />
+  <button id="bulbasaur" data-sound="bulbasaur-sound" class="btn">
+    Bulbasaur
+  </button>
+  <button id="charmander" data-sound="charmander-sound" class="btn">
+    Charmander
+  </button>
+  <button id="squirtle" data-sound="squirtle-sound" class="btn">
+    Squirtle
+  </button>
+</div>
+
+You may realize there are a lot duplications in the code.
+
+We can remove all the duplication by utilizing currying.
+
+```javascript
+const createPokemonClickHandler = pokemonName => ev => {
+  document.getElementById(ev.target.dataset.sound).play();
+  document.getElementById('selected-pokemon').innerHTML = pokemonName;
+};
+
+document
+  .getElementById('bulbasaur')
+  .addEventListener('click', createPokemonClickHandler('Bulbasaur!'));
+
+document
+  .getElementById('charmander')
+  .addEventListener('click', createPokemonClickHandler('Charmander!'));
+
+document
+  .getElementById('squirtle')
+  .addEventListener('click', createPokemonClickHandler('Squirtle!'));
+```
+
+We will utilize currying in [next lesson](/js-the-react-parts/functional-programming).
+
+### Exercise
+
+1. Refactor the `map` and `filter` function below to use currying.
+
+```js
+const map = (mapper, array) => array.map(mapper);
+const filter = (predicate, array) => array.filter(predicate);
+
+const numbers = [1, 2, 3, 4, 5];
+console.log(map(x => x * 2, numbers));
+console.log(filter(x => x > 2, numbers));
+
+// after you refactor, uncomment the following code to make sure they produces same result as original
+/* 
+const double = map(x => x * 2);
+const moreThanTwo = filter(x => x > 2);
+console.log(double(numbers));
+console.log(moreThanTwo(numbers));
+*/
+```
+
+2. Remove the duplication in the following code by using currying.
+
+```js
+document.querySelector('#size-12').addEventListener('click', function(ev) {
+  const container = document.querySelector('#currying-exercise');
+  container.style.fontSize = '12px';
+  container.style.color = ev.target.dataset.color;
+});
+
+document.querySelector('#size-14').addEventListener('click', function(ev) {
+  const container = document.querySelector('#currying-exercise');
+  container.style.fontSize = '14px';
+  container.style.color = ev.target.dataset.color;
+});
+
+document.querySelector('#size-16').addEventListener('click', function(ev) {
+  const container = document.querySelector('#currying-exercise');
+  container.style.fontSize = '16px';
+  container.style.color = ev.target.dataset.color;
+});
+```
+
+<div id="currying-exercise" style="margin-bottom:75px;">
+  <h5 style="font-size:1.6em;">Currying example</h5>
+  <p>I am text</p>
+  <div>
+    <button id="size-12" data-color="red" class="btn">
+      Red 12
+    </button>
+    <button id="size-14" data-color="blue" class="btn">
+      Blue 14
+    </button>
+    <button id="size-16" data-color="yellow" class="btn">
+      Yellow 16
+    </button>
+  </div>
+</div>
+
+## Creating a stateful data with "private" variable and method
+
+Languages such as Java provide ability to declare methods and variables as "private", making sure the methods/variables can only be called by other methods within the class.
+
+JavaScript does not provide a native way to do this, but we can emulate this with closures.
+
+Let's see a practical example.
+
+```js
+let _number = 0;
+
+const getId = function() {
+  return _number++;
+};
+
+console.log(getId());
+console.log(getId());
+console.log(getId());
+console.log(getId());
+```
+
+`getId` is a function that will always returns you an unique number everytime it's called. This is achieved by declaring a variable `_number`, which will be incremented everytime `getId` is called.
+
+However, with this code you don't have the assurance that the results of `getId` will be unique because `_number` is a public variable that can be updated by anyone.
+
+```javascript
+let _number = 0;
+
+const getId = function() {
+  return _number++;
+};
+
+console.log(getId());
+console.log(getId());
+console.log(getId());
+
+// some joker writes the following code
+_number = 1;
+
+console.log(getId()); // nope, 1 appear twice :(
+```
+
+We can protect our `_number` variable (making it private) by utilizing closure as below:
+
+```javascript
+function createIncrementor() {
+  let _number = 0;
+  function increment() {
+    return _number++;
+  }
+  return increment;
+}
+
+const getId = createIncrementor();
+
+console.log(getId());
+console.log(getId());
+console.log(getId());
+console.log(getId());
+```
+
+- `createIncrementor` is a function that declares a variable `_number` and a `increment` function, and returns the `increment` function.
+- Due to closure, when `increment` is returned and assigned to `getId`, it still has access to `_number` variable, thus we can still use it.
+- Now nobody can ever able to update the `_number` variable, thus we can assure `getId` will always returns unique value.
+- If you only need one incrementor, you can actually inline the `createIncrementor` function like below:
+
+```javascript
+const getId = (function() {
+  let _number = 0;
+  function increment() {
+    return _number++;
+  }
+  return increment;
+})();
+
+console.log(getId());
+console.log(getId());
+console.log(getId());
+console.log(getId());
+```
+
+This style of declaring a function and then directly invoke it is known as IIFE (immediately invoked function expression), and it's useful when you have this one-off function to wrap your variables privately.
+
+Following is a slightly more complex example:
+
+```js
+let _count = 0;
+function _changeBy(val) {
+  _count += val;
+}
+function incrementCount() {
+  _changeBy(1);
+}
+function decrementCount() {
+  _changeBy(-1);
+}
+function countValue() {
+  return _count;
+}
+
+console.log(`initial value: ${countValue()}`);
+incrementCount();
+incrementCount();
+console.log(`value after increment: ${countValue()}`);
+decrementCount();
+console.log(`value after decrement: ${countValue()}`);
+```
+
+- in the code above,
+  - `_count` is a private variable while `_changeBy` is a private function (indicated by naming starting with \_).
+  - `incrementCount`, `decrementCount`, and `countValue` are the public function that can be called.
+- However, there is no assurance that nobody will mess with `_count` and `_changeBy` directly.
+- We can solve this issue by hiding `_count` and `_changeBy` with closure.
+
+```js
+function createCounter() {
+  let count = 0;
+  function changeBy(val) {
+    count += val;
+  }
+  function increment() {
+    changeBy(1);
+  }
+  function decrement() {
+    changeBy(-1);
+  }
+  function value() {
+    return count;
+  }
+
+  return {
+    increment,
+    decrement,
+    value
+  };
+}
+
+const counter = createCounter();
+console.log(`initial value: ${counter.value()}`);
+counter.increment();
+counter.increment();
+console.log(`value after increment: ${counter.value()}`);
+console.log(`count: ${counter.count}`); // you can't access the counter variable directly
+console.log(`changeBy: ${counter.changeBy}`); // you can't access changeBy function
+```
+
+- `createCounter` is a function that will declare a variable `count` and four functions: `changeBy`, `increment`, `decrement`, and `value`. However, it only returns 3 functions.
+- When we call `createCounter`, we only get an object with 3 properties `increment`, `decrement`, and `value`. We can call these 3 functions to call `changeBy` and update/get the value of `count`, but we do not have access to `changeBy` and `count` directly.
+
+Actually, there is a name for this technique: module pattern. Module pattern is very useful when you want to limit the access of your function/variables. In fact, it's used by JavaScript bundler like webpack to simulate ES module.
+
+Module pattern actually highlights an important behavior of closure: the variables within the closure are not just constants, they are actually variables that can be updated, and your closure will access its latest value.
+
+With module pattern, you realize unless required by the framework/library you use, a lot times you don't really need to write object-oriented code in JavaScript, where you need to fight with the tricky behavior of `this` keyword in JavaScript.
+
+Note that the `createCounter` code above could be rewritten in a few ways, but all of them behave the same:
+
+```js
+// this code inline the public functions
+function createCounter() {
+  let count = 0;
+  function changeBy(val) {
+    count += val;
+  }
+
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return count;
+    }
+  };
+}
+
+const counter = createCounter();
+console.log(`initial value: ${counter.value()}`);
+counter.increment();
+counter.increment();
+console.log(`value after increment: ${counter.value()}`);
+```
+
+```js
+// IIFE styles
+const counter = (function() {
+  let count = 0;
+  function changeBy(val) {
+    count += val;
+  }
+  function increment() {
+    changeBy(1);
+  }
+  function decrement() {
+    changeBy(-1);
+  }
+  function value() {
+    return count;
+  }
+
+  return {
+    increment,
+    decrement,
+    value
+  };
+})();
+
+console.log(`initial value: ${counter.value()}`);
+counter.increment();
+counter.increment();
+console.log(`value after increment: ${counter.value()}`);
+```
+
+One more things about using module pattern: since it is a function, it encourages us to look for variables that are hardcoded and write a more reusable code.
+
+Looking at `createCounter` function, you may realize that there is no reason for us to hard-code initial number as 0. We thus, we can make `createCounter` function to accept an initialCount parameter.
+
+```js
+function createCounter(initialCount = 0) {
+  let count = initialCount;
+  function changeBy(val) {
+    count += val;
+  }
+
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return count;
+    }
+  };
+}
+
+const counter1 = createCounter();
+counter1.increment();
+console.log(`counter1 count: ${counter1.value()}`);
+
+const counter2 = createCounter(100);
+counter2.increment();
+console.log(`counter2 count: ${counter2.value()}`);
+```
+
+### Exercise
+
+1. Use closure to hide the private variables (`_msgs` and `_shouldLog`) in the code below.
+
+```js
+let _msgs = [];
+const _shouldLog = true;
+
+const addMsg = msg => {
+  _shouldLog && console.log(msg);
+  _msgs.push(msg);
+};
+
+const getAll = () => [..._msgs];
+
+const clear = () => {
+  _shouldLog && console.log('clearing all msg');
+  _msgs = [];
+};
+```
+
+2. Enhance the `createCounter` function to accepts another parameter, `step` that determines the amount it add/minus when you can `increment`/`decrement`.
+
+```js
+function createCounter(initialCount = 0) {
+  let count = initialCount;
+  function changeBy(val) {
+    count += val;
+  }
+
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return count;
+    }
+  };
+}
+
+const counter1 = createCounter();
+counter1.increment();
+console.log(`this should equals 1: ${counter1.value()}`);
+
+const counter2 = createCounter(100, 10);
+counter2.increment();
+console.log(`this should equals 110: ${counter2.value()}`);
+```

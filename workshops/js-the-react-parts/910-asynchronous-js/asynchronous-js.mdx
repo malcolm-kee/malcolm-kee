@@ -1,0 +1,341 @@
+---
+title: 'Asynchronous JS'
+path: '/js-the-react-parts/asynchronous-js'
+description: ''
+section: 'extra'
+---
+
+Due to its single-thread nature (meaning only one process that run at one time), JavaScript requires asynchronous programming to handle operations that may take some time, i.e. making network calls, read files etc.
+
+## Asynchronous Programming with Callback
+
+Let's see the simplest example of asynchronous programming: `setTimeout`.
+
+```js
+setTimeout(function() {
+  console.log('Hi');
+}, 1000);
+
+// equivalent code with arrow function
+setTimeout(() => console.log('Hi'), 1000);
+```
+
+The code above will log "Hi" to the console after 1 second (1000 miliseconds).
+
+How it works is by passing down a [callback function](/js-the-react-parts/callback-function), and the callback function will be called later.
+
+Now assume we use an utility function `ajax` that allows us to make API calls.
+
+```js
+// ajax is a function that I write, it's not available in browser automatically
+var result = ajax('https://icanhazdadjoke.com/');
+
+console.log(result);
+```
+
+`result` will be `undefined` because `ajax` runs asynchronously.
+
+To get the result of the ajax call, we need to pass callback to `ajax`:
+
+```js
+ajax('https://icanhazdadjoke.com/', {
+  onSuccess: function(result) {
+    console.log(result);
+  }
+});
+```
+
+In both cases (`setTimeout` and `ajax`), asynchronous function requires a callback function because we not sure when the data will be ready, therefore we pass them a callback so they can call it at the moment it's ready.
+
+### Error Handling for Asynchronous Programming with Callback
+
+How do you handle error for asynchronous code?
+
+Let's see an example:
+
+```js
+function dangerLater(message, callback) {
+  setTimeout(function() {
+    if (message.length > 10) {
+      throw new Error('Message too long!');
+    }
+    callback(message);
+  }, 1000);
+}
+
+try {
+  dangerLater('1239393984477', console.log);
+} catch (e) {
+  console.error('Catch error!');
+  console.error(e);
+}
+```
+
+Our `try...catch` clause actually not able the catch the error. In order to catch error in asynchronous function, the asynchronous function has to use either of the following approach:
+
+- accepts an error callback that will be invoked when error happens:
+
+  ```js
+  function dangerLater(message, callback, onError) {
+    setTimeout(function() {
+      if (message.length > 10) {
+        onError(new Error('Message too long!'));
+        return;
+      }
+      callback(message);
+    }, 1000);
+  }
+
+  dangerLater('1239393984477', console.log, console.error);
+  ```
+
+- pass down error as first parameter to callback when error happens, else pass down first parameter as `null`. This style is known as [error first callback][error-first-callback].
+
+  ```js
+  function dangerLater(message, callback) {
+    setTimeout(function() {
+      if (message.length > 10) {
+        callback(new Error('Message too long!'));
+        return;
+      }
+      callback(null, message);
+    }, 1000);
+  }
+
+  dangerLater('1239393984477', function(error, message) {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    console.log(message);
+  });
+  ```
+
+First approach is popular among frontend libraries, e.g. jQuery, while the second approach is popular among NodeJS libraries.
+
+### Problem with Asynchronous Programming with Callback
+
+Callback function are fine, but it starts to get hard to understand once you have nested callback.
+
+```js
+setTimeout(() => {
+  console.log('1 sec passed');
+  setTimeout(() => {
+    console.log('another 2 sec passed');
+    setTimeout(() => {
+      console.log('another 1 sec passed');
+    }, 1000);
+  }, 2000);
+}, 1000);
+```
+
+This nested callbacks are known as "callback hell", and it's usually considered as bad code because it's harder to understand and reason about the code flow.
+
+## Introducing Promise: Future Value & Event Completion
+
+JavaScript introduces `Promise`, a new way for us to write asynchronous code.
+
+Before I show you the code, I would like to introduce you to two ways to think about Promise: Future Value & Event Completion.
+
+### Promise as Future Value
+
+Imagine when you go to a crowded McDonals and order a McChicken. You hand over the cashier RM 6.
+
+By placing the order and make the payment, you've made a request for a value back (the McChicken).
+
+However, often the McChicken is not available immediately. The cashier will hand you something to represent the McChicken &mdash; a receipt.
+
+By holding the receipt with an order number, the cashier will call your number later and you will be able to get your McChicken.
+
+There is something great about this system, because both you and the cashier doesn't need to staring at each other blankly while the kitchen is preparing your McChicken. He can serve other customers, while you can stand aside and talk to your friend.
+
+`Promise` is like the receipt. When you call a function that need to perform something asynchronous, it will returns you a `Promise` (a future value). Using the `Promise`, you can then use it to do something else once that future value is available.
+
+Note that there is two possible outcomes of waiting for the McChicken: the cashier could serve you the McChicken as promised (the success scenario) or he could tell you that McChicken is sold out and you have to either order something else or cancel the order. `Promise` has similar mechanism as well.
+
+Let see an example.
+
+```js
+function getExamResult(callback) {
+  setTimeout(() => {
+    const result = Math.round(Math.random() * 100);
+    callback(result);
+  }, 1000);
+}
+
+getExamResult(function(x) {
+  if (x > 50) {
+    console.log('Congratulation! You passed!');
+  } else {
+    console.log('You fail :(');
+  }
+});
+```
+
+`getExamResult` is a function that will generate a random number after one second. Because it's asynchronous, therefore we use the callback style to get the value it generates later.
+
+Note: This example may seems like a dumb example, but you can imagine `getExamResult` as a function that would make a network call to an API to retrieve some data.
+
+Below is the version of `getExamResult` that use `Promise`:
+
+```js
+function getExamResult() {
+  return new Promise((fulfill, reject) => {
+    setTimeout(() => {
+      const result = Math.round(Math.random() * 100);
+      fulfill(result);
+    }, 1000);
+  });
+}
+
+const examResultPromise = getExamResult();
+
+examResultPromise.then(marks => {
+  if (marks > 50) {
+    console.log(`Congratulation! You passed with the marks ${marks}!`);
+  } else {
+    console.log('You fail :(');
+  }
+});
+```
+
+Instead of accepting a callback as parameter, now `getExamResult` will returns a `Promise` by using the `Promise` constructor.
+
+- `Promise` constructor accepts a function, which will receives two parameters, `fulfill` and `reject`. Both of them are functions; you call `fulfill` when your asynchronous operation complete successfully or call `reject` when your operation encounter error. We will talk about `reject` slightly later in this lesson.
+- You can pass a variable to `fulfill`. If you need to pass multiple values, you need to wrap them as an object.
+
+To get notified when a `Promise` complete, you call the `then` method on the `Promise` object. The function you provide will receive the value that is passed to `fulfill` call.
+
+- You can call `then` method multiple times to perform multiple response after the `Promise` complete, and they will be called in the sequence they call the `then` method.
+
+```javascript
+examResultPromise.then(marks => {
+  if (marks > 50) {
+    console.log('Mum I did it!');
+  }
+});
+
+examResultPromise.then(marks => {
+  if (marks > 80) {
+    console.log('Celebrate!');
+  }
+});
+```
+
+Assigning a promise to a variable and then call `then` method is only needed if you need to call the `then` method multiple times. If you only need to call it once, a more common pattern is to call it right after the asynchronous function.
+
+```javascript
+getExamResult().then(marks => {
+  if (marks > 50) {
+    console.log(`Congratulation! You passed with the marks ${marks}!`);
+  } else {
+    console.log('You fail :(');
+  }
+});
+```
+
+### Exercise
+
+Rewrite the following functions that use callback style to use `Promise`:
+
+```js
+function waitFor(second, callback) {
+  setTimeout(callback, second * 1000);
+}
+
+waitFor(1, () => console.log('1 second passed'));
+
+function getServerTime(callback) {
+  const xmlHttp = new XMLHttpRequest();
+
+  xmlHttp.open('HEAD', window.location.href);
+  xmlHttp.setRequestHeader('Content-Type', 'text/html');
+  xmlHttp.addEventListener('load', () => {
+    callback(xmlHttp.getResponseHeader('Date'));
+  });
+  xmlHttp.send('');
+}
+
+getServerTime(serverTime => console.log(`Server time is ${serverTime}`));
+```
+
+### Promise as Event Completion
+
+A single `Promise` can be treated as a future value. There is another way to look at the resolution of a `Promise`: as a control-flow mechanism, a this then that in an asynchronous operation.
+
+Let imagine a function `callBoss` that will perform some task. We don't know about what `callBoss` actually do, and we don't really care in this context. We just need to know after `callBoss`, we need to `callMum` and finally `callWife`.
+
+Let's see how this could be achieve with callback:
+
+```js
+function callBoss(callback) {
+  // call boss and have conversation
+  // ...
+  callback();
+}
+
+function callMum(callback) {
+  // call mum and have conversation
+  // ...
+  callback();
+}
+
+function callWife(callback) {
+  // call wife and have conversation
+  // ...
+  callback();
+}
+
+callBoss(() => {
+  callMum(() => {
+    callWife(() => {
+      console.log('Everyone called!');
+    });
+  });
+});
+```
+
+To do it with `Promise`:
+
+```js
+function callBoss() {
+  return new Promise((fulfill, reject) => {
+    // call boss and have conversation
+    // ...
+    fulfill();
+  });
+}
+
+function callMum() {
+  return new Promise((fulfill, reject) => {
+    // call mum and have conversation
+    // ...
+    fulfill();
+  });
+}
+
+function callWife() {
+  return new Promise((fulfill, reject) => {
+    // call wife and have conversation
+    // ...
+    fulfill();
+  });
+}
+
+callBoss()
+  .then(() => callMum())
+  .then(() => callWife())
+  .then(() => console.log('Everyone called!'));
+```
+
+## Asynchronous Programming with Promise
+
+## Error Handling in Promise
+
+`reject` and `.catch`
+
+## Coordinating Multiple Promises
+
+`Promise.all`
+
+[error-first-callback]: https://nodejs.org/api/errors.html#errors_error_first_callbacks

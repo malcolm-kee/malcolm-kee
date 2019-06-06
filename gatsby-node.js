@@ -1,87 +1,23 @@
-const path = require('path');
-const _ = require('lodash');
-const blogPostTemplate = path.resolve('src/templates/blog-template.jsx');
-const tagTemplate = path.resolve('src/templates/tag-template.jsx');
+const createBlogs = require('./gatsby/create-blogs');
+const createWorkshops = require('./gatsby/create-workshops');
+const onCreateMdxNode = require('./gatsby/on-create-mdx-node');
 
-exports.createPages = ({ actions, graphql }) => {
-  const { createPage } = actions;
+exports.onCreateNode = async ({ node, actions }) => {
+  if (node.internal.type === 'Mdx') {
+    await onCreateMdxNode({ node, actions });
+  }
+};
 
-  return graphql(`
-    {
-      allMdx(sort: { order: DESC, fields: [frontmatter___date] }, limit: 1000) {
-        edges {
-          node {
-            id
-            frontmatter {
-              path
-              tags
-              keywords
-              summary
-            }
-          }
-          next {
-            frontmatter {
-              path
-              title
-            }
-          }
-          previous {
-            frontmatter {
-              path
-              title
-            }
-          }
-        }
-      }
-    }
-  `).then(result => {
-    if (result.errors) {
-      return Promise.reject(result.errors);
-    }
-
-    const posts = result.data.allMdx.edges;
-
-    posts.forEach(({ node, next, previous }) => {
-      createPage({
-        path: node.frontmatter.path,
-        component: blogPostTemplate,
-        context: {
-          id: node.id,
-          next: previous, // we need to invert these 2 because we query date descending
-          previous: next,
-          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${
-            node.frontmatter.path
-          } in:title sort:created-asc`
-        }
-      });
-    });
-
-    let tags = [];
-
-    _.each(posts, edge => {
-      if (_.get(edge, 'node.frontmatter.tags')) {
-        tags = tags.concat(edge.node.frontmatter.tags);
-      }
-    });
-
-    tags.forEach(tag => {
-      createPage({
-        path: `tags/${_.kebabCase(tag)}`,
-        component: tagTemplate,
-        context: {
-          tag
-        }
-      });
-    });
-  });
+exports.createPages = async ({ actions, graphql }) => {
+  await createBlogs({ actions, graphql });
+  await createWorkshops({ actions, graphql });
 };
 
 exports.onCreatePage = ({ page, actions }) => {
   const { createPage, deletePage } = actions;
 
-  const oldPage = Object.assign({}, page);
-
   if (page.path === '/') {
+    const oldPage = Object.assign({}, page);
     page.context.isRoot = true;
     deletePage(oldPage);
     createPage(page);

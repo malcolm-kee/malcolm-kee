@@ -3,7 +3,7 @@
 .Header {
   background-color: $primary-color;
   margin: 0 auto;
-  min-height: 56px;
+  min-height: $appbar-height;
   transition-duration: 500ms;
   transition-timing-function: $timing-function-1;
   transition-property: background-color;
@@ -112,7 +112,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: $zindex-appbar;
     width: 100%;
     clip-path: ellipse(100% 100% at 90% 0);
 
