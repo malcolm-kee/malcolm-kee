@@ -68,7 +68,8 @@ export const pageQuery = graphql`
   query BlogIndexQuery {
     allMdx(
       filter: {
-        frontmatter: { path: { glob: "/blog/*" }, published: { eq: true } }
+        fields: { workshopcontent: { eq: false } }
+        frontmatter: { published: { eq: true } }
       }
       sort: { order: DESC, fields: [frontmatter___date] }
     ) {

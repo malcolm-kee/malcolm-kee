@@ -1,26 +1,34 @@
 [
   {
     "name": "Intro to React",
+    "contentId": "intro-to-react-js",
     "url": "https://intro-to-react-js.netlify.com/",
     "description":
-      "A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting."
+      "A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting.",
+    "themeColor": "#61dafb"
   },
   {
     "name": "Intro to React v2",
+    "contentId": "intro-to-react-js-v2",
     "url": "https://intro-to-react-js-v2.netlify.com/",
     "description":
-      "An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting."
+      "An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.",
+    "themeColor": "#61dafb"
   },
   {
     "name": "Intro to Web Dev",
+    "contentId": "intro-to-web-dev",
     "url": "https://intro-to-web-dev.netlify.com/",
     "description":
-      "A full-day workshop that teach you how to create website contents with HTML, style them with CSS, and make them interactive with Javascript. Its primary target students are beginner with zero experience in programming."
+      "A full-day workshop that teach you how to create website contents with HTML, style them with CSS, and make them interactive with Javascript. Its primary target students are beginner with zero experience in programming.",
+    "themeColor": "#61dafb"
   },
   {
     "name": "JS: The React Parts",
+    "contentId": "js-the-react-parts",
     "url": "https://js-the-react-parts.netlify.com/",
     "description":
-      "An introduction to Javascript fundamentals and concepts that are commonly used when developing in React."
+      "An introduction to Javascript fundamentals and concepts that are commonly used when developing in React.",
+    "themeColor": "#f7df1e"
   }
 ]

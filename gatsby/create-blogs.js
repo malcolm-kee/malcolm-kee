@@ -21,7 +21,7 @@ module.exports = function createBlogs({ actions, graphql }) {
   return graphql(`
     {
       allMdx(
-        filter: { frontmatter: { path: { glob: "/blog/*" } } }
+        filter: { fields: { workshopcontent: { eq: false } } }
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 1000
       ) {

@@ -1,3 +1,4 @@
+import { Link } from 'gatsby';
 import React from 'react';
 import { joinClassName } from 'join-string';
 import './Button.scss';
@@ -31,3 +32,5 @@ export const Button = ({
     {children}
   </Component>
 );
+
+export const LinkButton = props => <Button component={Link} {...props} />;

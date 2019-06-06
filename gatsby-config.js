@@ -84,7 +84,13 @@ module.exports = {
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-external-links`,
           {
-            resolve: 'gatsby-remark-images',
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              className: `header-link-icon`
+            }
+          },
+          {
+            resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 590
             }

@@ -1,0 +1,20 @@
+@import '../constants/variable';
+
+.footer {
+  &-content {
+    margin: 0 * 2 auto;
+    padding: $spacing-unit;
+    max-width: 960px;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.3;
+
+    a {
+      color: inherit;
+    }
+
+    p {
+      margin: $spacing-unit 0;
+    }
+  }
+}
