@@ -12,7 +12,10 @@
     &--left {
       text-align: left;
       max-width: unset;
-      margin-left: $spacing-unit * 2;
+
+      @media screen and (min-width: $media-tablet) {
+        margin-left: $spacing-unit * 2;
+      }
     }
 
     a {

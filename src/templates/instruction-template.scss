@@ -25,6 +25,12 @@ $right-nav-offset: 224px;
     }
   }
 
+  &-report-issue-container {
+    margin-top: $spacing-unit * 3;
+    padding: $spacing-unit $spacing-unit * 2;
+    font-size: 0.8rem;
+  }
+
   h1 {
     margin: 2rem 0;
   }

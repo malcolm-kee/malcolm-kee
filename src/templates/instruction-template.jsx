@@ -4,6 +4,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { LinkButton } from '../components/Button';
 import { Comments } from '../components/comments';
+import { ReportIssueLink } from '../components/report-issue-link';
 import './instruction-template.scss';
 
 const InstructionTemplate = ({
@@ -35,17 +36,27 @@ const InstructionTemplate = ({
           <MDXRenderer>{mdx.code.body}</MDXRenderer>
         </article>
       </main>
-      <Comments
-        comments={github.search.nodes}
-        articlePath={mdx.frontmatter.path}
-      />
       {next && (
-        <div className="Toolbar right">
+        <div className="Toolbar right Toolbar--space-vertical">
           <LinkButton to={next.frontmatter.path} color="bubble" large>
             Next Lesson
           </LinkButton>
         </div>
       )}
+      <Comments
+        comments={github.search.nodes}
+        articlePath={mdx.frontmatter.path}
+      />
+    </div>
+    <div className="instruction-template-report-issue-container">
+      <p>
+        Issue on this page?{' '}
+        <ReportIssueLink
+          title={`Issue on ${mdx.fields.contentgroup}: ${
+            mdx.frontmatter.title
+          }`}
+        />
+      </p>
     </div>
   </div>
 );
@@ -56,6 +67,9 @@ export const pageQuery = graphql`
   query LessonById($id: String!, $commentsSearch: String!) {
     mdx(id: { eq: $id }) {
       id
+      fields {
+        contentgroup
+      }
       frontmatter {
         title
         description
