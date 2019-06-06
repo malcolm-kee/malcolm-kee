@@ -22,9 +22,8 @@ module.exports = function createWorkshops({ actions, graphql }) {
               id
               frontmatter {
                 path
-              }
-              fields {
-                workshopcontent
+                section
+                title
               }
             }
             next {
@@ -58,17 +57,20 @@ module.exports = function createWorkshops({ actions, graphql }) {
         workshop => workshop.contentId === group.workshop
       )[0];
 
+      const lessonGroup = groupInstruction(group.edges);
+
       group.edges.forEach(({ node: lesson, next }) => {
         createPage({
           path: lesson.frontmatter.path,
           component: instructionTemplate,
           context: {
             next,
+            lessonGroup,
+            isWorkshop: true,
             workshopTitle: workshop && workshop.name,
             workshopThemeColor: workshop && workshop.themeColor,
             id: lesson.id,
             workshop: group.workshop,
-            isWorkshop: lesson.fields && lesson.fields.workshopcontent,
             commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${
               lesson.frontmatter.path
             } in:title sort:created-asc`
@@ -78,3 +80,22 @@ module.exports = function createWorkshops({ actions, graphql }) {
     });
   });
 };
+
+function groupInstruction(edges) {
+  const sectionsByKey = {};
+
+  const nodes = edges.map(edge => edge.node);
+
+  nodes.forEach(node => {
+    if (sectionsByKey[node.frontmatter.section]) {
+      sectionsByKey[node.frontmatter.section].push(node);
+    } else {
+      sectionsByKey[node.frontmatter.section] = [node];
+    }
+  });
+
+  return Object.keys(sectionsByKey).map(title => ({
+    title,
+    nodes: sectionsByKey[title]
+  }));
+}

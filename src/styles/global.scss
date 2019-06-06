@@ -315,6 +315,8 @@ body {
     --text: #{$text-light};
     --text-pale: #{$text-light-pale};
     --link: #{$link-light};
+    --tocBg: #{$grey-100};
+    --tocSelected: #{$toc-light-selected};
   }
   &.dark {
     background-color: $bg-color-dark;
@@ -325,6 +327,8 @@ body {
     --text: #{$text-dark};
     --text-pale: #{$text-dark-pale};
     --link: #{$link-dark};
+    --tocBg: #{$grey-dark};
+    --tocSelected: #{$toc-dark-selected};
   }
 }
 h1,
@@ -496,7 +500,7 @@ h1 {
 
   h2 {
     font-size: 1.6rem;
-    margin-top: 2.5em;
+    margin-top: 1em;
     margin-bottom: 0.5rem;
     line-height: 1.2;
     @media only screen and (max-width: 480px) {
@@ -504,7 +508,7 @@ h1 {
     }
   }
   h3 {
-    margin: 0 0 0.5rem;
+    margin: 1em 0 0.5rem;
     font-size: 1.2rem;
     line-height: 1.8em;
     @media only screen and (max-width: 480px) {

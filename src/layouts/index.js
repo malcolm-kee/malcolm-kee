@@ -9,7 +9,7 @@ const mdxComponents = {
   code: CodeEditor
 };
 
-const LayoutContainer = ({ children, pageContext }) => {
+const LayoutContainer = ({ children, pageContext, location }) => {
   const themeValue = useTheme();
 
   const {
@@ -17,6 +17,7 @@ const LayoutContainer = ({ children, pageContext }) => {
     workshop,
     workshopTitle,
     workshopThemeColor,
+    lessonGroup,
     isRoot
   } = pageContext;
 
@@ -28,6 +29,8 @@ const LayoutContainer = ({ children, pageContext }) => {
             workshopTitle={workshopTitle}
             workshopThemeColor={workshopThemeColor}
             workshopRoot={`/${workshop}`}
+            workshopSections={lessonGroup}
+            pathname={location.pathname}
           >
             {children}
           </WorkshopLayout>

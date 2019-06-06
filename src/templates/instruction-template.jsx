@@ -41,7 +41,7 @@ const InstructionTemplate = ({
       />
       {next && (
         <div className="Toolbar right">
-          <LinkButton to={next.frontmatter.path} color="primary">
+          <LinkButton to={next.frontmatter.path} color="primary" raised>
             Next Lesson
           </LinkButton>
         </div>

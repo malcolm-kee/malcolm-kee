@@ -10,15 +10,18 @@ $primary-color-dark: #aa1100;
 $secondary-color: #26e4a7;
 $secondary-color-light: #70ffd9;
 $secondary-color-dark: #00b178;
+$grey-100: #efefef;
 $grey-light: #d5d5d5;
 $grey-200: #eeeeee;
 $grey-300: #e0e0e0;
 $grey-400: #bdbdbd;
+$grey-dark: #14161a;
 $bg-color-light: #fbfaef;
 $bg-color-light-pale: rgba(228, 224, 205, 0.5);
 $text-light: rgba(0, 0, 0, 0.87);
 $text-light-pale: rgba(0, 0, 0, 0.54);
 $link-light: $primary-color;
+$toc-light-selected: $primary-color;
 
 // dark theme
 $bg-color-dark: #282c35;
@@ -26,6 +29,7 @@ $bg-color-dark-pale: #232323;
 $text-dark: rgba(255, 255, 255, 0.88);
 $text-dark-pale: rgba(255, 255, 255, 0.6);
 $link-dark: $secondary-color;
+$toc-dark-selected: $primary-color-light;
 
 $timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 $timing-function-1: cubic-bezier(0.61, 0, 0.2, 1);
