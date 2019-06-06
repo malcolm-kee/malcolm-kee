@@ -4,7 +4,6 @@ import { ContactForm } from '../components/ContactForm';
 import { LandingPageBackground } from '../components/LandingPageBackground';
 import { LandingPageHeader } from '../components/LandingPageHeader';
 import { OutLink } from '../components/OutLink';
-import { SiteMetadata } from '../components/SiteMetadata';
 import { Typography } from '../components/Typography';
 import './index.scss';
 
@@ -14,7 +13,6 @@ const LandingPageSection = ({ children }) => (
 
 const IndexPage = () => (
   <div className="landing-page">
-    <SiteMetadata />
     <LandingPageHeader />
     <div className="landing-page-content">
       <LandingPageSection>

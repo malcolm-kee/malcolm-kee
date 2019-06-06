@@ -1,34 +1,43 @@
 [
   {
-    "name": "Intro to React",
+    "name": "Introduction to React",
     "contentId": "intro-to-react-js",
     "url": "https://intro-to-react-js.netlify.com/",
     "description":
       "A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting.",
+    "keywords": ["react for beginners", "javascript tooling"],
     "themeColor": "#61dafb"
   },
   {
-    "name": "Intro to React v2",
+    "name": "Introduction to React v2",
     "contentId": "intro-to-react-js-v2",
     "url": "https://intro-to-react-js-v2.netlify.com/",
     "description":
       "An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.",
+    "keywords": ["react for beginners", "react hooks"],
     "themeColor": "#61dafb"
   },
   {
-    "name": "Intro to Web Dev",
+    "name": "Introduction to Web Development",
     "contentId": "intro-to-web-dev",
     "url": "https://intro-to-web-dev.netlify.com/",
     "description":
       "A full-day workshop that teach you how to create website contents with HTML, style them with CSS, and make them interactive with Javascript. Its primary target students are beginner with zero experience in programming.",
+    "keywords": ["web development for beginners", "html", "css", "javascript"],
     "themeColor": "#61dafb"
   },
   {
-    "name": "JS: The React Parts",
+    "name": "JavaScript: The React Parts",
     "contentId": "js-the-react-parts",
     "url": "/js-the-react-parts",
     "description":
-      "An introduction to Javascript fundamentals and concepts that are commonly used when developing in React.",
+      "Javascript fundamentals and concepts that are commonly used when developing in React.",
+    "keywords": [
+      "javascript fundamentals",
+      "react for beginners",
+      "prerequisites for react",
+      "es6"
+    ],
     "themeColor": "#f7df1e"
   }
 ]

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Footer } from '../components/footer';
 import { Header } from '../components/Header';
-import { SiteMetadata } from '../components/SiteMetadata';
+import { Seo } from '../components/Seo';
 
 export const Layout = ({ isRoot, children }) => (
   <div className="Layout">
-    <SiteMetadata />
+    <Seo />
     <Header siteTitle="Malcolm Kee" isBanner={isRoot} />
     {children}
     <Footer />

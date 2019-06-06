@@ -6,8 +6,4 @@
   // the following will hide the toggle is CSS variable not supported
   --display: inline-flex;
   display: var(--display);
-  > span {
-    margin: 0 $spacing-unit;
-    text-align: right;
-  }
 }

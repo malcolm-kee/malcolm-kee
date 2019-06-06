@@ -37,7 +37,12 @@
 }
 
 #js-the-react-parts-landing {
-  padding-top: 56px;
+  padding-top: 80px;
+  padding-bottom: $spacing-unit * 2;
+
+  @media screen and (min-width: $media-mobile) {
+    padding-top: 56px;
+  }
 
   .logo-section {
     text-align: center;

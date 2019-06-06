@@ -1,6 +1,6 @@
 import React from 'react';
 import { Footer } from '../components/footer';
-import { SiteMetadata } from '../components/SiteMetadata';
+import { Seo } from '../components/Seo';
 import { Navbar } from '../components/workshop/navbar';
 import { TableOfContents } from '../components/workshop/table-of-contents';
 
@@ -13,7 +13,7 @@ export const WorkshopLayout = ({
   children
 }) => (
   <div className="Layout">
-    <SiteMetadata />
+    <Seo title={workshopTitle} />
     <Navbar
       title={workshopTitle}
       linkTarget={workshopRoot}

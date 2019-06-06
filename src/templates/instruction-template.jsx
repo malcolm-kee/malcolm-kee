@@ -1,23 +1,22 @@
 import { graphql } from 'gatsby';
 import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { LinkButton } from '../components/Button';
 import { Comments } from '../components/comments';
 import { ReportIssueLink } from '../components/report-issue-link';
+import { Seo } from '../components/Seo';
 import './instruction-template.scss';
 
 const InstructionTemplate = ({
   data: { mdx, github },
-  pageContext: { next }
+  pageContext: { next, workshopTitle }
 }) => (
   <div className="instruction-template-container">
-    <Helmet>
-      <title>{mdx.frontmatter.title}</title>
-      {mdx.frontmatter.description && (
-        <meta name="description" content={mdx.frontmatter.description} />
-      )}
-    </Helmet>
+    <Seo
+      title={`${mdx.frontmatter.title} - ${workshopTitle}`}
+      description={mdx.frontmatter.description}
+      keywords={mdx.frontmatter.keywords}
+    />
     <div className="instruction-template">
       <h1>{mdx.frontmatter.title}</h1>
       <div className="instruction-toc">
@@ -75,6 +74,7 @@ export const pageQuery = graphql`
         description
         section
         path
+        keywords
       }
       code {
         body
