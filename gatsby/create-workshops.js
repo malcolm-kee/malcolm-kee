@@ -64,7 +64,7 @@ module.exports = function createWorkshops({ actions, graphql }) {
           path: lesson.frontmatter.path,
           component: instructionTemplate,
           context: {
-            next,
+            next: lesson.frontmatter.title === 'Conclusion' ? null : next, // hard-code to remove next for conclusion
             lessonGroup,
             isWorkshop: true,
             workshopTitle: workshop && workshop.name,
