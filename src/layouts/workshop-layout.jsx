@@ -25,6 +25,6 @@ export const WorkshopLayout = ({
       themeColor={workshopThemeColor}
       pathname={pathname}
     />
-    <Footer />
+    <Footer left />
   </div>
 );

@@ -33,7 +33,13 @@ const WorkshopsPage = () => {
         <PageTitleContainer title="Workshops" />
         <List>
           {edges.map(({ node: { id, name, url, description } }) => (
-            <ListItem button component={OutLink} href={url} key={id} noGutter>
+            <ListItem
+              button
+              component={url[0] === '/' ? Link : OutLink}
+              to={url}
+              key={id}
+              noGutter
+            >
               <ListItemText
                 primaryText={name}
                 tertiaryText={description}

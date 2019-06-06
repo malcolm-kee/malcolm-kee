@@ -26,7 +26,7 @@
   {
     "name": "JS: The React Parts",
     "contentId": "js-the-react-parts",
-    "url": "https://js-the-react-parts.netlify.com/",
+    "url": "/js-the-react-parts",
     "description":
       "An introduction to Javascript fundamentals and concepts that are commonly used when developing in React.",
     "themeColor": "#f7df1e"

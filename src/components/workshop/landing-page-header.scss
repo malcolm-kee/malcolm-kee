@@ -1,0 +1,14 @@
+@import '../../constants/variable';
+
+.workshop-landing-page-header {
+  position: relative;
+  height: 70vh;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (min-width: $media-mobile) {
+    height: 100vh;
+  }
+}
