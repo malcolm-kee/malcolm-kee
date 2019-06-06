@@ -16,6 +16,11 @@ const tagTemplate = path.resolve(
 );
 
 module.exports = function createBlogs({ actions, graphql }) {
+  if (process.env.DISABLE_BLOG) {
+    // optimize local build time
+    return;
+  }
+
   const { createPage } = actions;
 
   return graphql(`

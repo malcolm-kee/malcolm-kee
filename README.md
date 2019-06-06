@@ -7,3 +7,12 @@ Source code for Malcolm Kee's [personal site](https://malcolmkee.com/) and works
 Workshop materials:
 
 * [JavaScript: The React Parts](https://malcolmkee.com/js-the-react-parts)
+
+## Local Build Time Optimization
+
+It's possible to disable specific pages to optimize local build time by adding the following variables to a `env.development` file:
+
+```
+DISABLE_BLOG=true
+DISABLE_WORKSHOP=true
+```

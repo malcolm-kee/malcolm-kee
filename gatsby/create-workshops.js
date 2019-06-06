@@ -8,6 +8,11 @@ const instructionTemplate = path.resolve(
 );
 
 module.exports = function createWorkshops({ actions, graphql }) {
+  if (process.env.DISABLE_WORKSHOP) {
+    // optimize local build time
+    return;
+  }
+
   const { createPage } = actions;
   return graphql(`
     {
