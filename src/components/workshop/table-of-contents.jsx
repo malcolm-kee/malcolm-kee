@@ -71,8 +71,6 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
                 onToggle={() =>
                   setActiveSection(activeSection === title ? null : title)
                 }
-                themeColor={themeColor}
-                pathname={pathname}
                 key={title}
               />
             ))}
@@ -89,14 +87,7 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
   );
 };
 
-const TableOfContentsSection = ({
-  nodes,
-  title,
-  isActive,
-  onToggle,
-  themeColor,
-  pathname,
-}) => {
+const TableOfContentsSection = ({ nodes, title, isActive, onToggle }) => {
   return (
     <React.Fragment key={title}>
       <li
@@ -105,6 +96,7 @@ const TableOfContentsSection = ({
           isActive && 'toc-section-title--active'
         )}
       >
+        {/* TODO: Make this non clickable in small screen */}
         <button onClick={onToggle}>
           {title} <ChevronIcon />
         </button>

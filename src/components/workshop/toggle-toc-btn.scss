@@ -3,7 +3,7 @@
 .toggle-toc-btn {
   position: fixed;
   z-index: $zindex-toc-toggle-btn;
-  bottom: 44px; // iOS Safari's inert "bottom 44px"
+  bottom: $ios-bottom-offset;
   cursor: pointer;
   right: 20px;
   border-radius: 50%;
