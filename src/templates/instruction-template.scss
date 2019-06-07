@@ -48,12 +48,6 @@ $right-nav-offset: 224px;
   }
 
   .instruction-article {
-    column-count: 2;
-    column-width: 550px;
-    column-gap: 4em;
-    column-rule: 1px solid $grey-light;
-    column-rule: 1px solid var(--subtle);
-
     > h2 {
       border-bottom: 1px solid;
       border-bottom-color: inherit;
