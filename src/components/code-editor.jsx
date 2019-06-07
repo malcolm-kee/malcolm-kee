@@ -6,12 +6,14 @@ import './code-editor.scss';
 
 function sanitize(data) {
   return Array.isArray(data)
-    ? data.map(sanitize).join(',')
+    ? `[${data.map(sanitize).join(',')}]`
     : data instanceof Error
       ? data.toString()
       : typeof data === 'object'
         ? JSON.stringify(data, null, 2)
-        : data;
+        : typeof data === 'string'
+          ? `"${data}"`
+          : data;
 }
 
 function shallowConcat(targetArr, item) {
