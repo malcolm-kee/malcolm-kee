@@ -9,7 +9,7 @@ export const ToggleTocBtn = React.forwardRef(
       open,
       onToggle,
       backgroundColor = '#e44d26',
-      color = getContrastTextColor(backgroundColor)
+      color = getContrastTextColor(backgroundColor),
     },
     ref
   ) => {
@@ -38,7 +38,7 @@ export const ToggleTocBtn = React.forwardRef(
               flexDirection: 'column',
               alignSelf: 'center',
               width: 20,
-              height: 20
+              height: 20,
             }}
           >
             <ChevronIcon
@@ -46,7 +46,7 @@ export const ToggleTocBtn = React.forwardRef(
               styles={{
                 color,
                 transform: `translate(2px, ${iconOffset}px) rotate(180deg)`,
-                transition: 'transform 0.2s ease'
+                transition: 'transform 0.2s ease',
               }}
             />
             <ChevronIcon
@@ -54,7 +54,7 @@ export const ToggleTocBtn = React.forwardRef(
               styles={{
                 color,
                 transform: `translate(2px, ${0 - iconOffset}px)`,
-                transition: 'transform 0.2s ease'
+                transition: 'transform 0.2s ease',
               }}
             />
           </div>

@@ -8,7 +8,7 @@ export const Navbar = ({
   title,
   linkTarget = '/',
   backgroundColor = '#e44d26',
-  color = getContrastTextColor(backgroundColor)
+  color = getContrastTextColor(backgroundColor),
 }) => (
   <header className="workshop-navbar" style={{ backgroundColor, color }}>
     <Link to={linkTarget}>{title}</Link>

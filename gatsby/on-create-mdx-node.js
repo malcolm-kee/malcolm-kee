@@ -9,12 +9,12 @@ module.exports = function onCreateMdxNode({ node, actions }) {
       createNodeField({
         node,
         name: 'contentgroup',
-        value: contentGroup
+        value: contentGroup,
       });
       createNodeField({
         node,
         name: 'workshopcontent',
-        value: contentGroup !== 'blog'
+        value: contentGroup !== 'blog',
       });
     }
   }

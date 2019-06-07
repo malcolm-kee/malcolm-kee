@@ -36,7 +36,7 @@ const CodeSnippet = React.memo(({ code, language }) => (
         {tokens
           .map((currentLine, index, allLines) => ({
             line: currentLine,
-            isHighlighted: isHighlightNextLine(allLines[index - 1])
+            isHighlighted: isHighlightNextLine(allLines[index - 1]),
           }))
           .filter(({ line }) => !isHighlightNextLine(line))
           .map(({ line, isHighlighted }, i) => (
@@ -44,7 +44,7 @@ const CodeSnippet = React.memo(({ code, language }) => (
               {...getLineProps({
                 line,
                 key: i,
-                className: isHighlighted ? 'highlighted-code-line' : undefined
+                className: isHighlighted ? 'highlighted-code-line' : undefined,
               })}
             >
               {line.map((token, key) => (

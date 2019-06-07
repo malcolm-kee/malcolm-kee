@@ -78,8 +78,8 @@ module.exports = function createWorkshops({ actions, graphql }) {
             workshop: group.workshop,
             commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${
               lesson.frontmatter.path
-            } in:title sort:created-asc`
-          }
+            } in:title sort:created-asc`,
+          },
         });
       });
     });
@@ -101,6 +101,6 @@ function groupInstruction(edges) {
 
   return Object.keys(sectionsByKey).map(title => ({
     title,
-    nodes: sectionsByKey[title]
+    nodes: sectionsByKey[title],
   }));
 }

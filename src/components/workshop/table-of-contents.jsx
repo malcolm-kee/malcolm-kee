@@ -95,7 +95,7 @@ const TableOfContentsSection = ({
   isActive,
   onToggle,
   themeColor,
-  pathname
+  pathname,
 }) => {
   return (
     <React.Fragment key={title}>
