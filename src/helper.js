@@ -69,3 +69,11 @@ function hexToG(h) {
 function hexToB(h) {
   return parseInt(cutHex(h).substring(4, 6), 16);
 }
+
+export function getGithubIssueLink(repositoryUrl, params) {
+  const paramString = Object.keys(params)
+    .map(key => `${key}=${params[key]}`)
+    .join('&');
+
+  return encodeURI(`${repositoryUrl}/issues/new?${paramString}`);
+}

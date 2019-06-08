@@ -72,8 +72,8 @@ module.exports = function createBlogs({ actions, graphql }) {
           previous: next,
           commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${
             node.frontmatter.path
-          } in:title sort:created-asc`
-        }
+          } in:title sort:created-asc`,
+        },
       });
     });
 
@@ -90,8 +90,8 @@ module.exports = function createBlogs({ actions, graphql }) {
         path: `tags/${_.kebabCase(tag)}`,
         component: tagTemplate,
         context: {
-          tag
-        }
+          tag,
+        },
       });
     });
   });

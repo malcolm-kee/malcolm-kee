@@ -1,4 +1,5 @@
 import React from 'react';
+import { getGithubIssueLink } from '../helper';
 import { useRepositoryUrl } from '../hooks/use-repository-url';
 import { Button } from './Button';
 import './comments.scss';
@@ -10,7 +11,7 @@ const parseDate = dateString =>
     month: 'long',
     day: 'numeric',
     hour: 'numeric',
-    minute: 'numeric'
+    minute: 'numeric',
   });
 
 export const Comments = ({ comments, articlePath }) => {
@@ -42,9 +43,13 @@ export const Comments = ({ comments, articlePath }) => {
           color="primary"
           raised
           component={OutLink}
-          href={`${repositoryUrl}/issues/new?assignees=&labels=comment&template=blog-comment.md&title=${articlePath}`}
+          href={getGithubIssueLink(repositoryUrl, {
+            title: articlePath,
+            labels: 'comment',
+            template: 'blog-comment.md',
+          })}
         >
-          Comment
+          Add Comment
         </Button>
       </div>
     </section>

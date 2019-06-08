@@ -1,0 +1,59 @@
+---
+title: 'Object Methods'
+path: '/js-the-react-parts/object-methods'
+description: ''
+section: 'extra'
+---
+
+[Array methods](/js-the-react-parts/array-methods) allows us to operate on Array. The following `Object` methods transform JavaScript object to array so we can operate them.
+
+## Object.assign
+
+```js
+var ori = {
+  a: 1,
+  b: 'c',
+};
+
+var target = {
+  b: 'd',
+  e: 5,
+};
+
+Object.assign(target, ori);
+
+console.log(target);
+```
+
+## Object.keys
+
+```js
+var ori = {
+  a: 1,
+  b: 'c',
+};
+
+console.log(Object.keys(ori));
+```
+
+## Object.values
+
+```js
+var ori = {
+  a: 1,
+  b: 'c',
+};
+
+console.log(Object.values(ori));
+```
+
+## Object.entries
+
+```js
+var ori = {
+  a: 1,
+  b: 'c',
+};
+
+console.log(Object.entries(ori));
+```

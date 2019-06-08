@@ -2,6 +2,7 @@ import { graphql } from 'gatsby';
 import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import React from 'react';
 import { LinkButton } from '../components/Button';
+import { ChevronIcon } from '../components/chevron-icon';
 import { Comments } from '../components/comments';
 import { ReportIssueLink } from '../components/report-issue-link';
 import { Seo } from '../components/Seo';
@@ -9,7 +10,7 @@ import './instruction-template.scss';
 
 const InstructionTemplate = ({
   data: { mdx, github },
-  pageContext: { next, workshopTitle }
+  pageContext: { next, workshopTitle },
 }) => (
   <div className="instruction-template-container">
     <Seo
@@ -38,7 +39,7 @@ const InstructionTemplate = ({
       {next && (
         <div className="Toolbar right Toolbar--space-vertical">
           <LinkButton to={next.frontmatter.path} color="bubble" large>
-            Next Lesson
+            Next Lesson {rightArrow}
           </LinkButton>
         </div>
       )}
@@ -58,6 +59,16 @@ const InstructionTemplate = ({
       </p>
     </div>
   </div>
+);
+
+const rightArrow = (
+  <ChevronIcon
+    size={15}
+    styles={{
+      transform: `rotate(-90deg)`,
+      marginLeft: 8,
+    }}
+  />
 );
 
 export default InstructionTemplate;

@@ -18,6 +18,21 @@
     "themeColor": "#61dafb"
   },
   {
+    "name": "Web Developer Toolbox",
+    "contentId": "web-developer-toolbox",
+    "url": "https://web-developer-toolbox.netlify.com/",
+    "description":
+      "Learn the tools that will make you productive as a Web Developer",
+    "keywords": [
+      "emmet",
+      "vs code",
+      "chrome devtools",
+      "git",
+      "developer productivity"
+    ],
+    "themeColor": "#b71c1c"
+  },
+  {
     "name": "Introduction to Web Development",
     "contentId": "intro-to-web-dev",
     "url": "https://intro-to-web-dev.netlify.com/",

@@ -6,12 +6,14 @@ import './code-editor.scss';
 
 function sanitize(data) {
   return Array.isArray(data)
-    ? data.map(sanitize).join(',')
+    ? `[${data.map(sanitize).join(',')}]`
     : data instanceof Error
       ? data.toString()
       : typeof data === 'object'
         ? JSON.stringify(data, null, 2)
-        : data;
+        : typeof data === 'string'
+          ? `"${data}"`
+          : data;
 }
 
 function shallowConcat(targetArr, item) {
@@ -36,7 +38,7 @@ const CodeSnippet = React.memo(({ code, language }) => (
         {tokens
           .map((currentLine, index, allLines) => ({
             line: currentLine,
-            isHighlighted: isHighlightNextLine(allLines[index - 1])
+            isHighlighted: isHighlightNextLine(allLines[index - 1]),
           }))
           .filter(({ line }) => !isHighlightNextLine(line))
           .map(({ line, isHighlighted }, i) => (
@@ -44,7 +46,7 @@ const CodeSnippet = React.memo(({ code, language }) => (
               {...getLineProps({
                 line,
                 key: i,
-                className: isHighlighted ? 'highlighted-code-line' : undefined
+                className: isHighlighted ? 'highlighted-code-line' : undefined,
               })}
             >
               {line.map((token, key) => (
