@@ -90,7 +90,7 @@ const persons = [
   { firstName: 'Bill', lastName: 'Gates' },
   { firstName: 'Michael', lastName: 'Jackson' },
   { firstName: 'Tiger', lastName: 'Woods' },
-  { firstName: 'Steve', lastName: 'Jobs' }
+  { firstName: 'Steve', lastName: 'Jobs' },
 ];
 
 const names = persons.map(person => `${person.firstName} ${person.lastName}`);
@@ -118,7 +118,7 @@ const participants = [
   { name: 'Abu', ic: '880505-23-4955', gender: 'male' },
   { name: 'Mary', ic: '920505-10-9958', gender: 'female' },
   { name: 'T Chakra', ic: '900505-23-5775', gender: 'male' },
-  { name: 'Suzi', ic: '880505-23-4958', gender: 'female' }
+  { name: 'Suzi', ic: '880505-23-4958', gender: 'female' },
 ];
 ```
 
@@ -139,7 +139,7 @@ const persons = [
   { name: 'Bossku', isMalaysian: true },
   { name: 'Susanto', isMalaysian: false },
   { name: 'John Smith', isMalaysian: false },
-  { name: 'Siti Nurhaliza', isMalaysian: true }
+  { name: 'Siti Nurhaliza', isMalaysian: true },
 ];
 
 const malaysians = persons.filter(person => person.isMalaysian);
@@ -214,7 +214,7 @@ console.log(numbers); // [1, 4]
      { name: 'Abu', ic: '880505-23-4955', gender: 'male' },
      { name: 'Mary', ic: '920505-10-9958', gender: 'female' },
      { name: 'T Chakra', ic: '900505-23-5775', gender: 'male' },
-     { name: 'Suzi', ic: '880505-23-4958', gender: 'female' }
+     { name: 'Suzi', ic: '880505-23-4958', gender: 'female' },
    ];
    ```
 
@@ -259,7 +259,34 @@ const sum = numbers.reduce(
 console.log(sum);
 ```
 
-`reduce` doesn't dictate the type of the `accumulator`, thus you can use it for many purposes:
+`reduce` doesn't dictate the type of the `accumulator`, thus you can use it for many purposes, such as:
+
+1. grouping numbers to odd numbers and even numbers
+
+```js
+// grouping
+const numbers = [1, 2, 3, 4];
+const numberGroups = numbers.reduce(
+  (result, num) => {
+    if (num % 2 === 0) {
+      // it's an even number,
+      return {
+        odd: result.odd, // leave the odd property unchanged
+        even: result.even.concat(num), // concat the item to the even array
+      };
+    } else {
+      return {
+        even: result.even, // leave the even property unchanged
+        odd: result.odd.concat(num), // concat the item to the odd array.
+      };
+    }
+  },
+  { odd: [], even: [] }
+);
+
+console.log(numberGroups.odd);
+console.log(numberGroups.even);
+```
 
 ```js
 // counting occurrence
@@ -269,43 +296,17 @@ const summary = alphabets.reduce((result, alphabet) => {
   if (result[alphabet]) {
     return {
       ...result,
-      [alphabet]: result[alphabet] + 1
+      [alphabet]: result[alphabet] + 1,
     };
   } else {
     return {
       ...result,
-      [alphabet]: 1
+      [alphabet]: 1,
     };
   }
 }, {});
 
 console.log(summary);
-```
-
-```js
-// grouping
-const numbers = [1, 2, 3, 4];
-const numberGroups = numbers.reduce(
-  (result, num) => {
-    if (num % 2 === 0) {
-      // it's an even number, concat the item to the `even` array
-      return {
-        ...result,
-        even: result.even.concat(num)
-      };
-    } else {
-      // concat the item to the `odd` array.
-      return {
-        ...result,
-        odd: result.odd.concat(num)
-      };
-    }
-  },
-  { odd: [], even: [] }
-);
-
-console.log(numberGroups.odd);
-console.log(numberGroups.even);
 ```
 
 In fact, you can even use `reduce` to do what `filter` and `map` do. However, this is not advisable because `map` and `filter` (specific use case) communicates the your code's intention better than `reduce` (generic).
@@ -331,7 +332,7 @@ const participants = [
   { name: 'Abu', gender: 'male', paid: true },
   { name: 'Mary', gender: 'female', paid: true },
   { name: 'T Chakra', gender: 'male', paid: false },
-  { name: 'Suzi', gender: 'female', paid: true }
+  { name: 'Suzi', gender: 'female', paid: true },
 ];
 ```
 
@@ -370,7 +371,7 @@ const participants = [
   { name: 'Abu', gender: 'male', paid: true },
   { name: 'Mary', gender: 'female', paid: true },
   { name: 'T Chakra', gender: 'male', paid: false },
-  { name: 'Suzi', gender: 'female', paid: true }
+  { name: 'Suzi', gender: 'female', paid: true },
 ];
 ```
 
