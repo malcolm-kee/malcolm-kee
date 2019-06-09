@@ -1,6 +1,7 @@
 import { Link } from 'gatsby';
 import { joinClassName } from 'join-string';
 import React from 'react';
+import { isDefined } from 'typesafe-is';
 import { useDiffEffect } from '../../hooks/use-diff-effect';
 import { useEventListener } from '../../hooks/use-event-listener';
 import { ChevronIcon } from '../chevron-icon';
@@ -13,7 +14,7 @@ import { ToggleTocBtn } from './toggle-toc-btn';
 
 export const TableOfContents = ({ pathname, sections, themeColor }) => {
   const [open, setIsOpen] = React.useState(false);
-  const [activeSection, setActiveSection] = React.useState(null);
+  const [activeSection, setActiveSection] = React.useState(undefined);
 
   React.useEffect(
     () => {
@@ -68,7 +69,7 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
                 nodes={nodes}
                 title={title}
                 // when activeSection null it's active, this is to make the toc visible when js disabled
-                isActive={!activeSection || activeSection === title}
+                isActive={!isDefined(activeSection) || activeSection === title}
                 onToggle={() =>
                   setActiveSection(activeSection === title ? null : title)
                 }
