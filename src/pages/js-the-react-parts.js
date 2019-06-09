@@ -1,4 +1,4 @@
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import reactLogo from '../assets/react-logo.png';
 import { LinkButton } from '../components/Button';
@@ -13,6 +13,7 @@ const PageHeader = () => {
   const { workshopsJson } = useStaticQuery(graphql`
     {
       workshopsJson(contentId: { eq: "js-the-react-parts" }) {
+        name
         description
         keywords
       }
@@ -22,7 +23,7 @@ const PageHeader = () => {
   return (
     <LandingPageHeader>
       <Seo
-        title="JavaScript: The React Parts"
+        title={workshopsJson.name}
         description={workshopsJson.description}
         keywords={workshopsJson.keywords}
       />

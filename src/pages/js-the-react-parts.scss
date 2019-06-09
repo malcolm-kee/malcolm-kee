@@ -37,15 +37,8 @@
 }
 
 #js-the-react-parts-landing {
-  padding-top: 80px;
-  padding-bottom: $spacing-unit * 2;
-
   @media screen and (min-width: $media-mobile) {
     padding-top: 56px;
-  }
-
-  .logo-section {
-    text-align: center;
   }
 
   .icon-container {
@@ -53,23 +46,9 @@
     display: inline-block;
   }
 
-  .landing-title-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding-bottom: $spacing-unit * 2;
-  }
-
   .landing-title {
-    font-size: 2rem;
-    font-weight: bold;
     color: $react-color;
     text-shadow: 1px 1px 10px #000, 1px 1px 10px #bbb;
-    padding: 0 $spacing-unit * 2;
-    margin: 0 0 $spacing-unit * 2;
 
     .javascript-text {
       color: $js-color;
@@ -79,12 +58,6 @@
 
     .react-text {
       animation: delay-fade 3s ease-in-out;
-    }
-
-    @media screen and (max-width: $media-mobile) {
-      font-size: 1.5rem;
-      padding: 8px;
-      text-align: center;
     }
   }
 

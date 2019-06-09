@@ -20,7 +20,7 @@
   {
     "name": "Web Developer Toolbox",
     "contentId": "web-developer-toolbox",
-    "url": "https://web-developer-toolbox.netlify.com/",
+    "url": "/web-developer-toolbox",
     "description":
       "Learn the tools that will make you productive as a Web Developer",
     "keywords": [

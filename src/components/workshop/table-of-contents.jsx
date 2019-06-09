@@ -88,19 +88,23 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
 };
 
 const TableOfContentsSection = ({ nodes, title, isActive, onToggle }) => {
+  const withSection = title !== 'null';
+
   return (
     <React.Fragment key={title}>
-      <li
-        className={joinClassName(
-          'toc-section-title',
-          isActive && 'toc-section-title--active'
-        )}
-      >
-        {/* TODO: Make this non clickable in small screen */}
-        <button onClick={onToggle}>
-          {title} <ChevronIcon />
-        </button>
-      </li>
+      {withSection && (
+        <li
+          className={joinClassName(
+            'toc-section-title',
+            isActive && 'toc-section-title--active'
+          )}
+        >
+          {/* TODO: Make this non clickable in small screen */}
+          <button onClick={onToggle}>
+            {title} <ChevronIcon />
+          </button>
+        </li>
+      )}
       {nodes.map(({ frontmatter: { title, path } }) => (
         <li
           className={joinClassName(
