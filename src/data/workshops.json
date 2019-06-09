@@ -33,6 +33,15 @@
     "themeColor": "#b71c1c"
   },
   {
+    "name": "Creating Project React Component Library",
+    "contentId": "react-component-lib",
+    "url": "https://react-component-lib.netlify.com/",
+    "description":
+      "Learn the common practices of writing React components and React hooks.",
+    "keywords": ["react components", "styleguidist", "best practices"],
+    "themeColor": "#000000"
+  },
+  {
     "name": "Introduction to Web Development",
     "contentId": "intro-to-web-dev",
     "url": "https://intro-to-web-dev.netlify.com/",
