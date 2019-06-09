@@ -317,6 +317,7 @@ body {
     --link: #{$link-light};
     --tocBg: #{$grey-100};
     --tocSelected: #{$toc-light-selected};
+    --highlightedCode: #{$highlighted-code-bg-light};
   }
   &.dark {
     background-color: $bg-color-dark;
@@ -329,6 +330,7 @@ body {
     --link: #{$link-dark};
     --tocBg: #{$grey-dark};
     --tocSelected: #{$toc-dark-selected};
+    --highlightedCode: #{$highlighted-code-bg-dark};
 
     table,
     tr,

@@ -47,7 +47,8 @@
   overflow-x: auto;
 
   .highlighted-code-line {
-    background-color: hsla(207, 95%, 15%, 1);
+    background-color: $highlighted-code-bg-light;
+    background-color: var(--highlightedCode);
     display: block;
     margin-right: -$code-padding;
     margin-left: -$code-padding;

@@ -4,7 +4,9 @@ $font-family: 'Roboto', 'Helvetica', 'Arial', 'Microsoft Yahei', '微软雅黑',
 $appbar-height: 56px;
 $ios-bottom-offset: 44px;
 
-// light theme
+$react-color: #61dafb;
+$js-color: #f7df1e;
+
 $primary-color: #e44d26;
 $primary-color-light: #ff7f52;
 $primary-color-dark: #aa1100;
@@ -17,15 +19,15 @@ $grey-200: #eeeeee;
 $grey-300: #e0e0e0;
 $grey-400: #bdbdbd;
 $grey-dark: #14161a;
+
+// light theme
 $bg-color-light: #fbfaef;
 $bg-color-light-pale: rgba(228, 224, 205, 0.5);
 $text-light: rgba(0, 0, 0, 0.87);
 $text-light-pale: rgba(0, 0, 0, 0.54);
 $link-light: $primary-color;
 $toc-light-selected: $primary-color;
-
-$react-color: #61dafb;
-$js-color: #f7df1e;
+$highlighted-code-bg-light: $grey-100;
 
 // dark theme
 $bg-color-dark: #282c35;
@@ -34,6 +36,7 @@ $text-dark: rgba(255, 255, 255, 0.88);
 $text-dark-pale: rgba(255, 255, 255, 0.6);
 $link-dark: $secondary-color;
 $toc-dark-selected: $primary-color-light;
+$highlighted-code-bg-dark: hsla(207, 95%, 15%, 1);
 
 $timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 $timing-function-1: cubic-bezier(0.61, 0, 0.2, 1);

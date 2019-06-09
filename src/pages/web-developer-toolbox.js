@@ -16,6 +16,7 @@ const PageHeader = () => {
         name
         description
         keywords
+        themeColor
       }
     }
   `);
@@ -33,7 +34,12 @@ const PageHeader = () => {
             <img src={toolboxIcon} alt="" id="web-developer-toolbox-icon" />
           </div>
           <div className="landing-title-container">
-            <h1 className="landing-title">{workshopsJson.name}</h1>
+            <h1
+              className="landing-title"
+              style={{ color: workshopsJson.themeColor }}
+            >
+              {workshopsJson.name}
+            </h1>
             <p className="landing-subtitle">{workshopsJson.description}</p>
             <div className="Toolbar Toolbar--space-vertical">
               <LinkButton
