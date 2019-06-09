@@ -67,7 +67,8 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
               <TableOfContentsSection
                 nodes={nodes}
                 title={title}
-                isActive={activeSection === title}
+                // when activeSection null it's active, this is to make the toc visible when js disabled
+                isActive={!activeSection || activeSection === title}
                 onToggle={() =>
                   setActiveSection(activeSection === title ? null : title)
                 }
