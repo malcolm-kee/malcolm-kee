@@ -18,6 +18,7 @@
 }
 
 .article-comment {
+  @include link('a');
   position: relative;
   display: flex;
   padding: $spacing-unit 0;

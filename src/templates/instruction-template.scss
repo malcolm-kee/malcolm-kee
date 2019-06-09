@@ -111,9 +111,9 @@ $right-nav-offset: 224px;
     .code-editor,
     .code-snippet {
       break-inside: avoid;
-      margin: 0 #{-2 * $spacing-unit};
+      margin: $spacing-unit #{-2 * $spacing-unit};
       @media screen and (min-width: $media-tablet) {
-        margin: 0;
+        margin: $spacing-unit 0;
       }
     }
 

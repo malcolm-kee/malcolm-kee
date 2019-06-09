@@ -1,5 +1,7 @@
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
+import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
+import { useTheme } from '../theme';
 import React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import './code-editor.scss';
@@ -31,8 +33,8 @@ const isHighlightNextLine = tokens =>
       token.types[0] === 'comment' && token.content === '// highlight-next-line'
   );
 
-const CodeSnippet = React.memo(({ code, language }) => (
-  <Highlight {...defaultProps} theme={nightOwl} code={code} language={language}>
+const CodeSnippet = React.memo(({ code, language, theme }) => (
+  <Highlight {...defaultProps} theme={theme} code={code} language={language}>
     {({ className, style, tokens, getLineProps, getTokenProps }) => (
       <pre className={`${className} code-snippet`} style={style}>
         {tokens
@@ -106,13 +108,17 @@ const wrapJsCode = code => `
 export const CodeEditor = ({ children, className }) => {
   const language = className && className.split('-').pop();
 
+  const { value } = useTheme();
+
+  const theme = value === 'dark' ? nightOwl : duotoneLight;
+
   return language === 'js' ? (
     <div className="code-editor">
       <LiveProvider
         code={children}
         scope={{ sanitize, shallowConcat }}
         transformCode={wrapJsCode}
-        theme={nightOwl}
+        theme={theme}
       >
         <header>Code Editor</header>
         <LiveEditor />
@@ -121,7 +127,7 @@ export const CodeEditor = ({ children, className }) => {
       </LiveProvider>
     </div>
   ) : language ? (
-    <CodeSnippet code={children} language={language} />
+    <CodeSnippet code={children} language={language} theme={theme} />
   ) : (
     <code className="language-text">{children}</code>
   );
