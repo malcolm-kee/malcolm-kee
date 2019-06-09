@@ -5,8 +5,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Comments } from '../components/comments';
 import { MainContent } from '../components/main-content';
-import { OutLink } from '../components/OutLink';
-import { RssIcon } from '../components/rss-icon';
+import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
 import './blog-template.scss';
@@ -39,11 +38,11 @@ export default function Template({ data, pageContext }) {
     mdx: {
       frontmatter: { title, date, tags, keywords, summary, path },
       code,
-      timeToRead
+      timeToRead,
     },
     github: {
-      search: { nodes: comments }
-    }
+      search: { nodes: comments },
+    },
   } = data;
 
   const hasSummary = !!summary && summary.length > 0;
@@ -114,9 +113,7 @@ export default function Template({ data, pageContext }) {
           <Link className="link-primary" to="/blog">
             All Blogs
           </Link>
-          <OutLink href="/rss.xml">
-            <RssIcon />
-          </OutLink>
+          <SubscribeRssLink />
         </nav>
       </div>
     </MainContent>

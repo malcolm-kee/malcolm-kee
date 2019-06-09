@@ -58,7 +58,7 @@ function createEventBus() {
 
   return {
     subscribe,
-    publish
+    publish,
   };
 }
 ```
@@ -98,7 +98,7 @@ function createCounter(initialCount, step) {
   return {
     increment,
     decrement,
-    getCount
+    getCount,
   };
 }
 
@@ -114,3 +114,7 @@ counter2.increment();
 counter2.increment();
 console.log(counter2.getCount()); // 500
 ```
+
+## Further Reading
+
+I've discussed closure in more details in [this lesson](/js-the-react-parts/closure) of the [JavaScript: The React Parts](/js-the-react-parts) workshop.
