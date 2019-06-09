@@ -7,6 +7,7 @@ import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { RssIcon } from '../components/rss-icon';
 import { getReadtimeText } from '../helper';
+import './blog.scss';
 
 const BlogPage = ({ data }) => {
   const { posts } = data.allMdx;
@@ -57,7 +58,7 @@ const BlogPage = ({ data }) => {
           </Link>
         </span>
         <OutLink href="/rss.xml">
-          <RssIcon />
+          <RssIcon className="subscribe-rss-link" />
         </OutLink>
       </nav>
     </MainContent>

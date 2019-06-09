@@ -1,0 +1,9 @@
+@import '../constants/variable';
+
+.subscribe-rss-link {
+  transform: scale(1);
+  transition: transform $timing-function 300ms;
+  &:hover {
+    transform: scale(1.2);
+  }
+}

@@ -430,10 +430,6 @@ th {
   background-color: rgba(0, 0, 0, 0);
   border-radius: $spacing-unit / 2 $spacing-unit / 2 0 0;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
   @media (min-width: $media-mobile) {
     min-width: 100px;
     padding: $spacing-unit / 2 $spacing-unit;

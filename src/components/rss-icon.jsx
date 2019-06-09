@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const RssIcon = ({ width = 30, height = width }) => (
+export const RssIcon = ({ width = 30, height = width, className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     aria-label="RSS"
@@ -8,6 +8,7 @@ export const RssIcon = ({ width = 30, height = width }) => (
     viewBox="0 0 512 512"
     width={width}
     height={height}
+    className={className}
   >
     <rect width="512" height="512" rx="15%" fill="#f80" />
     <circle cx="145" cy="367" r="35" fill="#fff" />
