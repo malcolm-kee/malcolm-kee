@@ -6,6 +6,7 @@ Source code for Malcolm Kee's [personal site](https://malcolmkee.com/) and works
 
 Workshop materials:
 
+* [Web Developer Toolbox](https://malcolmkee.com/web-developer-toolbox)
 * [JavaScript: The React Parts](https://malcolmkee.com/js-the-react-parts)
 
 ## Local Build Time Optimization
