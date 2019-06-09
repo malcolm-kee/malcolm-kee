@@ -45,6 +45,7 @@ module.exports = function createWorkshops({ actions, graphql }) {
             contentId
             name
             themeColor
+            iconFile
           }
         }
       }
@@ -74,6 +75,8 @@ module.exports = function createWorkshops({ actions, graphql }) {
             isWorkshop: true,
             workshopTitle: workshop && workshop.name,
             workshopThemeColor: workshop && workshop.themeColor,
+            workshopIcon: workshop && workshop.iconFile,
+            workshopId: workshop && workshop.contentId,
             id: lesson.id,
             workshop: group.workshop,
             commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${

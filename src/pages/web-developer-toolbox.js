@@ -5,6 +5,7 @@ import { LinkButton } from '../components/Button';
 import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
+import { useFavIcon } from '../hooks/use-favicons';
 import './web-developer-toolbox.scss';
 
 /* eslint-disable no-script-url */
@@ -17,9 +18,15 @@ const PageHeader = () => {
         description
         keywords
         themeColor
+        iconFile
       }
     }
   `);
+
+  useFavIcon({
+    iconFile: workshopsJson.iconFile,
+    contentId: 'web-developer-toolbox',
+  });
 
   return (
     <>

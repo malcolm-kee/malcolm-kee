@@ -105,6 +105,7 @@ module.exports = {
         background_color: 'white',
         theme_color: '#e44d26',
         icon: 'src/assets/new-icon.png',
+        include_favicon: false,
       },
     },
     {

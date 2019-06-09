@@ -1,4 +1,12 @@
-import { isFunction } from 'typesafe-is';
+import { isArray, isFunction } from 'typesafe-is';
+
+export function noop() {
+  // noop
+}
+
+export function lastItem(array) {
+  return isArray(array) ? array[array.length - 1] : array;
+}
 
 export function debounce(fn, wait) {
   var timeout;

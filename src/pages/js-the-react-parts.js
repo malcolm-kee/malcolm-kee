@@ -5,6 +5,7 @@ import { LinkButton } from '../components/Button';
 import { JsIcon } from '../components/js-icon';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
+import { useFavIcon } from '../hooks/use-favicons';
 import './js-the-react-parts.scss';
 
 /* eslint-disable no-script-url */
@@ -16,9 +17,15 @@ const PageHeader = () => {
         name
         description
         keywords
+        iconFile
       }
     }
   `);
+
+  useFavIcon({
+    iconFile: workshopsJson.iconFile,
+    contentId: 'js-the-react-parts',
+  });
 
   return (
     <LandingPageHeader>

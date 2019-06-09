@@ -1,16 +1,19 @@
 import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
 import { CodeEditor } from '../components/code-editor';
+import { FavIcons } from '../components/favicons';
+import { FavIconProvider } from '../hooks/use-favicons';
 import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
 import { WorkshopLayout } from './workshop-layout';
 
 const mdxComponents = {
-  code: CodeEditor
+  code: CodeEditor,
 };
 
 const LayoutContainer = ({ children, pageContext, location }) => {
   const themeValue = useTheme();
+  const [favIconFolder, setIconFolder] = React.useState(null);
 
   const {
     isWorkshop,
@@ -18,26 +21,29 @@ const LayoutContainer = ({ children, pageContext, location }) => {
     workshopTitle,
     workshopThemeColor,
     lessonGroup,
-    isRoot
+    isRoot,
   } = pageContext;
 
   return (
     <ThemeProvider value={themeValue}>
-      <MDXProvider components={mdxComponents}>
-        {isWorkshop ? (
-          <WorkshopLayout
-            workshopTitle={workshopTitle}
-            workshopThemeColor={workshopThemeColor}
-            workshopRoot={`/${workshop}`}
-            workshopSections={lessonGroup}
-            pathname={location.pathname}
-          >
-            {children}
-          </WorkshopLayout>
-        ) : (
-          <Layout isRoot={isRoot}>{children}</Layout>
-        )}
-      </MDXProvider>
+      <FavIconProvider value={setIconFolder}>
+        <MDXProvider components={mdxComponents}>
+          <FavIcons iconFolder={favIconFolder} />
+          {isWorkshop ? (
+            <WorkshopLayout
+              workshopTitle={workshopTitle}
+              workshopThemeColor={workshopThemeColor}
+              workshopRoot={`/${workshop}`}
+              workshopSections={lessonGroup}
+              pathname={location.pathname}
+            >
+              {children}
+            </WorkshopLayout>
+          ) : (
+            <Layout isRoot={isRoot}>{children}</Layout>
+          )}
+        </MDXProvider>
+      </FavIconProvider>
     </ThemeProvider>
   );
 };
@@ -61,7 +67,7 @@ function useTheme() {
         setTheme(newTheme);
         window.__setPreferredTheme(newTheme);
       },
-      value: theme
+      value: theme,
     }),
     [theme]
   );

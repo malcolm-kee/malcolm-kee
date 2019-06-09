@@ -30,7 +30,8 @@
       "git",
       "developer productivity"
     ],
-    "themeColor": "#b71c1c"
+    "themeColor": "#b71c1c",
+    "iconFile": "src/assets/toolbox.png"
   },
   {
     "name": "Creating Project React Component Library",
@@ -62,6 +63,7 @@
       "prerequisites for react",
       "es6"
     ],
-    "themeColor": "#f7df1e"
+    "themeColor": "#f7df1e",
+    "iconFile": "src/assets/js-the-react-parts.png"
   }
 ]
