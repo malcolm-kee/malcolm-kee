@@ -7,12 +7,16 @@
   line-height: 1.25rem;
 
   > header {
-    font-family: $font-family;
-    font-size: 0.9rem;
-    font-style: italic;
-    text-align: right;
-    padding: 0 $spacing-unit;
-    line-height: 1.75rem;
+    padding: $spacing-unit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > span {
+      font-family: $font-family;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
   }
 }
 
@@ -38,13 +42,23 @@
 }
 
 .code-snippet {
-  $code-padding: 1.3125rem;
+  $code-padding: 1rem;
   $highlight-width: 0.25rem;
 
-  font-size: 0.9rem;
-  padding: $code-padding;
-  line-height: 1.25rem;
-  overflow-x: auto;
+  padding: 0 $spacing-unit / 2 $spacing-unit / 2;
+
+  background-color: var(--bg-pale);
+  > header {
+    text-align: right;
+    padding: $spacing-unit;
+  }
+
+  pre {
+    font-size: 0.9rem;
+    padding: $code-padding;
+    line-height: 1.25rem;
+    overflow-x: auto;
+  }
 
   .highlighted-code-line {
     background-color: $highlighted-code-bg-light;

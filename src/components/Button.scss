@@ -11,6 +11,7 @@
   font-family: $font-family;
   color: $primary-color;
   display: inline-flex;
+  line-height: 1.2;
   justify-content: center;
   align-items: center;
   user-select: none;
@@ -117,6 +118,14 @@
     min-height: 56px;
     min-width: 180px;
     font-size: 1.3rem;
+  }
+
+  &-small {
+    font-size: 0.8rem;
+    padding: $spacing-unit / 2 $spacing-unit;
+    min-height: 25px;
+    min-width: unset;
+    line-height: 1;
   }
 
   &-full-width {

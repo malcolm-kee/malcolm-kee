@@ -4,6 +4,23 @@ export function noop() {
   // noop
 }
 
+export function copyToClipboard(textToCopy) {
+  const currentActive = document.activeElement;
+
+  const textarea = document.createElement('textarea');
+  textarea.value = textToCopy;
+  document.body.appendChild(textarea);
+
+  textarea.select();
+  document.execCommand('copy');
+
+  document.body.removeChild(textarea);
+
+  if (currentActive && currentActive !== document.body) {
+    currentActive.focus();
+  }
+}
+
 export function lastItem(array) {
   return isArray(array) ? array[array.length - 1] : array;
 }

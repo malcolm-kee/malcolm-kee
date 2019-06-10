@@ -61,6 +61,7 @@
     "react-dom": "^16.8.3",
     "react-helmet": "^5.2.0",
     "react-live": "^2.1.2",
+    "react-tiny-popover": "^3.4.2",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "typesafe-is": "^1.1.2"

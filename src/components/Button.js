@@ -7,12 +7,13 @@ import './Button.scss';
  *
  * @param {Object} props
  * @param {'primary' | 'secondary'} [props.color]
+ * @param {'small' | 'large'} [props.size]
  */
 export const Button = ({
   component: Component = 'button',
   color = '',
   raised = false,
-  large,
+  size,
   className,
   children,
   type = Component === 'button' ? 'button' : undefined,
@@ -24,9 +25,9 @@ export const Button = ({
     className={joinClassName(
       'btn',
       color && `btn-${color}`,
+      size && `btn-${size}`,
       raised && 'btn-raised',
       fullWidth && 'btn-full-width',
-      large && 'btn-large',
       className
     )}
     {...restProps}

@@ -52,7 +52,7 @@ const PageHeader = () => {
               <LinkButton
                 to="/web-developer-toolbox/introduction"
                 color="bubble"
-                large
+                size="large"
               >
                 Start
               </LinkButton>

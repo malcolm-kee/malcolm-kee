@@ -46,7 +46,7 @@ const PageHeader = () => {
             <LinkButton
               to="/intro-to-react-js-v2/introduction"
               color="bubble"
-              large
+              size="large"
             >
               Start
             </LinkButton>

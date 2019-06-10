@@ -45,7 +45,7 @@ const InstructionTemplate = ({
         </main>
         {next && (
           <div className="Toolbar right Toolbar--space-vertical">
-            <LinkButton to={next.frontmatter.path} color="bubble" large>
+            <LinkButton to={next.frontmatter.path} color="bubble" size="large">
               Next Lesson {rightArrow}
             </LinkButton>
           </div>
@@ -59,9 +59,7 @@ const InstructionTemplate = ({
         <p>
           Issue on this page?{' '}
           <ReportIssueLink
-            title={`Issue on ${mdx.fields.contentgroup}: ${
-              mdx.frontmatter.title
-            }`}
+            title={`Issue on ${mdx.fields.contentgroup}: ${mdx.frontmatter.title}`}
           />
         </p>
       </div>

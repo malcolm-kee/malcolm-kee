@@ -7,8 +7,11 @@ const instructionTemplate = path.resolve(
   'instruction-template.jsx'
 );
 
+const DISABLE_WORKSHOP = process.env.DISABLE_WORKSHOP;
+const ONLY_WORKSHOP = process.env.ONLY_WORKSHOP;
+
 module.exports = function createWorkshops({ actions, graphql }) {
-  if (process.env.DISABLE_WORKSHOP) {
+  if (DISABLE_WORKSHOP) {
     // optimize local build time
     return;
   }
@@ -55,7 +58,10 @@ module.exports = function createWorkshops({ actions, graphql }) {
       return Promise.reject(result.errors);
     }
 
-    const groups = result.data.allMdx.group;
+    const groups = result.data.allMdx.group.filter(
+      group => !ONLY_WORKSHOP || group.workshop === ONLY_WORKSHOP
+    );
+
     const workshops = result.data.allWorkshopsJson.edges.map(edge => edge.node);
 
     groups.forEach(group => {

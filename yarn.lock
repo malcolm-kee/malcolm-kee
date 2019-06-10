@@ -10725,6 +10725,11 @@ react-simple-code-editor@^0.9.0:
   resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.9.11.tgz#7b363e646546419b377fadbc00f3cc0be3978fd7"
   integrity sha512-kWkFqCOJ0qbiwm7yQsaIcsEG3IBRbet1G+hR/p77O20amPA9eC0yli1lqZdudf6FlUUXfI5gIz31CNNxEMXh4w==
 
+react-tiny-popover@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/react-tiny-popover/-/react-tiny-popover-3.4.2.tgz#ceee5662a3af64d4a9c3d46a28d71bb6f21738ee"
+  integrity sha512-3lH+GHvyJbjHNg14B7Md8bpUapQ5W3s8IdBFguODjrgEV1+LWrKOmVrpe8xhIQDOkgkiDfLwMVgsI7BQM9Udpg==
+
 react@^16.8.3, react@^16.8.4:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
