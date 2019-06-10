@@ -1,7 +1,7 @@
 const createBlogs = require('./gatsby/create-blogs');
 const createWorkshops = require('./gatsby/create-workshops');
 const onCreateMdxNode = require('./gatsby/on-create-mdx-node');
-const createIcons = require('./gatsby/create-icons');
+const createWorkshopIcons = require('./gatsby/create-icons');
 
 exports.onCreateNode = async ({ node, actions }) => {
   if (node.internal.type === 'Mdx') {
@@ -26,5 +26,5 @@ exports.onCreatePage = ({ page, actions }) => {
 };
 
 exports.onPostBootstrap = async ({ getNodesByType }) => {
-  await createIcons({ getNodesByType });
+  await createWorkshopIcons({ getNodesByType });
 };

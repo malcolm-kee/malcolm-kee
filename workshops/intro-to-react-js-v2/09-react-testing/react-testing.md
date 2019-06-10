@@ -105,7 +105,11 @@ To generate code coverage report:
 1.  (optional) write unit tests for the function `joinString`.
 1.  (optional) increase conditional coverage of `lib.js` to 100%.
 
-> [`add unit test`](https://github.com/malcolm-kee/react-movie-app-v2/commit/837ba589d271517703016cb84faec788e2916db6)
+<aside>
+
+Commit: [`add unit test`](https://github.com/malcolm-kee/react-movie-app-v2/commit/837ba589d271517703016cb84faec788e2916db6)
+
+</aside>
 
 ---
 
@@ -134,7 +138,11 @@ export const BusyContainer = ({ isLoading, children }) => (
 );
 ```
 
-> `data-testid` attribute is a common convention to add "hook" to DOM for automated testing.
+<aside>
+
+`data-testid` attribute is a common convention to add "hook" to DOM for automated testing.
+
+</aside>
 
 Let's create a file `busy-container.test.js` next to `busy-container.js` with the following contents:
 
@@ -204,7 +212,9 @@ describe('BusyContainer', () => {
 
 As the setup and cleanup are required and similar for all tests, there is a library that already implements them with a bunch of helpers. The library is [`react-testing-library`][react-testing-library] (surprise, surprise!). Let's install that:
 
-`npm install -D react-testing-library`
+```bash
+npm install -D react-testing-library
+```
 
 Let's change `busy-container.test.js` to the following:
 
@@ -252,13 +262,17 @@ describe('BusyContainer', () => {
 
 ---
 
-## :pencil: Do It: write React component test
+## Do It: write React component test
 
 1.  install `react-testing-library` as described.
 1.  modify `BusyContainer` and write the test for it.
 1.  ensure all the tests are passed
 
-> [`add react component test example`](https://github.com/malcolm-kee/react-movie-app-v2/commit/1035bb7bdb743ac6d6b38cea8a5f5e3f91653514)
+<aside>
+
+Commit: [`add react component test example`](https://github.com/malcolm-kee/react-movie-app-v2/commit/1035bb7bdb743ac6d6b38cea8a5f5e3f91653514)
+
+</aside>
 
 ---
 
@@ -333,7 +347,11 @@ describe('<App />', () => {
 * we use `wait` helper from `react-testing-library` to introduce some delay. This is because the `loadMovies` returns a promise, which will only be resolve in next ticks on the JS event cycle.
 * we use `getAllByTestId` to get the count of the mounted movie components and asserts the count is equal to the number of movies in our mock data.
 
-> [`add stateful react component test`](https://github.com/malcolm-kee/react-movie-app-v2/commit/4ad4c4cc775992ffc207d49977beffc459c4940c)
+<aside>
+
+Commit: [`add stateful react component test`](https://github.com/malcolm-kee/react-movie-app-v2/commit/4ad4c4cc775992ffc207d49977beffc459c4940c)
+
+</aside>
 
 [jest]: https://jestjs.io/en/
 [classnames]: https://www.npmjs.com/package/classnames

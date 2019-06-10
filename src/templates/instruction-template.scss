@@ -122,10 +122,13 @@ $right-nav-offset: 224px;
       padding: $spacing-unit;
       border: 1px solid;
       border-radius: 4px;
-      margin: $spacing-unit -#{$spacing-unit} $spacing-unit * 2;
+      margin: $spacing-unit * 2 -#{$spacing-unit} $spacing-unit * 2;
       break-inside: avoid;
 
       > p {
+        &:first-child {
+          margin-top: 0.5em;
+        }
         &:last-child {
           margin-bottom: 0.5em;
         }

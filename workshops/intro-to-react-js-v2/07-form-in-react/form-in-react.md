@@ -358,7 +358,11 @@ export const MovieForm = ({ onSubmitSuccess }) => {
 1.  Enhance application to auto refresh movie list when creation is success.
 1.  Extract out form data to `useMovieForm` custom hook.
 
-> [`add movie form`](https://github.com/malcolm-kee/react-movie-app-v2/commit/06f4c8cb364c5851a70b2ddf640bfdd94e8d4281)
+<aside>
+
+Commit: [`add movie form`](https://github.com/malcolm-kee/react-movie-app-v2/commit/06f4c8cb364c5851a70b2ddf640bfdd94e8d4281)
+
+</aside>
 
 ---
 

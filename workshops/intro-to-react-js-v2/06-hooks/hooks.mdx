@@ -158,7 +158,11 @@ Before proceed further, let me introduce you to the must-have debugging tools fo
 1.  Modify your `App` component to show movies only when clicked as described above.
 1.  Verify that the application works as expected.
 
-> [`useState hook`](https://github.com/malcolm-kee/react-movie-app-v2/commit/f4727ed27b89c21a7e53b5d6c8c5cef6c884ce9e)
+<aside>
+
+Commit: [`useState hook`](https://github.com/malcolm-kee/react-movie-app-v2/commit/f4727ed27b89c21a7e53b5d6c8c5cef6c884ce9e)
+
+</aside>
 
 ---
 
@@ -203,7 +207,11 @@ function App() {
 
 - The `App` component still works as before. However, whenever we need a state that is toggle between true/false, we can reuse the `useToggle` hook.
 
-> [`custom hook`](https://github.com/malcolm-kee/react-movie-app-v2/commit/e262eb5dbe6bfe767b3905bb564e677fedb5126c)
+<aside>
+
+Commit: [`custom hook`](https://github.com/malcolm-kee/react-movie-app-v2/commit/e262eb5dbe6bfe767b3905bb564e677fedb5126c)
+
+</aside>
 
 ## Make Side Effect with useEffect hook
 
@@ -312,7 +320,11 @@ Our app is able to load data from backend API now, which is great. However, ther
 
 Once your page load and you quickly click "Show Movies" button, you may see no movies is displayed if that API is slow. For that, we should display a loading indicator if we waiting for the API response.
 
-> To simulate slow API response, wrap `loadMovies` function in `api.js` with this [utility](https://gist.github.com/malcolm-kee/8f3d2973872f0791ed5faea9cb4f1891).
+<aside>
+
+To simulate slow API response, wrap `loadMovies` function in `api.js` with this [utility](https://gist.github.com/malcolm-kee/8f3d2973872f0791ed5faea9cb4f1891).
+
+</aside>
 
 To show loading indicator when waiting API response:
 
@@ -443,16 +455,20 @@ There are two rules when using hooks.
 1.  Create `BusyContainer` as described and use it in your `App` component to show loading indicator.
 1.  Verify that the application works as expected.
 
-> [`load data from api`](https://github.com/malcolm-kee/react-movie-app-v2/commit/a4b3f4a686b2f152c73ead1d2c0fe34ffcff45a7)
+<aside>
+
+Commit: [`load data from api`](https://github.com/malcolm-kee/react-movie-app-v2/commit/a4b3f4a686b2f152c73ead1d2c0fe34ffcff45a7)
+
+</aside>
 
 ---
 
 [hooks-api]: https://reactjs.org/docs/hooks-reference.html
-[array-destructuring]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring
+[array-destructuring]: /js-the-react-parts/destructuring#array-destructuring
 [react-devtools]: https://github.com/facebook/react-devtools
 [react-docs-batch-update]: https://reactjs.org/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous
 [fetch-api-docs]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 [axios]: https://github.com/axios/axios
 [jquery-ajax]: https://api.jquery.com/jQuery.ajax/
 [react-docs-lifecycle-methods]: https://reactjs.org/docs/react-component.html#the-component-lifecycle
-[array-map]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+[array-map]: /js-the-react-parts/array-methods#arraymap

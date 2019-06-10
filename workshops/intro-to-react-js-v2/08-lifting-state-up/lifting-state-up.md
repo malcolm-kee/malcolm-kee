@@ -479,7 +479,11 @@ The app should works as expected now!
 1.  Create `saveMovie` function.
 1.  In `MovieForm` component, call `saveMovie` based on `isEdit` props.
 
-> [`moving state up`](https://github.com/malcolm-kee/react-movie-app-v2/commit/a55513990ebd0de526324b273574a03fa566beaa)
+<aside>
+
+Commit: [`moving state up`](https://github.com/malcolm-kee/react-movie-app-v2/commit/a55513990ebd0de526324b273574a03fa566beaa)
+
+</aside>
 
 ---
 

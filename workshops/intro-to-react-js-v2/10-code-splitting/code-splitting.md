@@ -1,11 +1,9 @@
 ---
-title: Code Splitting
+title: 'Code Splitting'
 path: '/intro-to-react-js-v2/code-splitting'
 description: 'Learn to code-splitting and lazy-load Javascript code and React component.'
 section: 'extra'
 ---
-
-# Code Splitting
 
 In most large-scale React applications, it is very common that your users would not need all features everytime they access your applications. Therefore, it's better if you can split the code to multiple chunks and only send down the chunks that is required (lazy-loading).
 
@@ -21,8 +19,9 @@ We will lazy load the `axios` library in `api.js`.
 
 Let's update `api.js`:
 
-```jsx
-const getAxios = () => import('axios'); // highlight-line
+```javascript
+// highlight-next-line
+const getAxios = () => import('axios');
 
 const MOVIE_ENDPOINT = 'https://react-intro-movies.herokuapp.com/movies';
 
@@ -77,7 +76,11 @@ And from the Network tab of your DevTools, you should be able to see chunk `0.js
 1.  modify `api.js` to lazy-load `axios`.
 1.  test the application and ensure the code still works as before.
 
-> [`add dynamic import`](https://github.com/malcolm-kee/react-movie-app-v2/commit/55cfe8ae71ccfa452f0d7fd7e6f0d6ba733089d2)
+<aside>
+
+Commit: [`add dynamic import`](https://github.com/malcolm-kee/react-movie-app-v2/commit/55cfe8ae71ccfa452f0d7fd7e6f0d6ba733089d2)
+
+</aside>
 
 ---
 
@@ -87,8 +90,9 @@ Once you understand dynamic `import()` for JS code, lazy-loading React Component
 
 We would like to lazy load our `Movie` component.
 
-1.  export default `Movie` component:
-```jsx
+1.  We need to export `Movie` component with `default export`
+
+```javascript
 export const Movie = props => ();
 
 export default Movie; // highlight-line
@@ -96,50 +100,50 @@ export default Movie; // highlight-line
 
 2.  Modify `app.js`:
 
-    ```jsx
-    import React from 'react';
-    import { BusyContainer } from './busy-container';
+```jsx
+import React from 'react';
+import { BusyContainer } from './busy-container';
 
-    const Movie = React.lazy(() => import('./components/movie')); // highlight-line
+const Movie = React.lazy(() => import('./components/movie')); // highlight-line
 
-    function App() {
-      return (
+function App() {
+  return (
+    <div>
+      <TitleBar>
+        <h1>React Movie App</h1>
+      </TitleBar>
+      <div className="container">
         <div>
-          <TitleBar>
-            <h1>React Movie App</h1>
-          </TitleBar>
-          <div className="container">
-            <div>
-              <div className="button-container">
-                <Button onClick={toggleShowMovies}>
-                  {moviesShown ? 'Hide' : 'Show'} Movies
-                </Button>
-              </div>
-              {moviesShown && (
-                <BusyContainer isLoading={isLoading}>
-                  {/* highlight-next-line */}
-                  <React.Suspense fallback={<span className="spinner" />}>
-                    {movies.map(movie => (
-                      <Movie
-                        name={movie.name}
-                        releaseDate={movie.releaseDate}
-                        onClick={() => selectMovie(movie)}
-                        key={movie.id}
-                      />
-                    ))}
-                    {/* highlight-next-line */}
-                  </React.Suspense>
-                </BusyContainer>
-              )}
-            </div>
-            ...
+          <div className="button-container">
+            <Button onClick={toggleShowMovies}>
+              {moviesShown ? 'Hide' : 'Show'} Movies
+            </Button>
           </div>
+          {moviesShown && (
+            <BusyContainer isLoading={isLoading}>
+              {/* highlight-next-line */}
+              <React.Suspense fallback={<span className="spinner" />}>
+                {movies.map(movie => (
+                  <Movie
+                    name={movie.name}
+                    releaseDate={movie.releaseDate}
+                    onClick={() => selectMovie(movie)}
+                    key={movie.id}
+                  />
+                ))}
+                {/* highlight-next-line */}
+              </React.Suspense>
+            </BusyContainer>
+          )}
         </div>
-      );
-    }
+        ...
+      </div>
+    </div>
+  );
+}
 
-    export default App;
-    ```
+export default App;
+```
 
 - We wrap dynamic `import` statement with `React.lazy`, so that React knows this is a lazy-loaded Component.
 - We wrap lazy-loaded component with `React.Suspense` so that React will fallback to the loading indicator whenever any component within the `React.Suspense` is waiting to be loaded.
@@ -154,7 +158,11 @@ That's it!
 1.  modify `app.js` to lazy-load `Movie` component.
 1.  test the application and ensure the code still works as before.
 
-> [`lazy load react component`](https://github.com/malcolm-kee/react-movie-app-v2/commit/ec5994ed5df96b0ba7cfe1b68fd3c621f4238cdf)
+<aside>
+
+Commit: [`lazy load react component`](https://github.com/malcolm-kee/react-movie-app-v2/commit/ec5994ed5df96b0ba7cfe1b68fd3c621f4238cdf)
+
+</aside>
 
 ---
 

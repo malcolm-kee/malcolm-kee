@@ -54,7 +54,7 @@ function generateIcons(workshops) {
   );
 }
 
-module.exports = async function createIcon({ getNodesByType }) {
+module.exports = async function createWorkshopIcons({ getNodesByType }) {
   const workshops = getNodesByType('WorkshopsJson');
   const workshopsWithIcon = workshops.filter(workshop => !!workshop.iconFile);
 

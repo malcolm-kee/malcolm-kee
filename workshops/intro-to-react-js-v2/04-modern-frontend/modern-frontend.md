@@ -123,7 +123,11 @@ The code should still works as before.
 * It is common practice to have a `components` folder which consists of reusable UI components without business logic.
 * Even though it's still not common practice in React projects, but I recommend to keep your file as [kebab-case], consistent with Angular CLI defaults. This is because file resolution in Windows are case-insensitive, while in Unix is case-sensitive. When you mistype file name, it would works in Windows but breaks in Unix, so better to avoid that possibility with kebab-case convention.
 
-> [`transfer file to project`](https://github.com/malcolm-kee/react-movie-app-v2/commit/e1f6db4ce284d6ffb5ef3ab4e13391d566601ac8)
+<aside>
+
+Commit: [`transfer file to project`](https://github.com/malcolm-kee/react-movie-app-v2/commit/e1f6db4ce284d6ffb5ef3ab4e13391d566601ac8)
+
+</aside>
 
 [babel]: https://babeljs.io/
 [kebab-case]: http://wiki.c2.com/?KebabCase
