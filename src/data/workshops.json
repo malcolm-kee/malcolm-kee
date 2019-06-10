@@ -11,11 +11,12 @@
   {
     "name": "Introduction to React v2",
     "contentId": "intro-to-react-js-v2",
-    "url": "https://intro-to-react-js-v2.netlify.com/",
+    "url": "/intro-to-react-js-v2",
     "description":
       "An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.",
     "keywords": ["react for beginners", "react hooks"],
-    "themeColor": "#61dafb"
+    "themeColor": "#61dafb",
+    "iconFile": "src/assets/react-logo.png"
   },
   {
     "name": "Web Developer Toolbox",

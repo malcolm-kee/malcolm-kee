@@ -1,4 +1,5 @@
 require('./src/styles/global.scss');
+require('./src/styles/animations.scss');
 const { ajax } = require('./src/global');
 
 exports.onClientEntry = () => {
