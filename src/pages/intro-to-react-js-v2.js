@@ -1,7 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
-import reactLogo from '../assets/react-logo.png';
 import { LinkButton } from '../components/Button';
+import { ReactLogo } from '../components/react-logo';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
 import { useFavIcon } from '../hooks/use-favicons';
@@ -33,7 +33,9 @@ const PageHeader = () => {
       />
       <div id="intro-to-react-js-v2-landing">
         <div className="logo-section">
-          <img src={reactLogo} className="react-icon" alt="react logo" />
+          <div className="react-logo-container">
+            <ReactLogo />
+          </div>
         </div>
         <div className="landing-title-container">
           <h1
