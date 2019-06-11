@@ -4,6 +4,11 @@
     "titleBar.activeForeground": "#fff"
   },
   "[markdown]": {
-    "editor.quickSuggestions": true
+    "editor.quickSuggestions": true,
+    "editor.wordWrap": "bounded"
+  },
+  "[mdx]": {
+    "editor.quickSuggestions": true,
+    "editor.wordWrap": "bounded"
   }
 }

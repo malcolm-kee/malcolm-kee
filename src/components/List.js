@@ -55,6 +55,9 @@ export const ListItemText = ({
   </div>
 );
 
-export const ListItemIcon = ({ children, className, ...restProps }) => (
-  <div className="List--ListItemIcon">{children}</div>
+export const ListItemLabel = ({ className, ...restProps }) => (
+  <div
+    className={joinClassName('List--ListItemLabel', className)}
+    {...restProps}
+  />
 );

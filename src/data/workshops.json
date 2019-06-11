@@ -3,8 +3,7 @@
     "name": "Introduction to React",
     "contentId": "intro-to-react-js",
     "url": "https://intro-to-react-js.netlify.com/",
-    "description":
-      "A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting.",
+    "description": "A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting.",
     "keywords": ["react for beginners", "javascript tooling"],
     "themeColor": "#61dafb"
   },
@@ -12,8 +11,7 @@
     "name": "Introduction to React v2",
     "contentId": "intro-to-react-js-v2",
     "url": "/intro-to-react-js-v2",
-    "description":
-      "An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.",
+    "description": "An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.",
     "keywords": ["react for beginners", "react hooks"],
     "themeColor": "#61dafb",
     "iconFile": "src/assets/react-logo.png"
@@ -22,8 +20,7 @@
     "name": "Web Developer Toolbox",
     "contentId": "web-developer-toolbox",
     "url": "/web-developer-toolbox",
-    "description":
-      "Learn the tools that will make you productive as a Web Developer",
+    "description": "Learn the tools that will make you productive as a Web Developer",
     "keywords": [
       "emmet",
       "vs code",
@@ -38,8 +35,7 @@
     "name": "Creating Project React Component Library",
     "contentId": "react-component-lib",
     "url": "https://react-component-lib.netlify.com/",
-    "description":
-      "Learn the common practices of writing React components and React hooks.",
+    "description": "Learn the common practices of writing React components and React hooks.",
     "keywords": ["react components", "styleguidist", "best practices"],
     "themeColor": "#000000"
   },
@@ -47,8 +43,7 @@
     "name": "Introduction to Web Development",
     "contentId": "intro-to-web-dev",
     "url": "https://intro-to-web-dev.netlify.com/",
-    "description":
-      "A full-day workshop that teach you how to create website contents with HTML, style them with CSS, and make them interactive with Javascript. Its primary target students are beginner with zero experience in programming.",
+    "description": "A full-day workshop that teach you how to create website contents with HTML, style them with CSS, and make them interactive with Javascript. Its primary target students are beginner with zero experience in programming.",
     "keywords": ["web development for beginners", "html", "css", "javascript"],
     "themeColor": "#61dafb"
   },
@@ -56,8 +51,7 @@
     "name": "JavaScript: The React Parts",
     "contentId": "js-the-react-parts",
     "url": "/js-the-react-parts",
-    "description":
-      "Javascript fundamentals and concepts that are commonly used when developing in React.",
+    "description": "Javascript fundamentals and concepts that are commonly used when developing in React.",
     "keywords": [
       "javascript fundamentals",
       "react for beginners",
@@ -66,5 +60,15 @@
     ],
     "themeColor": "#f7df1e",
     "iconFile": "src/assets/js-the-react-parts.png"
+  },
+  {
+    "name": "Create a Fast Site with GatsbyJS",
+    "contentId": "fast-site-with-gatsby-js",
+    "url": "/fast-site-with-gatsby-js",
+    "description": "Learn how to build blog with GatsbyJS, which automatically optimize your site to make it fast without sacrificing developer usability or accessibility.",
+    "keywords": ["react", "static site", "gatsbyjs"],
+    "themeColor": "#663399",
+    "iconFile": "src/assets/gatsbyjs.png",
+    "underConstruction": true
   }
 ]

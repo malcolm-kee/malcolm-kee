@@ -87,11 +87,15 @@
       text-align: justify;
     }
   }
-  &--ListItemIcon {
-    margin-right: $spacing-unit;
-    flex-shrink: 0;
-    height: auto;
-    display: inline-flex;
-    color: rgba(0, 0, 0, 0.54);
+  &--ListItemLabel {
+    position: absolute;
+    top: $spacing-unit;
+    right: $spacing-unit;
+    background-color: $primary-color;
+    color: white;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    padding: 0 $spacing-unit;
+    border-radius: 0 0 $spacing-unit / 2 $spacing-unit / 2;
   }
 }
