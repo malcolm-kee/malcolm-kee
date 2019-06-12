@@ -169,7 +169,7 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-advanced-sitemap`,
     `gatsby-plugin-netlify`,
     `gatsby-plugin-remove-serviceworker`,
   ],
