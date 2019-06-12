@@ -34,7 +34,7 @@ export const Comments = ({ comments, articlePath }) => {
           />
         ))
       ) : (
-        <div>
+        <div className="article-comments-info">
           <p>There is no comment on this post yet.</p>
         </div>
       )}

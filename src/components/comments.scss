@@ -15,6 +15,11 @@
   &-actions {
     padding-top: $spacing-unit;
   }
+
+  &-info {
+    padding: $spacing-unit * 2 $spacing-unit;
+    font-style: italic;
+  }
 }
 
 .article-comment {
