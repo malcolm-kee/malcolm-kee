@@ -170,4 +170,31 @@ $right-nav-offset: 224px;
       }
     }
   }
+
+  .exercise {
+    padding: $spacing-unit $spacing-unit * 2;
+    margin: $spacing-unit * 2 0;
+    background-color: $bg-color-light-pale;
+    background-color: var(--bg-pale);
+    border-radius: $spacing-unit * 2;
+
+    @media screen and (min-width: $media-tablet) {
+      padding: $spacing-unit $spacing-unit * 3;
+    }
+
+    > h3 {
+      margin-top: 0;
+
+      .header-link-icon svg {
+        visibility: hidden;
+      }
+    }
+
+    ol {
+      padding-left: $spacing-unit * 3;
+      margin: 0;
+      list-style-position: outside;
+      list-style-type: decimal;
+    }
+  }
 }

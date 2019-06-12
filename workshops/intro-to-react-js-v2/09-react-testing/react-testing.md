@@ -95,9 +95,9 @@ To generate code coverage report:
 1.  run `npm run test:coverage`
 1.  explore the `coverage/lcov-report` folder that has been generated. Open the `index.html` file with your browser.
 
----
+<section class="exercise">
 
-## Do It: write unit tests
+### Do It: write unit tests
 
 1.  copy the utility code as provided and write the tests to test the function.
 1.  run `npm run test` and verify that the tests are passed.
@@ -105,13 +105,13 @@ To generate code coverage report:
 1.  (optional) write unit tests for the function `joinString`.
 1.  (optional) increase conditional coverage of `lib.js` to 100%.
 
+</section>
+
 <aside>
 
 Commit: [`add unit test`](https://github.com/malcolm-kee/react-movie-app-v2/commit/837ba589d271517703016cb84faec788e2916db6)
 
 </aside>
-
----
 
 ## Testing React Components
 
@@ -260,21 +260,21 @@ describe('BusyContainer', () => {
 - `render` will create a container and mount our component in the container, as we did manually previously.
 - `render` will also returns a few helpers for us to query the DOM. In our case, we use `getByTestId` and `queryByTestId`, which is just a wrapper over `querySelector` (the difference between the two is `getByTestId` will throws error if no result returns while `queryByTestId` will not throw error and returns `null`). For a full list of supported queries, refer to the [Queries docs][react-testing-library-queries].
 
----
+<section class="exercise">
 
-## Do It: write React component test
+### Do It: write React component test
 
 1.  install `@testing-library/react` as described.
 1.  modify `BusyContainer` and write the test for it.
 1.  ensure all the tests are passed
+
+</section>
 
 <aside>
 
 Commit: [`add react component test example`](https://github.com/malcolm-kee/react-movie-app-v2/commit/1035bb7bdb743ac6d6b38cea8a5f5e3f91653514)
 
 </aside>
-
----
 
 ### Write React Component test that check stateful behavior
 

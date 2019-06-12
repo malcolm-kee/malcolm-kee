@@ -69,20 +69,20 @@ Entrypoint main = main.js
 
 And from the Network tab of your DevTools, you should be able to see chunk `0.js` and `1.js` are loaded.
 
----
+<section class="exercise">
 
-## Do It: lazy loading ajax call code
+### Do It: lazy loading ajax call code
 
 1.  modify `api.js` to lazy-load `axios`.
 1.  test the application and ensure the code still works as before.
+
+</section>
 
 <aside>
 
 Commit: [`add dynamic import`](https://github.com/malcolm-kee/react-movie-app-v2/commit/55cfe8ae71ccfa452f0d7fd7e6f0d6ba733089d2)
 
 </aside>
-
----
 
 ## Lazy Loading React Component
 
@@ -150,21 +150,21 @@ export default App;
 
 That's it!
 
----
+<section class="exercise">
 
-## Do It: lazy loading React Component
+### Do It: lazy loading React Component
 
 1.  default export `Movie` component from `movie.js`.
 1.  modify `app.js` to lazy-load `Movie` component.
 1.  test the application and ensure the code still works as before.
+
+</section>
 
 <aside>
 
 Commit: [`lazy load react component`](https://github.com/malcolm-kee/react-movie-app-v2/commit/ec5994ed5df96b0ba7cfe1b68fd3c621f4238cdf)
 
 </aside>
-
----
 
 [dynamic-import]: https://developers.google.com/web/updates/2017/11/dynamic-import
 [webpack-dynamic-imports]: https://webpack.js.org/guides/code-splitting/#dynamic-imports

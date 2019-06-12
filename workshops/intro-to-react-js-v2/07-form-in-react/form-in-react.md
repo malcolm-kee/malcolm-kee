@@ -51,8 +51,8 @@ export const createMovie = movie =>
     .then(res => res.data);
 ```
 
-* axios allows you to makes API call with specific method, e.g. `get`, `post`, `put` etc., corresponding to our REST call methods.
-* the second parameter of `axios.post` is the body of the data that you want to submit.
+- axios allows you to makes API call with specific method, e.g. `get`, `post`, `put` etc., corresponding to our REST call methods.
+- the second parameter of `axios.post` is the body of the data that you want to submit.
 
 ### Create Form Component
 
@@ -119,9 +119,9 @@ export const MovieForm = () => {
 };
 ```
 
-* we declare two states: `name` and `releaseDate` for the 2 values for the form.
-* the state value is passed to the `value` attribute of the input, while the state setter is called in the `onChange` callback.
-* we define a `handleSubmit` function, which will be passed to `onSubmit` props of the form element. When form is submitted, we will call `createForm` with the state. We call `event.preventDefault` because by default form submission will cause a page refresh, and we doesn't want that.
+- we declare two states: `name` and `releaseDate` for the 2 values for the form.
+- the state value is passed to the `value` attribute of the input, while the state setter is called in the `onChange` callback.
+- we define a `handleSubmit` function, which will be passed to `onSubmit` props of the form element. When form is submitted, we will call `createForm` with the state. We call `event.preventDefault` because by default form submission will cause a page refresh, and we doesn't want that.
 
 ### Add MovieForm Into App
 
@@ -347,23 +347,23 @@ export const MovieForm = ({ onSubmitSuccess }) => {
 };
 ```
 
-* we extract out the two form input states into `useMovieForm` custom hook, and use that in `MovieForm` component.
+- we extract out the two form input states into `useMovieForm` custom hook, and use that in `MovieForm` component.
 
----
+<section class="exercise">
 
-## Do It: Create Movie Form
+### Do It: Create Movie Form
 
 1.  Create `MovieForm` component will will make API call to backend via `createMovie` function.
 1.  Include `MovieForm` in `App` and make sure creation is working.
 1.  Enhance application to auto refresh movie list when creation is success.
 1.  Extract out form data to `useMovieForm` custom hook.
 
+</section>
+
 <aside>
 
 Commit: [`add movie form`](https://github.com/malcolm-kee/react-movie-app-v2/commit/06f4c8cb364c5851a70b2ddf640bfdd94e8d4281)
 
 </aside>
-
----
 
 [restlet-client]: https://chrome.google.com/webstore/detail/restlet-client-rest-api-t/aejoelaoggembcahagimdiliamlcdmfm?hl=en

@@ -44,7 +44,11 @@ Following is a html page for us to start learn React.
   - ReactDOM: the rendering layer. Since we're learning about rendering in browser today, we'll be using ReactDOM. There are other rendering layer e.g. React Native, React 360 etc. Both React and ReactDOM are required, but the their orders do not matter.
 - the last `script` tag would be where we write our code. It must be after the two unpkg `script` tags.
 
-> Pro Tips: If you're using VS Code (which supports emmet out-out-the-box), you can type `html:5` can press Tab key, which will generates most of the code above.
+<aside>
+
+Pro Tips: If you're using VS Code (which supports emmet out-out-the-box), you can type `html:5` can press Tab key, which will generates most of the code above.
+
+</aside>
 
 In the `<script>` tag, add the following code
 
@@ -76,14 +80,14 @@ ReactDOM.render(appElement, document.getElementById('root'));
 
 ![Initial Output](initial-output.png)
 
----
+<section class="exercise">
 
-## Do It: Type the code
+### Do It: Type the code
 
 1.  Create a file and name it as `index.html`.
 1.  Add the code above in the file.
 
----
+</section>
 
 ## React Component Properties
 
@@ -125,7 +129,11 @@ const appElementV2 = React.createElement(App, {
 ReactDOM.render(appElementV2, document.getElementById('root'));
 ```
 
-> Note: Run the code above in your browser developer console.
+<aside>
+
+Note: Run the code above in your browser developer console.
+
+</aside>
 
 The content will be updated to "React Movie App v2". Surprise!
 
@@ -208,14 +216,14 @@ ReactDOM.render(React.createElement(App), document.getElementById('root'));
 
 - Now `Movie` is a more flexible component that renders different content based on props.
 
----
+<section class="exercise">
 
-## Do It: Create your Movie Component
+### Do It: Create your Movie Component
 
 1.  Add `Movie` component in your code and use it as explained above.
 1.  (Bonus) Add a new props `genres` in your `Movie` component and render it in a `span` tag.
 
----
+</section>
 
 [unpkg]: https://unpkg.com/
 [reconciliation]: https://reactjs.org/docs/reconciliation.html

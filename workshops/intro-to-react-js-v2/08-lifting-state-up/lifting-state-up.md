@@ -22,8 +22,8 @@ Let's test the API with [Restlet Client][restlet-client] that we've installed in
     ```
     https://react-intro-movies.herokuapp.com/movies/{movieId}
     ```
-    * you need to replace `{movieId}` in the URL with the id of the movie that you want to update.
-    * you can get the movie id by inspecting the payload of the [GET request](https://react-intro-movies.herokuapp.com/movies). For instance, id for "Aquaman" is 1, while id for "A Star Is Born" is 4.
+    - you need to replace `{movieId}` in the URL with the id of the movie that you want to update.
+    - you can get the movie id by inspecting the payload of the [GET request](https://react-intro-movies.herokuapp.com/movies). For instance, id for "Aquaman" is 1, while id for "A Star Is Born" is 4.
 1.  add the following content in the BODY field (change it to the movie you want to update):
     ```json
     {
@@ -63,7 +63,7 @@ export const saveMovie = movie =>
   axios.put(`${MOVIE_ENDPOINT}/${movie.id}`, movie).then(res => res.data);
 ```
 
-* similar to `axios.put`, the second parameter of `axios.put` is the data you want to submit.
+- similar to `axios.put`, the second parameter of `axios.put` is the data you want to submit.
 
 ### The Interaction of Edit Movie
 
@@ -170,8 +170,8 @@ export const Movie = props => (
 );
 ```
 
-* the `selectable` class is added for better visual hint during mouse hover.
-* `onClick` props on `div` will be called when the `div` and its descendents are clicked. `tabIndex` is added so that so that it will be target of keyboard tab, and `onKeyDown` is to handle keyboard press enter or space.
+- the `selectable` class is added for better visual hint during mouse hover.
+- `onClick` props on `div` will be called when the `div` and its descendents are clicked. `tabIndex` is added so that so that it will be target of keyboard tab, and `onKeyDown` is to handle keyboard press enter or space.
 
 And update `MovieForm` component to show different text and ability to resetForm:
 
@@ -468,9 +468,9 @@ function App() {
 
 The app should works as expected now!
 
----
+<section class="exercise">
 
-## Do It: Lifting State Up
+### Do It: Lifting State Up
 
 1.  Declare `isEdit` state in `App` component.
 1.  Display different text in `MovieForm` based on `isEdit` props.
@@ -479,12 +479,12 @@ The app should works as expected now!
 1.  Create `saveMovie` function.
 1.  In `MovieForm` component, call `saveMovie` based on `isEdit` props.
 
+</section>
+
 <aside>
 
 Commit: [`moving state up`](https://github.com/malcolm-kee/react-movie-app-v2/commit/a55513990ebd0de526324b273574a03fa566beaa)
 
 </aside>
-
----
 
 [restlet-client]: https://chrome.google.com/webstore/detail/restlet-client-rest-api-t/aejoelaoggembcahagimdiliamlcdmfm?hl=en

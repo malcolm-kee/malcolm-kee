@@ -11,7 +11,11 @@ We will now learn how to create a React project and host the repo in GitHub
 
 [Create React App][create-react-app] is a CLI tools that help you to create a project with all the required configurations for a typical React applications, e.g. webpack, Babel, and ESLint.
 
-> In you're interested on basic understanding on those tools and how to configure them, you can refer to [version 1 of this workshop][v1-website], where I will explain the purpose of each tools and guide you through step-by-step on how to configure them for a React project.
+<aside>
+
+In you're interested on basic understanding on those tools and how to configure them, you can refer to [version 1 of this workshop][v1-website], where I will explain the purpose of each tools and guide you through step-by-step on how to configure them for a React project.
+
+</aside>
 
 ### Create the Project
 
@@ -21,8 +25,8 @@ To create the project for our app, in your CLI, go to the directory that you wan
 npx create-react-app react-movie-app
 ```
 
-* the command will create a folder `react-movie-app` and install all the required dependencies for your project. Have fun waiting :)
-* `npx` is a `npm` utility that allows you to run CLI tools conveniently. Without `npx`, you need to run 2 commands:
+- the command will create a folder `react-movie-app` and install all the required dependencies for your project. Have fun waiting :)
+- `npx` is a `npm` utility that allows you to run CLI tools conveniently. Without `npx`, you need to run 2 commands:
   ```bash
   npm install -g create-react-app
   create-react-app react-movie-app
