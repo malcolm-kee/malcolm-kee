@@ -52,11 +52,6 @@ $right-nav-offset: 224px;
       border-bottom: 1px solid;
       border-bottom-color: inherit;
       line-height: 2;
-
-      @media screen and (min-width: $media-xlarge) {
-        column-span: all;
-        padding-top: 75px; // this is required because the [id]:before hack is not working anymore with column-span: all
-      }
     }
 
     :target {

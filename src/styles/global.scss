@@ -541,6 +541,14 @@ th {
     margin-bottom: 0;
     margin-top: 2em;
   }
+  h3,
+  h4,
+  h5 {
+    & + p {
+      margin-top: 1em;
+    }
+  }
+
   ol,
   ul {
     li:first-child {
