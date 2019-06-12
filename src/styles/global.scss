@@ -635,4 +635,14 @@ th {
   .gatsby-highlight {
     margin-top: 1.75rem;
   }
+
+  /* Inline code */
+  code[class*='language-text'] {
+    border-radius: 0.3em;
+    background-color: $bg-color-light-pale;
+    background-color: var(--bg-pale);
+    padding: 0.15em 0.2em 0.05em;
+    font-size: 0.8em;
+    white-space: normal;
+  }
 }

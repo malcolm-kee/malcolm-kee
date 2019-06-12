@@ -9,6 +9,9 @@ import { WorkshopLayout } from './workshop-layout';
 
 const mdxComponents = {
   code: CodeEditor,
+  inlineCode: ({ children }) => (
+    <code className="language-text">{children}</code>
+  ),
 };
 
 const LayoutContainer = ({ children, pageContext, location }) => {
