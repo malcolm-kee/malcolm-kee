@@ -13,16 +13,31 @@ Welcome!
 
 Before we jump into learning how to write code in Gatsby, let's take a step back and see what's the problem it is trying to solve.
 
-Problem of website maintained by traditional CMS, and why they don't use frontend frameworks.
+### Before: Traditional CMS
 
-Gatsby gives you the best of both worlds.
+Typically, websites are usually managed with content-management system (CMS) like Wordpress and Drupal. CMS allows anyone with basic HTML & CSS knowledge to update the website contents such as text or images without writing any code.
 
-Compared to sites that is managed using traditional CMS, modern frontend frameworks like React/Angular allows us to build a more dynamic sites. Besides, compared to the traditional way of maintaining your sites by copy-pasting markup, frontend frameworks allows you to create reusable components.
+However, using CMS comes with few drawbacks:
 
-Nonetheless, frontend frameworks comes with a few drawbacks.
+1. use the old frontend paradigm
+   - states are coupled with DOM
+   - slow, manual DOM manipulation
+   - document-based sites. Dynamic behavior (go to different page, submit a form) usually involves a full-page reload
+   - in other words, many improvements that comes with modern frontend frameworks (e.g. virtual-dom, proper state-management, hot reloading) are not available
+1. performance need to be manually managed and hand-tweaked
+1. manual content and data migration required when data is available from multiple sources
 
-- increase our web page size, making the site slower to load
-- highly dependent on JavaScript make our site fragile. Compared to HTML/CSS, where invalid tags/values will be ignored gracefully, as a programming language JavaScript will not run at all if browser encounter any problem parsing it.
+### After: Gatsby
+
+Gatsby is created to solve these problems:
+
+1. utilize modern frontend technologies (webpack, React, SCSS, GraphQL) that gives you good developer experience and scaleable code management
+1. automated performance tuning, e.g. inline critical assets, image optimization, lazy-loading and prefetch contents
+1. pull data from anywhere with GraphQL. You can pull data from any API that expose data (including CMS such as Wordpress/Contentful or third-party services such as GitHub or Shopify), or databases (MongoDB/MySQL).
+
+In the meantime, content creator can still manage the content via CMS.
+
+How to utilize those features from Gatsby is the goal of this workshop.
 
 ## Workshop Agenda
 
@@ -34,4 +49,11 @@ Nonetheless, frontend frameworks comes with a few drawbacks.
 
 ## Expectation
 
+To get most from this workshop, it's advised that you:
+
+1. before the workshop, read and complete [the setup instructions][gatsby-setup].
+1. during the workshop, instead of listening passively, follow along the setup.
+1. think how you can apply the knowledge you learn in your personal projects or works. Ask if you have difficulty relates them.
+
 [gatsby]: https://www.gatsbyjs.org/
+[gatsby-setup]: https://www.gatsbyjs.org/tutorial/part-zero/
