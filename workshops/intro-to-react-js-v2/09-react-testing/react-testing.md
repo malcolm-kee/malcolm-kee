@@ -17,8 +17,8 @@ The offical packages to do that is a package known as [classnames], however, for
 
 Create a file `lib.js` with the content from [this gist](https://gist.github.com/malcolm-kee/30cd26b80c5f45e443ae44dd5a3b4f01).
 
-* `classNames` is a function that take any number of arguments, and join them together as a string. Only string and number will be included in final results and falsy value will be excluded. Array will be flattened
-* Example usage:
+- `classNames` is a function that take any number of arguments, and join them together as a string. Only string and number will be included in final results and falsy value will be excluded. Array will be flattened
+- Example usage:
 
   ```javascript
   // simple usage
@@ -64,10 +64,10 @@ Ran all test suites.
 
 Congratulations! You just written your first test.
 
-* By default, Jest (the underlying test framework of Create React App) will look for any files that is inside folder `__test__` or file name end with `.test.js` or `spec.js`. Therefore by naming the file as `lib.test.js`, the file will be treated as test file that Jest need to run. I recommend to place the test file next to the code that it's testing with the naming convention `<code-under-test>.test.js`, so that it's clear on the purpose of the test, and what code has test associated with it.
-* When Jest run the test file, it will injects few variables globally, e.g. `test` and `expect`.
-* `test` is used to wrap your unit test and give it a name. When your test fails, the test name will be displayed in the console.
-* `expect` is used to assert the result of your test. Common usages are:
+- By default, Jest (the underlying test framework of Create React App) will look for any files that is inside folder `__test__` or file name end with `.test.js` or `spec.js`. Therefore by naming the file as `lib.test.js`, the file will be treated as test file that Jest need to run. I recommend to place the test file next to the code that it's testing with the naming convention `<code-under-test>.test.js`, so that it's clear on the purpose of the test, and what code has test associated with it.
+- When Jest run the test file, it will injects few variables globally, e.g. `test` and `expect`.
+- `test` is used to wrap your unit test and give it a name. When your test fails, the test name will be displayed in the console.
+- `expect` is used to assert the result of your test. Common usages are:
 
   ```javascript
   expect(result).toBe(expected); // use ==== for equality check
@@ -203,24 +203,24 @@ describe('BusyContainer', () => {
 });
 ```
 
-* `describe` and `it` are two other global helpers injected by Jest in all test files. `describe` is used to group tests into logical group, while `it` is equivalent to `test`.
-* As Jest will run the test in [jsdom] (a environment that runs in NodeJS and supports most browser features listed in web standards), so we have access to DOM API like [`document.createElement`][document-createelement], [`querySelector`][document-queryselector] and [`appendChild`][appendchild].
-* For each test, we need to
-  * setup our DOM by creating a div and append to body, then we use `ReactDOM` to render our components
-  * use `querySelector` to check the current state of the DOM and assert it.
-  * unmount the component with `ReactDOM.unmountComponentAtNode`, then remove the container from the body
+- `describe` and `it` are two other global helpers injected by Jest in all test files. `describe` is used to group tests into logical group, while `it` is equivalent to `test`.
+- As Jest will run the test in [jsdom] (a environment that runs in NodeJS and supports most browser features listed in web standards), so we have access to DOM API like [`document.createElement`][document-createelement], [`querySelector`][document-queryselector] and [`appendChild`][appendchild].
+- For each test, we need to
+  - setup our DOM by creating a div and append to body, then we use `ReactDOM` to render our components
+  - use `querySelector` to check the current state of the DOM and assert it.
+  - unmount the component with `ReactDOM.unmountComponentAtNode`, then remove the container from the body
 
-As the setup and cleanup are required and similar for all tests, there is a library that already implements them with a bunch of helpers. The library is [`react-testing-library`][react-testing-library] (surprise, surprise!). Let's install that:
+As the setup and cleanup are required and similar for all tests, there is a library that already implements them with a bunch of helpers. The library is [`@testing-library/react`][react-testing-library] (surprise, surprise!). Let's install that:
 
 ```bash
-npm install -D react-testing-library
+npm install -D @testing-library/react
 ```
 
 Let's change `busy-container.test.js` to the following:
 
 ```jsx
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { render, cleanup } from '@testing-library/react';
 import { BusyContainer } from './busy-container';
 
 afterEach(cleanup);
@@ -256,15 +256,15 @@ describe('BusyContainer', () => {
 });
 ```
 
-* `cleanup` will perform the cleanup step of unmount component and remove container that we did manually previously.
-* `render` will create a container and mount our component in the container, as we did manually previously.
-* `render` will also returns a few helpers for us to query the DOM. In our case, we use `getByTestId` and `queryByTestId`, which is just a wrapper over `querySelector` (the difference between the two is `getByTestId` will throws error if no result returns while `queryByTestId` will not throw error and returns `null`). For a full list of supported queries, refer to the [`react-testing-library` Queries docs][react-testing-library-queries].
+- `cleanup` will perform the cleanup step of unmount component and remove container that we did manually previously.
+- `render` will create a container and mount our component in the container, as we did manually previously.
+- `render` will also returns a few helpers for us to query the DOM. In our case, we use `getByTestId` and `queryByTestId`, which is just a wrapper over `querySelector` (the difference between the two is `getByTestId` will throws error if no result returns while `queryByTestId` will not throw error and returns `null`). For a full list of supported queries, refer to the [Queries docs][react-testing-library-queries].
 
 ---
 
 ## Do It: write React component test
 
-1.  install `react-testing-library` as described.
+1.  install `@testing-library/react` as described.
 1.  modify `BusyContainer` and write the test for it.
 1.  ensure all the tests are passed
 
@@ -282,8 +282,8 @@ The previous React test is quite straight-forward as the `BusyContainer` is simp
 
 ```jsx
 import React from 'react';
-import { render, fireEvent, wait } from 'react-testing-library';
-import 'react-testing-library/cleanup-after-each';
+import { render, fireEvent, wait } from '@testing-library';
+import '@testing-library/cleanup-after-each';
 import App from './app';
 import * as api from './api';
 
@@ -341,11 +341,11 @@ describe('<App />', () => {
 });
 ```
 
-* we define `mockMovieData` which will be used to act as mock response for the api call. Usually you can get his via the data contract that has been agreed with your the API developer or via the sample REST call to the actual API.
-* we use `fireEvent` helper from `react-testing-library` to simulate event. In the tests, we use it to simulate click event. You can use it to simulate most of the browser events, e.g. focus, blur, change etc.
-* we use `jest.spyOn` to spy the calling of the `loadMovies` function and mock a implementation that will return a Promise that resolve with our `mockMovieData`.
-* we use `wait` helper from `react-testing-library` to introduce some delay. This is because the `loadMovies` returns a promise, which will only be resolve in next ticks on the JS event cycle.
-* we use `getAllByTestId` to get the count of the mounted movie components and asserts the count is equal to the number of movies in our mock data.
+- we define `mockMovieData` which will be used to act as mock response for the api call. Usually you can get his via the data contract that has been agreed with your the API developer or via the sample REST call to the actual API.
+- we use `fireEvent` helper from `react-testing-library` to simulate event. In the tests, we use it to simulate click event. You can use it to simulate most of the browser events, e.g. focus, blur, change etc.
+- we use `jest.spyOn` to spy the calling of the `loadMovies` function and mock a implementation that will return a Promise that resolve with our `mockMovieData`.
+- we use `wait` helper from `react-testing-library` to introduce some delay. This is because the `loadMovies` returns a promise, which will only be resolve in next ticks on the JS event cycle.
+- we use `getAllByTestId` to get the count of the mounted movie components and asserts the count is equal to the number of movies in our mock data.
 
 <aside>
 
@@ -361,4 +361,4 @@ Commit: [`add stateful react component test`](https://github.com/malcolm-kee/rea
 [document-createelement]: https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement
 [document-queryselector]: https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
 [appendchild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
-[react-testing-library-queries]: https://testing-library.com/docs/api-queries
+[react-testing-library-queries]: https://testing-library.com/docs/dom-testing-library/api-queries
