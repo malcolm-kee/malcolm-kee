@@ -1,4 +1,4 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ReactLogo } from '../components/react-logo';
@@ -59,4 +59,15 @@ const PageHeader = () => {
   );
 };
 
-export default PageHeader;
+export default function IntroToReactJsV2() {
+  return (
+    <>
+      <PageHeader />
+      <nav className="Toolbar center">
+        <Link className="link-primary" to="/workshops">
+          All Workshops
+        </Link>
+      </nav>
+    </>
+  );
+}

@@ -1,4 +1,4 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import toolboxIcon from '../assets/toolbox.svg';
 import { LinkButton } from '../components/Button';
@@ -87,4 +87,15 @@ const flatIconAttribution = (
   </div>
 );
 
-export default PageHeader;
+export default function WebDeveloperToolbox() {
+  return (
+    <>
+      <PageHeader />
+      <nav className="Toolbar center">
+        <Link className="link-primary" to="/workshops">
+          All Workshops
+        </Link>
+      </nav>
+    </>
+  );
+}
