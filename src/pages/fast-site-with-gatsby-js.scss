@@ -1,0 +1,15 @@
+@import '../constants/variable';
+
+#fast-site-with-gatsbyjs-landing {
+  .gatsby-logo-container {
+    width: 150px;
+    margin: $spacing-unit;
+    display: inline-block;
+    vertical-align: middle;
+
+    @media screen and (min-width: $media-mobile) {
+      margin: $spacing-unit * 3;
+      width: 250px;
+    }
+  }
+}
