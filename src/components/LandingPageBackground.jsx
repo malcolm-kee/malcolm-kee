@@ -10,7 +10,7 @@ export const LandingPageBackground = ({ className, ...props }) => {
       background: file(relativePath: { eq: "malcolm-kee.jpg" }) {
         childImageSharp {
           fluid(quality: 100, maxWidth: 2000) {
-            ...GatsbyImageSharpFluid_withWebp
+            ...GatsbyImageSharpFluid_withWebp_tracedSVG
           }
         }
       }
