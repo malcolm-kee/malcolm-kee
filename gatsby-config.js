@@ -95,6 +95,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-catch-links`,
     {
       resolve: `gatsby-plugin-manifest`,

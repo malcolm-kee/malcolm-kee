@@ -14,19 +14,22 @@ import { ToggleTocBtn } from './toggle-toc-btn';
 
 export const TableOfContents = ({ pathname, sections, themeColor }) => {
   const [open, setIsOpen] = React.useState(false);
-  const [activeSection, setActiveSection] = React.useState(undefined);
+  const [activeSection, setActiveSection] = React.useState(() => {
+    const activatedSection = findActiveSection(sections, pathname);
 
-  React.useEffect(
-    () => {
-      setIsOpen(false);
-      const activatedSection = findActiveSection(sections, pathname);
+    if (activatedSection) {
+      return activatedSection.title;
+    }
+  });
 
-      if (activatedSection && activatedSection.title !== activeSection) {
-        setActiveSection(activatedSection.title);
-      }
-    },
-    [pathname]
-  );
+  React.useEffect(() => {
+    setIsOpen(false);
+    const activatedSection = findActiveSection(sections, pathname);
+
+    if (activatedSection && activatedSection.title !== activeSection) {
+      setActiveSection(activatedSection.title);
+    }
+  }, [pathname]);
 
   useEventListener('keyup', e => {
     if (e.key === 'Escape') {
