@@ -656,4 +656,10 @@ th {
     font-size: 0.8em;
     white-space: normal;
   }
+
+  pre > code[class*='language-text'] {
+    white-space: pre;
+    display: block;
+    padding: 1rem;
+  }
 }

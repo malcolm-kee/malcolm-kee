@@ -174,9 +174,10 @@ $right-nav-offset: 224px;
   .exercise {
     padding: $spacing-unit $spacing-unit * 2;
     margin: $spacing-unit * 2 0;
-    background-color: $bg-color-light-pale;
-    background-color: var(--bg-pale);
-    border-radius: $spacing-unit * 2;
+    background-color: white;
+    background-color: var(--bg-absolute);
+    border-radius: $spacing-unit;
+    box-shadow: $box-shadow-3;
 
     @media screen and (min-width: $media-tablet) {
       padding: $spacing-unit $spacing-unit * 3;

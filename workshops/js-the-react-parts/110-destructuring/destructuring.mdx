@@ -207,7 +207,7 @@ function getPersons() {
 
 var [
   [manager1, manager2], // destructure managers
-  [staff1, staff2] // destructure staffs
+  [staff1, staff2], // destructure staffs
 ] = getPersons();
 ```
 
@@ -249,6 +249,8 @@ function getPersons() {
 var [[manager1, manager2], [staff1, staff2] = []] = getPersons();
 ```
 
+<section class="exercise">
+
 ### Exercise
 
 Rewrite the following code with destructuring.
@@ -289,13 +291,15 @@ function announceParticipants(event, participants) {
 
 announceParticipants('Kung Fu Competition', [
   ['Yoda', 'Master Sifu', 'Ip Man', 'Wong Fei Hong'],
-  ['Luke Skywalker', 'Kungfu Panda', 'Bruce Lee']
+  ['Luke Skywalker', 'Kungfu Panda', 'Bruce Lee'],
 ]);
 
 announceParticipants('Hackathon', [['Kyle Simpsons'], ['Noob']]);
 
 announceParticipants('Quidditch', [['Naruto', 'Lufee']]);
 ```
+
+</section>
 
 ## Object Destructuring
 
@@ -306,7 +310,7 @@ function getPerson() {
   return {
     firstName: 'Malcolm',
     lastName: 'Kee',
-    age: 29
+    age: 29,
   };
 }
 
@@ -325,14 +329,14 @@ function getPerson() {
   return {
     firstName: 'Malcolm',
     lastName: 'Kee',
-    age: 29
+    age: 29,
   };
 }
 
 var {
   firstName: myFirstName, // get firstName property and assign it to myFirstName
   lastName: myLastName, // get lastName property and assign it to myLastName
-  age: myAge // get age property and assign it to myAge
+  age: myAge, // get age property and assign it to myAge
 } = getPerson();
 
 console.log(`I am ${myFirstName} ${myLastName}, aged ${myAge}`);
@@ -347,7 +351,7 @@ function getPerson() {
   return {
     firstName: 'Malcolm',
     lastName: 'Kee',
-    age: 29
+    age: 29,
   };
 }
 
@@ -366,7 +370,7 @@ function getPerson() {
   return {
     firstName: 'Malcolm',
     lastName: 'Kee',
-    age: 29
+    age: 29,
   };
 }
 
@@ -382,7 +386,7 @@ function getPerson() {
   return {
     firstName: 'Malcolm',
     lastName: 'Kee',
-    age: 29
+    age: 29,
   };
 }
 
@@ -402,7 +406,7 @@ function getPerson() {
   return {
     firstName: 'Malcolm',
     lastName: 'Kee',
-    age: 29
+    age: 29,
   };
 }
 
@@ -422,7 +426,7 @@ function getPerson() {
   return {
     firstName: 'Malcolm',
     lastName: 'Kee',
-    age: 29
+    age: 29,
   };
 }
 
@@ -440,7 +444,7 @@ You can provide default value during destructuring.
 function getPerson() {
   return {
     firstName: 'Malcolm',
-    lastName: 'Kee'
+    lastName: 'Kee',
   };
 }
 
@@ -455,7 +459,7 @@ With new syntax:
 function getPerson() {
   return {
     firstName: 'Malcolm',
-    lastName: 'Kee'
+    lastName: 'Kee',
   };
 }
 
@@ -474,13 +478,13 @@ function getPerson() {
   return {
     name: {
       firstName: 'Malcolm',
-      lastName: 'Kee'
+      lastName: 'Kee',
     },
     address: {
       street: '9, Jln Besar',
-      state: 'KL'
+      state: 'KL',
     },
-    age: 29
+    age: 29,
   };
 }
 
@@ -501,20 +505,20 @@ function getPerson() {
   return {
     name: {
       firstName: 'Malcolm',
-      lastName: 'Kee'
+      lastName: 'Kee',
     },
     address: {
       street: '9, Jln Besar',
-      state: 'KL'
+      state: 'KL',
     },
-    age: 29
+    age: 29,
   };
 }
 
 var {
   name: { firstName },
   address: { state: livingState },
-  age
+  age,
 } = getPerson();
 
 console.log(`${firstName}, aged ${age}, lives in ${livingState}`);
@@ -527,13 +531,13 @@ function getPerson() {
   return {
     name: {
       firstName: 'Malcolm',
-      lastName: 'Kee'
-    }
+      lastName: 'Kee',
+    },
   };
 }
 
 var {
-  name: { firstName }
+  name: { firstName },
   // address: { state } // this would cause error
 } = getPerson();
 ```
@@ -545,14 +549,14 @@ function getPerson() {
   return {
     name: {
       firstName: 'Malcolm',
-      lastName: 'Kee'
-    }
+      lastName: 'Kee',
+    },
   };
 }
 
 var {
   name: { firstName },
-  address: { state } = {}
+  address: { state } = {},
 } = getPerson();
 ```
 
@@ -565,13 +569,13 @@ function getPersons() {
   return [
     { name: 'Spiderman', age: 18 },
     { name: 'Thanos', age: 2000 },
-    { name: 'Ironman', age: 40 }
+    { name: 'Ironman', age: 40 },
   ];
 }
 
 var [
   { name: heroName, age: heroAge },
-  { name: villainName, age: villainAge }
+  { name: villainName, age: villainAge },
 ] = getPersons();
 ```
 
@@ -581,15 +585,17 @@ Example for Object containing Array
 function getPerson() {
   return {
     name: 'Malcolm',
-    friends: ['Mickey', 'Tom', 'Jerry']
+    friends: ['Mickey', 'Tom', 'Jerry'],
   };
 }
 
 var {
   name,
-  friends: [firstFriend, secondFriend, thirdFriend]
+  friends: [firstFriend, secondFriend, thirdFriend],
 } = getPerson();
 ```
+
+<section class="exercise">
 
 ### Exercise
 
@@ -608,12 +614,12 @@ function logPerson(person) {
 var persons = [
   {
     name: { firstName: 'Malcolm', lastName: 'Kee' },
-    age: 29
+    age: 29,
   },
   {
     name: { firstName: 'Andy', lastName: 'Lau' },
-    age: 55
-  }
+    age: 55,
+  },
 ];
 
 logPerson(persons[0]);
@@ -629,13 +635,15 @@ function getStyles(styles) {
 
   return {
     display,
-    width
+    width,
   };
 }
 
 console.log(getStyles({ display: 'inline', dimensions: { width: '50px' } }));
 console.log(getStyles());
 ```
+
+</section>
 
 ## Destructuring in Function Parameter
 
@@ -690,6 +698,8 @@ formatMoney(100, null); // "null 2"
 
 Similar to default value during destructuring, function default parameter only works if that parameter is `undefined`, as demonstrated in the third usage example.
 
+<section class="exercise">
+
 ### Exercise
 
 Rewrite the function to use destructuring to assign default
@@ -706,3 +716,5 @@ console.log(formatNumber(100));
 console.log(formatNumber(2, { prefix: '$ ' }));
 console.log(formatNumber(2, { prefix: 'DKK ', suffix: ',00' }));
 ```
+
+</section>

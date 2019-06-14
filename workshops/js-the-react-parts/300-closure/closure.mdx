@@ -200,6 +200,8 @@ document
 
 We will utilize currying in [next lesson](/js-the-react-parts/functional-programming).
 
+<section class="exercise">
+
 ### Exercise
 
 1. Refactor the `map` and `filter` function below to use currying.
@@ -258,6 +260,8 @@ document.querySelector('#size-16').addEventListener('click', function(ev) {
     </button>
   </div>
 </div>
+
+</section>
 
 ## Creating a stateful data with "private" variable and method
 
@@ -392,7 +396,7 @@ function createCounter() {
   return {
     increment,
     decrement,
-    value
+    value,
   };
 }
 
@@ -433,7 +437,7 @@ function createCounter() {
     },
     value: function() {
       return count;
-    }
+    },
   };
 }
 
@@ -464,7 +468,7 @@ const counter = (function() {
   return {
     increment,
     decrement,
-    value
+    value,
   };
 })();
 
@@ -494,7 +498,7 @@ function createCounter(initialCount = 0) {
     },
     value: function() {
       return count;
-    }
+    },
   };
 }
 
@@ -506,6 +510,8 @@ const counter2 = createCounter(100);
 counter2.increment();
 console.log(`counter2 count: ${counter2.value()}`);
 ```
+
+<section class="exercise">
 
 ### Exercise
 
@@ -546,7 +552,7 @@ function createCounter(initialCount = 0) {
     },
     value: function() {
       return count;
-    }
+    },
   };
 }
 
@@ -558,3 +564,5 @@ const counter2 = createCounter(100, 10);
 counter2.increment();
 console.log(`this should equals 110: ${counter2.value()}`);
 ```
+
+</section>

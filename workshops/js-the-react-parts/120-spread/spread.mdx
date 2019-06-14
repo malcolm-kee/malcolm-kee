@@ -69,6 +69,8 @@ var result = Math.max(...numbers);
 console.log(result); // 500
 ```
 
+<section class="exercise">
+
 ### Exercise
 
 1. Given three variables below:
@@ -98,6 +100,8 @@ console.log(result); // 500
    console.log(min([100, 2, -10, 50])); // this should output -10
    ```
 
+</section>
+
 ## Object Spread
 
 To merge multiple object into a single object:
@@ -109,16 +113,16 @@ var base = {
   thousandSeparators: ',',
   address: {
     country: 'Malaysia',
-    city: 'KL'
-  }
+    city: 'KL',
+  },
 };
 
 var options = {
   currency: 'USD',
   roundOff: true,
   address: {
-    country: 'United States'
-  }
+    country: 'United States',
+  },
 };
 
 var result = Object.assign({}, base, options);
@@ -138,16 +142,16 @@ var base = {
   thousandSeparators: ',',
   address: {
     country: 'Malaysia',
-    city: 'KL'
-  }
+    city: 'KL',
+  },
 };
 
 var options = {
   currency: 'USD',
   roundOff: true,
   address: {
-    country: 'United States'
-  }
+    country: 'United States',
+  },
 };
 
 var result = { ...base, ...options };
@@ -173,16 +177,16 @@ var base = {
   thousandSeparators: ',',
   address: {
     country: 'Malaysia',
-    city: 'KL'
-  }
+    city: 'KL',
+  },
 };
 
 var options = {
   currency: 'USD',
   roundOff: true,
   address: {
-    country: 'United States'
-  }
+    country: 'United States',
+  },
 };
 
 var result = {
@@ -193,9 +197,9 @@ var result = {
     // highlight-next-line
     ...base.address,
     // highlight-next-line
-    ...options.address
+    ...options.address,
     // highlight-next-line
-  }
+  },
 };
 
 console.log(result); /*
@@ -242,6 +246,8 @@ function myFormatMoney(value, { prefix = 'RM', ...otherOptions } = {}) {
 
 Now `myFormatMoney` works similar to `formatMoney`, just the default is customized for your convenience!
 
+<section class="exercise">
+
 ### Exercise
 
 1. Write the `merge` function that would merge `objA` and `objB` to produce the desired result:
@@ -253,15 +259,15 @@ Now `myFormatMoney` works similar to `formatMoney`, just the default is customiz
      mediaQuery: {
        mobile: 560,
        tablet: 720,
-       desktop: 1020
-     }
+       desktop: 1020,
+     },
    };
 
    var objB = {
      theme: 'dark',
      mediaQuery: {
-       mobile: 500
-     }
+       mobile: 500,
+     },
    };
 
    function merge(defaultStyle, customized) {
@@ -296,5 +302,7 @@ Now `myFormatMoney` works similar to `formatMoney`, just the default is customiz
          }
      }
      ```
+
+</section>
 
 [math-min]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
