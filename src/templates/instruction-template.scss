@@ -172,15 +172,16 @@ $right-nav-offset: 224px;
   }
 
   .exercise {
-    padding: $spacing-unit $spacing-unit * 2;
-    margin: $spacing-unit * 2 0;
     background-color: white;
     background-color: var(--bg-absolute);
     border-radius: $spacing-unit;
     box-shadow: $box-shadow-3;
+    padding: $spacing-unit $spacing-unit * 3;
+    margin: $spacing-unit * 2 #{-$spacing-unit * 2};
 
     @media screen and (min-width: $media-tablet) {
-      padding: $spacing-unit $spacing-unit * 3;
+      margin: $spacing-unit * 2 0;
+      padding: $spacing-unit $spacing-unit * 2;
     }
 
     > h3 {
