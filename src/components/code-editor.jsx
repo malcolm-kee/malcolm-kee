@@ -6,8 +6,8 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { copyToClipboard } from '../helper';
 import { useTheme } from '../theme';
 import { Button } from './Button';
-import { Popover, PopoverContent } from './popover';
 import './code-editor.scss';
+import { Popover, PopoverContent } from './popover';
 
 function sanitize(data) {
   return Array.isArray(data)
@@ -27,6 +27,42 @@ function shallowConcat(targetArr, item) {
   const newArr = targetArr.slice();
   newArr.push(item);
   return newArr;
+}
+
+/*
+ Global function used for demo
+*/
+
+function noop() {
+  // noop
+}
+
+function ajax(url, options) {
+  var opts = options || {};
+  var onSuccess = opts.onSuccess || noop;
+  var onError = opts.onError || noop;
+  var dataType = opts.dataType || 'json';
+  var method = opts.method || 'GET';
+
+  var request = new XMLHttpRequest();
+  request.open(method, url);
+  if (dataType === 'json') {
+    request.overrideMimeType('application/json');
+    request.responseType = 'json';
+    request.setRequestHeader('Accept', 'application/json');
+  }
+
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      onSuccess(request.response);
+    } else {
+      onError(request.response);
+    }
+  };
+
+  request.onerror = onError;
+
+  request.send(opts.body);
 }
 
 const isHighlightNextLine = tokens =>
@@ -96,12 +132,14 @@ export const CodeEditor = ({ children, className }) => {
   );
 };
 
+const injectedGlobals = { sanitize, shallowConcat, ajax };
+
 const CodeLiveEditor = ({ code, theme }) => {
   return (
     <div className="code-editor">
       <LiveProvider
         code={code}
-        scope={{ sanitize, shallowConcat }}
+        scope={injectedGlobals}
         transformCode={wrapJsCode}
         theme={theme}
         language="jsx"
