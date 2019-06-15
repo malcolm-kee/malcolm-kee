@@ -21,9 +21,14 @@ export const Footer = ({ left }) => {
           <small>
             This site is built with{' '}
             <OutLink href="https://www.gatsbyjs.org/">Gatsby</OutLink> and
-            hosted on <OutLink href="https://www.netlify.com/">Netlify</OutLink>.
-            The source code is hosted on{' '}
+            hosted on <OutLink href="https://www.netlify.com/">Netlify</OutLink>
+            . The source code is hosted on{' '}
             <OutLink href={repositoryUrl}>GitHub</OutLink>.
+          </small>
+        </p>
+        <p>
+          <small>
+            <a href="/sitemap.xml">Sitemap</a>
           </small>
         </p>
       </div>
