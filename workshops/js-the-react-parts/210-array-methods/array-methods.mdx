@@ -5,6 +5,10 @@ description: ''
 section: 'new features'
 ---
 
+import { FilterAnimation } from './filter';
+import { MapAnimation } from './map';
+import { ReduceAnimation } from './reduce';
+
 The second new JavaScript features we'll look into are the new Array methods that you'll use heavily in React.
 
 ## Traditional Approach to Loop Through Array
@@ -77,6 +81,8 @@ Now we will go through each of them below.
 
 ## Array.map
 
+<MapAnimation />
+
 `map` is the method to do data transformation. `map` will create a new array; the original array will kept unchanged.
 
 ```js
@@ -129,6 +135,8 @@ Get the IC numbers for all the participants
 </section>
 
 ## Array.filter
+
+<FilterAnimation />
 
 `filter` method is used to filter elements in an array. You do so by providing it a function that will returns `true` or `false`. If `true`, the element will be kept, else it will be discarded. `filter` will create a new Array instead of changing the original array.
 
@@ -230,6 +238,8 @@ console.log(numbers); // [1, 4]
 </section>
 
 ## Array.reduce
+
+<ReduceAnimation />
 
 `reduce` method is used to derive a single value by looping through the whole array. It's more abstract and slighlty harder to understand than `filter` and `map`, but it's more powerful.
 

@@ -1,0 +1,78 @@
+@import '../../../src/constants/variable';
+
+$space: $spacing-unit;
+
+@mixin box-offset($index) {
+  top: $space + (($space + 25px) * $index);
+  left: $space * 2;
+}
+
+$indexes: 0, 1, 2, 3;
+
+#map-demo {
+  position: relative;
+  height: 175px;
+  background: $bg-color-light-pale;
+  background: var(--bg-pale);
+  max-width: 500px;
+  margin: 0 auto;
+
+  .box-container {
+    position: relative;
+    height: 100%;
+    width: calc(100% - 40px);
+  }
+
+  .box {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border: 1px solid;
+    filter: hue-rotate(0deg);
+    transform: scale(1);
+    transition-property: filter left transform;
+    transition-timing-function: linear;
+    transition-duration: 0s;
+
+    &.item-0 {
+      background: yellowgreen;
+      @include box-offset(0);
+    }
+
+    &.item-1 {
+      background: maroon;
+      @include box-offset(1);
+    }
+
+    &.item-2 {
+      background: orchid;
+      @include box-offset(2);
+    }
+
+    &.item-3 {
+      background: orange;
+      @include box-offset(3);
+    }
+
+    &.item-4 {
+      background: darkcyan;
+      @include box-offset(4);
+    }
+  }
+
+  .circle {
+    border-radius: 50%;
+  }
+
+  &.activated {
+    .box {
+      filter: hue-rotate(90deg);
+      left: 100%;
+      transition-duration: 1s;
+    }
+    .circle {
+      filter: hue-rotate(0deg);
+      transform: scale(0.6);
+    }
+  }
+}
