@@ -4,6 +4,7 @@
   padding: $spacing-unit 0;
   background-color: $grey-100;
   background-color: var(--tocBg);
+  max-width: 225px;
   overflow-x: hidden;
   position: fixed;
   top: $appbar-height;
