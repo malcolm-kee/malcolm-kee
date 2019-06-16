@@ -1,0 +1,59 @@
+---
+title: Introduction
+path: '/how-to-react/introduction'
+description: ''
+section: 'introduction'
+---
+
+Welcome!
+
+This workshop is a brief introduction to React JS.
+
+It takes a problem-solving centered approach, whereby you're presented with a specific problem, with the solution provided. Then, you're asked to apply the solution that you've just learnt to a different problem.
+
+## About This Site
+
+Few things to be aware while going through this website:
+
+1. There are two types of code examples: one editable and the other just read only. These small code snippets will be handy for you to tweak the code sligthly and see how it works.
+
+```jsx live noInline
+function Container({ children }) {
+  return <div style={{ padding: 12 }}>{children}</div>;
+}
+
+function ExampleComponent() {
+  return (
+    <Container>
+      <strong>Hello World! I am editable!</strong>
+    </Container>
+  );
+}
+
+render(<ExampleComponent />);
+```
+
+```jsx
+function StaticComponent() {
+  return (
+    <div>
+      <strong>You can see, but can't touch me!</strong>
+    </div>
+  );
+}
+```
+
+2. However, when doing exercise, my advice is to copy those code into the code editor that you use usually code in. Why? Because [information is easier to be recalled when the context matches][recall-context], and I want you to recall what you learn here the next time you're coding.
+
+<aside>
+
+In the event that you're attending live session of this workshop and your laptop is not setup previously by installing Node.js and npm, use this [link][new-react-sandbox] to create a project in CodeSandbox and then focus on the session.
+
+</aside>
+
+3. You can use the toggle at top right to switch to Dark mode if you wish.
+4. You can add comment by using the "Add Comment" button at bottom, which will allows you to create issue in repo for this site with specific title and label. Feel free to use the comment to ask question if you have question on specific topic, during or after the workshop.
+5. This site is created for this workshop, and will be always available online. Feel free to share this with anyone that you think would benefits from this.
+
+[recall-context]: https://en.wikipedia.org/wiki/Recall_(memory)#Context
+[new-react-sandbox]: https://codesandbox.io/s/new

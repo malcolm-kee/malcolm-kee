@@ -46,7 +46,7 @@ const PageHeader = () => {
           </h1>
           <div className="Toolbar Toolbar--space-vertical">
             <LinkButton
-              to="/intro-to-react-js-v2/introduction"
+              to="/how-to-react/introduction"
               color="bubble"
               size="large"
             >
