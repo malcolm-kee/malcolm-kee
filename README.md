@@ -10,11 +10,16 @@ Workshop materials:
 - [Web Developer Toolbox](https://malcolmkee.com/web-developer-toolbox)
 - [JavaScript: The React Parts](https://malcolmkee.com/js-the-react-parts)
 
-## MDX Usage
+## Code Snippet MDX Usage
 
 This site is powered by [`gatsby-mdx`][gatsby-mdx], which enable the code editor in the markdown.
 
-It's allowed to pass down props to the underlying code editor like this:
+Live code editor mode will be enabled for two cases:
+
+- the language is `js` (`javascript` will not be live code editor).
+- the language is `jsx` with prop `live`
+
+The props can be provided like this:
 
 ````md
     ```jsx live fileName=src/example.js
@@ -30,6 +35,15 @@ Only applicable for language `jsx`:
 
 - `live`: make the code live editor.
 - `noInline`: make the render of component requires the call of `render`. This is actually props of `react-live`.
+
+### Highlight Code
+
+In addition, if the code snippets are not rendered as live code editor, you can highlight specific lines with the following special comments:
+
+- highlight-next-line
+- highlight-start
+- highlight-end
+- hightlight-line
 
 ## Local Build Time Optimization
 
