@@ -1,8 +1,10 @@
 @import '../constants/variable';
 
 .landing-page-background {
-  &::after,
-  &::before {
-    background-attachment: fixed;
+  @media screen and (min-width: $media-mobile) {
+    &::after,
+    &::before {
+      background-attachment: fixed;
+    }
   }
 }
