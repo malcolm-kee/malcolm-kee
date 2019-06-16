@@ -44,7 +44,7 @@ Now that we know the actual AJAX call works by using tools, let's proceed to do 
 
 Create a `createMovie` function in `api.js` that will make the request
 
-```javascript
+```javascript fileName=src/api.js
 export const createMovie = movie =>
   axios
     .post('https://react-intro-movies.herokuapp.com/movies', movie)
@@ -60,8 +60,7 @@ Now that we have function to make the API call, let's create the form component.
 
 Add a file `movie-form.js` with the following content:
 
-```jsx
-// src/movie-form.js
+```jsx fileName=src/movie-form.js
 import React from 'react';
 import { createMovie } from './api';
 
@@ -127,7 +126,7 @@ export const MovieForm = () => {
 
 Now import `MovieForm` and include it in `App` component:
 
-```jsx
+```jsx fileName=src/app.js
 // highlight-next-line
 import { MovieForm } from './movie-form';
 
@@ -181,7 +180,7 @@ We can achieve this by passing a callback from `App` to `MovieForm`.
 
 1.  Update `useMovieData` custom hook in `App` to return `loadMoviesData`:
 
-    ```javascript
+    ```javascript fileName=src/app.js
     function useMovieData() {
       const [movies, setMovies] = React.useState([]);
       const [isLoading, setIsLoading] = React.useState(true);
@@ -247,7 +246,7 @@ We can achieve this by passing a callback from `App` to `MovieForm`.
 
 1.  In `MovieForm`, call `onSubmitSuccess` when `createMovie` ajax succeeds:
 
-    ```jsx
+    ```jsx fileName=src/movie-form.js
     // highlight-next-line
     export const MovieForm = ({ onSubmitSuccess }) => {
       const [name, setName] = React.useState('');
@@ -274,7 +273,7 @@ Now the movie list should be updated once you submit create movie!
 
 Let's extract out some code in `MovieForm`:
 
-```jsx
+```jsx fileName=src/movie-form.js
 import React from 'react';
 import { createMovie } from './api';
 

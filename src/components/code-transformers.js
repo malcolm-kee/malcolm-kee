@@ -1,0 +1,137 @@
+/**
+ * wrap js code with a React component that expose `console.log` and
+ * renders the logs
+ */
+export const wrapJsCode = code => `
+  class CodeWrapper extends React.Component {
+      constructor(props) {
+          super(props);
+          this.state = {
+            logs: []
+          };
+      }
+
+      componentDidMount() {
+        const log = content => 
+          this.setState(prevState => ({
+              logs: shallowConcat(prevState.logs, content)
+            }));
+
+        const console = {
+          log: log,
+          info: log,
+          error: log
+        }
+        
+        ${code}
+      }
+
+      render() {
+          return (
+              <React.Fragment>
+              {this.state.logs.map((log, index) => 
+                <div
+                  className="log-output" 
+                  key={index} 
+                  dangerouslySetInnerHTML={{ __html: sanitize(log) }} 
+                />)
+              }
+              </React.Fragment>
+          );
+      }
+  }
+`;
+
+/**
+ * transformCodeToken to identify highlight comments:
+ * - highlight-next-line
+ * - highlight-start
+ * - highlight-end
+ * - hightlight-line
+ * @param {Array} tokens
+ */
+export function transformTokens(tokens) {
+  const results = [];
+  let keepHighlighting = false;
+
+  tokens
+    .map(currentLine => ({
+      line: currentLine,
+      isNextLineHighlighted: isHighlightNextLine(currentLine),
+    }))
+    .forEach((currentLine, index, allTokens) => {
+      if (isHighlightStart(currentLine.line)) {
+        keepHighlighting = true;
+        return;
+      }
+
+      if (isHighlightEnd(currentLine.line)) {
+        keepHighlighting = false;
+        return;
+      }
+
+      if (!currentLine.isNextLineHighlighted) {
+        const prevLine = allTokens[index - 1];
+
+        const highlightLineCommentIndex = findHighlightLineCommentIndex(
+          currentLine.line
+        );
+
+        const sanitizedToken =
+          highlightLineCommentIndex === -1
+            ? currentLine.line
+            : currentLine.line.filter(
+                (_, index) => index !== highlightLineCommentIndex
+              );
+
+        const highlightCurrentLine =
+          keepHighlighting ||
+          !!(prevLine && prevLine.isNextLineHighlighted) ||
+          highlightLineCommentIndex !== -1;
+
+        results.push({
+          line: sanitizedToken,
+          isHighlighted: highlightCurrentLine,
+        });
+      }
+    });
+
+  return results;
+}
+
+const isHighlightNextLine = tokens =>
+  Array.isArray(tokens) &&
+  tokens.some(
+    token =>
+      token.types[0] === 'comment' &&
+      (token.content === '// highlight-next-line' ||
+        token.content === '/* highlight-next-line */')
+  );
+
+const isHighlightStart = tokens =>
+  Array.isArray(tokens) &&
+  tokens.some(
+    token =>
+      token.types[0] === 'comment' &&
+      (token.content === '// highlight-start' ||
+        token.content === '/* highlight-start */')
+  );
+
+const isHighlightEnd = tokens =>
+  Array.isArray(tokens) &&
+  tokens.some(
+    token =>
+      token.types[0] === 'comment' &&
+      (token.content === '// highlight-end' ||
+        token.content === '/* highlight-end */')
+  );
+
+/**
+ *
+ * @param {Array} tokens
+ */
+const findHighlightLineCommentIndex = tokens =>
+  tokens.findIndex(
+    token =>
+      token.types[0] === 'comment' && token.content === '// highlight-line'
+  );

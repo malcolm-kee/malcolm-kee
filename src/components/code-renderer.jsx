@@ -6,9 +6,10 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { copyToClipboard } from '../helper';
 import { useTheme } from '../theme';
 import { Button } from './Button';
-import { EditIcon, EyeIcon } from './svg-icons';
 import './code-renderer.scss';
+import { transformTokens, wrapJsCode } from './code-transformers';
 import { Popover, PopoverContent } from './popover';
+import { EditIcon, EyeIcon } from './svg-icons';
 
 export const CodeRenderer = ({
   children,
@@ -128,58 +129,12 @@ function ajax(url, options) {
   request.send(opts.body);
 }
 
-const isHighlightNextLine = tokens =>
-  Array.isArray(tokens) &&
-  tokens.some(
-    token =>
-      token.types[0] === 'comment' && token.content === '// highlight-next-line'
-  );
-
-/**
- * wrap js code with a React component that will render
- * list of logs
- */
-const wrapJsCode = code => `
-  class CodeWrapper extends React.Component {
-      constructor(props) {
-          super(props);
-          this.state = {
-            logs: []
-          };
-      }
-
-      componentDidMount() {
-        const log = content => 
-          this.setState(prevState => ({
-              logs: shallowConcat(prevState.logs, content)
-            }));
-
-        const console = {
-          log: log,
-          info: log,
-          error: log
-        }
-        
-        ${code}
-      }
-
-      render() {
-          return (
-              <React.Fragment>
-              {this.state.logs.map((log, index) => 
-                <div
-                  className="log-output" 
-                  key={index} 
-                  dangerouslySetInnerHTML={{ __html: sanitize(log) }} 
-                />)
-              }
-              </React.Fragment>
-          );
-      }
-  }
-`;
-
-const CodeSnippet = React.memo(({ code, language, theme, fileName }) => {
+const CodeSnippet = React.memo(function CodeSnippetComponent({
+  code,
+  language,
+  theme,
+  fileName,
+}) {
   return (
     <div className="code-snippet">
       <header>
@@ -200,13 +155,8 @@ const CodeSnippet = React.memo(({ code, language, theme, fileName }) => {
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
-            {tokens
-              .map((currentLine, index, allLines) => ({
-                line: currentLine,
-                isHighlighted: isHighlightNextLine(allLines[index - 1]),
-              }))
-              .filter(({ line }) => !isHighlightNextLine(line))
-              .map(({ line, isHighlighted }, i) => (
+            {transformTokens(tokens).map(({ line, isHighlighted }, i) => {
+              return (
                 <div
                   {...getLineProps({
                     line,
@@ -216,11 +166,12 @@ const CodeSnippet = React.memo(({ code, language, theme, fileName }) => {
                       : undefined,
                   })}
                 >
-                  {line.map((token, key) => (
-                    <span {...getTokenProps({ token, key })} />
-                  ))}
+                  {line.map((token, key) => {
+                    return <span {...getTokenProps({ token, key })} />;
+                  })}
                 </div>
-              ))}
+              );
+            })}
           </pre>
         )}
       </Highlight>
