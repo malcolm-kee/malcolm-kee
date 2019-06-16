@@ -2,7 +2,7 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import reactLogo from '../assets/react-logo.png';
 import { LinkButton } from '../components/Button';
-import { JsIcon } from '../components/js-icon';
+import { JsIcon } from '../components/svg-icons';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
 import { useFavIcon } from '../hooks/use-favicons';

@@ -1,6 +1,6 @@
 import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
-import { CodeEditor } from '../components/code-editor';
+import { CodeRenderer } from '../components/code-renderer';
 import { FavIcons } from '../components/favicons';
 import { FavIconProvider } from '../hooks/use-favicons';
 import { ThemeProvider } from '../theme';
@@ -8,7 +8,7 @@ import { Layout } from './default-layout';
 import { WorkshopLayout } from './workshop-layout';
 
 const mdxComponents = {
-  code: CodeEditor,
+  code: CodeRenderer,
   inlineCode: ({ children }) => (
     <code className="language-text">{children}</code>
   ),

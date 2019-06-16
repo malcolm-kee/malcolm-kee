@@ -6,7 +6,8 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { copyToClipboard } from '../helper';
 import { useTheme } from '../theme';
 import { Button } from './Button';
-import './code-editor.scss';
+import { EditIcon, EyeIcon } from './svg-icons';
+import './code-renderer.scss';
 import { Popover, PopoverContent } from './popover';
 
 function sanitize(data) {
@@ -116,7 +117,13 @@ const wrapJsCode = code => `
   }
 `;
 
-export const CodeEditor = ({ children, className, live, noInline }) => {
+export const CodeRenderer = ({
+  children,
+  className,
+  live,
+  noInline,
+  fileName,
+}) => {
   const language = className && className.split('-').pop();
 
   const { value } = useTheme();
@@ -129,9 +136,15 @@ export const CodeEditor = ({ children, className, live, noInline }) => {
       theme={theme}
       language={language}
       noInline={noInline}
+      fileName={fileName}
     />
   ) : language ? (
-    <CodeSnippet code={children} language={language} theme={theme} />
+    <CodeSnippet
+      code={children}
+      language={language}
+      theme={theme}
+      fileName={fileName}
+    />
   ) : (
     <code className="language-text">{children}</code>
   );
@@ -139,7 +152,7 @@ export const CodeEditor = ({ children, className, live, noInline }) => {
 
 const injectedGlobals = { sanitize, shallowConcat, ajax };
 
-const CodeLiveEditor = ({ code, theme, language, noInline }) => {
+const CodeLiveEditor = ({ code, theme, language, noInline, fileName }) => {
   return (
     <div className="code-editor">
       <LiveProvider
@@ -151,7 +164,10 @@ const CodeLiveEditor = ({ code, theme, language, noInline }) => {
         noInline={noInline}
       >
         <header>
-          <span>Code Editor</span>
+          <div className="code-editor-icon">
+            <EditIcon />
+          </div>
+          {fileName && <span>{fileName}</span>}
           <CopyCodeButton code={code} />
         </header>
         <LiveEditor />
@@ -162,10 +178,14 @@ const CodeLiveEditor = ({ code, theme, language, noInline }) => {
   );
 };
 
-const CodeSnippet = React.memo(({ code, language, theme }) => {
+const CodeSnippet = React.memo(({ code, language, theme, fileName }) => {
   return (
     <div className="code-snippet">
       <header>
+        <div className="code-snippet-icon">
+          <EyeIcon />
+        </div>
+        {fileName && <span>{fileName}</span>}
         <CopyCodeButton code={code} />
       </header>
       <Highlight

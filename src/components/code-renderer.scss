@@ -1,5 +1,14 @@
 @import '../constants/variable';
 
+@mixin svg-icon {
+  width: 25px;
+  height: 25px;
+  svg {
+    color: inherit;
+    fill: currentColor;
+  }
+}
+
 .code-editor {
   padding: 0 $spacing-unit / 2 $spacing-unit / 2;
   border-radius: $spacing-unit / 2;
@@ -17,6 +26,10 @@
       font-size: 0.9rem;
       font-style: italic;
     }
+  }
+
+  &-icon {
+    @include svg-icon();
   }
 }
 
@@ -49,7 +62,9 @@
 
   background-color: var(--bg-pale);
   > header {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: $spacing-unit;
   }
 
@@ -58,6 +73,10 @@
     padding: $code-padding;
     line-height: 1.25rem;
     overflow-x: auto;
+  }
+
+  &-icon {
+    @include svg-icon();
   }
 
   .highlighted-code-line {
