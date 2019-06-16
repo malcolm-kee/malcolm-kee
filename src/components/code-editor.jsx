@@ -116,15 +116,20 @@ const wrapJsCode = code => `
   }
 `;
 
-export const CodeEditor = ({ children, className }) => {
+export const CodeEditor = ({ children, className, live, noInline }) => {
   const language = className && className.split('-').pop();
 
   const { value } = useTheme();
 
   const theme = value === 'dark' ? nightOwl : duotoneLight;
 
-  return language === 'js' ? (
-    <CodeLiveEditor code={children} theme={theme} />
+  return language === 'js' || (live && language === 'jsx') ? (
+    <CodeLiveEditor
+      code={children}
+      theme={theme}
+      language={language}
+      noInline={noInline}
+    />
   ) : language ? (
     <CodeSnippet code={children} language={language} theme={theme} />
   ) : (
@@ -134,15 +139,16 @@ export const CodeEditor = ({ children, className }) => {
 
 const injectedGlobals = { sanitize, shallowConcat, ajax };
 
-const CodeLiveEditor = ({ code, theme }) => {
+const CodeLiveEditor = ({ code, theme, language, noInline }) => {
   return (
     <div className="code-editor">
       <LiveProvider
         code={code}
         scope={injectedGlobals}
-        transformCode={wrapJsCode}
+        transformCode={language === 'js' ? wrapJsCode : undefined}
         theme={theme}
         language="jsx"
+        noInline={noInline}
       >
         <header>
           <span>Code Editor</span>
