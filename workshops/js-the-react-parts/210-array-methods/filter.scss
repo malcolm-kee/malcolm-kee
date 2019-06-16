@@ -28,9 +28,8 @@ $indexes: 0, 1, 2, 3;
     width: 25px;
     height: 25px;
     border: 1px solid;
-    filter: hue-rotate(0deg);
     opacity: 1;
-    transition-property: filter left opacity;
+    transition-property: left opacity;
     transition-timing-function: linear;
     transition-duration: 0s;
 
@@ -66,12 +65,10 @@ $indexes: 0, 1, 2, 3;
 
   &.activated {
     .box {
-      filter: hue-rotate(90deg);
       left: 100%;
       transition-duration: 1s;
     }
     .circle {
-      filter: hue-rotate(0deg);
       opacity: 0;
     }
   }
