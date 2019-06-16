@@ -2,7 +2,7 @@
 
 .table-of-content-section {
   padding: $spacing-unit 0;
-  background-color: $grey-100;
+  background-color: $grey-200;
   background-color: var(--tocBg);
   overflow-x: hidden;
   position: fixed;
@@ -108,8 +108,8 @@
   left: 0;
 
   &:hover {
-    color: $toc-light-selected;
-    color: var(--tocSelected);
+    color: $toc-light-hover;
+    color: var(--tocHover);
   }
 
   &::before {

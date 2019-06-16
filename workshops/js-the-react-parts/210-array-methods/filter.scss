@@ -12,8 +12,8 @@ $indexes: 0, 1, 2, 3;
 #filter-demo {
   position: relative;
   height: 175px;
-  background: $bg-color-light-pale;
-  background: var(--bg-pale);
+  background: white;
+  background: var(--bg-absolute);
   max-width: 500px;
   margin: 0 auto;
 

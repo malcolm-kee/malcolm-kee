@@ -29,7 +29,7 @@
       &:hover {
         transition-delay: 0;
         background-color: $bg-color-light-pale;
-        background-color: var(--bg-pale);
+        background-color: var(--bg-absolute);
         transform: scale(1.02);
 
         .List--ListItemText {

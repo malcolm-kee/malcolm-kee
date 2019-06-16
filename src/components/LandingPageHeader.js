@@ -1,3 +1,4 @@
+import { Link } from 'gatsby';
 import React from 'react';
 import { LandingPageBackground } from './LandingPageBackground';
 import './LandingPageHeader.scss';
@@ -11,13 +12,13 @@ export const LandingPageHeader = () => {
           className="landing-page-header-subtitle"
         >
           <li>
-            <span>Frontend Engineer</span>
+            <Link to="/projects">Frontend Engineer</Link>
           </li>
           <li>
-            <span>Teacher</span>
+            <Link to="/workshops">Teacher</Link>
           </li>
           <li>
-            <span>Open Source Contributor</span>
+            <Link to="/libraries">Open Source Contributor</Link>
           </li>
         </LandingPageBackground>
       </div>

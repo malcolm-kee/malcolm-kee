@@ -1,0 +1,37 @@
+body {
+  &.light {
+    background-color: $bg-color-light;
+    color: $text-light;
+    --bg: #{$bg-color-light};
+    --bg-pale: #{$bg-color-light-pale};
+    --bg-absolute: white;
+    --text: #{$text-light};
+    --text-pale: #{$text-light-pale};
+    --link: #{$link-light};
+    --tocBg: #{$grey-200};
+    --tocSelected: #{$toc-light-selected};
+    --tocHover: #{$toc-light-hover};
+    --highlightedCode: #{$highlighted-code-bg-light};
+  }
+  &.dark {
+    background-color: $bg-color-dark;
+    color: $text-dark;
+    --bg: #{$bg-color-dark};
+    --bg-pale: #{$bg-color-dark-pale};
+    --bg-absolute: #{$grey-dark};
+    --text: #{$text-dark};
+    --text-pale: #{$text-dark-pale};
+    --link: #{$link-dark};
+    --tocBg: #{$grey-dark};
+    --tocSelected: #{$toc-dark-selected};
+    --tocHover: #{$toc-dark-hover};
+    --highlightedCode: #{$highlighted-code-bg-dark};
+
+    table,
+    tr,
+    th,
+    td {
+      border-color: #666666;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 @import '../constants/variable';
+@import './mode.scss';
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -306,39 +307,6 @@ body {
   -webkit-font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   font-feature-settings: 'kern', 'liga', 'clig', 'calt';
   transition: background-color 200ms ease-in-out;
-  &.light {
-    background-color: $bg-color-light;
-    color: $text-light;
-    --bg: #{$bg-color-light};
-    --bg-pale: #{$bg-color-light-pale};
-    --bg-absolute: white;
-    --text: #{$text-light};
-    --text-pale: #{$text-light-pale};
-    --link: #{$link-light};
-    --tocBg: #{$grey-100};
-    --tocSelected: #{$toc-light-selected};
-    --highlightedCode: #{$highlighted-code-bg-light};
-  }
-  &.dark {
-    background-color: $bg-color-dark;
-    color: $text-dark;
-    --bg: #{$bg-color-dark};
-    --bg-pale: #{$bg-color-dark-pale};
-    --bg-absolute: black;
-    --text: #{$text-dark};
-    --text-pale: #{$text-dark-pale};
-    --link: #{$link-dark};
-    --tocBg: #{$grey-dark};
-    --tocSelected: #{$toc-dark-selected};
-    --highlightedCode: #{$highlighted-code-bg-dark};
-
-    table,
-    tr,
-    th,
-    td {
-      border-color: #666666;
-    }
-  }
 }
 h1,
 h2,

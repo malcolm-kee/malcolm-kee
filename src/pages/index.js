@@ -41,13 +41,13 @@ const IndexPage = () => (
               </Link>
             </div>
             <div>
-              <Link to="/libraries" className="link-highlight">
-                Libraries
+              <Link to="/workshops" className="link-highlight">
+                Workshops
               </Link>
             </div>
             <div>
-              <Link to="/workshops" className="link-highlight">
-                Workshops
+              <Link to="/libraries" className="link-highlight">
+                Libraries
               </Link>
             </div>
           </div>
