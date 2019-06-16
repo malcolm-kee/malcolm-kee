@@ -105,7 +105,7 @@ module.exports = {
         start_url: '/',
         display: 'standalone',
         background_color: 'white',
-        theme_color: '#e44d26',
+        theme_color: '#e65733',
         icon: 'src/assets/new-icon.png',
         include_favicon: false,
       },

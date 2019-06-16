@@ -404,6 +404,11 @@ th {
     min-width: 100px;
     padding: $spacing-unit / 2 $spacing-unit;
   }
+
+  &:hover {
+    background-color: white;
+    background-color: var(--bg-absolute);
+  }
 }
 
 .link-highlight {
