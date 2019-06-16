@@ -17,17 +17,17 @@ $right-nav-offset: 224px;
   }
 
   &-container {
-    padding: $appbar-height + $spacing-unit $spacing-unit 32px;
+    padding: $appbar-height + $space $space 32px;
 
     @media screen and (min-width: $media-tablet) {
-      padding-left: $spacing-unit * 2;
-      padding-right: $spacing-unit * 2;
+      padding-left: $space * 2;
+      padding-right: $space * 2;
     }
   }
 
   &-report-issue-container {
-    margin-top: $spacing-unit * 3;
-    padding: $spacing-unit $spacing-unit * 2;
+    margin-top: $space * 3;
+    padding: $space $space * 2;
     font-size: 0.8rem;
   }
 
@@ -107,21 +107,25 @@ $right-nav-offset: 224px;
     .code-editor,
     .code-snippet {
       break-inside: avoid;
-      margin: $spacing-unit #{-2 * $spacing-unit};
+      margin: $space #{-2 * $space};
       @media screen and (min-width: $media-tablet) {
-        margin: $spacing-unit 0;
+        margin: $space 0;
       }
     }
 
     aside {
       font-style: italic;
-      padding: $spacing-unit;
+      padding: 0 $space;
       border: 1px solid;
       border-radius: 4px;
-      margin: $spacing-unit * 2 -#{$spacing-unit} $spacing-unit * 2;
+      margin: $space * 2 -#{$space} $space * 2;
       break-inside: avoid;
+      color: $text-light-pale;
+      color: var(--text-pale);
+      border-color: currentColor;
 
       > p {
+        color: inherit;
         &:first-child {
           margin-top: 0.5em;
         }
@@ -139,7 +143,7 @@ $right-nav-offset: 224px;
         tr {
           display: flex;
           flex-flow: column;
-          margin-bottom: $spacing-unit;
+          margin-bottom: $space;
 
           > td:first-child {
             border-bottom: none;
@@ -161,13 +165,13 @@ $right-nav-offset: 224px;
     }
 
     details {
-      padding: 0 $spacing-unit $spacing-unit * 2;
+      padding: 0 $space $space * 2;
       > summary {
         cursor: pointer;
       }
 
       p {
-        margin-top: $spacing-unit;
+        margin-top: $space;
       }
     }
   }
@@ -175,14 +179,14 @@ $right-nav-offset: 224px;
   .exercise {
     background-color: white;
     background-color: var(--bg-absolute);
-    border-radius: $spacing-unit;
+    border-radius: $space;
     box-shadow: $box-shadow-3;
-    padding: $spacing-unit $spacing-unit * 3;
-    margin: $spacing-unit * 2 #{-$spacing-unit * 2};
+    padding: $space $space * 3;
+    margin: $space * 2 #{-$space * 2};
 
     @media screen and (min-width: $media-tablet) {
-      margin: $spacing-unit * 2 0;
-      padding: $spacing-unit $spacing-unit * 2;
+      margin: $space * 2 0;
+      padding: $space $space * 2;
     }
 
     > h3 {
@@ -194,7 +198,7 @@ $right-nav-offset: 224px;
     }
 
     ol {
-      padding-left: $spacing-unit * 3;
+      padding-left: $space * 3;
       margin: 0;
       list-style-position: outside;
       list-style-type: decimal;
