@@ -33,14 +33,14 @@ JS module system consists of the following rules:
 
 Now looking at `index.js` file:
 
-```javascript
+```javascript fileName=src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 ...
 ```
 
-* the two `import` statements states that this file depends on the two packages, `react` and `react-dom`. When the tools see the statement above, it will look into the `node_modules` folder for `react` and `react-dom`, which you should be able to see.
-* we no longer need to include the two unpkg script tags because now they are included as part of final bundled code.
+- the two `import` statements states that this file depends on the two packages, `react` and `react-dom`. When the tools see the statement above, it will look into the `node_modules` folder for `react` and `react-dom`, which you should be able to see.
+- we no longer need to include the two unpkg script tags because now they are included as part of final bundled code.
 
 ### Utilizing the Module System
 
@@ -48,7 +48,7 @@ If you realize, currently our `index.js` consists of 3 parts: the `Movie` compon
 
 1.  create a `components` folder in `src` folder, and add a `movie.js` file in it with the following content:
 
-    ```javascript
+    ```javascript fileName=src/components/movie.js
     import React from 'react';
 
     export const Movie = props =>
@@ -60,7 +60,7 @@ If you realize, currently our `index.js` consists of 3 parts: the `Movie` compon
 
 1.  create a `app.js` file next to `index.js` with the following content:
 
-    ```javascript
+    ```javascript fileName=src/app.js
     import React from 'react';
     import { Movie } from './components/movie';
 
@@ -91,7 +91,7 @@ If you realize, currently our `index.js` consists of 3 parts: the `Movie` compon
 
 1.  Lastly, modify `index.js` to following:
 
-    ```javascript
+    ```javascript fileName=src/index.js
     import React from 'react';
     import ReactDOM from 'react-dom';
     import App from './app';
@@ -101,8 +101,8 @@ If you realize, currently our `index.js` consists of 3 parts: the `Movie` compon
 
 The code should still works as before.
 
-* Our code is now split into smaller modules and the dependencies of each code is clearer while still produce a single bundled output.
-* There are two ways to use `export`:
+- Our code is now split into smaller modules and the dependencies of each code is clearer while still produce a single bundled output.
+- There are two ways to use `export`:
   1.  named export: we expose to code with a specific name. When other module import it, they need to use the name, e.g. Movie component.
       ```javascript
       // movie.js
@@ -120,8 +120,8 @@ The code should still works as before.
       import App from './app';
       ```
   1.  Personally in my own project I always use named export (except due to limitation of library/tools, e.g. `React.lazy` only support default export), because I doesn't like to juggle between two syntax and named export works better for VS Code Intellisense. People use both out there, so you need to know both.
-* It is common practice to have a `components` folder which consists of reusable UI components without business logic.
-* Even though it's still not common practice in React projects, but I recommend to keep your file as [kebab-case], consistent with Angular CLI defaults. This is because file resolution in Windows are case-insensitive, while in Unix is case-sensitive. When you mistype file name, it would works in Windows but breaks in Unix, so better to avoid that possibility with kebab-case convention.
+- It is common practice to have a `components` folder which consists of reusable UI components without business logic.
+- Even though it's still not common practice in React projects, but I recommend to keep your file as [kebab-case], consistent with Angular CLI defaults. This is because file resolution in Windows are case-insensitive, while in Unix is case-sensitive. When you mistype file name, it would works in Windows but breaks in Unix, so better to avoid that possibility with kebab-case convention.
 
 <aside>
 

@@ -13,7 +13,7 @@ You do not need JSX to use React, as I've shown you in [previous section](/intro
 
 Let's convert `Movie` component to use JSX. It will look like this:
 
-```jsx
+```jsx fileName=src/components/movie.js
 import React from 'react';
 
 export const Movie = props => (
@@ -31,7 +31,7 @@ export const Movie = props => (
 
 So now JSX is demystified a bit, let's go convert `App` and `index.js`.
 
-```jsx
+```jsx fileName=src/app.js
 function App() {
   return (
     <div>
@@ -49,7 +49,7 @@ function App() {
 }
 ```
 
-```jsx
+```jsx fileName=src/index.js
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
@@ -81,8 +81,7 @@ There are few reasons to extract components:
 
 Let's extract the title section in our `App` to a `TitleBar` component.
 
-```jsx
-// src/components/title-bar.js
+```jsx fileName=src/components/title-bar.js
 import React from 'react';
 
 export const TitleBar = props => (
@@ -92,8 +91,7 @@ export const TitleBar = props => (
 
 - `children` is a special props for React components. It's the contents within the JSX tags (if you remember, the third parameters to `React.createElement`). By using `children`, we're allowing the user of the components to insert any content they wish.
 
-```jsx
-// src/app.js
+```jsx fileName=src/app.js
 ...
 import { TitleBar } from './components/title-bar';
 ...
@@ -117,15 +115,15 @@ function App() {
 - `App` component is now arguably less cluttered now, and now we can reuse `TitleBar` elsewhere in our `App`.
 - Note that this is not the only way to extract `TitleBar`, I could of course make it stricter by extract it the following way:
 
-```jsx
-// src/components/title-bar.js
+```jsx fileName=src/components/title-bar.js
 export const TitleBar = props => (
   <div className="title-bar">
     <h1>{props.title}</h1>
   </div>
 );
+```
 
-// src/app.js
+```jsx fileName=src/app.js
 function App() {
   return (
     ...
@@ -154,8 +152,7 @@ Don’t be afraid to split components into smaller components.
 
 We will gonna need a `Button` component in next section. Let's create it now.
 
-```jsx
-// src/components/button.js
+```jsx fileName=src/components/button.js
 import React from 'react';
 
 export const Button = props => <button className="button" {...props} />;
@@ -201,6 +198,12 @@ A React component has a rule: it must be a pure function, which means:
 1.  you should make sure the generated React elements is the same, given same props
 1.  you should never modify props in your React Component or make any side-effects (`addEventListener`, calling some other function etc.)
 
+<aside>
+
+If you like to read more about pure function and functional programming, you can refer to the [Functional Programming][fp-lesson] lesson in JavaScript: The React Parts.
+
+</aside>
+
 Of course, application UIs are dynamic and change over time. In [next section](/intro-to-react-js-v2/hooks), we will introduce a new concept of “state”. State allows React components to change their output over time in response to user actions, network responses, and anything else, without violating this rule.
 
 <aside>
@@ -208,3 +211,5 @@ Of course, application UIs are dynamic and change over time. In [next section](/
 Commit: [`extracting component`](https://github.com/malcolm-kee/react-movie-app-v2/commit/03a117818ed9aaef04e88af3615404ac0d0d9ab7)
 
 </aside>
+
+[fp-lesson]: /js-the-react-parts/functional-programming
