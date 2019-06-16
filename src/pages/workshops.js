@@ -41,10 +41,8 @@ const WorkshopsPage = () => {
           {edges.map(
             ({ node: { id, name, url, description, underConstruction } }) => (
               <ListItem
-                button={!underConstruction}
-                component={
-                  underConstruction ? 'div' : url[0] === '/' ? Link : OutLink
-                }
+                button={true}
+                component={url[0] === '/' ? Link : OutLink}
                 to={url}
                 key={id}
                 noGutter

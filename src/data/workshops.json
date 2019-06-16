@@ -62,6 +62,16 @@
     "iconFile": "src/assets/js-the-react-parts.png"
   },
   {
+    "name": "How to React",
+    "contentId": "how-to-react",
+    "url": "/how-to-react",
+    "description": "A brief introduction to React that focus on practice",
+    "keywords": ["react for beginners", "react hooks"],
+    "themeColor": "#61dafb",
+    "iconFile": "src/assets/react-logo.png",
+    "underConstruction": true
+  },
+  {
     "name": "Create a Fast Site with GatsbyJS",
     "contentId": "fast-site-with-gatsby-js",
     "url": "/fast-site-with-gatsby-js",

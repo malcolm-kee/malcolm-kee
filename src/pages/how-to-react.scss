@@ -1,0 +1,29 @@
+@import '../constants/variable';
+
+#how-to-react-landing {
+  .react-logo-container {
+    width: 150px;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    transform: rotate(0deg);
+    transition: transform 1.5s cubic-bezier(0.5, 0, 0.5, 1.2);
+
+    @media screen and (min-width: $media-mobile) {
+      width: 320px;
+    }
+
+    > div {
+      filter: drop-shadow(0 0 0 #61dafb);
+      transition: filter 1.5s cubic-bezier(0.5, 0, 0.5, 1.2);
+    }
+
+    &:hover {
+      transform: rotate(360deg);
+
+      > div {
+        filter: drop-shadow(0 0 4px #61dafb);
+      }
+    }
+  }
+}
