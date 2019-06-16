@@ -10,6 +10,68 @@ import { EditIcon, EyeIcon } from './svg-icons';
 import './code-renderer.scss';
 import { Popover, PopoverContent } from './popover';
 
+export const CodeRenderer = ({
+  children,
+  className,
+  live,
+  noInline,
+  fileName,
+}) => {
+  const language = className && className.split('-').pop();
+
+  const { value } = useTheme();
+
+  const theme = value === 'dark' ? nightOwl : duotoneLight;
+
+  return language === 'js' || (live && language === 'jsx') ? (
+    <CodeLiveEditor
+      code={children}
+      theme={theme}
+      language={language}
+      noInline={noInline}
+      fileName={fileName}
+    />
+  ) : language ? (
+    <CodeSnippet
+      code={children}
+      language={language}
+      theme={theme}
+      fileName={fileName}
+    />
+  ) : (
+    <code className="language-text">{children}</code>
+  );
+};
+
+const injectedGlobals = { sanitize, shallowConcat, ajax };
+
+const CodeLiveEditor = ({ code, theme, language, noInline, fileName }) => {
+  return (
+    <div className="code-editor">
+      <LiveProvider
+        code={code}
+        scope={injectedGlobals}
+        transformCode={language === 'js' ? wrapJsCode : undefined}
+        theme={theme}
+        language="jsx"
+        noInline={noInline}
+      >
+        <header>
+          <div className="code-editor-icon">
+            <EditIcon />
+          </div>
+          {fileName && <span>{fileName}</span>}
+          <CopyCodeButton code={code} />
+          <span className="code-editor-language">{language}</span>
+        </header>
+        <LiveEditor />
+        <LiveError className="code-error" />
+        <LivePreview className="code-preview" />
+      </LiveProvider>
+    </div>
+  );
+};
+
 function sanitize(data) {
   return Array.isArray(data)
     ? `[${data.map(sanitize).join(',')}]`
@@ -117,67 +179,6 @@ const wrapJsCode = code => `
   }
 `;
 
-export const CodeRenderer = ({
-  children,
-  className,
-  live,
-  noInline,
-  fileName,
-}) => {
-  const language = className && className.split('-').pop();
-
-  const { value } = useTheme();
-
-  const theme = value === 'dark' ? nightOwl : duotoneLight;
-
-  return language === 'js' || (live && language === 'jsx') ? (
-    <CodeLiveEditor
-      code={children}
-      theme={theme}
-      language={language}
-      noInline={noInline}
-      fileName={fileName}
-    />
-  ) : language ? (
-    <CodeSnippet
-      code={children}
-      language={language}
-      theme={theme}
-      fileName={fileName}
-    />
-  ) : (
-    <code className="language-text">{children}</code>
-  );
-};
-
-const injectedGlobals = { sanitize, shallowConcat, ajax };
-
-const CodeLiveEditor = ({ code, theme, language, noInline, fileName }) => {
-  return (
-    <div className="code-editor">
-      <LiveProvider
-        code={code}
-        scope={injectedGlobals}
-        transformCode={language === 'js' ? wrapJsCode : undefined}
-        theme={theme}
-        language="jsx"
-        noInline={noInline}
-      >
-        <header>
-          <div className="code-editor-icon">
-            <EditIcon />
-          </div>
-          {fileName && <span>{fileName}</span>}
-          <CopyCodeButton code={code} />
-        </header>
-        <LiveEditor />
-        <LiveError className="code-error" />
-        <LivePreview className="code-preview" />
-      </LiveProvider>
-    </div>
-  );
-};
-
 const CodeSnippet = React.memo(({ code, language, theme, fileName }) => {
   return (
     <div className="code-snippet">
@@ -187,6 +188,9 @@ const CodeSnippet = React.memo(({ code, language, theme, fileName }) => {
         </div>
         {fileName && <span>{fileName}</span>}
         <CopyCodeButton code={code} />
+        <span className="code-snippet-language">
+          {shortenLanguage(language)}
+        </span>
       </header>
       <Highlight
         {...defaultProps}
@@ -223,6 +227,13 @@ const CodeSnippet = React.memo(({ code, language, theme, fileName }) => {
     </div>
   );
 });
+
+/**
+ *
+ * @param {string} language
+ */
+const shortenLanguage = language =>
+  language && /javascript/i.test(language) ? 'js' : language;
 
 function CopyCodeButton({ code }) {
   const [showPopup, setShowPopup] = React.useState(false);
