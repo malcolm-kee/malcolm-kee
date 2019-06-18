@@ -7,37 +7,34 @@ section: 'core'
 
 ## Problem: Migration of an Existing Application to use React
 
+We will start to write React code by migration page from HTML to use React.
+
+Let's migrate the feed from [BugBook] to our React App.
+
+![The feed of BugBook will be implemented with React](bugbook-feed.png)
+
 ## Copy-Paste HTML to React
 
-Example: [BugBook][bugbook]
+We will migrate the feed by copy pasting the HTML and then tweak the html slightly to follow React JSX rules:
 
-Exercise: [Vanilla Pokemon App][vanilla-pokemon]
+1. all tags must be matched with closing tag or self-closing.
+1. `class` attribute should be changed to `className`.
+
+<aside>
+
+[Commit of the changes](https://github.com/malcolm-kee/how-to-react/commit/25b29e59c71724579e3ed4a6b13e065626ac8ad1).
+
+</aside>
 
 ## React component as UI building block
 
-Example: bootstrap
-
-- button component
-
-Exercise: [NES.css][nes-css]
-
-- button component
+Create `Card` component.
 
 ### `children` props
 
-Example: bootstrap jumbotron
+Utilize `children` props.
 
-Exercise: [NES.css][nes-css]
-
-- container component
-
-## Composing React components
-
-Example bootstrap card
-
-Exercise: [NES.css][nes-css]
-
-- input component
+Exercise: [Vanilla Pokemon App][vanilla-pokemon]
 
 [bugbook]: https://bugbook.netlify.com/
 [vanilla-pokemon]: https://vanilla-pokemon.netlify.com/
