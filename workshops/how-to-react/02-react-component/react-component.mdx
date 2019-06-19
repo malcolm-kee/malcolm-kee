@@ -26,6 +26,14 @@ We will migrate the feed by copy pasting the HTML and then tweak the html slight
 
 </aside>
 
+## Virtual DOM and JSX
+
+Virtual DOM is representation of DOM in memory. As DOM data structure is a tree, therefore virtual DOM structure is also a tree. `React.createElement` is used to create a node in virtual DOM tree.
+
+JSX is an abstraction over `React.createElement` and nothing else.
+
+`ReactDOM.render` what we call rendering engine, which means it translates virtual DOM to the actual DOM element.
+
 ## React component as UI building block
 
 Create `Card` component.
@@ -34,8 +42,17 @@ Create `Card` component.
 
 Utilize `children` props.
 
-Exercise: [Vanilla Pokemon App][vanilla-pokemon]
+<section class="exercise">
+
+### Exercise
+
+Let's apply what you learn by implementing pokemon list in [Vanilla Pokemon App][vanilla-pokemon].
+
+![Pokemon List in Vanilla Pokemon App](vanilla-pokemon-list.png)
+
+Note: You only need to show the first 9 pokemon. You do not need to include the "Load More" functionality; it will be covered in coming sections.
+
+</section>
 
 [bugbook]: https://bugbook.netlify.com/
 [vanilla-pokemon]: https://vanilla-pokemon.netlify.com/
-[nes-css]: https://nostalgic-css.github.io/NES.css/
