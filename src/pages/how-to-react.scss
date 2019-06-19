@@ -1,5 +1,19 @@
 @import '../constants/variable';
 
+@keyframes expand-and-disapper {
+  0% {
+    transform-origin: center;
+    transform: scale(1.75);
+    opacity: 0;
+  }
+
+  100% {
+    transform-origin: center;
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 #how-to-react-landing {
   .react-logo-container {
     width: 150px;
@@ -13,17 +27,36 @@
       width: 320px;
     }
 
-    > div {
-      filter: drop-shadow(0 0 0 #61dafb);
-      transition: filter 1.5s cubic-bezier(0.5, 0, 0.5, 1.2);
-    }
+    z-index: 1;
+    position: relative;
+    outline: none;
+    border: none;
 
     &:hover {
-      transform: rotate(360deg);
+      cursor: pointer;
+    }
 
-      > div {
-        filter: drop-shadow(0 0 4px #61dafb);
-      }
+    &::before {
+      animation: expand-and-disapper 0.75s ease-in-out;
+      content: '';
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 2px solid #61dafb;
+      border-radius: 50%;
+      transform-origin: center;
+      transform: scale(1);
+      transition: opacity 250ms ease-in-out;
+    }
+
+    &:hover::before {
+      transition: all 0.75s ease-in-out;
+      transform-origin: center;
+      transform: scale(1.75);
+      opacity: 0;
     }
   }
 }
