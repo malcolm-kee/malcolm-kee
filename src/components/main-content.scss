@@ -10,7 +10,7 @@
   padding-top: calc(1.5rem + #{$spacing-unit} * 6);
   padding-left: 0;
   padding-right: 0;
-  padding-bottom: $spacing-unit * 3;
+  padding-bottom: 0;
   @media (min-width: $media-mobile) {
     padding-top: calc(2.25rem + #{$spacing-unit} * 7);
     padding-left: $spacing-unit * 3;

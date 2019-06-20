@@ -28,7 +28,7 @@
     transition: transform 1.5s cubic-bezier(0.5, 0, 0.5, 1.2);
 
     @media screen and (min-width: $media-mobile) {
-      width: 320px;
+      width: 200px;
     }
 
     z-index: 1;

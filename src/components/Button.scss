@@ -128,7 +128,15 @@
     line-height: 1;
   }
 
-  &-full-width {
-    width: 100%;
+  &-wide {
+    min-width: 100px;
+  }
+
+  &-wider {
+    min-width: 200px;
+  }
+
+  &-widest {
+    min-width: 300px;
   }
 }

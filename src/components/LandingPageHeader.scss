@@ -12,7 +12,7 @@
 }
 
 .landing-page-header {
-  $bg: $bg-color-dark;
+  $bg: $grey-900;
 
   padding: $spacing-unit 0;
   box-shadow: inset $box-shadow-3-inv;
@@ -26,7 +26,7 @@
     position: absolute;
     right: $space;
     top: $space * 4;
-    border-width: 4px;
+    border-width: 6px;
     border-style: solid;
     border-color: $bg-color-light;
     border-color: var(--bg);

@@ -8,6 +8,7 @@ import './Button.scss';
  * @param {Object} props
  * @param {'primary' | 'secondary'} [props.color]
  * @param {'small' | 'large'} [props.size]
+ * @param {'wide' | 'wider' | 'widest'} [props.minWidth]
  */
 export const Button = ({
   component: Component = 'button',
@@ -17,7 +18,7 @@ export const Button = ({
   className,
   children,
   type = Component === 'button' ? 'button' : undefined,
-  fullWidth,
+  minWidth,
   ...restProps
 }) => (
   <Component
@@ -27,7 +28,7 @@ export const Button = ({
       color && `btn-${color}`,
       size && `btn-${size}`,
       raised && 'btn-raised',
-      fullWidth && 'btn-full-width',
+      minWidth && `btn-${minWidth}`,
       className
     )}
     {...restProps}

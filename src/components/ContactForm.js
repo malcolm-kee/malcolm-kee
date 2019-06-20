@@ -21,8 +21,8 @@ export const ContactForm = () => (
       required
     />
     <input type="hidden" name="form-name" value="contact-form" />
-    <div className="Toolbar">
-      <Button type="submit" color="primary" raised fullWidth>
+    <div className="Toolbar center">
+      <Button type="submit" color="primary" raised minWidth="wider">
         Send
       </Button>
     </div>

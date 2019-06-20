@@ -3,7 +3,7 @@
 .footer {
   &-content {
     margin: 0 * 2 auto;
-    padding: $spacing-unit $spacing-unit * 2;
+    padding: $space * 3 $space * 2 $space;
     max-width: 960px;
     text-align: center;
     font-size: 0.8rem;
@@ -14,7 +14,7 @@
       max-width: unset;
 
       @media screen and (min-width: $media-tablet) {
-        margin-left: $spacing-unit * 2;
+        margin-left: $space * 2;
       }
     }
 
@@ -23,7 +23,7 @@
     }
 
     p {
-      margin: $spacing-unit 0;
+      margin: $space 0;
     }
   }
 }

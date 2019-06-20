@@ -43,9 +43,8 @@
     text-align: center;
     margin: 0 auto;
     padding: $space $space * 2;
-    color: white;
-    background-color: $bg-color-dark;
-    text-shadow: 0px 1px 5px #222, 0px 1px 5px #333;
+    background-color: $bg-color-light-pale;
+    background-color: var(--bg-pale);
     box-shadow: $box-shadow-6;
 
     @media screen and (min-width: $max-width + $space * 4) {
@@ -53,12 +52,15 @@
     }
 
     > h2 {
+      color: $text-dark;
       z-index: 1;
       position: relative;
-      margin: $spacing-unit auto $spacing-unit * 2;
+      bottom: $space * 2;
+      border-radius: $space $space 0 0;
+      margin: 0 auto;
       min-width: 200px;
       display: inline-block;
-      padding: $spacing-unit;
+      padding: $space;
       background-color: $primary-color;
     }
 
@@ -70,8 +72,7 @@
       left: 30px !important;
     }
 
-    .form-control,
-    .label {
+    .form-control {
       color: inherit;
     }
 
