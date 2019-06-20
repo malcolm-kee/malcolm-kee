@@ -12,7 +12,9 @@
     "format": "prettier --write 'src/**/*.js'",
     "build:lambda": "netlify-lambda build lambda",
     "serve:lambda": "netlify-lambda serve lambda --config ./webpack.functions.js",
-    "build": "gatsby build && netlify-lambda build lambda"
+    "build": "gatsby build && netlify-lambda build lambda",
+    "cy:open": "cypress open",
+    "test:e2e": "start-server-and-test dev http://localhost:8000 cy:open"
   },
   "dependencies": {
     "@mdx-js/mdx": "^1.0.20",
@@ -81,12 +83,15 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.3.3",
+    "@testing-library/cypress": "^4.0.3",
     "@types/aws-lambda": "^8.10.23",
     "@types/node": "^11.13.0",
     "@types/react": "^16.8.20",
+    "cypress": "^3.3.1",
     "dotenv-webpack": "^1.7.0",
     "prettier": "^1.12.0",
     "prop-types": "^15.6.1",
+    "start-server-and-test": "^1.9.1",
     "typescript": "^3.5.2"
   },
   "browserslist": [
