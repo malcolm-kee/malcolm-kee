@@ -1,7 +1,6 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import { ContactForm } from '../components/ContactForm';
-import { LandingPageBackground } from '../components/LandingPageBackground';
 import { LandingPageHeader } from '../components/LandingPageHeader';
 import { OutLink } from '../components/OutLink';
 import { Typography } from '../components/Typography';
@@ -61,12 +60,12 @@ const IndexPage = () => (
           </div>
         </LandingPageSection>
       </div>
-      <LandingPageBackground Tag="section">
-        <LandingPageBackground className="landing-page-form-container">
+      <section>
+        <div className="landing-page-form-container">
           <h2 className="text-center">Contact Me</h2>
           <ContactForm />
-        </LandingPageBackground>
-      </LandingPageBackground>
+        </div>
+      </section>
     </div>
   </div>
 );

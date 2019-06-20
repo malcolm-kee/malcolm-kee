@@ -1,16 +1,16 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import { LandingPageBackground } from './LandingPageBackground';
+import { Avatar } from './avatar';
 import './LandingPageHeader.scss';
 
 export const LandingPageHeader = () => {
   return (
-    <LandingPageBackground Tag="header" className="landing-page-header">
+    <header className="landing-page-header">
+      <div className="landing-page-header-avatar">
+        <Avatar />
+      </div>
       <div className="landing-page-header-content">
-        <LandingPageBackground
-          Tag="ul"
-          className="landing-page-header-subtitle"
-        >
+        <ul className="landing-page-header-subtitle">
           <li>
             <Link to="/projects">Frontend Engineer</Link>
           </li>
@@ -20,8 +20,8 @@ export const LandingPageHeader = () => {
           <li>
             <Link to="/libraries">Open Source Contributor</Link>
           </li>
-        </LandingPageBackground>
+        </ul>
       </div>
-    </LandingPageBackground>
+    </header>
   );
 };

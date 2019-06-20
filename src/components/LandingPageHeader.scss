@@ -12,22 +12,45 @@
 }
 
 .landing-page-header {
+  $bg: $bg-color-dark;
+
   padding: $spacing-unit 0;
   box-shadow: inset $box-shadow-3-inv;
-  @media (min-width: $media-tablet) {
-    min-height: 100vh;
+  background-color: $bg;
+
+  &-avatar {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    right: $space;
+    top: $space * 4;
+    border-width: 4px;
+    border-style: solid;
+    border-color: $bg-color-light;
+    border-color: var(--bg);
+
+    @media screen and (min-width: $media-mobile) {
+      right: $space * 2;
+      width: 300px;
+      height: 300px;
+    }
+
+    @media screen and (min-width: $media-tablet) {
+      margin: 0 auto -#{$space * 3};
+      position: static;
+    }
   }
 
   &-content {
     padding-top: 6 * $spacing-unit;
-    text-align: right;
 
     @media (min-width: $media-tablet) {
       text-align: center;
       margin: 0 auto;
       max-width: 600px;
-      margin-top: 300px;
-      padding-top: 140px;
+      padding-top: 50px;
     }
   }
 
@@ -43,12 +66,14 @@
 
   &-subtitle {
     display: inline-block;
-    text-align: right;
-    color: #fff;
+    color: $primary-200;
     text-shadow: 0px 1px 5px #222, 0px 1px 5px #333;
-    padding: $spacing-unit * 2 0;
-    margin: 0 0 0 auto;
+    padding: 0;
     position: relative;
+
+    @media screen and (min-width: $media-mobile) {
+      padding: $spacing-unit * 2;
+    }
 
     @media (min-width: $media-tablet) {
       display: flex;
@@ -56,25 +81,6 @@
       align-items: flex-end;
       justify-content: center;
       flex-flow: row;
-
-      &::after,
-      &::before {
-        filter: blur(12px);
-        margin: -30px;
-        top: 30px !important;
-        left: 30px !important;
-      }
-    }
-
-    @media (max-width: $media-mobile) {
-      // background-attachment is disabled in mobile due to performance issue
-      // for that let's just disable the smaller bg
-      &::before {
-        content: none !important;
-      }
-      &::after {
-        content: none !important;
-      }
     }
 
     li {

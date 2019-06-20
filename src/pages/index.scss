@@ -37,12 +37,20 @@
   }
 
   &-form-container {
-    max-width: 500px;
+    $max-width: 500px;
+
+    max-width: $max-width;
     text-align: center;
     margin: 0 auto;
-    padding: $spacing-unit * 2;
+    padding: $space $space * 2;
     color: white;
+    background-color: $bg-color-dark;
     text-shadow: 0px 1px 5px #222, 0px 1px 5px #333;
+    box-shadow: $box-shadow-6;
+
+    @media screen and (min-width: $max-width + $space * 4) {
+      border-radius: $space * 3;
+    }
 
     > h2 {
       z-index: 1;
