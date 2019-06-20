@@ -60,7 +60,7 @@
     }
   }
   &--tag {
-    padding: $spacing-unit * 2;
+    padding: $space * 4 $space * 2;
     @include link('a');
   }
   &--summary {
