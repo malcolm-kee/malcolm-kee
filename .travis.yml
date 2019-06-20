@@ -13,15 +13,6 @@ install:
   - yarn
 script:
   - yarn test:e2e:ci
-notifications:
-  webhooks:
-    urls:
-      - https://api.netlify.com/build_hooks/5d0bed992e804acdf0d3b6c2
-    on_success: always
-    on_failure: never
-    on_start: never
-    on_cancel: never
-    on_error: never
 env:
   global:
     secure: iXCHN+JSWfGysn6CjLpbGMqxxF40cNt1D8oSUgKVSjqJa1eSKT22dPgY9W/gZ5aI/AFIEUHvuYT3I4zDzmZsvjPSXQaS983Ot/4x7TI0sJ3l789I4beObr65l7oAAzjx2II0jzHKzQihVGFmx7kw5jx+9takvFduCZCnR8OOkLiFUIVKo5PuKevkWkrzrgVVU3wbgDx4TtrQ0U2dACcbXTrlHjJqGEMig4FCxOQ5Z6NV0WIcKq91FCIq0FkN6sa1CaRDhALduIDKr7lmTtSyWscvms2hqlEGoZ6W4HaOHtsNju8izMFYP/2/NrU6JmXGiXytLPWebd29E7mOPoGpWedSxe7Mz2+GkjnHsm713jOtQlx3ZaFQn9h/MJRPY2si8s5laPiTMG548IewwwJ3pLmoShBAo+1AjHEfIzK/DK0NyO/EhBE+gXTtEPrpiEcZ2HLqaOim2xnHLEjd8xejIezgdqh2occhgCatIn/H/aWqyqhBtyPeIV8o4xbrU62MWq3izzkna2PWjkZFQoMyP5BupN1H4eOA3EFfm8sxvghjKYNL/O3y3DoFySsedygTW+DrpJ2zcVflhVTFVCPENbA/chwzTOVnDN7fnxkv2FTJbbvrtfDUjCsX8rVqkgm1qySXbxyymwbLZFeKtUwCCEaAXMvl9JQmL569lNZJIag=
