@@ -65,7 +65,7 @@
     "name": "How to React",
     "contentId": "how-to-react",
     "url": "/how-to-react",
-    "description": "A brief introduction to React that focus on practice",
+    "description": "An introduction to React JS",
     "keywords": ["react for beginners", "react hooks"],
     "themeColor": "#61dafb",
     "iconFile": "src/assets/react-logo.png",

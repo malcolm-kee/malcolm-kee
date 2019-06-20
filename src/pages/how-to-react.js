@@ -44,6 +44,7 @@ const PageHeader = () => {
           >
             {workshopsJson.name}
           </h1>
+          <p className="landing-subtitle">{workshopsJson.description}</p>
           <div className="Toolbar Toolbar--space-vertical">
             <LinkButton
               to="/how-to-react/introduction"
