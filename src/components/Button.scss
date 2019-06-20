@@ -9,7 +9,7 @@
   min-height: 36px;
   min-width: 88px;
   font-family: $font-family;
-  color: $primary-color;
+  color: $primary-600;
   display: inline-flex;
   line-height: 1.2;
   justify-content: center;
@@ -90,9 +90,9 @@
     &.btn-primary {
       border-color: transparent;
       color: white;
-      background: $primary-color;
+      background: $primary-600;
       &:hover {
-        background: $primary-color-dark;
+        background: $primary-700;
       }
       &:focus {
         border-color: white;

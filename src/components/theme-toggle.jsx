@@ -17,7 +17,6 @@ export function ThemeToggle(toggleProps) {
               src={moon}
               width="16"
               height="16"
-              role="presentation"
               style={{ pointerEvents: 'none' }}
               alt="Dark Mode"
             />
@@ -27,11 +26,10 @@ export function ThemeToggle(toggleProps) {
               src={sun}
               width="16"
               height="16"
-              role="presentation"
               style={{ pointerEvents: 'none' }}
               alt="Light Mode"
             />
-          )
+          ),
         }}
         checked={value === 'dark'}
         onChange={toggle}

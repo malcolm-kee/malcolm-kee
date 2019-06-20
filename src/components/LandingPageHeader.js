@@ -5,7 +5,7 @@ import './LandingPageHeader.scss';
 
 export const LandingPageHeader = () => {
   return (
-    <header className="landing-page-header">
+    <div className="landing-page-header">
       <div className="landing-page-header-avatar">
         <Avatar />
       </div>
@@ -22,6 +22,6 @@ export const LandingPageHeader = () => {
           </li>
         </ul>
       </div>
-    </header>
+    </div>
   );
 };

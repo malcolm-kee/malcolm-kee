@@ -13,7 +13,7 @@ const LandingPageSection = ({ children }) => (
 const IndexPage = () => (
   <div className="landing-page">
     <LandingPageHeader />
-    <div className="landing-page-content">
+    <main className="landing-page-content">
       <LandingPageSection>
         <h2>About</h2>
         <Typography>
@@ -66,7 +66,7 @@ const IndexPage = () => (
           <ContactForm />
         </div>
       </section>
-    </div>
+    </main>
   </div>
 );
 
