@@ -18,6 +18,16 @@ describe('Accessibility checks', () => {
     cy.checkA11y();
   });
 
+  it('Has no detectable a11y violations on landing page dark mode', () => {
+    cy.getByText('Projects')
+      .click()
+      .getByLabelText('Switch between Dark and Light mode')
+      .click({ force: true })
+      .getByText('Malcolm')
+      .click();
+    cy.checkA11y();
+  });
+
   it('Has no detectable a11y violations on projects page', () => {
     cy.getByText('Projects').click();
     cy.checkA11y();
