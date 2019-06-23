@@ -17,14 +17,35 @@ How do we ask React component that is a pure function to make side effects?
 
 ## useEffect
 
-create a multistep form
+load data from API
+
+example: bug list
 
 ## useEffect dependencies
 
+data that is static
+
+data that is dependent on props/states
+
+- depends on state: load more bugs in bug list
+
+- depends on props: edit bug in bug list
+
+## useEffect cleanup
+
+effect that requires cleanup:
+
+- expand a specific post and update title
+- add overflow class to body
+
 ## How to Think About useEffect
 
-React manages element side effects, `useEffect` manages other side effects.
+React manages DOM element side effects, `useEffect` manages other side effects.
 
 ### Exercise
 
-Pokemon focus
+load data of pokemon from ajax
+
+Pokemon focus and update title
+
+load more pokemon data from remote
