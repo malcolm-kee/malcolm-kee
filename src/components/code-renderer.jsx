@@ -1,6 +1,7 @@
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { copyToClipboard } from '../helper';
 import { useTheme } from '../theme';
@@ -43,7 +44,7 @@ export const CodeRenderer = ({
   );
 };
 
-const injectedGlobals = { sanitize, shallowConcat, ajax };
+const injectedGlobals = { sanitize, shallowConcat, ajax, ReactDOM };
 
 const CodeLiveEditor = ({ code, theme, language, noInline, fileName }) => {
   return (

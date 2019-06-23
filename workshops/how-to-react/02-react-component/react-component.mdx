@@ -5,9 +5,104 @@ description: 'Learn how to create dynamic UI with React components'
 section: 'core'
 ---
 
+## Create a div containing 'Hello World!' with JavaScript
+
+Without React:
+
+```js
+const rootEl = document.getElementById('js-hello-root');
+const element = document.createElement('div');
+element.className = 'container';
+element.textContent = 'Hello World!';
+
+rootEl.innerHTML = '';
+rootEl.appendChild(element);
+```
+
+<div style="margin: 24px 0;">
+  <div id="js-hello-root"></div>
+</div>
+
+With React:
+
+```js
+const rootEl = document.getElementById('react-hello-root');
+const element = React.createElement(
+  'div',
+  {
+    className: 'container',
+  },
+  'Hello World!'
+);
+
+ReactDOM.render(element, rootEl);
+```
+
+<div style="margin: 24px 0;">
+  <div id="react-hello-root"></div>
+</div>
+
+<aside>
+
+The easiest way to include React in a HTML file is to add the following scripts tag into your HTML:
+
+```html
+<script
+  crossorigin
+  src="https://unpkg.com/react@16/umd/react.development.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+></script>
+```
+
+Which will expose `React` and `ReactDOM` as global variable.
+
+</aside>
+
+Let's log the content of `element` and see what is it:
+
+```javascript
+{
+    $$typeof: Symbol(react.element)
+    key: null,
+    // highlight-start
+    props: {
+        className: 'container',
+        children: 'Hello World!'
+    },
+    // highlight-end
+    ref: null,
+    // highlight-next-line
+    type: 'div',
+    _owner: null,
+    _store: {
+        validated: false
+    }
+}
+```
+
+Which is actually just a JavaScript object. Note that the `type` and `props` are what we provided to `React.createElement` call.
+
+## Using JSX
+
+By using JSX, we can make it easier to mentally translate the React code with the generated HTML:
+
+```js
+const rootEl = document.getElementById('react-jsx-root');
+const element = <div className="container">Hello World!</div>;
+
+ReactDOM.render(element, rootEl);
+```
+
+<div style="margin: 24px 0;">
+  <div id="react-jsx-root"></div>
+</div>
+
 ## Problem: Migration of an Existing Application to use React
 
-We will start to write React code by migration page from HTML to use React.
+Now that you know how to render HTML with React, let's do it to a bigger page.
 
 Let's migrate the feed from [BugBook] to our React App.
 
@@ -26,13 +121,108 @@ We will migrate the feed by copy pasting the HTML and then tweak the html slight
 
 </aside>
 
-## Virtual DOM and JSX
+At this point of time, you may think, hey, I'm just translating HTML into this weird React JSX syntax, what's the big deal?
 
-Virtual DOM is representation of DOM in memory. As DOM data structure is a tree, therefore virtual DOM structure is also a tree. `React.createElement` is used to create a node in virtual DOM tree.
+## Translation of Data and View
 
-JSX is an abstraction over `React.createElement` and nothing else.
+React is created to solve one problem: the translation between dynamic data and what is displayed in UI as HTML.
+
+Assuming you have a data like below:
+
+```javascript
+const data = {
+  name: 'Malcolm',
+  greeting: 'Hello',
+};
+```
+
+How are you going to translate each record to a HTML element like below?
+
+```html
+<div class="greeting">
+  <p><span>Malcolm</span> says: <span>Hello</span></p>
+</div>
+```
+
+We can do that with React like below:
+
+```js
+const data = {
+  name: 'Malcolm',
+  greeting: 'Hello',
+};
+const root = document.getElementById('root-3');
+const element = (
+  <div className="greeting">
+    <p>
+      <span>{data.name}</span> says: <span>{data.greeting}</span>
+    </p>
+  </div>
+);
+
+ReactDOM.render(element, root);
+```
+
+<div style="margin: 24px 0;">
+  <div id="root-3"></div>
+</div>
+
+Now what if data is dynamic and will be change?
+
+```javascript
+data.name = 'Matthew';
+
+// oh no, the greeting panel is outdated!
+```
+
+Because React is all JavaScript, we can wrap the previous createElement into a function and call it again:
+
+```js
+const data = {
+  name: 'Malcolm',
+  greeting: 'Hello',
+};
+
+function renderApp() {
+  const element = (
+    <div className="greeting">
+      <p>
+        <span>{data.name}</span> says: <span>{data.greeting}</span>
+      </p>
+    </div>
+  );
+  const root = document.getElementById('root-4');
+
+  ReactDOM.render(element, root);
+}
+
+renderApp(); // render with initial data
+
+// Uncomment the following lines to see the content is changed!
+// data.name = 'Matthew';
+// renderApp();
+```
+
+<div style="margin: 24px 0;">
+  <div id="root-4"></div>
+</div>
+
+The great thing about React is, we just need to rerun the function to generate all the React elements (which is just a bunch of JavaScript objects), and React will figure out what is the difference between the previous `ReactDOM.render` and only make the changes related to the difference.
+
+The whole approach of React (`React.createElement` and `ReactDOM.render`) is to generate a data structure to represents the DOM, which is known as virtual DOM.
+
+## Virtual DOM
+
+Virtual DOM is representation of DOM in memory. Since DOM structure is a tree, therefore virtual DOM structure is also a tree. `React.createElement` is used to create a node in virtual DOM tree.
 
 `ReactDOM.render` what we call rendering engine, which means it translates virtual DOM to the actual DOM element.
+
+One way to look at it is imagining your UI is a picture:
+
+- `React.createElement` is to generate a pixel in the picture, so everytime you run the function it will create a new picture.
+- `ReactDOM.render` will put your picture in the DOM. Besides, `ReactDOM` doesn't just replace the picture (because adding and removing DOM is expensive when there are many elements), instead, `ReactDOM` will spot the difference between the previous picture, mark them, and then only do the changes for the difference.
+
+## Problem: Extract out the data in BugBook post
 
 ## React component as UI building block
 
