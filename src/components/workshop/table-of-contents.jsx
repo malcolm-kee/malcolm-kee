@@ -1,7 +1,6 @@
 import { Link } from 'gatsby';
 import { joinClassName } from 'join-string';
 import React from 'react';
-import { isDefined } from 'typesafe-is';
 import { useDiffEffect } from '../../hooks/use-diff-effect';
 import { useEventListener } from '../../hooks/use-event-listener';
 import { ChevronIcon } from '../chevron-icon';
@@ -14,28 +13,15 @@ import { ToggleTocBtn } from './toggle-toc-btn';
 
 export const TableOfContents = ({ pathname, sections, themeColor }) => {
   const [open, setIsOpen] = React.useState(false);
-  const [activeSection, setActiveSection] = React.useState(() => {
-    const activatedSection = findActiveSection(sections, pathname);
-
-    if (activatedSection) {
-      return activatedSection.title;
-    }
-  });
-
-  React.useEffect(() => {
-    setIsOpen(false);
-    const activatedSection = findActiveSection(sections, pathname);
-
-    if (activatedSection && activatedSection.title !== activeSection) {
-      setActiveSection(activatedSection.title);
-    }
-  }, [pathname]);
 
   useEventListener('keyup', e => {
     if (e.key === 'Escape') {
       setIsOpen(false);
     }
   });
+  React.useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   const tocRef = React.useRef();
   const toggleBtnRef = React.useRef();
@@ -71,11 +57,7 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
               <TableOfContentsSection
                 nodes={nodes}
                 title={title}
-                // when activeSection null it's active, this is to make the toc visible when js disabled
-                isActive={!isDefined(activeSection) || activeSection === title}
-                onToggle={() =>
-                  setActiveSection(activeSection === title ? null : title)
-                }
+                pathname={pathname}
                 key={title}
               />
             ))}
@@ -92,8 +74,18 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
   );
 };
 
-const TableOfContentsSection = ({ nodes, title, isActive, onToggle }) => {
+const TableOfContentsSection = ({ nodes, title, pathname }) => {
   const withSection = title !== 'null';
+
+  const [isActive, setIsActive] = React.useState(() =>
+    nodes.some(node => node.frontmatter.path === pathname)
+  );
+
+  React.useEffect(() => {
+    if (!isActive && nodes.some(node => node.frontmatter.path === pathname)) {
+      setIsActive(true);
+    }
+  }, [pathname]);
 
   return (
     <React.Fragment key={title}>
@@ -105,7 +97,7 @@ const TableOfContentsSection = ({ nodes, title, isActive, onToggle }) => {
           )}
         >
           {/* TODO: Make this non clickable in small screen */}
-          <button onClick={onToggle}>
+          <button onClick={() => setIsActive(!isActive)}>
             {title} <ChevronIcon />
           </button>
         </li>
@@ -130,8 +122,3 @@ const TableOfContentsSection = ({ nodes, title, isActive, onToggle }) => {
     </React.Fragment>
   );
 };
-
-const findActiveSection = (sections, pathname) =>
-  sections.find(section =>
-    section.nodes.some(node => node.frontmatter.path === pathname)
-  );
