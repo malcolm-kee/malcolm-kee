@@ -109,3 +109,27 @@
     border-left: $highlight-width solid $secondary-color;
   }
 }
+
+.code-snippet-plain {
+  $code-padding: 1rem;
+  $highlight-width: 0.25rem;
+  margin: $space / 2 0;
+
+  pre {
+    font-size: 0.9rem;
+    padding: $code-padding;
+    line-height: 1.25rem;
+    overflow-x: auto;
+  }
+
+  .highlighted-code-line {
+    background-color: $highlighted-code-bg-light;
+    background-color: var(--highlightedCode);
+    display: block;
+    margin-right: -$code-padding;
+    margin-left: -$code-padding;
+    padding-right: $code-padding;
+    padding-left: $code-padding - $highlight-width;
+    border-left: $highlight-width solid $secondary-color;
+  }
+}

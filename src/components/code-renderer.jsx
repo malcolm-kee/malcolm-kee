@@ -16,6 +16,7 @@ export const CodeRenderer = ({
   className,
   live,
   noInline,
+  noWrapper,
   fileName,
 }) => {
   const language = className && className.split('-').pop();
@@ -38,6 +39,7 @@ export const CodeRenderer = ({
       language={language}
       theme={theme}
       fileName={fileName}
+      noWrapper={noWrapper}
     />
   ) : (
     <code className="language-text">{children}</code>
@@ -134,8 +136,37 @@ const CodeSnippet = React.memo(function CodeSnippetComponent({
   language,
   theme,
   fileName,
+  noWrapper,
 }) {
-  return (
+  const highlightedCode = (
+    <Highlight {...defaultProps} theme={theme} code={code} language={language}>
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre className={className} style={style}>
+          {transformTokens(tokens).map(({ line, isHighlighted }, i) => {
+            return (
+              <div
+                {...getLineProps({
+                  line,
+                  key: i,
+                  className: isHighlighted
+                    ? 'highlighted-code-line'
+                    : undefined,
+                })}
+              >
+                {line.map((token, key) => {
+                  return <span {...getTokenProps({ token, key })} />;
+                })}
+              </div>
+            );
+          })}
+        </pre>
+      )}
+    </Highlight>
+  );
+
+  return noWrapper ? (
+    <div className="code-snippet-plain">{highlightedCode}</div>
+  ) : (
     <div className="code-snippet">
       <header>
         <div className="code-snippet-icon">
@@ -147,34 +178,7 @@ const CodeSnippet = React.memo(function CodeSnippetComponent({
           {shortenLanguage(language)}
         </span>
       </header>
-      <Highlight
-        {...defaultProps}
-        theme={theme}
-        code={code}
-        language={language}
-      >
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={style}>
-            {transformTokens(tokens).map(({ line, isHighlighted }, i) => {
-              return (
-                <div
-                  {...getLineProps({
-                    line,
-                    key: i,
-                    className: isHighlighted
-                      ? 'highlighted-code-line'
-                      : undefined,
-                  })}
-                >
-                  {line.map((token, key) => {
-                    return <span {...getTokenProps({ token, key })} />;
-                  })}
-                </div>
-              );
-            })}
-          </pre>
-        )}
-      </Highlight>
+      {highlightedCode}
     </div>
   );
 });

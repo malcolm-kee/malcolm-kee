@@ -30,6 +30,7 @@ The props can be provided like this:
 The following props are supported:
 
 - `fileName`: add fileName above the code snippet. Handy to indicate which file you're working on.
+- `noWrapper`: remove the wrapper around code snippet. This is to remove the clutter.
 
 Only applicable for language `jsx`:
 
