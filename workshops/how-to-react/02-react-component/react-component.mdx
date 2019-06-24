@@ -342,7 +342,7 @@ To make `Post` component more reusable, we need to allow it to receive input.
 
 Remember the signature of `React.createElement`? The first parameter is type, the second parameter is `props`. `props` is the input to React component, which is always an object.
 
-```jsx live noInline
+```jsx
 function Post(props) {
   return (
     <article className="card post">
@@ -362,7 +362,7 @@ function Post(props) {
   );
 }
 
-render(
+ReactDOM.render(
   <Post
     author="Thoughts of Dog 🌈"
     link="https://twitter.com/dog_feelings/status/1130660155966730240"
@@ -376,7 +376,7 @@ render(
 The JSX at the bottom of the previous snippet is equivalent to
 
 ```javascript
-render(
+ReactDOM.render(
   React.createElement(Post, {
     author: 'Thoughts of Dog 🌈',
     link: 'https://twitter.com/dog_feelings/status/1130660155966730240',
@@ -389,7 +389,7 @@ render(
 
 With this, we can now reuse `Post` component with different data:
 
-```jsx live noInline
+```jsx
 function Post(props) {
   return (
     <article className="card post">
@@ -409,7 +409,7 @@ function Post(props) {
   );
 }
 
-render(
+ReactDOM.render(
   <div>
     <Post
       author="Thoughts of Dog 🌈"
@@ -427,21 +427,50 @@ render(
 
 ### props can be any data type in JavaScript
 
-callback
+If you did some frontend development, you would know that you could do few things on a DOM element:
 
-### `children` props
+- set attribute, for instance, `div.setAttribute('class', 'one')`
+- set propertyies, for instance, `button.disabled = true`
+- add event listener, for instance, `button.addEventListener('click', callback)`
 
-Utilize `children` props.
+In React, there is only one way to interact with HTML element and your React component, which is props:
+
+```jsx live
+<button
+  className="btn"
+  onClick={() => console.log('I am clicked!')}
+  disabled={false}
+>
+  Click Me
+</button>
+```
+
+- props can be a primitive like boolean, string, or number
+- props can also be other data types in JavaScript such as object, function, because under the hood, props is passed as a object in the `React.createElement` call:
+
+```javascript noWrapper
+React.createElement(
+  'button',
+  // highlight-start
+  {
+    className: 'btn',
+    onClick: () => console.log('I am clicked!'),
+    disabled: false,
+  },
+  // highlight-end
+  'Click Me'
+);
+```
 
 ### React is all about creating Component
 
-Now actually, the whole feed itself could be think as a React component, while the data is the props to the feed:
+Taking a step back, the whole feed itself could be think as a React component, while the data is the props to the feed:
 
 ```jsx noWrapper
 ReactDOM.render(<Feed posts={data} />, document.getElementById('root'));
 ```
 
-Writing code in React is actually just doing this, breaking down your UI to smaller components and build them up.
+Writing code in React is essentially this process: breaking down your UI to smaller components and build them up.
 
 <section class="exercise">
 
