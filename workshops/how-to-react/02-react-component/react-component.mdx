@@ -42,7 +42,7 @@ ReactDOM.render(element, rootEl);
   <div id="react-hello-root"></div>
 </div>
 
-- `React.createElement` is one of the API provided by React. It has the following signature:
+- `React.createElement` is one of the API provided by React. It is defined as:
 
   ```javascript noWrapper
   React.createElement(type, props, ...children);
@@ -52,7 +52,7 @@ ReactDOM.render(element, rootEl);
   /* 3. children is an array of the child of the element */
   ```
 
-- `ReactDOM.render` is the API provided by ReactDOM. It has the following signature:
+- `ReactDOM.render` is the API provided by ReactDOM. It is defined as:
 
   ```javascript noWrapper
   ReactDOM.render(reactElement, target);
@@ -119,6 +119,8 @@ ReactDOM.render(element, rootEl);
   <div id="react-jsx-root"></div>
 </div>
 
+JSX is just `React.createElement`, nothing else.
+
 ## Problem: Migration of an Existing Application to use React
 
 Now that you know how to render HTML with React, let's do it to a bigger page.
@@ -132,7 +134,7 @@ Let's migrate the feed from [BugBook] to our React App.
 We will migrate the feed by copy pasting the HTML and then tweak the html slightly to follow React JSX rules:
 
 1. all tags must be matched with closing tag or self-closing.
-1. `class` attribute should be changed to `className`.
+1. JSX is not totally similar to HTML. For instance, `class` and `for` HTML attributes should be `className` and `htmlFor` respectively. Don't bother with memorize them, React will give you warning when you get it wrong.
 
 <aside>
 
@@ -237,9 +239,11 @@ The whole approach of React is use `React.createElement` to generate a data stru
 
 ### Virtual DOM
 
-Virtual DOM is representation of DOM in memory. Since DOM structure is a tree, therefore virtual DOM structure is also a tree. `React.createElement` is used to create a node in virtual DOM tree.
+Because changing HTML directly is relatively slow compared to changing JavaScript variable (one could cause repainting while the other just memory value change), a solution to minimize the change to HTML is to represent it with a data structure in memory and use that data structure to determine the required change before actually applying the change to DOM.
 
-`ReactDOM.render` what we call rendering engine, which means it translates virtual DOM to the actual DOM element.
+Virtual DOM is that data structure that represents the DOM. Since DOM structure is a tree, therefore virtual DOM structure is also a tree.
+
+In React, `React.createElement` is used to create a node in virtual DOM tree. `ReactDOM.render` what we call rendering engine, which means it translates virtual DOM to the actual DOM element.
 
 One way to look at it is imagining your UI is a picture:
 
@@ -301,12 +305,12 @@ You can get the data from the Network Tab of your Browser DevTools when opening 
 
 ## React component as UI building block
 
-Look at the list of posts, we can actually abstract it away as a `Card` component.
+Look at the list of posts, we can actually abstract it away as a `Post` component.
 
-In React, a component is just simply a function that returns React elements (result of `React.createElement` call).
+In React, a component is a function that returns React elements (result of `React.createElement` call).
 
-```jsx live noInline
-function Card() {
+```jsx
+function Post() {
   return (
     <article className="card post">
       <div className="card-title">
@@ -327,19 +331,19 @@ function Card() {
   );
 }
 
-render(<Card />); // This is actually `ReactDOM.render`, but only in this web site only
+ReactDOM.render(<Post />);
 ```
 
-But the `Card` component is not really useful because it only can used for the first element in our posts.
+But the `Post` component is not really useful because it only can used for the first element in our posts.
 
-To make `Card` component more reusable, we need to allow it to receive input.
+To make `Post` component more reusable, we need to allow it to receive input.
 
 ### props - input to React component
 
 Remember the signature of `React.createElement`? The first parameter is type, the second parameter is `props`. `props` is the input to React component, which is always an object.
 
 ```jsx live noInline
-function Card(props) {
+function Post(props) {
   return (
     <article className="card post">
       <div className="card-title">
@@ -359,7 +363,7 @@ function Card(props) {
 }
 
 render(
-  <Card
+  <Post
     author="Thoughts of Dog 🌈"
     link="https://twitter.com/dog_feelings/status/1130660155966730240"
     content="to be perfectly clear. i love you"
@@ -373,7 +377,7 @@ The JSX at the bottom of the previous snippet is equivalent to
 
 ```javascript
 render(
-  React.createElement(Card, {
+  React.createElement(Post, {
     author: 'Thoughts of Dog 🌈',
     link: 'https://twitter.com/dog_feelings/status/1130660155966730240',
     content: 'to be perfectly clear. i love you',
@@ -383,10 +387,10 @@ render(
 
 </aside>
 
-With this, we can now reuse `Card` component with different data:
+With this, we can now reuse `Post` component with different data:
 
 ```jsx live noInline
-function Card(props) {
+function Post(props) {
   return (
     <article className="card post">
       <div className="card-title">
@@ -407,12 +411,12 @@ function Card(props) {
 
 render(
   <div>
-    <Card
+    <Post
       author="Thoughts of Dog 🌈"
       link="https://twitter.com/dog_feelings/status/1130660155966730240"
       content="to be perfectly clear. i love you"
     />
-    <Card
+    <Post
       author="Mark Dalgleish"
       link="https://twitter.com/markdalgleish/status/1095424850565378048"
       content="If you're not mocking out Lodash, can you really call it a unit test?"
