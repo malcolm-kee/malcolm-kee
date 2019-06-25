@@ -54,6 +54,12 @@ function generateIcons(workshops) {
   );
 }
 
+/**
+ * This will generates icons for workshops in public folder:
+ * - '/<workshopId>/-16x16.png'
+ * - '/<workshopId>/-32x32.png'
+ * - '/<workshopId>/-64x64.png'
+ */
 module.exports = async function createWorkshopIcons({ getNodesByType }) {
   const workshops = getNodesByType('WorkshopsJson');
   const workshopsWithIcon = workshops.filter(workshop => !!workshop.iconFile);
