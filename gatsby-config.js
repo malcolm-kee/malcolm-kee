@@ -19,6 +19,12 @@ module.exports = {
   plugins: [
     `gatsby-plugin-sass`,
     `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-compile-es6-packages`, // test?
+      options: {
+        modules: [`@philpl/buble`, `buble`],
+      },
+    },
     `gatsby-plugin-layout`,
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-json`,

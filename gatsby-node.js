@@ -28,3 +28,13 @@ exports.onCreatePage = ({ page, actions }) => {
 exports.onPostBootstrap = async ({ getNodesByType }) => {
   await createWorkshopIcons({ getNodesByType });
 };
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        buble: '@philpl/buble',
+      },
+    },
+  });
+};
