@@ -59,14 +59,16 @@ const CodeLiveEditor = ({ code, theme, language, noInline, fileName }) => {
         language="jsx"
         noInline={noInline}
       >
-        <header>
-          <div className="code-editor-icon">
-            <EditIcon />
+        <div className="code-editor-header-container">
+          <div className="code-editor-header">
+            <div className="code-editor-icon">
+              <EditIcon />
+            </div>
+            {fileName && <span>{fileName}</span>}
+            <CopyCodeButton code={code} />
           </div>
-          {fileName && <span>{fileName}</span>}
-          <CopyCodeButton code={code} />
           <span className="code-editor-language">{language}</span>
-        </header>
+        </div>
         <LiveEditor />
         <LiveError className="code-error" />
         <LivePreview className="code-preview" />
@@ -168,16 +170,18 @@ const CodeSnippet = React.memo(function CodeSnippetComponent({
     <div className="code-snippet-plain">{highlightedCode}</div>
   ) : (
     <div className="code-snippet">
-      <header>
-        <div className="code-snippet-icon">
-          <EyeIcon />
+      <div className="code-snippet-header-container">
+        <div className="code-snippet-header">
+          <div className="code-snippet-icon">
+            <EyeIcon />
+          </div>
+          {fileName && <span>{fileName}</span>}
+          <CopyCodeButton code={code} />
         </div>
-        {fileName && <span>{fileName}</span>}
-        <CopyCodeButton code={code} />
         <span className="code-snippet-language">
           {shortenLanguage(language)}
         </span>
-      </header>
+      </div>
       {highlightedCode}
     </div>
   );

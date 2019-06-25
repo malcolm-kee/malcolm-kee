@@ -29,12 +29,14 @@
   background-color: var(--bg-pale);
   line-height: 1.25rem;
 
-  > header {
-    position: relative;
+  &-header {
     padding: $space;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    &-container {
+      position: relative;
+    }
   }
 
   &-icon {
@@ -75,12 +77,14 @@
   border-radius: $space / 2;
 
   background-color: var(--bg-pale);
-  > header {
-    position: relative;
+  &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: $space;
+    &-container {
+      position: relative;
+    }
   }
 
   pre {
