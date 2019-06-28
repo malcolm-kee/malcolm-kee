@@ -181,7 +181,7 @@ import { Button } from './components/button'; // highlight-line
 ...
 
 // highlight-next-line
-export const MovieForm = ({ isEdit, onSubmitSuccess, resetForm }) => {
+export const MovieForm = ({ isEdit, onSubmitSuccess, onReset }) => {
   const { values, setName, setReleaseDate } = useMovieFormData();
 
   const handleSubmit = ev => {
@@ -231,7 +231,7 @@ export const MovieForm = ({ isEdit, onSubmitSuccess, resetForm }) => {
             {isEdit ? 'Save' : 'Create'}
           </button>
           {/* highlight-next-line */}
-          <Button onClick={resetForm}>Cancel</Button>
+          <Button onClick={onReset}>Cancel</Button>
         </div>
       </form>
     </div>
