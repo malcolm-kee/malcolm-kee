@@ -70,7 +70,10 @@ export const MovieForm = () => {
 
   const handleSubmit = ev => {
     ev.preventDefault();
-    createMovie(values).then(() => {
+    createMovie({
+      name,
+      releaseDate,
+    }).then(() => {
       setName('');
       setReleaseDate('');
     });
