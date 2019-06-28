@@ -254,7 +254,10 @@ We can achieve this by passing a callback from `App` to `MovieForm`.
 
       const handleSubmit = ev => {
         ev.preventDefault();
-        createMovie(values).then(() => {
+        createMovie({
+          name,
+          releaseDate
+        }).then(() => {
           onSubmitSuccess(); // highlight-line
           setName('');
           setReleaseDate('');
