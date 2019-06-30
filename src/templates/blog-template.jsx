@@ -36,7 +36,7 @@ function AdjacentArticles({ previous, next }) {
 export default function Template({ data, pageContext }) {
   const {
     mdx: {
-      frontmatter: { title, date, tags, keywords, summary, path },
+      frontmatter: { title, date, tags, keywords, summary, path, lang },
       code,
       timeToRead,
     },
@@ -54,16 +54,15 @@ export default function Template({ data, pageContext }) {
           <title>{title} - Malcolm Kee's blog</title>
           <meta property="og:title" content={title} />
           <meta name="twitter:title" content={title} />
-          {keywords &&
-            keywords.length > 0 && (
-              <meta name="keywords" content={keywords.join(',')} />
-            )}
+          {keywords && keywords.length > 0 && (
+            <meta name="keywords" content={keywords.join(',')} />
+          )}
           {hasSummary && <meta name="abstract" content={summary} />}
           {hasSummary && <meta property="og:description" content={summary} />}
           {hasSummary && <meta name="twitter:description" content={summary} />}
         </Helmet>
         <main>
-          <article className="blog-post">
+          <article className="blog-post" lang={lang ? lang : undefined}>
             <h1 className="blog-post--title">{title}</h1>
             <div className="blog-post--detail-container">
               <div className="blog-post--date">
@@ -89,21 +88,20 @@ export default function Template({ data, pageContext }) {
             </div>
           </article>
         </main>
-        {tags &&
-          tags.length > 0 && (
-            <div className="blog-post--tag">
-              <span>Tags:</span>
-              <span>
-                {tags.map((tag, index, list) => (
-                  <span key={tag}>
-                    {' '}
-                    <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
-                    {index === list.length - 1 ? '' : ','}
-                  </span>
-                ))}
-              </span>
-            </div>
-          )}
+        {tags && tags.length > 0 && (
+          <div className="blog-post--tag">
+            <span>Tags:</span>
+            <span>
+              {tags.map((tag, index, list) => (
+                <span key={tag}>
+                  {' '}
+                  <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
+                  {index === list.length - 1 ? '' : ','}
+                </span>
+              ))}
+            </span>
+          </div>
+        )}
         <Comments comments={comments} articlePath={path} />
         <AdjacentArticles
           previous={pageContext.previous}
@@ -133,6 +131,7 @@ export const pageQuery = graphql`
         tags
         keywords
         summary
+        lang
       }
       timeToRead
     }
