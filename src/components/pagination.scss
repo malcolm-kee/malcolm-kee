@@ -1,0 +1,39 @@
+@import '../constants/variable';
+
+.pagination {
+  &-container {
+    padding: $space;
+    box-shadow: $box-shadow-1;
+    border-radius: $space;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-item {
+    text-decoration: none;
+    margin: 0 $space;
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    line-height: 1;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+
+    &--active {
+      background-color: #{$link-light};
+      background-color: var(--link);
+      color: #{$bg-color-light};
+      color: var(--bg);
+    }
+  }
+
+  &-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+  }
+}

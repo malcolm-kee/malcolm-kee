@@ -14,6 +14,13 @@ const tagTemplate = path.resolve(
   'templates',
   'tag-template.jsx'
 );
+const blogListTemplate = path.resolve(
+  __dirname,
+  '..',
+  'src',
+  'templates',
+  'blog-list-template.jsx'
+);
 
 module.exports = function createBlogs({ actions, graphql }) {
   if (process.env.DISABLE_BLOG) {
@@ -73,6 +80,22 @@ module.exports = function createBlogs({ actions, graphql }) {
           next: previous, // we need to invert these 2 because we query date descending
           previous: next,
           commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.frontmatter.path} in:title sort:created-asc`,
+        },
+      });
+    });
+
+    const postsPerPage = 10;
+    const numPages = Math.ceil(posts.length / postsPerPage);
+
+    Array.from({ length: numPages }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+        component: blogListTemplate,
+        context: {
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          numPages,
+          currentPage: i + 1,
         },
       });
     });

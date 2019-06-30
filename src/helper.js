@@ -25,6 +25,24 @@ export function lastItem(array) {
   return isArray(array) ? array[array.length - 1] : array;
 }
 
+/**
+ *
+ * @param {number} length
+ */
+export function createEmptyArray(length) {
+  if (Array.from) {
+    return Array.from({ length });
+  }
+
+  const result = [];
+
+  for (let index = 0; index < length; index++) {
+    result.push(undefined);
+  }
+
+  return result;
+}
+
 export function debounce(fn, wait) {
   var timeout;
 

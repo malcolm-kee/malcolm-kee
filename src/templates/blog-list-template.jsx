@@ -1,20 +1,31 @@
 import { graphql, Link } from 'gatsby';
 import React from 'react';
-import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';
+import { Seo } from '../components/Seo';
 import { SubscribeRssLink } from '../components/subscribe-rss-link';
-import { getReadtimeText } from '../helper';
+import { PaginationContainer, PaginationItem } from '../components/pagination';
+import { getReadtimeText, createEmptyArray } from '../helper';
 
-const BlogPage = ({ data }) => {
+const BlogList = ({ data, pageContext: { currentPage, numPages } }) => {
   const { posts } = data.allMdx;
+
+  const title =
+    currentPage === 1
+      ? `Blogs - Malcolm Kee`
+      : `Blogs - ${currentPage} of ${numPages} - Malcolm Kee`;
+  const prevPage =
+    currentPage === 1
+      ? null
+      : currentPage === 2
+      ? `/blog`
+      : `/blog/${currentPage - 1}`;
+  const nextPage = currentPage === numPages ? null : `/blog/${currentPage + 1}`;
 
   return (
     <MainContent as="div">
-      <Helmet>
-        <title>Blogs - Malcolm Kee</title>
-      </Helmet>
+      <Seo title={title} />
       <main>
         <PageTitleContainer title="Blogs" />
         <List>
@@ -46,6 +57,16 @@ const BlogPage = ({ data }) => {
           ))}
         </List>
       </main>
+      <PaginationContainer prevLink={prevPage} nextLink={nextPage}>
+        {createEmptyArray(numPages).map((_, index) => (
+          <PaginationItem
+            to={index === 0 ? `/blog` : `/blog/${index + 1}`}
+            key={index}
+          >
+            {index + 1}
+          </PaginationItem>
+        ))}
+      </PaginationContainer>
       <nav className="Toolbar space-between">
         <span>
           <Link to="/" className="link-primary">
@@ -62,13 +83,15 @@ const BlogPage = ({ data }) => {
 };
 
 export const pageQuery = graphql`
-  query BlogIndexQuery {
+  query BlogListQuery($skip: Int!, $limit: Int!) {
     allMdx(
       filter: {
         fields: { workshopcontent: { eq: false } }
         frontmatter: { published: { eq: true } }
       }
       sort: { order: DESC, fields: [frontmatter___date] }
+      skip: $skip
+      limit: $limit
     ) {
       posts: edges {
         node {
@@ -86,4 +109,4 @@ export const pageQuery = graphql`
   }
 `;
 
-export default BlogPage;
+export default BlogList;
