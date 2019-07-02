@@ -9,6 +9,25 @@ section: 'building blocks'
 
 ![Plugins can be used to enhance build process of Gatsby](gatsbyjs-overview-highlight-build.png)
 
-Install `gatsby-plugin-sass`
+```bash
+touch gatsby-config.js
+npm i node-sass gatsby-plugin-sass
+```
 
-Install `gatsby-plugin-postcss`
+```javascript fileName=gatsby-config.js
+module.exports = {
+  plugins: ['gatsby-plugin-sass'],
+};
+```
+
+```bash
+touch src/pages/index.scss
+```
+
+```scss
+$space: 8px;
+
+body {
+    padding: $space $space * 2;
+}
+```
