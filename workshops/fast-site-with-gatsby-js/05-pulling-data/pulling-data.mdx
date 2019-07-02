@@ -9,6 +9,29 @@ section: 'data in gatsby'
 
 ## Using GraphQL to Pull Metadata
 
+```javascript fileName=gatsby-config.js
+module.exports = {
+  // highlight-start
+  siteMetadata: {
+    title: 'Gatsby Blog',
+    description: 'The site we create together',
+  },
+  // highlight-end
+  plugins: ['gatsby-plugin-sass'],
+};
+```
+
+```graphql
+query {
+  site {
+    siteMetadata {
+      title
+      description
+    }
+  }
+}
+```
+
 ### Use page query
 
 ### Use static query
