@@ -7,8 +7,6 @@ import { LandingPageHeader } from '../components/workshop/landing-page-header';
 import { useFavIcon } from '../hooks/use-favicons';
 import './fast-site-with-gatsby-js.scss';
 
-/* eslint-disable no-script-url */
-
 const PageHeader = () => {
   const { workshopsJson } = useStaticQuery(graphql`
     {

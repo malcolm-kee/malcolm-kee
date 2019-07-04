@@ -6184,10 +6184,10 @@ gatsby-source-graphql@^2.0.18:
     node-fetch "^1.7.3"
     uuid "^3.1.0"
 
-gatsby-source-npmsio@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/gatsby-source-npmsio/-/gatsby-source-npmsio-0.0.2.tgz#7df2dcfde9e2ac96b1971d3183ef68b45628a715"
-  integrity sha512-UPJgLPbiIxs+oqwsi1nHSxqKj7qrVVwX0F43IjKleViY0XgJ1OEbHskfWf3KUZ1XsewsDo8g+HnTem55jvZczQ==
+gatsby-source-npmsio@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/gatsby-source-npmsio/-/gatsby-source-npmsio-0.0.3.tgz#652651f43fc2c1b997b64fec1c7d5a9569544ab4"
+  integrity sha512-DBM/XDHGIz50pFuAC0QVZj99i/A5miBE5us1xKS/jzFYAKFWe+wIkbAUHFEn0rYEWLYejCk1sY6pUnWhttb1jA==
   dependencies:
     gatsby-node-helpers "^0.3.0"
     got "^9.6.0"

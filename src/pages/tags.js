@@ -15,8 +15,8 @@ const randomSort = () => (Math.random() > 0.5 ? -1 : 1);
 
 const TagsPage = ({
   data: {
-    allMdx: { group }
-  }
+    allMdx: { group },
+  },
 }) => (
   <MainContent className="TagPage">
     <Helmet>
@@ -63,27 +63,17 @@ TagsPage.propTypes = {
       group: PropTypes.arrayOf(
         PropTypes.shape({
           fieldValue: PropTypes.string.isRequired,
-          totalCount: PropTypes.number.isRequired
+          totalCount: PropTypes.number.isRequired,
         }).isRequired
-      )
+      ),
     }),
-    site: PropTypes.shape({
-      siteMetadata: PropTypes.shape({
-        title: PropTypes.string.isRequired
-      })
-    })
-  })
+  }),
 };
 
 export default TagsPage;
 
-export const pageQuery = graphql`
+export const query = graphql`
   query TagsQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allMdx(filter: { frontmatter: { published: { eq: true } } }, limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
