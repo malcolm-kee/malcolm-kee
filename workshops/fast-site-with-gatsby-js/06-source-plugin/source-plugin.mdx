@@ -5,10 +5,78 @@ description: ''
 section: 'data in gatsby'
 ---
 
-## GraphiQL
-
 ## Source Plugins
 
 ![Source plugins are used to pull data into Gatsby](gatsbyjs-overview-highlight-source-plugin.png)
 
+```bash
+npm i gatsby-source-filesystem
+```
+
+```javascript fileName=gatsby-config.js
+module.exports = {
+  plugins: [
+    'gatsby-plugin-sass',
+    // highlight-start
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'src',
+        path: `${__dirname}/src`,
+      },
+    },
+    // highlight-end
+  ],
+};
+```
+
 ## Build a Page with Data from Source Plugin
+
+```jsx fileName=src/pages/all-code.js
+import { graphql } from 'gatsby';
+import React from 'react';
+
+const AllCodePage = ({ data }) => {
+  return (
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>relativePath</th>
+            <th>prettySize</th>
+            <th>extension</th>
+            <th>birthTime</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.allFiles.edges.map(({ node }, index) => (
+            <tr key={index}>
+              <td>{node.relativePath}</td>
+              <td>{node.prettySize}</td>
+              <td>{node.extension}</td>
+              <td>{node.birthTime}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export const query = graphql`
+  query {
+    allFile {
+      edges {
+        node {
+          relativePath
+          prettySize
+          extension
+          birthTime(fromNow: true)
+        }
+      }
+    }
+  }
+`;
+
+export default AllCodePage;
+```
