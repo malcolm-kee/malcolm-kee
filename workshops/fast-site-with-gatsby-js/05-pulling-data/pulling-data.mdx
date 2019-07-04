@@ -7,7 +7,7 @@ section: 'data in gatsby'
 
 ## How to Pull Data into Gatsby
 
-## Using GraphQL to Pull Metadata
+### Using GraphQL to Pull Metadata
 
 ```javascript fileName=gatsby-config.js
 module.exports = {
@@ -21,6 +21,8 @@ module.exports = {
 };
 ```
 
+### Using GraphiQL
+
 ```graphql
 query {
   site {
@@ -32,6 +34,48 @@ query {
 }
 ```
 
-### Use page query
+## How to Inject Data into Pages/Components
 
-### Use static query
+### With Page Query
+
+Export a constant that use `graphql` function from `gatsby` in your page.
+
+```jsx fileName=src/pages/index.js
+...
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
+  }
+`;
+```
+
+### With Static Query
+
+Use `useStaticQuery` hooks from `gatsby` in any React component.
+
+```jsx fileName=src/components/header.jsx
+import { graphql, useStaticQuery } from 'gatsby';
+
+export const Header = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
+
+  return (
+    <div>
+      <h1>{data.site.siteMetadata.title}</h1>
+    </div>
+  );
+};
+```
