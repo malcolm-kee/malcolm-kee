@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Redux Code Generator",
+    "description": "An application to generate redux code and unit tests based on initial states.",
+    "technologies": ["React", "Redux", "Typescript", "Bootstrap"],
+    "links": {
+      "live": "https://redux-code-generator.netlify.com/",
+      "code": "https://github.com/malcolm-kee/redux-code-generator"
+    },
+    "image": "../assets/redux-code-generator.gif"
+  },
+  {
+    "name": "Kreloses Mobile",
+    "description": "Business application for daily operations of service business. UI and interactions are designed and optimized for mobile browser.",
+    "technologies": [
+      "React",
+      "Redux",
+      "Redux Thunk",
+      "Redux Saga",
+      "Typescript",
+      "Jest",
+      "webpack",
+      "Material-UI",
+      "React Bootstrap",
+      "SCSS"
+    ],
+    "links": {
+      "live": "https://mobile.kreloses.com"
+    },
+    "image": "../assets/kreloses-mobile.gif"
+  },
+  {
+    "name": "Real Quiz",
+    "description": "A polling application that allow instructors to give polling and get real-time polling results.",
+    "technologies": [
+      "Angular",
+      "Angular Material",
+      "Firebase (Firestore & Auth)",
+      "RxJS",
+      "Typescript"
+    ],
+    "links": {
+      "live": "https://real-quiz-app.firebaseapp.com"
+    },
+    "image": "../assets/real-quiz.gif"
+  },
+  {
+    "name": "Shopping Cart",
+    "description": "A simple shopping cart that demonstrates client side calculation for complex discount rules. The site implements material design without third-party library.",
+    "technologies": [
+      "React",
+      "Redux",
+      "Redux Thunk",
+      "Typescript",
+      "Jest",
+      "webpack",
+      "SCSS",
+      "NodeJs",
+      "ExpressJs",
+      "Mongoose",
+      "MongoDB"
+    ],
+    "links": {
+      "live": "https://seek-shopping-cart.netlify.com/"
+    },
+    "image": "../assets/simple-cart.gif"
+  },
+  {
+    "name": "Wizard Form",
+    "description": "A step-by-step form that used advanced React Patterns, e.g. Compound Component and Higher-order Components.",
+    "technologies": ["React", "Jest", "webpack", "SCSS"],
+    "links": {
+      "live": "https://wizard-form.netlify.com",
+      "code": "https://bitbucket.org/malcolmkee/wizard-form"
+    },
+    "image": "../assets/wizard-form.gif"
+  },
+  {
+    "name": "Vue Movie App",
+    "description": "A site to view popular movies. The data is retrieved from TMDb.",
+    "technologies": ["Vue", "Vuex", "Vue CLI"],
+    "links": {
+      "live": "https://vue-movie-app.netlify.com",
+      "code": "https://github.com/malcolm-kee/vue-movie-app"
+    },
+    "image": "../assets/vue-movie-app.gif"
+  },
+  {
+    "name": "Malaysia Employment Data Visualization",
+    "description": "Data visualization based on employment data from Department of Statistics Malaysia",
+    "technologies": ["D3.js", "React", "webpack"],
+    "links": {
+      "live": "https://msia-employment.netlify.com/",
+      "code": "https://github.com/malcolm-kee/msia-employment"
+    },
+    "image": "../assets/msia-employment.gif"
+  }
+]

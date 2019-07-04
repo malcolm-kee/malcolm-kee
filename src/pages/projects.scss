@@ -8,26 +8,16 @@
     margin: $spacing-unit * 2 0;
     h2 {
       margin-bottom: $spacing-unit;
-    }
-
-    dt,
-    dd {
-      line-height: 1.3;
-    }
-
-    dt {
-      color: $text-light-pale;
-      color: var(--text-pale);
-      margin-top: $spacing-unit * 2;
-      font-size: 1.1rem;
-    }
-
-    dd {
-      font-size: 0.9rem;
+      line-height: 1.2;
     }
 
     ul {
       margin-bottom: 0;
+    }
+
+    p,
+    li {
+      line-height: 1.5;
     }
   }
 
