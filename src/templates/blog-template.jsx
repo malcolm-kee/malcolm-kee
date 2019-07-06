@@ -33,7 +33,7 @@ function AdjacentArticles({ previous, next }) {
   );
 }
 
-export default function Template({ data, pageContext }) {
+export default function BlogTemplate({ data, pageContext }) {
   const {
     mdx: {
       frontmatter: { title, date, tags, keywords, summary, path, lang },

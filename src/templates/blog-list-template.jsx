@@ -8,7 +8,7 @@ import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { PaginationContainer, PaginationItem } from '../components/pagination';
 import { getReadtimeText, createEmptyArray } from '../helper';
 
-const BlogList = ({ data, pageContext: { currentPage, numPages } }) => {
+const BlogListTemplate = ({ data, pageContext: { currentPage, numPages } }) => {
   const { posts } = data.allMdx;
 
   const title =
@@ -109,4 +109,4 @@ export const pageQuery = graphql`
   }
 `;
 
-export default BlogList;
+export default BlogListTemplate;

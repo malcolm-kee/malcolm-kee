@@ -1,3 +1,5 @@
+import { includes } from '../helper';
+
 /**
  * wrap js code with a React component that expose `console.log` and
  * renders the logs
@@ -103,27 +105,24 @@ const isHighlightNextLine = tokens =>
   Array.isArray(tokens) &&
   tokens.some(
     token =>
-      token.types[0] === 'comment' &&
-      (token.content === '// highlight-next-line' ||
-        token.content === '/* highlight-next-line */')
+      includes(token.types, 'comment') &&
+      includes(token.content, 'highlight-next-line')
   );
 
 const isHighlightStart = tokens =>
   Array.isArray(tokens) &&
   tokens.some(
     token =>
-      token.types[0] === 'comment' &&
-      (token.content === '// highlight-start' ||
-        token.content === '/* highlight-start */')
+      includes(token.types, 'comment') &&
+      includes(token.content, 'highlight-start')
   );
 
 const isHighlightEnd = tokens =>
   Array.isArray(tokens) &&
   tokens.some(
     token =>
-      token.types[0] === 'comment' &&
-      (token.content === '// highlight-end' ||
-        token.content === '/* highlight-end */')
+      includes(token.types, 'comment') &&
+      includes(token.content, 'highlight-end')
   );
 
 /**
@@ -133,5 +132,6 @@ const isHighlightEnd = tokens =>
 const findHighlightLineCommentIndex = tokens =>
   tokens.findIndex(
     token =>
-      token.types[0] === 'comment' && token.content === '// highlight-line'
+      includes(token.types, 'comment') &&
+      includes(token.content, 'highlight-line')
   );

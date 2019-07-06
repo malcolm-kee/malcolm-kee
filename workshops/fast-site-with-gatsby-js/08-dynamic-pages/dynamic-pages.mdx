@@ -2,7 +2,7 @@
 title: 'Create Page from Data'
 path: '/fast-site-with-gatsby-js/dynamic-pages'
 description: ''
-section: 'advanced'
+section: 'data in gatsby'
 ---
 
 ## Gatsby APIs
@@ -15,12 +15,166 @@ Gatsby exposes some APIs for you to hook into different lifecycles:
 
 ## Create Pages from Data
 
+### Add Path for Each Markdown Page
+
+```md fileName=blogs/my-first-blog.md
+---
+title: 'My First Blog'
+date: '2019-07-06'
+<!-- highlight-next-line -->
+path: '/my-first-blog'
+---
+
+I'm so happy to write my first blog in Gatsby!
+```
+
+```md fileName=blogs/second-blog.md
+---
+title: 'My Second Blog'
+date: '2019-07-07'
+<!-- highlight-next-line -->
+path: '/second-blog'
+---
+
+This is my second blog.
+
+Cool right?
+```
+
+### Create Template for BlogPost
+
+```bash
+mkdir src/templates
+touch src/templates/blog-template.jsx
+```
+
+```jsx fileName=src/templates/blog-template.jsx
+import React from 'react';
+
+const BlogTemplate = () => {
+  return (
+    <div>
+      <article>
+        <h1>Hello Blog Post!</h1>
+      </article>
+    </div>
+  );
+};
+
+export default BlogTemplate;
+```
+
+### Create Page with Gatsby `createPages` API
+
 ```bash
 touch gatsby-node.js
 ```
 
 ```javascript fileName=gatsby-node.js
+const path = require('path');
+const blogTemplate = path.resolve(
+  __dirname,
+  'src',
+  'templates',
+  'blog-template.jsx'
+);
+
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
+
+  const result = await graphql(`
+    {
+      allMarkdownRemark {
+        edges {
+          node {
+            frontmatter {
+              path
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  result.allMarkdownRemark.edges.forEach(({ node }) => {
+    createPage({
+      path: node.frontmatter.path,
+      component: blogTemplate,
+    });
+  });
+};
+```
+
+## Inject Data in Template
+
+```jsx fileName=src/templates/blog-template.jsx
+import { graphql } from 'gatsby'; // highlight-line
+import React from 'react';
+
+// highlight-start
+const BlogTemplate = ({ data }) => {
+  const post = data.markdownRemark;
+  // highlight-end
+  return (
+    <div>
+      <article>
+        {/* highlight-start */}
+        <h1>{post.frontmatter.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        {/* highlight-end */}
+      </article>
+    </div>
+  );
+};
+
+export default BlogTemplate;
+
+// highlight-start
+export const pageQuery = graphql`
+  query BlogPostById($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      html
+      frontmatter {
+        title
+      }
+    }
+  }
+`;
+// highlight-end
+```
+
+```javascript fileName=gatsby-node.js
+...
+
+exports.createPages = async ({ actions, graphql }) => {
+  const { createPage } = actions;
+
+  const result = await graphql(`
+    {
+      allMarkdownRemark {
+        edges {
+          node {
+            ${/* highlight-next-line */''}
+            id
+            frontmatter {
+              path
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  result.allMarkdownRemark.edges.forEach(({ node }) => {
+    createPage({
+      path: node.frontmatter.path,
+      component: blogTemplate,
+      // highlight-start
+      context: {
+        id: node.id
+      }
+      // highlight-end
+    });
+  });
 };
 ```
