@@ -7,4 +7,20 @@ section: 'advanced'
 
 ## Gatsby APIs
 
+Gatsby exposes some APIs for you to hook into different lifecycles:
+
+- [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/): accessed with `gatsby-node.js` file.
+- [Gatsby Browser APIs](https://www.gatsbyjs.org/docs/browser-apis/): accessed with `gatsby-browser.js` file
+- [Gatsby SSR APIs](https://www.gatsbyjs.org/docs/ssr-apis/): accessed with `gatsby-ssr.js` file
+
 ## Create Pages from Data
+
+```bash
+touch gatsby-node.js
+```
+
+```javascript fileName=gatsby-node.js
+exports.createPages = async ({ actions, graphql }) => {
+  const { createPage } = actions;
+};
+```
