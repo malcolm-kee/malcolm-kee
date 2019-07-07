@@ -57,6 +57,21 @@ However, Gatsby doesn't stop there. As React able to reuse HTML that you have be
 In addition, since Gatsby generates all your contents during build time, it could optimize your site for you with that knowledge:
 
 - resources that are currently not within view (such as image at very bottom of your page) will only be loaded once your user scroll near to that image. (This technique is known as lazy-loading).
-- resources that your user probably need very soon, such as the contents of the page whose link is currently seen by user will be retrieved in the background. This allows your page respond instantly when user interact with your page. (This technique is known as prefetching).
+- resources that your user probably need very soon, such as the contents of the page whose link is currently seen by user will be retrieved in the background. This allows your page respond instantly when user interact with your page. (This technique is known as precaching).
+
+<aside>
+
+Gatsby follows the [PRPL pattern][prpl-pattern] developed by Google:
+
+- **Push** critical resources for the initial URL route
+- **Render** initial route
+- **Pre-cache** remaining routes
+- **Lazy-loadd** and create remaining routes on demand
+
+If you like to read further on the how Gatsby is designed to achieve high performance, [this GitHub issue](gatsby-performance-issue) which is created at the start of Gatsby's 1.0 release will be a good read.
+
+</aside>
 
 [reactdom-server]: https://reactjs.org/docs/react-dom-server.html
+[prpl-pattern]: https://developers.google.com/web/fundamentals/performance/prpl-pattern/
+[gatsby-performance-issue]: https://github.com/gatsbyjs/gatsby/issues/431
