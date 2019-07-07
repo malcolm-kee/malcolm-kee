@@ -1,4 +1,5 @@
 import React from 'react';
+import { useQuery } from 'urql';
 import { getGithubIssueLink } from '../helper';
 import { useRepositoryUrl } from '../hooks/use-repository-url';
 import { Button } from './Button';
@@ -14,25 +15,84 @@ const parseDate = dateString =>
     minute: 'numeric',
   });
 
-export const Comments = ({ comments, articlePath }) => {
-  const repositoryUrl = useRepositoryUrl();
+const getComments = `
+  query GetComments($searchTerm: String!){
+    search(query: $searchTerm, type: ISSUE, first: 10) {
+      nodes {
+        ... on Issue {
+          id
+          url
+          bodyHTML
+          createdAt
+          author {
+            ... on User {
+              name
+            }
+            avatarUrl
+            url
+          }
+          comments(first: 100) {
+            nodes {
+              id
+              bodyHTML
+              createdAt
+              author {
+                ... on User {
+                  name
+                }
+                avatarUrl
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
-  const hasComments = comments.length > 0;
+export const Comments = ({ comments, articlePath, searchTerm }) => {
+  const repositoryUrl = useRepositoryUrl();
+  const [commentsData, setComments] = React.useState(comments);
+
+  const [{ fetching, data }] = useQuery({
+    query: getComments,
+    variables: {
+      searchTerm,
+    },
+    pause: !searchTerm,
+  });
+
+  React.useEffect(() => {
+    if (!fetching && data) {
+      const newComments = data.search.nodes.filter(
+        node => !commentsData.some(comment => comment.id === node.id)
+      );
+
+      if (newComments.length > 0) {
+        setComments(oldComments => newComments.concat(oldComments));
+      }
+    }
+  }, [fetching, data]);
+
+  const hasComments = commentsData.length > 0;
 
   return (
     <section className="article-comments">
       <header className="article-comments-header">Comments</header>
       {hasComments ? (
-        comments.map(({ bodyHTML, id, author, createdAt, url, comments }) => (
-          <Comment
-            bodyHTML={bodyHTML}
-            author={author}
-            createdAt={createdAt}
-            url={url}
-            comments={comments}
-            key={id}
-          />
-        ))
+        commentsData.map(
+          ({ bodyHTML, id, author, createdAt, url, comments }) => (
+            <Comment
+              bodyHTML={bodyHTML}
+              author={author}
+              createdAt={createdAt}
+              url={url}
+              comments={comments}
+              key={id}
+            />
+          )
+        )
       ) : (
         <div className="article-comments-info">
           <p>There is no comment on this post yet.</p>

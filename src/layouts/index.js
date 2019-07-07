@@ -1,11 +1,21 @@
 import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
+import { Provider, createClient } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
 import { FavIcons } from '../components/favicons';
 import { FavIconProvider } from '../hooks/use-favicons';
 import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
 import { WorkshopLayout } from './workshop-layout';
+
+const githubClient = createClient({
+  url: 'https://api.github.com/graphql',
+  fetchOptions: {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    },
+  },
+});
 
 const mdxComponents = {
   code: CodeRenderer,
@@ -28,26 +38,28 @@ const LayoutContainer = ({ children, pageContext, location }) => {
   } = pageContext;
 
   return (
-    <ThemeProvider value={themeValue}>
-      <FavIconProvider value={setIconFolder}>
-        <MDXProvider components={mdxComponents}>
-          <FavIcons iconFolder={favIconFolder} />
-          {isWorkshop ? (
-            <WorkshopLayout
-              workshopTitle={workshopTitle}
-              workshopThemeColor={workshopThemeColor}
-              workshopRoot={`/${workshop}`}
-              workshopSections={lessonGroup}
-              pathname={location.pathname}
-            >
-              {children}
-            </WorkshopLayout>
-          ) : (
-            <Layout isRoot={isRoot}>{children}</Layout>
-          )}
-        </MDXProvider>
-      </FavIconProvider>
-    </ThemeProvider>
+    <Provider value={githubClient}>
+      <ThemeProvider value={themeValue}>
+        <FavIconProvider value={setIconFolder}>
+          <MDXProvider components={mdxComponents}>
+            <FavIcons iconFolder={favIconFolder} />
+            {isWorkshop ? (
+              <WorkshopLayout
+                workshopTitle={workshopTitle}
+                workshopThemeColor={workshopThemeColor}
+                workshopRoot={`/${workshop}`}
+                workshopSections={lessonGroup}
+                pathname={location.pathname}
+              >
+                {children}
+              </WorkshopLayout>
+            ) : (
+              <Layout isRoot={isRoot}>{children}</Layout>
+            )}
+          </MDXProvider>
+        </FavIconProvider>
+      </ThemeProvider>
+    </Provider>
   );
 };
 

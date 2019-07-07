@@ -11,7 +11,13 @@ import './instruction-template.scss';
 
 const InstructionTemplate = ({
   data: { mdx, github },
-  pageContext: { next, workshopTitle, workshopIcon, workshopId },
+  pageContext: {
+    next,
+    workshopTitle,
+    workshopIcon,
+    workshopId,
+    commentsSearch,
+  },
 }) => {
   useFavIcon({
     iconFile: workshopIcon,
@@ -53,6 +59,7 @@ const InstructionTemplate = ({
         <Comments
           comments={github.search.nodes}
           articlePath={mdx.frontmatter.path}
+          searchTerm={commentsSearch}
         />
       </div>
       <div className="instruction-template-report-issue-container">

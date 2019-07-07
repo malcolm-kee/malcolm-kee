@@ -102,7 +102,11 @@ export default function BlogTemplate({ data, pageContext }) {
             </span>
           </div>
         )}
-        <Comments comments={comments} articlePath={path} />
+        <Comments
+          comments={comments}
+          articlePath={path}
+          searchTerm={pageContext.commentsSearch}
+        />
         <AdjacentArticles
           previous={pageContext.previous}
           next={pageContext.next}
