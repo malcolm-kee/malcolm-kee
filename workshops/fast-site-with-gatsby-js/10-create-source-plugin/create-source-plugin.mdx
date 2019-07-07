@@ -5,6 +5,217 @@ description: ''
 section: 'advanced'
 ---
 
-### Creating a Local Plugin
+In this section, we will learn to how to create a source plugin to pull data from REST API that exposes pokemon data: [https://pokemon-json.herokuapp.com/](https://pokemon-json.herokuapp.com/).
 
-### Creating a Source Plugin
+The lesson you learnt here is transerable to any REST API that you created yourself or provided by any third-party.
+
+## Create a Local Plugin
+
+```bash
+mkdir -p plugins/gatsby-source-pokemon
+cd plugins/gatsby-source-pokemon
+npm init --y
+touch gatsby-node.js
+```
+
+```javascript fileName=plugins/gatsby-source-pokemon/gatsby-node.js
+exports.sourceNodes = async ({ reporter }, configOptions) => {
+  reporter.info(`In gatsby-source-pokemon with the following configOptions`);
+  reporter.info(JSON.stringify(configOptions));
+};
+```
+
+```javascript fileName=gatsby-config.js
+module.exports = {
+  plugins: [
+    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'src',
+        path: `${__dirname}/src`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'blogs',
+        path: `${__dirname}/blogs`,
+      },
+    },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 700,
+            },
+          },
+        ],
+      },
+    },
+    'gatsby-plugin-sharp',
+    'gatsby-transfomer-sharp',
+    // highlight-start
+    {
+      resolve: 'gatsby-source-pokemon',
+      options: {
+        x: 'y',
+      },
+    },
+    // highlight-end
+  ],
+};
+```
+
+```bash
+npm start
+```
+
+## Create a Source Plugin
+
+### Retrive data from API
+
+```bash
+cd plugins/gatsby-source-pokemon
+npm i node-fetch
+```
+
+```javascript fileName=plugins/gatsby-source-pokemon/gatsby-node.js
+const fetch = require('node-fetch'); // highlight-line
+
+exports.sourceNodes = async ({ reporter }, configOptions) => {
+  reporter.info(`In gatsby-source-pokemon with the following configOptions`);
+  reporter.info(JSON.stringify(configOptions));
+
+  // highlight-start
+  const pokemons = await fetch(
+    'https://pokemon-json.herokuapp.com/api/pokedex'
+  ).then(res => res.json());
+
+  pokemons.forEach(pokemon => {
+    reporter.info(pokemon);
+  });
+  // highlight-end
+};
+```
+
+### Create a data node
+
+```javascript fileName=plugins/gatsby-source-pokemon/gatsby-node.js
+const fetch = require('node-fetch');
+
+exports.sourceNodes = async (
+  // highlight-next-line
+  { actions, createNodeId, createContentDigest, reporter },
+  configOptions
+) => {
+  const { createNode } = actions; // highlight-line
+
+  reporter.info(`In gatsby-source-pokemon with the following configOptions`);
+  reporter.info(JSON.stringify(configOptions));
+
+  const pokemons = await fetch(
+    'https://pokemon-json.herokuapp.com/api/pokedex'
+  ).then(res => res.json());
+
+  pokemons.forEach(pokemon => {
+    // highlight-start
+    const nodeId = createNodeId(`pokemon-${id}`);
+    const nodeContent = JSON.stringify(pokemon);
+    const nodeData = Object.assign({}, pokemon, {
+      id: nodeId,
+      parent: null,
+      children: [],
+      internal: {
+        type: 'Pokemon',
+        content: nodeContent,
+        contentDigest: createContentDigest(pokemon),
+      },
+    });
+
+    createNode(nodeData);
+    // highlight-end
+  });
+};
+```
+
+You can now query the pokemon data with GraphQL in Gatsby:
+
+```graphql
+{
+  allPokemon {
+    edges {
+      node {
+        id
+        name {
+          english
+        }
+        base {
+          HP
+          Attack
+        }
+        image
+        sprite
+      }
+    }
+  }
+}
+```
+
+### Create a page to display the data
+
+```bash
+touch src/pages/pokemons.js
+```
+
+```jsx fileName=src/pages/pokemon.js
+import { graphql } from 'gatsby';
+import React from 'react';
+
+const AllPokemonsPage = ({ data }) => {
+  const pokemons = data.allPokemon.edges.map(({ node }) => node);
+
+  return (
+    <table>
+      <tbody>
+        {pokemons.map(pokemon => (
+          <tr key={pokemon.id}>
+            <td>
+              <img src={pokemon.sprite} alt={pokemon.name.english} />
+            </td>
+            <td>
+              <p>{pokemon.name.english}</p>
+              <p>Base HP: {pokemon.base.HP}</p>
+              <p>Base Atk: {pokemon.base.Attack}</p>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+export const query = graphql`
+  query AllPokemonQuery {
+    allPokemon {
+      edges {
+        node {
+          id
+          name {
+            english
+          }
+          base {
+            HP
+            Attack
+          }
+          image
+          sprite
+        }
+      }
+    }
+  }
+`;
+```
