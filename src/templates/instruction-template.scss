@@ -94,11 +94,11 @@ $right-nav-offset: 224px;
 
     img[src$='.svg'] {
       display: block;
-      margin: 0 auto;
+      margin: $space * 2 auto;
       max-width: 150px;
 
       &.large-svg {
-        max-width: 95%;
+        max-width: $media-tablet;
       }
 
       &.dark-bg {
