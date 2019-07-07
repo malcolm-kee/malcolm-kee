@@ -66,6 +66,12 @@
         cursor: pointer;
         background: transparent;
         color: inherit;
+
+        &:hover,
+        &:focus {
+          color: $toc-light-selected;
+          color: var(--tocSelected);
+        }
       }
 
       svg {
@@ -107,9 +113,9 @@
   transition: color 300ms ease-in-out, left 500ms ease-in-out;
   left: 0;
 
-  &:hover {
-    color: $toc-light-hover;
-    color: var(--tocHover);
+  &:hover,
+  &:focus {
+    background-color: var(--tocHoverBg);
   }
 
   &::before {
@@ -129,6 +135,7 @@
   &.toc-link--active {
     color: $toc-light-selected;
     color: var(--tocSelected);
+    background-color: transparent;
     left: -$spacing-unit;
 
     &::before {

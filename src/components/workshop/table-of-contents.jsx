@@ -7,10 +7,6 @@ import { ChevronIcon } from '../chevron-icon';
 import './table-of-contents.scss';
 import { ToggleTocBtn } from './toggle-toc-btn';
 
-// TODO: best way to handle tab when the section is collapsed
-// for now we do nothing so that screen reader can tab though the TOC properly
-// with the tradeoff of keyboard user will tab though hidden links :(
-
 export const TableOfContents = ({ pathname, sections, themeColor }) => {
   const [open, setIsOpen] = React.useState(false);
 
@@ -88,7 +84,7 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
   }, [pathname]);
 
   return (
-    <React.Fragment key={title}>
+    <>
       {withSection && (
         <li
           className={joinClassName(
@@ -114,11 +110,12 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
             className="toc-link"
             activeClassName="toc-link--active"
             to={path}
+            onFocus={isActive ? undefined : () => setIsActive(true)}
           >
             {title}
           </Link>
         </li>
       ))}
-    </React.Fragment>
+    </>
   );
 };

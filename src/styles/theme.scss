@@ -10,7 +10,7 @@ body {
     --link: #{$link-light};
     --tocBg: #{$grey-200};
     --tocSelected: #{$toc-light-selected};
-    --tocHover: #{$toc-light-hover};
+    --tocHoverBg: #{$grey-300};
     --highlightedCode: #{$highlighted-code-bg-light};
   }
   &.dark {
@@ -24,7 +24,7 @@ body {
     --link: #{$link-dark};
     --tocBg: #{$grey-dark};
     --tocSelected: #{$toc-dark-selected};
-    --tocHover: #{$toc-dark-hover};
+    --tocHoverBg: #{$grey-700};
     --highlightedCode: #{$highlighted-code-bg-dark};
 
     table,

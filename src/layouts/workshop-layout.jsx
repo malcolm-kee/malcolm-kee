@@ -10,7 +10,7 @@ export const WorkshopLayout = ({
   workshopThemeColor,
   workshopSections,
   pathname,
-  children
+  children,
 }) => (
   <div className="Layout">
     <Seo title={workshopTitle} />
