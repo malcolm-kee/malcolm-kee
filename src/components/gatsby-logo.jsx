@@ -8,7 +8,7 @@ export const GatsbyLogo = () => {
       image: file(relativePath: { eq: "gatsbyjs.png" }) {
         childImageSharp {
           fluid(maxWidth: 250) {
-            ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
