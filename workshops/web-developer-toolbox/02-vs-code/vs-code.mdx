@@ -18,9 +18,9 @@ In this section, we'll going to talk about how to create document with VS Code.
 
 Markdown is a markup language with text formatting syntax. It's the de facto markup language for developer.
 
-* If you go to most repo in [GitHub], the bottom of the repo will display the content of the `README.md` file in the folder.
-* Many form that support rich text editing also supports markup, e.g. Issue and Pull Request form in GitHub, Jira etc.
-* Many tools have been built to support markdown. For instance, this website content is generated with markdown. You can see all the markdown [here][website-repo].
+- If you go to most repo in [GitHub], the bottom of the repo will display the content of the `README.md` file in the folder.
+- Many form that support rich text editing also supports markup, e.g. Issue and Pull Request form in GitHub, Jira etc.
+- Many tools have been built to support markdown. For instance, this website content is generated with markdown. You can see all the markdown [here][website-repo].
 
 You can learn markdown in few minutes. Just go through this [cheatsheet][markdown-cheatsheet] and you're good to go.
 
@@ -35,37 +35,37 @@ To edit and preview a markdown file in VS Code:
 
 ### Emmet
 
-* speed up repetitive typing with `Tab`
-* built into VS Code
-* plugins available for most editors
-* using CSS selectors to generate HTML
-* cursor is usually placed at where you need to typing next
+- speed up repetitive typing with `Tab`
+- built into VS Code
+- plugins available for most editors
+- using CSS selectors to generate HTML
+- cursor is usually placed at where you need to typing next
 
 **span**
 
-```html
+```html noWrapper
 <span></span>
 ```
 
 **span.special**
 
-```html
+```html noWrapper
 <span class="special"></span>
 ```
 
 **.my-class**
 
-```html
+```html noWrapper
 <div class="my-class"></div>
 ```
 
 **section.class-1.class-2#main-section**
 
-```html
+```html noWrapper
 <section class="class-1 class-2" id="main-section"></section>
 ```
 
-* just like in CSS:
+- just like in CSS:
 
 | Selector | Description |
 | -------- | ----------- |
@@ -74,7 +74,7 @@ To edit and preview a markdown file in VS Code:
 
 **ul>li.item**
 
-```html
+```html noWrapper
 <ul>
   <li class="item"></li>
 </ul>
@@ -82,7 +82,7 @@ To edit and preview a markdown file in VS Code:
 
 **.nav+.main-content+.footer**
 
-```html
+```html noWrapper
 <div class="nav"></div>
 <div class="main-content"></div>
 <div class="footer"></div>
@@ -90,7 +90,7 @@ To edit and preview a markdown file in VS Code:
 
 **ul.list>li.item\*5**
 
-```html
+```html noWrapper
 <ul class="list">
   <li class="item"></li>
   <li class="item"></li>
@@ -100,11 +100,13 @@ To edit and preview a markdown file in VS Code:
 </ul>
 ```
 
+<section class="exercise">
+
 ### Exercises
 
 1.  Find from internet the emmet shortcut to generate base html5 structure
 1.  What would be the code for generating the following structure:
-    ```html
+    ```html noWrapper
     <div>
       <ul>
         <li></li>
@@ -115,7 +117,7 @@ To edit and preview a markdown file in VS Code:
     ```
 1.  What would be the code for generating a table with 10 rows and 2 columns?
 1.  Create a code for generating the following structure:
-    ```html
+    ```html noWrapper
     <html>
       <head>
         <title></title>
@@ -124,39 +126,45 @@ To edit and preview a markdown file in VS Code:
     </html>
     ```
 
+</section>
+
 ## Editing Document
 
 This section describes the tricks and tips that you would find useful when editing code in VS Code.
 
 ### Go To
 
-* You can open any file by its name when you type `Ctrl+P` (Quick Open).
+- You can open any file by its name when you type `Ctrl+P` (Quick Open).
 
   ![After type Ctrl+P, type the file name to show the available files in your project](quick-open.png)
 
-* Hold `Ctrl` and press `Tab` to view a list of all files open in an editor group. To open one of these files, use `Tab` again to pick the file you want to navigate to, then release `Ctrl` to open it.
+- Hold `Ctrl` and press `Tab` to view a list of all files open in an editor group. To open one of these files, use `Tab` again to pick the file you want to navigate to, then release `Ctrl` to open it.
 
-* You can navigate symbols inside a file with `Ctrl+Shift+O` or `Ctrl+P` and type `@`.
+- You can navigate symbols inside a file with `Ctrl+Shift+O` or `Ctrl+P` and type `@`.
 
   ![Go to Symbol](go-to-symbol.png)
 
-* You can go to the definition of a symbol by pressing `F12` or with `Ctrl+Click`.
+- You can go to the definition of a symbol by pressing `F12` or with `Ctrl+Click`.
 
 ### Multi-Cursor & Line Manipulation
 
-* Holding `Alt` and click on a position create multiple cursors that you can type at the same time.
+- Holding `Alt` and click on a position create multiple cursors that you can type at the same time.
 
-> Tips: If you click wrongly, you can press `Ctrl+U` to undo last selection.
+<aside>
 
-* Use `Ctrl+D` to select next occurrence. Similar to `Alt+Click`, you can use `Ctrl+U` to skip specific occurrence.
-* Holding `Alt+Shift` while dragging allows you to create multi cursor across line.
-* All multi cursor selections above enable powerful refactoring or code transforming, because each of it has its own clipboard instance.
+Tips: If you click wrongly, you can press `Ctrl+U` to undo last selection.
+
+</aside>
+
+- Use `Ctrl+D` to select next occurrence. Similar to `Alt+Click`, you can use `Ctrl+U` to skip specific occurrence.
+- Holding `Alt+Shift` while dragging allows you to create multi cursor across line.
+- All multi cursor selections above enable powerful refactoring or code transforming, because each of it has its own clipboard instance.
 
 ### Renaming
 
-* Level 1: Find and Replace
-* Level 2: Multi select (`Ctrl+D`) and change
-* Level 3: `F2` rename
+- Level 1: Find and Replace
+- Level 2: Multi select (`Ctrl+D`) and change
+- Level 3: `F2` rename
 
 When you use `F2` to rename, VS Code would actually try to analyze your code to find where the rename should be performed as well.
 
@@ -176,12 +184,20 @@ Example:
 }
 ```
 
+<section class="exercise">
+
 ### Exercise
 
 1.  Use multi-cursor to create an array of object with properties `name` and `age`, based on the data of the table [here](https://gist.github.com/malcolm-kee/d92e8b60ce1369eadc06b7e6f9a88b70#file-multi-cursor-html).
 1.  Use VS Code rename to rename the function `add` to `totalUp` in this [javascript file](https://gist.github.com/malcolm-kee/d92e8b60ce1369eadc06b7e6f9a88b70#file-rename-function-js).
 
-> Credit: Emmet exercises adapted from [this gist](https://gist.github.com/cirops/4715058)
+<aside>
+
+Credit: Emmet exercises adapted from [this gist](https://gist.github.com/cirops/4715058)
+
+</aside>
+
+</section>
 
 [vs-code]: https://code.visualstudio.com/
 [github]: https://github.com/
