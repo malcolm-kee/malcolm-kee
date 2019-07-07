@@ -22,25 +22,41 @@ Gatsby works at two phases: build time and run time.
 
 ## Build Time
 
-Source Plugin
+In modern frontend application development, _build_ is generally known as the process of translating your source code to efficient HTML/CSS/JS output that could be read and run by browser of your users.
+
+<img
+  src="webpack-viz.svg"
+  class="large-svg dark-bg"
+  alt="Modern bundling tools like webpack transform your source code from different format and language to files that browser can understand"
+/>
+
+Gatsby takes this concept further and includes data fetching and transformation in the build process, which are achived by source plugins and transformer plugins respectively.
+
+Source plugins "sources" data from remote or local locations, such as
 
 - API (REST/GraphQL)
 - filesystems
 - database
 
-Transformer Plugin
+Gatsby has rich plugin libraries that may already able to source the data source that you need, such as [Wordpress](https://www.gatsbyjs.org/packages/gatsby-source-wordpress/), [Shopify](https://www.gatsbyjs.org/packages/gatsby-source-shopify), and [MySQL Database](https://www.gatsbyjs.org/packages/gatsby-source-mysql) (which is maintained by yours truly).
 
-- parsing/transformation
-- optimization
+If your data is a custom API that is developed and only used by your team, it's not hard to [create a custom source plugin](/fast-site-with-gatsby-js/create-source-plugin) too!
 
-GraphQL to pull those data as props of React components
+Once you get the data via source plugins, you may want to do additional transformation such as converting to different format or optimization, which is achieved by adding transformer plugin to your Gatsby site.
 
-Prerender and generate html, images, sitemap etc.
+The result of the data sourcing and transformation is a GraphQL schema that you can used to inject the data into your React components.
+
+Since all data are available in build time, Gatsby will run through the whole process and generate static assets which you can host easily.
 
 ## Run Time
 
-Serve the pre-render html and then hydrate it
+Whenever your user visit your sites, your static assets with the data and contents injected will be returned to their browser, which make your page fast.
 
-Prefetching
+However, Gatsby doesn't stop there. As React able to reuse HTML that you have been generated with [its API][reactdom-server], the site will be "hydrated" into a React application once all the js files are downloaded by the browser, which means your Gatsby site can be as dynamic and powerful like any React application.
 
-Lazy Loading
+In addition, since Gatsby generates all your contents during build time, it could optimize your site for you with that knowledge:
+
+- resources that are currently not within view (such as image at very bottom of your page) will only be loaded once your user scroll near to that image. (This technique is known as lazy-loading).
+- resources that your user probably need very soon, such as the contents of the page whose link is currently seen by user will be retrieved in the background. This allows your page respond instantly when user interact with your page. (This technique is known as prefetching).
+
+[reactdom-server]: https://reactjs.org/docs/react-dom-server.html

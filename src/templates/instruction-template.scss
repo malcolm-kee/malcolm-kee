@@ -96,6 +96,14 @@ $right-nav-offset: 224px;
       display: block;
       margin: 0 auto;
       max-width: 150px;
+
+      &.large-svg {
+        max-width: 95%;
+      }
+
+      &.dark-bg {
+        background-color: $bg-color-dark;
+      }
     }
 
     img.gatsby-resp-image-image {
