@@ -7,4 +7,123 @@ section: 'advanced'
 
 ## Use Gatsby Image in React Component
 
+```bash
+npm i gatsby-image gatsby-transfomer-sharp gatsby-plugin-sharp
+```
+
+```javascript fileName=gatsby-config.js
+module.exports = {
+  plugins: [
+    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'src',
+        path: `${__dirname}/src`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'blogs',
+        path: `${__dirname}/blogs`,
+      },
+    },
+    'gatsby-transformer-remark',
+    // highlight-start
+    'gatsby-plugin-sharp',
+    'gatsby-transfomer-sharp',
+    // highlight-end
+  ],
+};
+```
+
+```bash
+mkdir src/images
+```
+
+Copy your photo into the images folder and name it as `my-image.jpg`.
+
+```jsx fileName=src/pages/index.js
+import { graphql } from 'gatsby';
+import Image from 'gatsby-image';
+import React from 'react';
+
+const HomePage = ({ data }) => {
+  const metadata = data.site.siteMetadata;
+  const imageData = data.file.childImageSharp;
+
+  return (
+    <div>
+      <h1>Welcome to {metadata.title}</h1>
+      <p>{metadata.description}</p>
+      <Image fluid={imageData.fluid} alt="Photo of Me" />
+    </div>
+  );
+};
+
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
+    ${/* highlight-start */ ''}
+    file(relativePath: { eq: "images/my-image.jpg" }) {
+        childImageSharp {
+            fluid(maxWidth: 500) {
+                ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    ${/* highlight-end */ ''}
+  }
+`;
+```
+
 ## Use Gatsby Image in Markdown
+
+```bash
+npm i gatsby-remark-images
+```
+
+```javascript fileName=gatsby-config.js
+module.exports = {
+  plugins: [
+    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'src',
+        path: `${__dirname}/src`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'blogs',
+        path: `${__dirname}/blogs`,
+      },
+    },
+    // highlight-start
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 700
+            }
+          }
+        ]
+      }
+    }
+    // highlight-end
+    'gatsby-plugin-sharp',
+    'gatsby-transfomer-sharp',
+  ],
+};
+```

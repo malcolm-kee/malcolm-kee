@@ -41,7 +41,24 @@ query {
 Export a constant that use `graphql` function from `gatsby` in your page.
 
 ```jsx fileName=src/pages/index.js
-...
+import { graphql } from 'gatsby'; // highlight-line
+import React from 'react';
+
+// highlight-next-line
+const HomePage = ({ data }) => {
+  const metadata = data.site.siteMetadata; // highlight-line
+
+  return (
+    <div>
+      {/* highlight-start */}
+      <h1>Welcome to {metadata.title}</h1>
+      <p>{metadata.description}</p>
+      {/* highlight-end */}
+    </div>
+  );
+};
+
+// highlight-start
 export const query = graphql`
   query HomePageQuery {
     site {
@@ -52,6 +69,7 @@ export const query = graphql`
     }
   }
 `;
+// highlight-end
 ```
 
 ### With Static Query
