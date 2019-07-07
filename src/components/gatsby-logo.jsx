@@ -15,5 +15,5 @@ export const GatsbyLogo = () => {
     }
   `);
 
-  return <Image fluid={data.image.childImageSharp.fluid} />;
+  return <Image fluid={data.image.childImageSharp.fluid} alt="Gatsby Logo" />;
 };

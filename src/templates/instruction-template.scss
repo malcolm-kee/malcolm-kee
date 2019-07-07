@@ -112,6 +112,11 @@ $right-nav-offset: 224px;
       box-shadow: var(--bg) 0px 0px 0px 400px inset !important;
     }
 
+    .logo-container {
+      width: 200px;
+      margin: 0 auto;
+    }
+
     .code-editor,
     .code-snippet {
       break-inside: avoid;
