@@ -12,7 +12,7 @@ const githubClient = createClient({
   url: 'https://api.github.com/graphql',
   fetchOptions: {
     headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${process.env.GATSBY_GITHUB_TOKEN}`,
     },
   },
 });
