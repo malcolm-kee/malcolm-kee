@@ -70,7 +70,7 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
       );
 
       if (newComments.length > 0) {
-        setComments(oldComments => newComments.concat(oldComments));
+        setComments(oldComments => oldComments.concat(newComments));
       }
     }
   }, [fetching, data]);
