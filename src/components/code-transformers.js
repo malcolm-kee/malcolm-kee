@@ -51,8 +51,9 @@ export const wrapJsCode = code => `
  * - highlight-end
  * - hightlight-line
  * @param {Array} tokens
+ * @param {Array<number>} highlightedLineIndexes
  */
-export function transformTokens(tokens) {
+export function transformTokens(tokens, highlightedLineIndexes) {
   const results = [];
   let keepHighlighting = false;
 
@@ -89,6 +90,7 @@ export function transformTokens(tokens) {
         const highlightCurrentLine =
           keepHighlighting ||
           !!(prevLine && prevLine.isNextLineHighlighted) ||
+          includes(highlightedLineIndexes, index) ||
           highlightLineCommentIndex !== -1;
 
         results.push({

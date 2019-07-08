@@ -7,7 +7,7 @@
     "start": "npm run dev",
     "build:site": "gatsby build",
     "clean": "gatsby clean",
-    "dev": "gatsby develop",
+    "dev": "gatsby develop -p 8888",
     "serve": "gatsby serve",
     "format": "prettier --write 'src/**/*.js'",
     "build:lambda": "netlify-lambda build lambda",

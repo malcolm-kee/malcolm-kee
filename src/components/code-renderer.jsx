@@ -18,6 +18,7 @@ export const CodeRenderer = ({
   noInline,
   noWrapper,
   fileName,
+  highlightedLines,
 }) => {
   const language = className && className.split('-').pop();
 
@@ -40,6 +41,7 @@ export const CodeRenderer = ({
       theme={theme}
       fileName={fileName}
       noWrapper={noWrapper}
+      highlightedLines={highlightedLines}
     />
   ) : (
     <code className="language-text">{children}</code>
@@ -139,28 +141,36 @@ const CodeSnippet = React.memo(function CodeSnippetComponent({
   theme,
   fileName,
   noWrapper,
+  highlightedLines,
 }) {
+  const lineIndexesToHighlight =
+    typeof highlightedLines === 'string'
+      ? highlightedLines.split(',').map(num => Number(num) - 1)
+      : [];
+
   const highlightedCode = (
     <Highlight {...defaultProps} theme={theme} code={code} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
-          {transformTokens(tokens).map(({ line, isHighlighted }, i) => {
-            return (
-              <div
-                {...getLineProps({
-                  line,
-                  key: i,
-                  className: isHighlighted
-                    ? 'highlighted-code-line'
-                    : undefined,
-                })}
-              >
-                {line.map((token, key) => {
-                  return <span {...getTokenProps({ token, key })} />;
-                })}
-              </div>
-            );
-          })}
+          {transformTokens(tokens, lineIndexesToHighlight).map(
+            ({ line, isHighlighted }, i) => {
+              return (
+                <div
+                  {...getLineProps({
+                    line,
+                    key: i,
+                    className: isHighlighted
+                      ? 'highlighted-code-line'
+                      : undefined,
+                  })}
+                >
+                  {line.map((token, key) => {
+                    return <span {...getTokenProps({ token, key })} />;
+                  })}
+                </div>
+              );
+            }
+          )}
         </pre>
       )}
     </Highlight>

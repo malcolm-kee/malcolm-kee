@@ -11,7 +11,28 @@ section: 'building blocks'
 mkdir learn-gatsby
 cd learn-gatsby
 npm init --y
-npm i react react-dom gatsby
+npm install react react-dom gatsby
+```
+
+- `mkdir` is the command to create a folder in bash command prompt. It's equivalent to right click on File Explorer > New Folder.
+- `cd` is change directory. `cd learn-gatsby` is equivalent to double click the "learn-gatsby" folder.
+- `npm init` is an utility command to start a new projects, which is actually creating a `package.json` file in current folder. By default it will ask you few questions that you need to reply one-by-one, but I am lazy and add the `--y` flag to automatically answer `Yes` for all the questions.
+- Finally, `npm install` is used to install third-party libraries for your project. It will download the libraries and put them in `node_modules` folder and add the libraries' name and version in the `package.json` file.
+
+```bash
+touch .gitignore
+```
+
+```text fileName=.gitignore
+.cache
+node_modules
+/public
+```
+
+```bash
+git init
+git add .
+git commit -m "initial commit"
 ```
 
 ## Create First Page
@@ -21,7 +42,46 @@ mkdir -p src/pages
 touch src/pages/index.js
 ```
 
-![Components are main building blocks of a Gatsby site](gatsbyjs-overview-highlight-component.png)
+```jsx fileName=src/pages/index.js
+import React from 'react';
+
+const HomePage = () => {
+  return (
+    <div>
+      <h1>Welcome to Malcolm Kee's Website</h1>
+      <p>crafted with tears and love.</p>
+    </div>
+  );
+};
+
+export default HomePage;
+```
+
+```json fileName=package.json highlightedLines=7
+{
+  "name": "learn-gatsby",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "gatsby develop"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gatsby": "^2.13.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
+```
+
+```bash
+npm start
+```
+
+Open [localhost:8000](http://localhost:8000) and you should able to see your page. Try to edit the content and see how the content is updated instantly.
 
 ## Create Not Found Page
 
@@ -30,6 +90,8 @@ touch src/pages/404.js
 ```
 
 ## Use React Components to Compose Your Page
+
+![Components are main building blocks of a Gatsby site](gatsbyjs-overview-highlight-component.png)
 
 Header Component
 
