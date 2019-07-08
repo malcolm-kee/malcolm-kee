@@ -15,30 +15,26 @@ function getBody(event: APIGatewayEvent) {
 export const handler: Handler = async (event: APIGatewayEvent) => {
   const body = getBody(event);
   const commitUrl = body && body.payload && body.payload.commit_url;
-  console.log('===body===');
-  console.log(body);
-  console.log('===body===');
 
   try {
     await sendMessage(
       `*Deploy Success*
       [malcolmkee.com](https://malcolmkee.com) has been deployed successfully!
-      [Commit that triggers the deploy](${commitUrl})
-      `,
+      ${commitUrl ? `[Commit that triggers the deploy](${commitUrl})` : ''}`,
       {
-        format: 'Markdown'
+        format: 'Markdown',
       }
     );
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Deploy Successful!' })
+      body: JSON.stringify({ message: 'Deploy Successful!' }),
     };
   } catch (e) {
     console.log(e);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Internal Server Error', error: e })
+      body: JSON.stringify({ message: 'Internal Server Error', error: e }),
     };
   }
 };

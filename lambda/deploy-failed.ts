@@ -15,16 +15,12 @@ function getBody(event: APIGatewayEvent) {
 export const handler: Handler = async (event: APIGatewayEvent) => {
   const body = getBody(event);
   const commitUrl = body && body.payload && body.payload.commit_url;
-  console.log('===body===');
-  console.log(body);
-  console.log('===body===');
 
   try {
     await sendMessage(
       `*Deploy Failure*
       [malcolmkee.com](https://malcolmkee.com) having problem to deploy!
-      [Commit that is causing the issue](${commitUrl})
-      `,
+      ${commitUrl ? `[Commit that causing the problem](${commitUrl})` : ''}`,
       {
         format: 'Markdown',
       }
