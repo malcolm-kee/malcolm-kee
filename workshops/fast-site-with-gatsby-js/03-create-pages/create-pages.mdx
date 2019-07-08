@@ -11,13 +11,58 @@ section: 'building blocks'
 mkdir learn-gatsby
 cd learn-gatsby
 npm init --y
-npm install react react-dom gatsby
 ```
 
 - `mkdir` is the command to create a folder in bash command prompt. It's equivalent to right click on File Explorer > New Folder.
 - `cd` is change directory. `cd learn-gatsby` is equivalent to double click the "learn-gatsby" folder.
 - `npm init` is an utility command to start a new projects, which is actually creating a `package.json` file in current folder. By default it will ask you few questions that you need to reply one-by-one, but I am lazy and add the `--y` flag to automatically answer `Yes` for all the questions.
-- Finally, `npm install` is used to install third-party libraries for your project. It will download the libraries and put them in `node_modules` folder and add the libraries' name and version in the `package.json` file.
+
+You should see a `package.json` created in learn-gatsby folder.
+
+```json fileName=package.json
+{
+  "name": "learn-gatsby",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+Now let's install the libraries we need:
+
+```bash
+npm install react react-dom gatsby
+```
+
+- `npm install` installs third-party libraries for your project. It will download the libraries and put them in `node_modules` folder and add the libraries' name and version in the `package.json` file.
+
+```json fileName=package.json highlightedLines=12,13,14,15,16
+{
+  "name": "learn-gatsby",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gatsby": "^2.13.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
+```
+
+Next, let's setup our repository so we can properly record our changes and push it to GitHub.
 
 ```bash
 touch .gitignore
