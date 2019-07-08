@@ -173,7 +173,11 @@ touch src/components/layout.jsx
 import React from 'react';
 
 export const Header = () => {
-  return <header>Malcolm Kee</header>;
+  return (
+    <header className="header">
+      <div className="header-container">Malcolm Kee</div>
+    </header>
+  );
 };
 ```
 
@@ -185,7 +189,7 @@ export const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      {children}
+      <main className="layout-container">{children}</main>
     </>
   );
 };
@@ -228,6 +232,64 @@ const NotFoundPage = () => {
 
 export default NotFoundPage;
 ```
+
+### Add Styles
+
+```bash
+touch src/components/header.css
+touch src/components/layout.css
+```
+
+```css fileName=header.css
+.header {
+  background-color: rgb(102, 51, 153);
+  color: #fff;
+}
+
+.header-container {
+  font-size: 3rem;
+  padding: 8px;
+  margin: 0 auto;
+  max-width: 1020px;
+}
+```
+
+```jsx fileName=src/components/header.jsx
+import React from 'react';
+import './header.css'; // highlight-line
+
+export const Header = () => {
+  return (
+    <header className="header">
+      <div className="header-container">Malcolm Kee</div>
+    </header>
+  );
+};
+```
+
+```css fileName=layout.css
+.layout-container {
+  margin: 0 auto;
+  max-width: 1020px;
+}
+```
+
+```jsx fileName=src/components/layout.jsx
+import React from 'react';
+import { Header } from './header';
+import './layout.css'; // highlight-line
+
+export const Layout = ({ children }) => {
+  return (
+    <>
+      <Header />
+      <main className="layout-container">{children}</main>
+    </>
+  );
+};
+```
+
+### Commit Changes
 
 ```bash
 git add .
