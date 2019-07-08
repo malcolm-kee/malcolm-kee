@@ -60,7 +60,7 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
     variables: {
       searchTerm,
     },
-    pause: !searchTerm,
+    pause: typeof window === 'undefined' || !searchTerm, // do not make query during SSR because fetch is not available
   });
 
   React.useEffect(() => {
