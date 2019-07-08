@@ -15,6 +15,9 @@ function getBody(event: APIGatewayEvent) {
 export const handler: Handler = async (event: APIGatewayEvent) => {
   const body = getBody(event);
   const commitUrl = body && body.payload && body.payload.commit_url;
+  console.log('===body===');
+  console.log(body);
+  console.log('===body===');
 
   try {
     await sendMessage(

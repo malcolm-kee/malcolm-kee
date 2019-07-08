@@ -15,6 +15,9 @@ function getBody(event: APIGatewayEvent) {
 export const handler: Handler = async (event: APIGatewayEvent) => {
   const body = getBody(event);
   const commitUrl = body && body.payload && body.payload.commit_url;
+  console.log('===body===');
+  console.log(body);
+  console.log('===body===');
 
   try {
     await sendMessage(
@@ -23,19 +26,19 @@ export const handler: Handler = async (event: APIGatewayEvent) => {
       [Commit that is causing the issue](${commitUrl})
       `,
       {
-        format: 'Markdown'
+        format: 'Markdown',
       }
     );
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Deploy Fail!' })
+      body: JSON.stringify({ message: 'Deploy Fail!' }),
     };
   } catch (e) {
     console.log(e);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Internal Server Error', error: e })
+      body: JSON.stringify({ message: 'Internal Server Error', error: e }),
     };
   }
 };
