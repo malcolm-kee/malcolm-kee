@@ -9,9 +9,19 @@ section: 'building blocks'
 
 ![Plugins can be used to enhance build process of Gatsby](gatsbyjs-overview-highlight-build.png)
 
+Gatsby plugins are how we customize Gatsby site to fit our specific use case.
+
+Gatsby plugins can:
+
+- add external data or content (this kind of plugin is known as source plugin, which will be covered [later](/fast-site-with-gatsby-js/source-plugin))
+- transform data (this kind of plugin is known as transformer plugin, which will also be covered [later](/fast-site-with-gatsby-js/transformer-plugin))
+- customize the build process (what we will do now)
+
+In this exercise, we're going to configure our Gatsby to process [Sass].
+
 ```bash
 touch gatsby-config.js
-npm i node-sass gatsby-plugin-sass
+npm install node-sass gatsby-plugin-sass
 ```
 
 ```javascript fileName=gatsby-config.js
@@ -21,13 +31,13 @@ module.exports = {
 ```
 
 ```bash
-touch src/pages/index.scss
+touch src/_constants.scss
 ```
 
-```scss
+```scss fileName=src/_constants.scss
 $space: 8px;
-
-body {
-    padding: $space $space * 2;
-}
+$primary-color: rgb(102, 51, 153);
+$max-width: 1020px;
 ```
+
+[sass]: https://sass-lang.com/
