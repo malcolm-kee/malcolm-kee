@@ -15,8 +15,8 @@
     "build": "gatsby build && netlify-lambda build lambda",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "test:e2e": "start-server-and-test dev http://localhost:8000 cy:open",
-    "test:e2e:ci": "start-server-and-test dev http://localhost:8000 cy:run"
+    "test:e2e": "start-server-and-test dev http://localhost:8888 cy:open",
+    "test:e2e:ci": "start-server-and-test dev http://localhost:8888 cy:run"
   },
   "dependencies": {
     "@mdx-js/mdx": "^1.0.20",
