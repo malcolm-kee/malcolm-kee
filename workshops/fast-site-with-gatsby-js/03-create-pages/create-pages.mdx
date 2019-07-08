@@ -37,6 +37,8 @@ git commit -m "initial commit"
 
 ## Create First Page
 
+![Components are main building blocks of a Gatsby site](gatsbyjs-overview-highlight-component.png)
+
 ```bash
 mkdir -p src/pages
 touch src/pages/index.js
@@ -83,19 +85,109 @@ npm start
 
 Open [localhost:8000](http://localhost:8000) and you should able to see your page. Try to edit the content and see how the content is updated instantly.
 
+```bash
+git add .
+git commit -m "add home page"
+```
+
 ## Create Not Found Page
 
 ```bash
 touch src/pages/404.js
 ```
 
+```jsx fileName=src/pages/404.js
+import React from 'react';
+
+const NotFoundPage = () => {
+  return (
+    <div>
+      <h1>Page Not Found</h1>
+      <p>Man... I'm sorry for you</p>
+    </div>
+  );
+};
+
+export default NotFoundPage;
+```
+
+```bash
+git add .
+git commit -m "add not found page"
+```
+
 ## Use React Components to Compose Your Page
 
-![Components are main building blocks of a Gatsby site](gatsbyjs-overview-highlight-component.png)
+```bash
+mkdir src/components
+touch src/components/header.jsx
+touch src/components/layout.jsx
+```
 
-Header Component
+```jsx fileName=src/components/header.jsx
+import React from 'react';
 
-Layout Component
+export const Header = () => {
+  return <header>Malcolm Kee</header>;
+};
+```
+
+```jsx fileName=src/components/layout.jsx
+import React from 'react';
+import { Header } from './header';
+
+export const Layout = ({ children }) => {
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  );
+};
+```
+
+Then use the `Layout` component in both our home page and not found page:
+
+```jsx fileName=src/pages/index.js
+import React from 'react';
+import { Layout } from '../components/layout'; // highlight-line
+
+const HomePage = () => {
+  return (
+    //   highlight-next-line
+    <Layout>
+      <h1>Welcome to Malcolm Kee's Website</h1>
+      <p>crafted with tears and love.</p>
+      {/* highlight-next-line */}
+    </Layout>
+  );
+};
+
+export default HomePage;
+```
+
+```jsx fileName=src/pages/404.js
+import React from 'react';
+import { Layout } from '../components/layout'; // highlight-line
+
+const NotFoundPage = () => {
+  return (
+    // highlight-next-line
+    <Layout>
+      <h1>Page Not Found</h1>
+      <p>Man... I'm sorry for you</p>
+      {/* highlight-next-line */}
+    </Layout>
+  );
+};
+
+export default NotFoundPage;
+```
+
+```bash
+git add .
+git commit -m "add layout component"
+```
 
 ## Linking Pages
 
