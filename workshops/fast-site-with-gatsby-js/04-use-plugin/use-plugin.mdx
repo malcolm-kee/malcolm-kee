@@ -32,12 +32,40 @@ module.exports = {
 
 ```bash
 touch src/_constants.scss
+mv src/components/header.css src/components/header.scss
+mv src/components/layout.css src/components/layout.scss
 ```
 
 ```scss fileName=src/_constants.scss
 $space: 8px;
 $primary-color: rgb(102, 51, 153);
 $max-width: 1020px;
+```
+
+```scss fileName=src/components/header.scss
+@import '../constants'; // highlight-line
+
+.header {
+  background-color: $primary-color; // highlight-line
+  color: #fff;
+
+  // highlight-next-line
+  &-container {
+    font-size: 3rem;
+    padding: $space; // highlight-line
+    margin: 0 auto;
+    max-width: $max-width; // highlight-line
+  }
+}
+```
+
+```scss fileName=src/components/layout.scss
+@import '../constants'; // highlight-line
+
+.layout-container {
+  margin: 0 auto;
+  max-width: $max-width; // highlight-line
+}
 ```
 
 [sass]: https://sass-lang.com/
