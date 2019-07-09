@@ -46,19 +46,21 @@ Copy your photo into the images folder and name it as `my-image.jpg`.
 
 ```jsx fileName=src/pages/index.js
 import { graphql } from 'gatsby';
-import Image from 'gatsby-image';
+import Image from 'gatsby-image'; // highlight-line
 import React from 'react';
+import { Layout } from '../components/layout';
 
 const HomePage = ({ data }) => {
   const metadata = data.site.siteMetadata;
-  const imageData = data.file.childImageSharp;
+  const imageData = data.file.childImageSharp; // highlight-line
 
   return (
-    <div>
-      <h1>Welcome to {metadata.title}</h1>
+    <Layout>
+      <h1>Welcome to {metadata.title}'s Website</h1>
       <p>{metadata.description}</p>
+      {/* highlight-next-line */}
       <Image fluid={imageData.fluid} alt="Photo of Me" />
-    </div>
+    </Layout>
   );
 };
 

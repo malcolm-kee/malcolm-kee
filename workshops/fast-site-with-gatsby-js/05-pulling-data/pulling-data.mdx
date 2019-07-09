@@ -66,18 +66,19 @@ Export a constant that use `graphql` function from `gatsby` in your page.
 ```jsx fileName=src/pages/index.js
 import { graphql } from 'gatsby'; // highlight-line
 import React from 'react';
+import { Layout } from '../components/layout';
 
 // highlight-next-line
 const HomePage = ({ data }) => {
   const metadata = data.site.siteMetadata; // highlight-line
 
   return (
-    <div>
+    <Layout>
       {/* highlight-start */}
       <h1>Welcome to {metadata.title}'s Website</h1>
       <p>{metadata.description}</p>
       {/* highlight-end */}
-    </div>
+    </Layout>
   );
 };
 
@@ -102,6 +103,7 @@ Using `useStaticQuery` custom hooks from `gatsby` in any React component.
 ```jsx fileName=src/components/header.jsx
 import { graphql, useStaticQuery } from 'gatsby'; // highlight-line
 import React from 'react';
+import './header.scss';
 
 export const Header = () => {
   // highlight-start

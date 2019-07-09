@@ -59,6 +59,19 @@ $max-width: 1020px;
 }
 ```
 
+```jsx fileName=src/components/header.jsx
+import React from 'react';
+import './header.scss'; // highlight-line
+
+export const Header = () => {
+  return (
+    <header className="header">
+      <div className="header-container">Malcolm Kee</div>
+    </header>
+  );
+};
+```
+
 ```scss fileName=src/components/layout.scss
 @import '../constants'; // highlight-line
 
@@ -66,6 +79,21 @@ $max-width: 1020px;
   margin: 0 auto;
   max-width: $max-width; // highlight-line
 }
+```
+
+```jsx fileName=src/components/layout.jsx
+import React from 'react';
+import { Header } from './header';
+import './layout.scss'; // highlight-line
+
+export const Layout = ({ children }) => {
+  return (
+    <>
+      <Header />
+      <main className="layout-container">{children}</main>
+    </>
+  );
+};
 ```
 
 [sass]: https://sass-lang.com/

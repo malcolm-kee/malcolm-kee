@@ -35,10 +35,11 @@ module.exports = {
 ```jsx fileName=src/pages/all-code.js
 import { graphql } from 'gatsby';
 import React from 'react';
+import { Layout } from '../components/layout';
 
 const AllCodePage = ({ data }) => {
   return (
-    <div>
+    <Layout>
       <table>
         <thead>
           <tr>
@@ -59,7 +60,7 @@ const AllCodePage = ({ data }) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </Layout>
   );
 };
 

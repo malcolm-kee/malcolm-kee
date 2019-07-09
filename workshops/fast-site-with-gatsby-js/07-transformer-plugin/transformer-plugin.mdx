@@ -93,10 +93,11 @@ touch src/pages/blogs.js
 ```jsx fileName=src/pages/blogs.js
 import { graphql } from 'gatsby';
 import React from 'react';
+import { Layout } from '../components/layout';
 
 const BlogsPage = ({ data }) => {
   return (
-    <div>
+    <Layout>
       <h1>Blogs</h1>
       <p>{data.allMarkdownRemark.totalCount} posts</p>
       {data.allMarkdownRemark.edges.map(({ node }) => (
@@ -106,7 +107,7 @@ const BlogsPage = ({ data }) => {
           </h3>
         </div>
       ))}
-    </div>
+    </Layout>
   );
 };
 

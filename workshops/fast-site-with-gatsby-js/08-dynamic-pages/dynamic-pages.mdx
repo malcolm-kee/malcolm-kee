@@ -50,14 +50,15 @@ touch src/templates/blog-template.jsx
 
 ```jsx fileName=src/templates/blog-template.jsx
 import React from 'react';
+import { Layout } from '../components/layout';
 
 const BlogTemplate = () => {
   return (
-    <div>
+    <Layout>
       <article>
         <h1>Hello Blog Post!</h1>
       </article>
-    </div>
+    </Layout>
   );
 };
 
@@ -110,20 +111,21 @@ exports.createPages = async ({ actions, graphql }) => {
 ```jsx fileName=src/templates/blog-template.jsx
 import { graphql } from 'gatsby'; // highlight-line
 import React from 'react';
+import { Layout } from '../components/layout';
 
 // highlight-start
 const BlogTemplate = ({ data }) => {
   const post = data.markdownRemark;
   // highlight-end
   return (
-    <div>
+    <Layout>
       <article>
         {/* highlight-start */}
         <h1>{post.frontmatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         {/* highlight-end */}
       </article>
-    </div>
+    </Layout>
   );
 };
 
