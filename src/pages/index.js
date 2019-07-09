@@ -3,7 +3,6 @@ import React from 'react';
 import { ContactForm } from '../components/ContactForm';
 import { LandingPageHeader } from '../components/LandingPageHeader';
 import { OutLink } from '../components/OutLink';
-import { Typography } from '../components/Typography';
 import './index.scss';
 
 const LandingPageSection = ({ children }) => (
@@ -16,19 +15,19 @@ const IndexPage = () => (
     <main className="landing-page-content">
       <LandingPageSection>
         <h2>About</h2>
-        <Typography>
+        <p className="v-space">
           Malcolm Kee is a frontend engineer making web applications and enjoy
           doing it.
-        </Typography>
-        <Typography>
+        </p>
+        <p className="v-space">
           He conducted workshops in{' '}
           <OutLink href="https://www.meetup.com/kl-react/">
             local meetup that he organize
           </OutLink>{' '}
           to teach others on React and web development, as teaching is his
           passion since childhood.
-        </Typography>
-        <Typography>He is currently learning to play guitar.</Typography>
+        </p>
+        <p className="v-space">He is currently learning to play guitar.</p>
       </LandingPageSection>
       <div className="landing-page-section-group">
         <LandingPageSection>
