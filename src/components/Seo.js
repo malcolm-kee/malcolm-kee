@@ -2,9 +2,9 @@ import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
 
-export const Seo = ({ title, description, keywords }) => {
+export const Seo = ({ title, description, keywords, image }) => {
   const {
-    site: { siteMetadata }
+    site: { siteMetadata },
   } = useStaticQuery(
     graphql`
       query MetadataQuery {
@@ -40,10 +40,12 @@ export const Seo = ({ title, description, keywords }) => {
       <meta property="og:url" content={siteMetadata.siteUrl} />
       <meta property="og:title" content={displayTitle} />
       <meta property="og:description" content={displayDescription} />
+      {image && <meta property="og:image" content={image} />}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:creator" content={siteMetadata.social.twitter} />
       <meta name="twitter:title" content={displayTitle} />
       <meta name="twitter:description" content={displayDescription} />
+      {image && <meta name="twitter:image" content={image} />}
     </Helmet>
   );
 };

@@ -1,10 +1,11 @@
 ---
-path: "/blog/hackathon"
-date: "2019-05-05"
-title: "Joining a Hackathon"
-tags: ["personal"]
-summary: "Personal notes on my recent experience of joining Can You Hack It hackathon."
+path: '/blog/hackathon'
+date: '2019-05-05'
+title: 'Joining a Hackathon'
+tags: ['personal']
+summary: 'Personal notes on my recent experience of joining Can You Hack It hackathon.'
 published: true
+image: './can-you-hack-it.jpg'
 ---
 
 Last week I joined a hackathon organized by Hong Leong Bank, [Can You Hack It][can-you-hack-it].

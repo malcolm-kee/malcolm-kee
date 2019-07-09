@@ -1,10 +1,11 @@
 import { graphql, Link } from 'gatsby';
+import Image from 'gatsby-image';
 import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import kebabCase from 'lodash/kebabCase';
 import React from 'react';
-import Helmet from 'react-helmet';
 import { Comments } from '../components/comments';
 import { MainContent } from '../components/main-content';
+import { Seo } from '../components/Seo';
 import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
@@ -36,7 +37,7 @@ function AdjacentArticles({ previous, next }) {
 export default function BlogTemplate({ data, pageContext }) {
   const {
     mdx: {
-      frontmatter: { title, date, tags, keywords, summary, path, lang },
+      frontmatter: { title, date, tags, keywords, summary, path, lang, image },
       code,
       timeToRead,
     },
@@ -45,22 +46,15 @@ export default function BlogTemplate({ data, pageContext }) {
     },
   } = data;
 
-  const hasSummary = !!summary && summary.length > 0;
-
   return (
     <MainContent as="div">
       <div className="blog-post-container">
-        <Helmet>
-          <title>{title} - Malcolm Kee's blog</title>
-          <meta property="og:title" content={title} />
-          <meta name="twitter:title" content={title} />
-          {keywords && keywords.length > 0 && (
-            <meta name="keywords" content={keywords.join(',')} />
-          )}
-          {hasSummary && <meta name="abstract" content={summary} />}
-          {hasSummary && <meta property="og:description" content={summary} />}
-          {hasSummary && <meta name="twitter:description" content={summary} />}
-        </Helmet>
+        <Seo
+          title={title}
+          keywords={keywords}
+          description={summary}
+          image={image && image.publicURL}
+        />
         <main>
           <article className="blog-post" lang={lang ? lang : undefined}>
             <h1 className="blog-post--title">{title}</h1>
@@ -78,6 +72,7 @@ export default function BlogTemplate({ data, pageContext }) {
                 <ThemeToggle />
               </div>
             </div>
+            {image && <Image fluid={image.childImageSharp.fluid} alt="" />}
             {summary && (
               <div className="blog-post--summary">
                 <p>{summary}</p>
@@ -136,6 +131,14 @@ export const pageQuery = graphql`
         keywords
         summary
         lang
+        image {
+          publicURL
+          childImageSharp {
+            fluid(maxWidth: 1020) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
       }
       timeToRead
     }

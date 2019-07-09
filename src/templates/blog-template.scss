@@ -19,19 +19,17 @@
   &--detail-container {
     padding: $spacing-unit / 2 $spacing-unit * 2;
 
-    @media (min-width: $media-tablet) {
-      display: flex;
-      justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 
-      > :first-child {
-        text-align: left;
-        flex-basis: auto;
-      }
+    > :first-child {
+      text-align: left;
+      flex-basis: auto;
+    }
 
-      > :last-child {
-        text-align: right;
-        flex-basis: auto;
-      }
+    > :last-child {
+      text-align: right;
+      flex-basis: auto;
     }
   }
   &--date {
