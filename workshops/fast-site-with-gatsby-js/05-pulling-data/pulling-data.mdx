@@ -7,7 +7,17 @@ section: 'data in gatsby'
 
 ## How to Pull Data into Gatsby
 
+One of the strength of Gatsby (but also the biggest challenge to learn it) is usage of [GraphQL] to specify the data required for a component/page.
+
+GraphQL is a query language for API. It was designed to allows you to specify the required data when you making an API call. Usually, to implement GraphQL in your site you need to code your frontend to able to make GraphQL request and a server that able to understand the request and fulfill it accordingly.
+
+Gatsby utilize GraphQL for you to specify the data dependency for a component/page. The GraphQL is usually used during build time and will be discarded once Gatsby generate the output, so there is no overhead of the GraphQL to your site and GraphQL server is not required for a Gatsby site.
+
+We will learn how to use GraphQL only in Gatsby context, which is how to pull data so Gatsby know how to inject them during build time. If you interested to learn about using GraphQL to manage your API calls in runtime and the server to fulfills the request, [How To GraphQL][how-to-graphql] is a free and open-source tutorial to learn it.
+
 ### Using GraphQL to Pull Metadata
+
+Let's add some metadata for our website into `gatsby-config.js`.
 
 ```javascript fileName=gatsby-config.js
 module.exports = {
@@ -35,6 +45,11 @@ query {
 ```
 
 ## How to Inject Data into Pages/Components
+
+In Gatsby, there are two ways of injecting data into your page/components:
+
+- with page query
+- with static query
 
 ### With Page Query
 
@@ -74,7 +89,7 @@ export const query = graphql`
 
 ### With Static Query
 
-Use `useStaticQuery` hooks from `gatsby` in any React component.
+Using `useStaticQuery` custom hooks from `gatsby` in any React component.
 
 ```jsx fileName=src/components/header.jsx
 import { graphql, useStaticQuery } from 'gatsby';
@@ -97,3 +112,6 @@ export const Header = () => {
   );
 };
 ```
+
+[graphql]: https://graphql.org/
+[how-to-graphql]: https://www.howtographql.com/
