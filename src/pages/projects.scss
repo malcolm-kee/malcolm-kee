@@ -19,6 +19,12 @@
     li {
       line-height: 1.5;
     }
+
+    &-grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-gap: $space * 2;
+    }
   }
 
   &--project-links {
