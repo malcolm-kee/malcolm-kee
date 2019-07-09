@@ -174,27 +174,30 @@ touch src/pages/pokemons.js
 ```jsx fileName=src/pages/pokemon.js
 import { graphql } from 'gatsby';
 import React from 'react';
+import { Layout } from '../components/layout';
 
 const AllPokemonsPage = ({ data }) => {
   const pokemons = data.allPokemon.edges.map(({ node }) => node);
 
   return (
-    <table>
-      <tbody>
-        {pokemons.map(pokemon => (
-          <tr key={pokemon.id}>
-            <td>
-              <img src={pokemon.sprite} alt={pokemon.name.english} />
-            </td>
-            <td>
-              <p>{pokemon.name.english}</p>
-              <p>Base HP: {pokemon.base.HP}</p>
-              <p>Base Atk: {pokemon.base.Attack}</p>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <Layout>
+      <table>
+        <tbody>
+          {pokemons.map(pokemon => (
+            <tr key={pokemon.id}>
+              <td>
+                <img src={pokemon.sprite} alt={pokemon.name.english} />
+              </td>
+              <td>
+                <p>{pokemon.name.english}</p>
+                <p>Base HP: {pokemon.base.HP}</p>
+                <p>Base Atk: {pokemon.base.Attack}</p>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Layout>
   );
 };
 
