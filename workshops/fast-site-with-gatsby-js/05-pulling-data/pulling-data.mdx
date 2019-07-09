@@ -9,11 +9,11 @@ section: 'data in gatsby'
 
 One of the strength of Gatsby (but also the biggest challenge to learn it) is usage of [GraphQL] to specify the data required for a component/page.
 
-GraphQL is a query language for API. It was designed to allows you to specify the required data when you making an API call. Usually, to implement GraphQL in your site you need to code your frontend to able to make GraphQL request and a server that able to understand the request and fulfill it accordingly.
+GraphQL is a query language for API. It was designed to allows you to specify the required data when you making an API call. Usually, to implement GraphQL in your site you need to code your frontend to make GraphQL request and a server that able to understand the request and fulfill it accordingly.
 
-Gatsby utilize GraphQL for you to specify the data dependency for a component/page. The GraphQL is usually used during build time and will be discarded once Gatsby generate the output, so there is no overhead of the GraphQL to your site and GraphQL server is not required for a Gatsby site.
+In Gatsby, you write GraphQL to specify the data dependency for a component/page. GraphQL is only used during build time and will be discarded once Gatsby generates the output, therefore there is no overhead of using GraphQL to your site and GraphQL server is not required at all.
 
-We will learn how to use GraphQL only in Gatsby context, which is how to pull data so Gatsby know how to inject them during build time. If you interested to learn about using GraphQL to manage your API calls in runtime and the server to fulfills the request, [How To GraphQL][how-to-graphql] is a free and open-source tutorial to learn it.
+We will learn how to use GraphQL only in Gatsby context, which is specify data that you need so Gatsby know what data to inject to your components/pages during build time. If you interested to learn about using GraphQL to manage your API calls in runtime and the server to fulfills the request, [How To GraphQL][how-to-graphql] is a free and open-source tutorial to learn it.
 
 ### Using GraphQL to Pull Metadata
 
@@ -23,8 +23,8 @@ Let's add some metadata for our website into `gatsby-config.js`.
 module.exports = {
   // highlight-start
   siteMetadata: {
-    title: 'Gatsby Blog',
-    description: 'The site we create together',
+    title: 'Malcolm Kee',
+    description: 'A site created with tears and love.',
   },
   // highlight-end
   plugins: ['gatsby-plugin-sass'],
@@ -32,6 +32,12 @@ module.exports = {
 ```
 
 ### Using GraphiQL
+
+You can access GraphiQL that allows you to make request to Gatsby in development mode at [localhost:8000/\_\_\_graphql](http://localhost:8000/___graphql)
+
+![GraphiQL for Gatsby](graphiql.png)
+
+Add the following query into GraphiQL and run it.
 
 ```graphql
 query {
@@ -43,6 +49,8 @@ query {
   }
 }
 ```
+
+You can use the documentation on the right to inspect the GraphQL schema or use the explorer on the left to generate the query for you.
 
 ## How to Inject Data into Pages/Components
 
@@ -66,7 +74,7 @@ const HomePage = ({ data }) => {
   return (
     <div>
       {/* highlight-start */}
-      <h1>Welcome to {metadata.title}</h1>
+      <h1>Welcome to {metadata.title}'s Website</h1>
       <p>{metadata.description}</p>
       {/* highlight-end */}
     </div>
@@ -92,9 +100,11 @@ export const query = graphql`
 Using `useStaticQuery` custom hooks from `gatsby` in any React component.
 
 ```jsx fileName=src/components/header.jsx
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby'; // highlight-line
+import React from 'react';
 
 export const Header = () => {
+  // highlight-start
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -104,11 +114,13 @@ export const Header = () => {
       }
     }
   `);
+  // highlight-end
 
   return (
-    <div>
-      <h1>{data.site.siteMetadata.title}</h1>
-    </div>
+    <header className="header">
+      {/* highlight-next-line */}
+      <div className="header-container">{data.site.siteMetadata.title}</div>
+    </header>
   );
 };
 ```
