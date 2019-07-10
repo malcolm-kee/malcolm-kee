@@ -5,11 +5,21 @@
   background: var(--bg-absolute);
   box-shadow: $box-shadow-2;
 
-  &--content {
+  &--selectable {
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background: var(--bg-pale);
+      box-shadow: $box-shadow-5;
+    }
+  }
+
+  &-content {
     padding: $spacing-unit * 2 $spacing-unit * 2 $spacing-unit;
   }
 
-  &--actions {
+  &-actions {
     padding: $spacing-unit * 2;
   }
 

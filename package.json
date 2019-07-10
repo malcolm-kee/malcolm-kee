@@ -23,6 +23,7 @@
     "@mdx-js/react": "^1.0.20",
     "@mdx-js/tag": "^0.20.3",
     "@philpl/buble": "^0.19.7",
+    "@reach/dialog": "^0.2.9",
     "@types/request-promise-native": "^1.0.15",
     "dotenv": "^8.0.0",
     "gatsby": "^2.13.9",
