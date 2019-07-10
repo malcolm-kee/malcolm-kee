@@ -2,11 +2,11 @@ import { graphql, Link } from 'gatsby';
 import React from 'react';
 import { Button } from '../components/Button';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
+import { Dialog } from '../components/dialog';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
-import { Dialog } from '../components/dialog';
 import './projects.scss';
 
 const ProjectCard = ({ project }) => (
@@ -60,16 +60,20 @@ const FancyProjectCard = ({ project }) => {
   return (
     <>
       <Card selectable onSelect={() => setShowDialog(true)}>
-        <CardContent>{project.name}</CardContent>
+        <CardContent className="text-center content-section">
+          {project.name}
+        </CardContent>
       </Card>
       <Dialog isOpen={showDialog} onDismiss={() => setShowDialog(false)}>
-        <h2>{project.name}</h2>
-        <p>{project.description}</p>
-        <ul>
-          {project.technologies.map(tech => (
-            <li key={tech}>{tech}</li>
-          ))}
-        </ul>
+        <div className="content-section">
+          <h2>{project.name}</h2>
+          <p>{project.description}</p>
+          <ul>
+            {project.technologies.map(tech => (
+              <li key={tech}>{tech}</li>
+            ))}
+          </ul>
+        </div>
         <div className="ProjectPage--project-demo">
           <div className="ProjectPage--project-demo-links">
             {project.links.live && (

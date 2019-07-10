@@ -14,20 +14,22 @@ const IndexPage = () => (
     <LandingPageHeader />
     <main className="landing-page-content">
       <LandingPageSection>
-        <h2>About</h2>
-        <p className="v-space">
-          Malcolm Kee is a frontend engineer making web applications and enjoy
-          doing it.
-        </p>
-        <p className="v-space">
-          He conducted workshops in{' '}
-          <OutLink href="https://www.meetup.com/kl-react/">
-            local meetup that he organize
-          </OutLink>{' '}
-          to teach others on React and web development, as teaching is his
-          passion since childhood.
-        </p>
-        <p className="v-space">He is currently learning to play guitar.</p>
+        <div className="content-section">
+          <h2>About</h2>
+          <p className="v-space">
+            Malcolm Kee is a frontend engineer making web applications and enjoy
+            doing it.
+          </p>
+          <p className="v-space">
+            He conducted workshops in{' '}
+            <OutLink href="https://www.meetup.com/kl-react/">
+              local meetup that he organize
+            </OutLink>{' '}
+            to teach others on React and web development, as teaching is his
+            passion since childhood.
+          </p>
+          <p className="v-space">He is currently learning to play guitar.</p>
+        </div>
       </LandingPageSection>
       <div className="landing-page-section-group">
         <LandingPageSection>

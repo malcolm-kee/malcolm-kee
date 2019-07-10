@@ -4,7 +4,7 @@
   &-container {
     padding: $space;
     box-shadow: $box-shadow-1;
-    border-radius: $space;
+    border-radius: $space * 3;
     display: flex;
     justify-content: center;
     align-items: center;

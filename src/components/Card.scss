@@ -1,26 +1,31 @@
 @import '../constants/variable';
 
 .card {
+  position: relative;
   background: white;
   background: var(--bg-absolute);
   box-shadow: $box-shadow-2;
+  border-radius: $space * 3;
+  transition-property: bottom, box-shadow;
+  transition-timing-function: ease;
+  transition-duration: 200ms;
 
   &--selectable {
     cursor: pointer;
 
     &:hover,
     &:focus {
-      background: var(--bg-pale);
+      bottom: 2px;
       box-shadow: $box-shadow-5;
     }
   }
 
   &-content {
-    padding: $spacing-unit * 2 $spacing-unit * 2 $spacing-unit;
+    padding: $space * 2;
   }
 
   &-actions {
-    padding: $spacing-unit * 2;
+    padding: $space $space * 2 $space * 2;
   }
 
   color: $text-light;

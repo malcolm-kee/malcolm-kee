@@ -343,7 +343,6 @@ th {
 p {
   &.v-space {
     margin-bottom: $space;
-    line-height: 1.464em;
   }
 }
 .StandardSpacing {
@@ -351,6 +350,18 @@ p {
 }
 .bold {
   font-weight: bold;
+}
+.content-section {
+  line-height: 1.464em;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 1rem;
+  }
 }
 
 .Toolbar {
@@ -394,26 +405,35 @@ p {
   font-style: italic;
 }
 
-@include link('.link-primary');
-
 .link-primary {
   display: inline-block;
   line-height: 1.5;
+  font-size: 1.3rem;
   text-align: center;
   margin: $spacing-unit 0;
   padding: $spacing-unit / 2;
-  min-width: 80px;
+  min-width: 100px;
   background-color: rgba(0, 0, 0, 0);
-  border-radius: $spacing-unit / 2 $spacing-unit / 2 0 0;
+  border-radius: $spacing-unit * 3;
+  border: 1px solid currentColor;
+  text-decoration: none;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+  transition-property: color, background-color;
 
   @media (min-width: $media-mobile) {
-    min-width: 100px;
+    font-size: 1.5rem;
+    min-width: 120px;
     padding: $spacing-unit / 2 $spacing-unit;
   }
 
   &:hover {
     background-color: white;
     background-color: var(--bg-absolute);
+  }
+
+  & + & {
+    margin-left: $space;
   }
 }
 
@@ -438,6 +458,7 @@ p {
     bottom: 0;
     left: -0.25em;
     right: -0.25em;
+    border-radius: $space * 3;
     background-color: $link-light;
     background-color: var(--link);
     transform-origin: center right;
