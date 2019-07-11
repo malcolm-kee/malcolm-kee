@@ -410,11 +410,11 @@ p {
   line-height: 1.5;
   font-size: 1.3rem;
   text-align: center;
-  margin: $spacing-unit 0;
-  padding: $spacing-unit / 2;
+  margin: $space 0;
+  padding: $space / 2 $space * 2;
   min-width: 100px;
   background-color: rgba(0, 0, 0, 0);
-  border-radius: $spacing-unit * 3;
+  border-radius: $space * 3;
   border: 1px solid currentColor;
   text-decoration: none;
   transition-duration: 200ms;
@@ -424,7 +424,6 @@ p {
   @media (min-width: $media-mobile) {
     font-size: 1.5rem;
     min-width: 120px;
-    padding: $spacing-unit / 2 $spacing-unit;
   }
 
   &:hover {
@@ -441,8 +440,8 @@ p {
   display: inline-block;
   line-height: 1.5;
   text-align: center;
-  margin: $spacing-unit 0;
-  padding: $spacing-unit / 2;
+  margin: $space 0;
+  padding: $space / 2 $space;
   min-width: 80px;
   position: relative;
   z-index: 1;
