@@ -7,6 +7,7 @@ import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
+import { useIsJsEnabled } from '../hooks/use-is-js-enabled';
 import './projects.scss';
 
 const ProjectCard = ({ project }) => (
@@ -114,11 +115,7 @@ const FancyProjectView = ({ projects }) => (
 );
 
 const ProjectPage = ({ data: { allProjects } }) => {
-  const [isRendered, setIsRendered] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsRendered(true);
-  }, []);
+  const isRendered = useIsJsEnabled();
 
   return (
     <div className="ProjectPage">
