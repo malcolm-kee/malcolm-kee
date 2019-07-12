@@ -1,15 +1,15 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
-import Helmet from 'react-helmet';
 import {
   List,
   ListItem,
-  ListItemText,
   ListItemLabel,
+  ListItemText,
 } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
+import { Seo } from '../components/Seo';
 
 const WorkshopsPage = () => {
   const {
@@ -32,9 +32,7 @@ const WorkshopsPage = () => {
 
   return (
     <MainContent as="div">
-      <Helmet>
-        <title>Workshops</title>
-      </Helmet>
+      <Seo title="Workshops by Malcolm Kee" />
       <main>
         <PageTitleContainer title="Workshops" />
         <List>

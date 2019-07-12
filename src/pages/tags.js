@@ -2,10 +2,10 @@ import { graphql, Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
-import { PageTitleContainer } from '../components/page-title-container';
 import { MainContent } from '../components/main-content';
+import { PageTitleContainer } from '../components/page-title-container';
+import { Seo } from '../components/Seo';
 import './tags.scss';
 
 const getItemClassName = count =>
@@ -19,9 +19,7 @@ const TagsPage = ({
   },
 }) => (
   <MainContent className="TagPage">
-    <Helmet>
-      <title>Tags</title>
-    </Helmet>
+    <Seo title="Tags" />
     <PageTitleContainer title="Tags" />
     <div className="TagPage--panel tag-list">
       <List>

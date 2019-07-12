@@ -1,9 +1,9 @@
 import { graphql, Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
+import { Seo } from '../components/Seo';
 
 function BlogsWithTag({ data, pageContext }) {
   const { tag } = pageContext;
@@ -15,9 +15,7 @@ function BlogsWithTag({ data, pageContext }) {
   return (
     <MainContent>
       <div>
-        <Helmet>
-          <title>Tag - {tag}</title>
-        </Helmet>
+        <Seo title={`Tag - ${tag}`} />
         <h1>{tagTitle}</h1>
         <List>
           {posts.map(({ node: { frontmatter: { path, title, summary } } }) => (
@@ -42,7 +40,7 @@ function BlogsWithTag({ data, pageContext }) {
 
 BlogsWithTag.propTypes = {
   pageContext: PropTypes.shape({
-    tag: PropTypes.string.isRequired
+    tag: PropTypes.string.isRequired,
   }),
   data: PropTypes.shape({
     allMarkdownRemark: PropTypes.shape({
@@ -53,13 +51,13 @@ BlogsWithTag.propTypes = {
             frontmatter: PropTypes.shape({
               path: PropTypes.string.isRequired,
               title: PropTypes.string.isRequired,
-              summary: PropTypes.string.isRequired
-            })
-          })
+              summary: PropTypes.string.isRequired,
+            }),
+          }),
         }).isRequired
-      )
-    })
-  })
+      ),
+    }),
+  }),
 };
 
 export default BlogsWithTag;

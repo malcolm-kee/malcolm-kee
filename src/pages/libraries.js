@@ -1,14 +1,14 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
-import Helmet from 'react-helmet';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
-import { PageTitleContainer } from '../components/page-title-container';
 import { OutLink } from '../components/OutLink';
+import { PageTitleContainer } from '../components/page-title-container';
+import { Seo } from '../components/Seo';
 
 const LibrariesPage = () => {
   const {
-    allNpmsIoMalcolm: { edges }
+    allNpmsIoMalcolm: { edges },
   } = useStaticQuery(graphql`
     query {
       allNpmsIoMalcolm(sort: { fields: [date], order: DESC }) {
@@ -29,9 +29,7 @@ const LibrariesPage = () => {
 
   return (
     <MainContent as="div">
-      <Helmet>
-        <title>Libraries - Malcolm Kee</title>
-      </Helmet>
+      <Seo title="Libraries - Malcolm Kee" />
       <main>
         <PageTitleContainer title="Libraries" />
         <List>
