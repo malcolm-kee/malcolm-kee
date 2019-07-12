@@ -118,13 +118,13 @@ export const query = graphql`
 
 ```jsx fileName=src/pages/index.js
 import { graphql } from 'gatsby';
-import Image from 'gatsby-image'; // highlight-line
+import Image from 'gatsby-image';
 import React from 'react';
 import { Layout } from '../components/layout';
 
 const HomePage = ({ data }) => {
   const metadata = data.site.siteMetadata;
-  const imageData = data.file.childImageSharp; // highlight-line
+  const imageData = data.file.childImageSharp;
 
   return (
     <Layout>
@@ -147,15 +147,13 @@ export const query = graphql`
         description
       }
     }
-    ${/* highlight-start */ ''}
     file(relativePath: { eq: "images/my-image.jpg" }) {
-        childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
+      childImageSharp {
+        fluid(maxWidth: 800) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
-    ${/* highlight-end */ ''}
   }
 `;
 ```
