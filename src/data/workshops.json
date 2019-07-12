@@ -69,6 +69,6 @@
     "keywords": ["react", "static site", "gatsbyjs"],
     "themeColor": "#663399",
     "iconFile": "src/assets/gatsbyjs.png",
-    "underConstruction": true
+    "underConstruction": false
   }
 ]
