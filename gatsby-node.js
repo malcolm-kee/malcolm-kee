@@ -2,7 +2,6 @@ const createBlogs = require('./gatsby/create-blogs');
 const {
   createWorkshopPages,
   createWorkshopNodeFields,
-  createWorkshopIcons,
 } = require('./gatsby/workshops-build');
 
 exports.onCreateNode = async ({ node, actions }) => {
@@ -25,10 +24,6 @@ exports.onCreatePage = ({ page, actions }) => {
     deletePage(oldPage);
     createPage(page);
   }
-};
-
-exports.onPostBootstrap = async ({ getNodesByType }) => {
-  await createWorkshopIcons({ getNodesByType });
 };
 
 exports.onCreateWebpackConfig = ({ actions }) => {

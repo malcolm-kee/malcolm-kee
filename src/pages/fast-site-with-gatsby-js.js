@@ -4,7 +4,6 @@ import { LinkButton } from '../components/Button';
 import { GatsbyLogo } from '../components/gatsby-logo';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
-import { useFavIcon } from '../hooks/use-favicons';
 import './fast-site-with-gatsby-js.scss';
 
 const PageHeader = () => {
@@ -14,15 +13,23 @@ const PageHeader = () => {
         name
         description
         keywords
-        iconFile
+        iconFile {
+          childImageSharp {
+            resize(width: 16, height: 16) {
+              src
+            }
+          }
+        }
+        image: iconFile {
+          childImageSharp {
+            resize(width: 300, height: 157) {
+              src
+            }
+          }
+        }
       }
     }
   `);
-
-  useFavIcon({
-    iconFile: workshopsJson.iconFile,
-    contentId: 'fast-site-with-gatsby-js',
-  });
 
   return (
     <LandingPageHeader>
@@ -30,6 +37,13 @@ const PageHeader = () => {
         title={workshopsJson.name}
         description={workshopsJson.description}
         keywords={workshopsJson.keywords}
+        image={
+          workshopsJson.image && workshopsJson.image.childImageSharp.resize.src
+        }
+        icon={
+          workshopsJson.iconFile &&
+          workshopsJson.iconFile.childImageSharp.resize.src
+        }
       />
       <div id="fast-site-with-gatsbyjs-landing">
         <div className="logo-section">

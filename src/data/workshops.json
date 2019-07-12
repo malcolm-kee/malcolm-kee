@@ -14,7 +14,7 @@
     "description": "An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.",
     "keywords": ["react for beginners", "react hooks"],
     "themeColor": "#61dafb",
-    "iconFile": "src/assets/react-logo.png"
+    "iconFile": "../assets/react-logo.png"
   },
   {
     "name": "Web Developer Toolbox",
@@ -29,7 +29,7 @@
       "developer productivity"
     ],
     "themeColor": "#b71c1c",
-    "iconFile": "src/assets/toolbox.png"
+    "iconFile": "../assets/toolbox.png"
   },
   {
     "name": "Creating Project React Component Library",
@@ -59,7 +59,7 @@
       "es6"
     ],
     "themeColor": "#f7df1e",
-    "iconFile": "src/assets/js-the-react-parts.png"
+    "iconFile": "../assets/js-the-react-parts.png"
   },
   {
     "name": "Create a Fast Site with GatsbyJS",
@@ -68,7 +68,7 @@
     "description": "Learn how to build blog with GatsbyJS, which automatically optimize your site to make it fast without sacrificing developer usability or accessibility.",
     "keywords": ["react", "static site", "gatsbyjs"],
     "themeColor": "#663399",
-    "iconFile": "src/assets/gatsbyjs.png",
+    "iconFile": "../assets/gatsbyjs.png",
     "underConstruction": false
   }
 ]

@@ -1,9 +1,11 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import { MainContent } from '../components/main-content';
+import { Seo } from '../components/Seo';
 
 const NotFoundPage = () => (
   <MainContent>
+    <Seo title="Page Not Found" />
     <div className="text-center">
       <h1>NOT FOUND</h1>
       <div>

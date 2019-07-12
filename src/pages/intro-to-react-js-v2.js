@@ -1,10 +1,9 @@
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ReactLogo } from '../components/react-logo';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
-import { useFavIcon } from '../hooks/use-favicons';
 import './intro-to-react-js-v2.scss';
 
 const PageHeader = () => {
@@ -14,15 +13,23 @@ const PageHeader = () => {
         name
         description
         keywords
-        iconFile
+        iconFile {
+          childImageSharp {
+            resize(width: 16, height: 16) {
+              src
+            }
+          }
+        }
+        image: iconFile {
+          childImageSharp {
+            resize(width: 300, height: 157) {
+              src
+            }
+          }
+        }
       }
     }
   `);
-
-  useFavIcon({
-    iconFile: workshopsJson.iconFile,
-    contentId: 'intro-to-react-js-v2',
-  });
 
   return (
     <LandingPageHeader>
@@ -30,6 +37,13 @@ const PageHeader = () => {
         title={workshopsJson.name}
         description={workshopsJson.description}
         keywords={workshopsJson.keywords}
+        image={
+          workshopsJson.image && workshopsJson.image.childImageSharp.resize.src
+        }
+        icon={
+          workshopsJson.iconFile &&
+          workshopsJson.iconFile.childImageSharp.resize.src
+        }
       />
       <div id="intro-to-react-js-v2-landing">
         <div className="logo-section">

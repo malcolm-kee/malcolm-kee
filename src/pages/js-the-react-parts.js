@@ -2,10 +2,9 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import reactLogo from '../assets/react-logo.png';
 import { LinkButton } from '../components/Button';
-import { JsIcon } from '../components/svg-icons';
 import { Seo } from '../components/Seo';
+import { JsIcon } from '../components/svg-icons';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
-import { useFavIcon } from '../hooks/use-favicons';
 import './js-the-react-parts.scss';
 
 /* eslint-disable no-script-url */
@@ -17,15 +16,23 @@ const PageHeader = () => {
         name
         description
         keywords
-        iconFile
+        iconFile {
+          childImageSharp {
+            resize(width: 16, height: 16) {
+              src
+            }
+          }
+        }
+        image: iconFile {
+          childImageSharp {
+            resize(width: 300, height: 157) {
+              src
+            }
+          }
+        }
       }
     }
   `);
-
-  useFavIcon({
-    iconFile: workshopsJson.iconFile,
-    contentId: 'js-the-react-parts',
-  });
 
   return (
     <LandingPageHeader>
@@ -33,6 +40,13 @@ const PageHeader = () => {
         title={workshopsJson.name}
         description={workshopsJson.description}
         keywords={workshopsJson.keywords}
+        image={
+          workshopsJson.image && workshopsJson.image.childImageSharp.resize.src
+        }
+        icon={
+          workshopsJson.iconFile &&
+          workshopsJson.iconFile.childImageSharp.resize.src
+        }
       />
       <div id="js-the-react-parts-landing">
         <div className="logo-section">

@@ -1,11 +1,10 @@
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import toolboxIcon from '../assets/toolbox.svg';
 import { LinkButton } from '../components/Button';
 import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
-import { useFavIcon } from '../hooks/use-favicons';
 import './web-developer-toolbox.scss';
 
 /* eslint-disable no-script-url */
@@ -18,15 +17,23 @@ const PageHeader = () => {
         description
         keywords
         themeColor
-        iconFile
+        iconFile {
+          childImageSharp {
+            resize(width: 16, height: 16) {
+              src
+            }
+          }
+        }
+        image: iconFile {
+          childImageSharp {
+            resize(width: 300, height: 157) {
+              src
+            }
+          }
+        }
       }
     }
   `);
-
-  useFavIcon({
-    iconFile: workshopsJson.iconFile,
-    contentId: 'web-developer-toolbox',
-  });
 
   return (
     <>

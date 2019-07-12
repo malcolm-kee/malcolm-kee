@@ -6,7 +6,6 @@ import { ChevronIcon } from '../components/chevron-icon';
 import { Comments } from '../components/comments';
 import { ReportIssueLink } from '../components/report-issue-link';
 import { Seo } from '../components/Seo';
-import { useFavIcon } from '../hooks/use-favicons';
 import './instruction-template.scss';
 
 const InstructionTemplate = ({
@@ -15,21 +14,19 @@ const InstructionTemplate = ({
     next,
     workshopTitle,
     workshopIcon,
+    workshopImage,
     workshopId,
     commentsSearch,
   },
 }) => {
-  useFavIcon({
-    iconFile: workshopIcon,
-    contentId: workshopId,
-  });
-
   return (
     <div className="instruction-template-container">
       <Seo
         title={`${mdx.frontmatter.title} - ${workshopTitle}`}
         description={mdx.frontmatter.description}
         keywords={mdx.frontmatter.keywords}
+        image={workshopImage}
+        icon={workshopIcon}
       />
       <div className="instruction-template">
         <h1>{mdx.frontmatter.title}</h1>

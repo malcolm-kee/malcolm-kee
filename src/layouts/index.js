@@ -1,9 +1,7 @@
 import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
-import { Provider, createClient } from 'urql';
+import { createClient, Provider } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
-import { FavIcons } from '../components/favicons';
-import { FavIconProvider } from '../hooks/use-favicons';
 import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
 import { WorkshopLayout } from './workshop-layout';
@@ -26,7 +24,6 @@ const mdxComponents = {
 
 const LayoutContainer = ({ children, pageContext, location }) => {
   const themeValue = useTheme();
-  const [favIconFolder, setIconFolder] = React.useState(null);
 
   const {
     isWorkshop,
@@ -40,24 +37,21 @@ const LayoutContainer = ({ children, pageContext, location }) => {
   return (
     <Provider value={githubClient}>
       <ThemeProvider value={themeValue}>
-        <FavIconProvider value={setIconFolder}>
-          <MDXProvider components={mdxComponents}>
-            <FavIcons iconFolder={favIconFolder} />
-            {isWorkshop ? (
-              <WorkshopLayout
-                workshopTitle={workshopTitle}
-                workshopThemeColor={workshopThemeColor}
-                workshopRoot={`/${workshop}`}
-                workshopSections={lessonGroup}
-                pathname={location.pathname}
-              >
-                {children}
-              </WorkshopLayout>
-            ) : (
-              <Layout isRoot={isRoot}>{children}</Layout>
-            )}
-          </MDXProvider>
-        </FavIconProvider>
+        <MDXProvider components={mdxComponents}>
+          {isWorkshop ? (
+            <WorkshopLayout
+              workshopTitle={workshopTitle}
+              workshopThemeColor={workshopThemeColor}
+              workshopRoot={`/${workshop}`}
+              workshopSections={lessonGroup}
+              pathname={location.pathname}
+            >
+              {children}
+            </WorkshopLayout>
+          ) : (
+            <Layout isRoot={isRoot}>{children}</Layout>
+          )}
+        </MDXProvider>
       </ThemeProvider>
     </Provider>
   );

@@ -3,6 +3,7 @@ import React from 'react';
 import { ContactForm } from '../components/ContactForm';
 import { LandingPageHeader } from '../components/LandingPageHeader';
 import { OutLink } from '../components/OutLink';
+import { Seo } from '../components/Seo';
 import './index.scss';
 
 const LandingPageSection = ({ children }) => (
@@ -11,6 +12,7 @@ const LandingPageSection = ({ children }) => (
 
 const IndexPage = () => (
   <div className="landing-page">
+    <Seo />
     <LandingPageHeader />
     <main className="landing-page-content">
       <LandingPageSection>
