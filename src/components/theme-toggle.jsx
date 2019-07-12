@@ -3,11 +3,13 @@ import { Toggle } from './toggle';
 import moon from '../assets/moon.png';
 import sun from '../assets/sun.png';
 import { useTheme } from '../theme';
+import { useIsJsEnabled } from '../hooks/use-is-js-enabled';
 import './theme-toggle.scss';
 
 export function ThemeToggle(toggleProps) {
   const { value, toggle } = useTheme();
-  return (
+  const jsEnabled = useIsJsEnabled();
+  return jsEnabled ? (
     <div className="theme-toggle">
       <Toggle
         {...toggleProps}
@@ -35,5 +37,5 @@ export function ThemeToggle(toggleProps) {
         onChange={toggle}
       />
     </div>
-  );
+  ) : null;
 }
