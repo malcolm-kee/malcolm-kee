@@ -167,7 +167,7 @@ exports.createPages = async ({ actions, graphql }) => {
     }
   `);
 
-  result.allMarkdownRemark.edges.forEach(({ node }) => {
+  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.frontmatter.path,
       component: blogTemplate,
