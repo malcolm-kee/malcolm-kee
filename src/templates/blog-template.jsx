@@ -10,6 +10,7 @@ import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
 import './blog-template.scss';
+import { OutLink } from '../components/OutLink';
 
 function AdjacentArticles({ previous, next }) {
   return (
@@ -37,7 +38,18 @@ function AdjacentArticles({ previous, next }) {
 export default function BlogTemplate({ data, pageContext }) {
   const {
     mdx: {
-      frontmatter: { title, date, tags, keywords, summary, path, lang, image },
+      frontmatter: {
+        title,
+        date,
+        tags,
+        keywords,
+        summary,
+        path,
+        lang,
+        image,
+        imageBy,
+        imageByLink,
+      },
       code,
       timeToRead,
     },
@@ -72,7 +84,16 @@ export default function BlogTemplate({ data, pageContext }) {
                 <ThemeToggle />
               </div>
             </div>
-            {image && <Image fluid={image.childImageSharp.fluid} alt="" />}
+            {image && (
+              <>
+                <Image fluid={image.childImageSharp.fluid} alt="" />
+                <p className="text-right">
+                  <small>
+                    Photo by <OutLink to={imageByLink}>{imageBy}</OutLink>{' '}
+                  </small>
+                </p>
+              </>
+            )}
             {summary && (
               <div className="blog-post--summary">
                 <p>{summary}</p>
@@ -139,6 +160,8 @@ export const pageQuery = graphql`
             }
           }
         }
+        imageBy
+        imageByLink
       }
       timeToRead
     }
