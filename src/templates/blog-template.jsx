@@ -87,11 +87,18 @@ export default function BlogTemplate({ data, pageContext }) {
             {image && (
               <>
                 <Image fluid={image.childImageSharp.fluid} alt="" />
-                <p className="text-right">
-                  <small>
-                    Photo by <OutLink to={imageByLink}>{imageBy}</OutLink>{' '}
-                  </small>
-                </p>
+                {imageBy && (
+                  <p className="text-right">
+                    <small>
+                      Photo by{' '}
+                      {imageByLink ? (
+                        <OutLink to={imageByLink}>{imageBy}</OutLink>
+                      ) : (
+                        imageBy
+                      )}
+                    </small>
+                  </p>
+                )}
               </>
             )}
             {summary && (
