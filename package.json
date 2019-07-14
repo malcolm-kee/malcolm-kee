@@ -25,6 +25,7 @@
     "@philpl/buble": "^0.19.7",
     "@reach/dialog": "^0.2.9",
     "@types/request-promise-native": "^1.0.15",
+    "change-case": "^3.1.0",
     "dotenv": "^8.0.0",
     "gatsby": "^2.13.9",
     "gatsby-image": "^2.1.4",
