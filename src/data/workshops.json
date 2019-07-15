@@ -70,5 +70,15 @@
     "themeColor": "#663399",
     "iconFile": "../assets/gatsbyjs.png",
     "underConstruction": false
+  },
+  {
+    "name": "React State Management with Redux",
+    "contentId": "react-state-management-with-redux",
+    "url": "/react-state-management-with-redux",
+    "description": "Understand key concepts of redux and how to use it effectively in a React application",
+    "keywords": ["redux", "react state management", "react redux"],
+    "themeColor": "#764abc",
+    "iconFile": "../assets/redux.png",
+    "underConstruction": true
   }
 ]

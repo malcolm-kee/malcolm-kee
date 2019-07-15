@@ -51,4 +51,17 @@
   .landing-subtitle {
     color: $text-dark-pale;
   }
+
+  &--inverse {
+    background: white;
+
+    .landing-title {
+      text-shadow: none;
+    }
+
+    .landing-subtitle {
+      color: $text-light-pale;
+      font-weight: bold;
+    }
+  }
 }
