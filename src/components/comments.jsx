@@ -3,7 +3,7 @@ import { useQuery } from 'urql';
 import { getGithubIssueLink } from '../helper';
 import { useRepositoryUrl } from '../hooks/use-repository-url';
 import { Button } from './Button';
-import './comments.scss';
+import styles from './comments.module.scss';
 import { OutLink } from './OutLink';
 
 const parseDate = dateString =>
@@ -78,8 +78,8 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
   const hasComments = commentsData.length > 0;
 
   return (
-    <section className="article-comments">
-      <header className="article-comments-header">Comments</header>
+    <section className={styles.root}>
+      <header className={styles.header}>Comments</header>
       {hasComments ? (
         commentsData.map(
           ({ bodyHTML, id, author, createdAt, url, comments }) => (
@@ -94,11 +94,11 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
           )
         )
       ) : (
-        <div className="article-comments-info">
+        <div className={styles.info}>
           <p>There is no comment on this post yet.</p>
         </div>
       )}
-      <div className="article-comments-actions">
+      <div className={styles.actions}>
         <Button
           color="primary"
           raised
@@ -118,24 +118,24 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
 
 const Comment = ({ bodyHTML, author, createdAt, url, comments, level = 0 }) => (
   <>
-    <div className="article-comment" style={{ marginLeft: level * 25 }}>
+    <div className={styles.comment} style={{ marginLeft: level * 25 }}>
       {url && (
-        <span className="article-comment-link">
+        <span className={styles.link}>
           <OutLink href={url}>Reply</OutLink>
         </span>
       )}
-      <div className="article-comment-avatar">
+      <div className={styles.avatar}>
         <img src={author.avatarUrl} alt={author.login} />
       </div>
       <div>
-        <div className="article-comment-author">
+        <div className={styles.author}>
           <OutLink href={author.url}>
             <span>{author.name}</span>
           </OutLink>{' '}
           on {parseDate(createdAt)}
         </div>
         <div
-          className="article-comment-content"
+          className={styles.content}
           dangerouslySetInnerHTML={{ __html: bodyHTML }}
         />
       </div>
