@@ -1,11 +1,11 @@
 import React from 'react';
 import { OutLink } from './OutLink';
 import { RssIcon } from './rss-icon';
-import './subscribe-rss-link.scss';
+import { link } from './subscribe-rss-link.module.scss';
 
 const rssLink = (
   <OutLink href="/rss.xml">
-    <RssIcon className="subscribe-rss-link" />
+    <RssIcon className={link} />
   </OutLink>
 );
 

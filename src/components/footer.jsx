@@ -1,16 +1,16 @@
 import cx from 'classnames';
 import React from 'react';
 import { useRepositoryUrl } from '../hooks/use-repository-url';
+import { content, contentLeft } from './footer.module.scss';
 import { OutLink } from './OutLink';
-import './footer.scss';
 
 const year = new Date().getFullYear();
 
 export const Footer = ({ left }) => {
   const repositoryUrl = useRepositoryUrl();
   return (
-    <footer className="footer">
-      <div className={cx('footer-content', left && 'footer-content--left')}>
+    <footer>
+      <div className={cx(content, left && contentLeft)}>
         <p>&copy; 2018-{year} Copyright Malcolm Kee. All rights reserved.</p>
         <p>
           <small>
