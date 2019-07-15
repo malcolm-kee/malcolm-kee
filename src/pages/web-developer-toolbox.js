@@ -42,6 +42,14 @@ const PageHeader = () => {
           title={workshopsJson.name}
           description={workshopsJson.description}
           keywords={workshopsJson.keywords}
+          image={
+            workshopsJson.image &&
+            workshopsJson.image.childImageSharp.resize.src
+          }
+          icon={
+            workshopsJson.iconFile &&
+            workshopsJson.iconFile.childImageSharp.resize.src
+          }
         />
         <div>
           <div className="logo-section">
