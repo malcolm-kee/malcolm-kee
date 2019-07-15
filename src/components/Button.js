@@ -1,6 +1,6 @@
+import cx from 'classnames';
 import { Link } from 'gatsby';
 import React from 'react';
-import { joinClassName } from 'join-string';
 import './Button.scss';
 
 /**
@@ -9,6 +9,7 @@ import './Button.scss';
  * @param {'primary' | 'secondary'} [props.color]
  * @param {'small' | 'large'} [props.size]
  * @param {'wide' | 'wider' | 'widest'} [props.minWidth]
+ * @param {boolean} [props.raised]
  */
 export const Button = ({
   component: Component = 'button',
@@ -23,7 +24,7 @@ export const Button = ({
 }) => (
   <Component
     type={type}
-    className={joinClassName(
+    className={cx(
       'btn',
       color && `btn-${color}`,
       size && `btn-${size}`,

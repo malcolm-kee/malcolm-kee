@@ -1,5 +1,5 @@
+import cx from 'classnames';
 import React from 'react';
-import { joinClassName } from 'join-string';
 import { callAll } from '../helper';
 import './Field.scss';
 
@@ -14,7 +14,7 @@ export const Field = ({
 
   return (
     <div
-      className={joinClassName(
+      className={cx(
         'field',
         focused && 'field--focused',
         (inputProps.value || (inputRef.current && inputRef.current.value)) &&
@@ -25,7 +25,7 @@ export const Field = ({
         {label}
       </label>
       <InputComponent
-        className={joinClassName('form-control', className)}
+        className={cx('form-control', className)}
         {...inputProps}
         onFocus={callAll(inputProps.onFocus, () => setIsFocused(true))}
         onBlur={callAll(inputProps.onBlur, () => setIsFocused(false))}

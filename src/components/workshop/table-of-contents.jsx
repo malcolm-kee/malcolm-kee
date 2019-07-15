@@ -1,5 +1,5 @@
+import cx from 'classnames';
 import { Link } from 'gatsby';
-import { joinClassName } from 'join-string';
 import React from 'react';
 import { useDiffEffect } from '../../hooks/use-diff-effect';
 import { useEventListener } from '../../hooks/use-event-listener';
@@ -42,7 +42,7 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
   return (
     <>
       <nav
-        className={joinClassName(
+        className={cx(
           'table-of-content-section',
           open && 'table-of-content-section--open'
         )}
@@ -87,7 +87,7 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
     <>
       {withSection && (
         <li
-          className={joinClassName(
+          className={cx(
             'toc-section-title',
             isActive && 'toc-section-title--active'
           )}
@@ -100,7 +100,7 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
       )}
       {nodes.map(({ frontmatter: { title, path } }) => (
         <li
-          className={joinClassName(
+          className={cx(
             'toc-link-item',
             isActive && 'toc-link-item--active-section'
           )}

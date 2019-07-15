@@ -1,35 +1,44 @@
+import cx from 'classnames';
 import React from 'react';
-import './reduce.scss';
+import { Button } from '../../../src/components/Button';
+import {
+  box,
+  item0,
+  item1,
+  item2,
+  item3,
+  activated,
+  container,
+  innerContainer,
+} from './reduce.module.scss';
 
 export function ReduceAnimation() {
   const [runState, setRunState] = React.useState('not_run');
 
   return (
     <div>
-      <div
-        className={runState !== 'not_run' ? 'activated' : undefined}
-        id="reduce-demo"
-      >
-        <div className="box-container">
-          <div className="box item-0" />
-          <div className="box item-1" />
-          <div className="box item-2" />
+      <div className={cx(container, runState !== 'not_run' && activated)}>
+        <div className={innerContainer}>
+          <div className={`${box} ${item0}`} />
+          <div className={`${box} ${item1}`} />
+          <div className={`${box} ${item2}`} />
           <div
-            className="box item-3"
+            className={`${box} ${item3}`}
             onAnimationEnd={() => setRunState('complete')}
           />
         </div>
       </div>
       <div className="Toolbar center">
         {runState !== 'running' && (
-          <button
-            className="btn btn-primary btn-raised"
+          <Button
+            color="primary"
+            raised
             onClick={() =>
               setRunState(runState === 'not_run' ? 'running' : 'not_run')
             }
           >
             {runState === 'complete' ? 'Restart' : 'Run'}
-          </button>
+          </Button>
         )}
       </div>
     </div>

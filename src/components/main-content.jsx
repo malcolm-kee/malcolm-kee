@@ -1,13 +1,11 @@
-import { joinClassName } from 'join-string';
+import cx from 'classnames';
 import React from 'react';
 import './main-content.scss';
 
 export const MainContent = ({
   as: Component = 'main',
   className,
-  children
+  children,
 }) => (
-  <Component className={joinClassName('main-content', className)}>
-    {children}
-  </Component>
+  <Component className={cx('main-content', className)}>{children}</Component>
 );

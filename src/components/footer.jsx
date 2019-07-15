@@ -1,4 +1,4 @@
-import { joinClassName } from 'join-string';
+import cx from 'classnames';
 import React from 'react';
 import { useRepositoryUrl } from '../hooks/use-repository-url';
 import { OutLink } from './OutLink';
@@ -10,12 +10,7 @@ export const Footer = ({ left }) => {
   const repositoryUrl = useRepositoryUrl();
   return (
     <footer className="footer">
-      <div
-        className={joinClassName(
-          'footer-content',
-          left && 'footer-content--left'
-        )}
-      >
+      <div className={cx('footer-content', left && 'footer-content--left')}>
         <p>&copy; 2018-{year} Copyright Malcolm Kee. All rights reserved.</p>
         <p>
           <small>

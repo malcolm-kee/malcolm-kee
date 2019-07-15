@@ -1,5 +1,5 @@
+import cx from 'classnames';
 import React from 'react';
-import { joinClassName } from 'join-string';
 import './List.scss';
 
 export const List = ({
@@ -22,7 +22,7 @@ export const ListItem = ({
   ...restProps
 }) => (
   <Component
-    className={joinClassName(
+    className={cx(
       'List--ListItem',
       button && 'button',
       noGutter && 'no-gutter',
@@ -41,23 +41,13 @@ export const ListItemText = ({
   tertiaryText,
   hideOverflow = false,
 }) => (
-  <div
-    className={joinClassName(
-      'List--ListItemText',
-      hideOverflow && 'hide-overflow'
-    )}
-  >
-    <p className={joinClassName('primary', boldPrimary && 'bold')}>
-      {primaryText}
-    </p>
+  <div className={cx('List--ListItemText', hideOverflow && 'hide-overflow')}>
+    <p className={cx('primary', boldPrimary && 'bold')}>{primaryText}</p>
     {secondaryText && <p className="secondary">{secondaryText}</p>}
     {tertiaryText && <p className="tertiary">{tertiaryText}</p>}
   </div>
 );
 
 export const ListItemLabel = ({ className, ...restProps }) => (
-  <div
-    className={joinClassName('List--ListItemLabel', className)}
-    {...restProps}
-  />
+  <div className={cx('List--ListItemLabel', className)} {...restProps} />
 );

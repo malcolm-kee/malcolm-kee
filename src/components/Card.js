@@ -1,5 +1,5 @@
+import cx from 'classnames';
 import React from 'react';
-import { joinClassName as cx } from 'join-string';
 import './Card.scss';
 
 export const Card = ({

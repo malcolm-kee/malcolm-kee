@@ -1,16 +1,16 @@
+import cx from 'classnames';
 import { Link } from 'gatsby';
-import { joinClassName } from 'join-string';
 import React from 'react';
 import './Header.scss';
 
 export const Header = React.memo(({ isBanner }) => (
   <div
-    className={joinClassName(
+    className={cx(
       'Header-outer-container',
       isBanner && 'Header-outer-container-banner'
     )}
   >
-    <header className={joinClassName('Header', isBanner && 'Header--banner')}>
+    <header className={cx('Header', isBanner && 'Header--banner')}>
       <div className="heading-container">
         <div className="heading">
           <h1>

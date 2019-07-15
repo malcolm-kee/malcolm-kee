@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../../../src/components/Button';
 import './map.scss';
 
 export function MapAnimation() {
@@ -25,14 +26,15 @@ export function MapAnimation() {
       </div>
       <div className="Toolbar center">
         {runState !== 'running' && (
-          <button
-            className="btn btn-primary btn-raised"
+          <Button
+            color="primary"
+            raised
             onClick={() =>
               setRunState(runState === 'not_run' ? 'running' : 'not_run')
             }
           >
             {runState === 'complete' ? 'Restart' : 'Run'}
-          </button>
+          </Button>
         )}
       </div>
     </div>
