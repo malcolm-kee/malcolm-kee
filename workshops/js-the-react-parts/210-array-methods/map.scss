@@ -24,44 +24,36 @@ $indexes: 0, 1, 2, 3;
   }
 
   .box {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    border: 1px solid;
     filter: hue-rotate(0deg);
     transform: scale(1);
     transition-property: filter left transform;
     transition-timing-function: linear;
     transition-duration: 0s;
 
-    &.item-0 {
+    &:nth-child(1) {
       background: yellowgreen;
       @include box-offset(0);
     }
 
-    &.item-1 {
+    &:nth-child(2) {
       background: maroon;
       @include box-offset(1);
     }
 
-    &.item-2 {
+    &:nth-child(3) {
       background: orchid;
       @include box-offset(2);
     }
 
-    &.item-3 {
+    &:nth-child(4) {
       background: orange;
       @include box-offset(3);
     }
 
-    &.item-4 {
+    &:nth-child(5) {
       background: darkcyan;
       @include box-offset(4);
     }
-  }
-
-  .circle {
-    border-radius: 50%;
   }
 
   &.activated {
@@ -70,7 +62,7 @@ $indexes: 0, 1, 2, 3;
       left: 100%;
       transition-duration: 1s;
     }
-    .circle {
+    .shrinked {
       filter: hue-rotate(0deg);
       transform: scale(0.6);
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../../../src/components/Button';
+import { Box, Circle } from '../../../src/components/shapes';
 import './filter.scss';
 
 export function FilterAnimation() {
@@ -12,12 +13,12 @@ export function FilterAnimation() {
         id="filter-demo"
       >
         <div className="box-container">
-          <div className="box item-0" />
-          <div className="box circle item-1" />
-          <div className="box item-2" />
-          <div className="box item-3" />
-          <div
-            className="box circle item-4"
+          <Box className="box" />
+          <Circle className="box filtered" />
+          <Box className="box" />
+          <Box className="box" />
+          <Circle
+            className="box filtered"
             onTransitionEnd={() =>
               runState === 'running' && setRunState('complete')
             }

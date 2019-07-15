@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '../../../src/components/Button';
+import { Box, Circle } from '../../../src/components/shapes';
 import './map.scss';
 
 export function MapAnimation() {
@@ -12,12 +13,12 @@ export function MapAnimation() {
         id="map-demo"
       >
         <div className="box-container">
-          <div className="box item-0" />
-          <div className="box circle item-1" />
-          <div className="box item-2" />
-          <div className="box item-3" />
-          <div
-            className="box circle item-4"
+          <Box className="box" />
+          <Circle className="box shrinked" />
+          <Box className="box" />
+          <Box className="box" />
+          <Circle
+            className="box shrinked"
             onTransitionEnd={() =>
               runState === 'running' && setRunState('complete')
             }

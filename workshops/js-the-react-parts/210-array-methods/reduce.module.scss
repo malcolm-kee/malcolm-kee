@@ -41,50 +41,45 @@ $indexes: 0, 1, 2, 3;
   background: var(--bg-absolute);
   max-width: 500px;
   margin: 0 auto;
-
-  &.activated {
-    .box {
-      @each $index in $indexes {
-        &.item-#{$index} {
-          animation: zigzag-#{$index} 4s linear forwards;
-        }
-      }
-    }
-  }
-}
-
-.box {
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  border: 1px solid;
-
-  &.item-0 {
-    background: yellowgreen;
-    @include box-offset(0);
-  }
-
-  &.item-1 {
-    background: maroon;
-    transform: scale(0.8);
-    @include box-offset(1);
-  }
-
-  &.item-2 {
-    transform: scale(0.6);
-    background: orchid;
-    @include box-offset(2);
-  }
-
-  &.item-3 {
-    transform: scale(0.4);
-    background: orange;
-    @include box-offset(3);
-  }
 }
 
 .innerContainer {
   position: relative;
   height: 100%;
   width: calc(100% - 40px);
+
+  > * {
+    &:first-child {
+      background: yellowgreen;
+      @include box-offset(0);
+    }
+
+    &:nth-child(2) {
+      background: maroon;
+      transform: scale(0.8);
+      @include box-offset(1);
+    }
+
+    &:nth-child(3) {
+      transform: scale(0.6);
+      background: orchid;
+      @include box-offset(2);
+    }
+
+    &:nth-child(4) {
+      transform: scale(0.4);
+      background: orange;
+      @include box-offset(3);
+    }
+  }
+
+  &.activated {
+    > * {
+      @each $index in $indexes {
+        &:nth-child(#{$index + 1}) {
+          animation: zigzag-#{$index} 4s linear forwards;
+        }
+      }
+    }
+  }
 }
