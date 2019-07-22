@@ -4,12 +4,12 @@ import React from 'react';
 import { LinkButton } from '../components/Button';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
-import { logo } from './react-state-management-with-redux.module.scss';
+import { logo } from './state-management-with-redux.module.scss';
 
 const PageHeader = () => {
   const { workshopsJson } = useStaticQuery(graphql`
     {
-      workshopsJson(contentId: { eq: "react-state-management-with-redux" }) {
+      workshopsJson(contentId: { eq: "state-management-with-redux" }) {
         name
         description
         keywords
@@ -74,7 +74,7 @@ const PageHeader = () => {
             <p className="landing-subtitle">{workshopsJson.description}</p>
             <div className="Toolbar Toolbar--space-vertical">
               <LinkButton
-                to="/react-state-management-with-redux/introduction"
+                to="/state-management-with-redux/introduction"
                 color="bubble"
                 size="large"
               >

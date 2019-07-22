@@ -72,10 +72,10 @@
     "underConstruction": false
   },
   {
-    "name": "React State Management with Redux",
-    "contentId": "react-state-management-with-redux",
-    "url": "/react-state-management-with-redux",
-    "description": "Understand key concepts of redux and how to use it effectively in a React application",
+    "name": "State Management with Redux",
+    "contentId": "state-management-with-redux",
+    "url": "/state-management-with-redux",
+    "description": "Understand key concepts of redux and how to use it effectively. Featuring usages with React",
     "keywords": ["redux", "react state management", "react redux"],
     "themeColor": "#764abc",
     "iconFile": "../assets/redux.png",

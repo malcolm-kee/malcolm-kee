@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: $spacing-unit * 2;
+  padding-bottom: $space * 2;
 
   @media screen and (min-width: $media-mobile) {
     padding-top: 56px;
@@ -29,7 +29,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding-bottom: $spacing-unit * 2;
+    padding-bottom: $space * 2;
     line-height: 1.5;
   }
 
@@ -38,8 +38,8 @@
     font-weight: bold;
     color: $text-dark;
     text-shadow: 1px 1px 10px #000, 1px 1px 10px #bbb;
-    padding: 0 $spacing-unit * 2;
-    margin: 0 0 $spacing-unit * 2;
+    padding: 0 $space * 2;
+    margin: 0 0 $space * 2;
 
     @media screen and (max-width: $media-mobile) {
       font-size: 1.5rem;
@@ -50,6 +50,7 @@
 
   .landing-subtitle {
     color: $text-dark-pale;
+    padding: 0 $space;
   }
 
   &--inverse {
