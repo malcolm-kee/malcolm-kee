@@ -4,9 +4,9 @@ const {
   createWorkshopNodeFields,
 } = require('./gatsby/workshops-build');
 
-exports.onCreateNode = async ({ node, actions }) => {
+exports.onCreateNode = async ({ node, getNode, actions, reporter }) => {
   if (node.internal.type === 'Mdx') {
-    await createWorkshopNodeFields({ node, actions });
+    await createWorkshopNodeFields({ node, actions, getNode, reporter });
   }
 };
 

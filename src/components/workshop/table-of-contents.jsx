@@ -74,11 +74,11 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
   const withSection = title !== 'null';
 
   const [isActive, setIsActive] = React.useState(() =>
-    nodes.some(node => node.frontmatter.path === pathname)
+    nodes.some(node => node.fields.slug === pathname)
   );
 
   React.useEffect(() => {
-    if (!isActive && nodes.some(node => node.frontmatter.path === pathname)) {
+    if (!isActive && nodes.some(node => node.fields.slug === pathname)) {
       setIsActive(true);
     }
   }, [pathname]);
@@ -98,18 +98,18 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
           </button>
         </li>
       )}
-      {nodes.map(({ frontmatter: { title, path } }) => (
+      {nodes.map(({ frontmatter: { title }, fields: { slug } }) => (
         <li
           className={cx(
             'toc-link-item',
             isActive && 'toc-link-item--active-section'
           )}
-          key={path}
+          key={slug}
         >
           <Link
             className="toc-link"
             activeClassName="toc-link--active"
-            to={path}
+            to={slug}
             onFocus={isActive ? undefined : () => setIsActive(true)}
           >
             {title}

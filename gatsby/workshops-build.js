@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const sharp = require('sharp');
 
 const instructionTemplate = path.resolve(
   __dirname,
@@ -58,10 +57,13 @@ exports.createWorkshopPages = function createWorkshopPages({
                 section
                 title
               }
+              fields {
+                slug
+              }
             }
             next {
-              frontmatter {
-                path
+              fields {
+                slug
               }
             }
           }
@@ -111,7 +113,7 @@ exports.createWorkshopPages = function createWorkshopPages({
 
       group.edges.forEach(({ node: lesson, next }) => {
         createPage({
-          path: lesson.frontmatter.path,
+          path: lesson.fields.slug,
           component: instructionTemplate,
           context: {
             next: lesson.frontmatter.title === 'Conclusion' ? null : next, // hard-code to remove next for conclusion
@@ -130,7 +132,7 @@ exports.createWorkshopPages = function createWorkshopPages({
             workshopId: workshop && workshop.contentId,
             id: lesson.id,
             workshop: group.workshop,
-            commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${lesson.frontmatter.path} in:title sort:created-asc`,
+            commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${lesson.fields.slug} in:title sort:created-asc`,
           },
         });
       });
@@ -141,24 +143,35 @@ exports.createWorkshopPages = function createWorkshopPages({
 exports.createWorkshopNodeFields = function createWorkshopNodeFields({
   node,
   actions,
+  getNode,
+  reporter,
 }) {
   const { createNodeField } = actions;
 
-  const path = node.frontmatter && node.frontmatter.path;
-  if (path) {
-    const sections = path.split('/');
-    const contentGroup = sections[sections.length - 2];
-    if (contentGroup) {
-      createNodeField({
-        node,
-        name: 'contentgroup',
-        value: contentGroup,
-      });
-      createNodeField({
-        node,
-        name: 'workshopcontent',
-        value: contentGroup !== 'blog',
-      });
+  const lessonPath = node.frontmatter && node.frontmatter.path;
+  if (lessonPath) {
+    const fileNode = getNode(node.parent);
+    const isWorkshop = fileNode.sourceInstanceName === 'workshops';
+    if (isWorkshop) {
+      const { dir } = path.parse(fileNode.relativePath);
+      const workshop = dir.split('/')[0];
+      if (workshop) {
+        createNodeField({
+          node,
+          name: 'contentgroup',
+          value: workshop,
+        });
+        createNodeField({
+          node,
+          name: 'slug',
+          value: `/${workshop}${lessonPath}`,
+        });
+      }
     }
+    createNodeField({
+      node,
+      name: 'workshopcontent',
+      value: isWorkshop,
+    });
   }
 };

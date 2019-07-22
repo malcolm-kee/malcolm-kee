@@ -48,14 +48,14 @@ const InstructionTemplate = ({
         </main>
         {next && (
           <div className="Toolbar right Toolbar--space-vertical">
-            <LinkButton to={next.frontmatter.path} color="bubble" size="large">
+            <LinkButton to={next.fields.slug} color="bubble" size="large">
               Next Lesson {rightArrow}
             </LinkButton>
           </div>
         )}
         <Comments
           comments={github.search.nodes}
-          articlePath={mdx.frontmatter.path}
+          articlePath={mdx.fields.slug}
           searchTerm={commentsSearch}
         />
       </div>
@@ -88,12 +88,12 @@ export const pageQuery = graphql`
       id
       fields {
         contentgroup
+        slug
       }
       frontmatter {
         title
         description
         section
-        path
         keywords
       }
       code {
