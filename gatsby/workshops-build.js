@@ -149,29 +149,28 @@ exports.createWorkshopNodeFields = function createWorkshopNodeFields({
   const { createNodeField } = actions;
 
   const lessonPath = node.frontmatter && node.frontmatter.path;
-  if (lessonPath) {
-    const fileNode = getNode(node.parent);
-    const isWorkshop = fileNode.sourceInstanceName === 'workshops';
-    if (isWorkshop) {
-      const { dir } = path.parse(fileNode.relativePath);
-      const workshop = dir.split('/')[0];
-      if (workshop) {
-        createNodeField({
-          node,
-          name: 'contentgroup',
-          value: workshop,
-        });
-        createNodeField({
-          node,
-          name: 'slug',
-          value: `/${workshop}${lessonPath}`,
-        });
-      }
+  const fileNode = getNode(node.parent);
+  const isWorkshop = fileNode.sourceInstanceName === 'workshops';
+  if (isWorkshop) {
+    // use filename and directory name to generate path
+    const { dir, name } = path.parse(fileNode.relativePath);
+    const workshop = dir.split('/')[0];
+    if (workshop) {
+      createNodeField({
+        node,
+        name: 'contentgroup',
+        value: workshop,
+      });
+      createNodeField({
+        node,
+        name: 'slug',
+        value: `/${workshop}/${name}`,
+      });
     }
-    createNodeField({
-      node,
-      name: 'workshopcontent',
-      value: isWorkshop,
-    });
   }
+  createNodeField({
+    node,
+    name: 'workshopcontent',
+    value: isWorkshop,
+  });
 };
