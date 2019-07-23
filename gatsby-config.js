@@ -20,7 +20,7 @@ module.exports = {
     `gatsby-plugin-sass`,
     `gatsby-plugin-postcss`,
     {
-      resolve: `gatsby-plugin-compile-es6-packages`, // test?
+      resolve: `gatsby-plugin-compile-es6-packages`,
       options: {
         modules: [`@philpl/buble`, `buble`],
       },
@@ -151,8 +151,10 @@ module.exports = {
                       frontmatter {
                         title
                         date(formatString: "MMM DD, YYYY")
-                        path
                         summary
+                      }
+                      fields {
+                        slug
                       }
                     }
                   }
@@ -163,9 +165,8 @@ module.exports = {
               return allMdx.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.frontmatter.summary,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.frontmatter.path,
-                  guid: site.siteMetadata.siteUrl + edge.node.frontmatter.path,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   custom_elements: [{ 'content:encoded': edge.node.html }],
                 });
               });
