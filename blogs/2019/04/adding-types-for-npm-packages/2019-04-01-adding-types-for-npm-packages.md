@@ -1,8 +1,7 @@
 ---
-path: "/blog/adding-types-for-npm-packages"
-date: "2019-04-01"
-title: "Adding Types for npm Packages"
-tags: ["typescript"]
+title: 'Adding Types for npm Packages'
+date: '2019-04-01'
+tags: ['typescript']
 summary: "How to add custom types for npm packages that doesn't have declaration nor DefinitelyTyped support."
 published: true
 ---

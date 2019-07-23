@@ -1,4 +1,5 @@
 const fs = require('fs');
+const _ = require('lodash');
 const path = require('path');
 
 const instructionTemplate = path.resolve(
@@ -148,9 +149,13 @@ exports.createWorkshopNodeFields = function createWorkshopNodeFields({
 }) {
   const { createNodeField } = actions;
 
-  const lessonPath = node.frontmatter && node.frontmatter.path;
   const fileNode = getNode(node.parent);
   const isWorkshop = fileNode.sourceInstanceName === 'workshops';
+  createNodeField({
+    node,
+    name: 'workshopcontent',
+    value: isWorkshop,
+  });
   if (isWorkshop) {
     // use filename and directory name to generate path
     const { dir, name } = path.parse(fileNode.relativePath);
@@ -167,10 +172,23 @@ exports.createWorkshopNodeFields = function createWorkshopNodeFields({
         value: `/${workshop}/${name}`,
       });
     }
+  } else {
+    // blog post
+    const frontMatterPath = node.frontmatter && node.frontmatter.path;
+    if (frontMatterPath) {
+      createNodeField({
+        node,
+        name: 'slug',
+        value: frontMatterPath,
+      });
+    } else {
+      const { dir, name } = path.parse(fileNode.relativePath);
+      const parentFolder = _.last(dir.split('/'));
+      createNodeField({
+        node,
+        name: 'slug',
+        value: `/blog/${parentFolder}`,
+      });
+    }
   }
-  createNodeField({
-    node,
-    name: 'workshopcontent',
-    value: isWorkshop,
-  });
 };

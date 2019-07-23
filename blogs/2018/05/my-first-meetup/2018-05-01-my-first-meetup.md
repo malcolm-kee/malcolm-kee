@@ -1,9 +1,8 @@
 ---
-path: "/blog/my-first-meetup"
-date: "2018-05-01"
-title: "My first Meetup"
-tags: ["meetup"]
-summary: "A journal on my first Meetup experience"
+title: 'My first Meetup'
+date: '2018-05-01'
+tags: ['meetup']
+summary: 'A journal on my first Meetup experience'
 published: true
 ---
 

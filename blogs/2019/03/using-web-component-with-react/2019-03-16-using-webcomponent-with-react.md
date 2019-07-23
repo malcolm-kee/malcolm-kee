@@ -1,8 +1,7 @@
 ---
-path: "/blog/using-webcomponent-with-react"
-date: "2019-03-17"
-title: "Using Web Component With React"
-tags: ["web component", "react"]
+title: 'Using Web Component With React'
+date: '2019-03-17'
+tags: ['web component', 'react']
 summary: "Using web component in React requires some boilerplates to make it work, trying to abstract that boilerplate has a limitation. With React hooks, it's much less boiletplate and the abstraction is no longer needed."
 published: true
 ---
@@ -67,7 +66,7 @@ The wrapper was created due to the fact that, to listen to any event in web comp
 
 ## Hmmm... why so much code to listen to event?
 
-A thing that a React developer may take for granted is that React doesn't differentiate between event listener and attributes. Everything you can pass to a component / html element is just Javascript variable, and they are all called as `props`.
+A thing that a React developer may take for granted is that React doesn't differentiate between event listener and attributes. Everything you can pass to a component / html element is just Javascript variable, and they are all called `props`.
 
 In contrast, in other frameworks (e.g. Angular and Vue), attributes and event listener are different entity, and you need to treat them differently e.g. you need to add special syntax `v:on`, `@` etc. for event. The differentiation of attribute and listener listener of Angular and Vue actually works closer to how html elements in browser works. For instance, to listen to a button click event, you need to attach the event listener with `addEventListener` instead of just passing down an attribute like `disabled` or `class`.
 

@@ -1,9 +1,8 @@
 ---
-path: "/blog/how-to-bargain"
-date: "2018-06-24"
-title: "How to bargain in marketplace like a tactful auntie"
-tags: ["social", "bargaining", "auntie"]
-summary: "To bargain successfully in marketplace, make abrupt concession and threaten to flip-table effectively."
+title: 'How to bargain in marketplace like a tactful auntie'
+date: '2018-06-24'
+tags: ['social', 'bargaining', 'auntie']
+summary: 'To bargain successfully in marketplace, make abrupt concession and threaten to flip-table effectively.'
 published: true
 ---
 
@@ -17,13 +16,13 @@ This article would like to explain two tips that would make your haggle more tac
 
 Typical conversation in a haggle:
 
-> Hawker: "The price is $200."
+> Hawker: "The price is \$200."
 >
-> Customer: "What about $100?"
+> Customer: "What about \$100?"
 >
-> Hawker: "$180"
+> Hawker: "\$180"
 >
-> Customer: "What about $120?"
+> Customer: "What about \$120?"
 
 Usually, customer will offer a price that is much lower than they willing to pay, and then increase little bit by little bit, until both of them are satisfied. We can call this type of concession in bargaining as incremental concession, or "squeezing toothpaste concession technique". This is the most common type of concession technique that people use.
 
@@ -37,15 +36,15 @@ Abrupt concession. It means you should not concess at all in the beginning, and 
 
 Let's see the conversation:
 
-> In the beginning, Hawker: "This thing $200."
+> In the beginning, Hawker: "This thing \$200."
 >
-> Customer: "No way, I only willing to pay $100."
+> Customer: "No way, I only willing to pay \$100."
 >
-> Hawker: "Sorry, $200 is the final price."
+> Hawker: "Sorry, \$200 is the final price."
 >
 > After much barganing, the hawker insists on $200. Then finally, the hawker sigh and say, "Fine, it's late now, I am closing soon. I'll sell at $160."
 >
-> If you're customer, do you think you can continue to ask, "what about $155?"
+> If you're customer, do you think you can continue to ask, "what about \$155?"
 
 The key elements of effective abrupt concessions are:
 
@@ -69,7 +68,7 @@ Let see an example:
 >
 > Besides, Alex will talk to the shopkeeper as well, but never ask about the price. Instead, he will ask about the details of the item, such as how long is the lifetime of the item, as if he already buy it. He would also "unintentially" say things like "my wife would not be happy if I buy this" etc.
 >
-> Finally, Alex would take out the wallet, and then only ask, "how much should I pay?" Regardless of how much the offer (say $1,000), he would show a shocked face, and then put his wallet back to his pocket, "that's too over!"
+> Finally, Alex would take out the wallet, and then only ask, "how much should I pay?" Regardless of how much the offer (say \$1,000), he would show a shocked face, and then put his wallet back to his pocket, "that's too over!"
 >
 > Usually, the shopkeeper would either offer him a big discount, or just ask him to offer. And then Alex would respond, "I thought it is only about $100, who knows it is so expensive! If I buy it my wife would kill me. What about $400? If you don't like it, it's fine, I'll pass on then."
 

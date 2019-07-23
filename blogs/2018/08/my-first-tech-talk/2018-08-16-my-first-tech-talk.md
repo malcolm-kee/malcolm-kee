@@ -1,9 +1,8 @@
 ---
-path: "/blog/my-first-tech-talk"
-date: "2018-08-20"
-title: "My First Tech Talk: Render Props & Higher Order Components"
-tags: ["meetup", "talk", "react-patterns"]
-summary: "A note on my first technical talk on React. I find the act of preparing and delivering the talk satisfying."
+title: 'My First Tech Talk: Render Props & Higher Order Components'
+date: '2018-08-20'
+tags: ['meetup', 'talk', 'react-patterns']
+summary: 'A note on my first technical talk on React. I find the act of preparing and delivering the talk satisfying.'
 published: true
 ---
 
@@ -15,9 +14,9 @@ As it's my first ever tech talk, I would like to write down some notes for any n
 
 There are few types of tech talks:
 
-* Explanation of a concept
-* How to use a tool
-* Technical magician (showcase some cool stuff that you've built)
+- Explanation of a concept
+- How to use a tool
+- Technical magician (showcase some cool stuff that you've built)
 
 In my case, there is no cool stuffs that I can show, thus I eliminate that option. I was pondering between doing explanation and how-to, and finally decide to do explanation on React Patterns as I want to deepen my understandings on them.
 
@@ -27,8 +26,8 @@ I've learnt the React patterns from Kent C. Dodds materials on [Frontend Masters
 
 Taking his materials as baseline, I decided to focus on two patterns that I think that are the most commonly used:
 
-* Render props
-* Higher order component
+- Render props
+- Higher order component
 
 I used `mdx-deck` to generate the slides for the talk, while preparing a github repo that I would live-code in the talk.
 

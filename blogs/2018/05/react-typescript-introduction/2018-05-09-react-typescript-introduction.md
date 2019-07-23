@@ -1,9 +1,8 @@
 ---
-path: "/blog/react-typescript-introduction"
-date: "2018-05-10"
-title: "Introduction to React with Typescript"
-tags: ["react", "typescript", "beginner"]
-summary: "Using typescript allow static typechecking and intellisense in your React application, and it is easy to get started."
+title: 'Introduction to React with Typescript'
+date: '2018-05-10'
+tags: ['react', 'typescript', 'beginner']
+summary: 'Using typescript allow static typechecking and intellisense in your React application, and it is easy to get started.'
 published: true
 ---
 
@@ -21,8 +20,8 @@ As JS is a weakly typed language, static typechecking system is introduced into 
 
 The 2 most common static typechecking system to be used with React are:
 
-* Flow (from Facebook as well) and
-* Typescript.
+- Flow (from Facebook as well) and
+- Typescript.
 
 Even though Flow is used by Facebook internally for their React applications (thus theoretically they should work together better than Typescript), but Typescript support for React is very good as well except for some [edge cases][edge-case-bug].
 
@@ -87,8 +86,8 @@ export const Profile: React.SFC<IProps> = props => {
 
 Note that:
 
-* The `import` statement for React in Typescript should be in the format of `* as React`.
-* `IProps` can be renamed as simpler `Props`, depending on your naming convention.
+- The `import` statement for React in Typescript should be in the format of `* as React`.
+- `IProps` can be renamed as simpler `Props`, depending on your naming convention.
 
 ### Type Props for Class Component
 
@@ -140,12 +139,12 @@ Using a button that use the label on it to indicate its current status:
 ```jsx
 export class Button extends React.Component {
   state = {
-    on: false
+    on: false,
   };
 
   handleToggleOn = () => {
     this.setState(prevState => ({
-      on: !prevState.on
+      on: !prevState.on,
     }));
   };
 
@@ -168,12 +167,12 @@ interface IState {
 
 export class Button extends React.Component<{}, IState> {
   state: IState = {
-    on: false
+    on: false,
   };
 
   handleToggleOn = () => {
     this.setState(prevState => ({
-      on: !prevState.on
+      on: !prevState.on,
     }));
   };
 
@@ -191,8 +190,8 @@ That's it!
 
 ## Further Readings
 
-* [JSX section in Typescript docs](https://www.typescriptlang.org/docs/handbook/jsx.html)
-* [TodoMVC React Typescript](http://todomvc.com/examples/typescript-react/#/)
+- [JSX section in Typescript docs](https://www.typescriptlang.org/docs/handbook/jsx.html)
+- [TodoMVC React Typescript](http://todomvc.com/examples/typescript-react/#/)
 
 <hr />
 

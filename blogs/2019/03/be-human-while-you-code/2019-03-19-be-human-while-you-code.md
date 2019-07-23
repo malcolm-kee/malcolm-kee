@@ -1,8 +1,7 @@
 ---
-path: "/blog/be-human-while-you-code"
-date: "2019-03-19"
-title: "Be Human While You Code"
-tags: ["accessibility"]
+title: 'Be Human While You Code'
+date: '2019-03-19'
+tags: ['accessibility']
 summary: "Even when your colleague or boss doesn't care, write accessible code. Because you can. Because you should. Because you're human, and you care about other human too."
 published: true
 ---

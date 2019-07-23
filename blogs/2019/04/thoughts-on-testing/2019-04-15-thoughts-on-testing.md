@@ -1,9 +1,8 @@
 ---
-path: "/blog/thoughts-on-testing"
-date: "2019-04-15"
-title: "Thoughts on Testing"
-tags: ["testing", "javascript"]
-summary: "A list of unorganized random thoughts on automated testing"
+title: 'Thoughts on Testing'
+date: '2019-04-15'
+tags: ['testing', 'javascript']
+summary: 'A list of unorganized random thoughts on automated testing'
 published: true
 ---
 
@@ -31,7 +30,7 @@ published: true
 
     const serverData = [
       { id: 1, name: 'Malcolm Kee', age: 26 },
-      { id: 2, name: 'Michael Jordan', age: 50 }
+      { id: 2, name: 'Michael Jordan', age: 50 },
     ];
 
     test('it as a black box', () => {
@@ -64,8 +63,8 @@ published: true
 
 1.  Am I saying that mock doesn't have a place in testing? No. Mocking are justified for the following reasons:
 
-    * the code is indeterministic (e.g. producing random result, making AJAX calls)
-    * it is too expensive to run (charging to Credit Card)
+    - the code is indeterministic (e.g. producing random result, making AJAX calls)
+    - it is too expensive to run (charging to Credit Card)
 
     For those cases, by all means mock those out. What I am against is mocking just for the sake of making the test independent and fit the name of "unit testing".
 

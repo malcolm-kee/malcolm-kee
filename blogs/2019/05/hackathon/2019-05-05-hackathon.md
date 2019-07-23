@@ -1,7 +1,6 @@
 ---
-path: '/blog/hackathon'
-date: '2019-05-05'
 title: 'Joining a Hackathon'
+date: '2019-05-05'
 tags: ['personal']
 summary: 'Personal notes on my recent experience of joining Can You Hack It hackathon.'
 published: true

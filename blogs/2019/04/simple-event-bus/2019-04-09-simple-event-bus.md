@@ -1,9 +1,8 @@
 ---
-path: "/blog/simple-event-bus"
-date: "2019-04-09"
-title: "Creating a Simple Event Bus"
-tags: ["javascript"]
-summary: "How to create an event bus to coordinate multiple section of your Javascript app."
+title: 'Creating a Simple Event Bus'
+date: '2019-04-09'
+tags: ['javascript']
+summary: 'How to create an event bus to coordinate multiple section of your Javascript app.'
 published: true
 ---
 

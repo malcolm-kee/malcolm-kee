@@ -1,5 +1,6 @@
 const path = require('path');
 const _ = require('lodash');
+
 const blogPostTemplate = path.resolve(
   __dirname,
   '..',
@@ -41,22 +42,28 @@ module.exports = function createBlogs({ actions, graphql }) {
           node {
             id
             frontmatter {
-              path
               tags
               keywords
               summary
             }
+            fields {
+              slug
+            }
           }
           next {
             frontmatter {
-              path
               title
+            }
+            fields {
+              slug
             }
           }
           previous {
             frontmatter {
-              path
               title
+            }
+            fields {
+              slug
             }
           }
         }
@@ -73,13 +80,13 @@ module.exports = function createBlogs({ actions, graphql }) {
 
     posts.forEach(({ node, next, previous }) => {
       createPage({
-        path: node.frontmatter.path,
+        path: node.fields.slug,
         component: blogPostTemplate,
         context: {
           id: node.id,
           next: previous, // we need to invert these 2 because we query date descending
           previous: next,
-          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.frontmatter.path} in:title sort:created-asc`,
+          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.fields.slug} in:title sort:created-asc`,
         },
       });
     });
