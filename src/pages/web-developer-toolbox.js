@@ -5,9 +5,7 @@ import { LinkButton } from '../components/Button';
 import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
-import './web-developer-toolbox.scss';
-
-/* eslint-disable no-script-url */
+import { icon } from './web-developer-toolbox.module.scss';
 
 const PageHeader = () => {
   const { workshopsJson } = useStaticQuery(graphql`
@@ -53,7 +51,7 @@ const PageHeader = () => {
         />
         <div>
           <div className="logo-section">
-            <img src={toolboxIcon} alt="" id="web-developer-toolbox-icon" />
+            <img src={toolboxIcon} alt="" className={icon} />
           </div>
           <div className="landing-title-container">
             <h1

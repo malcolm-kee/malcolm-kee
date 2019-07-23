@@ -4,7 +4,7 @@ import { LinkButton } from '../components/Button';
 import { GatsbyLogo } from '../components/gatsby-logo';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
-import './fast-site-with-gatsby-js.scss';
+import { container } from './fast-site-with-gatsby-js.module.scss';
 
 const PageHeader = () => {
   const { workshopsJson } = useStaticQuery(graphql`
@@ -48,7 +48,7 @@ const PageHeader = () => {
       <div id="fast-site-with-gatsbyjs-landing">
         <div className="logo-section">
           <div className="icon-container">
-            <div className="gatsby-logo-container">
+            <div className={container}>
               <GatsbyLogo />
             </div>
           </div>
