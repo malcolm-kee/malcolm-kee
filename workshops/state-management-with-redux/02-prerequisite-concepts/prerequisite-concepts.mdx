@@ -1,0 +1,79 @@
+---
+title: Prerequisite Concepts
+description: ''
+section: 'introduction'
+---
+
+Redux can be understood as combination of two concepts: reducer and event emitter.
+
+## Reducer
+
+There are few Array methods that are used heavily in redux.
+
+- Array.map - item transformation
+- Array.filter - item filtering
+- Array.concat - item appending
+- Array.reduce - generate a single value by going through each item
+
+<aside>
+
+If you're new to these Array methods, go through [Array methods module](/js-the-react-parts/array-methods) in JavaScript: The React Parts.
+
+</aside>
+
+The function that you pass to Array.reduce is known as reducer function, or simply _reducer_.
+
+A reducer accept two parameters, prevState and currentItem, then returns newState.
+
+```javascript
+const reducer = (prevState, currentItem) => newState;
+```
+
+## Event Emitter
+
+An event emitter is an object that will emit events and trigger all the subscribers listens for the event.
+
+In its simplest form, event emitter exposes two methods, `subscribe` and `emit`.
+
+```javascript
+const evEmitter = createEventEmitter();
+evEmitter.subscribe(val => console.log(`Event emitted with value ${val}`));
+evEmitter.emit('hello');
+evEmitter.emit('bye');
+```
+
+<aside>
+
+Event emitter is an implementation of observer design pattern, which allows multiple components/modules to communicate with each other without tight coupling between them.
+
+</aside>
+
+Event emitter is used heavily in JavaScript. For instance, all DOM elements are event emitters, and that's how you respond to DOM event.
+
+```javascript
+document
+  .getElementById('btn')
+  .addEventListener('click', () => console.log('btn is clicked!'));
+```
+
+How does the code of `createEventEmitter` looks like?
+
+```js
+const createEventEmitter = () => {
+  const subscribers = [];
+  const subscribe = subscriber => {
+    subscribers.push(subscriber);
+  };
+  const emit = value => {
+    subscribers.forEach(sub => typeof sub === 'function' && sub(value));
+  };
+  return {
+    subscribe,
+    emit,
+  };
+};
+const evEmitter = createEventEmitter();
+evEmitter.subscribe(val => console.log(`Event emitted with value ${val}`));
+evEmitter.emit('hello');
+evEmitter.emit('bye');
+```
