@@ -1,6 +1,6 @@
 ---
 title: Prerequisite Concepts
-description: ''
+description: 'Before study redux, it is helpful to understand the concept of reducer and event emitter.'
 section: 'introduction'
 ---
 
@@ -28,6 +28,8 @@ A reducer accept two parameters, prevState and currentItem, then returns newStat
 ```javascript
 const reducer = (prevState, currentItem) => newState;
 ```
+
+- reducer should be a [pure function](/js-the-react-parts/functional-programming#pure-function).
 
 ## Event Emitter
 
