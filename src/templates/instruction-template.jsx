@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby';
-import MDXRenderer from 'gatsby-mdx/mdx-renderer';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ChevronIcon } from '../components/chevron-icon';
@@ -43,7 +43,7 @@ const InstructionTemplate = ({
         </div>
         <main>
           <article className="instruction-article article-content">
-            <MDXRenderer>{mdx.code.body}</MDXRenderer>
+            <MDXRenderer>{mdx.body}</MDXRenderer>
           </article>
         </main>
         {next && (
@@ -96,9 +96,7 @@ export const pageQuery = graphql`
         section
         keywords
       }
-      code {
-        body
-      }
+      body
       tableOfContents(maxDepth: 2)
     }
     github {

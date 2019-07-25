@@ -1,6 +1,6 @@
 import { graphql, Link } from 'gatsby';
 import Image from 'gatsby-image';
-import MDXRenderer from 'gatsby-mdx/mdx-renderer';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 import kebabCase from 'lodash/kebabCase';
 import React from 'react';
 import { Comments } from '../components/comments';
@@ -50,7 +50,7 @@ export default function BlogTemplate({ data, pageContext }) {
         imageBy,
         imageByLink,
       },
-      code,
+      body,
       timeToRead,
     },
     github: {
@@ -107,7 +107,7 @@ export default function BlogTemplate({ data, pageContext }) {
               </div>
             )}
             <div className="blog-post--content article-content">
-              <MDXRenderer>{code.body}</MDXRenderer>
+              <MDXRenderer>{body}</MDXRenderer>
             </div>
           </article>
         </main>
@@ -148,9 +148,7 @@ export default function BlogTemplate({ data, pageContext }) {
 export const pageQuery = graphql`
   query BlogPostByPath($id: String!, $commentsSearch: String!) {
     mdx(id: { eq: $id }) {
-      code {
-        body
-      }
+      body
       fields {
         slug
       }
