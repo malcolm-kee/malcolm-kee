@@ -7,4 +7,10 @@ exports.onClientEntry = () => {
     import(`intersection-observer`);
     console.log(`IntersectionObserver is polyfilled`);
   }
+
+  // fetch polyfill required for urql
+  if (typeof window.fetch === `undefined`) {
+    import(`whatwg-fetch`);
+    console.log(`fetch is polyfilled`);
+  }
 };
