@@ -15,17 +15,6 @@ exports.createPages = async ({ actions, graphql }) => {
   await createWorkshopPages({ actions, graphql });
 };
 
-exports.onCreatePage = ({ page, actions }) => {
-  const { createPage, deletePage } = actions;
-
-  if (page.path === '/') {
-    const oldPage = Object.assign({}, page);
-    page.context.isRoot = true;
-    deletePage(oldPage);
-    createPage(page);
-  }
-};
-
 exports.onCreateWebpackConfig = ({ actions }) => {
   // switching buble to '@philpl/buble' to reduce bundle size
   // but does not support ESNext regex. See https://github.com/FormidableLabs/react-live#what-bundle-size-can-i-expect

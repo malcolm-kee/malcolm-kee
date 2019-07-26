@@ -22,8 +22,17 @@ const mdxComponents = {
   ),
 };
 
-const LayoutContainer = ({ children, pageContext, location }) => {
+const LayoutContainer = ({ children, pageContext, location, path }) => {
   const themeValue = useTheme();
+
+  const [isRoot, setIsRoot] = React.useState(() => path === '/');
+  React.useEffect(() => {
+    if (path === '/' && !isRoot) {
+      setIsRoot(true);
+    } else if (path !== '/' && isRoot) {
+      setIsRoot(false);
+    }
+  }, [path]);
 
   const {
     isWorkshop,
@@ -31,7 +40,6 @@ const LayoutContainer = ({ children, pageContext, location }) => {
     workshopTitle,
     workshopThemeColor,
     lessonGroup,
-    isRoot,
   } = pageContext;
 
   return (
