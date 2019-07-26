@@ -13,6 +13,7 @@ const PageHeader = () => {
         name
         description
         keywords
+        themeColor
         iconFile {
           childImageSharp {
             resize(width: 16, height: 16) {

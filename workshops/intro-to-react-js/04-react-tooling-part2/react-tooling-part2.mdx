@@ -21,12 +21,24 @@ webpack is the tools that solves this problem. It allows us to use JS module sys
 
 To use webpack in your project:
 
-1. Install it in your project: `npm install -D webpack webpack-cli`
+1. Install it in your project:
+
+   ```bash
+   npm install -D webpack webpack-cli
+   ```
+
 1. Create a folder and call it `src`. Move your `script.js` into this folder and rename it as `index.js`.
 1. Add the following npm scripts:
-   ```json
-   "build": "webpack --mode=\"development\""
+
+   ```json fileName=package.json highlightedLines=4
+   {
+     "scripts": {
+       ...
+       "build": "webpack --mode=\"development\""
+     }
+   }
    ```
+
 1. Run `npm run build`
 
 - webpack will produces a file call `main.js` in `dist` folder.
@@ -73,7 +85,7 @@ Functionally, our code still works the same. However, now we organize our code w
 1. Verify that your code still works as before.
 1. (Bonus) use named exports for `movie.js`.
 
-> [`030-webpack-app-code`](https://github.com/malcolm-kee/react-movie-app/tree/030-webpack-app-code)
+Commit: [`030-webpack-app-code`](https://github.com/malcolm-kee/react-movie-app/tree/030-webpack-app-code)
 
 </section>
 
@@ -83,10 +95,12 @@ Now webpack is managing dependencies between our codes (`index.js`, `app.js` and
 
 1. Install React and ReactDOM: `npm install react react-dom`. Note that there is no `-D` flag as we need React and ReactDOM in our application code, not tools during development/building.
 1. At the top of your `index.js`, add the following statements:
-   ```javascript
+
+   ```javascript fileName=src/index.js
    import React from 'react';
    import ReactDOM from 'react-dom';
    ```
+
 1. At the top of `app.js` and `movie.js`, add the following statement:
    ```javascript
    import React from 'react';
@@ -102,7 +116,7 @@ Now webpack is managing dependencies between our codes (`index.js`, `app.js` and
 1. Bundle them together by including changes as described above.
 1. Verify that your code still works as before.
 
-> [`040-webpack-dependencies`](https://github.com/malcolm-kee/react-movie-app/tree/040-webpack-dependencies)
+Commit: [`040-webpack-dependencies`](https://github.com/malcolm-kee/react-movie-app/tree/040-webpack-dependencies)
 
 </section>
 
@@ -112,11 +126,11 @@ Now webpack is managing dependencies between our codes (`index.js`, `app.js` and
 
 1. install required packages as devDependencies:
    ```bash
-     npm i -D webpack-dev-server html-webpack-plugin
+   npm i -D webpack-dev-server html-webpack-plugin
    ```
 1. create a file `webpack.config.js` with the following content. `webpack.config.js` is the file that allows you to customize behavior of webpack. There are [many configurations][webpack-configurations] that you can do here, e.g. specify the entry points (if you entry point is not `src/index.js`) or the output folder (if you want to put the output in the folder with name other than `dist`).
 
-   ```javascript
+   ```javascript fileName=webpack.config.js
    // eslint-disable-next-line no-unused-vars
    const webpack = require('webpack');
    const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -139,8 +153,13 @@ Now webpack is managing dependencies between our codes (`index.js`, `app.js` and
 1. remove `<script src="dist/main.js"></script>` from `index.html` because webpack will help you to inject it.
 1. add a `start` npm script:
 
-   ```json
-   "start": "webpack-dev-server --mode=\"development\" --open"
+   ```json fileName=package.json highlightedLines=4
+   {
+     "scripts": {
+       ...
+       "start": "webpack-dev-server --mode=\"development\" --open"
+     }
+   }
    ```
 
 1. run `npm start` (`npm run start` works too). This should open your default browser with the url [http://localhost:9200/](http://localhost:9200/).
@@ -153,7 +172,7 @@ You may realize that the current output file of webpack has tons of comments and
 To create a production bundle for our app:
 
 1. Add the following npm script in `package.json`:
-   ```json
+   ```json fileName=package.json
    "build:prod": "webpack --mode=\"production\""
    ```
 1. run `npm run build:prod`
@@ -165,7 +184,7 @@ To create a production bundle for our app:
 1. configure webpack-dev-server as described and run it. Verify it recompile and refresh your browser when you make change to your code.
 1. configure build:prod npm scripts as described above. Verify the produced `main.js` is minified, and the file size is much smaller now.
 
-> [`050-webpack-dev-server`](https://github.com/malcolm-kee/react-movie-app/tree/050-webpack-dev-server)
+Commit: [`050-webpack-dev-server`](https://github.com/malcolm-kee/react-movie-app/tree/050-webpack-dev-server)
 
 </section>
 
@@ -198,19 +217,20 @@ Note that webpack is much more powerful than I've described above. The following
      npm install -D @babel/core @babel/preset-env babel-loader
      ```
   1. Create a `.babelrc` file with the following content. This file tells Babel what transformation to perform.
-     ```json
+     ```json fileName=.babelrc
      {
        "presets": ["@babel/preset-env"]
      }
      ```
   1. Create a `.browserlistrc` file with the following content. This specifies what browser you supports. `@babel/preset-env` use this information to decide what syntax it needs to transform and what can be leave it as-is.
-     ```
+     ```text fileName=.browserlistrc
      > 1%
      not ie <= 8
      ```
   1. Update `webpack.config.js` file by adding `module.rules` section, like the following content. This configuration tells webpack to run through all file ends with `.js` or `.jsx` extension through the `babel-loader`.
-     ```javascript
+     ```javascript fileName=webpack.config.js
      module.exports = {
+       // highlight-start
        module: {
          rules: [
            {
@@ -220,6 +240,7 @@ Note that webpack is much more powerful than I've described above. The following
            },
          ],
        },
+       // highlight-end
        devServer: {
          port: 9200,
        },
@@ -240,7 +261,7 @@ Note that webpack is much more powerful than I've described above. The following
 1. Configure Babel as described above.
 1. Restart webpack-dev-server and verify that the application works in IE.
 
-> [`060-babel-integration`](https://github.com/malcolm-kee/react-movie-app/tree/060-babel-integration)
+Commit: [`060-babel-integration`](https://github.com/malcolm-kee/react-movie-app/tree/060-babel-integration)
 
 </section>
 
@@ -248,9 +269,14 @@ Note that webpack is much more powerful than I've described above. The following
 
 As our code has been reorganized, with introduction of webpack, let's update our npm scripts accordingly. Update `format` and `lint` script in `package.json`:
 
-```json
-   "format": "prettier --write src/**/*.{js,jsx}",
-   "lint": "eslint src/**/*.{js,jsx} --quiet"
+```json fileName=package.json highlightedLines=4,5
+{
+  "scripts": {
+    ...
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "lint": "eslint src/**/*.{js,jsx} --quiet"
+  }
+}
 ```
 
 [webpack]: https://webpack.js.org/

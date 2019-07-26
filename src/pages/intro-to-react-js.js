@@ -4,7 +4,6 @@ import { LinkButton } from '../components/Button';
 import { ReactLogo } from '../components/react-logo';
 import { Seo } from '../components/Seo';
 import { LandingPageHeader } from '../components/workshop/landing-page-header';
-import './intro-to-react-js-v2.scss';
 
 const PageHeader = () => {
   const { workshopsJson } = useStaticQuery(graphql`
@@ -12,6 +11,7 @@ const PageHeader = () => {
       workshopsJson(contentId: { eq: "intro-to-react-js" }) {
         name
         description
+        themeColor
         keywords
         iconFile {
           childImageSharp {
@@ -32,7 +32,7 @@ const PageHeader = () => {
   `);
 
   return (
-    <LandingPageHeader>
+    <LandingPageHeader inverse>
       <Seo
         title={workshopsJson.name}
         description={workshopsJson.description}
@@ -45,11 +45,9 @@ const PageHeader = () => {
           workshopsJson.iconFile.childImageSharp.resize.src
         }
       />
-      <div id="intro-to-react-js-v2-landing">
+      <div>
         <div className="logo-section">
-          <div className="react-logo-container">
-            <ReactLogo />
-          </div>
+          <ReactLogo />
         </div>
         <div className="landing-title-container">
           <h1

@@ -11,7 +11,7 @@ You do not need JSX to use React, as I've shown you in [previous section](/vanil
 
 Let's convert `Movie` component to using JSX. It will look like this:
 
-```jsx
+```jsx fileName=src/movie.js
 import React from 'react';
 
 const Movie = props => (
@@ -31,7 +31,7 @@ export default Movie;
 
 So now JSX is demystified a bit, let's go convert `App` and `index.js`.
 
-```jsx
+```jsx fileName=src/app.js
 class App extends React.Component {
   render() {
     return (
@@ -51,7 +51,7 @@ class App extends React.Component {
 }
 ```
 
-```jsx
+```jsx fileName=src/index.js
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
@@ -66,7 +66,7 @@ Therefore, we need to configure Babel so that it will recognize JSX and compile 
 
 1. run `npm install -D @babel/preset-react`
 2. add `@babel/preset-react` into `.babelrc` presets.
-   ```json
+   ```json fileName=.babelrc
    {
      "presets": ["@babel/preset-env", "@babel/preset-react"]
    }
@@ -82,7 +82,7 @@ Now when you start webpack-dev-server, the compilation should succeeds and your 
 1. Configure Babel to compile JSX.
 1. Restart webpack-dev-server and verify that the application still works as before.
 
-> [`070-jsx-config`](https://github.com/malcolm-kee/react-movie-app/tree/070-jsx-config)
+Commit: [`070-jsx-config`](https://github.com/malcolm-kee/react-movie-app/tree/070-jsx-config)
 
 </section>
 
@@ -101,7 +101,7 @@ Let's assume the design of our app is to display "React Movie App" title and a "
 
 To achieve that, let's modify our `App` component to:
 
-```jsx
+```jsx fileName=src/app.js
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -169,7 +169,7 @@ Before we proceed, there is some cleanup that I want to suggest:
 
 The `App` component should be as below now:
 
-```jsx
+```jsx fileName=src/app.js
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -218,7 +218,7 @@ It is tedious and error-prone to remember and write the binding for each of your
 
 Convert your `App` component as below:
 
-```jsx
+```jsx fileName=src/app.js
 class App extends React.Component {
   state = {
     showMovies: false
@@ -246,7 +246,7 @@ This is much more terse than previous code. However, you would see some compilat
 
 1. Update `.babelrc` as below:
 
-   ```json
+   ```json fileName=.babelrc highlightedLines=3
    {
      "presets": ["@babel/preset-env", "@babel/preset-react"],
      "plugins": ["@babel/plugin-proposal-class-properties"]
@@ -272,7 +272,7 @@ One last thing before you write your code, install browser extension for [React 
 1. Modify your `App` component to show movies only when clicked as described above.
 1. Verify that the application works as expected.
 
-> [`080-hide-movies`](https://github.com/malcolm-kee/react-movie-app/tree/080-hide-movies)
+Commit: [`080-hide-movies`](https://github.com/malcolm-kee/react-movie-app/tree/080-hide-movies)
 
 </section>
 
@@ -286,7 +286,7 @@ Currently ESLint is having parsing error. Let's configure ESLint before proceed 
    ```
 2. update `.eslintrc`:
 
-```json
+```json fileName=.eslintrc
 {
   "extends": [
     "eslint:recommended",
@@ -332,7 +332,7 @@ Currently ESLint is having parsing error. Let's configure ESLint before proceed 
 1. Configure ESLint as described above.
 1. Run `npm run lint` and verify that no more linting error is shown.
 
-> [`090-eslint-react`](https://github.com/malcolm-kee/react-movie-app/tree/090-eslint-react)
+Commit: [`090-eslint-react`](https://github.com/malcolm-kee/react-movie-app/tree/090-eslint-react)
 
 </section>
 
@@ -342,7 +342,7 @@ Our current hide-show functionality only allow us to show, but we can't hide it 
 
 Modify `App` to be following:
 
-```jsx
+```jsx fileName=src/app.js
 class App extends React.Component {
   state = {
     showMovies: false,
@@ -410,7 +410,7 @@ this.setState({ show: true }, () => {
 1. Enhance your `App` component to show/hide movies when button is clicked and display different button text, as described above.
 1. Verify that the application works as expected.
 
-> [`100-toggle-movies`](https://github.com/malcolm-kee/react-movie-app/tree/100-toggle-movies)
+Commit: [`100-toggle-movies`](https://github.com/malcolm-kee/react-movie-app/tree/100-toggle-movies)
 
 </section>
 
@@ -418,7 +418,7 @@ this.setState({ show: true }, () => {
 
 Currently our movies data are hardcoded in our `App`:
 
-```jsx
+```jsx fileName=src/app.js
 ...
 <>
   <Movie name="Aquaman" releaseDate="2018-12-07" />
@@ -454,7 +454,7 @@ To load data from backend API:
 1. install the ajax library of your choice, e.g. `npm install axios`.
 1. create a file and name it as `api.js` with the following content: (actual code may differs based on the ajax library that you use)
 
-   ```javascript
+   ```javascript fileName=src/api.js
    import axios from 'axios';
 
    export const loadMovies = () =>
@@ -465,20 +465,22 @@ To load data from backend API:
 
 1. modify your `App` constructor and define a `componentDidMount` method as below:
 
-   ```jsx
+   ```jsx fileName=src/app.js
    import React from 'react';
    import Movie from './movie';
-   import { loadMovies } from './api';
+   import { loadMovies } from './api'; // highlight-line
 
    class App extends React.Component {
      state = {
          showMovies: false,
-         movies: []
+         movies: [] // highlight-line
      };
 
+    // highlight-start
      componentDidMount() {
        loadMovies().then(movies => this.setState({ movies }));
      }
+     // highlight-end
 
      ...
    ```
@@ -536,7 +538,7 @@ To show loading indicator when waiting API response:
 
 1. create a file `busy-container.js` in `src` folder with the following contents:
 
-   ```jsx
+   ```jsx fileName=src/busy-container.js
    import React from 'react';
 
    export const BusyContainer = ({ isLoading, children }) => (
@@ -552,21 +554,21 @@ To show loading indicator when waiting API response:
 
 1. update `App` component:
 
-   ```jsx
+   ```jsx fileName=src/app.js
    import React from 'react';
    import { loadMovies } from './api';
-   import { BusyContainer } from './busy-container';
+   import { BusyContainer } from './busy-container'; // highlight-line
    import Movie from './movie';
 
    class App extends React.Component {
      state = {
        showMovies: false,
-       isLoading: true,
+       isLoading: true, // highlight-line
        movies: [],
      };
 
      componentDidMount() {
-       loadMovies().then(movies => this.setState({ movies, isLoading: false }));
+       loadMovies().then(movies => this.setState({ movies, isLoading: false })); // highlight-line
      }
 
      toggleMovies = () => {
@@ -587,6 +589,7 @@ To show loading indicator when waiting API response:
              </button>
            </div>
            {this.state.showMovies && (
+             // highlight-next-line
              <BusyContainer isLoading={this.state.isLoading}>
                {this.state.movies.map(movie => (
                  <Movie
@@ -595,6 +598,7 @@ To show loading indicator when waiting API response:
                    key={movie.id}
                  />
                ))}
+               {/* highlight-next-line */}
              </BusyContainer>
            )}
          </div>
@@ -615,7 +619,7 @@ To show loading indicator when waiting API response:
 1. Create `BusyContainer` as described and use it in your `App` component to show loading indicator.
 1. Verify that the application works as expected.
 
-> [`110-ajax-calls`](https://github.com/malcolm-kee/react-movie-app/tree/110-ajax-calls)
+Commit: [`110-ajax-calls`](https://github.com/malcolm-kee/react-movie-app/tree/110-ajax-calls)
 
 </section>
 

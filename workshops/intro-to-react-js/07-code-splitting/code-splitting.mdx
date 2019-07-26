@@ -16,15 +16,15 @@ To start lazy-loading JS code, the most straightforward way is through the dynam
 
 We will lazy load the code in `api.js`.
 
-Let's update `app.js`:
-
-```jsx
+```jsx fileName=src/app.js
 import React from 'react';
 import { BusyContainer } from './busy-container';
 import Movie from './movie';
 
+// highlight-start
 const loadCodeAndMovies = () =>
   import('./api').then(({ loadMovies }) => loadMovies());
+// highlight-end
 
 class App extends React.Component {
   state = {
@@ -34,6 +34,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    // highlight-next-line
     loadCodeAndMovies().then(movies =>
       this.setState({ movies, isLoading: false })
     );
@@ -58,7 +59,7 @@ When you try to compile the code by `npm start` now, you would get a syntax erro
    ```
 
 1. update `.babelrc`:
-   ```json
+   ```json fileName=.babelrc highlightedLines=5
    {
      "presets": ["@babel/preset-env", "@babel/preset-react"],
      "plugins": [
@@ -94,7 +95,7 @@ And from the Network tab of your DevTools, you should be able to see chunk `0.js
 1. configure Babel as described.
 1. test the application and ensure the code still works as before.
 
-> [`140-lazyload-code`](https://github.com/malcolm-kee/react-movie-app/tree/140-lazyload-code)
+Commit: [`140-lazyload-code`](https://github.com/malcolm-kee/react-movie-app/tree/140-lazyload-code)
 
 </section>
 
@@ -104,7 +105,7 @@ Once you understand dynamic `import()` for JS code, lazy-loading React Component
 
 Let's lazy load our `Movie` components by modify `app.js`:
 
-```jsx
+```jsx fileName=src/app.js
 import React from 'react';
 import { BusyContainer } from './busy-container';
 
@@ -165,7 +166,7 @@ That's it!
 1. modify `app.js` to lazy-load `Movie` component.
 1. test the application and ensure the code still works as before.
 
-> [`150-lazyload-component`](https://github.com/malcolm-kee/react-movie-app/tree/150-lazyload-component)
+Commit: [`150-lazyload-component`](https://github.com/malcolm-kee/react-movie-app/tree/150-lazyload-component)
 
 </section>
 
@@ -175,7 +176,7 @@ Because Jest runs in NodeJS, which doesn't understand dynamic import syntax, you
 
 See the following branch for the required changes.
 
-> [`151-lazyload-jest-fix`](https://github.com/malcolm-kee/react-movie-app/tree/151-lazyload-jest-fix)
+Commit: [`151-lazyload-jest-fix`](https://github.com/malcolm-kee/react-movie-app/tree/151-lazyload-jest-fix)
 
 [dynamic-import]: https://developers.google.com/web/updates/2017/11/dynamic-import
 [webpack-dynamic-imports]: https://webpack.js.org/guides/code-splitting/#dynamic-imports

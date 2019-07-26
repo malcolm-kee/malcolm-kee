@@ -26,10 +26,13 @@ To setup Jest for our application:
 
 1. add a `test` npm script in `package.json`
 
-   ```json
-   ...
-   "test": "jest"
-   ...
+   ```json fileName=package.json highlightedLines=4
+   {
+     "scripts": {
+       ...
+       "test": "jest"
+     }
+   }
    ```
 
 Now you're good to go to write your test and run them.
@@ -68,7 +71,7 @@ Let's write unit test for the utility function.
 
 Create a file `lib.test.js` next to `lib.js`. Write the following test case as per usage above.
 
-```javascript
+```javascript fileName=src/lib.test.js
 import { classNames } from './lib.js';
 
 test('classNames', () => {
@@ -121,7 +124,7 @@ Let's explore some common configurations when using Jest.
 
 You may realize that ESLint is showing error in your test file that `'test' is not defined` and `'expect' is not defined`. However, to fix that error is just a line of code. Update your `.eslintrc` file `env` properties:
 
-```json
+```json fileName=.eslintrc highlightedLines=6
 ...
 "env": {
     "es6": true,
@@ -151,9 +154,16 @@ You may want to explore how many of your code is covered.
 To generate code coverage report:
 
 1. add a new npm script:
-   ```bash
-   "test:coverage": "jest --coverage"
+
+   ```json fileName=package.json highlightedLines=4
+   {
+     "scripts": {
+       ...
+       "test:coverage": "jest --coverage"
+     }
+   }
    ```
+
 1. run `npm run test:coverage`
 1. explore the `coverage/lcov-report` folder that has been generated. Open the `index.html` file with your browser.
 
@@ -170,7 +180,7 @@ To generate code coverage report:
 1. (optional) write unit tests for the function `joinString`.
 1. (optional) increase conditional coverage of `lib.js` to 100%.
 
-> [`120-jest-setup-and-test`](https://github.com/malcolm-kee/react-movie-app/tree/120-jest-setup-and-test)
+Commit: [`120-jest-setup-and-test`](https://github.com/malcolm-kee/react-movie-app/tree/120-jest-setup-and-test)
 
 </section>
 
@@ -188,22 +198,27 @@ Let's explore how to do that.
 
 We will write test for `busy-container.js`. But before that, let's modify `BusyContainer` slightly:
 
-```jsx
+```jsx fileName=src/busy-container.js
 import React from 'react';
 
 export const BusyContainer = ({ isLoading, children }) => (
   <div>
+    {/* highlight-next-line */}
     {isLoading && <span data-testid="loading-indicator">loading...</span>}
     {children}
   </div>
 );
 ```
 
-> `data-testid` attribute is a common convention to add "hook" to DOM for automated testing.
+<aside>
+
+`data-testid` attribute is a common convention to add "hook" to DOM for automated testing.
+
+</aside>
 
 Let's create a file `busy-container.test.js` next to `busy-container.js` with the following contents:
 
-```jsx
+```jsx fileName=src/busy-container.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BusyContainer } from './busy-container';
@@ -269,11 +284,13 @@ describe('BusyContainer', () => {
 
 As the setup and cleanup are required and similar for all tests, there is a library that already implements them with a bunch of helpers. The library is [`react-testing-library`][react-testing-library] (surprise, surprise!). Let's install that:
 
-`npm install -D react-testing-library`
+```bash
+npm install -D react-testing-library
+```
 
 Let's change `busy-container.test.js` to the following:
 
-```jsx
+```jsx fileName=busy-container.test.js
 import React from 'react';
 import { render, cleanup } from 'react-testing-library';
 import { BusyContainer } from './busy-container';
@@ -323,7 +340,7 @@ describe('BusyContainer', () => {
 1. modify `BusyContainer` and write the test for it.
 1. ensure all the tests are passed
 
-> [`130-react-test`](https://github.com/malcolm-kee/react-movie-app/tree/130-react-test)
+Commit: [`130-react-test`](https://github.com/malcolm-kee/react-movie-app/tree/130-react-test)
 
 </section>
 
@@ -398,7 +415,7 @@ describe('<App />', () => {
 - we use `wait` helper from `react-testing-library` to introduce some delay. This is because the `loadMovies` returns a promise, which will only be resolve in next ticks on the JS event cycle.
 - we use `getAllByTestId` to get the count of the mounted movie components and asserts the count is equal to the number of movies in our mock data.
 
-> [`131-react-test-stateful`](https://github.com/malcolm-kee/react-movie-app/tree/131-react-test-stateful)
+Commit: [`131-react-test-stateful`](https://github.com/malcolm-kee/react-movie-app/tree/131-react-test-stateful)
 
 [jest]: https://jestjs.io/en/
 [classnames]: https://www.npmjs.com/package/classnames
