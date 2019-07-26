@@ -2,10 +2,11 @@
   {
     "name": "Introduction to React",
     "contentId": "intro-to-react-js",
-    "url": "https://intro-to-react-js.netlify.com/",
+    "url": "/intro-to-react-js",
     "description": "A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting.",
     "keywords": ["react for beginners", "javascript tooling"],
-    "themeColor": "#61dafb"
+    "themeColor": "#61dafb",
+    "iconFile": "../assets/react-logo.png"
   },
   {
     "name": "Introduction to React v2",

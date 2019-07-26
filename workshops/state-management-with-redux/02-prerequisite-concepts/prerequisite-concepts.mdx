@@ -69,13 +69,18 @@ const createEventEmitter = () => {
   const emit = value => {
     subscribers.forEach(sub => typeof sub === 'function' && sub(value));
   };
+
   return {
     subscribe,
     emit,
   };
 };
+
 const evEmitter = createEventEmitter();
 evEmitter.subscribe(val => console.log(`Event emitted with value ${val}`));
 evEmitter.emit('hello');
 evEmitter.emit('bye');
 ```
+
+- `createEventEmitter` utilizes closure in JavaScript. With closure, the `subscribe` and `emit` functions have access to `subscribers` array.
+- If closure is new to you, you can go through the [closure](/js-the-react-parts/closure) section in JavaScript: The React Parts.
