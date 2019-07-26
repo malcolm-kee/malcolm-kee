@@ -5,6 +5,7 @@ import { CodeRenderer } from '../components/code-renderer';
 import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
 import { WorkshopLayout } from './workshop-layout';
+import { JsEnabledProvider } from '../hooks/use-is-js-enabled';
 
 const githubClient = createClient({
   url: 'https://api.github.com/graphql',
@@ -44,23 +45,25 @@ const LayoutContainer = ({ children, pageContext, location, path }) => {
 
   return (
     <Provider value={githubClient}>
-      <ThemeProvider value={themeValue}>
-        <MDXProvider components={mdxComponents}>
-          {isWorkshop ? (
-            <WorkshopLayout
-              workshopTitle={workshopTitle}
-              workshopThemeColor={workshopThemeColor}
-              workshopRoot={`/${workshop}`}
-              workshopSections={lessonGroup}
-              pathname={location.pathname}
-            >
-              {children}
-            </WorkshopLayout>
-          ) : (
-            <Layout isRoot={isRoot}>{children}</Layout>
-          )}
-        </MDXProvider>
-      </ThemeProvider>
+      <JsEnabledProvider>
+        <ThemeProvider value={themeValue}>
+          <MDXProvider components={mdxComponents}>
+            {isWorkshop ? (
+              <WorkshopLayout
+                workshopTitle={workshopTitle}
+                workshopThemeColor={workshopThemeColor}
+                workshopRoot={`/${workshop}`}
+                workshopSections={lessonGroup}
+                pathname={location.pathname}
+              >
+                {children}
+              </WorkshopLayout>
+            ) : (
+              <Layout isRoot={isRoot}>{children}</Layout>
+            )}
+          </MDXProvider>
+        </ThemeProvider>
+      </JsEnabledProvider>
     </Provider>
   );
 };
