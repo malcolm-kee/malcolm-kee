@@ -131,7 +131,7 @@ Now we can filter our movie list by typing in the text input.
 1. Make the changes required to allow user to search movies.
 1. Verify that the movies is updated when you type to the input field.
 
-> [:octocat: `160-search-movie`](https://github.com/malcolm-kee/react-movie-app/tree/160-search-movie)
+Commit: [`160-search-movie`](https://github.com/malcolm-kee/react-movie-app/tree/160-search-movie)
 
 </section>
 
@@ -141,7 +141,7 @@ Our current code works, but it is unoptimal because we make an AJAX call for eve
 
 To do that, we need to use a common Javascript helper function, debounce. Let's add `debounce` function to our `lib.js`:
 
-```js
+```javascript fileName=src/lib.js
 ...
 export function debounce(func, wait) {
   let timeout;
@@ -194,7 +194,7 @@ class App extends React.Component {
 1. Include `debounce` in your code and use it in your `App`.
 1. Verify that the API calls will only be called after you stop typing.
 
-> [:octocat: `170-debounce-search`](https://github.com/malcolm-kee/react-movie-app/tree/170-debounce-search)
+Commit: [`170-debounce-search`](https://github.com/malcolm-kee/react-movie-app/tree/170-debounce-search)
 
 </section>
 
