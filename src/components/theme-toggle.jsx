@@ -1,10 +1,10 @@
+import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import React from 'react';
-import { Toggle } from './toggle';
 import moon from '../assets/moon.png';
 import sun from '../assets/sun.png';
 import { useTheme } from '../theme';
-import { useIsJsEnabled } from '../hooks/use-is-js-enabled';
 import './theme-toggle.scss';
+import { Toggle } from './toggle';
 
 export function ThemeToggle(toggleProps) {
   const { value, toggle } = useTheme();

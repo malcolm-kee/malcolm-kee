@@ -19,6 +19,7 @@ module.exports = {
   plugins: [
     `gatsby-plugin-sass`,
     `gatsby-plugin-postcss`,
+    `gatsby-plugin-js-fallback`,
     {
       resolve: `gatsby-plugin-compile-es6-packages`,
       options: {

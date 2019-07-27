@@ -1,4 +1,5 @@
 import { graphql, Link } from 'gatsby';
+import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import React from 'react';
 import { Button } from '../components/Button';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
@@ -7,7 +8,6 @@ import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
-import { useIsJsEnabled } from '../hooks/use-is-js-enabled';
 import './projects.scss';
 
 const ProjectCard = ({ project }) => (
