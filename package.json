@@ -36,7 +36,7 @@
     "gatsby-plugin-compile-es6-packages": "^2.0.0",
     "gatsby-plugin-feed": "^2.1.0",
     "gatsby-plugin-google-analytics": "^2.0.13",
-    "gatsby-plugin-js-fallback": "^0.1.1",
+    "gatsby-plugin-js-fallback": "^1.0.0",
     "gatsby-plugin-layout": "^1.0.12",
     "gatsby-plugin-manifest": "^2.1.1",
     "gatsby-plugin-mdx": "^1.0.16",
