@@ -23,17 +23,17 @@ const mdxComponents = {
   ),
 };
 
-const LayoutContainer = ({ children, pageContext, location, path }) => {
+const LayoutContainer = ({ children, pageContext, location }) => {
   const themeValue = useTheme();
 
-  const [isRoot, setIsRoot] = React.useState(() => path === '/');
+  const [isRoot, setIsRoot] = React.useState(() => location.pathname === '/');
   React.useEffect(() => {
-    if (path === '/' && !isRoot) {
+    if (location.pathname === '/' && !isRoot) {
       setIsRoot(true);
-    } else if (path !== '/' && isRoot) {
+    } else if (location.pathname !== '/' && isRoot) {
       setIsRoot(false);
     }
-  }, [path]);
+  }, [location.pathname]);
 
   const {
     isWorkshop,
