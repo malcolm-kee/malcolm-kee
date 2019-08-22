@@ -24,7 +24,7 @@ const IndexPage = () => (
           </p>
           <p className="v-space">
             He conducted workshops in{' '}
-            <OutLink href="https://www.meetup.com/kl-react/">
+            <OutLink href="https://kl-react.com">
               local meetup that he organize
             </OutLink>{' '}
             to teach others on React and web development, as teaching is his
