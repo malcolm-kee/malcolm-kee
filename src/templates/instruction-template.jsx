@@ -102,33 +102,7 @@ export const pageQuery = graphql`
     github {
       search(query: $commentsSearch, type: ISSUE, first: 100) {
         nodes {
-          ... on GitHub_Issue {
-            id
-            url
-            bodyHTML
-            createdAt
-            author {
-              ... on GitHub_User {
-                name
-              }
-              avatarUrl
-              url
-            }
-            comments(first: 100) {
-              nodes {
-                id
-                bodyHTML
-                createdAt
-                author {
-                  ... on GitHub_User {
-                    name
-                  }
-                  avatarUrl
-                  url
-                }
-              }
-            }
-          }
+          ...Comment
         }
       }
     }

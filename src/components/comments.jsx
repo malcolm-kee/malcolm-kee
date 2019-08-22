@@ -1,3 +1,4 @@
+import { graphql } from 'gatsby';
 import React from 'react';
 import { useQuery } from 'urql';
 import { getGithubIssueLink } from '../helper';
@@ -146,3 +147,33 @@ const Comment = ({ bodyHTML, author, createdAt, url, comments, level = 0 }) => (
       ))}
   </>
 );
+
+export const query = graphql`
+  fragment Comment on GitHub_Issue {
+    id
+    url
+    bodyHTML
+    createdAt
+    author {
+      ... on GitHub_User {
+        name
+      }
+      avatarUrl
+      url
+    }
+    comments(first: 100) {
+      nodes {
+        id
+        bodyHTML
+        createdAt
+        author {
+          ... on GitHub_User {
+            name
+          }
+          avatarUrl
+          url
+        }
+      }
+    }
+  }
+`;
