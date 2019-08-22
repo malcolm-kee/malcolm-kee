@@ -32,7 +32,7 @@ const LayoutContainer = ({ children, pageContext, location }) => {
     } else if (location.pathname !== '/' && isRoot) {
       setIsRoot(false);
     }
-  }, [location.pathname]);
+  }, [location.pathname, isRoot]);
 
   const {
     isWorkshop,
