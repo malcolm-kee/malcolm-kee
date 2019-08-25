@@ -69,8 +69,7 @@
     "description": "Learn how to build blog with GatsbyJS, which automatically optimize your site to make it fast without sacrificing developer usability or accessibility.",
     "keywords": ["react", "static site", "gatsbyjs"],
     "themeColor": "#663399",
-    "iconFile": "../assets/gatsbyjs.png",
-    "underConstruction": false
+    "iconFile": "../assets/gatsbyjs.png"
   },
   {
     "name": "State Management with Redux",

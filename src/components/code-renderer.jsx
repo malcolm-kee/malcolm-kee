@@ -1,7 +1,7 @@
+import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { copyToClipboard } from '../helper';
 import { useTheme } from '../theme';
@@ -48,14 +48,24 @@ export const CodeRenderer = ({
   );
 };
 
-const injectedGlobals = { sanitize, shallowConcat, ajax, ReactDOM };
+const injectedGlobals = { sanitize, shallowConcat };
 
 const CodeLiveEditor = ({ code, theme, language, noInline, fileName }) => {
+  const components = useMDXScope();
+
+  const injectedComponents = React.useMemo(
+    () => ({
+      ...injectedGlobals,
+      ...components,
+    }),
+    [components]
+  );
+
   return (
     <div className="code-editor">
       <LiveProvider
         code={code}
-        scope={injectedGlobals}
+        scope={injectedComponents}
         transformCode={language === 'js' ? wrapJsCode : undefined}
         theme={theme}
         language="jsx"
@@ -97,42 +107,6 @@ function shallowConcat(targetArr, item) {
   const newArr = targetArr.slice();
   newArr.push(item);
   return newArr;
-}
-
-/*
- Global function used for demo
-*/
-
-function noop() {
-  // noop
-}
-
-function ajax(url, options) {
-  var opts = options || {};
-  var onSuccess = opts.onSuccess || noop;
-  var onError = opts.onError || noop;
-  var dataType = opts.dataType || 'json';
-  var method = opts.method || 'GET';
-
-  var request = new XMLHttpRequest();
-  request.open(method, url);
-  if (dataType === 'json') {
-    request.overrideMimeType('application/json');
-    request.responseType = 'json';
-    request.setRequestHeader('Accept', 'application/json');
-  }
-
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      onSuccess(request.response);
-    } else {
-      onError(request.response);
-    }
-  };
-
-  request.onerror = onError;
-
-  request.send(opts.body);
 }
 
 const CodeSnippet = React.memo(function CodeSnippetComponent({

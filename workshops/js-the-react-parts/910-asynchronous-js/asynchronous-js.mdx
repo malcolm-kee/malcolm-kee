@@ -25,6 +25,8 @@ How it works is by passing down a [callback function](/js-the-react-parts/callba
 
 Now assume we use an utility function `ajax` that allows us to make API calls.
 
+import { ajax } from '../../../src/helper';
+
 ```js
 // ajax is a function that I write, it's not available in browser automatically
 var result = ajax('https://icanhazdadjoke.com/');
