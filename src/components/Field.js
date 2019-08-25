@@ -7,6 +7,8 @@ export const Field = ({
   className,
   label,
   InputComponent = 'input',
+  name,
+  id = name,
   ...inputProps
 }) => {
   const [focused, setIsFocused] = React.useState(false);
@@ -21,11 +23,13 @@ export const Field = ({
           'field--filled'
       )}
     >
-      <label htmlFor={inputProps.id} className="label">
+      <label htmlFor={id} className="label">
         {label}
       </label>
       <InputComponent
         className={cx('form-control', className)}
+        name={name}
+        id={id}
         {...inputProps}
         onFocus={callAll(inputProps.onFocus, () => setIsFocused(true))}
         onBlur={callAll(inputProps.onBlur, () => setIsFocused(false))}
