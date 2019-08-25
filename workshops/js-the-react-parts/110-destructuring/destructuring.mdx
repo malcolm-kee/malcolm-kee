@@ -248,9 +248,7 @@ function getPersons() {
 var [[manager1, manager2], [staff1, staff2] = []] = getPersons();
 ```
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 Rewrite the following code with destructuring.
 
@@ -298,7 +296,7 @@ announceParticipants('Hackathon', [['Kyle Simpsons'], ['Noob']]);
 announceParticipants('Quidditch', [['Naruto', 'Lufee']]);
 ```
 
-</section>
+</Exercise>
 
 ## Object Destructuring
 
@@ -594,9 +592,7 @@ var {
 } = getPerson();
 ```
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 Rewrite the following code with destructuring.
 
@@ -642,7 +638,7 @@ console.log(getStyles({ display: 'inline', dimensions: { width: '50px' } }));
 console.log(getStyles());
 ```
 
-</section>
+</Exercise>
 
 ## Destructuring in Function Parameter
 
@@ -697,9 +693,7 @@ formatMoney(100, null); // "null 2"
 
 Similar to default value during destructuring, function default parameter only works if that parameter is `undefined`, as demonstrated in the third usage example.
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 Rewrite the function to use destructuring to assign default
 
@@ -716,4 +710,4 @@ console.log(formatNumber(2, { prefix: '$ ' }));
 console.log(formatNumber(2, { prefix: 'DKK ', suffix: ',00' }));
 ```
 
-</section>
+</Exercise>

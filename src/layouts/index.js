@@ -5,6 +5,7 @@ import { CodeRenderer } from '../components/code-renderer';
 import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
 import { WorkshopLayout } from './workshop-layout';
+import { Exercise } from '../components/workshop/exercise';
 
 const githubClient = createClient({
   url: 'https://api.github.com/graphql',
@@ -20,6 +21,7 @@ const mdxComponents = {
   inlineCode: ({ children }) => (
     <code className="language-text">{children}</code>
   ),
+  Exercise,
 };
 
 const LayoutContainer = ({ children, pageContext, location }) => {
