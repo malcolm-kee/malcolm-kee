@@ -2,10 +2,11 @@ import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
 import { createClient, Provider } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
+import { Aside } from '../components/workshop/aside';
+import { Exercise } from '../components/workshop/exercise';
 import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
 import { WorkshopLayout } from './workshop-layout';
-import { Exercise } from '../components/workshop/exercise';
 
 const githubClient = createClient({
   url: 'https://api.github.com/graphql',
@@ -17,6 +18,7 @@ const githubClient = createClient({
 });
 
 const mdxComponents = {
+  aside: Aside,
   code: CodeRenderer,
   inlineCode: ({ children }) => (
     <code className="language-text">{children}</code>

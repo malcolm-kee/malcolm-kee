@@ -1,0 +1,23 @@
+@import '../../constants/variable';
+
+.root {
+  font-style: italic;
+  padding: 0 $space;
+  border: 1px solid;
+  border-radius: 4px;
+  margin: $space * 2 -#{$space} $space * 2;
+  break-inside: avoid;
+  color: $text-light-pale;
+  color: var(--text-pale);
+  border-color: currentColor;
+
+  > p {
+    color: inherit;
+    &:first-child {
+      margin-top: 0.5em;
+    }
+    &:last-child {
+      margin-bottom: 0.5em;
+    }
+  }
+}
