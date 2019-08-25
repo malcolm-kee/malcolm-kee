@@ -64,14 +64,12 @@ ReactDOM.render(React.createElement(App), document.getElementById('root'));
 - Notice we're using `React.createElement` with `App` as a parameter to `ReactDOM.render`. We need an instance of App to render out. App is a class of components and we need to render one instance of App. That's what `React.createElement` does: it makes an instance of a component.
 - A React component is not a markup itself; it is a markup generator.
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Create a file and name it as `index.html`.
 1. Add the code above in the file.
 
-</section>
+</Exercise>
 
 Modify your code, so that it becomes
 
@@ -188,15 +186,13 @@ class App extends React.Component {
 
 </aside>
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Add `Movie` component in your code and use it as explained above.
 1. Modify your `App` component to a class component
 1. (Bonus) Add a new props `genres` in your `Movie` component and render it in a `span` tag.
 
-</section>
+</Exercise>
 
 [unpkg]: https://unpkg.com/
 [arrow-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions

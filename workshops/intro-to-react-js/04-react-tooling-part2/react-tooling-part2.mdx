@@ -77,9 +77,7 @@ Functionally, our code still works the same. However, now we organize our code w
   - there are two types of `export` statement, i.e. default export and named export.
   - We use default export in our files currently. You can read more about them [here][export-docs].
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Install webpack and configure build script based on the instruction above.
 1. Verify that your code still works as before.
@@ -87,7 +85,7 @@ Functionally, our code still works the same. However, now we organize our code w
 
 Commit: [`030-webpack-app-code`](https://github.com/malcolm-kee/react-movie-app/tree/030-webpack-app-code)
 
-</section>
+</Exercise>
 
 ### Bundling external dependencies
 
@@ -108,9 +106,7 @@ Now webpack is managing dependencies between our codes (`index.js`, `app.js` and
 1. Remove the unpkg script tags for React and ReactDOM in your `index.html`.
 1. Run `npm run build` again. Verify that your code still works as before.
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Install React and ReactDOM as the dependencies of the project.
 1. Bundle them together by including changes as described above.
@@ -118,7 +114,7 @@ Now webpack is managing dependencies between our codes (`index.js`, `app.js` and
 
 Commit: [`040-webpack-dependencies`](https://github.com/malcolm-kee/react-movie-app/tree/040-webpack-dependencies)
 
-</section>
+</Exercise>
 
 ### webpack-dev-server and html-webpack-plugin
 
@@ -177,16 +173,14 @@ To create a production bundle for our app:
    ```
 1. run `npm run build:prod`
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. configure webpack-dev-server as described and run it. Verify it recompile and refresh your browser when you make change to your code.
 1. configure build:prod npm scripts as described above. Verify the produced `main.js` is minified, and the file size is much smaller now.
 
 Commit: [`050-webpack-dev-server`](https://github.com/malcolm-kee/react-movie-app/tree/050-webpack-dev-server)
 
-</section>
+</Exercise>
 
 ### Other features of webpack
 
@@ -254,16 +248,14 @@ Note that webpack is much more powerful than I've described above. The following
   1. Terminate your webpack-dev-server if it's running by Ctrl+C. Run `npm start` start it again. This is because configuration change will not be picked up by webpack-dev-server while it is running.
   1. Open [http://localhost:9200/](http://localhost:9200/) with IE and verify your code should works now.
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Configure Babel as described above.
 1. Restart webpack-dev-server and verify that the application works in IE.
 
 Commit: [`060-babel-integration`](https://github.com/malcolm-kee/react-movie-app/tree/060-babel-integration)
 
-</section>
+</Exercise>
 
 ## Cleaning Up
 

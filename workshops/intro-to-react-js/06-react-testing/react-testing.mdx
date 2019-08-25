@@ -167,9 +167,7 @@ To generate code coverage report:
 1. run `npm run test:coverage`
 1. explore the `coverage/lcov-report` folder that has been generated. Open the `index.html` file with your browser.
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. install Jest as described and configure your npm scripts.
 1. copy the utility code as provided and write the tests to test the function.
@@ -182,7 +180,7 @@ To generate code coverage report:
 
 Commit: [`120-jest-setup-and-test`](https://github.com/malcolm-kee/react-movie-app/tree/120-jest-setup-and-test)
 
-</section>
+</Exercise>
 
 ## Testing React Components
 
@@ -332,9 +330,7 @@ describe('BusyContainer', () => {
 - `render` will create a container and mount our component in the container, as we did manually previously.
 - `render` will also returns a few helpers for us to query the DOM. In our case, we use `getByTestId` and `queryByTestId`, which is just a wrapper over `querySelector` (the difference between the two is `getByTestId` will throws error if no result returns while `queryByTestId` will not throw error and returns `null`). For a full list of supported queries, refer to the [`react-testing-library` Queries docs][react-testing-library-queries].
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. install `react-testing-library` as described.
 1. modify `BusyContainer` and write the test for it.
@@ -342,7 +338,7 @@ describe('BusyContainer', () => {
 
 Commit: [`130-react-test`](https://github.com/malcolm-kee/react-movie-app/tree/130-react-test)
 
-</section>
+</Exercise>
 
 ### Write React Component test that check stateful behavior
 

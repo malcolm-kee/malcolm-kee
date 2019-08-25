@@ -187,33 +187,4 @@ $right-nav-offset: 224px;
       }
     }
   }
-
-  .exercise {
-    background-color: white;
-    background-color: var(--bg-absolute);
-    border-radius: $space;
-    box-shadow: $box-shadow-3;
-    padding: $space $space * 3;
-    margin: $space * 2 #{-$space * 2};
-
-    @media screen and (min-width: $media-tablet) {
-      margin: $space * 2 0;
-      padding: $space $space * 2;
-    }
-
-    > h3 {
-      margin-top: 0;
-
-      .header-link-icon svg {
-        visibility: hidden;
-      }
-    }
-
-    ol {
-      padding-left: $space * 3;
-      margin: 0;
-      list-style-position: outside;
-      list-style-type: decimal;
-    }
-  }
 }

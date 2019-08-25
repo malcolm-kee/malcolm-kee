@@ -74,9 +74,7 @@ Therefore, we need to configure Babel so that it will recognize JSX and compile 
 
 Now when you start webpack-dev-server, the compilation should succeeds and your app should work as before.
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Update `index.js`, `app.js`, and `movie.js` to use JSX as described above.
 1. Configure Babel to compile JSX.
@@ -84,7 +82,7 @@ Now when you start webpack-dev-server, the compilation should succeeds and your 
 
 Commit: [`070-jsx-config`](https://github.com/malcolm-kee/react-movie-app/tree/070-jsx-config)
 
-</section>
+</Exercise>
 
 ## React States and Lifecycle Methods
 
@@ -263,9 +261,7 @@ One last thing before you write your code, install browser extension for [React 
 
 ![React DevTools](react-devtools.png)
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Install React DevTools.
 1. Configure babel to parse class properties syntax.
@@ -274,7 +270,7 @@ One last thing before you write your code, install browser extension for [React 
 
 Commit: [`080-hide-movies`](https://github.com/malcolm-kee/react-movie-app/tree/080-hide-movies)
 
-</section>
+</Exercise>
 
 ### Configure ESLint for React App
 
@@ -325,16 +321,14 @@ Currently ESLint is having parsing error. Let's configure ESLint before proceed 
 - React version is added to `settings`, in which `eslint-plugin-react` depends on to suggest applicable rules.
 - `react/prop-types` rules is overwritten, as we're not going to use `prop-types` in this workshop. I personally think that prop-types does not worth the investment &mdash; I recommend [Typescript] if you want to introduce type-checking in your project.
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Configure ESLint as described above.
 1. Run `npm run lint` and verify that no more linting error is shown.
 
 Commit: [`090-eslint-react`](https://github.com/malcolm-kee/react-movie-app/tree/090-eslint-react)
 
-</section>
+</Exercise>
 
 ### More on setState
 
@@ -403,16 +397,14 @@ this.setState({ show: true }, () => {
 });
 ```
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Enhance your `App` component to show/hide movies when button is clicked and display different button text, as described above.
 1. Verify that the application works as expected.
 
 Commit: [`100-toggle-movies`](https://github.com/malcolm-kee/react-movie-app/tree/100-toggle-movies)
 
-</section>
+</Exercise>
 
 ### Getting Data from Backend API
 
@@ -611,9 +603,7 @@ To show loading indicator when waiting API response:
    - when ajax call returns, we set `isLoading` to `false`.
    - `isLoading` is passed to `BusyContainer` as props.
 
-<section class="exercise">
-
-### Exercise
+<Exercise title="Exercise">
 
 1. Get the movie data for your `App` from backend API instead of hand-coding them.
 1. Create `BusyContainer` as described and use it in your `App` component to show loading indicator.
@@ -621,7 +611,7 @@ To show loading indicator when waiting API response:
 
 Commit: [`110-ajax-calls`](https://github.com/malcolm-kee/react-movie-app/tree/110-ajax-calls)
 
-</section>
+</Exercise>
 
 [typescript]: https://www.typescriptlang.org/
 [react-devtools]: https://github.com/facebook/react-devtools
