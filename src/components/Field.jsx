@@ -9,6 +9,8 @@ export const Field = ({
   InputComponent = 'input',
   name,
   id = name,
+  onChangeValue,
+  onChange,
   ...inputProps
 }) => {
   const [focused, setIsFocused] = React.useState(false);
@@ -31,6 +33,10 @@ export const Field = ({
         name={name}
         id={id}
         {...inputProps}
+        onChange={callAll(
+          onChange,
+          onChangeValue && (ev => onChangeValue(ev.target.value))
+        )}
         onFocus={callAll(inputProps.onFocus, () => setIsFocused(true))}
         onBlur={callAll(inputProps.onBlur, () => setIsFocused(false))}
         ref={inputRef}

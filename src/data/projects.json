@@ -10,6 +10,15 @@
     "image": "../assets/redux-code-generator.gif"
   },
   {
+    "name": "Random Grid",
+    "description": "Pseudo-random grid generator",
+    "technologies": ["React", "canvas"],
+    "links": {
+      "live": "/generative-art"
+    },
+    "image": "../assets/random-grid.png"
+  },
+  {
     "name": "Kreloses Mobile",
     "description": "Business application for daily operations of service business. UI and interactions are designed and optimized for mobile browser.",
     "technologies": [

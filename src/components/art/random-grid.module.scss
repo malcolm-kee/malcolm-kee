@@ -1,0 +1,24 @@
+@import '../../constants/variable';
+
+.box {
+  display: inline-flex;
+  box-sizing: content-box;
+  justify-content: center;
+  align-items: center;
+  width: 7ch;
+  height: 7ch;
+  padding: $space;
+  border: 1px solid;
+  border-color: var(--text);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  justify-items: center;
+}
+
+.board {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}

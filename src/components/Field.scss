@@ -51,6 +51,7 @@
   border-bottom-color: var(--text-pale);
   transition: border-bottom-color 0.2s ease;
   font-size: 1rem;
+  color: inherit;
   &:focus {
     outline: none;
     border-bottom-color: transparent;

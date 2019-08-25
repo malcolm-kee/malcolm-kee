@@ -40,10 +40,12 @@ const ProjectCard = ({ project }) => (
         )}
       </CardActions>
     </div>
-    <CardImage
-      src={project.image.publicURL}
-      className="ProjectPage--demo-image"
-    />
+    {project.image && (
+      <CardImage
+        src={project.image.publicURL}
+        className="ProjectPage--demo-image"
+      />
+    )}
   </Card>
 );
 
@@ -57,6 +59,7 @@ const ProjectListView = ({ projects }) => (
 
 const FancyProjectCard = ({ project }) => {
   const [showDialog, setShowDialog] = React.useState(false);
+  const isInternalLink = project.links.live && project.links.live[0] === '/';
 
   return (
     <>
@@ -79,8 +82,9 @@ const FancyProjectCard = ({ project }) => {
           <div className="ProjectPage--project-demo-links">
             {project.links.live && (
               <Button
-                component={OutLink}
-                href={project.links.live}
+                component={isInternalLink ? Link : OutLink}
+                href={isInternalLink ? undefined : project.links.live}
+                to={isInternalLink ? project.links.live : undefined}
                 color="primary"
                 raised
               >
@@ -93,13 +97,15 @@ const FancyProjectCard = ({ project }) => {
               </Button>
             )}
           </div>
-          <div>
-            <img
-              src={project.image.publicURL}
-              alt={`Demo of ${project.name}`}
-              className="ProjectPage--project-demo-image"
-            />
-          </div>
+          {project.image && (
+            <div>
+              <img
+                src={project.image.publicURL}
+                alt={`Demo of ${project.name}`}
+                className="ProjectPage--project-demo-image"
+              />
+            </div>
+          )}
         </div>
       </Dialog>
     </>
