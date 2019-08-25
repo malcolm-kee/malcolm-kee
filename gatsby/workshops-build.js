@@ -141,6 +141,19 @@ exports.createWorkshopPages = function createWorkshopPages({
   });
 };
 
+exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomization({
+  actions,
+}) {
+  const { createTypes } = actions;
+  const typeDefs = [
+    `type WorkshopsJson implements Node {
+      underConstruction: Boolean
+    }`,
+  ];
+
+  createTypes(typeDefs);
+};
+
 exports.createWorkshopNodeFields = function createWorkshopNodeFields({
   node,
   actions,
