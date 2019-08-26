@@ -5,8 +5,9 @@ import React from 'react';
 import { getContrastTextColor } from '../../helper';
 import { Button } from '../Button';
 import { Field } from '../Field';
+import { RandomIcon } from '../svg-icons';
 import { ThemeToggle } from '../theme-toggle';
-import { board, box, container } from './random-grid.module.scss';
+import { board, box, container, controls } from './random-grid.module.scss';
 
 function drawCircle(
   context,
@@ -42,6 +43,26 @@ function drawCircle(
 
 const radius = 0.005;
 
+function createGrid(count, amplitude, frequency, palette, withNoise = false) {
+  const points = [];
+  for (let i = 0; i < count; i++) {
+    for (let j = 0; j < count; j++) {
+      const u = count <= 1 ? 0.5 : i / (count - 1);
+      const v = count <= 1 ? 0.5 : j / (count - 1);
+      const dif = withNoise
+        ? amplitude * random.noise2D(u * frequency, v * frequency)
+        : 0;
+      const x = u + dif;
+      const y = v + dif;
+      points.push({
+        position: [x, y],
+        color: random.pick(palette),
+      });
+    }
+  }
+  return points;
+}
+
 const ColorBox = ({ color }) => (
   <span
     className={box}
@@ -55,36 +76,16 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
   const [seed, setSeed] = React.useState(() => random.getRandomSeed());
   const [amplitude, setAmplitude] = React.useState(0.07);
   const [frequency, setFrequency] = React.useState(3);
-  const [palette, setPalette] = React.useState([]);
   React.useEffect(() => {
     random.setSeed(seed);
-    setPalette(random.pick(palettes));
   }, [seed]);
 
-  const [points, setPoints] = React.useState([]);
+  const palette = React.useMemo(() => random.pick(palettes), [seed]);
 
-  React.useEffect(() => {
-    function createGrid(count, withNoise = false) {
-      const points = [];
-      for (let i = 0; i < count; i++) {
-        for (let j = 0; j < count; j++) {
-          const u = count <= 1 ? 0.5 : i / (count - 1);
-          const v = count <= 1 ? 0.5 : j / (count - 1);
-          const dif = withNoise
-            ? amplitude * random.noise2D(u * frequency, v * frequency)
-            : 0;
-          const x = u + dif;
-          const y = v + dif;
-          points.push({
-            position: [x, y],
-            color: random.pick(palette),
-          });
-        }
-      }
-      return points;
-    }
-    setPoints(createGrid(40, true));
-  }, [seed, amplitude, frequency, palette]);
+  const points = React.useMemo(
+    () => createGrid(40, amplitude, frequency, palette, true),
+    [seed, amplitude, frequency, palette]
+  );
 
   const canvasRef = React.useRef();
 
@@ -95,7 +96,7 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
 
     const margin = width * 0.05;
     context.fillStyle = 'white';
-    context.fillRect(0, 0, width, height);
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
     points
       .filter(() => Math.abs(random.gaussian()) > 0.4)
@@ -125,14 +126,15 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
             height={height}
           />
         </div>
-        <div>
+        <div className={controls}>
           <div>
             <Button
               color="primary"
               raised
               onClick={() => setSeed(random.getRandomSeed())}
             >
-              Randomize
+              <RandomIcon aria-hidden="true" focusable="false" />
+              <span className="sr-only">Randomize</span>
             </Button>
           </div>
           <Field

@@ -139,4 +139,9 @@
   &-widest {
     min-width: 300px;
   }
+
+  svg {
+    fill: currentColor;
+    stroke: currentColor;
+  }
 }
