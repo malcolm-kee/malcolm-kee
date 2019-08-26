@@ -1,8 +1,7 @@
-import React from 'react';
 import cx from 'classnames';
+import React from 'react';
 import { callAll } from '../helper';
-import { root, checkbox, text } from './checkbox.module.scss';
-import { Toggle } from './toggle';
+import { checkbox, root, text } from './checkbox.module.scss';
 
 export const Checkbox = ({
   name,
