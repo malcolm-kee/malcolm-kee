@@ -16,6 +16,11 @@
   }
 }
 
+.h2 {
+  padding: $space * 2 0;
+  color: $grey-600;
+}
+
 .container {
   @media screen and (min-width: $media-tablet) {
     display: grid;

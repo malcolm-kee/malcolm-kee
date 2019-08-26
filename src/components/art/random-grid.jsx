@@ -8,39 +8,8 @@ import { Checkbox } from '../checkbox';
 import { Field } from '../Field';
 import { RandomIcon } from '../svg-icons';
 import { ThemeToggle } from '../theme-toggle';
-import { board, box, container, controls } from './random-grid.module.scss';
-
-function drawCircle(
-  context,
-  {
-    x,
-    y,
-    radius,
-    from = 0,
-    to = Math.PI * 2,
-    clockwise = false,
-    stroke,
-    fill,
-    width,
-  }
-) {
-  context.beginPath();
-  context.arc(x, y, radius, from, to, clockwise);
-
-  if (stroke) {
-    context.strokeStyle = stroke;
-    if (width) {
-      context.lineWidth = width;
-    }
-
-    context.stroke();
-  }
-
-  if (fill) {
-    context.fillStyle = fill;
-    context.fill();
-  }
-}
+import { drawCircle, usePoints } from './art-lib';
+import { board, box, container, h2, controls } from './random-grid.module.scss';
 
 const radius = 0.005;
 
@@ -62,35 +31,14 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
 
   const palette = React.useMemo(() => random.pick(palettes), [random]);
 
-  const points = React.useMemo(() => {
-    function createGrid(
-      count,
-      amplitude,
-      frequency,
-      palette,
-      withNoise = false
-    ) {
-      const points = [];
-      for (let i = 0; i < count; i++) {
-        for (let j = 0; j < count; j++) {
-          const u = count <= 1 ? 0.5 : i / (count - 1);
-          const v = count <= 1 ? 0.5 : j / (count - 1);
-          const dif = withNoise
-            ? amplitude * random.noise2D(u * frequency, v * frequency)
-            : 0;
-          const x = u + dif;
-          const y = v + dif;
-          points.push({
-            position: [x, y],
-            color: random.pick(palette),
-          });
-        }
-      }
-      return points;
-    }
-
-    return createGrid(40, amplitude, frequency, palette, withNoise);
-  }, [random, amplitude, frequency, palette, withNoise]);
+  const points = usePoints({
+    count: 40,
+    random,
+    amplitude,
+    frequency,
+    palette,
+    withNoise,
+  });
 
   const canvasRef = React.useRef();
 
@@ -123,7 +71,7 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
     <div>
       <div className={container}>
         <div>
-          <h1>Random Grid</h1>
+          <h2 className={h2}>Random Grid</h2>
           <canvas
             className={board}
             ref={canvasRef}

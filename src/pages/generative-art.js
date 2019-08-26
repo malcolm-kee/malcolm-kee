@@ -12,6 +12,7 @@ function GenerativeArt() {
         keywords={['random grid', 'generative art']}
       />
       <MainContent className="text-center" style={{ overflow: 'visible' }}>
+        <h1>Generative Art</h1>
         <MK />
         <RandomGrid />
       </MainContent>

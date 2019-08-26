@@ -10,8 +10,8 @@
     "image": "../assets/redux-code-generator.gif"
   },
   {
-    "name": "Random Grid",
-    "description": "Pseudo-random grid generator",
+    "name": "Generative Arts",
+    "description": "Generate artistic effect with code",
     "technologies": ["React", "canvas"],
     "links": {
       "live": "/generative-art"
