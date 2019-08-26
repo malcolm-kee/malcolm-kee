@@ -5,7 +5,5 @@ import './main-content.scss';
 export const MainContent = ({
   as: Component = 'main',
   className,
-  children,
-}) => (
-  <Component className={cx('main-content', className)}>{children}</Component>
-);
+  ...props
+}) => <Component className={cx('main-content', className)} {...props} />;

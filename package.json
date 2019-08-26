@@ -63,6 +63,7 @@
     "nice-color-palettes": "^3.0.0",
     "node-sass": "^4.9.4",
     "object-fit-images": "^3.2.4",
+    "point-in-polygon": "^1.0.1",
     "postcss-browser-reporter": "^0.6.0",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-import": "^12.0.0",
