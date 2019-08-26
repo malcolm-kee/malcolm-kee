@@ -4,6 +4,7 @@ import palettes from 'nice-color-palettes';
 import React from 'react';
 import { getContrastTextColor } from '../../helper';
 import { Button } from '../Button';
+import { Checkbox } from '../checkbox';
 import { Field } from '../Field';
 import { RandomIcon } from '../svg-icons';
 import { ThemeToggle } from '../theme-toggle';
@@ -76,6 +77,7 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
   const [seed, setSeed] = React.useState(() => random.getRandomSeed());
   const [amplitude, setAmplitude] = React.useState(0.07);
   const [frequency, setFrequency] = React.useState(3);
+  const [withNoise, setWithNoise] = React.useState(true);
   React.useEffect(() => {
     random.setSeed(seed);
   }, [seed]);
@@ -83,8 +85,8 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
   const palette = React.useMemo(() => random.pick(palettes), [seed]);
 
   const points = React.useMemo(
-    () => createGrid(40, amplitude, frequency, palette, true),
-    [seed, amplitude, frequency, palette]
+    () => createGrid(40, amplitude, frequency, palette, withNoise),
+    [seed, amplitude, frequency, palette, withNoise]
   );
 
   const canvasRef = React.useRef();
@@ -163,6 +165,12 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
             step="1"
             value={frequency}
             onChangeValue={setFrequency}
+          />
+          <Checkbox
+            name="with-noise"
+            label="Noise"
+            onChangeValue={setWithNoise}
+            checked={withNoise}
           />
           <div>
             <ThemeToggle />

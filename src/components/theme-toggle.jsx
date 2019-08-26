@@ -35,6 +35,7 @@ export function ThemeToggle(toggleProps) {
         }}
         checked={value === 'dark'}
         onChange={toggle}
+        aria-label="Switch between Dark and Light mode"
       />
     </div>
   ) : null;

@@ -34,7 +34,7 @@ export class Toggle extends React.Component {
     this.previouslyChecked = !!(props.checked || props.defaultChecked);
     this.state = {
       checked: !!(props.checked || props.defaultChecked),
-      hasFocus: false
+      hasFocus: false,
     };
   }
 
@@ -181,7 +181,6 @@ export class Toggle extends React.Component {
           onBlur={this.handleBlur}
           className="react-toggle-screenreader-only"
           type="checkbox"
-          aria-label="Switch between Dark and Light mode"
         />
       </div>
     );
