@@ -52,15 +52,13 @@ export const CircleLetter = () => {
   );
 };
 
-const radius = 0.035;
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'next':
       return state.amplitude > 0
         ? {
-            amplitude: state.amplitude - 0.01,
-            frequency: state.frequency + 0.01,
+            amplitude: state.amplitude - 1,
+            frequency: state.frequency + 1,
           }
         : state;
 
@@ -72,15 +70,21 @@ const reducer = (state, action) => {
 const palette = ['#f77825', '#d3ce3d', '#f1efa5', '#60b99a'];
 
 const CircleLetterCanvas = React.memo(
-  ({ text, onAnimationEnd, width = 600, height = 400 }) => {
+  ({
+    text,
+    onAnimationEnd,
+    width = 600,
+    height = 400,
+    radius = 0.01 * width,
+  }) => {
     const canvasRef = React.useRef(null);
     const hiddenCanvasRef = React.useRef(null);
     const [seed] = React.useState(() => randomUtil.getRandomSeed());
     const random = randomUtil.createRandom(seed);
     const [points, setPoints] = React.useState([]);
     const [{ amplitude, frequency }, dispatch] = React.useReducer(reducer, {
-      amplitude: 2,
-      frequency: -3,
+      amplitude: 100,
+      frequency: -20,
     });
     React.useEffect(() => {
       if (amplitude <= 0) {
@@ -103,7 +107,7 @@ const CircleLetterCanvas = React.memo(
 
       // data32 will be a one-dimensional array consists of the full 2D convas image data
       const data32 = new Uint32Array(
-        context.getImageData(0, 0, width, height).data.buffer
+        context.getImageData(0, 0, canvas.width, canvas.height).data.buffer
       );
 
       for (let index = 0; index < data32.length; index++) {
@@ -112,8 +116,8 @@ const CircleLetterCanvas = React.memo(
           check alpha mask, if it is not transparent, i.e. it is a pixel of the text,
           then we will push a point
           */
-          const u = (index % width) * radius * 2 + radius;
-          const v = ((index / width) | 0) * radius * 2 + radius; // the | here is Math.floor
+          const u = (index % canvas.width) * radius * 2 + radius;
+          const v = ((index / canvas.width) | 0) * radius * 2 + radius; // the | here is Math.floor
           const diff = amplitude * random.noise2D(u * frequency, v * frequency);
           pts.push({
             u,
@@ -126,23 +130,25 @@ const CircleLetterCanvas = React.memo(
         }
       }
 
+      console.log(Math.max(...pts.map(pt => pt.u)));
+      console.log(Math.min(...pts.map(pt => pt.u)));
+      console.log(Math.max(...pts.map(pt => pt.v)));
+      console.log(Math.min(...pts.map(pt => pt.v)));
+
       setPoints(pts);
-    }, [text, height, width, amplitude, frequency]);
+    }, [text, amplitude, frequency]);
 
     React.useEffect(() => {
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.clearRect(0, 0, width, height);
       context.fillStyle = 'black';
-      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.fillRect(0, 0, width, height);
       points.forEach(pt => {
         drawCircle(context, {
-          x: (pt.x * width) / 4,
-          y: (pt.y * width) / 4,
-          radius:
-            ((Math.abs(random.gaussian(0.1, 0.4)) + 0.3) *
-              (pt.radius * width)) /
-            4,
+          x: pt.x,
+          y: pt.y,
+          radius: (Math.abs(random.gaussian(0.1, 0.4)) + 0.3) * pt.radius,
           fill: pt.color,
           stroke: 'black',
         });
