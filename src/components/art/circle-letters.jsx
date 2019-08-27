@@ -76,7 +76,6 @@ const CircleLetterCanvas = React.memo(
     const canvasRef = React.useRef(null);
     const hiddenCanvasRef = React.useRef(null);
     const [seed] = React.useState(() => randomUtil.getRandomSeed());
-    const random = randomUtil.createRandom(seed);
     const [points, setPoints] = React.useState([]);
     const [{ amplitude, frequency }, dispatch] = React.useReducer(reducer, {
       amplitude: 2,
@@ -89,6 +88,7 @@ const CircleLetterCanvas = React.memo(
     }, [amplitude, onAnimationEnd]);
 
     React.useEffect(() => {
+      const random = randomUtil.createRandom(seed);
       const pts = [];
 
       /**
@@ -120,16 +120,19 @@ const CircleLetterCanvas = React.memo(
             v,
             x: u + diff,
             y: v + diff,
-            radius: radius * 0.8,
+            radius: (Math.abs(random.gaussian(0.1, 0.4)) + 0.3) * radius * 0.8,
             color: random.pick(palette),
           });
         }
       }
 
       setPoints(pts);
-    }, [text, height, width, amplitude, frequency]);
+    }, [text, height, width, amplitude, frequency, seed]);
 
     React.useEffect(() => {
+      /**
+       * @type {HTMLCanvasElement}
+       */
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
       context.clearRect(0, 0, canvas.width, canvas.height);
@@ -139,10 +142,7 @@ const CircleLetterCanvas = React.memo(
         drawCircle(context, {
           x: (pt.x * width) / 4,
           y: (pt.y * width) / 4,
-          radius:
-            ((Math.abs(random.gaussian(0.1, 0.4)) + 0.3) *
-              (pt.radius * width)) /
-            4,
+          radius: (pt.radius * width) / 4,
           fill: pt.color,
           stroke: 'black',
         });
