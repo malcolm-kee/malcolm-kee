@@ -91,6 +91,9 @@ const CircleLetterCanvas = React.memo(
     React.useEffect(() => {
       const pts = [];
 
+      /**
+       * @type {HTMLCanvasElement}
+       */
       const canvas = hiddenCanvasRef.current;
       const context = canvas.getContext('2d');
       context.clearRect(0, 0, canvas.width, canvas.height);
@@ -98,17 +101,23 @@ const CircleLetterCanvas = React.memo(
       context.font = '25px sans-serif';
       context.fillText(text, 8, 27);
 
+      // data32 will be a one-dimensional array consists of the full 2D convas image data
       const data32 = new Uint32Array(
         context.getImageData(0, 0, width, height).data.buffer
       );
 
       for (let index = 0; index < data32.length; index++) {
         if (data32[index] & 0xff000000) {
-          // check alpha mask
+          /* 
+          check alpha mask, if it is not transparent, i.e. it is a pixel of the text,
+          then we will push a point
+          */
           const u = (index % width) * radius * 2 + radius;
-          const v = ((index / width) | 0) * radius * 2 + radius;
+          const v = ((index / width) | 0) * radius * 2 + radius; // the | here is Math.floor
           const diff = amplitude * random.noise2D(u * frequency, v * frequency);
           pts.push({
+            u,
+            v,
             x: u + diff,
             y: v + diff,
             radius: radius * 0.8,
