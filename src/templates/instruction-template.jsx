@@ -18,6 +18,7 @@ const InstructionTemplate = ({
     workshopId,
     commentsSearch,
   },
+  location,
 }) => {
   return (
     <div className="instruction-template-container">
@@ -27,6 +28,7 @@ const InstructionTemplate = ({
         keywords={mdx.frontmatter.keywords}
         image={workshopImage}
         icon={workshopIcon}
+        pathname={location.pathname}
       />
       <div className="instruction-template">
         <h1>{mdx.frontmatter.title}</h1>

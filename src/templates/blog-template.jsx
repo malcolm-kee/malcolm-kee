@@ -35,7 +35,7 @@ function AdjacentArticles({ previous, next }) {
   );
 }
 
-export default function BlogTemplate({ data, pageContext }) {
+export default function BlogTemplate({ data, pageContext, location }) {
   const {
     mdx: {
       fields: { slug },
@@ -66,6 +66,7 @@ export default function BlogTemplate({ data, pageContext }) {
           keywords={keywords}
           description={summary}
           image={image && image.publicURL}
+          pathname={location.pathname}
         />
         <main>
           <article className="blog-post" lang={lang ? lang : undefined}>

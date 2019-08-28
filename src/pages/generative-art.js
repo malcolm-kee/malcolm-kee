@@ -4,11 +4,12 @@ import { MainContent } from '../components/main-content';
 import { Seo } from '../components/Seo';
 import { CircleLetter } from '../components/art/circle-letters';
 
-function GenerativeArt() {
+function GenerativeArt({ location }) {
   return (
     <>
       <Seo
         title="Generative Art"
+        pathname={location.pathname}
         keywords={['random grid', 'generative art']}
       />
       <MainContent className="text-center" style={{ overflow: 'visible' }}>

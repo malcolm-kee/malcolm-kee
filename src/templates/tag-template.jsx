@@ -5,7 +5,7 @@ import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { Seo } from '../components/Seo';
 
-function BlogsWithTag({ data, pageContext }) {
+function BlogsWithTag({ data, pageContext, location }) {
   const { tag } = pageContext;
   const { edges: posts, totalCount } = data.allMdx;
   const tagTitle = `${totalCount} post${
@@ -15,7 +15,7 @@ function BlogsWithTag({ data, pageContext }) {
   return (
     <MainContent>
       <div>
-        <Seo title={`Tag - ${tag}`} />
+        <Seo title={`Tag - ${tag}`} pathname={location.pathname} />
         <h1>{tagTitle}</h1>
         <List>
           {posts.map(({ node: { frontmatter: { path, title, summary } } }) => (

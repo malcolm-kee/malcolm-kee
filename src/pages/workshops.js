@@ -11,7 +11,7 @@ import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 
-const WorkshopsPage = () => {
+const WorkshopsPage = ({ location }) => {
   const {
     allWorkshopsJson: { edges },
   } = useStaticQuery(graphql`
@@ -32,7 +32,7 @@ const WorkshopsPage = () => {
 
   return (
     <MainContent as="div">
-      <Seo title="Workshops by Malcolm Kee" />
+      <Seo title="Workshops by Malcolm Kee" pathname={location.pathname} />
       <main>
         <PageTitleContainer title="Workshops" />
         <List>
