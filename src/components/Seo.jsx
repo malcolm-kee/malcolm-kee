@@ -51,12 +51,16 @@ export const Seo = ({
       />
       <meta property="og:title" content={displayTitle} />
       <meta property="og:description" content={displayDescription} />
-      {image && <meta property="og:image" content={image} />}
+      {image && (
+        <meta property="og:image" content={siteMetadata.siteUrl + image} />
+      )}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:creator" content={siteMetadata.social.twitter} />
       <meta name="twitter:title" content={displayTitle} />
       <meta name="twitter:description" content={displayDescription} />
-      {image && <meta name="twitter:image" content={image} />}
+      {image && (
+        <meta name="twitter:image" content={siteMetadata.siteUrl + image} />
+      )}
     </Helmet>
   );
 };
