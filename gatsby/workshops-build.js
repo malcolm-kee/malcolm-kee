@@ -143,15 +143,63 @@ exports.createWorkshopPages = function createWorkshopPages({
 
 exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomization({
   actions,
+  schema,
 }) {
   const { createTypes } = actions;
   const typeDefs = [
     `type WorkshopsJson implements Node {
       underConstruction: Boolean
     }`,
+    schema.buildObjectType({
+      name: 'Mdx',
+      interfaces: ['Node'],
+      fields: {
+        workshopImage: {
+          type: 'String',
+        },
+        workshopGroup: {
+          type: 'String',
+          resolve: (source, _, context) => {
+            return getMdxWorkshopGroup(source, context);
+          },
+        },
+      },
+    }),
   ];
 
   createTypes(typeDefs);
+};
+
+function getMdxWorkshopGroup(source, context) {
+  const fileNode = context.nodeModel.getNodeById({
+    id: source.parent,
+    type: 'File',
+  });
+
+  if (!fileNode || fileNode.sourceInstanceName !== 'workshops') {
+    return null;
+  }
+
+  return fileNode.relativeDirectory.split(path.sep)[0];
+}
+
+exports.createWorkshopResolvers = function createWorkshopResolvers({
+  createResolvers,
+}) {
+  createResolvers({
+    Mdx: {
+      workshopImage: {
+        resolve(source, args, context, info) {
+          const fileNode = context.nodeModel.getNodeById({
+            id: source.parent,
+            type: 'File',
+          });
+
+          return fileNode && fileNode.relativeDirectory;
+        },
+      },
+    },
+  });
 };
 
 exports.createWorkshopNodeFields = function createWorkshopNodeFields({
