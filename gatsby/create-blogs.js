@@ -34,7 +34,7 @@ module.exports = function createBlogs({ actions, graphql }) {
   return graphql(`
     {
       allMdx(
-        filter: { fields: { workshopcontent: { eq: false } } }
+        filter: { workshop: { id: { eq: null } } }
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 1000
       ) {
@@ -74,8 +74,8 @@ module.exports = function createBlogs({ actions, graphql }) {
       return Promise.reject(result.errors);
     }
 
-    const posts = process.env.ONLY_LAST_TEN_BLOGS
-      ? result.data.allMdx.edges.slice(0, 10)
+    const posts = process.env.ONLY_LAST_TWELVE_BLOGS
+      ? result.data.allMdx.edges.slice(0, 12)
       : result.data.allMdx.edges;
 
     posts.forEach(({ node, next, previous }) => {

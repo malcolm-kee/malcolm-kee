@@ -10,24 +10,17 @@ import './instruction-template.scss';
 
 const InstructionTemplate = ({
   data: { mdx, github },
-  pageContext: {
-    next,
-    workshopTitle,
-    workshopIcon,
-    workshopImage,
-    workshopId,
-    commentsSearch,
-  },
+  pageContext: { next, commentsSearch },
   location,
 }) => {
   return (
     <div className="instruction-template-container">
       <Seo
-        title={`${mdx.frontmatter.title} - ${workshopTitle}`}
+        title={`${mdx.frontmatter.title} - ${mdx.workshop.name}`}
         description={mdx.frontmatter.description}
         keywords={mdx.frontmatter.keywords}
-        image={workshopImage}
-        icon={workshopIcon}
+        image={mdx.workshop.image.childImageSharp.resize.src}
+        icon={mdx.workshop.iconFile.childImageSharp.resize.src}
         pathname={location.pathname}
       />
       <div className="instruction-template">
@@ -65,7 +58,7 @@ const InstructionTemplate = ({
         <p>
           Issue on this page?{' '}
           <ReportIssueLink
-            title={`Issue on ${mdx.fields.contentgroup}: ${mdx.frontmatter.title}`}
+            title={`Issue on ${mdx.workshop.name}: ${mdx.frontmatter.title}`}
           />
         </p>
       </div>
@@ -89,7 +82,6 @@ export const pageQuery = graphql`
     mdx(id: { eq: $id }) {
       id
       fields {
-        contentgroup
         slug
       }
       frontmatter {
@@ -97,6 +89,23 @@ export const pageQuery = graphql`
         description
         section
         keywords
+      }
+      workshop {
+        name
+        iconFile {
+          childImageSharp {
+            resize(width: 16, height: 16) {
+              src
+            }
+          }
+        }
+        image: iconFile {
+          childImageSharp {
+            resize(width: 300, height: 157) {
+              src
+            }
+          }
+        }
       }
       body
       tableOfContents(maxDepth: 2)

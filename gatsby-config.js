@@ -143,7 +143,7 @@ module.exports = {
             query: `
               {
                 allMdx(
-                  filter: { fields: { workshopcontent: { eq: false } }, frontmatter: { published: { eq: true } } }
+                  filter: { workshop: { id: { eq: null } }, frontmatter: { published: { eq: true } } }
                   sort: { order: DESC, fields: [frontmatter___date] }
                 ) {
                   edges {

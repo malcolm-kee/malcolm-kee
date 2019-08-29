@@ -40,7 +40,7 @@ const LayoutContainer = ({ children, pageContext, location }) => {
 
   const {
     isWorkshop,
-    workshop,
+    workshopId,
     workshopTitle,
     workshopThemeColor,
     lessonGroup,
@@ -54,7 +54,7 @@ const LayoutContainer = ({ children, pageContext, location }) => {
             <WorkshopLayout
               workshopTitle={workshopTitle}
               workshopThemeColor={workshopThemeColor}
-              workshopRoot={`/${workshop}`}
+              workshopRoot={`/${workshopId}`}
               workshopSections={lessonGroup}
               pathname={location.pathname}
             >

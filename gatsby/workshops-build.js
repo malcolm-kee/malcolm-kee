@@ -45,10 +45,10 @@ exports.createWorkshopPages = function createWorkshopPages({
   return graphql(`
     {
       allMdx(
-        filter: { fields: { workshopcontent: { eq: true } } }
+        filter: { workshop: { id: { ne: null } } }
         sort: { fields: [fileAbsolutePath] }
       ) {
-        group(field: fields___contentgroup) {
+        group(field: workshop___id) {
           workshop: fieldValue
           edges {
             node {
@@ -57,37 +57,20 @@ exports.createWorkshopPages = function createWorkshopPages({
                 path
                 section
                 title
+                isLastLesson
               }
               fields {
                 slug
+              }
+              workshop {
+                id
+                name
+                themeColor
               }
             }
             next {
               fields {
                 slug
-              }
-            }
-          }
-        }
-      }
-      allWorkshopsJson {
-        edges {
-          node {
-            contentId
-            name
-            themeColor
-            iconFile {
-              childImageSharp {
-                resize(width: 16, height: 16) {
-                  src
-                }
-              }
-            }
-            image: iconFile {
-              childImageSharp {
-                resize(width: 300, height: 157) {
-                  src
-                }
               }
             }
           }
@@ -103,13 +86,7 @@ exports.createWorkshopPages = function createWorkshopPages({
       group => !ONLY_WORKSHOP || group.workshop === ONLY_WORKSHOP
     );
 
-    const workshops = result.data.allWorkshopsJson.edges.map(edge => edge.node);
-
     groups.forEach(group => {
-      const workshop = workshops.filter(
-        workshop => workshop.contentId === group.workshop
-      )[0];
-
       const lessonGroup = groupInstruction(group.edges);
 
       group.edges.forEach(({ node: lesson, next }) => {
@@ -117,22 +94,15 @@ exports.createWorkshopPages = function createWorkshopPages({
           path: lesson.fields.slug,
           component: instructionTemplate,
           context: {
-            next: lesson.frontmatter.title === 'Conclusion' ? null : next, // hard-code to remove next for conclusion
+            // used in layout
+            next: lesson.frontmatter.isLastLesson ? null : next, // hard-code to remove next for conclusion
             lessonGroup,
             isWorkshop: true,
-            workshopTitle: workshop && workshop.name,
-            workshopThemeColor: workshop && workshop.themeColor,
-            workshopIcon:
-              workshop &&
-              workshop.iconFile &&
-              workshop.iconFile.childImageSharp.resize.src,
-            workshopImage:
-              workshop &&
-              workshop.image &&
-              workshop.image.childImageSharp.resize.src,
-            workshopId: workshop && workshop.contentId,
+            workshopId: lesson.workshop.id,
+            workshopTitle: lesson.workshop.name,
+            workshopThemeColor: lesson.workshop.themeColor,
+            // used in template
             id: lesson.id,
-            workshop: group.workshop,
             commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${lesson.fields.slug} in:title sort:created-asc`,
           },
         });
@@ -193,21 +163,11 @@ exports.createWorkshopNodeFields = function createWorkshopNodeFields({
 
   const fileNode = getNode(node.parent);
   const isWorkshop = fileNode.sourceInstanceName === 'workshops';
-  createNodeField({
-    node,
-    name: 'workshopcontent',
-    value: isWorkshop,
-  });
   if (isWorkshop) {
     // use filename and directory name to generate path
     const { dir, name } = path.parse(fileNode.relativePath);
     const workshop = dir.split('/')[0];
     if (workshop) {
-      createNodeField({
-        node,
-        name: 'contentgroup',
-        value: workshop,
-      });
       createNodeField({
         node,
         name: 'slug',

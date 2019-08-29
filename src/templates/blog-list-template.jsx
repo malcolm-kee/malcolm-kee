@@ -86,7 +86,7 @@ export const pageQuery = graphql`
   query BlogListQuery($skip: Int!, $limit: Int!) {
     allMdx(
       filter: {
-        fields: { workshopcontent: { eq: false } }
+        workshop: { id: { eq: null } }
         frontmatter: { published: { eq: true } }
       }
       sort: { order: DESC, fields: [frontmatter___date] }
