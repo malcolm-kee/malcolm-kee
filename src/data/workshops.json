@@ -1,6 +1,7 @@
 [
   {
     "name": "Introduction to React",
+    "id": "intro-to-react-js",
     "contentId": "intro-to-react-js",
     "url": "/intro-to-react-js",
     "description": "A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting.",
@@ -10,6 +11,7 @@
   },
   {
     "name": "Introduction to React v2",
+    "id": "intro-to-react-js-v2",
     "contentId": "intro-to-react-js-v2",
     "url": "/intro-to-react-js-v2",
     "description": "An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.",
@@ -19,6 +21,7 @@
   },
   {
     "name": "Web Developer Toolbox",
+    "id": "web-developer-toolbox",
     "contentId": "web-developer-toolbox",
     "url": "/web-developer-toolbox",
     "description": "Learn the tools that will make you productive as a Web Developer",
@@ -34,6 +37,7 @@
   },
   {
     "name": "Creating Project React Component Library",
+    "id": "react-component-lib",
     "contentId": "react-component-lib",
     "url": "https://react-component-lib.netlify.com/",
     "description": "Learn the common practices of writing React components and React hooks.",
@@ -42,6 +46,7 @@
   },
   {
     "name": "Introduction to Web Development",
+    "id": "intro-to-web-dev",
     "contentId": "intro-to-web-dev",
     "url": "https://intro-to-web-dev.netlify.com/",
     "description": "A full-day workshop that teach you how to create website contents with HTML, style them with CSS, and make them interactive with Javascript. Its primary target students are beginner with zero experience in programming.",
@@ -50,6 +55,7 @@
   },
   {
     "name": "JavaScript: The React Parts",
+    "id": "js-the-react-parts",
     "contentId": "js-the-react-parts",
     "url": "/js-the-react-parts",
     "description": "JavaScript fundamentals and concepts that are commonly used when developing in React.",
@@ -64,6 +70,7 @@
   },
   {
     "name": "Create a Fast Site with GatsbyJS",
+    "id": "fast-site-with-gatsby-js",
     "contentId": "fast-site-with-gatsby-js",
     "url": "/fast-site-with-gatsby-js",
     "description": "Learn how to build blog with GatsbyJS, which automatically optimize your site to make it fast without sacrificing developer usability or accessibility.",
@@ -73,6 +80,7 @@
   },
   {
     "name": "State Management with Redux",
+    "id": "state-management-with-redux",
     "contentId": "state-management-with-redux",
     "url": "/state-management-with-redux",
     "description": "Understand key concepts of redux and how to use it effectively. Featuring usages with React",

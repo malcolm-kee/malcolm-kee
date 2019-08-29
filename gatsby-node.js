@@ -3,7 +3,6 @@ const {
   createWorkshopPages,
   createWorkshopNodeFields,
   createWorkshopSchemaCustomization,
-  createWorkshopResolvers,
 } = require('./gatsby/workshops-build');
 
 exports.onCreateNode = async ({ node, getNode, actions, reporter }) => {
@@ -15,8 +14,6 @@ exports.onCreateNode = async ({ node, getNode, actions, reporter }) => {
 exports.createSchemaCustomization = ({ actions, schema }) => {
   createWorkshopSchemaCustomization({ actions, schema });
 };
-
-exports.createResolvers = createWorkshopResolvers;
 
 exports.createPages = async ({ actions, graphql }) => {
   await createBlogs({ actions, graphql });

@@ -154,13 +154,26 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
       name: 'Mdx',
       interfaces: ['Node'],
       fields: {
-        workshopImage: {
-          type: 'String',
-        },
-        workshopGroup: {
-          type: 'String',
-          resolve: (source, _, context) => {
-            return getMdxWorkshopGroup(source, context);
+        workshop: {
+          type: 'WorkshopsJson',
+          resolve: (source, args, context, info) => {
+            const fileNode = context.nodeModel.getNodeById({
+              id: source.parent,
+              type: 'File',
+            });
+
+            if (!fileNode || fileNode.sourceInstanceName !== 'workshops') {
+              return null;
+            }
+
+            const workshopId = fileNode.relativeDirectory.split(path.sep)[0];
+
+            return workshopId
+              ? context.nodeModel.getNodeById({
+                  id: workshopId,
+                  type: 'WorkshopsJson',
+                })
+              : null;
           },
         },
       },
@@ -168,38 +181,6 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
   ];
 
   createTypes(typeDefs);
-};
-
-function getMdxWorkshopGroup(source, context) {
-  const fileNode = context.nodeModel.getNodeById({
-    id: source.parent,
-    type: 'File',
-  });
-
-  if (!fileNode || fileNode.sourceInstanceName !== 'workshops') {
-    return null;
-  }
-
-  return fileNode.relativeDirectory.split(path.sep)[0];
-}
-
-exports.createWorkshopResolvers = function createWorkshopResolvers({
-  createResolvers,
-}) {
-  createResolvers({
-    Mdx: {
-      workshopImage: {
-        resolve(source, args, context, info) {
-          const fileNode = context.nodeModel.getNodeById({
-            id: source.parent,
-            type: 'File',
-          });
-
-          return fileNode && fileNode.relativeDirectory;
-        },
-      },
-    },
-  });
 };
 
 exports.createWorkshopNodeFields = function createWorkshopNodeFields({
