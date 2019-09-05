@@ -16,6 +16,7 @@ export const CodeRenderer = ({
   className,
   live,
   noInline,
+  noCode,
   noWrapper,
   fileName,
   highlightedLines,
@@ -26,17 +27,20 @@ export const CodeRenderer = ({
 
   const theme = value === 'dark' ? nightOwl : githubTheme;
 
+  const code = typeof children === 'string' ? children.trim() : children;
+
   return language === 'js' || (live && language === 'jsx') ? (
     <CodeLiveEditor
-      code={children}
+      code={code}
       theme={theme}
       language={language}
       noInline={noInline}
       fileName={fileName}
+      noCode={noCode}
     />
   ) : language ? (
     <CodeSnippet
-      code={children}
+      code={code}
       language={language}
       theme={theme}
       fileName={fileName}
@@ -44,13 +48,20 @@ export const CodeRenderer = ({
       highlightedLines={highlightedLines}
     />
   ) : (
-    <code className="language-text">{children}</code>
+    <code className="language-text">{code}</code>
   );
 };
 
 const injectedGlobals = { sanitize, shallowConcat };
 
-const CodeLiveEditor = ({ code, theme, language, noInline, fileName }) => {
+const CodeLiveEditor = ({
+  code,
+  theme,
+  language,
+  noInline,
+  fileName,
+  noCode,
+}) => {
   const components = useMDXScope();
 
   const injectedComponents = React.useMemo(
@@ -71,17 +82,21 @@ const CodeLiveEditor = ({ code, theme, language, noInline, fileName }) => {
         language="jsx"
         noInline={noInline}
       >
-        <div className="code-editor-header-container">
-          <div className="code-editor-header">
-            <div className="code-editor-icon">
-              <EditIcon />
+        {!noCode && (
+          <>
+            <div className="code-editor-header-container">
+              <div className="code-editor-header">
+                <div className="code-editor-icon">
+                  <EditIcon />
+                </div>
+                {fileName && <span>{fileName}</span>}
+                <CopyCodeButton code={code} />
+              </div>
+              <span className="code-editor-language">{language}</span>
             </div>
-            {fileName && <span>{fileName}</span>}
-            <CopyCodeButton code={code} />
-          </div>
-          <span className="code-editor-language">{language}</span>
-        </div>
-        <LiveEditor />
+            <LiveEditor />
+          </>
+        )}
         <LiveError className="code-error" />
         <LivePreview className="code-preview" />
       </LiveProvider>
