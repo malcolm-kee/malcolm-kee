@@ -2,9 +2,9 @@
 
 .root {
   padding: $spacing-unit * 2;
-  border: 1px solid var(--bg-pale);
   box-shadow: $box-shadow-2;
   border-radius: 8px;
+  background-color: var(--bg-absolute);
 }
 .header {
   font-size: 1.2rem;

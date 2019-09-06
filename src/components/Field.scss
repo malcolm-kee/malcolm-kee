@@ -37,6 +37,14 @@
   }
 }
 
+body.dark {
+  .field--focused {
+    .label {
+      color: $primary-color-light;
+    }
+  }
+}
+
 .form-control {
   display: block;
   background: inherit;

@@ -10,16 +10,6 @@
   transition-timing-function: ease;
   transition-duration: 200ms;
 
-  &--selectable {
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      bottom: 2px;
-      box-shadow: $box-shadow-5;
-    }
-  }
-
   &-content {
     padding: $space * 2;
   }

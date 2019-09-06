@@ -1,0 +1,39 @@
+@import '../constants/variable';
+
+.imageAttribution {
+  text-align: right;
+  padding-top: $space;
+}
+
+.imageAuthor {
+  color: inherit;
+  text-decoration: none;
+}
+
+.adjacentArticles {
+  border-top: 1px solid $grey-400;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: $space * 2 0;
+
+  > li {
+    max-width: 100%;
+  }
+
+  a {
+    display: inline-block;
+    padding: $space / 2 $space;
+    margin: $space 0;
+    line-height: 1.5;
+    vertical-align: middle;
+    text-decoration: none;
+    border-bottom: 1px solid;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}

@@ -10,12 +10,13 @@ import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
 import './blog-template.scss';
+import styles from './blog-template.module.scss';
 import { OutLink } from '../components/OutLink';
 
 function AdjacentArticles({ previous, next }) {
   return (
     <aside>
-      <ul className="blog-post-adjacent-articles">
+      <ul className={styles.adjacentArticles}>
         {previous && (
           <li>
             <Link to={previous.fields.slug} rel="prev">
@@ -89,11 +90,16 @@ export default function BlogTemplate({ data, pageContext, location }) {
               <>
                 <Image fluid={image.childImageSharp.fluid} alt="" />
                 {imageBy && (
-                  <p className="text-right">
+                  <p className={styles.imageAttribution}>
                     <small>
                       Photo by{' '}
                       {imageByLink ? (
-                        <OutLink to={imageByLink}>{imageBy}</OutLink>
+                        <OutLink
+                          className={styles.imageAuthor}
+                          to={imageByLink}
+                        >
+                          {imageBy}
+                        </OutLink>
                       ) : (
                         imageBy
                       )}

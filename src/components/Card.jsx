@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 import './Card.scss';
+import styles from './card.module.scss';
 
 export const Card = ({
   as: Component = 'div',
@@ -10,7 +11,7 @@ export const Card = ({
   ...props
 }) => (
   <Component
-    className={cx('card', selectable && 'card--selectable', className)}
+    className={cx('card', selectable && styles.selectable, className)}
     tabIndex={selectable ? 0 : undefined}
     onClick={selectable ? onSelect : undefined}
     onKeyPress={ev => {

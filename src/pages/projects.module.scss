@@ -1,0 +1,26 @@
+@import '../constants/variable';
+
+.details {
+  @media screen and (min-width: $media-tablet) {
+    display: flex;
+  }
+}
+
+.content,
+.demo {
+  display: inline-block;
+  margin: 0;
+  flex: 1;
+  max-height: 600px;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  margin: $space / 2 auto;
+  display: block;
+}
+
+.btn {
+  margin: 0 $spacing-unit;
+}

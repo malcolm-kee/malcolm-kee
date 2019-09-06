@@ -161,3 +161,12 @@ export function ajax(url, options) {
 
   request.send(opts.body);
 }
+
+/**
+ * preload image so when it is needed it will shown instantly
+ * @param {string} imageSrc
+ */
+export function preloadImage(imageSrc) {
+  const image = new Image();
+  image.src = imageSrc;
+}

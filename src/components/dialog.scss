@@ -16,6 +16,10 @@
 }
 
 .dialog {
+  &--large {
+    width: 90vw;
+  }
+
   &-content {
     position: relative;
     padding: 2rem;

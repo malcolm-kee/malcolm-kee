@@ -9,6 +9,8 @@ import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 import './projects.scss';
+import styles from './projects.module.scss';
+import { preloadImage } from '../helper';
 
 const ProjectCard = ({ project }) => (
   <Card className="ProjectPage--project">
@@ -22,19 +24,25 @@ const ProjectCard = ({ project }) => (
           ))}
         </ul>
       </CardContent>
-      <CardActions className="ProjectPage--project-links">
+      <CardActions>
         {project.links.live && (
           <Button
             component={OutLink}
             href={project.links.live}
             color="primary"
+            className={styles.btn}
             raised
           >
             Live
           </Button>
         )}
         {project.links.code && (
-          <Button component={OutLink} href={project.links.code} raised>
+          <Button
+            component={OutLink}
+            href={project.links.code}
+            raised
+            className={styles.btn}
+          >
             Code
           </Button>
         )}
@@ -57,55 +65,80 @@ const ProjectListView = ({ projects }) => (
   </div>
 );
 
+const usePreloadImage = imageSrc => {
+  const [hovered, setHovered] = React.useState(false);
+
+  React.useEffect(() => {
+    if (hovered) {
+      preloadImage(imageSrc);
+    }
+  }, [imageSrc, hovered]);
+
+  return () => setHovered(true);
+};
+
 const FancyProjectCard = ({ project }) => {
   const [showDialog, setShowDialog] = React.useState(false);
   const isInternalLink = project.links.live && project.links.live[0] === '/';
+  const onHover = usePreloadImage(project.image.publicURL);
 
   return (
     <>
-      <Card selectable onSelect={() => setShowDialog(true)}>
+      <Card
+        selectable
+        onMouseEnter={onHover}
+        onFocus={onHover}
+        onSelect={() => setShowDialog(true)}
+        className="ProjectPage--project-card"
+      >
         <CardContent className="text-center content-section">
           {project.name}
         </CardContent>
       </Card>
-      <Dialog isOpen={showDialog} onDismiss={() => setShowDialog(false)}>
-        <div className="content-section">
-          <h2>{project.name}</h2>
-          <p>{project.description}</p>
-          <ul>
-            {project.technologies.map(tech => (
-              <li key={tech}>{tech}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="ProjectPage--project-demo">
-          <div className="ProjectPage--project-demo-links">
-            {project.links.live && (
-              <Button
-                component={isInternalLink ? Link : OutLink}
-                href={isInternalLink ? undefined : project.links.live}
-                to={isInternalLink ? project.links.live : undefined}
-                color="primary"
-                raised
-              >
-                Live
-              </Button>
-            )}
-            {project.links.code && (
-              <Button component={OutLink} href={project.links.code} raised>
-                Code
-              </Button>
-            )}
-          </div>
-          {project.image && (
+      <Dialog isOpen={showDialog} onDismiss={() => setShowDialog(false)} large>
+        <div className={styles.details}>
+          <div className={`content-section ${styles.content}`}>
+            <h2>{project.name}</h2>
+            <p>{project.description}</p>
+            <ul>
+              {project.technologies.map(tech => (
+                <li key={tech}>{tech}</li>
+              ))}
+            </ul>
             <div>
+              {project.links.live && (
+                <Button
+                  component={isInternalLink ? Link : OutLink}
+                  href={isInternalLink ? undefined : project.links.live}
+                  to={isInternalLink ? project.links.live : undefined}
+                  color="primary"
+                  raised
+                  className={styles.btn}
+                >
+                  Live
+                </Button>
+              )}
+              {project.links.code && (
+                <Button
+                  component={OutLink}
+                  href={project.links.code}
+                  raised
+                  className={styles.btn}
+                >
+                  Code
+                </Button>
+              )}
+            </div>
+          </div>
+          <div className={styles.demo}>
+            {project.image && (
               <img
                 src={project.image.publicURL}
                 alt={`Demo of ${project.name}`}
-                className="ProjectPage--project-demo-image"
+                className={styles.image}
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </Dialog>
     </>
