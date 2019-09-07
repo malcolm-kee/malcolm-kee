@@ -55,7 +55,7 @@ It's possible to disable specific pages to optimize local build time by adding t
 
 ```
 DISABLE_BLOG=true
-ONLY_LAST_TWELVE_BLOGS=true
+NUM_OF_BLOGS=15
 DISABLE_WORKSHOP=true
 ONLY_WORKSHOP=intro-to-react-js-v2 # content id of workshop
 ```

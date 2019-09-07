@@ -33,8 +33,8 @@ const BlogListTemplate = ({ data, pageContext: { currentPage, numPages } }) => {
             <ListItem
               button
               component={Link}
-              to={post.fields.slug}
-              key={post.fields.slug}
+              to={post.blogUrl}
+              key={post.blogUrl}
               noGutter
             >
               <ListItemText
@@ -96,15 +96,13 @@ export const pageQuery = graphql`
       posts: edges {
         node {
           id
-          fields {
-            slug
-          }
           frontmatter {
             title
             date(formatString: "MMM DD, YYYY")
             summary
           }
           timeToRead
+          blogUrl
         }
       }
     }

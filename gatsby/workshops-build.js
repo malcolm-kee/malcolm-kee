@@ -174,23 +174,5 @@ exports.createWorkshopNodeFields = function createWorkshopNodeFields({
         value: `/${workshop}/${name}`,
       });
     }
-  } else {
-    // blog post
-    const frontMatterPath = node.frontmatter && node.frontmatter.path;
-    if (frontMatterPath) {
-      createNodeField({
-        node,
-        name: 'slug',
-        value: frontMatterPath,
-      });
-    } else {
-      const { dir, name } = path.parse(fileNode.relativePath);
-      const parentFolder = _.last(dir.split('/'));
-      createNodeField({
-        node,
-        name: 'slug',
-        value: `/blog/${parentFolder}`,
-      });
-    }
   }
 };

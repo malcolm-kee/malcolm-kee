@@ -19,14 +19,14 @@ function AdjacentArticles({ previous, next }) {
       <ul className={styles.adjacentArticles}>
         {previous && (
           <li>
-            <Link to={previous.fields.slug} rel="prev">
+            <Link to={previous.blogUrl} rel="prev">
               ← {previous.frontmatter.title}
             </Link>
           </li>
         )}
         {next && (
           <li>
-            <Link to={next.fields.slug} rel="next">
+            <Link to={next.blogUrl} rel="next">
               {next.frontmatter.title} →
             </Link>
           </li>
@@ -39,7 +39,6 @@ function AdjacentArticles({ previous, next }) {
 export default function BlogTemplate({ data, pageContext, location }) {
   const {
     mdx: {
-      fields: { slug },
       frontmatter: {
         title,
         date,
@@ -53,6 +52,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
       },
       body,
       timeToRead,
+      blogUrl,
     },
     github: {
       search: { nodes: comments },
@@ -134,7 +134,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
         )}
         <Comments
           comments={comments}
-          articlePath={slug}
+          articlePath={blogUrl}
           searchTerm={pageContext.commentsSearch}
         />
         <AdjacentArticles
@@ -156,9 +156,7 @@ export const pageQuery = graphql`
   query BlogPostByPath($id: String!, $commentsSearch: String!) {
     mdx(id: { eq: $id }) {
       body
-      fields {
-        slug
-      }
+      blogUrl
       frontmatter {
         date(formatString: "MMM DD, YYYY")
         title

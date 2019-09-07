@@ -23,7 +23,49 @@ const blogListTemplate = path.resolve(
   'blog-list-template.jsx'
 );
 
-module.exports = function createBlogs({ actions, graphql }) {
+exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
+  actions,
+  schema,
+}) {
+  const { createTypes } = actions;
+
+  const typeDefs = [
+    schema.buildObjectType({
+      name: 'Mdx',
+      interfaces: ['Node'],
+      fields: {
+        blogUrl: {
+          type: 'String',
+          resolve: (source, args, context, info) => {
+            const fileNode = context.nodeModel.getNodeById({
+              id: source.parent,
+              type: 'File',
+            });
+
+            if (!fileNode || fileNode.sourceInstanceName !== 'blogs') {
+              return null;
+            }
+
+            const frontMatterPath =
+              source.frontmatter && source.frontmatter.path;
+
+            if (frontMatterPath) {
+              return frontMatterPath;
+            }
+
+            const { name } = path.parse(fileNode.relativePath);
+
+            return `/blog/${name}`;
+          },
+        },
+      },
+    }),
+  ];
+
+  createTypes(typeDefs);
+};
+
+exports.createBlogs = function createBlogs({ actions, graphql }) {
   if (process.env.DISABLE_BLOG) {
     // optimize local build time
     return;
@@ -34,7 +76,7 @@ module.exports = function createBlogs({ actions, graphql }) {
   return graphql(`
     {
       allMdx(
-        filter: { workshop: { id: { eq: null } } }
+        filter: { blogUrl: { ne: null } }
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 1000
       ) {
@@ -46,25 +88,19 @@ module.exports = function createBlogs({ actions, graphql }) {
               keywords
               summary
             }
-            fields {
-              slug
-            }
+            blogUrl
           }
           next {
             frontmatter {
               title
             }
-            fields {
-              slug
-            }
+            blogUrl
           }
           previous {
             frontmatter {
               title
             }
-            fields {
-              slug
-            }
+            blogUrl
           }
         }
       }
@@ -74,19 +110,19 @@ module.exports = function createBlogs({ actions, graphql }) {
       return Promise.reject(result.errors);
     }
 
-    const posts = process.env.ONLY_LAST_TWELVE_BLOGS
-      ? result.data.allMdx.edges.slice(0, 12)
+    const posts = process.env.NUM_OF_BLOGS
+      ? result.data.allMdx.edges.slice(0, Number(process.env.NUM_OF_BLOGS))
       : result.data.allMdx.edges;
 
     posts.forEach(({ node, next, previous }) => {
       createPage({
-        path: node.fields.slug,
+        path: node.blogUrl,
         component: blogPostTemplate,
         context: {
           id: node.id,
           next: previous, // we need to invert these 2 because we query date descending
           previous: next,
-          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.fields.slug} in:title sort:created-asc`,
+          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.blogUrl} in:title sort:created-asc`,
         },
       });
     });
