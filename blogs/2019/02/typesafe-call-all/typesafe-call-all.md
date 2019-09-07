@@ -1,9 +1,8 @@
 ---
-path: "/blog/typesafe-call-all"
-date: "2019-02-24"
-title: "Type-Safe callAll"
-tags: ["typescript"]
-summary: "You can have typesafe callAll utility in Typescript 3"
+title: 'Type-Safe callAll'
+date: '2019-02-24'
+tags: ['typescript']
+summary: 'You can have typesafe callAll utility in Typescript 3'
 published: true
 ---
 

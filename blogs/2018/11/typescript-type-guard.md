@@ -1,10 +1,9 @@
 ---
-path: "/blog/typescript-type-guard"
-date: "2018-11-26"
-title: "Using Typescript Type Guard to Narrow Down Type"
-tags: ["typescript"]
-keywords: ["typescript", "type guard", "narrow down type"]
-summary: "Using custom type guard allow us to create reusable checking that narrow down the type of a variable"
+title: 'Using Typescript Type Guard to Narrow Down Type'
+date: '2018-11-26'
+tags: ['typescript']
+keywords: ['typescript', 'type guard', 'narrow down type']
+summary: 'Using custom type guard allow us to create reusable checking that narrow down the type of a variable'
 published: true
 ---
 
