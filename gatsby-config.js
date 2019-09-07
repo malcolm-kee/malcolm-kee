@@ -143,7 +143,10 @@ module.exports = {
             query: `
               {
                 allMdx(
-                  filter: { blogUrl: { ne: null } }, frontmatter: { published: { eq: true } } }
+                  filter: { 
+                    blogUrl: { ne: null }
+                    frontmatter: { published: { eq: true } } 
+                  }
                   sort: { order: DESC, fields: [frontmatter___date] }
                 ) {
                   edges {
