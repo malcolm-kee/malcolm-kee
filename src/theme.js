@@ -2,7 +2,7 @@ import React from 'react';
 
 const ThemeContext = React.createContext({
   toggle: function noop() {},
-  value: null
+  value: null,
 });
 
 export const ThemeProvider = ThemeContext.Provider;
