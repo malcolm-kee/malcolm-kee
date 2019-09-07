@@ -51,7 +51,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: path.join(__dirname, 'blogs'),
-        name: 'markdown-pages',
+        name: 'blogs',
       },
     },
     {
@@ -143,7 +143,10 @@ module.exports = {
             query: `
               {
                 allMdx(
-                  filter: { workshop: { id: { eq: null } }, frontmatter: { published: { eq: true } } }
+                  filter: { 
+                    blogUrl: { ne: null }
+                    frontmatter: { published: { eq: true } } 
+                  }
                   sort: { order: DESC, fields: [frontmatter___date] }
                 ) {
                   edges {
@@ -154,9 +157,7 @@ module.exports = {
                         date(formatString: "MMM DD, YYYY")
                         summary
                       }
-                      fields {
-                        slug
-                      }
+                      blogUrl
                     }
                   }
                 }
@@ -166,8 +167,8 @@ module.exports = {
               return allMdx.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.frontmatter.summary,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  url: site.siteMetadata.siteUrl + edge.node.blogUrl,
+                  guid: site.siteMetadata.siteUrl + edge.node.blogUrl,
                   custom_elements: [{ 'content:encoded': edge.node.html }],
                 });
               });

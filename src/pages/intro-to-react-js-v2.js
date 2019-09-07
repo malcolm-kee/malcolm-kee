@@ -3,7 +3,7 @@ import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ReactLogo } from '../components/react-logo';
 import { Seo } from '../components/Seo';
-import { LandingPageHeader } from '../components/workshop/landing-page-header';
+import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import './intro-to-react-js-v2.scss';
 
 const PageHeader = () => {
@@ -33,7 +33,7 @@ const PageHeader = () => {
   `);
 
   return (
-    <LandingPageHeader>
+    <WorkshopLandingPageBanner>
       <Seo
         title={workshopsJson.name}
         description={workshopsJson.description}
@@ -70,7 +70,7 @@ const PageHeader = () => {
           </div>
         </div>
       </div>
-    </LandingPageHeader>
+    </WorkshopLandingPageBanner>
   );
 };
 

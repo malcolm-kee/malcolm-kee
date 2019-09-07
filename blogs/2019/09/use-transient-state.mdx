@@ -3,7 +3,6 @@ title: 'Custom Hooks: useTransientState'
 date: '2019-09-05'
 tags: ['react', 'react hooks']
 summary: 'A custom hooks to declare state that will restore to its steady-state value after some delay. This will be useful when you want to show some UI element temporarily and then hide it after some delay.'
-path: '/blog/use-transient-state'
 image: './time.jpg'
 imageBy: 'Aron Visuals'
 imageByLink: 'https://unsplash.com/@aronvisuals'
@@ -110,7 +109,7 @@ const useTransientState = (steadyState, restorationTime = 2000) => {
 
 The result:
 
-```jsx live noInline noCode
+```jsx live noInline previewOnly
 const useTransientState = (steadyState, restorationTime = 2000) => {
   const [state, setState] = React.useState(steadyState);
   const [calledTimes, setCallTimes] = React.useState(0); // highlight-line

@@ -3,7 +3,7 @@ import Image from 'gatsby-image';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { Seo } from '../components/Seo';
-import { LandingPageHeader } from '../components/workshop/landing-page-header';
+import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { logo } from './state-management-with-redux.module.scss';
 
 const PageHeader = () => {
@@ -41,7 +41,7 @@ const PageHeader = () => {
 
   return (
     <>
-      <LandingPageHeader inverse>
+      <WorkshopLandingPageBanner inverse>
         <Seo
           title={workshopsJson.name}
           description={workshopsJson.description}
@@ -83,7 +83,7 @@ const PageHeader = () => {
             </div>
           </div>
         </div>
-      </LandingPageHeader>
+      </WorkshopLandingPageBanner>
     </>
   );
 };

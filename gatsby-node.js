@@ -1,4 +1,7 @@
-const createBlogs = require('./gatsby/create-blogs');
+const {
+  createBlogs,
+  createBlogSchemaCustomization,
+} = require('./gatsby/blog-build');
 const {
   createWorkshopPages,
   createWorkshopNodeFields,
@@ -13,6 +16,7 @@ exports.onCreateNode = async ({ node, getNode, actions, reporter }) => {
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
   createWorkshopSchemaCustomization({ actions, schema });
+  createBlogSchemaCustomization({ actions, schema });
 };
 
 exports.createPages = async ({ actions, graphql }) => {

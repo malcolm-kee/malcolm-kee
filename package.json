@@ -9,7 +9,7 @@
     "clean": "gatsby clean",
     "dev": "gatsby develop -p 8888",
     "serve": "gatsby serve",
-    "format": "prettier --write 'src/**/*.js'",
+    "format": "prettier --write \"src/**/*.{js,jsx,md,mdx}\"",
     "build:lambda": "netlify-lambda build lambda",
     "serve:lambda": "netlify-lambda serve lambda --config ./webpack.functions.js",
     "build": "gatsby build && netlify-lambda build lambda",

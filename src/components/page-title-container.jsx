@@ -1,10 +1,10 @@
 import React from 'react';
 import { ThemeToggle } from './theme-toggle';
-import './page-title-container.scss';
+import styles from './page-title-container.module.scss';
 
 export const PageTitleContainer = ({ title }) => (
-  <div className="page-title-container">
+  <div className={styles.root}>
     <h1>{title}</h1>
-    <ThemeToggle />
+    <ThemeToggle className={styles.toggle} />
   </div>
 );

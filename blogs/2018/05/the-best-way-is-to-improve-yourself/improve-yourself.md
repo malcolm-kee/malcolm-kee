@@ -1,6 +1,5 @@
 ---
 title: 'The best way is to Improve Yourself'
-path: '/blog/improve-yourself'
 date: '2018-05-07'
 tags: ['note to self']
 summary: 'Note to remind myself of my working philosophy'

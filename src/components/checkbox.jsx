@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 import { callAll } from '../helper';
-import { checkbox, root, text } from './checkbox.module.scss';
+import styles from './checkbox.module.scss';
 
 export const Checkbox = ({
   name,
@@ -13,7 +13,7 @@ export const Checkbox = ({
   ...props
 }) => {
   return (
-    <div className={root}>
+    <div className={styles.root}>
       <input
         type="checkbox"
         onChange={callAll(
@@ -22,10 +22,10 @@ export const Checkbox = ({
         )}
         name={name}
         id={id}
-        className={cx(checkbox, className)}
+        className={cx(styles.checkbox, className)}
         {...props}
       />
-      <label className={text} htmlFor={id}>
+      <label className={styles.text} htmlFor={id}>
         {label}
       </label>
     </div>

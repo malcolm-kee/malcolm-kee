@@ -3,8 +3,8 @@ import { graphql, useStaticQuery } from 'gatsby';
 export const useRepositoryUrl = () => {
   const {
     site: {
-      siteMetadata: { repositoryUrl }
-    }
+      siteMetadata: { repositoryUrl },
+    },
   } = useStaticQuery(graphql`
     {
       site {

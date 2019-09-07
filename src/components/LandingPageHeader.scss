@@ -85,7 +85,7 @@
 
     li {
       list-style-type: none;
-      padding: $spacing-unit * 2;
+      padding: $space;
 
       @media (min-width: $media-tablet) {
         border-top: none;
@@ -106,23 +106,28 @@
         text-decoration: none;
         color: inherit;
         line-height: 1.2;
+        padding: $space;
+        display: inline-block;
+        border-radius: $space * 2;
 
-        &:hover,
+        &:hover {
+          color: $primary-700;
+        }
+
         &:focus {
-          color: $primary-color;
+          outline: none;
+          box-shadow: 0 0 0 2px $primary-700;
         }
       }
 
       &:first-of-type {
         & > a {
-          display: inline-block;
           animation: subtitle-text-enter 1s 0.2s $timing-function-overshoot both;
         }
       }
 
       &:nth-of-type(2) {
         & > a {
-          display: inline-block;
           animation: subtitle-text-enter 1s 0.6s $timing-function-overshoot both;
         }
       }
@@ -130,7 +135,6 @@
       &:last-child {
         border-bottom: none;
         & > a {
-          display: inline-block;
           animation: subtitle-text-enter 1s 1s $timing-function-overshoot both;
         }
       }

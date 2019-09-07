@@ -4,7 +4,7 @@ import reactLogo from '../assets/react-logo.png';
 import { LinkButton } from '../components/Button';
 import { Seo } from '../components/Seo';
 import { JsIcon } from '../components/svg-icons';
-import { LandingPageHeader } from '../components/workshop/landing-page-header';
+import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import './js-the-react-parts.scss';
 
 /* eslint-disable no-script-url */
@@ -35,7 +35,7 @@ const PageHeader = () => {
   `);
 
   return (
-    <LandingPageHeader>
+    <WorkshopLandingPageBanner>
       <Seo
         title={workshopsJson.name}
         description={workshopsJson.description}
@@ -77,7 +77,7 @@ const PageHeader = () => {
           </div>
         </div>
       </div>
-    </LandingPageHeader>
+    </WorkshopLandingPageBanner>
   );
 };
 

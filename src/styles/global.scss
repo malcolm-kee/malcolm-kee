@@ -448,6 +448,7 @@ p {
   text-decoration: none;
   color: inherit;
   transition: color 0.2s ease-in-out;
+  border-radius: $space * 2;
 
   &::before {
     content: '';
@@ -473,6 +474,11 @@ p {
       transform: scaleX(1);
       transform-origin: center left;
     }
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $primary-color;
   }
 
   @media (min-width: $media-mobile) {

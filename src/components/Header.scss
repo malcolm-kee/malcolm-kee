@@ -1,7 +1,7 @@
 @import '../constants/variable';
 
 .Header {
-  background-color: $primary-color;
+  background-color: $primary-700;
   margin: 0 auto;
   min-height: $appbar-height;
   transition-duration: 500ms;
@@ -76,7 +76,6 @@
 
   &.Header--banner {
     background-color: inherit;
-    color: $primary-color;
     pointer-events: none;
 
     .heading-container {
@@ -99,7 +98,7 @@
           font-size: 4rem;
         }
         a {
-          color: $primary-color;
+          color: $primary-700;
           &:focus {
             border-bottom: none;
           }

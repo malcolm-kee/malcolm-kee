@@ -1,9 +1,8 @@
 ---
-path: "/blog/how-to-not-lend-money"
-date: "2018-06-23"
-title: "How to say no to friends and family that want to borrow money"
-tags: ["social", "borrow money"]
-summary: "When friends/family want to borrow money from you, instead of asking how much they want to borrow first, ask why they want to borrow, and respond accordingly."
+title: 'How to say no to friends and family that want to borrow money'
+date: '2018-06-23'
+tags: ['social', 'borrow money']
+summary: 'When friends/family want to borrow money from you, instead of asking how much they want to borrow first, ask why they want to borrow, and respond accordingly.'
 published: true
 ---
 
@@ -29,9 +28,9 @@ The conversation would be something like this:
 >
 > "How much do you need?"
 >
-> "$2,000."
+> "\$2,000."
 >
-> "Ouch, I'm quite tight myself too. Why don't I lend you $200, is it ok?"
+> "Ouch, I'm quite tight myself too. Why don't I lend you \$200, is it ok?"
 >
 > "Haih, that is too little. Please, just see it as a favour to old friend, can you lend me more?"
 >
