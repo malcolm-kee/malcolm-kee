@@ -101,31 +101,32 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
               <ColorBox color={p} key={i} />
             ))}
           </div>
-          <Field
-            label="Amplitude"
-            name="amplitude"
-            type="number"
-            step="0.01"
-            value={amplitude}
-            onChangeValue={setAmplitude}
-          />
-          <Field
-            label="Frequency"
-            name="frequency"
-            type="number"
-            step="1"
-            value={frequency}
-            onChangeValue={setFrequency}
-          />
           <Checkbox
             name="with-noise"
             label="Noise"
             onChangeValue={setWithNoise}
             checked={withNoise}
           />
-          <div>
-            <ThemeToggle />
-          </div>
+          {withNoise && (
+            <>
+              <Field
+                label="Nose Amplitude"
+                name="amplitude"
+                type="number"
+                step="0.01"
+                value={amplitude}
+                onChangeValue={setAmplitude}
+              />
+              <Field
+                label="Noise Frequency"
+                name="frequency"
+                type="number"
+                step="1"
+                value={frequency}
+                onChangeValue={setFrequency}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

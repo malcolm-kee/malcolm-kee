@@ -4,7 +4,7 @@ import toolboxIcon from '../assets/toolbox.svg';
 import { LinkButton } from '../components/Button';
 import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
-import { LandingPageHeader } from '../components/workshop/landing-page-header';
+import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { icon } from './web-developer-toolbox.module.scss';
 
 const PageHeader = () => {
@@ -35,7 +35,7 @@ const PageHeader = () => {
 
   return (
     <>
-      <LandingPageHeader>
+      <WorkshopLandingPageBanner>
         <Seo
           title={workshopsJson.name}
           description={workshopsJson.description}
@@ -72,7 +72,7 @@ const PageHeader = () => {
             </div>
           </div>
         </div>
-      </LandingPageHeader>
+      </WorkshopLandingPageBanner>
       {flatIconAttribution}
     </>
   );

@@ -1,0 +1,14 @@
+@import '../constants/variable';
+
+.root {
+  display: flex;
+  justify-content: space-between;
+  padding: $space $space $space * 3 0;
+}
+
+.toggle {
+  display: none;
+  @media screen and (min-width: $media-mobile) {
+    display: inline;
+  }
+}

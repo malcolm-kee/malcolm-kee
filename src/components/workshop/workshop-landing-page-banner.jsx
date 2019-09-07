@@ -1,8 +1,8 @@
 import cx from 'classnames';
 import React from 'react';
-import './landing-page-header.scss';
+import './workshop-landing-page-banner.scss';
 
-export const LandingPageHeader = ({ children, inverse }) => (
+export const WorkshopLandingPageBanner = ({ children, inverse }) => (
   <header
     className={cx(
       'workshop-landing-page-header',
@@ -12,5 +12,3 @@ export const LandingPageHeader = ({ children, inverse }) => (
     {children}
   </header>
 );
-
-export default LandingPageHeader;

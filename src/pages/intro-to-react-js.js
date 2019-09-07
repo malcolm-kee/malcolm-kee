@@ -3,7 +3,7 @@ import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ReactLogo } from '../components/react-logo';
 import { Seo } from '../components/Seo';
-import { LandingPageHeader } from '../components/workshop/landing-page-header';
+import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 
 const PageHeader = () => {
   const { workshopsJson } = useStaticQuery(graphql`
@@ -32,7 +32,7 @@ const PageHeader = () => {
   `);
 
   return (
-    <LandingPageHeader inverse>
+    <WorkshopLandingPageBanner inverse>
       <Seo
         title={workshopsJson.name}
         description={workshopsJson.description}
@@ -67,7 +67,7 @@ const PageHeader = () => {
           </div>
         </div>
       </div>
-    </LandingPageHeader>
+    </WorkshopLandingPageBanner>
   );
 };
 
