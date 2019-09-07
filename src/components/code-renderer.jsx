@@ -2,13 +2,18 @@ import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import React from 'react';
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import { copyToClipboard } from '../helper';
+import {
+  LiveEditor,
+  LiveError,
+  LivePreview,
+  LiveProvider,
+  withLive,
+} from 'react-live';
 import { useTheme } from '../theme';
 import { Button } from './Button';
 import './code-renderer.scss';
 import { transformTokens, wrapJsCode } from './code-transformers';
-import { Popover, PopoverContent } from './popover';
+import { CopyButton } from './copy-button';
 import { EditIcon, EyeIcon } from './svg-icons';
 
 export const CodeRenderer = ({
@@ -16,7 +21,7 @@ export const CodeRenderer = ({
   className,
   live,
   noInline,
-  noCode,
+  previewOnly,
   noWrapper,
   fileName,
   highlightedLines,
@@ -36,7 +41,7 @@ export const CodeRenderer = ({
       language={language}
       noInline={noInline}
       fileName={fileName}
-      noCode={noCode}
+      previewOnly={previewOnly}
     />
   ) : language ? (
     <CodeSnippet
@@ -54,13 +59,17 @@ export const CodeRenderer = ({
 
 const injectedGlobals = { sanitize, shallowConcat };
 
+/**
+ * @todo the static code is currently not reflected the updated code. Waiting for https://github.com/FormidableLabs/react-live/pull/122.
+ * Once that is fixed, we can make the copy works as well
+ */
 const CodeLiveEditor = ({
   code,
   theme,
   language,
   noInline,
   fileName,
-  noCode,
+  previewOnly,
 }) => {
   const components = useMDXScope();
 
@@ -72,6 +81,8 @@ const CodeLiveEditor = ({
     [components]
   );
 
+  const [isEdit, setIsEdit] = React.useState(false);
+
   return (
     <div className="code-editor">
       <LiveProvider
@@ -82,19 +93,36 @@ const CodeLiveEditor = ({
         language="jsx"
         noInline={noInline}
       >
-        {!noCode && (
+        {!previewOnly && (
           <>
             <div className="code-editor-header-container">
               <div className="code-editor-header">
-                <div className="code-editor-icon">
-                  <EditIcon />
-                </div>
+                {isEdit ? (
+                  <div className="code-editor-icon">
+                    <EditIcon />
+                  </div>
+                ) : (
+                  <Button onClick={() => setIsEdit(true)} size="small" raised>
+                    Edit
+                  </Button>
+                )}
                 {fileName && <span>{fileName}</span>}
-                <CopyCodeButton code={code} />
+                <CopyButton contentToCopy={code} />
               </div>
               <span className="code-editor-language">{language}</span>
             </div>
-            <LiveEditor />
+            {isEdit ? (
+              <LiveEditor
+                autoFocus
+                onKeyDown={ev => {
+                  if (ev.key === 'Escape') {
+                    setIsEdit(false);
+                  }
+                }}
+              />
+            ) : (
+              <HighlightedCode code={code} theme={theme} language="jsx" />
+            )}
           </>
         )}
         <LiveError className="code-error" />
@@ -124,12 +152,46 @@ function shallowConcat(targetArr, item) {
   return newArr;
 }
 
-const CodeSnippet = React.memo(function CodeSnippetComponent({
+const CodeSnippet = ({
   code,
   language,
   theme,
   fileName,
   noWrapper,
+  highlightedLines,
+}) => {
+  const highlightedCode = (
+    <HighlightedCode
+      code={code}
+      theme={theme}
+      language={language}
+      highlightedLines={highlightedLines}
+    />
+  );
+
+  return noWrapper ? (
+    <div className="code-snippet-plain">{highlightedCode}</div>
+  ) : (
+    <div className="code-snippet">
+      <div className="code-snippet-header-container">
+        <div className="code-snippet-header">
+          <span />
+          {fileName && <span>{fileName}</span>}
+          <CopyButton contentToCopy={code} />
+        </div>
+        <span className="code-snippet-language">
+          {shortenLanguage(language)}
+        </span>
+      </div>
+      {highlightedCode}
+    </div>
+  );
+};
+
+const HighlightedCode = React.memo(function HighlightedCodeComponent({
+  theme,
+  code,
+  language,
   highlightedLines,
 }) {
   const lineIndexesToHighlight =
@@ -137,7 +199,7 @@ const CodeSnippet = React.memo(function CodeSnippetComponent({
       ? highlightedLines.split(',').map(num => Number(num) - 1)
       : [];
 
-  const highlightedCode = (
+  return (
     <Highlight {...defaultProps} theme={theme} code={code} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
@@ -164,26 +226,6 @@ const CodeSnippet = React.memo(function CodeSnippetComponent({
       )}
     </Highlight>
   );
-
-  return noWrapper ? (
-    <div className="code-snippet-plain">{highlightedCode}</div>
-  ) : (
-    <div className="code-snippet">
-      <div className="code-snippet-header-container">
-        <div className="code-snippet-header">
-          <div className="code-snippet-icon">
-            <EyeIcon />
-          </div>
-          {fileName && <span>{fileName}</span>}
-          <CopyCodeButton code={code} />
-        </div>
-        <span className="code-snippet-language">
-          {shortenLanguage(language)}
-        </span>
-      </div>
-      {highlightedCode}
-    </div>
-  );
 });
 
 /**
@@ -192,29 +234,6 @@ const CodeSnippet = React.memo(function CodeSnippetComponent({
  */
 const shortenLanguage = language =>
   language && /javascript/i.test(language) ? 'js' : language;
-
-function CopyCodeButton({ code }) {
-  const [showPopup, setShowPopup] = React.useState(false);
-
-  function copyCode() {
-    copyToClipboard(code);
-    setShowPopup(true);
-  }
-
-  return (
-    <Popover
-      isOpen={showPopup}
-      position="top"
-      align="end"
-      content={<PopoverContent>Copied to clipboard!</PopoverContent>}
-      onClickOutside={() => setShowPopup(false)}
-    >
-      <Button onClick={copyCode} size="small" raised>
-        Copy Code
-      </Button>
-    </Popover>
-  );
-}
 
 const githubTheme = {
   plain: {

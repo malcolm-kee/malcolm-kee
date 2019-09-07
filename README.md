@@ -38,7 +38,7 @@ Only applicable for language `jsx`:
 
 - `live`: make the code live editor.
 - `noInline`: make the render of component requires the call of `render`. This is actually props of `react-live`.
-- `noCode`: only shows the rendered result of the code, but not the code itself.
+- `previewOnly`: only shows the rendered result of the code, but not the code itself.
 
 ### Highlight Code
 

@@ -109,7 +109,7 @@ const useTransientState = (steadyState, restorationTime = 2000) => {
 
 The result:
 
-```jsx live noInline noCode
+```jsx live noInline previewOnly
 const useTransientState = (steadyState, restorationTime = 2000) => {
   const [state, setState] = React.useState(steadyState);
   const [calledTimes, setCallTimes] = React.useState(0); // highlight-line

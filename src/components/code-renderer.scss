@@ -50,7 +50,7 @@
 
 .code-preview {
   font-family: $font-family;
-  padding: 0 $space;
+  padding: $space;
 
   .log-output {
     width: 100%;
@@ -88,13 +88,6 @@
     }
   }
 
-  pre {
-    font-size: 0.9rem;
-    padding: $code-padding;
-    line-height: 1.25rem;
-    overflow-x: auto;
-  }
-
   &-icon {
     @include svg-icon();
     margin-right: $space;
@@ -113,6 +106,16 @@
     padding-right: $code-padding;
     padding-left: $code-padding - $highlight-width;
     border-left: $highlight-width solid $secondary-color;
+  }
+}
+
+.code-snippet,
+.code-editor {
+  pre {
+    font-size: 0.9rem;
+    padding: 1rem;
+    line-height: 1.25rem;
+    overflow-x: auto;
   }
 }
 
