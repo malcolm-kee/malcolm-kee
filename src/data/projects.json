@@ -1,5 +1,6 @@
 [
   {
+    "id": "redux-code-generator",
     "name": "Redux Code Generator",
     "description": "An application to generate redux code and unit tests based on initial states.",
     "technologies": ["React", "Redux", "Typescript", "Bootstrap"],
@@ -10,6 +11,7 @@
     "image": "../assets/redux-code-generator.gif"
   },
   {
+    "id": "generative-arts",
     "name": "Generative Arts",
     "description": "Generate artistic effect with code",
     "technologies": ["React", "canvas"],
@@ -19,6 +21,7 @@
     "image": "../assets/name-art.gif"
   },
   {
+    "id": "kreloses",
     "name": "Kreloses Mobile",
     "description": "Business application for daily operations of service business. UI and interactions are designed and optimized for mobile browser.",
     "technologies": [
@@ -39,6 +42,7 @@
     "image": "../assets/kreloses-mobile.gif"
   },
   {
+    "id": "real-quiz",
     "name": "Real Quiz",
     "description": "A polling application that allow instructors to give polling and get real-time polling results.",
     "technologies": [
@@ -54,6 +58,7 @@
     "image": "../assets/real-quiz.gif"
   },
   {
+    "id": "shopping-cart",
     "name": "Shopping Cart",
     "description": "A simple shopping cart that demonstrates client side calculation for complex discount rules. The site implements material design without third-party library.",
     "technologies": [
@@ -75,6 +80,7 @@
     "image": "../assets/simple-cart.gif"
   },
   {
+    "id": "wizard-form",
     "name": "Wizard Form",
     "description": "A step-by-step form that used advanced React Patterns, e.g. Compound Component and Higher-order Components.",
     "technologies": ["React", "Jest", "webpack", "SCSS"],
@@ -85,6 +91,7 @@
     "image": "../assets/wizard-form.gif"
   },
   {
+    "id": "vue-movie-app",
     "name": "Vue Movie App",
     "description": "A site to view popular movies. The data is retrieved from TMDb.",
     "technologies": ["Vue", "Vuex", "Vue CLI"],
@@ -95,6 +102,7 @@
     "image": "../assets/vue-movie-app.gif"
   },
   {
+    "id": "msia-employment-viz",
     "name": "Malaysia Employment Data Visualization",
     "description": "Data visualization based on employment data from Department of Statistics Malaysia",
     "technologies": ["D3.js", "React", "webpack"],

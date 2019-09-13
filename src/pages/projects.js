@@ -1,9 +1,11 @@
+import { navigate } from '@reach/router';
 import { graphql, Link } from 'gatsby';
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import React from 'react';
 import { Button } from '../components/Button';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
 import { Dialog } from '../components/dialog';
+import { HashLink } from '../components/hash-link';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
@@ -16,7 +18,7 @@ const ProjectCard = ({ project }) => (
   <Card className="ProjectPage--project">
     <div>
       <CardContent>
-        <h2>{project.name}</h2>
+        <h2 id={project.id}>{project.name}</h2>
         <p>{project.description}</p>
         <ul>
           {project.technologies.map(tech => (
@@ -60,7 +62,7 @@ const ProjectCard = ({ project }) => (
 const ProjectListView = ({ projects }) => (
   <div className="ProjectPage--project-container">
     {projects.map(({ node }) => (
-      <ProjectCard project={node} key={node.name} />
+      <ProjectCard project={node} key={node.id} />
     ))}
   </div>
 );
@@ -77,14 +79,18 @@ const usePreloadImage = imageSrc => {
   return () => setHovered(true);
 };
 
-const FancyProjectCard = ({ project }) => {
-  const [showDialog, setShowDialog] = React.useState(false);
+const FancyProjectCard = ({ project, location }) => {
+  const [showDialog, setShowDialog] = React.useState(
+    location.hash === `#${project.id}`
+  );
   const isInternalLink = project.links.live && project.links.live[0] === '/';
   const onHover = usePreloadImage(project.image.publicURL);
 
   return (
     <>
       <Card
+        as={HashLink}
+        target={project.id}
         selectable
         onMouseEnter={onHover}
         onFocus={onHover}
@@ -95,10 +101,17 @@ const FancyProjectCard = ({ project }) => {
           {project.name}
         </CardContent>
       </Card>
-      <Dialog isOpen={showDialog} onDismiss={() => setShowDialog(false)} large>
+      <Dialog
+        isOpen={showDialog}
+        onDismiss={() => {
+          setShowDialog(false);
+          navigate(location.pathname);
+        }}
+        large
+      >
         <div className={styles.details}>
           <div className={`content-section ${styles.content}`}>
-            <h2>{project.name}</h2>
+            <h2 id={project.id}>{project.name}</h2>
             <p>{project.description}</p>
             <ul>
               {project.technologies.map(tech => (
@@ -145,15 +158,15 @@ const FancyProjectCard = ({ project }) => {
   );
 };
 
-const FancyProjectView = ({ projects }) => (
+const FancyProjectView = ({ projects, location }) => (
   <div className="ProjectPage--project-grid-container">
     {projects.map(({ node }) => (
-      <FancyProjectCard project={node} key={node.name} />
+      <FancyProjectCard project={node} location={location} key={node.id} />
     ))}
   </div>
 );
 
-const ProjectPage = ({ data: { allProjects } }) => {
+const ProjectPage = ({ data: { allProjects }, location }) => {
   const isRendered = useIsJsEnabled();
 
   return (
@@ -163,7 +176,10 @@ const ProjectPage = ({ data: { allProjects } }) => {
         <main>
           <PageTitleContainer title="Past Projects" />
           {isRendered ? (
-            <FancyProjectView projects={allProjects.edges} />
+            <FancyProjectView
+              projects={allProjects.edges}
+              location={location}
+            />
           ) : (
             <ProjectListView projects={allProjects.edges} />
           )}
@@ -183,6 +199,7 @@ export const query = graphql`
     allProjects: allProjectsJson {
       edges {
         node {
+          id
           name
           description
           technologies

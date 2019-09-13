@@ -9,6 +9,7 @@
   transition-property: bottom, box-shadow;
   transition-timing-function: ease;
   transition-duration: 200ms;
+  text-decoration: none;
 
   &-content {
     padding: $space * 2;

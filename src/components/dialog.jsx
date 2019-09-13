@@ -12,6 +12,8 @@ export const Dialog = ({
   children,
   large,
   className,
+  BtnComponent = Button,
+  btnProps,
   ...props
 }) => {
   return (
@@ -22,9 +24,14 @@ export const Dialog = ({
       {...props}
     >
       <div className="dialog-content">
-        <Button onClick={onDismiss} className="dialog-close-btn" size="small">
+        <BtnComponent
+          onClick={onDismiss}
+          className="dialog-close-btn"
+          size="small"
+          {...btnProps}
+        >
           <CloseIcon />
-        </Button>
+        </BtnComponent>
         {children}
       </div>
     </ReachDialog>
