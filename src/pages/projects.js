@@ -105,7 +105,7 @@ const FancyProjectCard = ({ project, location }) => {
         isOpen={showDialog}
         onDismiss={() => {
           setShowDialog(false);
-          navigate(location.pathname);
+          navigate(location.pathname, { replace: true });
         }}
         large
       >

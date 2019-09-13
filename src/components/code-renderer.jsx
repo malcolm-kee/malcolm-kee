@@ -1,21 +1,15 @@
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import github from 'prism-react-renderer/themes/github';
+import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import React from 'react';
-import {
-  LiveEditor,
-  LiveError,
-  LivePreview,
-  LiveProvider,
-  withLive,
-} from 'react-live';
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { useTheme } from '../theme';
 import { Button } from './Button';
 import './code-renderer.scss';
 import { transformTokens, wrapJsCode } from './code-transformers';
 import { CopyButton } from './copy-button';
-import { EditIcon, EyeIcon } from './svg-icons';
+import { EditIcon } from './svg-icons';
 
 export const CodeRenderer = ({
   children,
