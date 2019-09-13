@@ -58,6 +58,8 @@ DISABLE_BLOG=true
 NUM_OF_BLOGS=15
 DISABLE_WORKSHOP=true
 ONLY_WORKSHOP=intro-to-react-js-v2 # content id of workshop
+GITHUB_TOKEN=<Your_Github_Token>
+GATSBY_GITHUB_TOKEN=<Your_Github_Token>
 ```
 
 [gatsby-mdx]: https://github.com/ChristopherBiscardi/gatsby-mdx

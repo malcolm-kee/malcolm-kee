@@ -14,6 +14,7 @@ describe('Accessibility checks', () => {
     });
     cy.wait(500);
   });
+
   it('Has no detectable a11y violations on landing page', () => {
     cy.checkA11y();
   });
