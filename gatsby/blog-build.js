@@ -1,5 +1,6 @@
 const path = require('path');
 const _ = require('lodash');
+const { isArray } = require('typesafe-is');
 
 const blogPostTemplate = path.resolve(
   __dirname,
@@ -84,6 +85,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
           node {
             id
             frontmatter {
+              title
               tags
               keywords
               summary
@@ -123,6 +125,21 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
           next: previous, // we need to invert these 2 because we query date descending
           previous: next,
           commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.blogUrl} in:title sort:created-asc`,
+          relatedBlogs: isArray(node.frontmatter && node.frontmatter.tags)
+            ? _.sampleSize(
+                posts.filter(
+                  post =>
+                    post.node !== node &&
+                    isArray(
+                      post.node.frontmatter && post.node.frontmatter.tags
+                    ) &&
+                    post.node.frontmatter.tags.some(tag =>
+                      node.frontmatter.tags.includes(tag)
+                    )
+                ),
+                3
+              )
+            : [],
         },
       });
     });

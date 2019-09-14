@@ -12,29 +12,7 @@ import { getReadtimeText } from '../helper';
 import './blog-template.scss';
 import styles from './blog-template.module.scss';
 import { OutLink } from '../components/OutLink';
-
-function AdjacentArticles({ previous, next }) {
-  return (
-    <aside>
-      <ul className={styles.adjacentArticles}>
-        {previous && (
-          <li>
-            <Link to={previous.blogUrl} rel="prev">
-              ← {previous.frontmatter.title}
-            </Link>
-          </li>
-        )}
-        {next && (
-          <li>
-            <Link to={next.blogUrl} rel="next">
-              {next.frontmatter.title} →
-            </Link>
-          </li>
-        )}
-      </ul>
-    </aside>
-  );
-}
+import { isArray } from 'typesafe-is';
 
 export default function BlogTemplate({ data, pageContext, location }) {
   const {
@@ -132,6 +110,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
             </span>
           </div>
         )}
+        <RelatedBlogs blogs={pageContext.relatedBlogs} />
         <Comments
           comments={comments}
           articlePath={blogUrl}
@@ -150,6 +129,44 @@ export default function BlogTemplate({ data, pageContext, location }) {
       </div>
     </MainContent>
   );
+}
+
+function AdjacentArticles({ previous, next }) {
+  return (
+    <aside>
+      <ul className={styles.adjacentArticles}>
+        {previous && (
+          <li>
+            <Link to={previous.blogUrl} rel="prev">
+              ← {previous.frontmatter.title}
+            </Link>
+          </li>
+        )}
+        {next && (
+          <li>
+            <Link to={next.blogUrl} rel="next">
+              {next.frontmatter.title} →
+            </Link>
+          </li>
+        )}
+      </ul>
+    </aside>
+  );
+}
+
+function RelatedBlogs({ blogs }) {
+  return isArray(blogs) && blogs.length > 0 ? (
+    <aside className={styles.relatedBlogs}>
+      <p>You may also like:</p>
+      <ul>
+        {blogs.map(({ node }) => (
+          <li key={node.id}>
+            <Link to={node.blogUrl}>{node.frontmatter.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  ) : null;
 }
 
 export const pageQuery = graphql`
