@@ -13,6 +13,7 @@ import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
 import styles from './blog-template.module.scss';
 import './blog-template.scss';
+import { Ul } from '../components/ul';
 
 export default function BlogTemplate({ data, pageContext, location }) {
   const {
@@ -158,13 +159,13 @@ function RelatedBlogs({ blogs }) {
   return isArray(blogs) && blogs.length > 0 ? (
     <aside className={styles.relatedBlogs}>
       <p>You may also like:</p>
-      <ul>
+      <Ul>
         {blogs.map(({ node }) => (
           <li key={node.id}>
             <Link to={node.blogUrl}>{node.frontmatter.title}</Link>
           </li>
         ))}
-      </ul>
+      </Ul>
     </aside>
   ) : null;
 }

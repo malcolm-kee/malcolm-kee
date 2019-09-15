@@ -39,28 +39,10 @@
 }
 
 .relatedBlogs {
-  margin: 0 $space * 2 $space * 3;
-
-  ul {
-    display: flex;
-    list-style-type: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-  }
-
+  padding: $space * 3 $space * 2;
+  border-top: 1px solid $grey-400;
   li {
-    padding: $space $space * 2;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 320px;
-    text-align: center;
+    margin-bottom: $space * 2;
   }
-
-  a {
-    display: inline-block;
-    padding: $space;
-    line-height: 1.5;
-  }
+  @include link('a');
 }

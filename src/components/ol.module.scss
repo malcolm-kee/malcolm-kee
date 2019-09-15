@@ -59,4 +59,12 @@
       transform: rotate(5deg);
     }
   }
+
+  li > & {
+    margin-left: -$space * 3;
+
+    @media screen and (min-width: $media-mobile) {
+      margin-left: -$space * 2;
+    }
+  }
 }
