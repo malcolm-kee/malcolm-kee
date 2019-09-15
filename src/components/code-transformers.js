@@ -30,7 +30,9 @@ export const wrapJsCode = code => `
 
       render() {
           return (
-              <React.Fragment>
+              <div className="log-output-container" tabIndex={0}> ${
+                '' /* add tabIndex as this is scrollable */
+              }
               {this.state.logs.map((log, index) => 
                 <div
                   className="log-output" 
@@ -38,7 +40,7 @@ export const wrapJsCode = code => `
                   dangerouslySetInnerHTML={{ __html: sanitize(log) }} 
                 />)
               }
-              </React.Fragment>
+              </div>
           );
       }
   }

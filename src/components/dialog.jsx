@@ -28,6 +28,7 @@ export const Dialog = ({
           onClick={onDismiss}
           className="dialog-close-btn"
           size="small"
+          aria-label="close"
           {...btnProps}
         >
           <CloseIcon />

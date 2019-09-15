@@ -126,7 +126,7 @@ const Comment = ({ bodyHTML, author, createdAt, url, comments, level = 0 }) => (
         </span>
       )}
       <div className={styles.avatar}>
-        <img src={author.avatarUrl} alt={author.login} />
+        <img src={author.avatarUrl} alt={author.name} />
       </div>
       <div>
         <div className={styles.author}>

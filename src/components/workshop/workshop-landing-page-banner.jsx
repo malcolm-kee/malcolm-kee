@@ -3,12 +3,12 @@ import React from 'react';
 import './workshop-landing-page-banner.scss';
 
 export const WorkshopLandingPageBanner = ({ children, inverse }) => (
-  <header
+  <main
     className={cx(
       'workshop-landing-page-header',
       inverse && 'workshop-landing-page-header--inverse'
     )}
   >
     {children}
-  </header>
+  </main>
 );

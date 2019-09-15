@@ -5,10 +5,11 @@ import './pagination.scss';
 
 export const PaginationContainer = ({ children, nextLink, prevLink }) => {
   return (
-    <nav className="pagination-container">
+    <nav className="pagination-container" aria-label="pagination">
       {prevLink ? (
         <Link className="pagination-btn" to={prevLink} rel="prev">
           <ChevronIcon size={15} styles={{ transform: `rotate(90deg)` }} />
+          <span className="sr-only">Previous</span>
         </Link>
       ) : (
         <span className="pagination-btn"></span>
@@ -17,6 +18,7 @@ export const PaginationContainer = ({ children, nextLink, prevLink }) => {
       {nextLink ? (
         <Link className="pagination-btn" to={nextLink} rel="next">
           <ChevronIcon size={15} styles={{ transform: `rotate(-90deg)` }} />
+          <span className="sr-only">Next</span>
         </Link>
       ) : (
         <span className="pagination-btn"></span>

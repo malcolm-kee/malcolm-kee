@@ -35,6 +35,7 @@ const BlogListTemplate = ({ data, pageContext: { currentPage, numPages } }) => {
               component={Link}
               to={post.blogUrl}
               key={post.blogUrl}
+              className="blog-list-item"
               noGutter
             >
               <ListItemText

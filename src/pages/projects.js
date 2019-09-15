@@ -92,6 +92,8 @@ const FancyProjectCard = ({ project, location }) => {
         as={HashLink}
         target={project.id}
         selectable
+        role="button"
+        aria-haspopup="dialog"
         onMouseEnter={onHover}
         onFocus={onHover}
         onSelect={() => setShowDialog(true)}

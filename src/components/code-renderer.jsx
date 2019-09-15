@@ -197,7 +197,8 @@ const HighlightedCode = React.memo(function HighlightedCodeComponent({
   return (
     <Highlight {...defaultProps} theme={theme} code={code} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={style}>
+        // tabIndex because this is scrollable
+        <pre className={className} style={style} tabIndex={0}>
           {transformTokens(tokens, lineIndexesToHighlight).map(
             ({ line, isHighlighted }, i) => {
               return (

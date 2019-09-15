@@ -21,7 +21,7 @@ export const ToggleTocBtn = React.forwardRef(
         role="button"
         tabIndex={0}
         onClick={onToggle}
-        aria-hidden={true}
+        aria-label="Toggle Table of Contents"
         ref={ref}
         onKeyPress={ev => {
           if (ev.which === 32 || ev.which === 13) {

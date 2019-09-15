@@ -52,9 +52,12 @@
   font-family: $font-family;
   padding: $space;
 
-  .log-output {
+  .log-output-container {
     width: 100%;
     overflow: auto;
+  }
+
+  .log-output {
     line-height: 1.75;
     &::before {
       content: '> ';

@@ -134,7 +134,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
 
 function AdjacentArticles({ previous, next }) {
   return (
-    <aside>
+    <aside aria-label="Newer and Older Blogs">
       <ul className={styles.adjacentArticles}>
         {previous && (
           <li>
@@ -157,7 +157,7 @@ function AdjacentArticles({ previous, next }) {
 
 function RelatedBlogs({ blogs }) {
   return isArray(blogs) && blogs.length > 0 ? (
-    <aside className={styles.relatedBlogs}>
+    <aside className={styles.relatedBlogs} aria-label="Related Blogs">
       <p>You may also like:</p>
       <Ul>
         {blogs.map(({ node }) => (
