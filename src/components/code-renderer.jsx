@@ -23,16 +23,16 @@ export const CodeRenderer = ({
 }) => {
   const language = className && className.split('-').pop();
 
-  const { value } = useTheme();
+  const [theme] = useTheme();
 
-  const theme = value === 'dark' ? nightOwl : github;
+  const codeTheme = theme === 'dark' ? nightOwl : github;
 
   const code = typeof children === 'string' ? children.trim() : children;
 
   return language === 'js' || (live && language === 'jsx') ? (
     <CodeLiveEditor
       code={code}
-      theme={theme}
+      theme={codeTheme}
       language={language}
       noInline={noInline}
       fileName={fileName}
@@ -42,7 +42,7 @@ export const CodeRenderer = ({
     <CodeSnippet
       code={code}
       language={language}
-      theme={theme}
+      theme={codeTheme}
       fileName={fileName}
       noWrapper={noWrapper}
       highlightedLines={highlightedLines}

@@ -86,14 +86,14 @@ function useTheme() {
   }, []);
 
   const themeValue = React.useMemo(
-    () => ({
-      toggle: function() {
+    () => [
+      theme,
+      function toggle() {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         window.__setPreferredTheme(newTheme);
       },
-      value: theme,
-    }),
+    ],
     [theme]
   );
 

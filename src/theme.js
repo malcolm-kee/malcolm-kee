@@ -1,9 +1,6 @@
 import React from 'react';
 
-const ThemeContext = React.createContext({
-  toggle: function noop() {},
-  value: null,
-});
+const ThemeContext = React.createContext(['light', function toggleTheme() {}]);
 
 export const ThemeProvider = ThemeContext.Provider;
 

@@ -3,16 +3,16 @@ import Image from 'gatsby-image';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import kebabCase from 'lodash/kebabCase';
 import React from 'react';
+import { isArray } from 'typesafe-is';
 import { Comments } from '../components/comments';
 import { MainContent } from '../components/main-content';
+import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
 import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { ThemeToggle } from '../components/theme-toggle';
 import { getReadtimeText } from '../helper';
-import './blog-template.scss';
 import styles from './blog-template.module.scss';
-import { OutLink } from '../components/OutLink';
-import { isArray } from 'typesafe-is';
+import './blog-template.scss';
 
 export default function BlogTemplate({ data, pageContext, location }) {
   const {

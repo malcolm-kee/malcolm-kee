@@ -7,7 +7,7 @@ import './theme-toggle.scss';
 import { Toggle } from './toggle';
 
 export function ThemeToggle(toggleProps) {
-  const { value, toggle } = useTheme();
+  const [theme, toggleTheme] = useTheme();
   const jsEnabled = useIsJsEnabled();
   return jsEnabled ? (
     <div className="theme-toggle">
@@ -33,8 +33,8 @@ export function ThemeToggle(toggleProps) {
             />
           ),
         }}
-        checked={value === 'dark'}
-        onChange={toggle}
+        checked={theme === 'dark'}
+        onChange={toggleTheme}
         aria-label="Switch between Dark and Light mode"
       />
     </div>
