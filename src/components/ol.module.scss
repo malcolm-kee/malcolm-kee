@@ -1,0 +1,62 @@
+@import '../constants/variable';
+
+.ol {
+  display: block;
+  counter-reset: step-counter;
+  padding-left: 4em;
+  > li {
+    counter-increment: step-counter;
+    list-style-type: none;
+    position: relative;
+    color: inherit;
+    line-height: 1.6em;
+
+    &::before {
+      content: counter(step-counter);
+      background-color: $primary-color;
+      border-radius: $space;
+      box-shadow: 0.2em 0.2em 0 rgba(128, 128, 128, 0.2);
+      color: #fff;
+      font-size: 0.9em;
+      line-height: 1;
+      display: block;
+      width: 2.7em;
+      height: 1.2em;
+      padding: 2px 0;
+      text-align: center;
+      position: absolute;
+      top: 5px;
+      margin: -3px 1em 0 -62px;
+      font-variant-numeric: lining-nums;
+      font-feature-settings: 'lnum';
+    }
+
+    &:nth-of-type(2n + 1):before {
+      transform: rotate(7deg);
+    }
+    &:nth-of-type(2n + 2):before {
+      transform: rotate(-2deg);
+    }
+    &:nth-of-type(2n + 3):before {
+      transform: rotate(4deg);
+    }
+    &:nth-of-type(2n + 4):before {
+      transform: rotate(-6deg);
+    }
+    &:nth-of-type(2n + 5):before {
+      transform: rotate(3deg);
+    }
+    &:nth-of-type(2n + 6):before {
+      transform: rotate(-4deg);
+    }
+    &:nth-of-type(2n + 7):before {
+      transform: rotate(4deg);
+    }
+    &:nth-of-type(2n + 8):before {
+      transform: rotate(-7deg);
+    }
+    &:nth-of-type(2n + 9):before {
+      transform: rotate(5deg);
+    }
+  }
+}

@@ -35,9 +35,13 @@ function groupInstruction(edges) {
 exports.createWorkshopPages = function createWorkshopPages({
   actions,
   graphql,
+  reporter,
 }) {
   if (DISABLE_WORKSHOP) {
     // optimize local build time
+    reporter.info(
+      `DISABLE_WORKSHOP env var is set, no workshop content will be created`
+    );
     return;
   }
 
@@ -81,6 +85,11 @@ exports.createWorkshopPages = function createWorkshopPages({
     if (result.errors) {
       return Promise.reject(result.errors);
     }
+
+    reporter.info(
+      `obtain Mdx group: [${result.data.allMdx.group.length}];
+      ONLY_WORKSHOP env var: [${ONLY_WORKSHOP}]`
+    );
 
     const groups = result.data.allMdx.group.filter(
       group => !ONLY_WORKSHOP || group.workshop === ONLY_WORKSHOP
@@ -136,7 +145,7 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
               return null;
             }
 
-            const workshopId = fileNode.relativeDirectory.split(path.sep)[0];
+            const workshopId = fileNode.relativeDirectory.split('/')[0];
 
             return workshopId
               ? context.nodeModel.getNodeById({

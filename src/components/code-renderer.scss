@@ -100,7 +100,9 @@
   .highlighted-code-line {
     background-color: $highlighted-code-bg-light;
     background-color: var(--highlightedCode);
-    display: block;
+    display: inline-block;
+    min-width: 100%;
+    min-width: calc(100% + #{2 * $code-padding});
     margin-right: -$code-padding;
     margin-left: -$code-padding;
     padding-right: $code-padding;

@@ -1,0 +1,50 @@
+@import '../constants/variable';
+
+.ul {
+  display: block;
+  > li {
+    list-style-type: none;
+    position: relative;
+    line-height: 1.6em;
+
+    &::before {
+      content: ' ';
+      background-color: $primary-color;
+      border-radius: $space;
+      display: inline-block;
+      width: 15px;
+      height: 6px;
+      position: absolute;
+      top: 10px;
+      left: -26px;
+    }
+
+    &:nth-of-type(2n + 1):before {
+      transform: rotate(7deg);
+    }
+    &:nth-of-type(2n + 2):before {
+      transform: rotate(-2deg);
+    }
+    &:nth-of-type(2n + 3):before {
+      transform: rotate(4deg);
+    }
+    &:nth-of-type(2n + 4):before {
+      transform: rotate(-6deg);
+    }
+    &:nth-of-type(2n + 5):before {
+      transform: rotate(3deg);
+    }
+    &:nth-of-type(2n + 6):before {
+      transform: rotate(-4deg);
+    }
+    &:nth-of-type(2n + 7):before {
+      transform: rotate(4deg);
+    }
+    &:nth-of-type(2n + 8):before {
+      transform: rotate(-7deg);
+    }
+    &:nth-of-type(2n + 9):before {
+      transform: rotate(5deg);
+    }
+  }
+}

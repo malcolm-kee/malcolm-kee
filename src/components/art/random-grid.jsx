@@ -7,9 +7,8 @@ import { Button } from '../Button';
 import { Checkbox } from '../checkbox';
 import { Field } from '../Field';
 import { RandomIcon } from '../svg-icons';
-import { ThemeToggle } from '../theme-toggle';
 import { drawCircle, usePoints } from './art-lib';
-import { board, box, container, h2, controls } from './random-grid.module.scss';
+import { board, box, container, controls, h2 } from './random-grid.module.scss';
 
 const radius = 0.005;
 

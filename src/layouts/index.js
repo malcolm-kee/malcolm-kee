@@ -2,6 +2,8 @@ import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
 import { createClient, Provider } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
+import { Ol } from '../components/ol';
+import { Ul } from '../components/ul';
 import { Aside } from '../components/workshop/aside';
 import { Exercise } from '../components/workshop/exercise';
 import { ThemeProvider } from '../theme';
@@ -23,6 +25,8 @@ const mdxComponents = {
   inlineCode: ({ children }) => (
     <code className="language-text">{children}</code>
   ),
+  ol: Ol,
+  ul: Ul,
   Exercise,
 };
 
