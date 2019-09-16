@@ -26,7 +26,7 @@ export const CodeRenderer = ({
 
   const [theme] = useTheme();
 
-  const codeTheme = theme === 'dark' ? nightOwl : github;
+  const codeTheme = theme === 'dark' ? nightOwl : accessibleGithub;
 
   const code = typeof children === 'string' ? children.trim() : children;
 
@@ -239,3 +239,11 @@ const HighlightedCode = React.memo(function HighlightedCodeComponent({
  */
 const shortenLanguage = language =>
   language && /javascript/i.test(language) ? 'js' : language;
+
+const accessibleGithub = {
+  ...github,
+  plain: {
+    ...github.plain,
+    backgroundColor: '#ffffff',
+  },
+};

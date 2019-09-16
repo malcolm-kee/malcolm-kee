@@ -89,7 +89,7 @@ describe('Accessibility checks', () => {
     checkA11y();
   });
 
-  it.only('has no detectable a11y violations on workshop content page', () => {
+  it('has no detectable a11y violations on workshop content page', () => {
     cy.getByText('Workshops')
       .click()
       .getByText('JavaScript: The React Parts')
@@ -101,12 +101,22 @@ describe('Accessibility checks', () => {
     cy.queryByText('Edit')
       .click()
       .checkA11y();
+  });
 
-    // cy.viewport('iphone-5')
-    //   .getByLabelText('Toggle Table of Contents')
-    //   .click()
-    //   .wait(500)
-    //   .checkA11y();
+  it.only('has no detectable a11y violations on workshop content page dark mode', () => {
+    cy.getByText('Workshops')
+      .click()
+      .getByText('JavaScript: The React Parts')
+      .click()
+      .getByText('Start')
+      .click()
+      .getByLabelText('Switch between Dark and Light mode')
+      .click({ force: true });
+    checkA11y();
+
+    cy.queryByText('Edit')
+      .click()
+      .checkA11y();
   });
 
   it('has no detectable a11y violations on blogs page', () => {
