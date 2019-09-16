@@ -10,6 +10,7 @@ import './code-renderer.scss';
 import { transformTokens, wrapJsCode } from './code-transformers';
 import { CopyButton } from './copy-button';
 import { EditIcon } from './svg-icons';
+import { useId } from '../hooks/use-id';
 
 export const CodeRenderer = ({
   children,
@@ -77,6 +78,7 @@ const CodeLiveEditor = ({
   );
 
   const [isEdit, setIsEdit] = React.useState(false);
+  const id = 'code-editor' + useId();
 
   return (
     <div className="code-editor">
@@ -107,14 +109,21 @@ const CodeLiveEditor = ({
               <span className="code-editor-language">{language}</span>
             </div>
             {isEdit ? (
-              <LiveEditor
-                autoFocus
-                onKeyDown={ev => {
-                  if (ev.key === 'Escape') {
-                    setIsEdit(false);
-                  }
-                }}
-              />
+              <>
+                <LiveEditor
+                  autoFocus
+                  onKeyDown={ev => {
+                    if (ev.key === 'Escape') {
+                      setIsEdit(false);
+                    }
+                  }}
+                  onBlur={() => setIsEdit(false)}
+                  textareaId={id}
+                />
+                <label className="sr-only" htmlFor={id}>
+                  Live Code Editor
+                </label>
+              </>
             ) : (
               <HighlightedCode code={code} theme={theme} language="jsx" />
             )}

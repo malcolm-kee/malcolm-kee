@@ -426,6 +426,11 @@ p {
     min-width: 120px;
   }
 
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px currentColor;
+  }
+
   &:hover {
     background-color: white;
     background-color: var(--bg-absolute);

@@ -14,7 +14,7 @@ export const Header = React.memo(({ isBanner }) => (
       <div className="heading-container">
         <div className="heading">
           <h1>
-            <Link to="/">
+            <Link to="/" tabIndex={isBanner ? -1 : undefined}>
               <span>Malcolm</span> <span>Kee</span>
             </Link>
           </h1>

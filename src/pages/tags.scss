@@ -72,6 +72,9 @@
             font-size: 2em;
             max-width: 100%;
           }
+          .List--ListItemText .tertiary {
+            font-size: 1.2em;
+          }
         }
         &-4 {
           grid-row: span 2;
@@ -79,6 +82,9 @@
           .List--ListItemText .primary {
             font-size: 3em;
             max-width: 100%;
+          }
+          .List--ListItemText .tertiary {
+            font-size: 1.5em;
           }
         }
       }
