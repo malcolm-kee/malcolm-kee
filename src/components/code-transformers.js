@@ -1,4 +1,4 @@
-import { includes } from '../helper';
+import { includes } from '../lib/array';
 
 /**
  * wrap js code with a React component that expose `console.log` and

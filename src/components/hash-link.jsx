@@ -1,6 +1,6 @@
 import { navigate } from '@reach/router';
 import React from 'react';
-import { callAll } from '../helper';
+import { callAll } from '../lib/fp';
 
 export const HashLink = ({ target, onClick, children, ...props }) => {
   return (

@@ -1,6 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
+import { isArray } from 'typesafe-is';
 
 export const Seo = ({
   title,
@@ -34,7 +35,7 @@ export const Seo = ({
   const displayTitle = title || siteMetadata.title;
   const displayDescription = description || siteMetadata.description;
   const displayKeywords =
-    Array.isArray(keywords) && keywords.length > 0
+    isArray(keywords) && keywords.length > 0
       ? keywords.join()
       : siteMetadata.keywords.join();
 

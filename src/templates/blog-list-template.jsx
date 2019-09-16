@@ -3,10 +3,11 @@ import React from 'react';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';
+import { PaginationContainer, PaginationItem } from '../components/pagination';
 import { Seo } from '../components/Seo';
 import { SubscribeRssLink } from '../components/subscribe-rss-link';
-import { PaginationContainer, PaginationItem } from '../components/pagination';
-import { getReadtimeText, createEmptyArray } from '../helper';
+import { getReadtimeText } from '../helper';
+import { createEmptyArray } from '../lib/array';
 
 const BlogListTemplate = ({ data, pageContext: { currentPage, numPages } }) => {
   const { posts } = data.allMdx;

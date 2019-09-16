@@ -1,5 +1,3 @@
-import { isArray, isFunction } from 'typesafe-is';
-
 export function noop() {
   // noop
 }
@@ -21,71 +19,6 @@ export function copyToClipboard(textToCopy) {
   }
 }
 
-export function lastItem(array) {
-  return isArray(array) ? array[array.length - 1] : array;
-}
-
-/**
- *
- * @param {number} length
- */
-export function createEmptyArray(length) {
-  if (Array.from) {
-    return Array.from({ length });
-  }
-
-  const result = [];
-
-  for (let index = 0; index < length; index++) {
-    result.push(undefined);
-  }
-
-  return result;
-}
-
-/**
- * Check if an item is within an array OR if a string is part of a bigger string
- * @template T
- * @param {Array<T> | string} array
- * @param {T | string} item
- */
-export function includes(array, item) {
-  return (
-    (Array.isArray(array) || typeof array === 'string') &&
-    array.indexOf(item) > -1
-  );
-}
-
-export function debounce(fn, wait) {
-  var timeout;
-
-  return function(...args) {
-    var context = this;
-    clearTimeout(timeout);
-    timeout = setTimeout(function() {
-      timeout = null;
-      fn.apply(context, args);
-    }, wait);
-  };
-}
-
-export function throttle(fn, wait = 250, context = this) {
-  let timeout = null;
-  let args = null;
-
-  const later = () => {
-    fn.apply(context, args);
-    timeout = null;
-  };
-
-  return function(...ars) {
-    if (!timeout) {
-      args = ars;
-      timeout = setTimeout(later, wait);
-    }
-  };
-}
-
 /**
  *
  * @param {number} readtime
@@ -95,9 +28,6 @@ export function getReadtimeText(readtime) {
     ? `${readtime} minutes`
     : `${readtime} minute`;
 }
-
-export const callAll = (...fns) => (...args) =>
-  fns.forEach(fn => isFunction(fn) && fn(...args));
 
 /**
  * @param {string} hex

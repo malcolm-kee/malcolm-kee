@@ -8,19 +8,17 @@ import { Seo } from '../components/Seo';
 
 const LibrariesPage = () => {
   const {
-    allNpmsIoMalcolm: { edges },
+    allNpmsIoMalcolm: { libraries },
   } = useStaticQuery(graphql`
     query {
       allNpmsIoMalcolm(sort: { fields: [date], order: DESC }) {
-        edges {
-          node {
-            name
-            version
-            description
-            date(formatString: "DD MMM YYYY")
-            links {
-              npm
-            }
+        libraries: nodes {
+          name
+          version
+          description
+          date(formatString: "DD MMM YYYY")
+          links {
+            homepage
           }
         }
       }
@@ -33,11 +31,11 @@ const LibrariesPage = () => {
       <main>
         <PageTitleContainer title="Libraries" />
         <List>
-          {edges.map(({ node: { name, description, version, links } }) => (
+          {libraries.map(({ name, description, version, links }) => (
             <ListItem
               button
               component={OutLink}
-              href={links.npm}
+              href={links.homepage}
               key={name}
               noGutter
             >
