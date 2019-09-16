@@ -1,7 +1,7 @@
 ---
 title: 'My First Tech Talk: Render Props & Higher Order Components'
 date: '2018-08-20'
-tags: ['meetup', 'talk', 'react-patterns']
+tags: ['meetup', 'talk', 'react', 'design pattern']
 summary: 'A note on my first technical talk on React. I find the act of preparing and delivering the talk satisfying.'
 published: true
 ---
