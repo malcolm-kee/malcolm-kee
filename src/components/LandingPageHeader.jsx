@@ -12,13 +12,19 @@ export const LandingPageHeader = () => {
       <div className="landing-page-header-content">
         <ul className="landing-page-header-subtitle">
           <li>
-            <Link to="/projects">Frontend Engineer</Link>
+            <Link to="/projects" className="animated">
+              Frontend Engineer
+            </Link>
           </li>
           <li>
-            <Link to="/workshops">Teacher</Link>
+            <Link to="/workshops" className="animated">
+              Teacher
+            </Link>
           </li>
           <li>
-            <Link to="/libraries">Open Source Contributor</Link>
+            <Link to="/libraries" className="animated">
+              Open Source Contributor
+            </Link>
           </li>
         </ul>
       </div>

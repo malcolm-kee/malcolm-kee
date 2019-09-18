@@ -91,7 +91,7 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
         <li
           className={cx(
             'toc-section-title',
-            isActive && 'toc-section-title--active'
+            isActive && 'toc-section-title--active animated'
           )}
         >
           {/* TODO: Make this non clickable in small screen */}
@@ -103,13 +103,13 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
       {nodes.map(({ frontmatter: { title }, fields: { slug } }) => (
         <li
           className={cx(
-            'toc-link-item',
+            'toc-link-item animated',
             isActive && 'toc-link-item--active-section'
           )}
           key={slug}
         >
           <Link
-            className="toc-link"
+            className="toc-link animated"
             activeClassName="toc-link--active"
             to={slug}
             onFocus={isActive ? undefined : () => setIsActive(true)}

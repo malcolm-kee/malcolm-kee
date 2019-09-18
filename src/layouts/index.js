@@ -76,13 +76,17 @@ const LayoutContainer = ({ children, pageContext, location }) => {
 function useTheme() {
   const [theme, setTheme] = React.useState(null);
 
-  React.useEffect(() => {
+  const initThemeSetup = React.useRef(() => {
     if (theme !== window.__theme) {
       setTheme(window.__theme);
     }
     window.__onThemeChange = () => {
       setTheme(window.__theme);
     };
+  });
+
+  React.useEffect(() => {
+    initThemeSetup.current();
   }, []);
 
   const themeValue = React.useMemo(

@@ -38,17 +38,17 @@ const IndexPage = () => (
           <h2>Works</h2>
           <div>
             <div>
-              <Link to="/projects" className="link-highlight">
+              <Link to="/projects" className="link-highlight animated">
                 Projects
               </Link>
             </div>
             <div>
-              <Link to="/workshops" className="link-highlight">
+              <Link to="/workshops" className="link-highlight animated">
                 Workshops
               </Link>
             </div>
             <div>
-              <Link to="/libraries" className="link-highlight">
+              <Link to="/libraries" className="link-highlight animated">
                 Libraries
               </Link>
             </div>
@@ -57,7 +57,7 @@ const IndexPage = () => (
         <LandingPageSection>
           <h2>Writings</h2>
           <div>
-            <Link to="/blog" className="link-highlight">
+            <Link to="/blog" className="link-highlight animated">
               Read Blog
             </Link>
           </div>

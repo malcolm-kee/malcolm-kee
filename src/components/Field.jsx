@@ -25,7 +25,7 @@ export const Field = ({
           'field--filled'
       )}
     >
-      <label htmlFor={id} className="label">
+      <label htmlFor={id} className="label animated">
         {label}
       </label>
       <InputComponent
@@ -41,7 +41,7 @@ export const Field = ({
         onBlur={callAll(inputProps.onBlur, () => setIsFocused(false))}
         ref={inputRef}
       />
-      <span />
+      <span className="animated" />
     </div>
   );
 };

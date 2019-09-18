@@ -7,19 +7,12 @@
 
 .react-toggle {
   touch-action: pan-x;
-
   display: inline-block;
   position: relative;
   cursor: pointer;
   background-color: transparent;
   border: 0;
   padding: 0;
-
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -43,8 +36,6 @@
   padding: 0;
   border-radius: 30px;
   background-color: hsl(222, 14%, 7%);
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
@@ -59,15 +50,11 @@
   margin-bottom: auto;
   line-height: 0;
   opacity: 0;
-  -webkit-transition: opacity 0.25s ease;
-  -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
 }
 
 .react-toggle--checked .react-toggle-track-check {
   opacity: 1;
-  -webkit-transition: opacity 0.25s ease;
-  -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
 }
 
@@ -82,8 +69,6 @@
   margin-bottom: auto;
   line-height: 0;
   opacity: 1;
-  -webkit-transition: opacity 0.25s ease;
-  -moz-transition: opacity 0.25s ease;
   transition: opacity 0.25s ease;
 }
 
@@ -99,10 +84,10 @@
   height: 22px;
   border-radius: 50%;
   background-color: #fafafa;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+
+  @include reducedMotion;
 }
 
 .react-toggle--checked {
