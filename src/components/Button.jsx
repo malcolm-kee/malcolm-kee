@@ -13,8 +13,8 @@ import './Button.scss';
  */
 export const Button = ({
   component: Component = 'button',
-  color = '',
-  raised = false,
+  color,
+  raised,
   size,
   className,
   children,

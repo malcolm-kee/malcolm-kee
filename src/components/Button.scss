@@ -145,11 +145,9 @@
     stroke: currentColor;
   }
 
-  &:focus {
-    &:not(:focus-visible) {
-      filter: none;
-      border-color: transparent;
-    }
+  @include focusedByMouse {
+    filter: none;
+    border-color: transparent;
   }
 
   &,

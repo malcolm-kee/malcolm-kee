@@ -11,10 +11,10 @@
   &:focus {
     outline: none;
     box-shadow: 0 0 0 3px $primary-color;
+  }
 
-    &:not(:focus-visible) {
-      filter: none;
-      border-color: transparent;
-    }
+  @include focusedByMouse {
+    filter: none;
+    border-color: transparent;
   }
 }

@@ -177,3 +177,11 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
     transition-delay: 0s !important;
   }
 }
+
+@mixin focusedByMouse {
+  &:focus {
+    &:not(:focus-visible) {
+      @content;
+    }
+  }
+}
