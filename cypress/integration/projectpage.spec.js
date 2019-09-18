@@ -6,6 +6,15 @@ describe('homepage', () => {
   });
 
   it('able to load', () => {
-    cy.getAllByText('Past Projects');
+    cy.findAllByText('Past Projects');
+  });
+
+  it.only('loads all the projects', () => {
+    cy.findByText('Generative Arts')
+      .click()
+      .findByText('Live')
+      .click()
+      .location('pathname')
+      .should('include', 'generative-art');
   });
 });
