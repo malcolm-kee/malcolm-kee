@@ -166,3 +166,14 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
 @mixin darkenImg() {
   filter: brightness(0.8);
 }
+
+// utility to make animation to be non-animated based on user preference
+@mixin reducedMotion {
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-delay: 0s !important;
+  }
+}

@@ -15,5 +15,7 @@
     @media screen and (min-width: $media-mobile) {
       width: 320px;
     }
+
+    @include reducedMotion;
   }
 }

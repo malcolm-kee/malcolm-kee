@@ -699,3 +699,10 @@ p {
   white-space: nowrap;
   width: 1px;
 }
+
+// add "animated" class to opt in for reduced behavior
+.animated,
+.animated::before,
+.animated::after {
+  @include reducedMotion;
+}

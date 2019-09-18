@@ -32,6 +32,10 @@
         background-color: var(--bg-absolute);
         transform: scale(1.02);
 
+        @media (prefers-reduced-motion: reduce) {
+          transform: none;
+        }
+
         .List--ListItemText {
           .primary {
             color: $link-light;

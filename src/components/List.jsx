@@ -24,7 +24,7 @@ export const ListItem = ({
   <Component
     className={cx(
       'List--ListItem',
-      button && 'button',
+      button && 'button animated',
       noGutter && 'no-gutter',
       className
     )}
@@ -42,7 +42,9 @@ export const ListItemText = ({
   hideOverflow = false,
 }) => (
   <div className={cx('List--ListItemText', hideOverflow && 'hide-overflow')}>
-    <p className={cx('primary', boldPrimary && 'bold')}>{primaryText}</p>
+    <p className={cx('primary animated', boldPrimary && 'bold')}>
+      {primaryText}
+    </p>
     {secondaryText && <p className="secondary">{secondaryText}</p>}
     {tertiaryText && <p className="tertiary">{tertiaryText}</p>}
   </div>

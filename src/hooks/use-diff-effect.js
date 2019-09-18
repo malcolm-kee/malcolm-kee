@@ -11,10 +11,9 @@ export const useDiffEffect = (effect, deps) => {
   const prevDeps = React.useRef(null);
 
   React.useEffect(() => {
-    effect(prevDeps.current);
-
     prevDeps.current = deps;
-  }, deps);
+    return effect(prevDeps.current);
+  }, deps); // eslint-disable-line
 };
 
 export default useDiffEffect;

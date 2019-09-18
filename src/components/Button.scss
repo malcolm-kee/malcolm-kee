@@ -144,4 +144,17 @@
     fill: currentColor;
     stroke: currentColor;
   }
+
+  &:focus {
+    &:not(:focus-visible) {
+      filter: none;
+      border-color: transparent;
+    }
+  }
+
+  &,
+  &::before,
+  &::after {
+    @include reducedMotion;
+  }
 }
