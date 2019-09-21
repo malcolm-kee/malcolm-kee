@@ -11,6 +11,7 @@ import { transformTokens, wrapJsCode } from './code-transformers';
 import { CopyButton } from './copy-button';
 import { EditIcon } from './svg-icons';
 import { useId } from '../hooks/use-id';
+import { useDiffEffect } from '../hooks/use-diff-effect';
 
 export const CodeRenderer = ({
   children,
@@ -79,6 +80,16 @@ const CodeLiveEditor = ({
 
   const [isEdit, setIsEdit] = React.useState(false);
   const id = 'code-editor' + useId();
+  const editBtnRef = React.useRef(null);
+
+  useDiffEffect(
+    prev => {
+      if (prev && prev[0] && !isEdit) {
+        editBtnRef.current && editBtnRef.current.focus();
+      }
+    },
+    [isEdit]
+  );
 
   return (
     <div className="code-editor">
@@ -99,7 +110,12 @@ const CodeLiveEditor = ({
                     <EditIcon />
                   </div>
                 ) : (
-                  <Button onClick={() => setIsEdit(true)} size="small" raised>
+                  <Button
+                    onClick={() => setIsEdit(true)}
+                    size="small"
+                    raised
+                    ref={editBtnRef}
+                  >
                     Edit
                   </Button>
                 )}
@@ -211,11 +227,10 @@ const HighlightedCode = React.memo(function HighlightedCodeComponent({
           {transformTokens(tokens, lineIndexesToHighlight).map(
             ({ line, isHighlighted }, i) => {
               return (
-                <>
+                <React.Fragment key={i}>
                   <div
                     {...getLineProps({
                       line,
-                      key: i,
                       className: isHighlighted
                         ? 'highlighted-code-line'
                         : undefined,
@@ -226,7 +241,7 @@ const HighlightedCode = React.memo(function HighlightedCodeComponent({
                     })}
                   </div>
                   {isHighlighted && <br />}
-                </>
+                </React.Fragment>
               );
             }
           )}

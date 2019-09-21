@@ -95,8 +95,10 @@ export function ajax(url, options) {
 /**
  * preload image so when it is needed it will shown instantly
  * @param {string} imageSrc
+ * @param {Function} [onLoad]
  */
-export function preloadImage(imageSrc) {
+export function preloadImage(imageSrc, onLoad) {
   const image = new Image();
+  image.onload = onLoad;
   image.src = imageSrc;
 }

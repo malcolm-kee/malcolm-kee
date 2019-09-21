@@ -9,26 +9,35 @@ import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { getReadtimeText } from '../helper';
 import { createEmptyArray } from '../lib/array';
 
-const BlogListTemplate = ({ data, pageContext: { currentPage, numPages } }) => {
+const BlogListTemplate = ({
+  data,
+  pageContext: { currentPage, numPages },
+  location,
+}) => {
   const { posts } = data.allMdx;
 
-  const title =
-    currentPage === 1
-      ? `Blogs - Malcolm Kee`
-      : `Blogs - ${currentPage} of ${numPages} - Malcolm Kee`;
-  const prevPage =
-    currentPage === 1
-      ? null
-      : currentPage === 2
-      ? `/blog`
-      : `/blog/${currentPage - 1}`;
+  const isFirstPage = currentPage === 1;
+
+  const prevPage = isFirstPage
+    ? null
+    : currentPage === 2
+    ? `/blog`
+    : `/blog/${currentPage - 1}`;
   const nextPage = currentPage === numPages ? null : `/blog/${currentPage + 1}`;
 
   return (
     <MainContent as="div">
-      <Seo title={title} />
+      <Seo
+        title={
+          isFirstPage
+            ? `Blogs - Malcolm Kee`
+            : `Blogs - ${currentPage} of ${numPages} - Malcolm Kee`
+        }
+      />
       <main>
-        <PageTitleContainer title="Blogs" />
+        <PageTitleContainer
+          title={isFirstPage ? 'Blogs' : `Blogs - Page ${currentPage}`}
+        />
         <List>
           {posts.map(({ node: post }) => (
             <ListItem
@@ -60,14 +69,18 @@ const BlogListTemplate = ({ data, pageContext: { currentPage, numPages } }) => {
         </List>
       </main>
       <PaginationContainer prevLink={prevPage} nextLink={nextPage}>
-        {createEmptyArray(numPages).map((_, index) => (
-          <PaginationItem
-            to={index === 0 ? `/blog` : `/blog/${index + 1}`}
-            key={index}
-          >
-            {index + 1}
-          </PaginationItem>
-        ))}
+        {createEmptyArray(numPages).map((_, index) => {
+          const path = index === 0 ? `/blog` : `/blog/${index + 1}`;
+          return (
+            <PaginationItem
+              to={path}
+              tabIndex={location.pathname === path ? -1 : undefined}
+              key={index}
+            >
+              {index + 1}
+            </PaginationItem>
+          );
+        })}
       </PaginationContainer>
       <nav className="Toolbar space-between">
         <span>

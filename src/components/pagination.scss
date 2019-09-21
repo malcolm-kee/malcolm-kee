@@ -27,6 +27,11 @@
       color: #{$bg-color-light};
       color: var(--bg);
     }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px currentColor;
+    }
   }
 
   &-btn {
@@ -35,5 +40,15 @@
     align-items: center;
     width: 36px;
     height: 36px;
+    border-radius: 50%;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px currentColor;
+    }
+
+    @include focusedByMouse {
+      box-shadow: none;
+    }
   }
 }

@@ -15,7 +15,7 @@ import styles from './projects.module.scss';
 import { preloadImage } from '../helper';
 
 const ProjectCard = ({ project }) => (
-  <Card className="ProjectPage--project">
+  <Card className="ProjectPage--project" role="listitem">
     <div>
       <CardContent>
         <h2 id={project.id}>{project.name}</h2>
@@ -60,7 +60,7 @@ const ProjectCard = ({ project }) => (
 );
 
 const ProjectListView = ({ projects }) => (
-  <div className="ProjectPage--project-container">
+  <div className="ProjectPage--project-container" role="list">
     {projects.map(({ node }) => (
       <ProjectCard project={node} key={node.id} />
     ))}
@@ -69,10 +69,12 @@ const ProjectListView = ({ projects }) => (
 
 const usePreloadImage = imageSrc => {
   const [hovered, setHovered] = React.useState(false);
+  const started = React.useRef(false);
 
   React.useEffect(() => {
-    if (hovered) {
+    if (hovered && !started.current) {
       preloadImage(imageSrc);
+      started.current = true;
     }
   }, [imageSrc, hovered]);
 
@@ -87,7 +89,7 @@ const FancyProjectCard = ({ project, location }) => {
   const onHover = usePreloadImage(project.image.publicURL);
 
   return (
-    <>
+    <li>
       <Card
         as={HashLink}
         target={project.id}
@@ -156,16 +158,16 @@ const FancyProjectCard = ({ project, location }) => {
           </div>
         </div>
       </Dialog>
-    </>
+    </li>
   );
 };
 
 const FancyProjectView = ({ projects, location }) => (
-  <div className="ProjectPage--project-grid-container">
+  <ul className="ProjectPage--project-grid-container">
     {projects.map(({ node }) => (
       <FancyProjectCard project={node} location={location} key={node.id} />
     ))}
-  </div>
+  </ul>
 );
 
 const ProjectPage = ({ data: { allProjects }, location }) => {

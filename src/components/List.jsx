@@ -8,7 +8,7 @@ export const List = ({
   component: Component = 'div',
   ...restProps
 }) => (
-  <Component className="List" {...restProps}>
+  <Component className={cx('List', className)} role="list" {...restProps}>
     {children}
   </Component>
 );
@@ -28,6 +28,7 @@ export const ListItem = ({
       noGutter && 'no-gutter',
       className
     )}
+    role="listitem"
     {...restProps}
   >
     {children}
