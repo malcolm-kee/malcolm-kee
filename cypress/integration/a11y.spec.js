@@ -121,9 +121,18 @@ describe('Accessibility checks', () => {
       .checkA11y();
   });
 
-  it('has no detectable a11y violations on blogs page', () => {
-    cy.findByText('Read Blog').click();
+  it.only('has no detectable a11y violations on blogs page', () => {
+    cy.findByText('Read Blog')
+      .click()
+      .wait(1000);
     checkA11y();
+
+    // focus doesn't trigger css style, don't know why
+    /* cy.findAllByRole('listitem')
+      .first()
+      .find('a')
+      .focus()
+      .checkA11y(); */
   });
 
   it('has no detectable a11y violations on blogs page dark mode', () => {
@@ -163,6 +172,48 @@ describe('Accessibility checks', () => {
     checkA11y();
 
     cy.findByTestId('prevBtn').click();
+    checkA11y();
+  });
+
+  it('has no detectable a11y violations on all tags page', () => {
+    cy.findByText('Read Blog')
+      .click()
+      .findByText('All tags')
+      .click();
+    checkA11y();
+  });
+
+  it('has no detectable a11y violations on all tags page dark mode', () => {
+    cy.findByText('Read Blog')
+      .click()
+      .findByText('All tags')
+      .click()
+      .findByLabelText('Switch between Dark and Light mode')
+      .click({ force: true });
+    checkA11y();
+  });
+
+  it('has no detectable a11y violations on tag page', () => {
+    cy.findByText('Read Blog')
+      .click()
+      .findByText('All tags')
+      .click()
+      .findAllByRole('listitem')
+      .first()
+      .click();
+    checkA11y();
+  });
+
+  it('has no detectable a11y violations on tag page dark mode', () => {
+    cy.findByText('Read Blog')
+      .click()
+      .findByText('All tags')
+      .click()
+      .findAllByRole('listitem')
+      .first()
+      .click()
+      .findByLabelText('Switch between Dark and Light mode')
+      .click({ force: true });
     checkA11y();
   });
 });

@@ -28,11 +28,9 @@ const TagsPage = ({
           .sort(randomSort)
           .map(tag => (
             <ListItem
-              component={Link}
-              to={`/tags/${kebabCase(tag.fieldValue)}/`}
-              key={tag.fieldValue}
+              link={`/tags/${kebabCase(tag.fieldValue)}/`}
               className={getItemClassName(tag.totalCount)}
-              button
+              key={tag.fieldValue}
             >
               <ListItemText
                 primaryText={tag.fieldValue}

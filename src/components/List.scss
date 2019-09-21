@@ -6,7 +6,7 @@
   padding: 0 $spacing-unit;
   &--ListItem {
     width: 100%;
-    padding: 1.5 * $spacing-unit 2 * $spacing-unit;
+    padding: 1.5 * $spacing-unit 0;
     position: relative;
     align-items: center;
     background-color: transparent;
@@ -16,9 +16,6 @@
     display: flex;
     border: 2px solid;
     border-color: transparent;
-    &.no-gutter {
-      padding: 1.5 * $spacing-unit 0;
-    }
     &.button {
       transition-delay: 50ms;
       transition-duration: 300ms;
@@ -42,14 +39,6 @@
             color: var(--link);
           }
         }
-      }
-      &:focus {
-        outline: none;
-        border-color: $link-light;
-        border-color: var(--link);
-      }
-      &:active {
-        box-shadow: $box-shadow-5;
       }
     }
   }

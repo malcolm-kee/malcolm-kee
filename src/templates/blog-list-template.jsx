@@ -41,12 +41,9 @@ const BlogListTemplate = ({
         <List>
           {posts.map(({ node: post }) => (
             <ListItem
-              button
-              component={Link}
-              to={post.blogUrl}
-              key={post.blogUrl}
+              link={post.blogUrl}
               className="blog-list-item"
-              noGutter
+              key={post.blogUrl}
             >
               <ListItemText
                 primaryText={post.frontmatter.title}

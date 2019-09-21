@@ -2,7 +2,6 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
-import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 
@@ -32,13 +31,7 @@ const LibrariesPage = () => {
         <PageTitleContainer title="Libraries" />
         <List>
           {libraries.map(({ name, description, version, links }) => (
-            <ListItem
-              button
-              component={OutLink}
-              href={links.homepage}
-              key={name}
-              noGutter
-            >
+            <ListItem link={links.homepage} key={name}>
               <ListItemText
                 primaryText={name}
                 secondaryText={description}

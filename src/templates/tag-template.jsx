@@ -27,7 +27,7 @@ function BlogsWithTag({ data, pageContext, location }) {
                 frontmatter: { title, summary },
               },
             }) => (
-              <ListItem button component={Link} to={blogUrl} key={blogUrl}>
+              <ListItem link={blogUrl} key={blogUrl}>
                 <ListItemText
                   primaryText={title}
                   boldPrimary

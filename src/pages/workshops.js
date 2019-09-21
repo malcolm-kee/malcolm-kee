@@ -7,7 +7,6 @@ import {
   ListItemText,
 } from '../components/List';
 import { MainContent } from '../components/main-content';
-import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 
@@ -38,13 +37,7 @@ const WorkshopsPage = ({ location }) => {
         <List>
           {edges.map(
             ({ node: { id, name, url, description, underConstruction } }) => (
-              <ListItem
-                button={true}
-                component={url[0] === '/' ? Link : OutLink}
-                to={url}
-                key={id}
-                noGutter
-              >
+              <ListItem link={url} key={id}>
                 <ListItemText
                   primaryText={name}
                   tertiaryText={description}

@@ -1,0 +1,20 @@
+@import '../constants/variable';
+
+.withLink {
+  padding: 0;
+}
+
+.link {
+  padding: 1.5 * $space 0;
+  text-decoration: none;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px currentColor;
+  }
+
+  &:active {
+    box-shadow: $box-shadow-5;
+  }
+}

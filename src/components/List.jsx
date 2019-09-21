@@ -1,6 +1,10 @@
 import cx from 'classnames';
 import React from 'react';
 import './List.scss';
+import { OutLink } from './OutLink';
+import { Link } from 'gatsby';
+import { getLinkTarget } from '../lib/util';
+import styles from './List.module.scss';
 
 export const List = ({
   children,
@@ -17,23 +21,43 @@ export const ListItem = ({
   children,
   className,
   component: Component = 'div',
-  button,
-  noGutter = false,
+  link,
+  button = link ? true : false,
   ...restProps
-}) => (
-  <Component
-    className={cx(
-      'List--ListItem',
-      button && 'button animated',
-      noGutter && 'no-gutter',
-      className
-    )}
-    role="listitem"
-    {...restProps}
-  >
-    {children}
-  </Component>
-);
+}) => {
+  const linkTarget = link && getLinkTarget(link);
+
+  return (
+    <Component
+      className={cx(
+        'List--ListItem',
+        button && 'button animated',
+        link && styles.withLink,
+        className
+      )}
+      role="listitem"
+      {...restProps}
+    >
+      {link ? (
+        linkTarget === 'inner' ? (
+          <Link to={link} className={styles.link}>
+            {children}
+          </Link>
+        ) : linkTarget === 'outer' ? (
+          <OutLink to={link} className={styles.link}>
+            {children}
+          </OutLink>
+        ) : (
+          <a href={link} className={styles.link}>
+            {children}
+          </a>
+        )
+      ) : (
+        children
+      )}
+    </Component>
+  );
+};
 
 export const ListItemText = ({
   primaryText = '',
