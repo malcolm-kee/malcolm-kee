@@ -152,7 +152,7 @@ const FancyProjectCard = ({ project, location }) => {
             {project.image && (
               <GifPlayer
                 gif={project.image.publicURL}
-                static={project.staticImage.publicURL}
+                still={project.staticImage.publicURL}
                 alt={`Demo of ${project.name}`}
                 className={styles.image}
               />

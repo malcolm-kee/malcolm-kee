@@ -1,0 +1,10 @@
+@import '../constants/variable';
+
+.root {
+  &:focus {
+    outline-width: 3px;
+    outline-color: #{$link-light};
+    outline-color: var(--link);
+    outline-style: solid;
+  }
+}
