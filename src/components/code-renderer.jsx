@@ -211,19 +211,22 @@ const HighlightedCode = React.memo(function HighlightedCodeComponent({
           {transformTokens(tokens, lineIndexesToHighlight).map(
             ({ line, isHighlighted }, i) => {
               return (
-                <div
-                  {...getLineProps({
-                    line,
-                    key: i,
-                    className: isHighlighted
-                      ? 'highlighted-code-line'
-                      : undefined,
-                  })}
-                >
-                  {line.map((token, key) => {
-                    return <span {...getTokenProps({ token, key })} />;
-                  })}
-                </div>
+                <>
+                  <div
+                    {...getLineProps({
+                      line,
+                      key: i,
+                      className: isHighlighted
+                        ? 'highlighted-code-line'
+                        : undefined,
+                    })}
+                  >
+                    {line.map((token, key) => {
+                      return <span {...getTokenProps({ token, key })} />;
+                    })}
+                  </div>
+                  {isHighlighted && <br />}
+                </>
               );
             }
           )}
