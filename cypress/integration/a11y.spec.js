@@ -16,7 +16,9 @@ describe('Accessibility checks', () => {
   });
 
   function checkA11y() {
-    cy.wait(500).checkA11y();
+    cy.viewport('macbook-15')
+      .wait(500)
+      .checkA11y();
 
     cy.viewport('ipad-2')
       .wait(500)
@@ -138,7 +140,12 @@ describe('Accessibility checks', () => {
       .get('.blog-list-item')
       .first()
       .click();
+    checkA11y();
 
+    cy.findByTestId('prevBtn').click();
+    checkA11y();
+
+    cy.findByTestId('prevBtn').click();
     checkA11y();
   });
 
@@ -150,7 +157,12 @@ describe('Accessibility checks', () => {
       .click()
       .findByLabelText('Switch between Dark and Light mode')
       .click({ force: true });
+    checkA11y();
 
+    cy.findByTestId('prevBtn').click();
+    checkA11y();
+
+    cy.findByTestId('prevBtn').click();
     checkA11y();
   });
 });

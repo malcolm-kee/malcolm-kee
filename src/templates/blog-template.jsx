@@ -138,14 +138,14 @@ function AdjacentArticles({ previous, next }) {
       <ul className={styles.adjacentArticles}>
         {previous && (
           <li>
-            <Link to={previous.blogUrl} rel="prev">
+            <Link to={previous.blogUrl} rel="prev" data-testid="prevBtn">
               ← {previous.frontmatter.title}
             </Link>
           </li>
         )}
         {next && (
           <li>
-            <Link to={next.blogUrl} rel="next">
+            <Link to={next.blogUrl} rel="next" data-testid="nextBtn">
               {next.frontmatter.title} →
             </Link>
           </li>

@@ -249,4 +249,11 @@ const accessibleGithub = {
     ...github.plain,
     backgroundColor: '#ffffff',
   },
+  styles: github.styles.map(style =>
+    style.types.indexOf('entity') !== -1
+      ? {
+          color: '#347d7c',
+        }
+      : style
+  ),
 };
