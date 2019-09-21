@@ -71,6 +71,7 @@
     "prismjs": "^1.15.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-gif-player": "^0.4.2",
     "react-helmet": "^5.2.0",
     "react-live": "^2.1.2",
     "react-tiny-popover": "^3.4.2",

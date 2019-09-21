@@ -8,7 +8,8 @@
       "live": "https://redux-code-generator.netlify.com/",
       "code": "https://github.com/malcolm-kee/redux-code-generator"
     },
-    "image": "../assets/redux-code-generator.gif"
+    "image": "../assets/redux-code-generator.gif",
+    "staticImage": "../assets/redux-code-generator.jpg"
   },
   {
     "id": "generative-arts",
@@ -18,7 +19,8 @@
     "links": {
       "live": "/generative-art"
     },
-    "image": "../assets/name-art.gif"
+    "image": "../assets/name-art.gif",
+    "staticImage": "../assets/name-art.jpg"
   },
   {
     "id": "kreloses",
@@ -39,7 +41,8 @@
     "links": {
       "live": "https://mobile.kreloses.com"
     },
-    "image": "../assets/kreloses-mobile.gif"
+    "image": "../assets/kreloses-mobile.gif",
+    "staticImage": "../assets/kreloses-mobile.jpg"
   },
   {
     "id": "real-quiz",
@@ -55,7 +58,8 @@
     "links": {
       "live": "https://real-quiz-app.firebaseapp.com"
     },
-    "image": "../assets/real-quiz.gif"
+    "image": "../assets/real-quiz.gif",
+    "staticImage": "../assets/real-quiz.jpg"
   },
   {
     "id": "shopping-cart",
@@ -77,7 +81,8 @@
     "links": {
       "live": "https://seek-shopping-cart.netlify.com/"
     },
-    "image": "../assets/simple-cart.gif"
+    "image": "../assets/simple-cart.gif",
+    "staticImage": "../assets/simple-cart.jpg"
   },
   {
     "id": "wizard-form",
@@ -88,7 +93,8 @@
       "live": "https://wizard-form.netlify.com",
       "code": "https://bitbucket.org/malcolmkee/wizard-form"
     },
-    "image": "../assets/wizard-form.gif"
+    "image": "../assets/wizard-form.gif",
+    "staticImage": "../assets/wizard-form.jpg"
   },
   {
     "id": "vue-movie-app",
@@ -99,7 +105,8 @@
       "live": "https://vue-movie-app.netlify.com",
       "code": "https://github.com/malcolm-kee/vue-movie-app"
     },
-    "image": "../assets/vue-movie-app.gif"
+    "image": "../assets/vue-movie-app.gif",
+    "staticImage": "../assets/vue-movie-app.jpg"
   },
   {
     "id": "msia-employment-viz",
@@ -110,6 +117,7 @@
       "live": "https://msia-employment.netlify.com/",
       "code": "https://github.com/malcolm-kee/msia-employment"
     },
-    "image": "../assets/msia-employment.gif"
+    "image": "../assets/msia-employment.gif",
+    "staticImage": "../assets/msia-employment.jpg"
   }
 ]

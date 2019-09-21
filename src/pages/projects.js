@@ -3,6 +3,7 @@ import { graphql, Link } from 'gatsby';
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import React from 'react';
 import { Button } from '../components/Button';
+import { GifPlayer } from '../components/gif-player';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
 import { Dialog } from '../components/dialog';
 import { HashLink } from '../components/hash-link';
@@ -52,7 +53,7 @@ const ProjectCard = ({ project }) => (
     </div>
     {project.image && (
       <CardImage
-        src={project.image.publicURL}
+        src={project.staticImage.publicURL}
         className="ProjectPage--demo-image"
       />
     )}
@@ -86,7 +87,7 @@ const FancyProjectCard = ({ project, location }) => {
     location.hash === `#${project.id}`
   );
   const isInternalLink = project.links.live && project.links.live[0] === '/';
-  const onHover = usePreloadImage(project.image.publicURL);
+  const onHover = usePreloadImage(project.staticImage.publicURL);
 
   return (
     <li>
@@ -149,8 +150,9 @@ const FancyProjectCard = ({ project, location }) => {
           </div>
           <div className={styles.demo}>
             {project.image && (
-              <img
-                src={project.image.publicURL}
+              <GifPlayer
+                gif={project.image.publicURL}
+                static={project.staticImage.publicURL}
                 alt={`Demo of ${project.name}`}
                 className={styles.image}
               />
@@ -212,6 +214,9 @@ export const query = graphql`
             code
           }
           image {
+            publicURL
+          }
+          staticImage {
             publicURL
           }
         }
