@@ -3,6 +3,7 @@ import { graphql, Link } from 'gatsby';
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import React from 'react';
 import { Button } from '../components/Button';
+import { GifPlayer } from '../components/gif-player';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
 import { Dialog } from '../components/dialog';
 import { HashLink } from '../components/hash-link';
@@ -52,7 +53,7 @@ const ProjectCard = ({ project }) => (
     </div>
     {project.image && (
       <CardImage
-        src={project.image.publicURL}
+        src={project.staticImage.publicURL}
         className="ProjectPage--demo-image"
       />
     )}
@@ -68,17 +69,17 @@ const ProjectListView = ({ projects }) => (
 );
 
 const usePreloadImage = imageSrc => {
-  const [hovered, setHovered] = React.useState(false);
+  const [shouldPreload, setShouldPreload] = React.useState(false);
   const started = React.useRef(false);
 
   React.useEffect(() => {
-    if (hovered && !started.current) {
+    if (shouldPreload && !started.current) {
       preloadImage(imageSrc);
       started.current = true;
     }
-  }, [imageSrc, hovered]);
+  }, [imageSrc, shouldPreload]);
 
-  return () => setHovered(true);
+  return () => setShouldPreload(true);
 };
 
 const FancyProjectCard = ({ project, location }) => {
@@ -86,7 +87,8 @@ const FancyProjectCard = ({ project, location }) => {
     location.hash === `#${project.id}`
   );
   const isInternalLink = project.links.live && project.links.live[0] === '/';
-  const onHover = usePreloadImage(project.image.publicURL);
+  const preloadStaticImage = usePreloadImage(project.staticImage.publicURL);
+  const preloadGif = usePreloadImage(project.image.publicURL);
 
   return (
     <li>
@@ -96,8 +98,8 @@ const FancyProjectCard = ({ project, location }) => {
         selectable
         role="button"
         aria-haspopup="dialog"
-        onMouseEnter={onHover}
-        onFocus={onHover}
+        onMouseEnter={preloadStaticImage}
+        onFocus={preloadStaticImage}
         onSelect={() => setShowDialog(true)}
         className="ProjectPage--project-card"
       >
@@ -149,10 +151,14 @@ const FancyProjectCard = ({ project, location }) => {
           </div>
           <div className={styles.demo}>
             {project.image && (
-              <img
-                src={project.image.publicURL}
+              <GifPlayer
+                gif={project.image.publicURL}
+                still={project.staticImage.publicURL}
                 alt={`Demo of ${project.name}`}
+                onFocus={preloadGif}
+                onMouseEnter={preloadGif}
                 className={styles.image}
+                containerClassName={styles.imageWrapper}
               />
             )}
           </div>
@@ -212,6 +218,9 @@ export const query = graphql`
             code
           }
           image {
+            publicURL
+          }
+          staticImage {
             publicURL
           }
         }
