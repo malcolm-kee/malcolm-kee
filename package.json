@@ -52,7 +52,7 @@
     "gatsby-remark-images": "^3.0.16",
     "gatsby-source-filesystem": "^2.0.39",
     "gatsby-source-graphql": "^2.0.18",
-    "gatsby-source-npmsio": "^0.0.3",
+    "gatsby-source-npmsio": "^1.0.0",
     "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-sharp": "^2.1.8",
     "intersection-observer": "^0.7.0",
