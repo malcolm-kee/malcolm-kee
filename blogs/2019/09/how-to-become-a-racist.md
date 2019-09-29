@@ -3,6 +3,9 @@ title: 'How to Become a Racist'
 date: '2019-09-29'
 tags: ['pyschology']
 summary: 'Every time you try to use race to making a us-versus-them comparison, you are introducing the risk of becoming a racist.'
+image: './photo-malaysia.jpg'
+imageBy: 'Deva Darshan'
+imageByLink: 'https://unsplash.com/@darshan394'
 published: true
 ---
 
@@ -14,7 +17,7 @@ I used to think that it's because our country is still a developing country, the
 
 Nonetheless, some times ago, I heard a comment from an entrepreneur from a First-World country:
 
-> We tried to recuit a few candidates from XXX race, and all of them are bad. We're not gonna hire them anymore.
+> We tried to recuit a few candidates from XXX race, and all of them are irresponsible &mdash; left early, come late, MIA etc. We're not gonna consider condidate from that race anymore.
 
 It seems to me that, regardless of economic status, racism is just an easy trap to fall into.
 
@@ -48,6 +51,6 @@ Individuate, individuate, individuate (Apology for the bad English, blame the au
 
 Fight your tendency to generalize person based on race (and gender, and occupation, and age...).
 
-Just like [growth mindset](/blog/attitude-to-competency), I find that knowing the "us versus them" mindset will helps me to analyze my own racism, and minimize it.
+Just like [growth mindset](/blog/attitude-to-competency), I find that knowing the "us versus them" mindset helps me to analyze my own racism, and minimize it.
 
 [behave]: https://www.goodreads.com/book/show/31170723-behave
