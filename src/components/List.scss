@@ -17,6 +17,7 @@
     border: 2px solid;
     border-color: transparent;
     &.button {
+      padding: 0;
       transition-delay: 50ms;
       transition-duration: 300ms;
       transition-timing-function: $timing-function;

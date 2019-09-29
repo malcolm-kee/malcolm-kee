@@ -1,10 +1,10 @@
 import cx from 'classnames';
-import React from 'react';
-import './List.scss';
-import { OutLink } from './OutLink';
 import { Link } from 'gatsby';
+import React from 'react';
 import { getLinkTarget } from '../lib/util';
 import styles from './List.module.scss';
+import './List.scss';
+import { OutLink } from './OutLink';
 
 export const List = ({
   children,

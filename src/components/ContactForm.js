@@ -16,7 +16,7 @@ export const ContactForm = () => (
     <Field label="Message" name="message" InputComponent="textarea" required />
     <input type="hidden" name="form-name" value="contact-form" />
     <div className="Toolbar center">
-      <Button type="submit" color="primary" raised minWidth="wider">
+      <Button type="submit" color="primary" minWidth="wider" raised>
         Send
       </Button>
     </div>

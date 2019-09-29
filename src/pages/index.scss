@@ -2,26 +2,29 @@
 
 .landing-page {
   &-content {
+    padding-top: $space * 3;
     background-color: $bg-color-light;
     background-color: var(--bg);
   }
 
   &-section {
     &-content {
-      padding: $spacing-unit * 3 $spacing-unit * 2;
+      padding: $space * 3 $space * 2;
       max-width: 800px;
       margin: 0 auto;
 
       @include link('a:not(.btn):not(.link-highlight)');
 
       h2 {
-        margin-bottom: $spacing-unit * 2;
+        margin-bottom: $space * 2;
       }
     }
     &-group {
-      display: flex;
       max-width: 800px;
       margin: 0 auto;
+      @media screen and (min-width: $media-mobile) {
+        display: flex;
+      }
     }
     &-group &-content {
       text-align: center;
