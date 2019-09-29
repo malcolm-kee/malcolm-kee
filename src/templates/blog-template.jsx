@@ -17,21 +17,17 @@ import { Ul } from '../components/ul';
 
 export default function BlogTemplate({ data, pageContext, location }) {
   const {
-    mdx: {
-      frontmatter: {
-        title,
-        date,
-        tags,
-        keywords,
-        summary,
-        lang,
-        image,
-        imageBy,
-        imageByLink,
-      },
+    blogPost: {
+      title,
+      date,
+      tags,
+      keywords,
+      summary,
+      lang,
+      previewImage: { image, by },
       body,
       timeToRead,
-      blogUrl,
+      slug,
     },
     github: {
       search: { nodes: comments },
@@ -49,7 +45,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
           pathname={location.pathname}
         />
         <main>
-          <article className="blog-post" lang={lang ? lang : undefined}>
+          <article className="blog-post" lang={lang}>
             <h1 className="blog-post--title">{title}</h1>
             <div className="blog-post--detail-container">
               <div className="blog-post--date">
@@ -68,19 +64,16 @@ export default function BlogTemplate({ data, pageContext, location }) {
             {image && (
               <>
                 <Image fluid={image.childImageSharp.fluid} alt="" />
-                {imageBy && (
+                {by.name && (
                   <p className={styles.imageAttribution}>
                     <small>
                       Photo by{' '}
-                      {imageByLink ? (
-                        <OutLink
-                          className={styles.imageAuthor}
-                          to={imageByLink}
-                        >
-                          {imageBy}
+                      {by.url ? (
+                        <OutLink className={styles.imageAuthor} to={by.url}>
+                          {by.name}
                         </OutLink>
                       ) : (
-                        imageBy
+                        by.name
                       )}
                     </small>
                   </p>
@@ -114,7 +107,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
         <RelatedBlogs blogs={pageContext.relatedBlogs} />
         <Comments
           comments={comments}
-          articlePath={blogUrl}
+          articlePath={slug}
           searchTerm={pageContext.commentsSearch}
         />
         <AdjacentArticles
@@ -138,15 +131,15 @@ function AdjacentArticles({ previous, next }) {
       <ul className={styles.adjacentArticles}>
         {previous && (
           <li>
-            <Link to={previous.blogUrl} rel="prev" data-testid="prevBtn">
-              ← {previous.frontmatter.title}
+            <Link to={previous.slug} rel="prev" data-testid="prevBtn">
+              ← {previous.title}
             </Link>
           </li>
         )}
         {next && (
           <li>
-            <Link to={next.blogUrl} rel="next" data-testid="nextBtn">
-              {next.frontmatter.title} →
+            <Link to={next.slug} rel="next" data-testid="nextBtn">
+              {next.title} →
             </Link>
           </li>
         )}
@@ -162,7 +155,7 @@ function RelatedBlogs({ blogs }) {
       <Ul>
         {blogs.map(({ node }) => (
           <li key={node.id}>
-            <Link to={node.blogUrl}>{node.frontmatter.title}</Link>
+            <Link to={node.slug}>{node.title}</Link>
           </li>
         ))}
       </Ul>
@@ -170,19 +163,18 @@ function RelatedBlogs({ blogs }) {
   ) : null;
 }
 
-// TODO: query BlogPost instead of mdx
 export const pageQuery = graphql`
-  query BlogPostByPath($id: String!, $commentsSearch: String!) {
-    mdx(id: { eq: $id }) {
+  query BlogPostById($id: String!, $commentsSearch: String!) {
+    blogPost(id: { eq: $id }) {
       body
-      blogUrl
-      frontmatter {
-        date(formatString: "MMM DD, YYYY")
-        title
-        tags
-        keywords
-        summary
-        lang
+      slug
+      date(formatString: "MMM DD, YYYY")
+      title
+      tags
+      keywords
+      summary
+      lang
+      previewImage {
         image {
           publicURL
           childImageSharp {
@@ -191,8 +183,10 @@ export const pageQuery = graphql`
             }
           }
         }
-        imageBy
-        imageByLink
+        by {
+          name
+          url
+        }
       }
       timeToRead
     }

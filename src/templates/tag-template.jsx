@@ -9,7 +9,7 @@ import styles from './tag-template.module.scss';
 
 function BlogsWithTag({ data, pageContext, location }) {
   const { tag } = pageContext;
-  const { edges: posts, totalCount } = data.allMdx;
+  const { edges: posts, totalCount } = data.allBlogPost;
 
   return (
     <>
@@ -20,22 +20,15 @@ function BlogsWithTag({ data, pageContext, location }) {
           {totalCount} {totalCount > 1 ? 'posts' : 'post'}
         </p>
         <List>
-          {posts.map(
-            ({
-              node: {
-                blogUrl,
-                frontmatter: { title, summary },
-              },
-            }) => (
-              <ListItem link={blogUrl} key={blogUrl}>
-                <ListItemText
-                  primaryText={title}
-                  boldPrimary
-                  tertiaryText={summary}
-                />
-              </ListItem>
-            )
-          )}
+          {posts.map(({ node: { slug, title, summary, id } }) => (
+            <ListItem link={slug} key={id}>
+              <ListItemText
+                primaryText={title}
+                boldPrimary
+                tertiaryText={summary}
+              />
+            </ListItem>
+          ))}
         </List>
         <div className="Toolbar">
           <Link to="/tags" className="link-primary">
@@ -52,16 +45,15 @@ BlogsWithTag.propTypes = {
     tag: PropTypes.string.isRequired,
   }),
   data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
+    allBlogPost: PropTypes.shape({
       totalCount: PropTypes.number.isRequired,
       edges: PropTypes.arrayOf(
         PropTypes.shape({
           node: PropTypes.shape({
-            blogUrl: PropTypes.string.isRequired,
-            frontmatter: PropTypes.shape({
-              title: PropTypes.string.isRequired,
-              summary: PropTypes.string.isRequired,
-            }),
+            id: PropTypes.string.isRequired,
+            slug: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            summary: PropTypes.string.isRequired,
           }),
         }).isRequired
       ),
@@ -73,19 +65,18 @@ export default BlogsWithTag;
 
 export const pageQuery = graphql`
   query TagPage($tag: String) {
-    allMdx(
+    allBlogPost(
       limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: { tags: { in: [$tag] }, published: { eq: true } }
+      sort: { order: DESC, fields: [date] }
     ) {
       totalCount
       edges {
         node {
-          blogUrl
-          frontmatter {
-            title
-            summary
-          }
+          id
+          slug
+          title
+          summary
         }
       }
     }

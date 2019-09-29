@@ -2,6 +2,7 @@
 title: 'Reduce redux-connect Typescript boilerplate'
 date: '2019-09-21'
 tags: ['typescript', 'react', 'redux']
+keywords: ['redux', 'typescript', 'boilerplate']
 summary: 'Use Typescript ReturnType to reduce your Redux connect boilerplate'
 published: true
 ---

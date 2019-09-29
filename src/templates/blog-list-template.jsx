@@ -14,7 +14,7 @@ const BlogListTemplate = ({
   pageContext: { currentPage, numPages },
   location,
 }) => {
-  const { posts } = data.allMdx;
+  const { posts } = data.allBlogPost;
 
   const isFirstPage = currentPage === 1;
 
@@ -40,16 +40,12 @@ const BlogListTemplate = ({
         />
         <List>
           {posts.map(({ node: post }) => (
-            <ListItem
-              link={post.blogUrl}
-              className="blog-list-item"
-              key={post.blogUrl}
-            >
+            <ListItem link={post.slug} className="blog-list-item" key={post.id}>
               <ListItemText
-                primaryText={post.frontmatter.title}
+                primaryText={post.title}
                 secondaryText={
                   <>
-                    <span>{post.frontmatter.date}</span>
+                    <span>{post.date}</span>
                     {post.timeToRead && (
                       <span className="italic">
                         {' '}
@@ -58,7 +54,7 @@ const BlogListTemplate = ({
                     )}
                   </>
                 }
-                tertiaryText={post.frontmatter.summary}
+                tertiaryText={post.summary}
                 boldPrimary
               />
             </ListItem>
@@ -96,25 +92,20 @@ const BlogListTemplate = ({
 
 export const pageQuery = graphql`
   query BlogListQuery($skip: Int!, $limit: Int!) {
-    allMdx(
-      filter: {
-        workshop: { id: { eq: null } }
-        frontmatter: { published: { eq: true } }
-      }
-      sort: { order: DESC, fields: [frontmatter___date] }
+    allBlogPost(
+      filter: { published: { eq: true } }
+      sort: { order: DESC, fields: [date] }
       skip: $skip
       limit: $limit
     ) {
       posts: edges {
         node {
           id
-          frontmatter {
-            title
-            date(formatString: "MMM DD, YYYY")
-            summary
-          }
+          title
+          date(formatString: "MMM DD, YYYY")
+          summary
           timeToRead
-          blogUrl
+          slug
         }
       }
     }

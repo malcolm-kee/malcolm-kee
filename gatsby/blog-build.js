@@ -3,6 +3,73 @@ const _ = require('lodash');
 const { isArray } = require('typesafe-is');
 
 /**
+ * Create `BlogPost` node when mdx node is created.
+ */
+exports.createBlogNode = async ({
+  node,
+  actions,
+  getNode,
+  createNodeId,
+  createContentDigest,
+}) => {
+  const { createNode, createParentChildLink } = actions;
+
+  const fileNode = getNode(node.parent);
+  const source = fileNode.sourceInstanceName;
+
+  if (source === 'blogs') {
+    let slug;
+    const frontMatterPath = node.frontmatter && node.frontmatter.path;
+    if (frontMatterPath) {
+      slug = frontMatterPath;
+    } else {
+      const { name } = path.parse(fileNode.relativePath);
+
+      slug = `/blog/${name}`;
+    }
+
+    const fieldsData = {
+      title: node.frontmatter.title,
+      slug,
+      timeToRead: node.timeToRead,
+      tags: node.frontmatter.tags || [],
+      keywords: node.frontmatter.keywords || [],
+      date: node.frontmatter.date,
+      last_updated: node.frontmatter.last_updated || node.frontmatter.date,
+      lang: node.frontmatter.lang || 'en',
+      summary: node.frontmatter.summary,
+      published: node.frontmatter.published || false,
+      previewImage: {
+        image: node.frontmatter.image,
+        by: {
+          name: node.frontmatter.imageBy,
+          url: node.frontmatter.imageByLink,
+        },
+      },
+    };
+
+    const postId = createNodeId(`${node.id} >>> BlogPost`);
+
+    await createNode({
+      ...fieldsData,
+      id: postId,
+      parent: node.id,
+      children: [],
+      internal: {
+        type: `BlogPost`,
+        contentDigest: createContentDigest(fieldsData),
+        content: JSON.stringify(fieldsData),
+      },
+    });
+
+    createParentChildLink({
+      parent: node,
+      child: getNode(postId),
+    });
+  }
+};
+
+/**
  * Pass through fields from MDX to `BlogPost`
  */
 const mdxResolverPassthrough = fieldName => async (
@@ -52,36 +119,6 @@ exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
 
   const typeDefs = [
     schema.buildObjectType({
-      name: 'Mdx',
-      interfaces: ['Node'],
-      fields: {
-        blogUrl: {
-          type: 'String',
-          resolve: (source, args, context, info) => {
-            const fileNode = context.nodeModel.getNodeById({
-              id: source.parent,
-              type: 'File',
-            });
-
-            if (!fileNode || fileNode.sourceInstanceName !== 'blogs') {
-              return null;
-            }
-
-            const frontMatterPath =
-              source.frontmatter && source.frontmatter.path;
-
-            if (frontMatterPath) {
-              return frontMatterPath;
-            }
-
-            const { name } = path.parse(fileNode.relativePath);
-
-            return `/blog/${name}`;
-          },
-        },
-      },
-    }),
-    schema.buildObjectType({
       name: 'BlogPost',
       interfaces: ['Node'],
       fields: {
@@ -93,6 +130,12 @@ exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
           type: `String!`,
           resolve: mdxResolverPassthrough('body'),
         },
+        published: {
+          type: `Boolean!`,
+        },
+        timeToRead: {
+          type: `Int`,
+        },
       },
     }),
   ];
@@ -100,7 +143,6 @@ exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
   createTypes(typeDefs);
 };
 
-// TODO: use BlogPost instead of Mdx
 exports.createBlogs = function createBlogs({ actions, graphql }) {
   if (process.env.DISABLE_BLOG) {
     // optimize local build time
@@ -111,33 +153,23 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
   return graphql(`
     {
-      allMdx(
-        filter: { blogUrl: { ne: null } }
-        sort: { order: DESC, fields: [frontmatter___date] }
-        limit: 1000
-      ) {
+      allBlogPost(sort: { fields: date, order: DESC }, limit: 1000) {
         edges {
           node {
             id
-            frontmatter {
-              title
-              tags
-              keywords
-              summary
-            }
-            blogUrl
+            title
+            tags
+            summary
+            keywords
+            slug
           }
           next {
-            frontmatter {
-              title
-            }
-            blogUrl
+            title
+            slug
           }
           previous {
-            frontmatter {
-              title
-            }
-            blogUrl
+            title
+            slug
           }
         }
       }
@@ -148,33 +180,29 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
     }
 
     const posts = process.env.NUM_OF_BLOGS
-      ? result.data.allMdx.edges.slice(0, Number(process.env.NUM_OF_BLOGS))
-      : result.data.allMdx.edges;
+      ? result.data.allBlogPost.edges.slice(0, Number(process.env.NUM_OF_BLOGS))
+      : result.data.allBlogPost.edges;
 
     posts.forEach(({ node, next, previous }) => {
       createPage({
-        path: node.blogUrl,
+        path: node.slug,
         component: blogPostTemplate,
         context: {
           id: node.id,
           next: previous, // we need to invert these 2 because we query date descending
           previous: next,
-          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.blogUrl} in:title sort:created-asc`,
-          relatedBlogs: isArray(node.frontmatter && node.frontmatter.tags)
-            ? _.sampleSize(
-                posts.filter(
-                  post =>
-                    post.node !== node &&
-                    isArray(
-                      post.node.frontmatter && post.node.frontmatter.tags
-                    ) &&
-                    post.node.frontmatter.tags.some(tag =>
-                      node.frontmatter.tags.includes(tag)
-                    )
-                ),
-                3
-              )
-            : [],
+          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.slug} in:title sort:created-asc`,
+          relatedBlogs: _.sampleSize(
+            posts.filter(
+              post =>
+                post.node !== node &&
+                (post.node.tags.some(tag => node.tags.includes(tag)) ||
+                  post.node.keywords.some(keyword =>
+                    node.keywords.includes(keyword)
+                  ))
+            ),
+            3
+          ),
         },
       });
     });
@@ -198,10 +226,12 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
     let tags = [];
 
     _.each(posts, edge => {
-      if (_.get(edge, 'node.frontmatter.tags')) {
-        tags = tags.concat(edge.node.frontmatter.tags);
+      if (_.get(edge, 'node.tags')) {
+        tags = tags.concat(edge.node.tags);
       }
     });
+
+    tags = _.uniq(tags);
 
     tags.forEach(tag => {
       createPage({
@@ -213,66 +243,4 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
       });
     });
   });
-};
-
-exports.createBlogNode = async ({
-  node,
-  actions,
-  getNode,
-  createNodeId,
-  createContentDigest,
-}) => {
-  const { createNode, createParentChildLink } = actions;
-
-  const fileNode = getNode(node.parent);
-  const source = fileNode.sourceInstanceName;
-
-  if (source === 'blogs') {
-    let slug;
-    const frontMatterPath = node.frontmatter && node.frontmatter.path;
-    if (frontMatterPath) {
-      slug = frontMatterPath;
-    } else {
-      const { name } = path.parse(fileNode.relativePath);
-
-      slug = `/blog/${name}`;
-    }
-
-    const fieldsData = {
-      title: node.frontmatter.title,
-      slug,
-      timeToRead: node.timeToRead,
-      tags: node.frontmatter.tags || [],
-      date: node.frontmatter.date,
-      last_updated: node.frontmatter.last_updated || node.frontmatter.date,
-      lang: node.frontmatter.lang || 'en',
-      summary: node.frontmatter.summary,
-      previewImage: {
-        image: node.frontmatter.image,
-        by: {
-          name: node.frontmatter.imageBy,
-          url: node.frontmatter.imageByLink,
-        },
-      },
-    };
-
-    const postId = createNodeId(`${node.id} >>> BlogPost`);
-
-    await createNode({
-      ...fieldsData,
-      id: postId,
-      parent: node.id,
-      children: [],
-      internal: {
-        type: `BlogPost`,
-        contentDigest: createContentDigest(fieldsData),
-        content: JSON.stringify(fieldsData),
-      },
-    });
-
-    createParentChildLink({
-      parent: node,
-      child: getNode(postId),
-    });
-  }
 };
