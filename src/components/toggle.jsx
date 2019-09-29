@@ -38,10 +38,10 @@ export class Toggle extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ('checked' in nextProps) {
-      this.setState({ checked: !!nextProps.checked });
-      this.previouslyChecked = !!nextProps.checked;
+  componentDidUpdate(prevProps) {
+    if ('checked' in this.props && this.props.checked !== prevProps.checked) {
+      this.setState({ checked: !!this.props.checked });
+      this.previouslyChecked = !!this.props.checked;
     }
   }
 
@@ -179,7 +179,7 @@ export class Toggle extends React.Component {
           }}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          className="react-toggle-screenreader-only"
+          className="sr-only"
           type="checkbox"
         />
       </div>
