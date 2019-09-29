@@ -130,6 +130,10 @@ exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
           type: `String!`,
           resolve: mdxResolverPassthrough('body'),
         },
+        html: {
+          type: `String!`,
+          resolve: mdxResolverPassthrough('html'),
+        },
         published: {
           type: `Boolean!`,
         },

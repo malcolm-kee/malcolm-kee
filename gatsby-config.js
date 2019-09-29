@@ -143,33 +143,28 @@ module.exports = {
           {
             query: `
               {
-                allMdx(
-                  filter: { 
-                    blogUrl: { ne: null }
-                    frontmatter: { published: { eq: true } } 
-                  }
-                  sort: { order: DESC, fields: [frontmatter___date] }
+                allBlogPost(
+                  filter: { published: { eq: true } }
+                  sort: { order: DESC, fields: [date] }
                 ) {
                   edges {
                     node {
+                      slug
                       html
-                      frontmatter {
-                        title
-                        date(formatString: "MMM DD, YYYY")
-                        summary
-                      }
-                      blogUrl
+                      title
+                      date(formatString: "MMM DD, YYYY")
+                      summary
                     }
                   }
                 }
               }
             `,
-            serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.frontmatter.summary,
-                  url: site.siteMetadata.siteUrl + edge.node.blogUrl,
-                  guid: site.siteMetadata.siteUrl + edge.node.blogUrl,
+            serialize: ({ query: { site, allBlogPost } }) => {
+              return allBlogPost.edges.map(edge => {
+                return Object.assign({}, edge.node, {
+                  description: edge.node.summary,
+                  url: site.siteMetadata.siteUrl + edge.node.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.slug,
                   custom_elements: [{ 'content:encoded': edge.node.html }],
                 });
               });
