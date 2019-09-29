@@ -10,7 +10,7 @@ Due to its single-thread nature (meaning only one process that run at one time),
 
 Let's see the simplest example of asynchronous programming: `setTimeout`.
 
-```js
+```js live
 setTimeout(function() {
   console.log('Hi');
 }, 1000);
@@ -27,7 +27,7 @@ Now assume we use an utility function `ajax` that allows us to make API calls.
 
 import { ajax } from '../../../src/helper';
 
-```js
+```js live
 // ajax is a function that I write, it's not available in browser automatically
 var result = ajax('https://icanhazdadjoke.com/');
 
@@ -38,7 +38,7 @@ console.log(result);
 
 To get the result of the ajax call, we need to pass callback to `ajax`:
 
-```js
+```js live
 ajax('https://icanhazdadjoke.com/', {
   onSuccess: function(result) {
     console.log(result);
@@ -54,7 +54,7 @@ How do you handle error for asynchronous code?
 
 Let's see an example:
 
-```js
+```js live
 function dangerLater(message, callback) {
   setTimeout(function() {
     if (message.length > 10) {
@@ -76,7 +76,7 @@ Our `try...catch` clause actually not able the catch the error. In order to catc
 
 - accepts an error callback that will be invoked when error happens:
 
-  ```js
+  ```js live
   function dangerLater(message, callback, onError) {
     setTimeout(function() {
       if (message.length > 10) {
@@ -92,7 +92,7 @@ Our `try...catch` clause actually not able the catch the error. In order to catc
 
 - pass down error as first parameter to callback when error happens, else pass down first parameter as `null`. This style is known as [error first callback][error-first-callback].
 
-  ```js
+  ```js live
   function dangerLater(message, callback) {
     setTimeout(function() {
       if (message.length > 10) {
@@ -118,7 +118,7 @@ First approach is popular among frontend libraries, e.g. jQuery, while the secon
 
 Callback function are fine, but it starts to get hard to understand once you have nested callback.
 
-```js
+```js live
 setTimeout(() => {
   console.log('1 sec passed');
   setTimeout(() => {
@@ -156,7 +156,7 @@ Note that there is two possible outcomes of waiting for the McChicken: the cashi
 
 Let see an example.
 
-```js
+```js live
 function getExamResult(callback) {
   setTimeout(() => {
     const result = Math.round(Math.random() * 100);
@@ -179,7 +179,7 @@ Note: This example may seems like a dumb example, but you can imagine `getExamRe
 
 Below is the version of `getExamResult` that use `Promise`:
 
-```js
+```js live
 function getExamResult() {
   return new Promise((fulfill, reject) => {
     setTimeout(() => {
@@ -239,7 +239,7 @@ getExamResult().then(marks => {
 
 Rewrite the following functions that use callback style to use `Promise`:
 
-```js
+```js live
 function waitFor(second, callback) {
   setTimeout(callback, second * 1000);
 }
@@ -268,7 +268,7 @@ Let imagine a function `callBoss` that will perform some task. We don't know abo
 
 Let's see how this could be achieve with callback:
 
-```js
+```js live
 function callBoss(callback) {
   // call boss and have conversation
   // ...
@@ -298,7 +298,7 @@ callBoss(() => {
 
 To do it with `Promise`:
 
-```js
+```js live
 function callBoss() {
   return new Promise((fulfill, reject) => {
     // call boss and have conversation

@@ -14,7 +14,7 @@ The second new JavaScript features we'll look into are the new Array methods tha
 
 The traditional approach, or introduction-to-programming approach to loop through an array and do something about is to use the `for` loop:
 
-```js
+```js live
 const numbers = [1, 2, 3, 4, 5];
 const result = [];
 
@@ -47,7 +47,7 @@ const result = map(numbers, x => x * 2); // [2, 3, 6, 8, 10];
 
 The implementation of `map` is just few lines of code:
 
-```js
+```js live
 const map = (array, callback) => {
   const output = [];
   for (let index = 0; index < array.length; index++) {
@@ -84,7 +84,7 @@ Now we will go through each of them below.
 
 `map` is the method to do data transformation. `map` will create a new array; the original array will kept unchanged.
 
-```js
+```js live
 const numbers = [1, 2, 3];
 const doubles = numbers.map(num => num * 2);
 
@@ -105,7 +105,7 @@ console.log(names);
 
 The callback that you provide will receive three parameters: element, index, and the whole array, so you can use them for your data transformation.
 
-```js
+```js live
 const numbers = [1, 2, 3];
 const doubleAfterSecond = numbers.map((num, index) =>
   index >= 2 ? num * 2 : num
@@ -118,7 +118,7 @@ console.log(doubleAfterSecond); // [1, 2, 6];
 
 Given the following array:
 
-```js
+```js live
 const participants = [
   { name: 'Abu', ic: '880505-23-4955', gender: 'male' },
   { name: 'Mary', ic: '920505-10-9958', gender: 'female' },
@@ -137,7 +137,7 @@ Get the IC numbers for all the participants
 
 `filter` method is used to filter elements in an array. You do so by providing it a function that will returns `true` or `false`. If `true`, the element will be kept, else it will be discarded. `filter` will create a new Array instead of changing the original array.
 
-```js
+```js live
 const numbers = [1, 2, 3, 4, 5];
 const evenNumbers = numbers.filter(num => num % 2 === 0);
 
@@ -168,7 +168,7 @@ However, there is nothing we can do now other than use it more often and get use
 
 Similar to `map` method, the callback that you pass to `filter` will receive three parameters: the element, the index, and the whole array. You can use these parameters to determine if an element should be filtered.
 
-```js
+```js live
 const numbers = [1, 2, 3, 4, 5, 6];
 
 const afterFourth = numbers.filter((num, index) => index >= 4); // this will keep fifth items onwards
@@ -184,7 +184,7 @@ console.log(half); // [4, 5, 6]
 
 Because both `filter` and `map` returns a new array, it's common to chain them together.
 
-```js
+```js live
 const numbers = [1, 2, 3, 4];
 const doubleOddNumbers = numbers
   .filter(num => num % 2 === 1) // this will returns [1, 3]
@@ -195,7 +195,7 @@ console.log(doubleOddNumbers);
 
 A common use case of `filter` is to pass it the `Boolean` constructor to remove all the falsy value (`undefined`, `null`).
 
-```js
+```js live
 const numbersWithUndefined = [1, undefined, 4, null];
 const numbers = numbersWithUndefined.filter(Boolean);
 // the code above is equivalent to
@@ -208,7 +208,7 @@ console.log(numbers); // [1, 4]
 
 1. Given the following numbers:
 
-   ```js
+   ```js live
    const numbers = [3, -2, 1000, 201, 50, 100, 33, 50, -21];
    ```
 
@@ -218,7 +218,7 @@ console.log(numbers); // [1, 4]
 
 1. Given the following array:
 
-   ```js
+   ```js live
    const participants = [
      { name: 'Abu', ic: '880505-23-4955', gender: 'male' },
      { name: 'Mary', ic: '920505-10-9958', gender: 'female' },
@@ -238,7 +238,7 @@ console.log(numbers); // [1, 4]
 
 `reduce` method is used to derive a single value by looping through the whole array. It's more abstract and slighlty harder to understand than `filter` and `map`, but it's more powerful.
 
-```js
+```js live
 const numbers = [1, 2, 3];
 const sum = numbers.reduce((total, num) => total + num, 0);
 
@@ -258,7 +258,7 @@ The value returned by the function will be passed as `accumulator` for the next 
 
 Let's walkthough the example above:
 
-```js
+```js live
 const numbers = [1, 2, 3];
 const sum = numbers.reduce(
   (total, num) => total + num,
@@ -276,7 +276,7 @@ console.log(sum);
 
 1. grouping numbers to odd numbers and even numbers
 
-```js
+```js live
 // grouping
 const numbers = [1, 2, 3, 4];
 const numberGroups = numbers.reduce(
@@ -301,7 +301,7 @@ console.log(numberGroups.odd);
 console.log(numberGroups.even);
 ```
 
-```js
+```js live
 // counting occurrence
 const alphabets = ['a', 'b', 'c', 'a', 'c', 'z'];
 
@@ -324,7 +324,7 @@ console.log(summary);
 
 In fact, you can even use `reduce` to do what `filter` and `map` do. However, this is not advisable because `map` and `filter` (specific use case) communicates the your code's intention better than `reduce` (generic).
 
-```js
+```js live
 // filtering
 const numbers = [1, 2, 3, 4, 5];
 const evenNumbers = numbers.reduce(
@@ -340,7 +340,7 @@ const doubles = numbers.reduce((result, num) => result.concat(num * 2), []); // 
 
 Given the following array:
 
-```js
+```js live
 const participants = [
   { name: 'Abu', gender: 'male', paid: true },
   { name: 'Mary', gender: 'female', paid: true },
@@ -357,7 +357,7 @@ By using `reduce` method, get an object with two properties `paid` and `unPaid`,
 
 `forEach` is a method to perform some operation for each item. It doesn't returns anything.
 
-```js
+```js live
 const numbers = [1, 4, 7];
 
 numbers.forEach((num, index) =>
@@ -381,7 +381,7 @@ Similar to `filter` and `map`, `forEach` also provide three parameters to the fu
 
 Given the following array:
 
-```js
+```js live
 const participants = [
   { name: 'Abu', gender: 'male', paid: true },
   { name: 'Mary', gender: 'female', paid: true },

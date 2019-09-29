@@ -14,7 +14,7 @@ Similar to destructuring, we have array spread and object spread.
 
 How do you merge multiple array item a single array?
 
-```js
+```js live
 var array1 = [1, 2, 3];
 var middle = 4;
 var array2 = [5, 6, 7];
@@ -26,7 +26,7 @@ console.log(result); // [1, 2, 3, 4, 5, 6, 7];
 
 Using the array spread:
 
-```js
+```js live
 var array1 = [1, 2, 3];
 var middle = 4;
 var array2 = [5, 6, 7];
@@ -42,7 +42,7 @@ It may be confusing at first because both spread and rest use the same syntax (`
 
 You can spread an array to an function invocation so the array item will be provided as the parameters of the function call.
 
-```js
+```js live
 function add(x, y) {
   return x + y;
 }
@@ -56,7 +56,7 @@ console.log(result);
 
 A useful case is to spread an array to a function that accepts any numbers of parameters, e.g. `Math.max`.
 
-```js
+```js live
 var maxNumber = Math.max(100, 0, 500, 10);
 
 console.log(maxNumber); // 500
@@ -72,7 +72,7 @@ console.log(result); // 500
 
 1. Given three variables below:
 
-   ```js
+   ```js live
    var arr1 = ['a', 'b', 'c'];
    var x = 'd';
    var arr2 = ['e', 'f', 'g'];
@@ -88,7 +88,7 @@ console.log(result); // 500
 
 1. Write a function `min` that accepts a parameter `numbers` which is an array of numbers and return the smallest number in the array. (Hint: use [`Math.min`][math-min])
 
-   ```js
+   ```js live
    function min(numbers) {
      // write your implementation.
    }
@@ -103,7 +103,7 @@ console.log(result); // 500
 
 To merge multiple object into a single object:
 
-```js
+```js live
 var base = {
   currency: 'RM',
   decimalPlaces: 2,

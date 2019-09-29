@@ -19,7 +19,7 @@ The first syntactic sugar that we will learn is _template string_.
 
 With old JavaScript, to generate a string that consists of variables, you need to use string concatenation.
 
-```js
+```js live
 var firstName = 'Malcolm';
 var lastName = 'Kee';
 
@@ -30,7 +30,7 @@ console.log(greeting);
 
 With template string:
 
-```js
+```js live
 var firstName = 'Malcolm';
 var lastName = 'Kee';
 
@@ -41,7 +41,7 @@ console.log(greeting);
 
 Another good things about template string is that it can handle multiple lines.
 
-```js
+```js live
 var firstName = 'Malcolm';
 var lastName = 'Kee';
 
@@ -56,7 +56,7 @@ console.log(greeting);
 
 Refactor the following code to use template string.
 
-```js
+```js live
 function greet(firstName, lastName, salutation) {
   console.log(
     'Hi ' + salutation + ' ' + firstName + ' ' + lastName + ', welcome!'

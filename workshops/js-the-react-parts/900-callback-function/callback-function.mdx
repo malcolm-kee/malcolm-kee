@@ -6,7 +6,7 @@ section: 'extra'
 
 In JavaScript, when we want to create a block of reusable code, we create a `function`.
 
-```js
+```js live
 // instead of
 console.log(Math.abs(10));
 console.log(Math.abs(-100));
@@ -26,7 +26,7 @@ The example above shows how we can create a block of reusable code with differen
 
 Let's consider the code below:
 
-```js
+```js live
 var numbers = [1, 2, 3, 4, 5];
 
 var doubleNumbers = [];
@@ -48,7 +48,7 @@ There are many duplications between the computation of `doubleNumbers` and `bigg
 
 Enter callback function:
 
-```js
+```js live
 var numbers = [1, 2, 3, 4, 5];
 function map(array, callback) {
   var result = [];

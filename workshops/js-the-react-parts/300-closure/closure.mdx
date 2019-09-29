@@ -70,7 +70,7 @@ But the fact is, you may not realize you can returns function, but you do pass f
 
 Let's see an example:
 
-```js
+```js live
 function getServerTime(callback) {
   const xmlHttp = new XMLHttpRequest();
 
@@ -110,7 +110,7 @@ With a better understanding of closure (and thus how scope works in JavaScript),
 
 Currying is a technique that allows you to provide parameters to a function sequentially (instead of in single invocation).
 
-```js
+```js live
 function multiply(x, y) {
   return x * y;
 }
@@ -124,7 +124,7 @@ However, what if you get the value of `x` and `y` in different time? (Imagine a 
 
 You can use currying to achieve that:
 
-```js
+```js live
 function createMultiplier(x) {
   return function multiply(y) {
     return x * y;
@@ -141,7 +141,7 @@ console.log(double(3));
 
 Let's see a more fun example:
 
-```js
+```js live
 document.getElementById('bulbasaur').addEventListener('click', function(ev) {
   document.getElementById(ev.target.dataset.sound).play();
   document.getElementById('selected-pokemon').innerHTML = 'Bulbasaur!';
@@ -203,7 +203,7 @@ We will utilize currying in [next lesson](/js-the-react-parts/functional-program
 
 1. Refactor the `map` and `filter` function below to use currying.
 
-```js
+```js live
 const map = (mapper, array) => array.map(mapper);
 const filter = (predicate, array) => array.filter(predicate);
 
@@ -222,7 +222,7 @@ console.log(moreThanTwo(numbers));
 
 2. Remove the duplication in the following code by using currying.
 
-```js
+```js live
 document.querySelector('#size-12').addEventListener('click', function(ev) {
   const container = document.querySelector('#currying-exercise');
   container.style.fontSize = '12px';
@@ -268,7 +268,7 @@ JavaScript does not provide a native way to do this, but we can emulate this wit
 
 Let's see a practical example.
 
-```js
+```js live
 let _number = 0;
 
 const getId = function() {
@@ -345,7 +345,7 @@ This style of declaring a function and then directly invoke it is known as IIFE 
 
 Following is a slightly more complex example:
 
-```js
+```js live
 let _count = 0;
 function _changeBy(val) {
   _count += val;
@@ -374,7 +374,7 @@ console.log(`value after decrement: ${countValue()}`);
 - However, there is no assurance that nobody will mess with `_count` and `_changeBy` directly.
 - We can solve this issue by hiding `_count` and `_changeBy` with closure.
 
-```js
+```js live
 function createCounter() {
   let count = 0;
   function changeBy(val) {
@@ -417,7 +417,7 @@ With module pattern, you realize unless required by the framework/library you us
 
 Note that the `createCounter` code above could be rewritten in a few ways, but all of them behave the same:
 
-```js
+```js live
 // this code inline the public functions
 function createCounter() {
   let count = 0;
@@ -445,7 +445,7 @@ counter.increment();
 console.log(`value after increment: ${counter.value()}`);
 ```
 
-```js
+```js live
 // IIFE styles
 const counter = (function() {
   let count = 0;
@@ -479,7 +479,7 @@ One more things about using module pattern: since it is a function, it encourage
 
 Looking at `createCounter` function, you may realize that there is no reason for us to hard-code initial number as 0. We thus, we can make `createCounter` function to accept an initialCount parameter.
 
-```js
+```js live
 function createCounter(initialCount = 0) {
   let count = initialCount;
   function changeBy(val) {
@@ -512,7 +512,7 @@ console.log(`counter2 count: ${counter2.value()}`);
 
 1. Use closure to hide the private variables (`_msgs` and `_shouldLog`) in the code below.
 
-```js
+```js live
 let _msgs = [];
 const _shouldLog = true;
 
@@ -531,7 +531,7 @@ const clear = () => {
 
 2. Enhance the `createCounter` function to accepts another parameter, `step` that determines the amount it add/minus when you can `increment`/`decrement`.
 
-```js
+```js live
 function createCounter(initialCount = 0) {
   let count = initialCount;
   function changeBy(val) {

@@ -8,7 +8,7 @@ This section we will dive into new features in JavaScript.
 
 One thing that many JavaScript developer didn't realize is that the default scope of variable in JavaScript is function:
 
-```js
+```js live
 function add() {
   var a = 2;
   var b = 5;
@@ -35,7 +35,7 @@ This is in contrast with most programming languages like Java or C in which the 
 
 This behavior applies for `for` loop as well:
 
-```js
+```js live
 var y = 0;
 
 for (var x = 0; x < 5; x++) {
@@ -48,7 +48,7 @@ console.log(x); // 5, because x is not scoped within the for loop
 
 Now JavaScript has two new keywords, `let` and `const`, which will scoped within the block.
 
-```js
+```js live
 function addIfTrue(isTrue, times) {
   var x = 5;
   if (isTrue) {
@@ -72,7 +72,7 @@ console.log(`addIfTrue: ${addIfTrue(true, 2)}`);
 
 `const` behaves like `let`, but it cannot be reassigned.
 
-```js
+```js live
 let x = 5;
 x = 15; // OK
 
@@ -84,7 +84,7 @@ Today, most JavaScript developers use `const` by default, and switch to `let` wh
 
 Note that `const` cannot be reassigned doesn't mean it cannot be changed. If the variable is not a primitive value, i.e. `boolean`, `string`, or `number`, it could be modified.
 
-```js
+```js live
 const x = 5; // primitive, you can expect x will always be 5;
 const y = []; // not primitive, you may expect it will always be an empty array
 

@@ -82,7 +82,7 @@ add(2, 3, 4);
 
 In what case, add will be pure, and how it could be impure?
 
-```js
+```js live
 // this example is pure
 function add(x, y, z) {
   return x + y + z;
@@ -103,7 +103,7 @@ function add(x, y, z) {
 
 The examples above are pretty obvious. What about the following example?
 
-```js
+```js live
 function double(x = 1) {
   return x * 2;
 }
@@ -125,7 +125,7 @@ One technique that you've probably used in most code you've written, and maybe e
 
 For example, our previous `double` function could be implemented below:
 
-```js
+```js live
 let result;
 
 function double(x = 1) {
@@ -139,7 +139,7 @@ console.log(result); // 6
 
 We could have `return` the value instead of assigning it to `result` from within the function:
 
-```js
+```js live
 function double(x = 1) {
   return x * 2;
 }
@@ -157,7 +157,7 @@ They are named as side effects as a contrast to the only purpose of a pure funct
 
 However, assigning value to a variable outside the function is not the only way to perform side effects, consider the following example:
 
-```js
+```js live
 function sumNumbers(numbers) {
   let total = 0;
   for (let i = 0; i < numbers.length; i++) {
@@ -198,7 +198,7 @@ To recap, given same parameters, pure function produces same output by `return` 
 
 Determine if each of the following functions is a pure function:
 
-```js
+```js live
 const person = {
   name: 'Malcolm Kee',
   age: 29,
@@ -210,7 +210,7 @@ const getNextYearAge = person => person.age + 1;
 const makePersonOlder = person => person.age++;
 ```
 
-```js
+```js live
 const persons = [
   { name: 'Malcolm Kee', isWeird: true },
   { name: 'Matthew Yong', isWeird: false },
@@ -269,14 +269,14 @@ logSumMultiplyAndDiff(2, 3);
 
 The implementation of `callAll` is actually very short, but may takes some time to digest:
 
-```js
+```js live
 const callAll = (...fns) => (...args) =>
   fns.forEach(fn => typeof fn === 'function' && fn(...args));
 ```
 
 It's rewritten more verbosely to make it easier to understand:
 
-```js
+```js live
 // callAll accepts any numbers of function as parameters, which will be collected into an array called fns
 const callAll = (...fns) =>
   // and return a combinedFn function, which accepts any numbers of parameters collected into args array
@@ -313,13 +313,13 @@ incrementThenTriple(2); // (2 + 1) * 3 = 9
 
 The implementation of `pipe`, just like `callAll`, is short but takes time to digest:
 
-```js
+```js live
 const pipe = (...fns) => arg => fns.reduce((result, fn) => fn(result), arg);
 ```
 
 A more verbose version:
 
-```js
+```js live
 // pipe accepts any numbers of function as parameters, which will be collected into an array called fns
 const pipe = (...fns) =>
   // and return a pipedFn function, which accepts only one argument

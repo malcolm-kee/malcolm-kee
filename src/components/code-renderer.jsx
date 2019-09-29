@@ -4,14 +4,15 @@ import github from 'prism-react-renderer/themes/github';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
+import { useDiffEffect } from '../hooks/use-diff-effect';
+import { useId } from '../hooks/use-id';
+import { includes } from '../lib/array';
 import { useTheme } from '../theme';
 import { Button } from './Button';
 import './code-renderer.scss';
 import { transformTokens, wrapJsCode } from './code-transformers';
 import { CopyButton } from './copy-button';
 import { EditIcon } from './svg-icons';
-import { useId } from '../hooks/use-id';
-import { useDiffEffect } from '../hooks/use-diff-effect';
 
 export const CodeRenderer = ({
   children,
@@ -31,7 +32,7 @@ export const CodeRenderer = ({
 
   const code = typeof children === 'string' ? children.trim() : children;
 
-  return language === 'js' || (live && language === 'jsx') ? (
+  return live && includes(['js', 'jsx', 'javascript'], language) ? (
     <CodeLiveEditor
       code={code}
       theme={codeTheme}

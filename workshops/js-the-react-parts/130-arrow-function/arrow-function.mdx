@@ -8,7 +8,7 @@ The next syntax we will talk about is arrow function.
 
 The traditional way of declaring a function are:
 
-```js
+```js live
 function myFunction() {
   // do something
 }
@@ -20,7 +20,7 @@ var mySecondFunction = function() {
 
 With arrow function:
 
-```js
+```js live
 var myFunction = () => {
   // do something
 };
@@ -36,7 +36,7 @@ Other than the fact that `=>` is shorter than writing the whole `function` keywo
 
 1. No parentheses required for single parameter
 
-   ```js
+   ```js live
    function double(x) {
      return x * 2;
    }
@@ -48,7 +48,7 @@ Other than the fact that `=>` is shorter than writing the whole `function` keywo
 
 1. Implicit return for single expression
 
-   ```js
+   ```js live
    function add(x, y) {
      return x + y;
    }
@@ -58,7 +58,7 @@ Other than the fact that `=>` is shorter than writing the whole `function` keywo
 
    There is one pitfall for this second behavior: if you return an object, you need to wrap it with parentheses because JavaScript engine couldn't tell if the curly brace is the beginning of a function or the beginning of an object.
 
-   ```js
+   ```js live
    function createObject(x, y) {
      return { x, y };
    }
@@ -70,7 +70,7 @@ Those compact syntaxes would make your code much more shorter, especially in two
 
 1. Currying (no worries if you not sure what is currying, we will discuss it in more details [later](/js-the-react-parts/closure#currying-with-closure))
 
-   ```js
+   ```js live
    function add(x) {
      return function(y) {
        return x + y;
@@ -82,7 +82,7 @@ Those compact syntaxes would make your code much more shorter, especially in two
 
 1. Inline function
 
-   ```js
+   ```js live
    var numbers = [2, 3, 4];
 
    // `map` is a method on all Array object. We will discuss this later.
@@ -98,7 +98,7 @@ Those compact syntaxes would make your code much more shorter, especially in two
 
 Rewrite the following functions with arrow function to make them more compact
 
-```js
+```js live
 function pickPhone(person) {
   return {
     phoneNumber: person.phone,

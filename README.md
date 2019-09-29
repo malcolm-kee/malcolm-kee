@@ -13,14 +13,14 @@ Workshop materials:
 
 ## Code Snippet MDX Usage
 
-This site is powered by [`gatsby-mdx`][gatsby-mdx], which enable the code editor in the markdown.
+This site is powered by [`gatsby-mdx`][gatsby-mdx], which enable the code editor in the markdown.\*
 
-Live code editor mode will be enabled for two cases:
+Live code editor mode will be enabled when _all_ following conditions are met:
 
-- the language is `js` (`javascript` will not be live code editor).
-- the language is `jsx` with prop `live`
+- the language is `js` or `jsx`.
+- the props `live` is provided.
 
-The props can be provided like this:
+For example:
 
 ````md
     ```jsx live fileName=src/example.js
@@ -34,9 +34,8 @@ The following props are supported:
 - `noWrapper`: remove the wrapper around code snippet. This is to remove the clutter.
 - `highlightedLines`: comma-separated line numbers to be highlighted. This is not recommended if you can use special comments below, but some languages doesn't support comment (like JSON).
 
-Only applicable for language `jsx`:
+The following props are only applicable for language `jsx`:
 
-- `live`: make the code live editor.
 - `noInline`: make the render of component requires the call of `render`. This is actually props of `react-live`.
 - `previewOnly`: only shows the rendered result of the code, but not the code itself.
 

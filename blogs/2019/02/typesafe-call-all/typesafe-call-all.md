@@ -47,7 +47,7 @@ It is commonly used in React when you want to wrap some component to have additi
 
 Its implementation in javascript is pretty simple:
 
-```js
+```js live
 const callAll = (...fns) => (...args) =>
   fns.forEach(fn => typeof fn === 'function' && fn(...args));
 ```
