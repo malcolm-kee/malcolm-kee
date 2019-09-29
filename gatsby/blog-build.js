@@ -2,6 +2,26 @@ const path = require('path');
 const _ = require('lodash');
 const { isArray } = require('typesafe-is');
 
+/**
+ * Pass through fields from MDX to `BlogPost`
+ */
+const mdxResolverPassthrough = fieldName => async (
+  source,
+  args,
+  context,
+  info
+) => {
+  const type = info.schema.getType(`Mdx`);
+  const mdxNode = context.nodeModel.getNodeById({
+    id: source.parent,
+  });
+  const resolver = type.getFields()[fieldName].resolve;
+  const result = await resolver(mdxNode, args, context, {
+    fieldName,
+  });
+  return result;
+};
+
 const blogPostTemplate = path.resolve(
   __dirname,
   '..',
@@ -61,11 +81,26 @@ exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
         },
       },
     }),
+    schema.buildObjectType({
+      name: 'BlogPost',
+      interfaces: ['Node'],
+      fields: {
+        slug: {
+          type: `String!`,
+        },
+        date: { type: `Date!`, extensions: { dateformat: {} } },
+        body: {
+          type: `String!`,
+          resolve: mdxResolverPassthrough('body'),
+        },
+      },
+    }),
   ];
 
   createTypes(typeDefs);
 };
 
+// TODO: use BlogPost instead of Mdx
 exports.createBlogs = function createBlogs({ actions, graphql }) {
   if (process.env.DISABLE_BLOG) {
     // optimize local build time
@@ -178,4 +213,66 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
       });
     });
   });
+};
+
+exports.createBlogNode = async ({
+  node,
+  actions,
+  getNode,
+  createNodeId,
+  createContentDigest,
+}) => {
+  const { createNode, createParentChildLink } = actions;
+
+  const fileNode = getNode(node.parent);
+  const source = fileNode.sourceInstanceName;
+
+  if (source === 'blogs') {
+    let slug;
+    const frontMatterPath = node.frontmatter && node.frontmatter.path;
+    if (frontMatterPath) {
+      slug = frontMatterPath;
+    } else {
+      const { name } = path.parse(fileNode.relativePath);
+
+      slug = `/blog/${name}`;
+    }
+
+    const fieldsData = {
+      title: node.frontmatter.title,
+      slug,
+      timeToRead: node.timeToRead,
+      tags: node.frontmatter.tags || [],
+      date: node.frontmatter.date,
+      last_updated: node.frontmatter.last_updated || node.frontmatter.date,
+      lang: node.frontmatter.lang || 'en',
+      summary: node.frontmatter.summary,
+      previewImage: {
+        image: node.frontmatter.image,
+        by: {
+          name: node.frontmatter.imageBy,
+          url: node.frontmatter.imageByLink,
+        },
+      },
+    };
+
+    const postId = createNodeId(`${node.id} >>> BlogPost`);
+
+    await createNode({
+      ...fieldsData,
+      id: postId,
+      parent: node.id,
+      children: [],
+      internal: {
+        type: `BlogPost`,
+        contentDigest: createContentDigest(fieldsData),
+        content: JSON.stringify(fieldsData),
+      },
+    });
+
+    createParentChildLink({
+      parent: node,
+      child: getNode(postId),
+    });
+  }
 };

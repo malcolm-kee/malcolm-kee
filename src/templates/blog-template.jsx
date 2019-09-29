@@ -170,6 +170,7 @@ function RelatedBlogs({ blogs }) {
   ) : null;
 }
 
+// TODO: query BlogPost instead of mdx
 export const pageQuery = graphql`
   query BlogPostByPath($id: String!, $commentsSearch: String!) {
     mdx(id: { eq: $id }) {
