@@ -33,7 +33,7 @@ exports.createBlogNode = async ({
       slug,
       timeToRead: node.timeToRead,
       tags: node.frontmatter.tags || [],
-      keywords: node.frontmatter.keywords || [],
+      keywords: node.frontmatter.keywords || node.frontmatter.tags || [],
       date: node.frontmatter.date,
       last_updated: node.frontmatter.last_updated || node.frontmatter.date,
       lang: node.frontmatter.lang || 'en',
