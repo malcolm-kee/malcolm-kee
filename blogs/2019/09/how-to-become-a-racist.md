@@ -12,13 +12,13 @@ published: true
 
 It's easy to become racist.
 
-You may not like to admit it, but you may think a particular race is lazier, a particular race is greedier, a particular race is more violent.
+You may not like to admit it, but privately you think that a particular race is generally lazier, another greedier, and some other race is more violent.
 
 I used to think that it's because our country is still a developing country, therefore our mindsets are uncivilized.
 
 Nonetheless, some times ago, I heard a comment from an entrepreneur from a First-World country:
 
-> We tried to recuit a few candidates from XXX race, and all of them are irresponsible &mdash; left early, come late, MIA etc. We're not gonna consider condidate from that race anymore.
+> We tried to recruit a few candidates from XXX race, and all of them are irresponsible &mdash; left early, come late, MIA etc. We're not gonna consider condidate from that race anymore.
 
 It seems to me that, regardless of economic status, racism is just an easy trap to fall into.
 
@@ -42,7 +42,7 @@ For example, if you think of "Chinese versus Malay", you will subconsciously try
 The same logic works the other way, using same concept, as a Malay you can think:
 
 - "Hey, there is a Chinese business man disrespects our country, I guess Chinese are all selfish persons that are not patriotic."
-- "Hey, some Malay people are irresponsible. But that's just some exceptions. Malay are usually hardworking and honest person."
+- "Hey, some Malay people are irresponsible. But those are just exceptions. Malay are usually hardworking and honest person."
 
 </aside>
 
