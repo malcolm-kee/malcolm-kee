@@ -31,7 +31,7 @@ exports.createLessonNode = async ({
       fileAbsolutePath: fileNode.absolutePath,
       section: node.frontmatter.section,
       keywords: node.frontmatter.keywords || [],
-      last_updated: node.frontmatter.last_updated || node.frontmatter.date,
+      updated_at: node.frontmatter.updated_at || node.frontmatter.date,
       description: node.frontmatter.description,
       isLastLesson: node.frontmatter.isLastLesson || false,
     };
@@ -195,6 +195,7 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
         fileAbsolutePath: {
           type: 'String!',
         },
+        updated_at: { type: `Date`, extensions: { dateformat: {} } },
         body: {
           type: `String!`,
           resolve: mdxResolverPassthrough('body'),

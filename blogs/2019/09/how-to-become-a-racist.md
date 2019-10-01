@@ -4,6 +4,7 @@ date: '2019-09-29'
 summary: 'Every time you try to use race to making a us-versus-them comparison, you are introducing the risk of becoming a racist.'
 tags: ['pyschology']
 keywords: ['racist', 'malaysia']
+updated_at: '2019-09-30'
 image: './photo-malaysia.jpg'
 imageBy: 'Deva Darshan'
 imageByLink: 'https://unsplash.com/@darshan394'

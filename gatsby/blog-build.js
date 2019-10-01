@@ -36,7 +36,7 @@ exports.createBlogNode = async ({
       tags: node.frontmatter.tags || [],
       keywords: node.frontmatter.keywords || node.frontmatter.tags || [],
       date: node.frontmatter.date,
-      last_updated: node.frontmatter.last_updated || node.frontmatter.date,
+      updated_at: node.frontmatter.updated_at || node.frontmatter.date,
       lang: node.frontmatter.lang || 'en',
       summary: node.frontmatter.summary,
       published: node.frontmatter.published || false,
@@ -107,6 +107,7 @@ exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
           type: `String!`,
         },
         date: { type: `Date!`, extensions: { dateformat: {} } },
+        updated_at: { type: `Date!`, extensions: { dateformat: {} } },
         body: {
           type: `String!`,
           resolve: mdxResolverPassthrough('body'),
