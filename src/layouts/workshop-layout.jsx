@@ -4,23 +4,21 @@ import { Navbar } from '../components/workshop/navbar';
 import { TableOfContents } from '../components/workshop/table-of-contents';
 
 export const WorkshopLayout = ({
-  workshopTitle,
-  workshopRoot,
-  workshopThemeColor,
   workshopSections,
+  workshop,
   pathname,
   children,
 }) => (
   <div className="Layout">
     <Navbar
-      title={workshopTitle}
-      linkTarget={workshopRoot}
-      backgroundColor={workshopThemeColor}
+      title={workshop.name}
+      linkTarget={`/${workshop.id}`}
+      backgroundColor={workshop.themeColor}
     />
     {children}
     <TableOfContents
       sections={workshopSections}
-      themeColor={workshopThemeColor}
+      themeColor={workshop.themeColor}
       pathname={pathname}
     />
     <Footer left />

@@ -4,8 +4,8 @@ const {
   createBlogSchemaCustomization,
 } = require('./gatsby/blog-build');
 const {
+  createLessonNode,
   createWorkshopPages,
-  createWorkshopNodeFields,
   createWorkshopSchemaCustomization,
 } = require('./gatsby/workshops-build');
 
@@ -18,7 +18,13 @@ exports.onCreateNode = async ({
   createContentDigest,
 }) => {
   if (node.internal.type === 'Mdx') {
-    await createWorkshopNodeFields({ node, actions, getNode, reporter });
+    await createLessonNode({
+      node,
+      actions,
+      getNode,
+      createNodeId,
+      createContentDigest,
+    });
     await createBlogNode({
       node,
       actions,

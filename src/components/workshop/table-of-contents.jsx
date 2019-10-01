@@ -74,16 +74,14 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
   const withSection = title !== 'null';
 
   const [isActive, setIsActive] = React.useState(() =>
-    nodes.some(node => node.fields.slug === pathname)
+    nodes.some(node => node.slug === pathname)
   );
 
-  const activateRef = React.useRef(() => {
-    if (!isActive && nodes.some(node => node.fields.slug === pathname)) {
+  React.useEffect(() => {
+    if (!isActive && nodes.some(node => node.slug === pathname)) {
       setIsActive(true);
     }
-  });
-
-  React.useEffect(activateRef.current, [pathname]);
+  }, [pathname]);
 
   return (
     <>
@@ -100,7 +98,7 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
           </button>
         </li>
       )}
-      {nodes.map(({ frontmatter: { title }, fields: { slug } }) => (
+      {nodes.map(({ title, slug }) => (
         <li
           className={cx(
             'toc-link-item animated',

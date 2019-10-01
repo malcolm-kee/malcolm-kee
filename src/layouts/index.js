@@ -1,9 +1,11 @@
 import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
+import { isNil } from 'typesafe-is';
 import { createClient, Provider } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
 import { Ol } from '../components/ol';
 import { Ul } from '../components/ul';
+import { ErrorBoundary } from '../components/error-boundary';
 import { Aside } from '../components/workshop/aside';
 import { Exercise } from '../components/workshop/exercise';
 import { ThemeProvider } from '../theme';
@@ -42,34 +44,28 @@ const LayoutContainer = ({ children, pageContext, location }) => {
     }
   }, [location.pathname, isRoot]);
 
-  const {
-    isWorkshop,
-    workshopId,
-    workshopTitle,
-    workshopThemeColor,
-    lessonGroup,
-  } = pageContext;
+  const { workshop, lessonGroup } = pageContext;
 
   return (
-    <Provider value={githubClient}>
-      <ThemeProvider value={themeValue}>
-        <MDXProvider components={mdxComponents}>
-          {isWorkshop ? (
-            <WorkshopLayout
-              workshopTitle={workshopTitle}
-              workshopThemeColor={workshopThemeColor}
-              workshopRoot={`/${workshopId}`}
-              workshopSections={lessonGroup}
-              pathname={location.pathname}
-            >
-              {children}
-            </WorkshopLayout>
-          ) : (
-            <Layout isRoot={isRoot}>{children}</Layout>
-          )}
-        </MDXProvider>
-      </ThemeProvider>
-    </Provider>
+    <ErrorBoundary>
+      <Provider value={githubClient}>
+        <ThemeProvider value={themeValue}>
+          <MDXProvider components={mdxComponents}>
+            {isNil(workshop) ? (
+              <Layout isRoot={isRoot}>{children}</Layout>
+            ) : (
+              <WorkshopLayout
+                workshop={workshop}
+                workshopSections={lessonGroup}
+                pathname={location.pathname}
+              >
+                {children}
+              </WorkshopLayout>
+            )}
+          </MDXProvider>
+        </ThemeProvider>
+      </Provider>
+    </ErrorBoundary>
   );
 };
 

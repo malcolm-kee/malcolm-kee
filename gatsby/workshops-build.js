@@ -1,6 +1,61 @@
 const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
+const { mdxResolverPassthrough } = require('./shared');
+
+/**
+ * Create `Lesson`node when mdx node is created.
+ */
+exports.createLessonNode = async ({
+  node,
+  actions,
+  getNode,
+  createNodeId,
+  createContentDigest,
+}) => {
+  const { createNode, createParentChildLink } = actions;
+
+  const fileNode = getNode(node.parent);
+  const source = fileNode.sourceInstanceName;
+
+  if (source === 'workshops') {
+    // use filename and directory name to generate path
+    const { dir, name } = path.parse(fileNode.relativePath);
+    const workshop = dir.split('/')[0];
+    const slug = `/${workshop}/${name}`;
+
+    const fieldsData = {
+      title: node.frontmatter.title,
+      slug,
+      workshop,
+      fileAbsolutePath: fileNode.absolutePath,
+      section: node.frontmatter.section,
+      keywords: node.frontmatter.keywords || [],
+      last_updated: node.frontmatter.last_updated || node.frontmatter.date,
+      description: node.frontmatter.description,
+      isLastLesson: node.frontmatter.isLastLesson || false,
+    };
+
+    const lessonId = createNodeId(`${node.id} >>> Lesson`);
+
+    await createNode({
+      ...fieldsData,
+      id: lessonId,
+      parent: node.id,
+      children: [],
+      internal: {
+        type: `Lesson`,
+        contentDigest: createContentDigest(fieldsData),
+        content: JSON.stringify(fieldsData),
+      },
+    });
+
+    createParentChildLink({
+      parent: node,
+      child: getNode(lessonId),
+    });
+  }
+};
 
 const instructionTemplate = path.resolve(
   __dirname,
@@ -19,10 +74,18 @@ function groupInstruction(edges) {
   const nodes = edges.map(edge => edge.node);
 
   nodes.forEach(node => {
-    if (sectionsByKey[node.frontmatter.section]) {
-      sectionsByKey[node.frontmatter.section].push(node);
+    if (sectionsByKey[node.section]) {
+      sectionsByKey[node.section].push({
+        title: node.title,
+        slug: node.slug,
+      });
     } else {
-      sectionsByKey[node.frontmatter.section] = [node];
+      sectionsByKey[node.section] = [
+        {
+          title: node.title,
+          slug: node.slug,
+        },
+      ];
     }
   });
 
@@ -48,34 +111,24 @@ exports.createWorkshopPages = function createWorkshopPages({
   const { createPage } = actions;
   return graphql(`
     {
-      allMdx(
-        filter: { workshop: { id: { ne: null } } }
-        sort: { fields: [fileAbsolutePath] }
-      ) {
+      allLesson(sort: { fields: fileAbsolutePath, order: ASC }) {
         group(field: workshop___id) {
           workshop: fieldValue
           edges {
             node {
               id
-              frontmatter {
-                path
-                section
-                title
-                isLastLesson
-              }
-              fields {
-                slug
-              }
+              title
+              slug
+              isLastLesson
+              section
               workshop {
-                id
-                name
                 themeColor
+                name
+                id
               }
             }
             next {
-              fields {
-                slug
-              }
+              slug
             }
           }
         }
@@ -87,11 +140,11 @@ exports.createWorkshopPages = function createWorkshopPages({
     }
 
     reporter.info(
-      `obtain Mdx group: [${result.data.allMdx.group.length}];
+      `obtain Lesson group: [${result.data.allLesson.group.length}];
       ONLY_WORKSHOP env var: [${ONLY_WORKSHOP}]`
     );
 
-    const groups = result.data.allMdx.group.filter(
+    const groups = result.data.allLesson.group.filter(
       group => !ONLY_WORKSHOP || group.workshop === ONLY_WORKSHOP
     );
 
@@ -100,19 +153,16 @@ exports.createWorkshopPages = function createWorkshopPages({
 
       group.edges.forEach(({ node: lesson, next }) => {
         createPage({
-          path: lesson.fields.slug,
+          path: lesson.slug,
           component: instructionTemplate,
           context: {
             // used in layout
-            next: lesson.frontmatter.isLastLesson ? null : next, // hard-code to remove next for conclusion
+            next: lesson.isLastLesson ? null : next,
             lessonGroup,
-            isWorkshop: true,
-            workshopId: lesson.workshop.id,
-            workshopTitle: lesson.workshop.name,
-            workshopThemeColor: lesson.workshop.themeColor,
+            workshop: lesson.workshop,
             // used in template
             id: lesson.id,
-            commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${lesson.fields.slug} in:title sort:created-asc`,
+            commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${lesson.slug} in:title sort:created-asc`,
           },
         });
       });
@@ -130,58 +180,41 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
       underConstruction: Boolean
     }`,
     schema.buildObjectType({
-      name: 'Mdx',
+      name: 'Lesson',
       interfaces: ['Node'],
       fields: {
+        slug: {
+          type: 'String!',
+        },
         workshop: {
           type: 'WorkshopsJson',
-          resolve: (source, args, context, info) => {
-            const fileNode = context.nodeModel.getNodeById({
-              id: source.parent,
-              type: 'File',
-            });
-
-            if (!fileNode || fileNode.sourceInstanceName !== 'workshops') {
-              return null;
-            }
-
-            const workshopId = fileNode.relativeDirectory.split('/')[0];
-
-            return workshopId
-              ? context.nodeModel.getNodeById({
-                  id: workshopId,
-                  type: 'WorkshopsJson',
-                })
-              : null;
+          extensions: {
+            link: {},
           },
+        },
+        fileAbsolutePath: {
+          type: 'String!',
+        },
+        body: {
+          type: `String!`,
+          resolve: mdxResolverPassthrough('body'),
+        },
+        html: {
+          type: `String!`,
+          resolve: mdxResolverPassthrough('html'),
+        },
+        tableOfContents: {
+          type: `JSON`,
+          args: {
+            maxDepth: {
+              type: 'Int',
+            },
+          },
+          resolve: mdxResolverPassthrough('tableOfContents'),
         },
       },
     }),
   ];
 
   createTypes(typeDefs);
-};
-
-exports.createWorkshopNodeFields = function createWorkshopNodeFields({
-  node,
-  actions,
-  getNode,
-  reporter,
-}) {
-  const { createNodeField } = actions;
-
-  const fileNode = getNode(node.parent);
-  const isWorkshop = fileNode.sourceInstanceName === 'workshops';
-  if (isWorkshop) {
-    // use filename and directory name to generate path
-    const { dir, name } = path.parse(fileNode.relativePath);
-    const workshop = dir.split('/')[0];
-    if (workshop) {
-      createNodeField({
-        node,
-        name: 'slug',
-        value: `/${workshop}/${name}`,
-      });
-    }
-  }
 };
