@@ -2,14 +2,14 @@ import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
 import { LinkButton } from '../components/Button';
-import { ErrorBoundary } from '../components/error-boundary';
 import { ChevronIcon } from '../components/chevron-icon';
 import { Comments } from '../components/comments';
+import { ErrorBoundary } from '../components/error-boundary';
 import { ReportIssueLink } from '../components/report-issue-link';
 import { Seo } from '../components/Seo';
-import './instruction-template.scss';
+import './lesson-template.scss';
 
-const InstructionTemplate = ({
+const LessonTemplate = ({
   data: { lesson, github },
   pageContext: { next, commentsSearch },
   location,
@@ -78,11 +78,11 @@ const rightArrow = (
   />
 );
 
-export default InstructionTemplate;
+export default LessonTemplate;
 
 export const pageQuery = graphql`
-  query LessonById($id: String!, $commentsSearch: String!) {
-    lesson(id: { eq: $id }) {
+  query LessonBySlug($slug: String!, $commentsSearch: String!) {
+    lesson(slug: { eq: $slug }) {
       id
       slug
       title
