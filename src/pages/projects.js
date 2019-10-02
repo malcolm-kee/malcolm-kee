@@ -206,7 +206,7 @@ const ProjectPage = ({ data: { allProjects }, location }) => {
 
 export const query = graphql`
   query ProjectsPageQuery {
-    allProjects: allProjectsJson {
+    allProjects: allProjectsYaml {
       edges {
         node {
           id

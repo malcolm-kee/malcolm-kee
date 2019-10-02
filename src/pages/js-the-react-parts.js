@@ -10,9 +10,9 @@ import './js-the-react-parts.scss';
 /* eslint-disable no-script-url */
 
 const PageHeader = () => {
-  const { workshopsJson } = useStaticQuery(graphql`
+  const { workshopsYaml } = useStaticQuery(graphql`
     {
-      workshopsJson(contentId: { eq: "js-the-react-parts" }) {
+      workshopsYaml(id: { eq: "js-the-react-parts" }) {
         name
         description
         keywords
@@ -37,15 +37,15 @@ const PageHeader = () => {
   return (
     <WorkshopLandingPageBanner>
       <Seo
-        title={workshopsJson.name}
-        description={workshopsJson.description}
-        keywords={workshopsJson.keywords}
+        title={workshopsYaml.name}
+        description={workshopsYaml.description}
+        keywords={workshopsYaml.keywords}
         image={
-          workshopsJson.image && workshopsJson.image.childImageSharp.resize.src
+          workshopsYaml.image && workshopsYaml.image.childImageSharp.resize.src
         }
         icon={
-          workshopsJson.iconFile &&
-          workshopsJson.iconFile.childImageSharp.resize.src
+          workshopsYaml.iconFile &&
+          workshopsYaml.iconFile.childImageSharp.resize.src
         }
       />
       <div id="js-the-react-parts-landing">

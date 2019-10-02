@@ -29,7 +29,7 @@ module.exports = {
     },
     `gatsby-plugin-layout`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-transformer-json`,
+    `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-source-graphql`,
       options: {

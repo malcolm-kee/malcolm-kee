@@ -176,7 +176,7 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
 }) {
   const { createTypes } = actions;
   const typeDefs = [
-    `type WorkshopsJson implements Node {
+    `type WorkshopsYaml implements Node {
       underConstruction: Boolean
     }`,
     schema.buildObjectType({
@@ -187,7 +187,7 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
           type: 'String!',
         },
         workshop: {
-          type: 'WorkshopsJson',
+          type: 'WorkshopsYaml',
           extensions: {
             link: {},
           },

@@ -12,10 +12,10 @@ import { Seo } from '../components/Seo';
 
 const WorkshopsPage = ({ location }) => {
   const {
-    allWorkshopsJson: { edges },
+    allWorkshopsYaml: { edges },
   } = useStaticQuery(graphql`
     query {
-      allWorkshopsJson {
+      allWorkshopsYaml {
         edges {
           node {
             id

@@ -76,11 +76,15 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
   const [isActive, setIsActive] = React.useState(() =>
     nodes.some(node => node.slug === pathname)
   );
-
-  React.useEffect(() => {
+  const activateRef = React.useRef(null);
+  activateRef.current = function() {
     if (!isActive && nodes.some(node => node.slug === pathname)) {
       setIsActive(true);
     }
+  };
+
+  React.useEffect(() => {
+    activateRef.current();
   }, [pathname]);
 
   return (

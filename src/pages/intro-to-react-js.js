@@ -6,9 +6,9 @@ import { Seo } from '../components/Seo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 
 const PageHeader = () => {
-  const { workshopsJson } = useStaticQuery(graphql`
+  const { workshopsYaml } = useStaticQuery(graphql`
     {
-      workshopsJson(contentId: { eq: "intro-to-react-js" }) {
+      workshopsYaml(id: { eq: "intro-to-react-js" }) {
         name
         description
         themeColor
@@ -34,15 +34,15 @@ const PageHeader = () => {
   return (
     <WorkshopLandingPageBanner inverse>
       <Seo
-        title={workshopsJson.name}
-        description={workshopsJson.description}
-        keywords={workshopsJson.keywords}
+        title={workshopsYaml.name}
+        description={workshopsYaml.description}
+        keywords={workshopsYaml.keywords}
         image={
-          workshopsJson.image && workshopsJson.image.childImageSharp.resize.src
+          workshopsYaml.image && workshopsYaml.image.childImageSharp.resize.src
         }
         icon={
-          workshopsJson.iconFile &&
-          workshopsJson.iconFile.childImageSharp.resize.src
+          workshopsYaml.iconFile &&
+          workshopsYaml.iconFile.childImageSharp.resize.src
         }
       />
       <div>
@@ -52,9 +52,9 @@ const PageHeader = () => {
         <div className="landing-title-container">
           <h1
             className="landing-title"
-            style={{ color: workshopsJson.themeColor }}
+            style={{ color: workshopsYaml.themeColor }}
           >
-            {workshopsJson.name}
+            {workshopsYaml.name}
           </h1>
           <div className="Toolbar Toolbar--space-vertical">
             <LinkButton

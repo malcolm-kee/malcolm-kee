@@ -8,9 +8,9 @@ import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landi
 import { icon } from './web-developer-toolbox.module.scss';
 
 const PageHeader = () => {
-  const { workshopsJson } = useStaticQuery(graphql`
+  const { workshopsYaml } = useStaticQuery(graphql`
     {
-      workshopsJson(contentId: { eq: "web-developer-toolbox" }) {
+      workshopsYaml(id: { eq: "web-developer-toolbox" }) {
         name
         description
         keywords
@@ -37,16 +37,16 @@ const PageHeader = () => {
     <>
       <WorkshopLandingPageBanner>
         <Seo
-          title={workshopsJson.name}
-          description={workshopsJson.description}
-          keywords={workshopsJson.keywords}
+          title={workshopsYaml.name}
+          description={workshopsYaml.description}
+          keywords={workshopsYaml.keywords}
           image={
-            workshopsJson.image &&
-            workshopsJson.image.childImageSharp.resize.src
+            workshopsYaml.image &&
+            workshopsYaml.image.childImageSharp.resize.src
           }
           icon={
-            workshopsJson.iconFile &&
-            workshopsJson.iconFile.childImageSharp.resize.src
+            workshopsYaml.iconFile &&
+            workshopsYaml.iconFile.childImageSharp.resize.src
           }
         />
         <div>
@@ -56,11 +56,11 @@ const PageHeader = () => {
           <div className="landing-title-container">
             <h1
               className="landing-title"
-              style={{ color: workshopsJson.themeColor }}
+              style={{ color: workshopsYaml.themeColor }}
             >
-              {workshopsJson.name}
+              {workshopsYaml.name}
             </h1>
-            <p className="landing-subtitle">{workshopsJson.description}</p>
+            <p className="landing-subtitle">{workshopsYaml.description}</p>
             <div className="Toolbar Toolbar--space-vertical">
               <LinkButton
                 to="/web-developer-toolbox/introduction"

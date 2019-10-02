@@ -7,9 +7,9 @@ import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landi
 import { logo } from './state-management-with-redux.module.scss';
 
 const PageHeader = () => {
-  const { workshopsJson } = useStaticQuery(graphql`
+  const { workshopsYaml } = useStaticQuery(graphql`
     {
-      workshopsJson(contentId: { eq: "state-management-with-redux" }) {
+      workshopsYaml(id: { eq: "state-management-with-redux" }) {
         name
         description
         keywords
@@ -43,23 +43,23 @@ const PageHeader = () => {
     <>
       <WorkshopLandingPageBanner inverse>
         <Seo
-          title={workshopsJson.name}
-          description={workshopsJson.description}
-          keywords={workshopsJson.keywords}
+          title={workshopsYaml.name}
+          description={workshopsYaml.description}
+          keywords={workshopsYaml.keywords}
           image={
-            workshopsJson.image &&
-            workshopsJson.image.childImageSharp.resize.src
+            workshopsYaml.image &&
+            workshopsYaml.image.childImageSharp.resize.src
           }
           icon={
-            workshopsJson.iconFile &&
-            workshopsJson.iconFile.childImageSharp.resize.src
+            workshopsYaml.iconFile &&
+            workshopsYaml.iconFile.childImageSharp.resize.src
           }
         />
         <div>
           <div className="logo-section">
             <div className={logo}>
               <Image
-                fluid={workshopsJson.bigImage.childImageSharp.fluid}
+                fluid={workshopsYaml.bigImage.childImageSharp.fluid}
                 alt=""
               />
             </div>
@@ -67,11 +67,11 @@ const PageHeader = () => {
           <div className="landing-title-container">
             <h1
               className="landing-title"
-              style={{ color: workshopsJson.themeColor }}
+              style={{ color: workshopsYaml.themeColor }}
             >
-              {workshopsJson.name}
+              {workshopsYaml.name}
             </h1>
-            <p className="landing-subtitle">{workshopsJson.description}</p>
+            <p className="landing-subtitle">{workshopsYaml.description}</p>
             <div className="Toolbar Toolbar--space-vertical">
               <LinkButton
                 to="/state-management-with-redux/introduction"

@@ -7,9 +7,9 @@ import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landi
 import './intro-to-react-js-v2.scss';
 
 const PageHeader = () => {
-  const { workshopsJson } = useStaticQuery(graphql`
+  const { workshopsYaml } = useStaticQuery(graphql`
     {
-      workshopsJson(contentId: { eq: "intro-to-react-js-v2" }) {
+      workshopsYaml(id: { eq: "intro-to-react-js-v2" }) {
         name
         description
         keywords
@@ -35,15 +35,15 @@ const PageHeader = () => {
   return (
     <WorkshopLandingPageBanner>
       <Seo
-        title={workshopsJson.name}
-        description={workshopsJson.description}
-        keywords={workshopsJson.keywords}
+        title={workshopsYaml.name}
+        description={workshopsYaml.description}
+        keywords={workshopsYaml.keywords}
         image={
-          workshopsJson.image && workshopsJson.image.childImageSharp.resize.src
+          workshopsYaml.image && workshopsYaml.image.childImageSharp.resize.src
         }
         icon={
-          workshopsJson.iconFile &&
-          workshopsJson.iconFile.childImageSharp.resize.src
+          workshopsYaml.iconFile &&
+          workshopsYaml.iconFile.childImageSharp.resize.src
         }
       />
       <div id="intro-to-react-js-v2-landing">
@@ -55,9 +55,9 @@ const PageHeader = () => {
         <div className="landing-title-container">
           <h1
             className="landing-title"
-            style={{ color: workshopsJson.themeColor }}
+            style={{ color: workshopsYaml.themeColor }}
           >
-            {workshopsJson.name}
+            {workshopsYaml.name}
           </h1>
           <div className="Toolbar Toolbar--space-vertical">
             <LinkButton
