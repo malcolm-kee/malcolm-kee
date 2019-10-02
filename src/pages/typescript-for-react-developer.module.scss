@@ -1,0 +1,16 @@
+@import '../constants/variable';
+
+.typescript {
+  color: #294e80;
+  display: block;
+  font-size: 2rem;
+  line-height: 1.3;
+  @media screen and (min-width: $media-tablet) {
+    font-size: 3rem;
+  }
+}
+
+.title {
+  color: $text-light-pale;
+  display: block;
+}

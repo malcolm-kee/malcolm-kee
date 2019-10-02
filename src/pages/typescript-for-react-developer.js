@@ -1,11 +1,11 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { LinkButton } from '../components/Button';
-import { OutLink } from '../components/OutLink';
-import { ReactTypescriptLogo } from '../components/react-typescript-logo';
+import { ReactTypescriptIcon } from '../components/react-typescript-icon';
 import { Seo } from '../components/Seo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { container } from './fast-site-with-gatsby-js.module.scss';
+import styles from './typescript-for-react-developer.module.scss';
 
 const PageHeader = () => {
   const { workshop } = useStaticQuery(graphql`
@@ -14,6 +14,7 @@ const PageHeader = () => {
         name
         description
         keywords
+        themeColor
         iconFile {
           childImageSharp {
             resize(width: 16, height: 16) {
@@ -33,7 +34,7 @@ const PageHeader = () => {
   `);
 
   return (
-    <WorkshopLandingPageBanner>
+    <WorkshopLandingPageBanner inverse>
       <Seo
         title={workshop.name}
         description={workshop.description}
@@ -45,13 +46,14 @@ const PageHeader = () => {
         <div className="logo-section">
           <div className="icon-container">
             <div className={container}>
-              <ReactTypescriptLogo />
+              <ReactTypescriptIcon />
             </div>
           </div>
         </div>
         <div className="landing-title-container">
-          <h1 className="landing-title" style={{ color: workshop.themeColor }}>
-            {workshop.name}
+          <h1 className="landing-title">
+            <span className={styles.typescript}>TypeScript</span>
+            <span className={styles.title}>for React Developer</span>
           </h1>
           <div className="Toolbar">
             <LinkButton
@@ -72,19 +74,6 @@ export default function TypescriptForReactDeveloper() {
   return (
     <>
       <PageHeader />
-      <div className="Toolbar right">
-        <small>
-          Logo designed by{' '}
-          <OutLink href="https://github.com/csantiago132">
-            Carlos Santiago
-          </OutLink>{' '}
-          based on{' '}
-          <OutLink href="https://github.com/typescript-cheatsheets/react-typescript-cheatsheet/issues/81#issuecomment-464269900">
-            this GitHub comment
-          </OutLink>
-          .
-        </small>
-      </div>
       <nav className="Toolbar center">
         <Link className="link-primary" to="/workshops">
           All Workshops

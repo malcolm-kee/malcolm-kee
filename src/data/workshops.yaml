@@ -79,7 +79,7 @@
   themeColor: '#764abc'
   iconFile: '../assets/redux.png'
   underConstruction: true
-- name: 'Typescript for React Developer'
+- name: 'TypeScript for React Developer'
   id: typescript-for-react-developer
   url: '/typescript-for-react-developer'
   description: 'Learn the Typescript fundamentals to make your React codebase more maintainable'
