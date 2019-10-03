@@ -2,7 +2,7 @@
 
 describe('homepage', () => {
   beforeEach(() => {
-    cy.visit('/projects');
+    cy.visit('/projects').wait(1000); // wait for hydration
   });
 
   it('able to load', () => {
