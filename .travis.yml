@@ -14,11 +14,13 @@ install:
 script:
   # - yarn test:e2e:ci
   - yarn build
+  - echo $TRAVIS_PULL_REQUEST
+  - echo $TRAVIS_BRANCH
   - |
-    if [ $TRAVIS_BRANCH == 'master' ]; then 
-      yarn deploy > netlify.log;
+    if [ $TRAVIS_PULL_REQUEST == 'false' OR $TRAVIS_BRANCH != 'master' ]; then 
+      yarn deploy:preview > netlify.log;
     else
-      yarn deploy:preview > netlify.log ;
+      yarn deploy > netlify.log;
     fi
   - cat netlify.log
 env:
