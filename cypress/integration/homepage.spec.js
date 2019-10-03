@@ -18,11 +18,12 @@ describe('homepage', () => {
       .type(
         `How are you?
       E2E test are great!`
-      )
-      .findByText('Send')
-      .click()
-      .location('pathname')
-      .should('include', 'message-received');
+      );
+    /** we testing against actual site, let's don't submit the contact form */
+    // .findByText('Send')
+    // .click()
+    // .location('pathname')
+    // .should('include', 'message-received');
   });
 
   it('will validate before submit contact form', () => {

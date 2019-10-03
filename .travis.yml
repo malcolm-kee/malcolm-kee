@@ -17,4 +17,4 @@ script:
   - yarn build
   - bash scripts/deploy.sh
   - bash scripts/e2e-test.sh
-  - node notify.js
+  - bash scripts/notify.sh
