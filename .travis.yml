@@ -13,7 +13,7 @@ install:
   - yarn
 script:
   # - yarn test:e2e:ci
-  - yarn build
+  # - yarn build
   - echo $TRAVIS_PULL_REQUEST
   - echo $TRAVIS_BRANCH
   - |
