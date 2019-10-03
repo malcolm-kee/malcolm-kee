@@ -16,8 +16,5 @@ install:
 script:
   - yarn test:e2e:ci
   - yarn build
-deploy:
-  - provider: script
-    script: bash script/deploy.sh
-after_deploy:
+  - bash deploy.sh
   - node notify.js
