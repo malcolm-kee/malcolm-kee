@@ -6,7 +6,11 @@ console.log(`Starting build.js`);
 const isLogExists = fs.existsSync('./netlify.log')
 
 if (isLogExists) {
-    const lines = fs.readFileSync('./netlify.log').toString().split(/\n|\r\n/)
+    const rawLines = fs.readFileSync('./netlify.log').toString().split(/\n|\r\n/);
+
+    console.log(rawLines);
+
+    const lines = rawLines
         .filter(line => line.startsWith('Live Draft URL'))
         .map(line => line.match(/https:\/\/.*$/)[0]);
 
