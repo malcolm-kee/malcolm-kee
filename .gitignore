@@ -12,3 +12,5 @@ yarn-error.log
 /public
 .DS_Store
 /functions
+# Local Netlify folder
+.netlify
