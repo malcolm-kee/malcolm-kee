@@ -14,10 +14,7 @@ cache:
 install:
   - yarn
 script:
-  # - yarn test:e2e:ci
-  - yarn build
-  - echo $TRAVIS_PULL_REQUEST
-  - echo $TRAVIS_BRANCH
+  - yarn test:e2e:ci
   - |
     if [ $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH == "master" ]; then 
       yarn deploy > netlify.log;
