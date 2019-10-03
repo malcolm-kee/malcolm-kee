@@ -2,16 +2,17 @@
 
 describe('homepage', () => {
   beforeEach(() => {
-    cy.visit('/projects');
+    cy.visit('/projects').wait(1000); // wait for hydration
   });
 
   it('able to load', () => {
     cy.findAllByText('Past Projects');
   });
 
-  it.only('loads all the projects', () => {
+  it('loads all the projects', () => {
     cy.findByText('Generative Arts')
       .click()
+      .wait(500)
       .findByText('Live')
       .click()
       .location('pathname')
