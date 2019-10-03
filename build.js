@@ -1,41 +1,36 @@
 const fs = require('fs');
 const got = require('got');
 
-console.log(`Starting build.js`);
-
 const isLogExists = fs.existsSync('./netlify.log');
 
 if (isLogExists) {
-  console.log(`netlify.log exists. Trying to send a status to GitHub.`);
-  const rawLines = fs
+  console.info(`netlify.log exists. Trying to send a status to GitHub.`);
+
+  const lines = fs
     .readFileSync('./netlify.log')
     .toString()
-    .split(/\n|\r\n/);
-
-  console.log(rawLines);
-
-  const lines = rawLines
+    .split(/\n|\r\n/)
     .filter(line => /Live Draft URL/.test(line))
     .map(line => line.match(/https:\/\/.*$/)[0]);
 
   Promise.all(
     lines.map(previewUrl => {
-      console.log(`PreviewURL: ${previewUrl}`);
       const repoSlug = process.env.TRAVIS_REPO_SLUG;
-      const prSha = prSha;
-      console.log(`PR slug: ${repoSlug}`);
-      console.log(`PR sha: ${prSha}`);
+      const prSha = process.env.TRAVIS_PULL_REQUEST_SHA;
+      console.info(`PreviewURL: ${previewUrl}`);
+      console.info(`PR slug: ${repoSlug}`);
+      console.info(`PR sha: ${prSha}`);
       if (repoSlug && prSha) {
         return got.post(
           `https://api.github.com/repos/${repoSlug}/statuses/${prSha}`,
           {
             auth: `malcolm-kee:${process.env.GITHUB_TOKEN}`,
-            body: {
+            body: JSON.stringify({
               state: 'success',
               target_url: previewUrl,
               description: `Preview is ready`,
               context: `ci/preview`,
-            },
+            }),
           }
         );
       } else {
@@ -43,11 +38,11 @@ if (isLogExists) {
       }
     })
   )
-    .then(result => console.log(result))
+    .then(result => console.log(`Success create status in GitHub!`))
     .catch(error => {
       console.log(`Error when making request`);
       console.log(error);
     });
 } else {
-  console.log(`netlify.log does not exists.`);
+  console.info(`netlify.log does not exists. No status will be created`);
 }
