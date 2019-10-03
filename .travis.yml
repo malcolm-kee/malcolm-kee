@@ -12,7 +12,7 @@ cache:
 install:
   - yarn
 script:
-  - yarn test:e2e:ci
+  # - yarn test:e2e:ci
   - yarn build
   - |
     if [ $TRAVIS_BRANCH == 'master' ]; then 
