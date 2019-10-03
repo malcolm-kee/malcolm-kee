@@ -57,12 +57,12 @@ exports.createLessonNode = async ({
   }
 };
 
-const instructionTemplate = path.resolve(
+const lessonTemplate = path.resolve(
   __dirname,
   '..',
   'src',
   'templates',
-  'instruction-template.jsx'
+  'lesson-template.jsx'
 );
 
 const DISABLE_WORKSHOP = process.env.DISABLE_WORKSHOP;
@@ -154,14 +154,14 @@ exports.createWorkshopPages = function createWorkshopPages({
       group.edges.forEach(({ node: lesson, next }) => {
         createPage({
           path: lesson.slug,
-          component: instructionTemplate,
+          component: lessonTemplate,
           context: {
             // used in layout
             next: lesson.isLastLesson ? null : next,
             lessonGroup,
             workshop: lesson.workshop,
             // used in template
-            id: lesson.id,
+            slug: lesson.slug,
             commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${lesson.slug} in:title sort:created-asc`,
           },
         });

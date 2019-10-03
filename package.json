@@ -5,7 +5,6 @@
   "author": "Malcolm Kee <malcolm.keeweesiong@gmail.com>",
   "scripts": {
     "start": "gatsby develop -p 8888",
-    "build:site": "gatsby build",
     "clean": "gatsby clean",
     "dev": "gatsby develop -p 8888",
     "serve": "gatsby serve",
