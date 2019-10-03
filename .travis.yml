@@ -14,8 +14,12 @@ install:
 script:
   - yarn test:e2e:ci
   - yarn build
-  - if [ $TRAVIS_BRANCH != 'master' ]; then yarn deploy:preview > netlify.log; fi
-  - if [ $TRAVIS_BRANCH == 'master' ]; then yarn deploy > netlify.log; fi
+  - |
+    if [ $TRAVIS_BRANCH == 'master' ]; then 
+      yarn deploy > netlify.log;
+    else
+      yarn deploy:preview > netlify.log ;
+    fi
   - cat netlify.log
 env:
   global:
