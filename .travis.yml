@@ -17,12 +17,12 @@ script:
   - echo $TRAVIS_PULL_REQUEST
   - echo $TRAVIS_BRANCH
   - |
-    if [ $TRAVIS_PULL_REQUEST != false OR $TRAVIS_BRANCH != 'master' ]; then 
+    if [ "$TRAVIS_PULL_REQUEST" != "false" OR "$TRAVIS_BRANCH" == "master" ]; then 
       # yarn deploy:preview > netlify.log;
-      echo true;
+      echo in true condition;
     else
       # yarn deploy > netlify.log;
-      echo false;
+      echo in false condition;
     fi
   # - cat netlify.log
 env:
