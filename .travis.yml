@@ -15,10 +15,13 @@ install:
   - yarn
 script:
   - yarn test:e2e:ci
+  - yarn build
+deploy:
   - |
     if [ $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH == "master" ]; then 
       yarn deploy > netlify.log;
     else
-      yarn deploy:preview > netlify.log;
+      yarn deploy:preview --message "Deploy for commit $TRAVIS_PULL_REQUEST_SHA" > netlify.log;
     fi
-  - node build.js
+after_deploy:
+  - node notify.js
