@@ -16,7 +16,7 @@ else
             echo "But previewurl not found. Skipping.";
         else
             echo "Gonna notify...";
-            curl -v -i -H "Content-Type: application/json" \
+            curl -i -H "Content-Type: application/json" \
             -d '{"state": "success", "target_url": "'"$previewurl"'", "description": "Preview is ready!", "context": "ci/preview"}' \
             -u "malcolm-kee:$GITHUB_TOKEN" \
             -X POST "https://api.github.com/repos/$TRAVIS_REPO_SLUG/statuses/$TRAVIS_PULL_REQUEST_SHA";

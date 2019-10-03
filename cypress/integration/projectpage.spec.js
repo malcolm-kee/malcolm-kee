@@ -9,9 +9,10 @@ describe('homepage', () => {
     cy.findAllByText('Past Projects');
   });
 
-  it.only('loads all the projects', () => {
+  it('loads all the projects', () => {
     cy.findByText('Generative Arts')
       .click()
+      .wait(500)
       .findByText('Live')
       .click()
       .location('pathname')
