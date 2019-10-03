@@ -14,7 +14,7 @@ cache:
 install:
   - yarn
 script:
-  - yarn test:e2e:ci
+  # - yarn test:e2e:ci
   - yarn build
   - bash deploy.sh
   - node notify.js
