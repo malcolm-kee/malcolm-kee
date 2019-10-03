@@ -14,8 +14,8 @@
     "cy:run": "cypress run",
     "test:e2e": "start-server-and-test dev http://localhost:8888 cy:open",
     "test:e2e:ci": "start-server-and-test dev http://localhost:8888 cy:run",
-    "deploy:preview": "./node_modules/.bin/netlify deploy --dir=public",
-    "deploy": "./node_modules/.bin/netlify deploy --dir=public --prod"
+    "deploy:preview": "netlify deploy --dir=public",
+    "deploy": "netlify deploy --dir=public --prod"
   },
   "dependencies": {
     "@mdx-js/mdx": "^1.0.20",
