@@ -8,6 +8,7 @@ import { ErrorBoundary } from '../components/error-boundary';
 import { ReportIssueLink } from '../components/report-issue-link';
 import { Seo } from '../components/Seo';
 import './lesson-template.scss';
+import styles from './lesson-template.module.scss';
 
 const LessonTemplate = ({
   data: { lesson, github },
@@ -26,7 +27,21 @@ const LessonTemplate = ({
           pathname={location.pathname}
         />
         <div className="instruction-template">
-          <h1>{lesson.title}</h1>
+          <h1 className={styles.skipLinkContainer}>
+            <a
+              href="#workshop-toc"
+              id="skip-main"
+              aria-label="Skip to table of content"
+              className={styles.routeSkipLink}
+            >
+              <ChevronIcon
+                size={15}
+                styles={{ transform: `rotate(-90deg)` }}
+                aria-hidden
+              />
+            </a>
+            {lesson.title}
+          </h1>
           <div className="instruction-toc">
             {lesson.tableOfContents.items && (
               <ul>

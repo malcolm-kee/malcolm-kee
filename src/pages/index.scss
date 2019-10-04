@@ -21,6 +21,7 @@
     }
     &-group {
       max-width: 800px;
+      padding-bottom: $space * 2;
       margin: 0 auto;
       @media screen and (min-width: $media-mobile) {
         display: flex;

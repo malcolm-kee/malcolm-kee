@@ -14,3 +14,13 @@ exports.onClientEntry = () => {
     console.log(`fetch is polyfilled`);
   }
 };
+
+exports.onRouteUpdate = ({ location, prevLocation }) => {
+  if (prevLocation !== null) {
+    // client-side routing happened!
+    const skipLink = document.querySelector('#skip-main');
+    if (skipLink && skipLink.focus) {
+      skipLink.focus();
+    }
+  }
+};

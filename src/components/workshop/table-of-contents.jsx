@@ -46,6 +46,8 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
           'table-of-content-section',
           open && 'table-of-content-section--open'
         )}
+        aria-label="workshop table of contents"
+        id="workshop-toc"
       >
         <div className="table-of-content-inner-container">
           <ol ref={tocRef}>
@@ -65,6 +67,7 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
         backgroundColor={themeColor}
         onToggle={() => setIsOpen(val => !val)}
         ref={toggleBtnRef}
+        aria-haspopup="dialog"
       />
     </>
   );

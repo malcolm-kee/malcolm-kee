@@ -519,8 +519,15 @@ p {
       visibility: hidden;
     }
 
-    .header-link-icon svg {
-      visibility: hidden;
+    .header-link-icon {
+      svg {
+        visibility: hidden;
+      }
+      &:focus {
+        svg {
+          visibility: visible;
+        }
+      }
     }
 
     &:hover {

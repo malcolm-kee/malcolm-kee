@@ -118,6 +118,11 @@
           outline: none;
           box-shadow: 0 0 0 2px $primary-700;
         }
+
+        &:hover,
+        &:focus {
+          background-color: rgba(20, 20, 20, 0.5);
+        }
       }
 
       &:first-of-type {
