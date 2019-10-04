@@ -101,10 +101,9 @@ module.exports = {
             },
           },
         ],
-        plugins: [`gatsby-remark-images`]
+        plugins: [`gatsby-remark-images`],
       },
     },
-    `gatsby-plugin-remove-trailing-slashes`,
     `gatsby-plugin-catch-links`,
     {
       resolve: `gatsby-plugin-manifest`,
