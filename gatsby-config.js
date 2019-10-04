@@ -101,6 +101,7 @@ module.exports = {
             },
           },
         ],
+        plugins: [`gatsby-remark-images`]
       },
     },
     `gatsby-plugin-remove-trailing-slashes`,
