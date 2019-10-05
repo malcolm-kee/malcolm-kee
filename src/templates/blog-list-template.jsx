@@ -64,10 +64,11 @@ const BlogListTemplate = ({
       <PaginationContainer prevLink={prevPage} nextLink={nextPage}>
         {createEmptyArray(numPages).map((_, index) => {
           const path = index === 0 ? `/blog` : `/blog/${index + 1}`;
+          const isCurrent = location.pathname === path;
           return (
             <PaginationItem
               to={path}
-              tabIndex={location.pathname === path ? -1 : undefined}
+              aria-current={isCurrent ? true : undefined}
               key={index}
             >
               {index + 1}

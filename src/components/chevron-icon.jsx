@@ -1,15 +1,23 @@
 import React from 'react';
 
-export const ChevronIcon = ({ size = 10, styles = {}, className }) => (
+export const ChevronIcon = ({
+  size = 10,
+  width = size,
+  height = width,
+  styles = {},
+  className,
+  ...props
+}) => (
   <svg
     style={styles}
     viewBox="0 0 926.23699 573.74994"
     version="1.1"
     x="0px"
     y="0px"
-    width={size}
-    height={size}
+    width={width}
+    height={height}
     className={className}
+    {...props}
   >
     <g transform="translate(904.92214,-879.1482)">
       <path

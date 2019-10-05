@@ -66,7 +66,7 @@ export const Profile = props => {
 
 Creating similar version in typescript with typing for the `props` would be:
 
-```tsx
+```ts
 import * as React from 'react';
 
 interface IProps {
@@ -108,7 +108,7 @@ export class Profile extends React.Component{
 
 Typescript version:
 
-```tsx
+```ts
 interface IProps {
     username: string;
     email: string;
@@ -160,7 +160,7 @@ export class Button extends React.Component {
 
 Including typing of the state in Typescript version:
 
-```tsx
+```ts
 interface IState {
   on: boolean;
 }

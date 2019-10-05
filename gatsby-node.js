@@ -41,8 +41,10 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  await createBlogs({ actions, graphql, reporter });
-  await createWorkshopPages({ actions, graphql, reporter });
+  await Promise.all([
+    createBlogs({ actions, graphql, reporter }),
+    createWorkshopPages({ actions, graphql, reporter }),
+  ]);
 };
 
 exports.onCreateWebpackConfig = ({ actions }) => {

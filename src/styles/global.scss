@@ -519,8 +519,15 @@ p {
       visibility: hidden;
     }
 
-    .header-link-icon svg {
-      visibility: hidden;
+    .header-link-icon {
+      svg {
+        visibility: hidden;
+      }
+      &:focus {
+        svg {
+          visibility: visible;
+        }
+      }
     }
 
     &:hover {
@@ -585,15 +592,15 @@ p {
 
   // temp fix based on https://github.com/gatsbyjs/gatsby/issues/15486
   // watching that issue for proper fix
-  .gatsby-resp-image-image {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    vertical-align: middle;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+  // .gatsby-resp-image-image {
+  //   width: 100%;
+  //   height: 100%;
+  //   margin: 0;
+  //   vertical-align: middle;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  // }
 
   a[href^="https://www.youtube.com"] {
     display: flex;

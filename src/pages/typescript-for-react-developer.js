@@ -4,7 +4,6 @@ import { LinkButton } from '../components/Button';
 import { ReactTypescriptIcon } from '../components/react-typescript-icon';
 import { Seo } from '../components/Seo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
-import { container } from './fast-site-with-gatsby-js.module.scss';
 import styles from './typescript-for-react-developer.module.scss';
 
 const PageHeader = () => {
@@ -45,8 +44,8 @@ const PageHeader = () => {
       <div id="typescript-for-react-developer-landing">
         <div className="logo-section">
           <div className="icon-container">
-            <div className={container}>
-              <ReactTypescriptIcon />
+            <div className={styles.iconWrapper}>
+              <ReactTypescriptIcon nucleusClassName={styles.nucleus} />
             </div>
           </div>
         </div>

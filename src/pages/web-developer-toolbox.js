@@ -50,7 +50,7 @@ const PageHeader = () => {
           }
         />
         <div>
-          <div className="logo-section">
+          <div className="logo-section" style={{ paddingTop: 40 }}>
             <img src={toolboxIcon} alt="" className={icon} />
           </div>
           <div className="landing-title-container">
