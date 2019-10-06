@@ -26,7 +26,7 @@
     position: absolute;
     right: $space;
     top: $space * 4;
-    border-width: 6px;
+    border-width: $space;
     border-style: solid;
     border-color: $bg-color-light;
     border-color: var(--bg);
@@ -40,6 +40,7 @@
     @media screen and (min-width: $media-tablet) {
       margin: 0 auto -#{$space * 3};
       position: static;
+      border-width: 0;
     }
   }
 

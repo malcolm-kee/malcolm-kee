@@ -19,14 +19,16 @@ const IndexPage = () => (
         <div className="content-section">
           <h2>About</h2>
           <p className="v-space">
-            I'm a frontend engineer making web applications and enjoy doing it.
+            A frontend engineer making web applications functional and
+            accessible.
           </p>
           <p className="v-space">
-            I conducted workshops in{' '}
+            I conducted workshops to teach others on React and web development
+            in{' '}
             <OutLink href="https://kl-react.com">
-              local meetup that he organize
+              local meetup that I co-organize
             </OutLink>{' '}
-            to teach others on React and web development.
+            and occasionally corporate in-house training.
           </p>
           <p className="v-space">Currently learning to play guitar.</p>
         </div>

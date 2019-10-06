@@ -5,9 +5,9 @@ import Image from 'gatsby-image';
 export const Avatar = () => {
   const data = useStaticQuery(graphql`
     {
-      image: file(relativePath: { eq: "baby-shark-dance.jpg" }) {
+      image: file(relativePath: { eq: "malcolm-in-cpg.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 500, fit: CONTAIN) {
+          fluid(maxWidth: 300, fit: CONTAIN) {
             ...GatsbyImageSharpFluid_withWebp
           }
         }

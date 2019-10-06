@@ -4,6 +4,7 @@ date: '2018-05-10'
 tags: ['react', 'typescript', 'beginner']
 summary: 'Using typescript allow static typechecking and intellisense in your React application, and it is easy to get started.'
 published: true
+updated_at: '2019-10-06'
 ---
 
 ## Background
@@ -31,14 +32,12 @@ For a developer that has previous experience in Typescript (probably with Angula
 
 Setting up the application to use React with Typescript requires configuration of webpack, babel, and typescript. If you like to learn about them, you can refer to this [Medium article][medium-article].
 
-If you just want to get started and start coding, I would recommend [create-react-app-typescript][create-react-app-typescript].
+If you just want to get started and start coding, I would recommend [create-react-app][create-react-app].
 
 Run the following commands in your command prompt (after you've installed [node.js with npm][nodejs-download-link]):
 
 ```sh
-npm install -g create-react-app
-
-create-react-app my-app-name --scripts-version=react-scripts-ts
+npx create-react-app my-app-name --typescript
 cd my-app-name
 npm start
 ```
@@ -69,12 +68,12 @@ Creating similar version in typescript with typing for the `props` would be:
 ```ts
 import * as React from 'react';
 
-interface IProps {
+interface ProfileProps {
     username: string;
     email: string;
 }
 
-export const Profile: React.SFC<IProps> = props => {
+export const Profile: React.SFC<ProfileProps> = props => {
     return (
         <div>
             <h1>{props.username}<h1>
@@ -87,7 +86,6 @@ export const Profile: React.SFC<IProps> = props => {
 Note that:
 
 - The `import` statement for React in Typescript should be in the format of `* as React`.
-- `IProps` can be renamed as simpler `Props`, depending on your naming convention.
 
 ### Type Props for Class Component
 
@@ -109,12 +107,12 @@ export class Profile extends React.Component{
 Typescript version:
 
 ```ts
-interface IProps {
+interface ProfileProps {
     username: string;
     email: string;
 }
 
-export class Profile extends React.Component<IProps>{
+export class Profile extends React.Component<ProfileProps>{
     render() {
         return (
             <div>
@@ -161,12 +159,12 @@ export class Button extends React.Component {
 Including typing of the state in Typescript version:
 
 ```ts
-interface IState {
+interface ButtonState {
   on: boolean;
 }
 
-export class Button extends React.Component<{}, IState> {
-  state: IState = {
+export class Button extends React.Component<{}, ButtonState> {
+  state: ButtonState = {
     on: false,
   };
 
@@ -202,5 +200,5 @@ If you're a ReactJS developer or interested to learn React, come join my [Meetup
 [react-state]: https://reactjs.org/docs/state-and-lifecycle.html
 [edge-case-bug]: https://github.com/Microsoft/TypeScript/issues/13948
 [medium-article]: https://blog.logrocket.com/how-why-a-guide-to-using-typescript-with-react-fffb76c61614
-[create-react-app-typescript]: https://github.com/wmonk/create-react-app-typescript
+[create-react-app]: https://create-react-app.dev/
 [nodejs-download-link]: https://nodejs.org/en/download/
