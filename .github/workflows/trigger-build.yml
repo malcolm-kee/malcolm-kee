@@ -16,6 +16,7 @@ jobs:
         run: |
           body='{
           "request": {
+          "message": "Trigger build from GitHub Action",
           "branch": "master"
           }}'
 
