@@ -1,5 +1,7 @@
 name: Trigger Build
 on:
+  issues:
+    types: [opened, edited]
   issue_comment:
     types: [created, edited]
 
@@ -8,5 +10,17 @@ jobs:
     name: Trigger Build
     runs-on: ubuntu-latest
     steps:
-      - name: Hello world
-        run: echo 'Hello!'
+      - name: Call Travis API
+        run: |
+          body='{
+          "request": {
+          "branch": "master"
+          }}'
+
+          curl -s -X POST \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json" \
+            -H "Travis-API-Version: 3" \
+            -H "Authorization: token $TRAVIS_API_KEY" \
+            -d "$body" \
+            https://api.travis-ci.com/repo/malcolm-kee%2Fmalcolm-kee/requests
