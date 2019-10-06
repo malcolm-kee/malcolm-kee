@@ -25,4 +25,4 @@ jobs:
             -H "Travis-API-Version: 3" \
             -H "Authorization: token $TRAVIS_API_KEY" \
             -d "$body" \
-            https://api.travis-ci.com/repo/malcolm-kee%2Fmalcolm-kee/requests
+            https://api.travis-ci.org/repo/malcolm-kee%2Fmalcolm-kee/requests
