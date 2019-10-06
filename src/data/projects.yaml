@@ -1,10 +1,22 @@
+- id: shopit
+  name: 'Shopit'
+  description: 'An e-commerce site project with multiple implementations.'
+  technologies:
+    - React
+    - Redux/MobX
+    - TypeScript
+    - Bootstrap
+    - React Styleguidist
+  links:
+    live: 'https://shopit.space/'
+    code: 'https://github.com/malcolm-kee/react-ecomm-site'
 - id: redux-code-generator
   name: 'Redux Code Generator'
   description: 'An application to generate redux code and unit tests based on initial states.'
   technologies:
     - React
     - Redux
-    - Typescript
+    - TypeScript
     - Bootstrap
   links:
     live: 'https://redux-code-generator.netlify.com/'
@@ -29,7 +41,7 @@
     - Redux
     - Redux Thunk
     - Redux Saga
-    - Typescript
+    - TypeScript
     - Jest
     - webpack
     - Material-UI
@@ -47,7 +59,7 @@
     - Angular Material
     - Firebase (Firestore & Auth)
     - RxJS
-    - Typescript
+    - TypeScript
   links:
     live: 'https://real-quiz-app.firebaseapp.com'
   image: '../assets/real-quiz.gif'
@@ -59,7 +71,7 @@
     - React
     - Redux
     - Redux Thunk
-    - Typescript
+    - TypeScript
     - Jest
     - webpack
     - SCSS

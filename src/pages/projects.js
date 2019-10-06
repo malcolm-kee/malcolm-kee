@@ -51,7 +51,7 @@ const ProjectCard = ({ project }) => (
         )}
       </CardActions>
     </div>
-    {project.image && (
+    {project.staticImage && (
       <CardImage
         src={project.staticImage.publicURL}
         className="ProjectPage--demo-image"
@@ -73,7 +73,7 @@ const usePreloadImage = imageSrc => {
   const started = React.useRef(false);
 
   React.useEffect(() => {
-    if (shouldPreload && !started.current) {
+    if (shouldPreload && !started.current && imageSrc) {
       preloadImage(imageSrc);
       started.current = true;
     }
@@ -87,8 +87,10 @@ const FancyProjectCard = ({ project, location }) => {
     location.hash === `#${project.id}`
   );
   const isInternalLink = project.links.live && project.links.live[0] === '/';
-  const preloadStaticImage = usePreloadImage(project.staticImage.publicURL);
-  const preloadGif = usePreloadImage(project.image.publicURL);
+  const preloadStaticImage = usePreloadImage(
+    project.staticImage && project.staticImage.publicURL
+  );
+  const preloadGif = usePreloadImage(project.image && project.image.publicURL);
 
   return (
     <li>
@@ -113,7 +115,7 @@ const FancyProjectCard = ({ project, location }) => {
           setShowDialog(false);
           navigate(location.pathname, { replace: true });
         }}
-        large
+        large={!!project.staticImage}
       >
         <div className={styles.details}>
           <div className={`content-section ${styles.content}`}>
