@@ -1,0 +1,12 @@
+name: Trigger Build
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  build:
+    name: Trigger Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello world
+        run: echo 'Hello!'
