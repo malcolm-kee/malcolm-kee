@@ -8,6 +8,11 @@ const {
   createWorkshopPages,
   createWorkshopSchemaCustomization,
 } = require('./gatsby/workshops-build');
+const {
+  createTilNode,
+  createTilSchemaCustomization,
+  createTils,
+} = require('./gatsby/til-build');
 
 exports.onCreateNode = async ({
   node,
@@ -18,32 +23,43 @@ exports.onCreateNode = async ({
   createContentDigest,
 }) => {
   if (node.internal.type === 'Mdx') {
-    await createLessonNode({
-      node,
-      actions,
-      getNode,
-      createNodeId,
-      createContentDigest,
-    });
-    await createBlogNode({
-      node,
-      actions,
-      getNode,
-      createNodeId,
-      createContentDigest,
-    });
+    await Promise.all([
+      createLessonNode({
+        node,
+        actions,
+        getNode,
+        createNodeId,
+        createContentDigest,
+      }),
+      createBlogNode({
+        node,
+        actions,
+        getNode,
+        createNodeId,
+        createContentDigest,
+      }),
+      createTilNode({
+        node,
+        actions,
+        getNode,
+        createNodeId,
+        createContentDigest,
+      }),
+    ]);
   }
 };
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
   createWorkshopSchemaCustomization({ actions, schema });
   createBlogSchemaCustomization({ actions, schema });
+  createTilSchemaCustomization({ actions, schema });
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
   await Promise.all([
     createBlogs({ actions, graphql, reporter }),
     createWorkshopPages({ actions, graphql, reporter }),
+    createTils({ actions, graphql }),
   ]);
 };
 

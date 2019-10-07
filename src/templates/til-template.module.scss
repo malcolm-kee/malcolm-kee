@@ -1,0 +1,23 @@
+@import '../constants/variable';
+
+.container {
+  max-width: 48em;
+  max-width: 63ch;
+  margin: 0 auto;
+}
+
+.title {
+  padding: $space 0;
+  font-size: 3rem;
+  line-height: 1.3;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.item {
+  display: inline-block;
+  margin-right: $space;
+}

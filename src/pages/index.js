@@ -61,6 +61,11 @@ const IndexPage = () => (
               Read Blog
             </Link>
           </div>
+          <div>
+            <Link to="/today-i-learnt" className="link-highlight animated">
+              Today I Learnt
+            </Link>
+          </div>
         </LandingPageSection>
       </div>
       <section>
