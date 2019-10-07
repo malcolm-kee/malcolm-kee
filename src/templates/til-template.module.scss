@@ -1,0 +1,13 @@
+@import '../constants/variable';
+
+.container {
+  max-width: 48em;
+  max-width: 63ch;
+  margin: 0 auto;
+}
+
+.title {
+  padding: $space 0;
+  font-size: 3rem;
+  line-height: 1.3;
+}

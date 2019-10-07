@@ -1,7 +1,7 @@
 ---
 title: 'There is no way to type as props properly in TypeScript currently'
 date: '2019-10-06'
-tags: ['typescript']
+topics: ['typescript']
 ---
 
 Stumble upon the blog post ["Writing Type-Safe Polymorphic React Components (Without Crashing TypeScript)"][polymorphic-components] today and get the answer that I always trying to solve every few weeks and gave up after wasting few hours: how to properly type the `as` props in React component in TypeScript.
@@ -10,14 +10,21 @@ The summary of that post is this: it requires black-magic of knowledge in TypeSc
 
 In short, instead of this:
 
-```jsx
-<Button as="a" href="/hello" >Hello</Button>
+```jsx noWrapper
+<Button color="primary" as="a" href="/hello">
+  Hello
+</Button>
 ```
 
 Design your API like this:
 
-```jsx
-<Button renderContainer={buttonProps => <a {...buttonProps} />}>Hello</Button>
+```jsx noWrapper
+<Button
+  color="primary"
+  renderContainer={buttonProps => <a href="/hello" {...buttonProps} />}
+>
+  Hello
+</Button>
 ```
 
 Yeah, it's ugly. I know.
