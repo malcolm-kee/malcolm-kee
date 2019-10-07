@@ -1,0 +1,19 @@
+@import '../constants/variable';
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  padding: $space $space * 2;
+  border: 1px solid;
+  border-color: $grey-300;
+  border-color: var(--text-pale);
+  color: $text-light-pale;
+  color: var(--text-pale);
+  border-radius: $space * 3;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: $space;
+}

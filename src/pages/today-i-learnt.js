@@ -1,30 +1,54 @@
+import { Link } from 'gatsby';
 import React from 'react';
 import { MainContent } from '../components/main-content';
+import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
-import { List, ListItem, ListItemText } from '../components/List';
 import { graphql } from 'gatsby';
+import { TopicBadge } from '../components/topic-badge';
+import styles from './today-i-learnt.module.scss';
+import { OutLink } from '../components/OutLink';
 
-const TodayILearnt = ({ data: { allTil }, location }) => {
+const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
   return (
     <>
-      <Seo title="Today I Learnt" pathname={location.pathname} />
+      <Seo
+        title="Today I Learnt - Malcolm Kee"
+        description="Little facts I learnts in my daily life as a Frontend Engineer"
+        pathname={location.pathname}
+      />
       <MainContent>
-        <h1>Today I Learnt</h1>
-        {allTil.group.map(({ topic, nodes }) => (
-          <div key={topic}>
-            <h2>{topic}</h2>
-            <List>
-              {nodes.map(til => (
-                <ListItem link={til.slug} key={til.slug}>
-                  <ListItemText
-                    primaryText={til.title}
-                    secondaryText={til.date}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </div>
-        ))}
+        <PageTitleContainer title="Today I Learnt" />
+        <p className={styles.description}>
+          Inspired by{' '}
+          <OutLink to="https://www.stefanjudis.com/today-i-learned/">
+            Stefan Judis
+          </OutLink>
+          , these are the little facts I learnt in my daily life as a Frontend
+          Engineer.
+        </p>
+        <div className={styles.grid}>
+          {allTopics.nodes.map(topic => {
+            const nodes =
+              allTil.group
+                .filter(til => til.topic === topic.id)
+                .map(til => til.nodes)[0] || [];
+
+            return (
+              <div key={topic.id}>
+                <h2>
+                  <TopicBadge {...topic} />
+                </h2>
+                <ul className={styles.list}>
+                  {nodes.map(til => (
+                    <li key={til.slug}>
+                      <Link to={til.slug}>{til.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
       </MainContent>
     </>
   );
@@ -35,12 +59,20 @@ export default TodayILearnt;
 export const pageQuery = graphql`
   query {
     allTil {
-      group(field: topics) {
+      group(field: topics___id) {
         topic: fieldValue
         nodes {
           slug
           title
           date(formatString: "MMM DD, YYYY")
+        }
+      }
+    }
+    allTopics: allTopicsYaml {
+      nodes {
+        id
+        icon {
+          publicURL
         }
       }
     }

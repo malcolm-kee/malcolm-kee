@@ -88,6 +88,12 @@ exports.createTilSchemaCustomization = function createTilSchemaCustomization({
           type: `String!`,
           resolve: mdxResolverPassthrough('html'),
         },
+        topics: {
+          type: `[TopicsYaml]`,
+          extensions: {
+            link: {},
+          },
+        },
       },
     }),
   ];

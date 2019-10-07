@@ -1,0 +1,18 @@
+@import '../constants/variable';
+
+.description {
+  padding: 0 $space * 2 $space * 2;
+  line-height: 1.8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  padding: $space $space * 2;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  line-height: 1.5;
+}

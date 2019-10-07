@@ -4,6 +4,7 @@ import React from 'react';
 import { isArray } from 'typesafe-is';
 import { MainContent } from '../components/main-content';
 import { Seo } from '../components/Seo';
+import { TopicBadge } from '../components/topic-badge';
 import styles from './til-template.module.scss';
 
 const TilTemplate = ({ data, location }) => {
@@ -20,9 +21,11 @@ const TilTemplate = ({ data, location }) => {
             {isArray(til.topics) && til.topics.length > 0 && (
               <div>
                 <h2>Topics</h2>
-                <ul>
+                <ul className={styles.list}>
                   {til.topics.map(topic => (
-                    <li key={topic}>{topic}</li>
+                    <li className={styles.item} key={topic.id}>
+                      <TopicBadge {...topic} />
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -41,7 +44,12 @@ export const pageQuery = graphql`
     til(id: { eq: $id }) {
       title
       body
-      topics
+      topics {
+        id
+        icon {
+          publicURL
+        }
+      }
     }
   }
 `;
