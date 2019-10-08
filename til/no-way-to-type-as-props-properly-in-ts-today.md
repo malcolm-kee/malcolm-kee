@@ -10,7 +10,7 @@ The summary of that post is this: to type `as` props properly requires black-mag
 
 In short, instead of this:
 
-```jsx noWrapper
+```tsx noWrapper
 <Button color="primary" as="a" href="/hello">
   Hello
 </Button>
@@ -18,7 +18,7 @@ In short, instead of this:
 
 Design your API like this:
 
-```jsx noWrapper
+```tsx noWrapper
 <Button
   color="primary"
   renderContainer={buttonProps => <a href="/hello" {...buttonProps} />}

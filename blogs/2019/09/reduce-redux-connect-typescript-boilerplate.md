@@ -9,7 +9,7 @@ published: true
 
 When you write React Redux connected component with Typescript, if you want a make sure your `mapStatesToProps` and `mapDispatchToProps` are typed-checked, often you need to write verbose code like below:
 
-```ts
+```tsx
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { toggleTodo } from './actions';
@@ -54,7 +54,7 @@ And that's a pain-in-the-ass, as your selectors and actions are already properly
 
 Recently, I've stumble upon `ReturnType` in Typescript, and that's the solution to fix the boiletplate:
 
-```ts
+```tsx
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { toggleTodo } from './actions';
