@@ -1,12 +1,11 @@
-import { Link } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import React from 'react';
 import { MainContent } from '../components/main-content';
+import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
-import { graphql } from 'gatsby';
 import { TopicBadge } from '../components/topic-badge';
 import styles from './today-i-learnt.module.scss';
-import { OutLink } from '../components/OutLink';
 
 const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
   return (
