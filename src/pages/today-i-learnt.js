@@ -40,7 +40,7 @@ const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
                 </h2>
                 <ul className={styles.list}>
                   {nodes.map(til => (
-                    <li key={til.slug}>
+                    <li className={styles.item} key={til.slug}>
                       <Link to={til.slug}>{til.title}</Link>
                     </li>
                   ))}
@@ -58,7 +58,7 @@ export default TodayILearnt;
 
 export const pageQuery = graphql`
   query {
-    allTil {
+    allTil(sort: { fields: date, order: DESC }) {
       group(field: topics___id) {
         topic: fieldValue
         nodes {

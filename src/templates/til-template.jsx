@@ -1,10 +1,11 @@
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
 import { isArray } from 'typesafe-is';
 import { MainContent } from '../components/main-content';
 import { Seo } from '../components/Seo';
 import { TopicBadge } from '../components/topic-badge';
+import { ChevronIcon } from '../components/chevron-icon';
 import styles from './til-template.module.scss';
 
 const TilTemplate = ({ data, location }) => {
@@ -15,7 +16,7 @@ const TilTemplate = ({ data, location }) => {
       <Seo title={til.title} pathname={location.pathname} />
       <MainContent>
         <div className={styles.container}>
-          <article className="article-content">
+          <article className={`article-content ${styles.content}`}>
             <h1 className={styles.title}>{til.title}</h1>
             <MDXRenderer>{til.body}</MDXRenderer>
             {isArray(til.topics) && til.topics.length > 0 && (
@@ -31,6 +32,18 @@ const TilTemplate = ({ data, location }) => {
               </div>
             )}
           </article>
+          <nav className="Toolbar space-between">
+            <Link to="/today-i-learnt">
+              <ChevronIcon
+                aria-hidden
+                style={{
+                  transform: `rotate(90deg)`,
+                  marginRight: 8,
+                }}
+              />{' '}
+              All Notes
+            </Link>
+          </nav>
         </div>
       </MainContent>
     </>
