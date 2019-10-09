@@ -1,0 +1,116 @@
+---
+title: 'Extending Global or Third Party Library Typing'
+date: '2019-10-09'
+topics: ['typescript']
+---
+
+When you install TypeScript in your project, it comes with many declarations that is part of JavaScript standard, e.g. `Array.prototype.map`, and `Object.keys`, so Intellisense just works when you use those standard JavaScript object method.
+
+However, assuming that your company extends those global object with its own custom methods (I am not saying this is a good idea), how do you make TypeScript recognize it?
+
+Since extending object in JavaScript is something many people used to do, TypeScript provides you a mechanism to do it. Just like you can merge JavaScript object, you can merge declaration in TypeScript.
+
+## Extend Global Object & Declarations
+
+To extends global object e.g. `Array`, include the following code in any TypeScript file in your project:
+
+```ts
+declare global {
+  interface Array<T> {
+    fly: (param: string) => void;
+  }
+}
+```
+
+![Intellisense showing additional array methods](extend-array.png)
+
+<aside>
+
+It may or may not works depends on where you add the code:
+
+- if you add it into a **script**, it will not work.
+- if you add it into a **module**, it would works.
+
+If it doesn't work (which means you had added to a **script**), remove the **declare** clauses so that it becomes:
+
+```ts
+interface Array<T> {
+  fly: (param: string) => void;
+}
+```
+
+What is the difference between **script** and **module**? I will leave that for another day.
+
+</aside>
+
+Because TypeScript also declare `Array` under global, when it sees the code above, it will interpret that as your intention to add additional methods to `Array`, so it merge that into the original `Array.prototype` declaration.
+
+The same approach is used to add your custom web component tag so TypeScript allow it to be part of JSX:
+
+```ts
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'my-custom-component': any;
+    }
+  }
+}
+```
+
+Then you can render that it in your React component:
+
+```tsx
+const MyComponent: React.FC = () => (
+  <div>
+    <my-custom-component></my-custom-component>
+  </div>
+);
+```
+
+<aside>
+
+Fun fact: the following also able to add custom tag to JSX
+
+```ts
+declare global {
+  module JSX {
+    interface IntrinsicElements {
+      'my-custom-component': any;
+    }
+  }
+}
+```
+
+This is because a global module and global namespace are both global variable.
+
+Fine, this is not fun, just confusing.
+
+</aside>
+
+## Extend Third Party Declaration
+
+Now assuming you're using some third-party libraries that allows you to extend it, e.g. Jest [allows you to extends its `expect` assertion][expect-extend], how do you make its declaration includes your customization as well?
+
+Assuming I want to add a `toBeAwesome` assertion, following is how I do it:
+
+```ts
+declare global {
+  namespace jest {
+    interface Matchers<R> {
+      toBeAwesome(): R;
+    }
+  }
+}
+```
+
+![Intellisense showing toBeAwesome](extend-jest-expect.png)
+
+It is awesome, isn't it?
+
+## Mechanism
+
+In short, to extend global or third-party declaration, usually you need to additional declaration to make TypeScript merge that in.
+
+To do that, you need to find out how the current declaration is being declared. If it is declared as a global interface, declare a global interface (like `Array`); if it is declared under a namespace, declare that under the namespace too (like `JSX.IntrinsicElements` and `jest.Matcher`).
+
+[expect-extend]: https://jestjs.io/docs/en/expect#expectextendmatchers
