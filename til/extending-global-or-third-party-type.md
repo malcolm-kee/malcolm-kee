@@ -2,6 +2,7 @@
 title: 'Extending Global or Third Party Library Typing'
 date: '2019-10-09'
 topics: ['typescript']
+updated_at: '2019-10-10'
 ---
 
 When you install TypeScript in your project, it comes with many declarations that is part of JavaScript standard, e.g. `Array.prototype.map`, and `Object.keys`, so Intellisense just works when you use those standard JavaScript object method.
@@ -17,7 +18,7 @@ To extends global object e.g. `Array`, include the following code in any TypeScr
 ```ts
 declare global {
   interface Array<T> {
-    fly: (param: string) => void;
+    fly: () => void;
   }
 }
 ```

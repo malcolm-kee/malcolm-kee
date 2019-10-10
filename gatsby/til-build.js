@@ -34,6 +34,7 @@ exports.createTilNode = async ({
       slug,
       topics: node.frontmatter.topics || [],
       date: node.frontmatter.date,
+      updated_at: node.frontmatter.updated_at || node.frontmatter.date,
     };
 
     const postId = createNodeId(`${node.id} >>> Til`);
@@ -80,6 +81,7 @@ exports.createTilSchemaCustomization = function createTilSchemaCustomization({
           type: `String!`,
         },
         date: { type: `Date!`, extensions: { dateformat: {} } },
+        updated_at: { type: `Date!`, extensions: { dateformat: {} } },
         body: {
           type: `String!`,
           resolve: mdxResolverPassthrough('body'),
