@@ -1,8 +1,8 @@
 @import '../../constants/variable';
 
 .root {
-  font-style: italic;
   padding: 0 $space;
+  font-size: 0.9em;
   border: 1px solid;
   border-radius: 4px;
   margin: $space * 2 -#{$space} $space * 2;
@@ -12,12 +12,19 @@
   border-color: currentColor;
 
   > p {
+    line-height: 1.05;
     color: inherit;
+    text-align: justify;
+    font-family: 'Crimson', Georgia, serif;
     &:first-child {
       margin-top: 0.5em;
     }
     &:last-child {
       margin-bottom: 0.5em;
+    }
+    code[class*='language-text'] {
+      padding: 0 0.2em;
+      font-size: inherit;
     }
   }
 }

@@ -19,4 +19,21 @@
 
 .item {
   margin-bottom: $space;
+  > a {
+    display: inline-block;
+    padding: $space / 4 0;
+  }
+}
+
+.description,
+.item {
+  > a {
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color ease 300ms;
+
+    &:hover {
+      border-bottom: 1px solid currentColor;
+    }
+  }
 }

@@ -6,7 +6,7 @@ topics: ['typescript']
 
 One of the confusing part of TypeScript is a file behave differently depends if you use the `import`, `export` syntax in the file.
 
-For example, take the following example in my previous [TIL](/extending-global-or-third-party-type):
+For example, take the following example in my previous [TIL](/today-i-learnt/extending-global-or-third-party-type):
 
 ```ts
 declare global {
