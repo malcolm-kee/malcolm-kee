@@ -11,7 +11,7 @@ imageByLink: 'https://unsplash.com/@darshan394'
 published: true
 ---
 
-It's easy to become racist.
+It's easy to become a racist.
 
 You may not like to admit it, but privately you think that a particular race is generally lazier, another greedier, and some other race is more violent.
 
