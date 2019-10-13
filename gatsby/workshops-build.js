@@ -112,24 +112,21 @@ exports.createWorkshopPages = function createWorkshopPages({
   return graphql(`
     {
       allLesson(sort: { fields: fileAbsolutePath, order: ASC }) {
-        group(field: workshop___id) {
-          workshop: fieldValue
-          edges {
-            node {
+        edges {
+          node {
+            id
+            title
+            slug
+            section
+            isLastLesson
+            workshop {
               id
-              title
-              slug
-              isLastLesson
-              section
-              workshop {
-                themeColor
-                name
-                id
-              }
+              name
+              themeColor
             }
-            next {
-              slug
-            }
+          }
+          next {
+            slug
           }
         }
       }
@@ -139,25 +136,38 @@ exports.createWorkshopPages = function createWorkshopPages({
       return Promise.reject(result.errors);
     }
 
-    reporter.info(
-      `obtain Lesson group: [${result.data.allLesson.group.length}];
-      ONLY_WORKSHOP env var: [${ONLY_WORKSHOP}]`
-    );
-
-    const groups = result.data.allLesson.group.filter(
-      group => !ONLY_WORKSHOP || group.workshop === ONLY_WORKSHOP
-    );
+    // group manually instead of relying on group in GraphQL as that will breaks hot-reload (no idea why)
+    const groups = [];
+    result.data.allLesson.edges.forEach(edge => {
+      const groupIndex = groups.findIndex(
+        group => group.workshop === edge.node.workshop.id
+      );
+      if (groupIndex > -1) {
+        groups[groupIndex].edges.push(edge);
+      } else {
+        groups.push({
+          workshop: edge.node.workshop.id,
+          edges: [edge],
+        });
+      }
+    });
 
     groups.forEach(group => {
+      if (ONLY_WORKSHOP && group.workshop !== ONLY_WORKSHOP) {
+        // optimize build
+        return;
+      }
+
       const lessonGroup = groupInstruction(group.edges);
 
-      group.edges.forEach(({ node: lesson, next }) => {
+      group.edges.forEach(({ node: lesson, next }, index, edges) => {
         createPage({
           path: lesson.slug,
           component: lessonTemplate,
           context: {
             // used in layout
-            next: lesson.isLastLesson ? null : next,
+            next:
+              lesson.isLastLesson || index === edges.length - 1 ? null : next,
             lessonGroup,
             workshop: lesson.workshop,
             // used in template
