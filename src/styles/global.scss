@@ -691,9 +691,21 @@ p {
     padding: 1rem;
   }
 
-  a > code[class*='language-text'] {
-    color: $text-light;
-    color: var(--text);
+  a {
+    > code[class*='language-text'] {
+      color: $text-light;
+      color: var(--text);
+      padding: 0.1em 0.2em 0;
+      border-bottom: 0.05em solid;
+      border-bottom-color: $link-light;
+      border-bottom-color: var(--link);
+    }
+
+    &:hover {
+      > code[class*='language-text'] {
+        border-bottom-color: transparent;
+      }
+    }
   }
 }
 
