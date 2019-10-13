@@ -7,7 +7,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
   padding: $space $space * 2;
 }
 

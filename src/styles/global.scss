@@ -690,6 +690,11 @@ p {
     display: block;
     padding: 1rem;
   }
+
+  a > code[class*='language-text'] {
+    color: $text-light;
+    color: var(--text);
+  }
 }
 
 /* 

@@ -28,7 +28,7 @@ export const CodeRenderer = ({
 
   const [theme] = useTheme();
 
-  const codeTheme = theme === 'dark' ? nightOwl : accessibleGithub;
+  const codeTheme = theme === 'dark' ? accessibleNightOwl : accessibleGithub;
 
   const code = typeof children === 'string' ? children.trim() : children;
 
@@ -271,6 +271,36 @@ const accessibleGithub = {
           ...style,
           style: {
             color: '#347d7c',
+          },
+        }
+      : style.types.indexOf('attr-name') !== -1
+      ? {
+          ...style,
+          style: {
+            color: '#0078a0',
+          },
+        }
+      : style.types.indexOf('comment') !== -1
+      ? {
+          ...style,
+          style: {
+            ...style.style,
+            color: '#77774d',
+          },
+        }
+      : style
+  ),
+};
+
+const accessibleNightOwl = {
+  ...nightOwl,
+  styles: nightOwl.styles.map(style =>
+    style.types.indexOf('comment') !== -1
+      ? {
+          ...style,
+          style: {
+            ...style.style,
+            color: 'rgb(110, 131, 131)',
           },
         }
       : style

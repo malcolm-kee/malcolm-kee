@@ -65,8 +65,15 @@ export const ListItemText = ({
   secondaryText,
   tertiaryText,
   hideOverflow = false,
+  className,
 }) => (
-  <div className={cx('List--ListItemText', hideOverflow && 'hide-overflow')}>
+  <div
+    className={cx(
+      'List--ListItemText',
+      hideOverflow && 'hide-overflow',
+      className
+    )}
+  >
     <p className={cx('primary animated', boldPrimary && 'bold')}>
       {primaryText}
     </p>

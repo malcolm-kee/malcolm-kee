@@ -13,9 +13,7 @@ Workshop materials:
 
 ## Code Snippet MDX Usage
 
-This site is powered by [`gatsby-mdx`][gatsby-mdx], which enable the code editor in the markdown.\*
-
-Live code editor mode will be enabled when _all_ following conditions are met:
+Live code editor mode will be enabled in markdown when _all_ following conditions are met:
 
 - the language is `js` or `jsx`.
 - the props `live` is provided.
@@ -41,7 +39,7 @@ The following props are only applicable for language `jsx`:
 
 ### Highlight Code
 
-In addition, if the code snippets are not rendered as live code editor, you can highlight specific lines with the following special comments:
+If a code snippet is **NOT** rendered as live code editor, you can highlight specific lines with the following special comments:
 
 - highlight-next-line
 - highlight-start
@@ -56,7 +54,7 @@ It's possible to disable specific pages to optimize local build time by adding t
 DISABLE_BLOG=true
 NUM_OF_BLOGS=15
 DISABLE_WORKSHOP=true
-ONLY_WORKSHOP=intro-to-react-js-v2 # content id of workshop
+ONLY_WORKSHOP=intro-to-react-js-v2
 GITHUB_TOKEN=<Your_Github_Token>
 GATSBY_GITHUB_TOKEN=<Your_Github_Token>
 ```

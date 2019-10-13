@@ -32,7 +32,7 @@ const PageHeader = () => {
   `);
 
   return (
-    <WorkshopLandingPageBanner inverse>
+    <WorkshopLandingPageBanner>
       <Seo
         title={workshopsYaml.name}
         description={workshopsYaml.description}

@@ -42,6 +42,7 @@ const WorkshopsPage = ({ location }) => {
                   primaryText={name}
                   tertiaryText={description}
                   boldPrimary
+                  className="workshop-item"
                 />
                 {underConstruction && <ListItemLabel>WIP</ListItemLabel>}
               </ListItem>
