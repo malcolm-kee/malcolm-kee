@@ -13,6 +13,7 @@ const {
   createTilSchemaCustomization,
   createTils,
 } = require('./gatsby/til-build');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 exports.onCreateNode = async ({
   node,
@@ -72,5 +73,10 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         buble: '@philpl/buble',
       },
     },
+    plugins: [
+      new MonacoWebpackPlugin({
+        languages: ['typescript'],
+      }),
+    ],
   });
 };

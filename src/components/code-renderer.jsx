@@ -13,6 +13,7 @@ import './code-renderer.scss';
 import { transformTokens, wrapJsCode } from './code-transformers';
 import { CopyButton } from './copy-button';
 import { EditIcon } from './svg-icons';
+import { TypescriptEditor } from './typescript-editor';
 
 export const CodeRenderer = ({
   children,
@@ -23,6 +24,7 @@ export const CodeRenderer = ({
   noWrapper,
   fileName,
   highlightedLines,
+  editorOnly,
 }) => {
   const language = className && className.split('-').pop();
 
@@ -31,6 +33,10 @@ export const CodeRenderer = ({
   const codeTheme = theme === 'dark' ? accessibleNightOwl : accessibleGithub;
 
   const code = typeof children === 'string' ? children.trim() : children;
+
+  if (editorOnly && includes(['ts', 'tsx'], language)) {
+    return <TypescriptEditor code={code} />;
+  }
 
   return live && includes(['js', 'jsx', 'javascript'], language) ? (
     <CodeLiveEditor

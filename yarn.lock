@@ -1517,6 +1517,11 @@
     pretty-format "^24.9.0"
     wait-for-expect "^3.0.0"
 
+"@types/anymatch@*":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
+  integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
+
 "@types/aws-lambda@^8.10.23":
   version "8.10.33"
   resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.33.tgz#64ad8f2e785e5c2cf86dc2d596c9a0b2e2e14ab5"
@@ -1746,6 +1751,16 @@
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
   integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
+"@types/source-list-map@*":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
+  integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
+
+"@types/tapable@*":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.4.tgz#b4ffc7dc97b498c969b360a41eee247f82616370"
+  integrity sha512-78AdXtlhpCHT0K3EytMpn4JNxaf5tbqbLcbIRoQIHzpTIyjpxLQKRoxU55ujBXAtg3Nl2h/XWvfDa9dsMOd0pQ==
+
 "@types/testing-library__cypress@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.0.tgz#23586b6183a504c59fbd716ba2bd2d5a909528e6"
@@ -1771,6 +1786,13 @@
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.5.tgz#9da44ed75571999b65c37b60c9b2b88db54c585d"
   integrity sha512-SCcK7mvGi3+ZNz833RRjFIxrn4gI1PPR3NtuIS+6vMkvmsGjosqTJwRt5bAEFLRz+wtJMWv8+uOnZf2hi2QXTg==
 
+"@types/uglify-js@*":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@types/uglify-js/-/uglify-js-3.0.4.tgz#96beae23df6f561862a830b4288a49e86baac082"
+  integrity sha512-SudIN9TRJ+v8g5pTG8RRCqfqTMNqgWCKKd3vtynhGzkIIjxaicNAMuY5TRadJ6tzDu3Dotf3ngaMILtmOdmWEQ==
+  dependencies:
+    source-map "^0.6.1"
+
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
@@ -1792,6 +1814,27 @@
     "@types/node" "*"
     "@types/unist" "*"
     "@types/vfile-message" "*"
+
+"@types/webpack-sources@*":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@types/webpack-sources/-/webpack-sources-0.1.5.tgz#be47c10f783d3d6efe1471ff7f042611bd464a92"
+  integrity sha512-zfvjpp7jiafSmrzJ2/i3LqOyTYTuJ7u1KOXlKgDlvsj9Rr0x7ZiYu5lZbXwobL7lmsRNtPXlBfmaUD8eU2Hu8w==
+  dependencies:
+    "@types/node" "*"
+    "@types/source-list-map" "*"
+    source-map "^0.6.1"
+
+"@types/webpack@^4.4.19":
+  version "4.39.3"
+  resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.39.3.tgz#1d55f8fce117a325368bf7612950552ee4ed4467"
+  integrity sha512-afGNNuTfKk1YfHrQ+IwF0QhDkSSMIMMt8BRRErTKaGVvWTMABDjT22/4kJ4bRoSzir9LVgxuuceyZ4Z5I82Cyg==
+  dependencies:
+    "@types/anymatch" "*"
+    "@types/node" "*"
+    "@types/tapable" "*"
+    "@types/uglify-js" "*"
+    "@types/webpack-sources" "*"
+    source-map "^0.6.0"
 
 "@types/yargs-parser@*":
   version "13.1.0"
@@ -10526,6 +10569,18 @@ moment@2.24.0, moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
+monaco-editor-webpack-plugin@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/monaco-editor-webpack-plugin/-/monaco-editor-webpack-plugin-1.7.0.tgz#920cbeecca25f15d70d568a7e11b0ba4daf1ae83"
+  integrity sha512-oItymcnlL14Sjd7EF7q+CMhucfwR/2BxsqrXIBrWL6LQplFfAfV+grLEQRmVHeGSBZ/Gk9ptzfueXnWcoEcFuA==
+  dependencies:
+    "@types/webpack" "^4.4.19"
+
+monaco-editor@^0.18.1:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.18.1.tgz#ced7c305a23109875feeaf395a504b91f6358cfc"
+  integrity sha512-fmL+RFZ2Hrezy+X/5ZczQW51LUmvzfcqOurnkCIRFTyjdVjzR7JvENzI6+VKBJzJdPh6EYL4RoWl92b2Hrk9fw==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
