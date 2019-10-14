@@ -1,6 +1,6 @@
 ---
-name: blog-comment
-about: This template is used to add comment to blog
+name: article-comment
+about: This template is used to add comment to blog/workshop lesson
 title: ''
 labels: comment
 assignees: ''
