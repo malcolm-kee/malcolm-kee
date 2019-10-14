@@ -1,5 +1,4 @@
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
-import Highlight, { defaultProps } from 'prism-react-renderer';
 import github from 'prism-react-renderer/themes/github';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import React from 'react';
@@ -10,7 +9,8 @@ import { includes } from '../lib/array';
 import { useTheme } from '../theme';
 import { Button } from './Button';
 import './code-renderer.scss';
-import { transformTokens, wrapJsCode } from './code-transformers';
+import { CodeSnippet, HighlightedCode } from './code-snippet';
+import { wrapJsCode } from './code-transformers';
 import { CopyButton } from './copy-button';
 import { EditIcon } from './svg-icons';
 import { TypescriptEditor } from './typescript-editor';
@@ -24,7 +24,6 @@ export const CodeRenderer = ({
   noWrapper,
   fileName,
   highlightedLines,
-  editorOnly,
 }) => {
   const language = className && className.split('-').pop();
 
@@ -34,14 +33,19 @@ export const CodeRenderer = ({
 
   const code = typeof children === 'string' ? children.trim() : children;
 
-  if (editorOnly && includes(['ts', 'tsx'], language)) {
-    return <TypescriptEditor code={code} />;
-  }
+  // if (live && includes(['ts', 'tsx'], language)) {
+  //   return <TypescriptEditor code={code} theme={theme} />;
+  // }
 
-  return live && includes(['js', 'jsx', 'javascript'], language) ? (
+  return live &&
+    includes(
+      ['js', 'jsx', 'javascript', 'ts', 'tsx', 'typescript'],
+      language
+    ) ? (
     <CodeLiveEditor
       code={code}
       theme={codeTheme}
+      themeMode={theme}
       language={language}
       noInline={noInline}
       fileName={fileName}
@@ -70,6 +74,7 @@ const injectedGlobals = { sanitize, shallowConcat };
 const CodeLiveEditor = ({
   code,
   theme,
+  themeMode,
   language,
   noInline,
   fileName,
@@ -97,6 +102,45 @@ const CodeLiveEditor = ({
     },
     [isEdit]
   );
+
+  if (includes(['ts', 'tsx', 'typescript'], language)) {
+    return (
+      <div className="code-editor">
+        <div className="code-editor-header-container">
+          <div className="code-editor-header">
+            {isEdit ? (
+              <div className="code-editor-icon">
+                <EditIcon />
+              </div>
+            ) : (
+              <Button
+                onClick={() => setIsEdit(true)}
+                size="small"
+                raised
+                ref={editBtnRef}
+              >
+                Edit
+              </Button>
+            )}
+            {fileName && <span>{fileName}</span>}
+            <CopyButton contentToCopy={code} />
+          </div>
+          <span className="code-editor-language">{language}</span>
+        </div>
+        {isEdit ? (
+          <TypescriptEditor
+            code={code}
+            theme={themeMode}
+            onEscape={() => setIsEdit(false)}
+            onBlur={() => setIsEdit(false)}
+            autoFocus
+          />
+        ) : (
+          <HighlightedCode code={code} theme={theme} language="typescript" />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="code-editor">
@@ -178,92 +222,6 @@ function shallowConcat(targetArr, item) {
   newArr.push(item);
   return newArr;
 }
-
-const CodeSnippet = ({
-  code,
-  language,
-  theme,
-  fileName,
-  noWrapper,
-  highlightedLines,
-}) => {
-  const highlightedCode = (
-    <HighlightedCode
-      code={code}
-      theme={theme}
-      language={language}
-      highlightedLines={highlightedLines}
-    />
-  );
-
-  return noWrapper ? (
-    <div className="code-snippet-plain">{highlightedCode}</div>
-  ) : (
-    <div className="code-snippet">
-      <div className="code-snippet-header-container">
-        <div className="code-snippet-header">
-          <span />
-          {fileName && <span>{fileName}</span>}
-          <CopyButton contentToCopy={code} />
-        </div>
-        <span className="code-snippet-language">
-          {shortenLanguage(language)}
-        </span>
-      </div>
-      {highlightedCode}
-    </div>
-  );
-};
-
-const HighlightedCode = React.memo(function HighlightedCodeComponent({
-  theme,
-  code,
-  language,
-  highlightedLines,
-}) {
-  const lineIndexesToHighlight =
-    typeof highlightedLines === 'string'
-      ? highlightedLines.split(',').map(num => Number(num) - 1)
-      : [];
-
-  return (
-    <Highlight {...defaultProps} theme={theme} code={code} language={language}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        // tabIndex because this is scrollable
-        <pre className={className} style={style} tabIndex={0}>
-          {transformTokens(tokens, lineIndexesToHighlight).map(
-            ({ line, isHighlighted }, i) => {
-              return (
-                <React.Fragment key={i}>
-                  <div
-                    {...getLineProps({
-                      line,
-                      className: isHighlighted
-                        ? 'highlighted-code-line'
-                        : undefined,
-                    })}
-                  >
-                    {line.map((token, key) => {
-                      return <span {...getTokenProps({ token, key })} />;
-                    })}
-                  </div>
-                  {isHighlighted && <br />}
-                </React.Fragment>
-              );
-            }
-          )}
-        </pre>
-      )}
-    </Highlight>
-  );
-});
-
-/**
- *
- * @param {string} language
- */
-const shortenLanguage = language =>
-  language && /javascript/i.test(language) ? 'js' : language;
 
 const accessibleGithub = {
   ...github,
