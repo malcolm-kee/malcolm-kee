@@ -102,6 +102,7 @@ const CodeLiveEditor = ({
     },
     [isEdit]
   );
+  const [latestCode, setCode] = React.useState(code);
 
   if (includes(['ts', 'tsx', 'typescript'], language)) {
     return (
@@ -123,20 +124,25 @@ const CodeLiveEditor = ({
               </Button>
             )}
             {fileName && <span>{fileName}</span>}
-            <CopyButton contentToCopy={code} />
+            <CopyButton contentToCopy={latestCode} />
           </div>
           <span className="code-editor-language">{language}</span>
         </div>
         {isEdit ? (
           <TypescriptEditor
-            code={code}
+            code={latestCode}
             theme={themeMode}
+            onChange={setCode}
             onEscape={() => setIsEdit(false)}
             onBlur={() => setIsEdit(false)}
             autoFocus
           />
         ) : (
-          <HighlightedCode code={code} theme={theme} language="typescript" />
+          <HighlightedCode
+            code={latestCode}
+            theme={theme}
+            language="typescript"
+          />
         )}
       </div>
     );

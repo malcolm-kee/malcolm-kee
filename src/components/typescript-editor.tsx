@@ -6,6 +6,7 @@ let monaco: typeof import('monaco-editor');
 interface TypescriptEditorProps {
   code: string;
   theme: 'light' | 'dark';
+  onChange?: (updatedCode: string) => void;
   onEscape?: () => void;
   onBlur?: () => void;
   autoFocus?: boolean;
@@ -31,6 +32,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       });
     }
     window.addEventListener('resize', this.handleResize);
+    this.positionContainer();
   }
 
   componentWillUnmount() {
@@ -51,6 +53,25 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       );
     }
   }
+
+  positionContainer = () => {
+    if (this.containerRef.current) {
+      const clientRect = this.containerRef.current.getBoundingClientRect();
+      if (
+        clientRect.bottom >
+        (window.innerHeight || document.documentElement.clientHeight)
+      ) {
+        try {
+          this.containerRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+          });
+        } catch (e) {
+          console.info(`Error scrollIntoView. Not a big deal.`);
+        }
+      }
+    }
+  };
 
   initEditor = () => {
     this.editor = monaco.editor.create(
@@ -75,6 +96,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
     });
 
     this.editor.onDidBlurEditorText(this.handleBlur);
+    this.editor.onDidChangeModelContent(this.handleChange);
 
     if (this.props.autoFocus) {
       this.editor.focus();
@@ -84,6 +106,12 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   handleKey = () => {
     if (this.props.onEscape) {
       this.props.onEscape();
+    }
+  };
+
+  handleChange = () => {
+    if (this.props.onChange && this.editor) {
+      this.props.onChange(this.editor.getValue());
     }
   };
 
