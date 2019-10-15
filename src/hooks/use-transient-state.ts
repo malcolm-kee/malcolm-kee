@@ -8,7 +8,7 @@ export const useTransientState = <T>(
   const [calledTimes, setCallTimes] = React.useState(0);
 
   const setTemporaryState = React.useCallback(function setTemporaryState(
-    newValue
+    newValue: React.SetStateAction<T>
   ) {
     setState(newValue);
     setCallTimes(t => t + 1);
