@@ -13411,11 +13411,6 @@ react-style-singleton@^2.0.0:
     invariant "^2.2.4"
     tslib "^1.0.0"
 
-react-tiny-popover@^3.4.2:
-  version "3.4.5"
-  resolved "https://registry.yarnpkg.com/react-tiny-popover/-/react-tiny-popover-3.4.5.tgz#66efb7951b98637d25deff156c9e870a3618a966"
-  integrity sha512-vZHIMCsphBwgUcz6wnwq+BZnukNzZhSXYTpe5qqTYGr+mTyVKN6q8NXsNkokh5QGnTzO3FpB3P33J64F1oiTqg==
-
 react-wonka@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-wonka/-/react-wonka-1.0.2.tgz#b8d5a095e5ce40548842036898a2665ea5202f69"

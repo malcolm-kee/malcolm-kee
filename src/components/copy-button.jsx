@@ -1,27 +1,23 @@
 import React from 'react';
 import { copyToClipboard } from '../helper';
+import { useTransientState } from '../hooks/use-transient-state';
 import { Button } from './Button';
-import { Popover, PopoverContent } from './popover';
 
-export function CopyButton({ contentToCopy, label = 'Copy' }) {
-  const [showPopup, setShowPopup] = React.useState(false);
+export function CopyButton({
+  contentToCopy,
+  label = 'Copy',
+  copiedMessage = 'Copied!',
+}) {
+  const [showMessage, setShowMessage] = useTransientState(false);
 
   function copy() {
     copyToClipboard(contentToCopy);
-    setShowPopup(true);
+    setShowMessage(true);
   }
 
   return (
-    <Popover
-      isOpen={showPopup}
-      position="top"
-      align="end"
-      content={<PopoverContent>Copied to clipboard!</PopoverContent>}
-      onClickOutside={() => setShowPopup(false)}
-    >
-      <Button onClick={copy} size="small" raised>
-        {label}
-      </Button>
-    </Popover>
+    <Button onClick={copy} size="small" raised>
+      {showMessage ? copiedMessage : label}
+    </Button>
   );
 }
