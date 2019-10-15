@@ -13,6 +13,7 @@ interface TypescriptEditorProps {
 
 export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   containerRef = React.createRef<HTMLDivElement>();
+  editor: undefined | ReturnType<typeof monaco.editor.create>;
 
   componentDidMount() {
     if (monaco) {
@@ -25,6 +26,16 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
     }
   }
 
+  componentWillUnmount() {
+    if (this.editor) {
+      const model = this.editor.getModel();
+      if (model) {
+        model.dispose();
+      }
+      this.editor.dispose();
+    }
+  }
+
   componentDidUpdate(prevProps: TypescriptEditorProps) {
     if (monaco && prevProps.theme !== this.props.theme) {
       monaco.editor.setTheme(this.props.theme === 'light' ? 'vs' : 'vs-dark');
@@ -32,7 +43,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   }
 
   initEditor = () => {
-    const editor = monaco.editor.create(
+    this.editor = monaco.editor.create(
       this.containerRef.current as HTMLDivElement,
       {
         value: this.props.code,
@@ -46,17 +57,17 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       }
     );
 
-    editor.onKeyDown(ev => {
+    this.editor.onKeyDown(ev => {
       if (ev.keyCode === 9) {
         // 'Escape Key'
         this.handleKey();
       }
     });
 
-    editor.onDidBlurEditorText(this.handleBlur);
+    this.editor.onDidBlurEditorText(this.handleBlur);
 
     if (this.props.autoFocus) {
-      editor.focus();
+      this.editor.focus();
     }
   };
 
