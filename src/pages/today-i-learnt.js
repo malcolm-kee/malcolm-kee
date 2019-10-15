@@ -69,7 +69,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allTopics: allTopicsYaml {
+    allTopics: allTopicsYaml(sort: { fields: id }) {
       nodes {
         id
         icon {

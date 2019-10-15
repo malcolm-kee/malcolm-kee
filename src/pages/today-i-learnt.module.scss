@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
   padding: $space $space * 2;
+  grid-gap: 4em;
 }
 
 .list {
