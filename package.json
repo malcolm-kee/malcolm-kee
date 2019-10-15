@@ -56,6 +56,7 @@
     "intersection-observer": "^0.7.0",
     "lodash": "^4.17.10",
     "monaco-editor": "^0.18.1",
+    "monaco-themes": "^0.3.3",
     "nice-color-palettes": "^3.0.0",
     "node-sass": "^4.9.4",
     "object-fit-images": "^3.2.4",

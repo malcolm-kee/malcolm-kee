@@ -19,11 +19,18 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
     if (monaco) {
       this.initEditor();
     } else {
-      import('monaco-editor').then(loadedMonaco => {
+      Promise.all([
+        import('monaco-editor/esm/vs/editor/editor.api'),
+        import('monaco-themes/themes/Night Owl.json'),
+        import('monaco-themes/themes/GitHub.json'),
+      ]).then(([loadedMonaco, loadedDarkTheme, loadedLightTheme]) => {
         monaco = loadedMonaco;
+        monaco.editor.defineTheme('nightOwl', loadedDarkTheme as any);
+        monaco.editor.defineTheme('github', loadedLightTheme as any);
         this.initEditor();
       });
     }
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentWillUnmount() {
@@ -34,11 +41,14 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       }
       this.editor.dispose();
     }
+    window.removeEventListener('resize', this.handleResize);
   }
 
   componentDidUpdate(prevProps: TypescriptEditorProps) {
     if (monaco && prevProps.theme !== this.props.theme) {
-      monaco.editor.setTheme(this.props.theme === 'light' ? 'vs' : 'vs-dark');
+      monaco.editor.setTheme(
+        this.props.theme === 'light' ? 'github' : 'nightOwl'
+      );
     }
   }
 
@@ -48,7 +58,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       {
         value: this.props.code,
         language: 'typescript',
-        theme: this.props.theme === 'light' ? 'vs' : 'vs-dark',
+        theme: this.props.theme === 'light' ? 'github' : 'nightOwl',
         scrollBeyondLastLine: false,
         lineNumbers: 'off',
         minimap: {
@@ -80,6 +90,12 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   handleBlur = () => {
     if (this.props.onBlur) {
       this.props.onBlur();
+    }
+  };
+
+  handleResize = () => {
+    if (this.editor) {
+      this.editor.layout();
     }
   };
 
