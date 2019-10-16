@@ -6,7 +6,7 @@ interface CallBack<Params extends any[]> {
 
 export function debounce<Params extends any[]>(
   fn: CallBack<Params>,
-  wait: number
+  wait: number = 300
 ) {
   let timeout: number | undefined = undefined;
 
@@ -23,7 +23,7 @@ export function debounce<Params extends any[]>(
 export function throttle<Params extends any[]>(
   fn: CallBack<Params>,
   wait = 250,
-  context = null
+  context: any = null
 ) {
   let timeout: undefined | number = undefined;
   let args: undefined | Params = undefined;

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import styles from './typescript-editor.module.scss';
 import { scrollIntoViewIfTooLow } from '../lib/dom';
+import { debounce } from '../lib/fp';
+import styles from './typescript-editor.module.scss';
 
 let monaco: typeof import('monaco-editor');
 
@@ -14,6 +15,11 @@ interface TypescriptEditorProps {
   autoFocus?: boolean;
 }
 
+/**
+ * Wrapper over 'monaco-editor'. 'monaco-editor' will be lazy-loaded.
+ *
+ * Currently does not support tsx.
+ */
 export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   containerRef = React.createRef<HTMLDivElement>();
   editor: undefined | ReturnType<typeof monaco.editor.create>;
@@ -158,11 +164,11 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
     }
   };
 
-  handleResize = () => {
+  handleResize = debounce(() => {
     if (this.editor) {
       this.editor.layout();
     }
-  };
+  });
 
   render() {
     return <div className={styles.root} ref={this.containerRef} />;

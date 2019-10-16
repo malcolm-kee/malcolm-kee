@@ -36,8 +36,8 @@ export const CodeRenderer = ({
 
   const code = typeof children === 'string' ? children.trim() : children;
 
-  return live && /^(jsx?|tsx?|javascript|typescript)$/.test(language) ? (
-    (/^(tsx?|typescript)$/.test(language) ? (
+  return live && /^(jsx?|ts|javascript|typescript)$/.test(language) ? (
+    (/^(ts|typescript)$/.test(language) ? (
       <TypescriptLiveEditor
         code={code}
         fileName={fileName}
