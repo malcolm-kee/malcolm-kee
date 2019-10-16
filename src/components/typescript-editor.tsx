@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './typescript-editor.module.scss';
+import { scrollIntoViewIfTooLow } from '../lib/dom';
 
 let monaco: typeof import('monaco-editor');
 
@@ -7,6 +8,7 @@ interface TypescriptEditorProps {
   code: string;
   theme: 'light' | 'dark';
   onChange?: (updatedCode: string) => void;
+  onEmitCode?: (emitedJsCode: string) => void;
   onEscape?: () => void;
   onBlur?: () => void;
   autoFocus?: boolean;
@@ -15,8 +17,11 @@ interface TypescriptEditorProps {
 export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   containerRef = React.createRef<HTMLDivElement>();
   editor: undefined | ReturnType<typeof monaco.editor.create>;
+  tsProxy: any;
+  _isMounted: boolean = false;
 
   componentDidMount() {
+    this._isMounted = true;
     if (monaco) {
       this.initEditor();
     } else {
@@ -36,6 +41,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     if (this.editor) {
       const model = this.editor.getModel();
       if (model) {
@@ -47,6 +53,22 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   }
 
   componentDidUpdate(prevProps: TypescriptEditorProps) {
+    if (this.editor) {
+      const model = this.editor.getModel();
+      if (model && model.getValue() !== this.props.code) {
+        model.pushEditOperations(
+          [],
+          [
+            {
+              range: model.getFullModelRange(),
+              text: this.props.code,
+            },
+          ],
+          () => null
+        );
+      }
+    }
+
     if (monaco && prevProps.theme !== this.props.theme) {
       monaco.editor.setTheme(
         this.props.theme === 'light' ? 'github' : 'nightOwl'
@@ -56,20 +78,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
 
   positionContainer = () => {
     if (this.containerRef.current) {
-      const clientRect = this.containerRef.current.getBoundingClientRect();
-      if (
-        clientRect.bottom >
-        (window.innerHeight || document.documentElement.clientHeight)
-      ) {
-        try {
-          this.containerRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-          });
-        } catch (e) {
-          console.info(`Error scrollIntoView. Not a big deal.`);
-        }
-      }
+      scrollIntoViewIfTooLow(this.containerRef.current);
     }
   };
 
@@ -101,6 +110,16 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
     if (this.props.autoFocus) {
       this.editor.focus();
     }
+
+    const model = this.editor.getModel();
+    if (model) {
+      monaco.languages.typescript
+        .getTypeScriptWorker()
+        .then(worker => worker(model.uri))
+        .then(proxy => {
+          this.tsProxy = proxy;
+        });
+    }
   };
 
   handleKey = () => {
@@ -112,6 +131,24 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   handleChange = () => {
     if (this.props.onChange && this.editor) {
       this.props.onChange(this.editor.getValue());
+    }
+    if (this.props.onEmitCode && this.tsProxy && this.editor) {
+      const model = this.editor.getModel();
+      if (model) {
+        this.tsProxy
+          .getEmitOutput(model.uri.toString())
+          .then((result: any) => {
+            const emittedCode = result.outputFiles[0].text;
+            if (this.props.onEmitCode && this._isMounted) {
+              this.props.onEmitCode(emittedCode);
+            }
+          })
+          .catch((err: any) => {
+            console.group(`Error while transpiling typescript code`);
+            console.error(err);
+            console.groupEnd();
+          });
+      }
     }
   };
 
