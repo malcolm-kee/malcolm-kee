@@ -41,7 +41,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
           title={title}
           keywords={keywords}
           description={summary}
-          image={image && image.publicURL}
+          image={`/og_image${location.pathname}.png`}
           pathname={location.pathname}
         />
         <main>

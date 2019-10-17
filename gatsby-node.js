@@ -13,6 +13,7 @@ const {
   createTilSchemaCustomization,
   createTils,
 } = require('./gatsby/til-build');
+const { screenshot } = require('./gatsby/screenshot');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 exports.onCreateNode = async ({
@@ -79,4 +80,30 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       }),
     ],
   });
+};
+
+exports.onPostBuild = async ({ graphql, reporter }) => {
+  reporter.info(`Start generating social media preview images`);
+
+  const result = await graphql(`
+    {
+      allBlogPost {
+        nodes {
+          title
+          date(formatString: "MMM DD, YYYY")
+          slug
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    return reporter.error(result.errors);
+  }
+
+  const nodes = result.data.allBlogPost.nodes;
+
+  await screenshot({ nodes, reporter });
+
+  reporter.info(`Done generating social media preview images`);
 };
