@@ -55,7 +55,10 @@ export const Seo = ({
       {image && (
         <meta property="og:image" content={siteMetadata.siteUrl + image} />
       )}
-      <meta name="twitter:card" content="summary" />
+      <meta
+        name="twitter:card"
+        content={image ? 'summary_large_image' : 'summary'}
+      />
       <meta name="twitter:creator" content={siteMetadata.social.twitter} />
       <meta name="twitter:title" content={displayTitle} />
       <meta name="twitter:description" content={displayDescription} />
