@@ -69,15 +69,20 @@ Takeaways:
 /**
  * simple array types can be expressed using []
  */
-// let luckyNumbers: number[] = [];
-// luckyNumbers.push(33);
+let luckyNumbers: number[] = [];
+luckyNumbers.push(33);
 // luckyNumbers.push("abc"); // !ERROR
+
+/* array type will be inferred as well if you provide initial value */
+let luckyPersons = ['Steve', 'Bill'];
+luckyPersons.push('Elon');
+// luckyPersons.push(66); // ERROR
 
 /**
  * Array<> works too
  */
-// const frameworks: Array<string> = [];
-// frameworks.push('react');
+const frameworks: Array<string> = [];
+frameworks.push('react');
 // frameworks.push(true); // !ERROR
 
 /**
@@ -144,76 +149,83 @@ Takeaways:
  * Sometimes we have a type that can be one of several things
  */
 
-// interface WithPhoneNumber {
-//   name: string;
-//   phone: number;
-// }
+interface WithPhoneNumber {
+  name: string;
+  phone: number;
+}
 
-// interface WithEmail {
-//   name: string;
-//   email: string;
-// }
+interface WithEmail {
+  name: string;
+  email: string;
+}
 
-// let contactInfo: WithPhoneNumber | WithEmail =
-//   Math.random() > 0.5
-//     ? {
-//         // we can assign it to a WithPhoneNumber
-//         name: "Malcolm",
-//         phone: 60174444444
-//       }
-//     : {
-//         // or a WithEmail
-//         name: "Malcolm",
-//         email: "malcolm@example.com"
-//       };
+let contactInfo: WithPhoneNumber | WithEmail =
+  Math.random() > 0.5
+    ? {
+        // we can assign it to a WithPhoneNumber
+        name: 'Malcolm',
+        phone: 60174444444,
+      }
+    : {
+        // or a WithEmail
+        name: 'Malcolm',
+        email: 'malcolm@example.com',
+      };
 
-// contactInfo.name; // NOTE: we can only access the .name property  (the stuff WithPhoneNumber and WithEmail have in common)
+contactInfo.name; // NOTE: we can only access the .name property  (the stuff WithPhoneNumber and WithEmail have in common)
 
 /**
  * Intersection types
  */
-// let otherContactInfo: WithPhoneNumber & WithEmail = {
-// //   we _must_ initialize it to a shape that's asssignable to WithEmail _and_ WithPhoneNumber
-//   name: "Malcolm",
-//   email: "malcolm@example.com",
-//   phone: 601744444444
-// };
+let otherContactInfo: WithPhoneNumber & WithEmail = {
+  //   we _must_ initialize it to a shape that's asssignable to WithEmail _and_ WithPhoneNumber
+  name: 'Malcolm',
+  email: 'malcolm@example.com',
+  phone: 601744444444,
+};
 
-// otherContactInfo.name; // NOTE: we can access anything on _either_ type
-// otherContactInfo.email;
-// otherContactInfo.phone;
+otherContactInfo.name; // NOTE: we can access anything on _either_ type
+otherContactInfo.email;
+otherContactInfo.phone;
 ```
+
+Takeaways:
+
+1. Union is like OR operator. In mathematics, union is represented by two overlapping circles with both of them covered.
+1. Intersection is like AND operator. In mathematics, intersection is presented by two overlapping circles with the overlapped parts covered.
+
+<!-- TODO: add mathematics diagram -->
 
 ## Function
 
 ```ts live
-// interface WithPhoneNumber {
-//     name: string;
-//     phone: number;
-// }
+interface WithPhoneNumber {
+  name: string;
+  phone: number;
+}
 
-// interface WithEmail {
-//     name: string;
-//     email: string;
-// }
+interface WithEmail {
+  name: string;
+  email: string;
+}
 
 /* function arguments and return values can have type annotations */
-// function sendEmail(to: WithEmail): { recipient: string; body: string } {
-//   return {
-//     recipient: `${to.name} <${to.email}>`, // Malcolm Kee <malcolm@example.com>
-//     body: "You're pre-qualified for the job!"
-//   };
-// }
+function sendEmail(to: WithEmail): { recipient: string; body: string } {
+  return {
+    recipient: `${to.name} <${to.email}>`, // Malcolm Kee <malcolm@example.com>
+    body: "You're pre-qualified for the job!",
+  };
+}
 
 /* the arrow-function variant */
-// const sendTextMessage = (
-//   to: WithPhoneNumber
-// ): { recipient: string; body: string } => {
-//   return {
-//     recipient: `${to.name} <${to.phone}>`,
-//     body: "You're pre-qualified for the job!"
-//   };
-// };
+const sendTextMessage = (
+  to: WithPhoneNumber
+): { recipient: string; body: string } => {
+  return {
+    recipient: `${to.name} <${to.phone}>`,
+    body: "You're pre-qualified for the job!",
+  };
+};
 
 /* return types can almost always be inferred */
 // function getNameParts(contact: { name: string }) {

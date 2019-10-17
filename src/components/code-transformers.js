@@ -3,6 +3,7 @@ import { includes } from '../lib/array';
 /**
  * wrap js code with a React component that expose `console.log` and
  * renders the logs
+ * @param {string} code
  */
 export const wrapJsCode = code => `
   class CodeWrapper extends React.Component {

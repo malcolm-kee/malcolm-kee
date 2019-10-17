@@ -1,0 +1,38 @@
+---
+title: More Types in TypeScript
+description: 'Learn type alias, interface, and index signature.'
+section: 'typescript'
+date: '2019-10-17'
+---
+
+## Type Alias
+
+```ts
+type PhoneFormat = string | number;
+```
+
+## Interface
+
+```ts
+interface Animal {
+  name: string;
+}
+
+interface Dog extends Animal {
+  woof: () => void;
+}
+```
+
+## Index signature
+
+```ts
+interface Person {
+  name: string;
+  age: number;
+  phone: string;
+}
+
+interface PersonById {
+  [id: string]: Person;
+}
+```

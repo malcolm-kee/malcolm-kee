@@ -5,7 +5,7 @@ import React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { useDiffEffect } from '../hooks/use-diff-effect';
 import { useId } from '../hooks/use-id';
-import { includes } from '../lib/array';
+import { scrollIntoViewIfTooLow } from '../lib/dom';
 import { useTheme } from '../theme';
 import { Button } from './Button';
 import './code-renderer.scss';
@@ -15,6 +15,9 @@ import { CopyButton } from './copy-button';
 import { EditIcon } from './svg-icons';
 import { TypescriptEditor } from './typescript-editor';
 
+/**
+ * @type {React.FC}
+ */
 export const CodeRenderer = ({
   children,
   className,
@@ -25,7 +28,7 @@ export const CodeRenderer = ({
   fileName,
   highlightedLines,
 }) => {
-  const language = className && className.split('-').pop();
+  const language = (className && className.split('-').pop()) || '';
 
   const [theme] = useTheme();
 
@@ -33,35 +36,37 @@ export const CodeRenderer = ({
 
   const code = typeof children === 'string' ? children.trim() : children;
 
-  // if (live && includes(['ts', 'tsx'], language)) {
-  //   return <TypescriptEditor code={code} theme={theme} />;
-  // }
-
-  return live &&
-    includes(
-      ['js', 'jsx', 'javascript', 'ts', 'tsx', 'typescript'],
-      language
-    ) ? (
-    <CodeLiveEditor
-      code={code}
-      theme={codeTheme}
-      themeMode={theme}
-      language={language}
-      noInline={noInline}
-      fileName={fileName}
-      previewOnly={previewOnly}
-    />
+  return live && /^(jsx?|ts|javascript|typescript)$/.test(language) ? (
+    (/^(ts|typescript)$/.test(language) ? (
+      <TypescriptLiveEditor
+        code={code}
+        fileName={fileName}
+        language={language}
+        theme={codeTheme}
+        themeMode={theme}
+      />
+    ) : (
+      <CodeLiveEditor
+        code={code}
+        theme={codeTheme}
+        themeMode={theme}
+        language={language}
+        noInline={noInline}
+        fileName={fileName}
+        previewOnly={previewOnly}
+      />
+    ))
   ) : language ? (
-    <CodeSnippet
+    (<CodeSnippet
       code={code}
       language={language}
       theme={codeTheme}
       fileName={fileName}
       noWrapper={noWrapper}
       highlightedLines={highlightedLines}
-    />
+    />)
   ) : (
-    <code className="language-text">{code}</code>
+    (<code className="language-text">{code}</code>)
   );
 };
 
@@ -74,7 +79,6 @@ const injectedGlobals = { sanitize, shallowConcat };
 const CodeLiveEditor = ({
   code,
   theme,
-  themeMode,
   language,
   noInline,
   fileName,
@@ -90,63 +94,8 @@ const CodeLiveEditor = ({
     [components]
   );
 
-  const [isEdit, setIsEdit] = React.useState(false);
+  const [isEdit, setIsEdit, editBtnRef] = useToggleContent();
   const id = 'code-editor' + useId();
-  const editBtnRef = React.useRef(null);
-
-  useDiffEffect(
-    prev => {
-      if (prev && prev[0] && !isEdit) {
-        editBtnRef.current && editBtnRef.current.focus();
-      }
-    },
-    [isEdit]
-  );
-  const [latestCode, setCode] = React.useState(code);
-
-  if (includes(['ts', 'tsx', 'typescript'], language)) {
-    return (
-      <div className="code-editor">
-        <div className="code-editor-header-container">
-          <div className="code-editor-header">
-            {isEdit ? (
-              <div className="code-editor-icon">
-                <EditIcon />
-              </div>
-            ) : (
-              <Button
-                onClick={() => setIsEdit(true)}
-                size="small"
-                raised
-                ref={editBtnRef}
-              >
-                Edit
-              </Button>
-            )}
-            {fileName && <span>{fileName}</span>}
-            <CopyButton contentToCopy={latestCode} />
-          </div>
-          <span className="code-editor-language">{language}</span>
-        </div>
-        {isEdit ? (
-          <TypescriptEditor
-            code={latestCode}
-            theme={themeMode}
-            onChange={setCode}
-            onEscape={() => setIsEdit(false)}
-            onBlur={() => setIsEdit(false)}
-            autoFocus
-          />
-        ) : (
-          <HighlightedCode
-            code={latestCode}
-            theme={theme}
-            language="typescript"
-          />
-        )}
-      </div>
-    );
-  }
 
   return (
     <div className="code-editor">
@@ -156,7 +105,7 @@ const CodeLiveEditor = ({
         transformCode={language === 'js' ? wrapJsCode : undefined}
         theme={theme}
         language="jsx"
-        noInline={noInline}
+        noInline={language === 'js' ? false : noInline}
       >
         {!previewOnly && (
           <>
@@ -207,6 +156,113 @@ const CodeLiveEditor = ({
       </LiveProvider>
     </div>
   );
+};
+
+const TypescriptLiveEditor = ({
+  fileName,
+  code,
+  language,
+  themeMode,
+  theme,
+}) => {
+  const [latestTsCode, setTsCode] = React.useState(code);
+  const [jsCode, setJsCode] = React.useState('');
+  const [executedCode, setExecutedCode] = React.useState('');
+
+  const [isEdit, setIsEdit, editBtnRef] = useToggleContent();
+  const previewRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (previewRef.current) {
+      scrollIntoViewIfTooLow(previewRef.current, 'center');
+    }
+  }, [executedCode]);
+
+  return (
+    <div className="code-editor">
+      <div className="code-editor-header-container">
+        <div className="code-editor-header">
+          {isEdit ? (
+            jsCode ? (
+              <Button
+                onClick={() => setExecutedCode(jsCode)}
+                size="small"
+                color="primary"
+                raised
+              >
+                Run Code
+              </Button>
+            ) : (
+              <div className="code-editor-icon">
+                <EditIcon />
+              </div>
+            )
+          ) : (
+            <Button
+              onClick={() => setIsEdit(true)}
+              size="small"
+              raised
+              ref={editBtnRef}
+            >
+              Edit
+            </Button>
+          )}
+          {fileName && <span>{fileName}</span>}
+          <CopyButton contentToCopy={latestTsCode} />
+        </div>
+        <span className="code-editor-language">{language}</span>
+      </div>
+      {isEdit ? (
+        <>
+          <TypescriptEditor
+            code={latestTsCode}
+            theme={themeMode}
+            onChange={setTsCode}
+            onEmitCode={setJsCode}
+            onEscape={() => setIsEdit(false)}
+            autoFocus
+          />
+          {executedCode && (
+            <LiveProvider
+              code={executedCode}
+              scope={injectedGlobals}
+              transformCode={wrapJsCode}
+              theme={theme}
+              language="jsx"
+              key={executedCode}
+            >
+              <LiveError className="code-error" />
+              <div ref={previewRef}>
+                <LivePreview className="code-preview" />
+              </div>
+            </LiveProvider>
+          )}
+        </>
+      ) : (
+        <HighlightedCode
+          code={latestTsCode}
+          theme={theme}
+          language="typescript"
+        />
+      )}
+    </div>
+  );
+};
+
+const useToggleContent = () => {
+  const [show, setShow] = React.useState(false);
+  const showBtnRef = React.useRef(null);
+
+  useDiffEffect(
+    prev => {
+      if (prev && prev[0] && !show) {
+        showBtnRef.current && showBtnRef.current.focus();
+      }
+    },
+    [show]
+  );
+
+  return [show, setShow, showBtnRef];
 };
 
 function sanitize(data) {
