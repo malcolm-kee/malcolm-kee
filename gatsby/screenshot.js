@@ -7,21 +7,22 @@ const profileImage = fs
   )
   .toString('base64');
 
-exports.screenshot = async function screenshot({ nodes, reporter }, { template }) {
+exports.screenshot = async function screenshot(
+  { nodes, reporter },
+  { template }
+) {
   const browser = await puppeteer.launch({
     headless: true,
+    args: ['--disable-dev-shm-usage'],
   });
   const page = await browser.newPage();
   page.setViewport({ width: 1200, height: 628 });
   reporter.info(`Starting screenshot...`);
 
-  const htmlTemplate = fs.readFileSync(
-    template,
-    'utf8'
-  );
+  const htmlTemplate = fs.readFileSync(template, 'utf8');
 
   for (const node of nodes) {
-    const { title, date, slug } = node;
+    const { title, date, slug, subtitle, background, color, icon } = node;
     const filePath = path.resolve(`public/og_image/${slug}.png`);
     ensureDirectoryExistence(filePath);
 
@@ -29,9 +30,21 @@ exports.screenshot = async function screenshot({ nodes, reporter }, { template }
 
     try {
       const html = htmlTemplate
-        .replace('{{ title }}', title)
+        .replace('{{ title }}', title || '')
         .replace('{{ imgData }}', profileImage)
-        .replace('{{ date }}', date);
+        .replace('{{ subtitle }}', subtitle || '')
+        .replace('{{ date }}', date || '')
+        .replace('background-var', background || '')
+        .replace(/color\-var/g, color || '')
+        .replace(
+          '{{ iconSrc }}',
+          (icon &&
+            icon.absolutePath &&
+            `data:image/${icon.extension};base64, ${fs
+              .readFileSync(icon.absolutePath)
+              .toString('base64')}`) ||
+            ''
+        );
 
       await page.setContent(html);
       await page.screenshot({ path: filePath });
@@ -41,8 +54,8 @@ exports.screenshot = async function screenshot({ nodes, reporter }, { template }
     }
   }
 
-  browser.close();
-}
+  await browser.close();
+};
 
 let seenDirName = '';
 function ensureDirectoryExistence(filePath) {
