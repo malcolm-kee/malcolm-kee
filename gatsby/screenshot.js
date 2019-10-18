@@ -16,7 +16,7 @@ exports.screenshot = async function screenshot(
     args: ['--disable-dev-shm-usage'],
   });
   const page = await browser.newPage();
-  page.setViewport({ width: 1200, height: 628 });
+  await page.setViewport({ width: 1200, height: 628 });
 
   const htmlTemplate = fs.readFileSync(template, 'utf8');
 
