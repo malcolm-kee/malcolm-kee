@@ -1,3 +1,4 @@
+const path = require('path');
 const {
   createBlogNode,
   createBlogs,
@@ -110,7 +111,9 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
 
   const nodes = result.data.allBlogPost.nodes.concat(result.data.allTil.nodes);
 
-  await screenshot({ nodes, reporter });
+  await screenshot({ nodes, reporter }, {
+    template: path.resolve(__dirname, 'og-image-template', 'basic.html')
+  });
 
   reporter.info(`Done generating social media preview images`);
 };

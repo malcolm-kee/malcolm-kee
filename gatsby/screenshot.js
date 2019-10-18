@@ -7,7 +7,7 @@ const profileImage = fs
   )
   .toString('base64');
 
-exports.screenshot = async function screenshot({ nodes, reporter }) {
+exports.screenshot = async function screenshot({ nodes, reporter }, { template }) {
   const browser = await puppeteer.launch({
     headless: true,
   });
@@ -16,7 +16,7 @@ exports.screenshot = async function screenshot({ nodes, reporter }) {
   reporter.info(`Starting screenshot...`);
 
   const htmlTemplate = fs.readFileSync(
-    path.resolve(__dirname, 'template.html'),
+    template,
     'utf8'
   );
 
