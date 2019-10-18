@@ -5,7 +5,7 @@ import React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { useDiffEffect } from '../hooks/use-diff-effect';
 import { useId } from '../hooks/use-id';
-import { scrollIntoViewIfTooLow } from '../lib/dom';
+import { scrollIntoView } from '../lib/dom';
 import { useTheme } from '../theme';
 import { Button } from './Button';
 import './code-renderer.scss';
@@ -171,12 +171,20 @@ const TypescriptLiveEditor = ({
 
   const [isEdit, setIsEdit, editBtnRef] = useToggleContent();
   const previewRef = React.useRef(null);
-
   React.useEffect(() => {
     if (previewRef.current) {
-      scrollIntoViewIfTooLow(previewRef.current, 'center');
+      scrollIntoView(previewRef.current, 'center');
     }
   }, [executedCode]);
+
+  const [estimatedHeight, setEstimatedHeight] = React.useState(undefined);
+  const codeRef = React.useRef();
+  React.useEffect(() => {
+    if (codeRef.current) {
+      const { height } = codeRef.current.getBoundingClientRect();
+      setEstimatedHeight(height);
+    }
+  }, [isEdit]);
 
   return (
     <div className="code-editor">
@@ -220,6 +228,7 @@ const TypescriptLiveEditor = ({
             onChange={setTsCode}
             onEmitCode={setJsCode}
             onEscape={() => setIsEdit(false)}
+            height={estimatedHeight}
             autoFocus
           />
           {executedCode && (
@@ -243,6 +252,7 @@ const TypescriptLiveEditor = ({
           code={latestTsCode}
           theme={theme}
           language="typescript"
+          ref={codeRef}
         />
       )}
     </div>

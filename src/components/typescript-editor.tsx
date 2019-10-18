@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { scrollIntoViewIfTooLow } from '../lib/dom';
 import { debounce } from '../lib/fp';
 import styles from './typescript-editor.module.scss';
 
@@ -13,6 +12,8 @@ interface TypescriptEditorProps {
   onEscape?: () => void;
   onBlur?: () => void;
   autoFocus?: boolean;
+  width?: number;
+  height?: number;
 }
 
 /**
@@ -43,7 +44,6 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       });
     }
     window.addEventListener('resize', this.handleResize);
-    this.positionContainer();
   }
 
   componentWillUnmount() {
@@ -73,6 +73,13 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
           () => null
         );
       }
+
+      if (
+        this.props.width !== prevProps.width ||
+        this.props.height !== prevProps.height
+      ) {
+        this.editor.layout();
+      }
     }
 
     if (monaco && prevProps.theme !== this.props.theme) {
@@ -81,12 +88,6 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       );
     }
   }
-
-  positionContainer = () => {
-    if (this.containerRef.current) {
-      scrollIntoViewIfTooLow(this.containerRef.current);
-    }
-  };
 
   initEditor = () => {
     this.editor = monaco.editor.create(
@@ -171,6 +172,21 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   });
 
   render() {
-    return <div className={styles.root} ref={this.containerRef} />;
+    const props = this.props;
+
+    const style =
+      props.width || props.height
+        ? {
+            width: props.width,
+            height:
+              props.height && window
+                ? Math.min(window.innerHeight - 200, props.height)
+                : props.height,
+          }
+        : undefined;
+
+    return (
+      <div className={styles.root} style={style} ref={this.containerRef} />
+    );
   }
 }

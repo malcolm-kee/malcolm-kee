@@ -7,15 +7,51 @@ date: '2019-10-17'
 
 ## Type Alias
 
-```ts
-type PhoneFormat = string | number;
+Type alias is the naming of type, so you can reuse it.
+
+```ts live
+// instead of
+const sanitize = (data: string | number) => {};
+const clean = (data: string | number) => {};
+
+// create a type alias to reuse
+type StringOrNumber = string | number;
+const sanit = (data: StringOrNumber) => {};
+const clea = (data: StringOrNumber) => {};
+```
+
+Type alias is not limited to primitive, you can use it to name object type or function signature as well.
+
+```ts live
+type Job = {
+  name: string;
+  salary: number;
+};
+
+const a: Job = {
+  name: 'programmer',
+  salary: 0,
+};
+
+type Callback = () => void;
+
+const hello: Callback = () => {
+  console.log('Hello!');
+};
+
+type NumberOrStringArray = Array<number | string>;
+
+const items: NumberOrStringArray = [3, 'three', 4, 5];
 ```
 
 ## Interface
 
+Interface can be used to describe object and function. Interface cannot be used to describe primitive, such as `string` or `boolean`.
+
 ```ts
-interface Animal {
+interface Job {
   name: string;
+  salary: number;
 }
 
 interface Dog extends Animal {

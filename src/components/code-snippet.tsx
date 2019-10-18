@@ -59,48 +59,55 @@ interface HighlightedCodeProps {
   highlightedLines?: string;
 }
 
-export const HighlightedCode = React.memo(function HighlightedCodeComponent({
-  theme,
-  code,
-  language,
-  highlightedLines,
-}: HighlightedCodeProps) {
-  const lineIndexesToHighlight =
-    typeof highlightedLines === 'string'
-      ? highlightedLines.split(',').map(num => Number(num) - 1)
-      : [];
+export const HighlightedCode = React.memo(
+  React.forwardRef<HTMLPreElement, HighlightedCodeProps>(
+    function HighlightedCodeComponent(
+      { theme, code, language, highlightedLines },
+      ref
+    ) {
+      const lineIndexesToHighlight =
+        typeof highlightedLines === 'string'
+          ? highlightedLines.split(',').map(num => Number(num) - 1)
+          : [];
 
-  return (
-    <Highlight {...defaultProps} theme={theme} code={code} language={language}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        // tabIndex because this is scrollable
-        <pre className={className} style={style} tabIndex={0}>
-          {transformTokens(tokens, lineIndexesToHighlight).map(
-            ({ line, isHighlighted }, i) => {
-              return (
-                <React.Fragment key={i}>
-                  <div
-                    {...getLineProps({
-                      line,
-                      className: isHighlighted
-                        ? 'highlighted-code-line'
-                        : undefined,
-                    })}
-                  >
-                    {line.map((token: any, key: any) => {
-                      return <span {...getTokenProps({ token, key })} />;
-                    })}
-                  </div>
-                  {isHighlighted && <br />}
-                </React.Fragment>
-              );
-            }
+      return (
+        <Highlight
+          {...defaultProps}
+          theme={theme}
+          code={code}
+          language={language}
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            // tabIndex because this is scrollable
+            <pre className={className} style={style} tabIndex={0} ref={ref}>
+              {transformTokens(tokens, lineIndexesToHighlight).map(
+                ({ line, isHighlighted }, i) => {
+                  return (
+                    <React.Fragment key={i}>
+                      <div
+                        {...getLineProps({
+                          line,
+                          className: isHighlighted
+                            ? 'highlighted-code-line'
+                            : undefined,
+                        })}
+                      >
+                        {line.map((token: any, key: any) => {
+                          return <span {...getTokenProps({ token, key })} />;
+                        })}
+                      </div>
+                      {isHighlighted && <br />}
+                    </React.Fragment>
+                  );
+                }
+              )}
+            </pre>
           )}
-        </pre>
-      )}
-    </Highlight>
-  );
-});
+        </Highlight>
+      );
+    }
+  )
+);
 
 const shortenLanguage = (language: string) =>
   language && /javascript/i.test(language) ? 'js' : language;
