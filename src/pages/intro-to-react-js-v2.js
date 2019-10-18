@@ -2,75 +2,51 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ReactLogo } from '../components/react-logo';
-import { Seo } from '../components/Seo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import './intro-to-react-js-v2.scss';
 
 const PageHeader = () => {
   const { workshopsYaml } = useStaticQuery(graphql`
     {
       workshopsYaml(id: { eq: "intro-to-react-js-v2" }) {
+        ...WorkshopLandingSeo
         name
-        description
-        keywords
         themeColor
-        iconFile {
-          childImageSharp {
-            resize(width: 16, height: 16) {
-              src
-            }
-          }
-        }
-        image: iconFile {
-          childImageSharp {
-            resize(width: 300, height: 157) {
-              src
-            }
-          }
-        }
       }
     }
   `);
 
   return (
-    <WorkshopLandingPageBanner>
-      <Seo
-        title={workshopsYaml.name}
-        description={workshopsYaml.description}
-        keywords={workshopsYaml.keywords}
-        image={
-          workshopsYaml.image && workshopsYaml.image.childImageSharp.resize.src
-        }
-        icon={
-          workshopsYaml.iconFile &&
-          workshopsYaml.iconFile.childImageSharp.resize.src
-        }
-      />
-      <div id="intro-to-react-js-v2-landing">
-        <div className="logo-section">
-          <div className="react-logo-container">
-            <ReactLogo />
+    <>
+      <WorkshopLandingSeo {...workshopsYaml} />
+      <WorkshopLandingPageBanner>
+        <div id="intro-to-react-js-v2-landing">
+          <div className="logo-section">
+            <div className="react-logo-container">
+              <ReactLogo />
+            </div>
           </div>
-        </div>
-        <div className="landing-title-container">
-          <h1
-            className="landing-title"
-            style={{ color: workshopsYaml.themeColor }}
-          >
-            {workshopsYaml.name}
-          </h1>
-          <div className="Toolbar Toolbar--space-vertical">
-            <LinkButton
-              to="/intro-to-react-js-v2/introduction"
-              color="bubble"
-              size="large"
+          <div className="landing-title-container">
+            <h1
+              className="landing-title"
+              style={{ color: workshopsYaml.themeColor }}
             >
-              Start
-            </LinkButton>
+              {workshopsYaml.name}
+            </h1>
+            <div className="Toolbar Toolbar--space-vertical">
+              <LinkButton
+                to="/intro-to-react-js-v2/introduction"
+                color="bubble"
+                size="large"
+              >
+                Start
+              </LinkButton>
+            </div>
           </div>
         </div>
-      </div>
-    </WorkshopLandingPageBanner>
+      </WorkshopLandingPageBanner>
+    </>
   );
 };
 

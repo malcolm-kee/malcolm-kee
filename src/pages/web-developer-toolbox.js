@@ -3,52 +3,25 @@ import React from 'react';
 import toolboxIcon from '../assets/toolbox.svg';
 import { LinkButton } from '../components/Button';
 import { OutLink } from '../components/OutLink';
-import { Seo } from '../components/Seo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import { icon } from './web-developer-toolbox.module.scss';
 
 const PageHeader = () => {
   const { workshopsYaml } = useStaticQuery(graphql`
     {
       workshopsYaml(id: { eq: "web-developer-toolbox" }) {
+        ...WorkshopLandingSeo
         name
-        description
-        keywords
         themeColor
-        iconFile {
-          childImageSharp {
-            resize(width: 16, height: 16) {
-              src
-            }
-          }
-        }
-        image: iconFile {
-          childImageSharp {
-            resize(width: 300, height: 157) {
-              src
-            }
-          }
-        }
       }
     }
   `);
 
   return (
     <>
+      <WorkshopLandingSeo {...workshopsYaml} />
       <WorkshopLandingPageBanner>
-        <Seo
-          title={workshopsYaml.name}
-          description={workshopsYaml.description}
-          keywords={workshopsYaml.keywords}
-          image={
-            workshopsYaml.image &&
-            workshopsYaml.image.childImageSharp.resize.src
-          }
-          icon={
-            workshopsYaml.iconFile &&
-            workshopsYaml.iconFile.childImageSharp.resize.src
-          }
-        />
         <div>
           <div className="logo-section" style={{ paddingTop: 40 }}>
             <img src={toolboxIcon} alt="" className={icon} />

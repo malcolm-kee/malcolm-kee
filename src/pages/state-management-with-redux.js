@@ -2,32 +2,18 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 import Image from 'gatsby-image';
 import React from 'react';
 import { LinkButton } from '../components/Button';
-import { Seo } from '../components/Seo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import { logo } from './state-management-with-redux.module.scss';
 
 const PageHeader = () => {
   const { workshopsYaml } = useStaticQuery(graphql`
     {
       workshopsYaml(id: { eq: "state-management-with-redux" }) {
+        ...WorkshopLandingSeo
         name
         description
-        keywords
         themeColor
-        iconFile {
-          childImageSharp {
-            resize(width: 16, height: 16) {
-              src
-            }
-          }
-        }
-        image: iconFile {
-          childImageSharp {
-            resize(width: 300, height: 157) {
-              src
-            }
-          }
-        }
         bigImage: iconFile {
           childImageSharp {
             fluid(maxWidth: 250) {
@@ -41,20 +27,8 @@ const PageHeader = () => {
 
   return (
     <>
+      <WorkshopLandingSeo {...workshopsYaml} />
       <WorkshopLandingPageBanner inverse>
-        <Seo
-          title={workshopsYaml.name}
-          description={workshopsYaml.description}
-          keywords={workshopsYaml.keywords}
-          image={
-            workshopsYaml.image &&
-            workshopsYaml.image.childImageSharp.resize.src
-          }
-          icon={
-            workshopsYaml.iconFile &&
-            workshopsYaml.iconFile.childImageSharp.resize.src
-          }
-        />
         <div>
           <div className="logo-section">
             <div className={logo}>

@@ -4,24 +4,32 @@ const { screenshot } = require('./gatsby/screenshot');
 
 const iconPath = path.resolve(__dirname, 'src', 'assets', 'gatsbyjs.png');
 
-screenshot(
-  {
-    nodes: [
+/*
+This file is used for development for the SEO image generation only.
+*/
+
+(async function run() {
+  try {
+    await screenshot(
       {
-        title: 'Create Page From Data',
-        subtitle: 'Create a Fast Site with GatsbyJS',
-        slug: '/a/aatest-test',
-        background: '#663399',
-        color: '#ffffff',
-        icon: {
-          extension: 'png',
-          absolutePath: iconPath,
-        },
+        nodes: [
+          {
+            title: 'Create a Fast Site with GatsbyJS',
+            slug: '/fast-site-with-gatsby-js',
+            icon: {
+              extension: 'png',
+              absolutePath: iconPath,
+            },
+          },
+        ],
+        reporter: console,
       },
-    ],
-    reporter: console,
-  },
-  {
-    template: path.resolve(__dirname, 'og-image-template', 'workshop.html'),
+      {
+        template: path.resolve(__dirname, 'og-image-template', 'workshop.html'),
+      }
+    );
+  } catch (e) {
+    console.error(`caught error`);
+    console.error(e);
   }
-);
+})();
