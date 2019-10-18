@@ -94,6 +94,13 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
           slug
         }
       }
+      allTil {
+        nodes {
+          title
+          date(formatString: "MMM DD, YYYY")
+          slug
+        }
+      }
     }
   `);
 
@@ -101,7 +108,7 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
     return reporter.error(result.errors);
   }
 
-  const nodes = result.data.allBlogPost.nodes;
+  const nodes = result.data.allBlogPost.nodes.concat(result.data.allTil.nodes);
 
   await screenshot({ nodes, reporter });
 

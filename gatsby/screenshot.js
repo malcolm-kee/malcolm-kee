@@ -7,10 +7,9 @@ const profileImage = fs
   )
   .toString('base64');
 
-async function screenshot({ nodes, reporter }) {
+exports.screenshot = async function screenshot({ nodes, reporter }) {
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--disable-dev-shm-usage'],
   });
   const page = await browser.newPage();
   page.setViewport({ width: 1200, height: 628 });
@@ -44,8 +43,6 @@ async function screenshot({ nodes, reporter }) {
 
   browser.close();
 }
-
-exports.screenshot = screenshot;
 
 let seenDirName = '';
 function ensureDirectoryExistence(filePath) {

@@ -13,7 +13,7 @@ const TilTemplate = ({ data, location }) => {
 
   return (
     <>
-      <Seo title={til.title} pathname={location.pathname} />
+      <Seo title={til.title} pathname={location.pathname} image={`/og_image${location.pathname}.png`} />
       <MainContent>
         <div className={styles.container}>
           <article className={`article-content ${styles.content}`}>
