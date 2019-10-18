@@ -17,12 +17,11 @@ exports.screenshot = async function screenshot(
   });
   const page = await browser.newPage();
   page.setViewport({ width: 1200, height: 628 });
-  reporter.info(`Starting screenshot...`);
 
   const htmlTemplate = fs.readFileSync(template, 'utf8');
 
   for (const node of nodes) {
-    const { title, date, slug, subtitle, background, color, icon } = node;
+    const { title, date, slug, subtitle, icon } = node;
     const filePath = path.resolve(`public/og_image/${slug}.png`);
     ensureDirectoryExistence(filePath);
 
@@ -34,13 +33,11 @@ exports.screenshot = async function screenshot(
         .replace('{{ imgData }}', profileImage)
         .replace('{{ subtitle }}', subtitle || '')
         .replace('{{ date }}', date || '')
-        .replace('background-var', background || '')
-        .replace(/color\-var/g, color || '')
         .replace(
-          '{{ iconSrc }}',
+          'icon-src',
           (icon &&
             icon.absolutePath &&
-            `data:image/${icon.extension};base64, ${fs
+            `data:image/${icon.extension};base64,${fs
               .readFileSync(icon.absolutePath)
               .toString('base64')}`) ||
             ''

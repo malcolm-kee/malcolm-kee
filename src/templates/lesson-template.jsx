@@ -22,7 +22,7 @@ const LessonTemplate = ({
           title={`${lesson.title} - ${lesson.workshop.name}`}
           description={lesson.description}
           keywords={lesson.keywords}
-          image={lesson.workshop.image.childImageSharp.resize.src}
+          image={`/og_image${location.pathname}.png`}
           icon={lesson.workshop.iconFile.childImageSharp.resize.src}
           pathname={location.pathname}
         />
@@ -109,13 +109,6 @@ export const pageQuery = graphql`
         iconFile {
           childImageSharp {
             resize(width: 16, height: 16) {
-              src
-            }
-          }
-        }
-        image: iconFile {
-          childImageSharp {
-            resize(width: 300, height: 157) {
               src
             }
           }

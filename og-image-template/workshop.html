@@ -25,12 +25,16 @@
         margin: 0;
       }
       .banner {
-        background: #2d3748;
-        background: background-var;
+        background-color: #2d3748;
+        background-image: url(icon-src);
+        background-size: 40%;
+        background-blend-mode: color;
+        background-repeat: no-repeat;
+        background-position: top 16px right 16px;
         color: rgba(255, 255, 255, 0.88);
-        color: color-var;
         height: calc(100vh - 60px);
         position: relative;
+        display: block;
       }
       h1 {
         font-size: 85px;
@@ -41,10 +45,10 @@
         position: relative;
       }
       h2 {
-          padding-top: 16px;
-          font-size: 50px;
-          max-width: 950px;
-          margin: 0 auto;
+        padding-top: 16px;
+        font-size: 50px;
+        max-width: 950px;
+        margin: 0 auto;
       }
       .img {
         width: 220px;
@@ -68,21 +72,12 @@
         bottom: 24px;
         right: 240px;
       }
-      .icon {
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        right: 16px;
-        top: 16px;
-        background-color: color-var;
-      }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="banner">
         <h2>{{ subtitle }}</h2>
-        <img class="icon" src="{{ iconSrc }}" />
         <h1>{{ title }}</h1>
         <img class="img" src="data:image/jpg;base64, {{ imgData }}" />
         <div class="author">Malcolm Kee</div>
