@@ -116,6 +116,16 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
           }
         }
       }
+      workshops: allWorkshopsYaml {
+        nodes {
+          id
+          title: name
+          icon: iconFile {
+            absolutePath
+            extension
+          }
+        }
+      }
     }
   `);
 
@@ -130,6 +140,11 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
     subtitle: node.workshop.name,
     icon: node.workshop.iconFile,
   }));
+  const workshops = result.data.workshops.nodes.map(node => ({
+    slug: `/${node.id}`,
+    title: node.title,
+    icon: node.icon,
+  }));
 
   await Promise.all([
     screenshot(
@@ -140,6 +155,12 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
     ),
     screenshot(
       { nodes: lessonNodes, reporter },
+      {
+        template: path.resolve(__dirname, 'og-image-template', 'workshop.html'),
+      }
+    ),
+    screenshot(
+      { nodes: workshops, reporter },
       {
         template: path.resolve(__dirname, 'og-image-template', 'workshop.html'),
       }
