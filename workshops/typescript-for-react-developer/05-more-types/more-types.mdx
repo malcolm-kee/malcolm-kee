@@ -1,7 +1,7 @@
 ---
 title: More Types in TypeScript
 description: 'Learn type alias, interface, and index signature.'
-section: 'typescript'
+section: 'basics'
 date: '2019-10-17'
 ---
 
@@ -48,27 +48,46 @@ const items: NumberOrStringArray = [3, 'three', 4, 5];
 
 Interface can be used to describe object and function. Interface cannot be used to describe primitive, such as `string` or `boolean`.
 
-```ts
+```ts live
 interface Job {
   name: string;
   salary: number;
 }
 
-interface Dog extends Animal {
-  woof: () => void;
+interface SuckyJob extends Job {
+  boring: true;
 }
 ```
 
+Most of the thing that you can do using `interface` can be done using `type`, so I usually just use `type` whenever possible.
+
+<aside>
+
+What are the things that `interface` can do but `type` can't?
+
+1. declaration merging (extending an existing interface). This is usually only concerned by library developer, in which their interface can be extended.
+1. self-reference. Because `type` is eagerly evaluated, therefore you can't use declare a `type` that refers itself. Meanwhile, `interface` is lazily evaluated, therefore it can refer itself. Nonetheless, this limitation of `type` will be removed in TypeScript 3.7, which is in beta when I am writing this.
+
+</aside>
+
 ## Index signature
 
-```ts
-interface Person {
+```ts live
+type Person {
   name: string;
   age: number;
   phone: string;
 }
 
-interface PersonById {
+type PersonMap = {
   [id: string]: Person;
+}
+
+const personMap: PersonMap = {
+  malcolm: {
+    name: 'Malcolm',
+    age: 29,
+    phone: '0139944857'
+  }
 }
 ```
