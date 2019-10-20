@@ -94,6 +94,12 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
           title
           date(formatString: "MMM DD, YYYY")
           slug
+          previewImage {
+            image {
+              absolutePath
+              extension
+            }
+          }
         }
       }
       allTil {
@@ -133,7 +139,12 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
     return reporter.error(result.errors);
   }
 
-  const nodes = result.data.allBlogPost.nodes.concat(result.data.allTil.nodes);
+  const nodes = result.data.allTil.nodes;
+  const blogNodes = result.data.allBlogPost.nodes.map(node => ({
+    slug: node.slug,
+    title: node.title,
+    icon: node.previewImage.image,
+  }));
   const lessonNodes = result.data.allLesson.nodes.map(node => ({
     slug: node.slug,
     title: node.title,
@@ -151,6 +162,15 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
       { nodes, reporter },
       {
         template: path.resolve(__dirname, 'og-image-template', 'basic.html'),
+      }
+    ),
+    screenshot(
+      {
+        nodes: blogNodes,
+        reporter,
+      },
+      {
+        template: path.resolve(__dirname, 'og-image-template', 'blog.html'),
       }
     ),
     screenshot(

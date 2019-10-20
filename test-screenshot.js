@@ -2,7 +2,13 @@ const path = require('path');
 const fs = require('fs');
 const { screenshot } = require('./gatsby/screenshot');
 
-const iconPath = path.resolve(__dirname, 'src', 'assets', 'gatsbyjs.png');
+const imagePath = path.resolve(
+  __dirname,
+  'blogs',
+  '2019',
+  '09',
+  'photo-malaysia.jpg'
+);
 
 /*
 This file is used for development for the SEO image generation only.
@@ -14,18 +20,18 @@ This file is used for development for the SEO image generation only.
       {
         nodes: [
           {
-            title: 'Create a Fast Site with GatsbyJS',
-            slug: '/fast-site-with-gatsby-js',
+            title: 'How to become a racist',
+            slug: 'a/a',
             icon: {
-              extension: 'png',
-              absolutePath: iconPath,
+              extension: 'jpg',
+              absolutePath: imagePath,
             },
           },
         ],
         reporter: console,
       },
       {
-        template: path.resolve(__dirname, 'og-image-template', 'workshop.html'),
+        template: path.resolve(__dirname, 'og-image-template', 'blog.html'),
       }
     );
   } catch (e) {

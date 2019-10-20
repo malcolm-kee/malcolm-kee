@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: inherit;
+      }
+      html,
+      body {
+        font-family: 'Roboto', 'Helvetica', 'Arial', 'Microsoft Yahei',
+          '微软雅黑', STXihei, '华文细黑', sans-serif;
+        padding: 0;
+        margin: 0;
+        background: #ed8936;
+      }
+      .container {
+        height: 100vh;
+        padding: 30px 0;
+        margin: 0;
+      }
+      .banner {
+        background-color: #2d3748;
+        background-image: url(icon-src);
+        background-size: 100%;
+        background-blend-mode: color;
+        background-repeat: no-repeat;
+        background-position: center;
+        color: rgba(255, 255, 255, 0.88);
+        height: calc(100vh - 60px);
+        position: relative;
+        display: block;
+      }
+      h1 {
+        font-size: 85px;
+        line-height: 1.2;
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 64px 50px 0 16px;
+        position: relative;
+      }
+      h2 {
+        padding-top: 16px;
+        padding-left: 16px;
+        font-size: 50px;
+        max-width: 950px;
+        margin: 0 auto;
+      }
+      .img {
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+        position: absolute;
+        right: 16px;
+        bottom: -16px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .date {
+        font-size: 40px;
+        position: absolute;
+        bottom: 24px;
+        left: 130px;
+      }
+      .author {
+        font-size: 40px;
+        position: absolute;
+        bottom: 24px;
+        right: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+        <h2>{{ subtitle }}</h2>
+        <h1>{{ title }}</h1>
+        <img class="img" src="data:image/jpg;base64, {{ imgData }}" />
+        <div class="author">Malcolm Kee</div>
+      </div>
+    </div>
+  </body>
+</html>
