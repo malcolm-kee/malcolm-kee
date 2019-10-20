@@ -8,15 +8,38 @@ date: '2019-10-19'
 ## Introducing TypeScript in Create React App project
 
 ```bash
-npm i -D typescript @types/react @types/react-dom @types/node
+npm i -D typescript @types/react @types/react-dom @types/node @types/jest
 ```
 
 ## Convert JavaScript to TypeScript
 
 - id
 - copy
+- typecheck v1
 
 ## Configure Styleguidist to Parse TypeScript
+
+```bash
+npm i -D react-docgen-typescript
+```
+
+```js fileName=styleguide.config.js
+module.exports = {
+  components: 'src/components/**/*.{jsx,tsx}',
+  propsParser: (filePath, source, resolver, handlers) => {
+    const { ext } = path.parse(filePath);
+    return ext === '.tsx'
+      ? require('react-docgen-typescript').parse(
+          filePath,
+          source,
+          resolver,
+          handlers
+        )
+      : require('react-docgen').parse(source, resolver, handlers);
+  },
+  ...
+};
+```
 
 ## Convert Simple React Component to TypeScript
 
@@ -24,5 +47,4 @@ npm i -D typescript @types/react @types/react-dom @types/node
 - Spinner
 - Alert
 - Jumbotron
-- Sticky
 - Navbar

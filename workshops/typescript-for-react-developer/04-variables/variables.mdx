@@ -274,3 +274,20 @@ const sendTextMessage = (
 // ! mixing does not work
 // contactPeople("email", { name: "foo", phone: 12345678 });
 ```
+
+## any
+
+In some case where you want to declare a variable that can be anything, make it an `any`.
+
+```ts live
+let x: any;
+x = 5;
+x = true;
+x = {
+  y: true,
+};
+```
+
+When you use `any`, what you tell TypeScript compiler is: "Hey this variable is so dynamic that you cannot figure out, leave me alone!". And TypeScript will let you be wild.
+
+Try to avoid `any`. If your code full of `any`, you may just don't use TypeScript. Save yourself time to type those `:any`.
