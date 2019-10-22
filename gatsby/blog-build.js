@@ -29,12 +29,14 @@ exports.createBlogNode = async ({
       slug = `/blog/${name}`;
     }
 
+    const tags = (node.frontmatter.tags || []).map(_.kebabCase);
+
     const fieldsData = {
       title: node.frontmatter.title,
       slug,
       timeToRead: node.timeToRead,
-      tags: node.frontmatter.tags || [],
-      keywords: node.frontmatter.keywords || node.frontmatter.tags || [],
+      tags: tags,
+      keywords: node.frontmatter.keywords || tags,
       date: node.frontmatter.date,
       updated_at: node.frontmatter.updated_at || node.frontmatter.date,
       lang: node.frontmatter.lang || 'en',
@@ -211,7 +213,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
     let tags = [];
 
-    _.each(posts, edge => {
+    posts.forEach(edge => {
       if (_.get(edge, 'node.tags')) {
         tags = tags.concat(edge.node.tags);
       }
@@ -221,7 +223,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
     tags.forEach(tag => {
       createPage({
-        path: `tags/${_.kebabCase(tag)}`,
+        path: `tags/${tag}`,
         component: tagTemplate,
         context: {
           tag,

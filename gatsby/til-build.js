@@ -1,5 +1,4 @@
 const path = require('path');
-const _ = require('lodash');
 const { isArray } = require('typesafe-is');
 const { mdxResolverPassthrough } = require('./shared');
 

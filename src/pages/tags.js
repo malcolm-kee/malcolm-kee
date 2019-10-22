@@ -1,5 +1,4 @@
 import { graphql, Link } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { List, ListItem, ListItemText } from '../components/List';
@@ -15,7 +14,7 @@ const randomSort = () => (Math.random() > 0.5 ? -1 : 1);
 
 const TagsPage = ({
   data: {
-    allMdx: { group },
+    allBlogPost: { group },
   },
 }) => (
   <MainContent className="TagPage">
@@ -28,7 +27,7 @@ const TagsPage = ({
           .sort(randomSort)
           .map(tag => (
             <ListItem
-              link={`/tags/${kebabCase(tag.fieldValue)}/`}
+              link={`/tags/${tag.fieldValue}`}
               className={getItemClassName(tag.totalCount)}
               key={tag.fieldValue}
             >
@@ -55,7 +54,7 @@ const TagsPage = ({
 
 TagsPage.propTypes = {
   data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
+    allBlogPost: PropTypes.shape({
       group: PropTypes.arrayOf(
         PropTypes.shape({
           fieldValue: PropTypes.string.isRequired,
@@ -70,8 +69,8 @@ export default TagsPage;
 
 export const query = graphql`
   query TagsQuery {
-    allMdx(filter: { frontmatter: { published: { eq: true } } }, limit: 2000) {
-      group(field: frontmatter___tags) {
+    allBlogPost(filter: { published: { eq: true } }, limit: 2000) {
+      group(field: tags) {
         fieldValue
         totalCount
       }
