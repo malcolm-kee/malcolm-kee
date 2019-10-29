@@ -3,7 +3,7 @@
 .card {
   position: relative;
   background: white;
-  background: var(--bg-absolute);
+  background: var(--bg-front);
   box-shadow: $box-shadow-2;
   border-radius: $space * 3;
   transition-property: bottom, box-shadow;

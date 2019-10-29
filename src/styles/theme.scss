@@ -5,6 +5,7 @@ body {
     --bg: #{$bg-color-light};
     --bg-pale: #{$bg-color-light-pale};
     --bg-absolute: white;
+    --bg-front: white;
     --text: #{$text-light};
     --text-pale: #{$text-light-pale};
     --link: #{$link-light};
@@ -19,6 +20,7 @@ body {
     --bg: #{$bg-color-dark};
     --bg-pale: #{$bg-color-dark-pale};
     --bg-absolute: #{$grey-dark};
+    --bg-front: #{$bg-color-dark-pale};
     --text: #{$text-dark};
     --text-pale: #{$text-dark-pale};
     --link: #{$link-dark};

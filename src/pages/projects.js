@@ -116,6 +116,7 @@ const FancyProjectCard = ({ project, location }) => {
           navigate(location.pathname, { replace: true });
         }}
         large={!!project.staticImage}
+        aria-label={`Details for ${project.name}`}
       >
         <div className={styles.details}>
           <div className={`content-section ${styles.content}`}>

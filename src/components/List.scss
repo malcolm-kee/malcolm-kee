@@ -27,7 +27,7 @@
       &:hover {
         transition-delay: 0;
         background-color: $bg-color-light-pale;
-        background-color: var(--bg-absolute);
+        background-color: var(--bg-front);
         transform: scale(1.02);
 
         @media (prefers-reduced-motion: reduce) {
