@@ -6,6 +6,7 @@ body {
     --bg-pale: #{$bg-color-light-pale};
     --bg-absolute: white;
     --bg-front: white;
+    --bg-mid: #{$grey-100};
     --text: #{$text-light};
     --text-pale: #{$text-light-pale};
     --link: #{$link-light};
@@ -13,6 +14,7 @@ body {
     --tocSelected: #{$toc-light-selected};
     --tocHoverBg: #{$grey-300};
     --highlightedCode: #{$highlighted-code-bg-light};
+    --primary-fade: #{$primary-300};
   }
   &.dark {
     background-color: $bg-color-dark;
@@ -21,6 +23,7 @@ body {
     --bg-pale: #{$bg-color-dark-pale};
     --bg-absolute: #{$grey-dark};
     --bg-front: #{$bg-color-dark-pale};
+    --bg-mid: #{$grey-800};
     --text: #{$text-dark};
     --text-pale: #{$text-dark-pale};
     --link: #{$link-dark};
@@ -28,6 +31,7 @@ body {
     --tocSelected: #{$toc-dark-selected};
     --tocHoverBg: #{$grey-700};
     --highlightedCode: #{$highlighted-code-bg-dark};
+    --primary-fade: #{$primary-800};
 
     table,
     tr,

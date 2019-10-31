@@ -10,6 +10,24 @@
   text-decoration: none;
 }
 
+.summary {
+  color: $text-light;
+  color: var(--text);
+  padding: $space * 2 0;
+  border-bottom: 1px solid $grey-300;
+}
+
+.summaryText {
+  padding: $space $space * 2;
+  line-height: 1.4em;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-family: $serif-font;
+  max-width: $read-width;
+  text-align: justify;
+  margin: 0 auto;
+}
+
 .adjacentArticles {
   border-top: 1px solid $grey-400;
   display: flex;

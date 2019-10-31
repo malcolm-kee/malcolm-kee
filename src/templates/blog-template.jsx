@@ -85,8 +85,8 @@ export default function BlogTemplate({ data, pageContext, location }) {
               </>
             )}
             {summary && (
-              <div className="blog-post--summary">
-                <p>{summary}</p>
+              <div className={styles.summary}>
+                <p className={styles.summaryText}>{summary}</p>
               </div>
             )}
             <div className="blog-post--content article-content">

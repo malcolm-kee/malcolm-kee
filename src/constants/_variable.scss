@@ -2,9 +2,10 @@ $spacing-unit: 8px;
 $space: $spacing-unit;
 $font-family: 'Roboto', 'Helvetica', 'Arial', 'Microsoft Yahei', '微软雅黑',
   STXihei, '华文细黑', sans-serif;
+$serif-font: Crimson, Georgia, serif;
 $appbar-height: 56px;
 $ios-bottom-offset: 44px;
-$read-width: 63ch;
+$read-width: 630px;
 
 $react-color: #61dafb;
 $js-color: #f7df1e;
@@ -54,7 +55,7 @@ $toc-light-hover: $primary-900;
 $highlighted-code-bg-light: $grey-100;
 
 // dark theme
-$bg-color-dark: $grey-800;
+$bg-color-dark: $grey-900;
 $bg-color-dark-pale: $grey-700;
 $text-dark: rgba(255, 255, 255, 0.88);
 $text-dark-pale: rgba(255, 255, 255, 0.6);

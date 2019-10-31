@@ -4,7 +4,8 @@
   padding: $spacing-unit * 2;
   box-shadow: $box-shadow-2;
   border-radius: 8px;
-  background-color: var(--bg-front);
+  background-color: $grey-100;
+  background-color: var(--bg-mid);
 }
 .header {
   font-size: 1.2rem;
@@ -35,11 +36,10 @@
   img {
     width: 40px;
     height: 40px;
-    border-radius: $spacing-unit;
+    border-radius: 50%;
     @media screen and (min-width: $media-tablet) {
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
+      width: 60px;
+      height: 60px;
     }
   }
 }
@@ -53,8 +53,8 @@
   }
 }
 .content {
-  padding: $spacing-unit;
-  line-height: 1.3;
+  padding: 0 $space $space $space;
+  line-height: 1.8;
 }
 .link {
   position: absolute;

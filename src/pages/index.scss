@@ -51,8 +51,8 @@
     text-align: center;
     margin: 0 auto;
     padding: $space $space * 2;
-    background-color: white;
-    background-color: var(--bg-absolute);
+    background-color: $grey-100;
+    background-color: var(--bg-mid);
     box-shadow: $box-shadow-6;
 
     @media screen and (min-width: $max-width + $space * 4) {

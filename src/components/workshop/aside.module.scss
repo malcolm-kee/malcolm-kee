@@ -10,7 +10,7 @@
   break-inside: avoid;
   color: $text-light-pale;
   color: var(--text-pale);
-  font-family: Crimson, Georgia, serif;
+  font-family: $serif-font;
 
   > * {
     text-align: justify;

@@ -2,8 +2,8 @@
 
 .table-of-content-section {
   padding: $spacing-unit 0;
-  background-color: $grey-200;
-  background-color: var(--tocBg);
+  background-color: $grey-100;
+  background-color: var(--bg-mid);
   overflow-x: hidden;
   position: fixed;
   top: $appbar-height;

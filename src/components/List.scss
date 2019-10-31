@@ -26,8 +26,8 @@
       -webkit-tap-highlight-color: transparent;
       &:hover {
         transition-delay: 0;
-        background-color: $bg-color-light-pale;
-        background-color: var(--bg-front);
+        background-color: $grey-100;
+        background-color: var(--bg-mid);
         transform: scale(1.02);
 
         @media (prefers-reduced-motion: reduce) {

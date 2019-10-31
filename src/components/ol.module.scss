@@ -30,34 +30,6 @@
       font-variant-numeric: lining-nums;
       font-feature-settings: 'lnum';
     }
-
-    &:nth-of-type(2n + 1):before {
-      transform: rotate(7deg);
-    }
-    &:nth-of-type(2n + 2):before {
-      transform: rotate(-2deg);
-    }
-    &:nth-of-type(2n + 3):before {
-      transform: rotate(4deg);
-    }
-    &:nth-of-type(2n + 4):before {
-      transform: rotate(-6deg);
-    }
-    &:nth-of-type(2n + 5):before {
-      transform: rotate(3deg);
-    }
-    &:nth-of-type(2n + 6):before {
-      transform: rotate(-4deg);
-    }
-    &:nth-of-type(2n + 7):before {
-      transform: rotate(4deg);
-    }
-    &:nth-of-type(2n + 8):before {
-      transform: rotate(-7deg);
-    }
-    &:nth-of-type(2n + 9):before {
-      transform: rotate(5deg);
-    }
   }
 
   li > & {

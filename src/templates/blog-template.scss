@@ -65,17 +65,6 @@
     padding: $space * 4 $space * 2;
     @include link('a');
   }
-  &--summary {
-    color: $text-light;
-    color: var(--text);
-    padding: $space * 2;
-    border-bottom: 1px solid $grey-300;
-    p {
-      padding: $space 0;
-      line-height: 1.4em;
-      font-style: italic;
-    }
-  }
   &--actions {
     padding: $space 0;
     float: right;

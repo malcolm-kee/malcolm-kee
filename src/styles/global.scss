@@ -432,8 +432,8 @@ p {
   }
 
   &:hover {
-    background-color: white;
-    background-color: var(--bg-front);
+    background-color: $grey-100;
+    background-color: var(--bg-mid);
   }
 
   & + & {
@@ -619,31 +619,33 @@ p {
     background: $grey-300;
   }
   blockquote {
-    border-radius: $spacing-unit;
-    margin: 2em $spacing-unit;
-    padding: $spacing-unit;
+    font-family: $serif-font;
+    font-size: 1.1rem;
+    border-radius: $space;
+    margin: 2em 0;
+    padding: $space;
     background-color: $bg-color-light-pale;
     background-color: var(--bg-pale);
     position: relative;
     &::before {
       content: '\275d';
       position: absolute;
-      font-size: 1.6rem;
-      color: $text-light-pale;
-      color: var(--text-pale);
+      font-size: 2rem;
+      color: $primary-300;
+      color: var(--primary-fade);
     }
     &::after {
       content: '\275e';
       position: absolute;
-      right: $spacing-unit;
-      bottom: $spacing-unit;
+      right: $space;
+      bottom: $space;
       font-size: 1.6rem;
-      color: $text-light-pale;
-      color: var(--text-pale);
+      color: $primary-300;
+      color: var(--primary-fade);
     }
     > p {
       position: relative;
-      text-indent: $spacing-unit * 2;
+      text-indent: $space * 1.5;
       &:first-child {
         margin-top: 0;
       }

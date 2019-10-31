@@ -1,8 +1,8 @@
 @import '../../constants/variable';
 
 .root {
-  background-color: white;
-  background-color: var(--bg-absolute);
+  background-color: $grey-100;
+  background-color: var(--bg-mid);
   border-radius: $space;
   box-shadow: $box-shadow-3;
   padding: $space $space * 3;

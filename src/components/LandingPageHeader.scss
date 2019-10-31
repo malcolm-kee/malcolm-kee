@@ -12,11 +12,16 @@
 }
 
 .landing-page-header {
-  $bg: $grey-900;
+  $bg: #111;
 
   padding: $spacing-unit 0;
   box-shadow: inset $box-shadow-3-inv;
   background-color: $bg;
+  background: linear-gradient(
+    60deg,
+    rgba(17, 17, 17, 1) 12%,
+    rgba(34, 34, 34, 1) 95%
+  );
 
   &-avatar {
     width: 250px;
@@ -86,7 +91,7 @@
 
     li {
       list-style-type: none;
-      padding: $space;
+      padding: $space $space * 2;
 
       @media (min-width: $media-tablet) {
         border-top: none;
@@ -122,7 +127,7 @@
 
         &:hover,
         &:focus {
-          background-color: rgba(20, 20, 20, 0.5);
+          background-color: $grey-800;
         }
       }
 
