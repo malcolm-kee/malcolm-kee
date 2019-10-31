@@ -162,16 +162,6 @@ export class Toggle extends React.Component {
         onTouchEnd={this.handleTouchEnd}
         onTouchCancel={this.handleTouchCancel}
       >
-        <div className="react-toggle-track">
-          <div className="react-toggle-track-check">
-            {this.getIcon('checked')}
-          </div>
-          <div className="react-toggle-track-x">
-            {this.getIcon('unchecked')}
-          </div>
-        </div>
-        <div className="react-toggle-thumb" />
-
         <input
           {...inputProps}
           ref={ref => {
@@ -182,6 +172,15 @@ export class Toggle extends React.Component {
           className="sr-only"
           type="checkbox"
         />
+        <div className="react-toggle-track">
+          <div className="react-toggle-track-check">
+            {this.getIcon('checked')}
+          </div>
+          <div className="react-toggle-track-x">
+            {this.getIcon('unchecked')}
+          </div>
+        </div>
+        <div className="react-toggle-thumb" />
       </div>
     );
   }

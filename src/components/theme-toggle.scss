@@ -6,4 +6,12 @@
   // the following will hide the toggle is CSS variable not supported
   --display: inline-flex;
   display: var(--display);
+
+  .react-toggle-track {
+    background-color: #1976d2;
+  }
+
+  input:checked + .react-toggle-track {
+    background-color: hsl(222, 14%, 7%);
+  }
 }

@@ -563,6 +563,9 @@ p {
     color: $text-light;
     color: var(--text);
   }
+  > p:first-child {
+    margin-top: 0;
+  }
   h3,
   h4,
   h5 {

@@ -62,7 +62,7 @@
     }
   }
   &--tag {
-    padding: $space * 4 $space * 2;
+    padding: $space * 2 $space * 2 $space * 4;
     @include link('a');
   }
   &--actions {
@@ -70,8 +70,20 @@
     float: right;
   }
   &--content {
-    margin: 0 auto;
+    position: relative;
+    margin: $space * 4 auto $space * 2;
     max-width: $read-width;
+
+    aside {
+      @media screen and (min-width: $media-xlarge) {
+        position: absolute;
+        left: 100%;
+        width: 300px;
+        margin: 0;
+        padding: 0 $space;
+        transform: translate(0, -100%);
+      }
+    }
   }
   &--content,
   &--actions {
