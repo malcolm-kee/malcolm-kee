@@ -2,7 +2,7 @@
 
 .container {
   max-width: 48em;
-  max-width: 63ch;
+  max-width: $read-width;
   margin: 0 auto;
 }
 

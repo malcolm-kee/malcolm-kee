@@ -1,21 +1,24 @@
 @import '../../constants/variable';
 
 .root {
-  padding: 0 $space;
+  padding: 0 $space * 2;
   font-size: 0.9em;
-  border: 1px solid;
+  border-top: 4px solid $primary-color;
+  border-bottom: 4px solid $primary-color;
   border-radius: 4px;
-  margin: $space * 2 -#{$space} $space * 2;
+  margin: $space * 6 -#{$space} $space * 2;
   break-inside: avoid;
   color: $text-light-pale;
   color: var(--text-pale);
-  border-color: currentColor;
+  font-family: Crimson, Georgia, serif;
+
+  > * {
+    text-align: justify;
+  }
 
   > p {
     line-height: 1.05;
     color: inherit;
-    text-align: justify;
-    font-family: 'Crimson', Georgia, serif;
     &:first-child {
       margin-top: 0.5em;
     }

@@ -57,6 +57,22 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   createWorkshopSchemaCustomization({ actions, schema });
   createBlogSchemaCustomization({ actions, schema });
   createTilSchemaCustomization({ actions, schema });
+
+  const fallbackTypes = [
+    `type NpmsIoMalcolmLinks {
+      homepage: String
+    }
+
+    type NpmsIoMalcolm implements Node {
+      name: String!
+      version: String
+      description: String
+      date: Date @dateformat
+      links: NpmsIoMalcolmLinks
+    }`,
+  ];
+
+  actions.createTypes(fallbackTypes);
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {

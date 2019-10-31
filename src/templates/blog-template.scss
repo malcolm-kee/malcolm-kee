@@ -17,7 +17,11 @@
     }
   }
   &--detail-container {
-    padding: $space;
+    padding: $space $space * 2;
+
+    @media (min-width: $media-mobile) {
+      padding: $space;
+    }
 
     display: flex;
     justify-content: space-between;
@@ -75,6 +79,10 @@
   &--actions {
     padding: $space 0;
     float: right;
+  }
+  &--content {
+    margin: 0 auto;
+    max-width: $read-width;
   }
   &--content,
   &--actions {

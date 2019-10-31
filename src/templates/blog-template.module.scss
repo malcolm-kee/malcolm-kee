@@ -2,7 +2,7 @@
 
 .imageAttribution {
   text-align: right;
-  padding-top: $space;
+  padding: $space $space 0;
 }
 
 .imageAuthor {
@@ -42,7 +42,7 @@
   padding: $space * 3 $space * 2;
   border-top: 1px solid $grey-400;
   li {
-    margin-bottom: $space * 2;
+    margin-bottom: $space;
   }
   @include link('a');
 }

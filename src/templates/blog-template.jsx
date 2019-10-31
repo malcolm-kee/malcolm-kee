@@ -63,7 +63,11 @@ export default function BlogTemplate({ data, pageContext, location }) {
             </div>
             {image && (
               <>
-                <Image fluid={image.childImageSharp.fluid} alt="" />
+                <div className={styles.image}>
+                  <div>
+                    <Image fluid={image.childImageSharp.fluid} alt="" />
+                  </div>
+                </div>
                 {by.name && (
                   <p className={styles.imageAttribution}>
                     <small>

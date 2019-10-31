@@ -12,12 +12,14 @@ $right-nav-offset: 224px;
 }
 
 .instruction-template {
-  @media (min-width: $media-mobile) {
-    margin-right: $right-nav-offset;
-  }
+  max-width: $read-width;
+  margin: 0 auto;
 
   &-container {
     padding: $appbar-height + $space $space 32px;
+    @media (min-width: $media-mobile) {
+      margin-right: $right-nav-offset;
+    }
 
     @media screen and (min-width: $media-tablet) {
       padding-left: $space * 2;
