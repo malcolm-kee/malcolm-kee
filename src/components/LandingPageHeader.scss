@@ -14,7 +14,7 @@
 .landing-page-header {
   $bg: #111;
 
-  padding: $spacing-unit 0;
+  padding: $space 0;
   box-shadow: inset $box-shadow-3-inv;
   background-color: $bg;
   background: linear-gradient(
@@ -50,7 +50,7 @@
   }
 
   &-content {
-    padding-top: 6 * $spacing-unit;
+    padding-top: 6 * $space;
 
     @media (min-width: $media-tablet) {
       text-align: center;
@@ -66,7 +66,7 @@
 
     @media (min-width: $media-tablet) {
       font-size: 5rem;
-      padding: 0 3 * $spacing-unit 2 * $spacing-unit;
+      padding: 0 3 * $space 2 * $space;
     }
   }
 
@@ -78,7 +78,7 @@
     position: relative;
 
     @media screen and (min-width: $media-mobile) {
-      padding: $spacing-unit * 2;
+      padding: $space * 2;
     }
 
     @media (min-width: $media-tablet) {

@@ -1,6 +1,6 @@
 @import '../../../src/constants/variable';
 
-$space: $spacing-unit;
+$space: $space;
 
 @mixin box-offset($index) {
   top: $space + (($space + 25px) * $index);

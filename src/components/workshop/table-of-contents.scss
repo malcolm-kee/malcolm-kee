@@ -1,7 +1,7 @@
 @import '../../constants/variable';
 
 .table-of-content-section {
-  padding: $spacing-unit 0;
+  padding: $space 0;
   background-color: $grey-100;
   background-color: var(--bg-mid);
   overflow-x: hidden;
@@ -45,12 +45,12 @@
 
   li {
     list-style-type: none;
-    padding: 0 $spacing-unit;
+    padding: 0 $space;
     line-height: 1.75;
     margin-bottom: 0;
     &.toc-section-title {
       display: block;
-      padding: $spacing-unit $spacing-unit * 2;
+      padding: $space $space * 2;
 
       > button {
         text-transform: uppercase;
@@ -106,7 +106,7 @@
   color: var(--tocLabel);
   font-size: 0.8rem;
   display: block;
-  padding: $spacing-unit / 2 $spacing-unit * 2;
+  padding: $space / 2 $space * 2;
   text-decoration: none;
   position: relative;
   transform-origin: 0% 50%;
@@ -126,7 +126,7 @@
     color: var(--tocSelected);
     background-color: $bg-color-light;
     background-color: var(--bg);
-    left: -$spacing-unit;
+    left: -$space;
     box-shadow: 0 2px 0 hsla(0, 0%, 100%, 0.15),
       inset 0 2px 2px hsla(0, 0%, 0%, 0.1);
 

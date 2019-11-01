@@ -9,13 +9,13 @@
 }
 
 .field {
-  padding: $spacing-unit * 2 0 0;
-  margin: $spacing-unit 0 $spacing-unit * 2;
+  padding: $space * 2 0 0;
+  margin: $space 0 $space * 2;
   position: relative;
 
   .label {
     position: absolute;
-    top: $spacing-unit * 2;
+    top: $space * 2;
     transition-timing-function: ease-in-out;
     transition-duration: 250ms;
     transition-property: top, font-size;

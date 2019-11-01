@@ -3,10 +3,10 @@
 .List {
   margin: 0;
   position: relative;
-  padding: 0 $spacing-unit;
+  padding: 0 $space;
   &--ListItem {
     width: 100%;
-    padding: 1.5 * $spacing-unit 0;
+    padding: 1.5 * $space 0;
     position: relative;
     align-items: center;
     background-color: transparent;
@@ -21,7 +21,7 @@
       transition-delay: 50ms;
       transition-duration: 300ms;
       transition-timing-function: $timing-function;
-      transition-property: background-color, transform;
+      transition-property: background-color, transform, box-shadow;
       transform: scale(1);
       -webkit-tap-highlight-color: transparent;
       &:hover {
@@ -29,6 +29,7 @@
         background-color: $grey-100;
         background-color: var(--bg-mid);
         transform: scale(1.02);
+        box-shadow: $box-shadow-1;
 
         @media (prefers-reduced-motion: reduce) {
           transform: none;
@@ -45,7 +46,7 @@
   }
   &--ListItemText {
     flex: 1 1 auto;
-    padding: 0 $spacing-unit;
+    padding: 0 $space;
     &.hide-overflow {
       overflow: hidden;
       .primary,
@@ -83,13 +84,13 @@
   }
   &--ListItemLabel {
     position: absolute;
-    top: $spacing-unit;
-    right: $spacing-unit;
+    top: $space;
+    right: $space;
     background-color: $primary-700;
     color: white;
     font-size: 0.7rem;
     line-height: 1.5;
-    padding: 0 $spacing-unit;
-    border-radius: 0 0 $spacing-unit / 2 $spacing-unit / 2;
+    padding: 0 $space;
+    border-radius: 0 0 $space / 2 $space / 2;
   }
 }

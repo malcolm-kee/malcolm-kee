@@ -16,12 +16,12 @@
     top: 10px;
     transition: top 500ms $timing-function-1;
     @media (min-width: $media-mobile) {
-      top: $spacing-unit * 2;
+      top: $space * 2;
     }
   }
   .heading {
     position: absolute;
-    right: $spacing-unit * 2;
+    right: $space * 2;
     max-width: 960px;
     margin: 0 auto;
     overflow: hidden;
@@ -31,14 +31,14 @@
     transition-timing-function: $timing-function-1;
     transition-property: right, transform;
     @media (min-width: $media-tablet) {
-      right: $spacing-unit * 4;
+      right: $space * 4;
     }
     @media (min-width: $media-desktop) {
-      right: $spacing-unit * 8;
+      right: $space * 8;
     }
     h1 {
       margin: 0;
-      padding: $spacing-unit / 2 $spacing-unit;
+      padding: $space / 2 $space;
       display: inline-block;
       font-size: 1.5rem;
       width: 100%;
@@ -47,7 +47,7 @@
       transition-property: font-size, padding, text-shadow;
       @media (min-width: $media-mobile) {
         font-size: 2.25rem;
-        padding: $spacing-unit $spacing-unit * 2;
+        padding: $space $space * 2;
       }
       a {
         pointer-events: auto;

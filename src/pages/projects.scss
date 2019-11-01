@@ -5,9 +5,9 @@
     .card-content {
       @include link(a);
     }
-    margin: $spacing-unit * 2 0;
+    margin: $space * 2 0;
     h2 {
-      margin-bottom: $spacing-unit;
+      margin-bottom: $space;
       line-height: 1.2;
     }
 
@@ -46,7 +46,7 @@
     width: 100%;
     text-align: center;
     border-top: 1px solid $grey-300;
-    padding: $spacing-unit 0;
+    padding: $space 0;
     display: flex;
     align-items: center;
     justify-content: center;

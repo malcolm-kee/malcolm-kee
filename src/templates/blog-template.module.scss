@@ -26,6 +26,11 @@
   max-width: $read-width;
   text-align: justify;
   margin: 0 auto;
+  @media screen and (min-width: $media-xlarge) {
+    position: relative;
+    left: -20%;
+    text-align: right;
+  }
 }
 
 .adjacentArticles {

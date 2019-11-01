@@ -2,12 +2,12 @@
 
 .logo {
   width: 150px;
-  margin: $spacing-unit;
+  margin: $space;
   display: inline-block;
   vertical-align: middle;
 
   @media screen and (min-width: $media-mobile) {
-    margin: $spacing-unit * 3;
+    margin: $space * 3;
     width: 250px;
   }
 }

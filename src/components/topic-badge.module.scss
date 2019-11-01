@@ -4,12 +4,12 @@
   display: inline-flex;
   align-items: center;
   padding: $space $space * 2;
-  border: 1px solid;
-  border-color: $grey-300;
-  border-color: var(--text-pale);
+  box-shadow: $box-shadow-1;
   color: $text-light-pale;
   color: var(--text-pale);
   border-radius: $space * 3;
+  background-color: $grey-100;
+  background-color: var(--bg-mid);
 }
 
 .icon {

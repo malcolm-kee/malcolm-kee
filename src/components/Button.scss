@@ -2,7 +2,7 @@
 
 .btn {
   position: relative;
-  padding: $spacing-unit $spacing-unit * 2;
+  padding: $space $space * 2;
   cursor: pointer;
   text-transform: capitalize;
   text-decoration: none;
@@ -122,7 +122,7 @@
 
   &-small {
     font-size: 0.8rem;
-    padding: $spacing-unit / 2 $spacing-unit;
+    padding: $space / 2 $space;
     min-height: 25px;
     min-width: unset;
     line-height: 1;

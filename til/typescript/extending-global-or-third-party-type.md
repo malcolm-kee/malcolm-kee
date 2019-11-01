@@ -34,7 +34,7 @@ It may or may not works depends on where you add the code:
 
 If it doesn't work (which means you had added to a **script**), remove the **declare** clauses so that it becomes:
 
-```ts
+```ts noWrapper
 interface Array<T> {
   fly: (param: string) => void;
 }
@@ -72,7 +72,7 @@ const MyComponent: React.FC = () => (
 
 Fun fact: the following also able to add custom tag to JSX
 
-```ts
+```ts noWrapper
 declare global {
   module JSX {
     interface IntrinsicElements {

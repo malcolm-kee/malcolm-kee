@@ -1,7 +1,7 @@
 @import '../constants/variable';
 
 .root {
-  padding: $spacing-unit * 2;
+  padding: $space * 2;
   box-shadow: $box-shadow-2;
   border-radius: 8px;
   background-color: $grey-100;
@@ -10,15 +10,15 @@
 .header {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: $spacing-unit;
+  margin-bottom: $space;
 }
 
 .actions {
-  padding-top: $spacing-unit;
+  padding-top: $space;
 }
 
 .info {
-  padding: $spacing-unit * 2 $spacing-unit;
+  padding: $space * 2 $space;
   font-style: italic;
 }
 
@@ -26,13 +26,13 @@
   @include link('a');
   position: relative;
   display: flex;
-  padding: $spacing-unit 0;
+  padding: $space 0;
   @media screen and (min-width: $media-tablet) {
-    padding: $spacing-unit;
+    padding: $space;
   }
 }
 .avatar {
-  margin-right: $spacing-unit;
+  margin-right: $space;
   img {
     width: 40px;
     height: 40px;
@@ -45,7 +45,7 @@
 }
 .author {
   font-size: 0.8em;
-  padding: 0 $spacing-unit;
+  padding: 0 $space;
   margin-right: 40px;
   line-height: 1.5;
   > a {
@@ -58,8 +58,8 @@
 }
 .link {
   position: absolute;
-  top: $spacing-unit;
-  right: $spacing-unit;
+  top: $space;
+  right: $space;
   a {
     text-decoration: none;
   }

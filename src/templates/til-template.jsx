@@ -13,7 +13,11 @@ const TilTemplate = ({ data, location }) => {
 
   return (
     <>
-      <Seo title={til.title} pathname={location.pathname} image={`/og_image${location.pathname}.png`} />
+      <Seo
+        title={til.title}
+        pathname={location.pathname}
+        image={`/og_image${location.pathname}.png`}
+      />
       <MainContent>
         <div className={styles.container}>
           <article className={`article-content ${styles.content}`}>
@@ -32,7 +36,7 @@ const TilTemplate = ({ data, location }) => {
               </div>
             )}
           </article>
-          <nav className="Toolbar space-between">
+          <nav className={`Toolbar space-between ${styles.toolbar}`}>
             <Link to="/today-i-learnt">
               <ChevronIcon
                 aria-hidden

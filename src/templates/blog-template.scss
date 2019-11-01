@@ -74,11 +74,13 @@
     margin: $space * 4 auto $space * 2;
     max-width: $read-width;
 
-    aside {
-      @media screen and (min-width: $media-xlarge) {
+    @media screen and (min-width: $media-xlarge) {
+      position: relative;
+      left: -20%;
+      aside {
         position: absolute;
         left: 100%;
-        width: 300px;
+        width: 350px;
         margin: 0;
         padding: 0 $space;
         transform: translate(0, -100%);

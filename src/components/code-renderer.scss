@@ -121,6 +121,8 @@
     padding: 1rem;
     line-height: 1.25rem;
     overflow-x: auto;
+    box-shadow: 0 2px 0 hsla(0, 0%, 100%, 0.15),
+      inset 0 2px 2px hsla(0, 0%, 0%, 0.1);
   }
 }
 

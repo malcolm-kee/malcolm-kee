@@ -317,19 +317,19 @@ h6 {
   text-rendering: optimizeLegibility;
 }
 h1 {
-  padding: $spacing-unit / 2 $spacing-unit * 2;
+  padding: $space / 2 $space * 2;
   font-family: $font-family;
   color: $text-light-pale;
   color: var(--text-pale);
   font-weight: bold;
   font-size: 2.25rem;
-  margin-bottom: $spacing-unit;
+  margin-bottom: $space;
   line-height: 1.1;
 }
 table {
   width: 100%;
   padding: 0;
-  margin: $spacing-unit * 2 0;
+  margin: $space * 2 0;
 }
 td,
 th {
@@ -346,7 +346,7 @@ p {
   }
 }
 .StandardSpacing {
-  padding: 0 $spacing-unit * 2 $spacing-unit;
+  padding: 0 $space * 2 $space;
 }
 .bold {
   font-weight: bold;
@@ -365,12 +365,12 @@ p {
 }
 
 .Toolbar {
-  margin-top: $spacing-unit;
-  margin-bottom: $spacing-unit;
+  margin-top: $space;
+  margin-bottom: $space;
   min-height: 56px;
   display: flex;
   align-items: center;
-  padding: 0 $spacing-unit;
+  padding: 0 $space;
   &.center {
     justify-content: center;
   }
@@ -381,10 +381,10 @@ p {
     justify-content: space-between;
   }
   &--space-vertical {
-    margin: $spacing-unit * 3 0;
+    margin: $space * 3 0;
   }
   > .btn {
-    margin: 0 $spacing-unit;
+    margin: 0 $space;
   }
 }
 
