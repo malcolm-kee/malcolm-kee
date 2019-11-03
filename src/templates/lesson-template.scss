@@ -16,8 +16,9 @@ $right-nav-offset: 224px;
   margin: 0 auto;
 
   &-container {
-    padding: $appbar-height + $space $space 32px;
+    padding: $space * 2 $space 32px;
     @media (min-width: $media-mobile) {
+      padding: $appbar-height + $space $space 32px;
       margin-right: $right-nav-offset;
     }
 

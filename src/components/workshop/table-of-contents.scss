@@ -12,6 +12,7 @@
   transition: right 350ms ease-in-out;
 
   @media screen and (max-width: $media-mobile) {
+    top: $appbar-height-small;
     z-index: $zindex-toc;
     left: 0;
     right: 0;

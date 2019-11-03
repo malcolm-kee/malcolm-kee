@@ -101,8 +101,7 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
       )}
       <div className={styles.actions}>
         <Button
-          color="primary"
-          raised
+          color="secondary"
           component={OutLink}
           href={getGithubIssueLink(repositoryUrl, {
             title: articlePath,

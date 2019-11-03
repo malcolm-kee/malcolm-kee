@@ -60,7 +60,7 @@ const LessonTemplate = ({
           </main>
           {next && (
             <div className="Toolbar right Toolbar--space-vertical">
-              <LinkButton to={next.slug} color="bubble" size="large">
+              <LinkButton to={next.slug} color="primary" raised>
                 Next Lesson {rightArrow}
               </LinkButton>
             </div>
