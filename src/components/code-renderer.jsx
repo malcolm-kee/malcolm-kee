@@ -10,7 +10,7 @@ import { useTheme } from '../theme';
 import { Button } from './Button';
 import './code-renderer.scss';
 import { CodeSnippet, HighlightedCode } from './code-snippet';
-import { wrapJsCode } from './code-transformers';
+import { wrapJsCode, removeHighlightComment } from './code-transformers';
 import { CopyButton } from './copy-button';
 import { EditIcon } from './svg-icons';
 import { TypescriptEditor } from './typescript-editor';
@@ -100,7 +100,7 @@ const CodeLiveEditor = ({
   return (
     <div className="code-editor">
       <LiveProvider
-        code={code}
+        code={removeHighlightComment(code)}
         scope={injectedComponents}
         transformCode={language === 'js' ? wrapJsCode : undefined}
         theme={theme}

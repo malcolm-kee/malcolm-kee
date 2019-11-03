@@ -132,7 +132,7 @@ console.log(result);
 
 Using object spread:
 
-```javascript
+```js live
 var base = {
   currency: 'RM',
   decimalPlaces: 2,
@@ -153,21 +153,12 @@ var options = {
 
 var result = { ...base, ...options };
 
-console.log(result); /*
-{
-    currency: 'USD',
-    roundOff: true,
-    decimalPlaces: 2,
-    thousandSeparators: ',',
-    address: {
-        country: 'United States'
-    }
-} */
+console.log(result);
 ```
 
 The good thing about object spread is to express nested merge it's quite self-explanatory:
 
-```javascript
+```js live
 var base = {
   currency: 'RM',
   decimalPlaces: 2,
@@ -199,17 +190,7 @@ var result = {
   },
 };
 
-console.log(result); /*
-{
-    currency: 'USD',
-    roundOff: true,
-    decimalPlaces: 2,
-    thousandSeparators: ',',
-    address: {
-        country: 'United States',
-        city: 'KL'
-    }
-} */
+console.log(result);
 ```
 
 ### Override Function Default
@@ -247,7 +228,7 @@ Now `myFormatMoney` works similar to `formatMoney`, just the default is customiz
 
 1. Write the `merge` function that would merge `objA` and `objB` to produce the desired result:
 
-   ```javascript
+   ```js live
    var objA = {
      theme: 'light',
      fontFamily: 'Tahoma',
@@ -270,6 +251,8 @@ Now `myFormatMoney` works similar to `formatMoney`, just the default is customiz
    }
 
    var result = merge(objA, objB);
+
+   console.log(result);
    ```
 
    - Expected `result`:

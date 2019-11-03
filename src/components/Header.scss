@@ -120,3 +120,18 @@
     }
   }
 }
+
+.heading-line-top {
+  height: $space;
+  background-color: $primary-700;
+  z-index: $zindex-appbar;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: height 1ms 500ms;
+
+  &--hidden {
+    height: 0;
+    transition: height 1ms;
+  }
+}

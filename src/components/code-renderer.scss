@@ -23,6 +23,8 @@
   border-radius: 0 0 $space / 2 $space / 2;
 }
 
+$code-padding: 1rem;
+
 .code-editor {
   padding: 0 $space / 2 $space / 2;
   border-radius: $space / 2;
@@ -73,9 +75,6 @@
 }
 
 .code-snippet {
-  $code-padding: 1rem;
-  $highlight-width: 0.25rem;
-
   padding: 0 $space / 2 $space / 2;
   border-radius: $space / 2;
 
@@ -99,6 +98,24 @@
   &-language {
     @include language-label();
   }
+}
+
+.code-snippet,
+.code-editor {
+  pre {
+    font-size: 0.9rem;
+    padding: 1rem;
+    line-height: 1.25rem;
+    overflow-x: auto;
+    box-shadow: 0 2px 0 hsla(0, 0%, 100%, 0.15),
+      inset 0 2px 2px hsla(0, 0%, 0%, 0.1);
+  }
+}
+
+.code-snippet,
+.code-editor,
+.code-snippet-plain {
+  $highlight-width: 0.25rem;
 
   .highlighted-code-line {
     background-color: $highlighted-code-bg-light;
@@ -114,21 +131,7 @@
   }
 }
 
-.code-snippet,
-.code-editor {
-  pre {
-    font-size: 0.9rem;
-    padding: 1rem;
-    line-height: 1.25rem;
-    overflow-x: auto;
-    box-shadow: 0 2px 0 hsla(0, 0%, 100%, 0.15),
-      inset 0 2px 2px hsla(0, 0%, 0%, 0.1);
-  }
-}
-
 .code-snippet-plain {
-  $code-padding: 1rem;
-  $highlight-width: 0.25rem;
   margin: $space / 2 0;
 
   pre {
@@ -136,16 +139,5 @@
     padding: $code-padding;
     line-height: 1.25rem;
     overflow-x: auto;
-  }
-
-  .highlighted-code-line {
-    background-color: $highlighted-code-bg-light;
-    background-color: var(--highlightedCode);
-    display: block;
-    margin-right: -$code-padding;
-    margin-left: -$code-padding;
-    padding-right: $code-padding;
-    padding-left: $code-padding - $highlight-width;
-    border-left: $highlight-width solid $secondary-color;
   }
 }

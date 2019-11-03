@@ -140,3 +140,21 @@ const findHighlightLineCommentIndex = tokens =>
       includes(token.types, 'comment') &&
       includes(token.content, 'highlight-line')
   );
+
+/**
+ * Sanitize code by removing line start with the following:
+ * - `// highlight-next-line`
+ * - `// highlight-start`
+ * - `// highlight-end`
+ *
+ * The following comments will be remove without removing other character in the same line:
+ * - `// highlight-line`
+ * @param {string} code
+ */
+export const removeHighlightComment = code =>
+  typeof code === 'string'
+    ? code.replace(
+        /(^\s*\/\/\s*[highlight\-next\-line|highlight\-start|highlight\-end].*\n?|\/\/\s*highlight-line)/gm,
+        ''
+      )
+    : code;

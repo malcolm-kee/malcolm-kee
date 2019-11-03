@@ -79,37 +79,7 @@ This may or may not be what you want, but for me it's unintuitive. The more intu
 
 To have that reset timeout behavior, we can create another state to make sure the effect is run everytime `setTemporaryState` is invoked.
 
-```jsx
-const useTransientState = (steadyState, restorationTime = 2000) => {
-  const [state, setState] = React.useState(steadyState);
-  const [calledTimes, setCallTimes] = React.useState(0); // highlight-line
-
-  const setTemporaryState = React.useCallback(function setTemporaryState(
-    newValue
-  ) {
-    setState(newValue);
-    setCallTimes(t => t + 1); // highlight-line
-  },
-  []);
-
-  React.useEffect(() => {
-    if (state !== steadyState && restorationTime) {
-      const timeoutId = setTimeout(
-        () => setState(steadyState),
-        restorationTime
-      );
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [state, steadyState, restorationTime, calledTimes]); // highlight-line
-
-  return [state, setTemporaryState];
-};
-```
-
-The result:
-
-```jsx live noInline previewOnly
+```jsx live noInline
 const useTransientState = (steadyState, restorationTime = 2000) => {
   const [state, setState] = React.useState(steadyState);
   const [calledTimes, setCallTimes] = React.useState(0); // highlight-line
@@ -142,7 +112,7 @@ const TemporaryMessage = () => {
   return (
     <div>
       <Button onClick={() => setShow(true)}>Show Message</Button>
-      {show && <p>I only appear a while! Keep me appear by keep clicking!</p>}
+      {show && <p>I only appear a while!</p>}
     </div>
   );
 };

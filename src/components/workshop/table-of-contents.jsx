@@ -6,8 +6,9 @@ import { useEventListener } from '../../hooks/use-event-listener';
 import { ChevronIcon } from '../chevron-icon';
 import './table-of-contents.scss';
 import { ToggleTocBtn } from './toggle-toc-btn';
+import { getContrastTextColor } from '../../helper';
 
-export const TableOfContents = ({ pathname, sections, themeColor }) => {
+export const TableOfContents = ({ pathname, sections, workshop }) => {
   const [open, setIsOpen] = React.useState(false);
 
   useEventListener('keyup', e => {
@@ -50,6 +51,16 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
         id="workshop-toc"
       >
         <div className="table-of-content-inner-container">
+          <div
+            className="table-of-content-workshop-title"
+            style={{
+              color: workshop.themeColor,
+              backgroundColor: getContrastTextColor(workshop.themeColor),
+            }}
+          >
+            <img src={workshop.icon} alt="" />
+            {workshop.name}
+          </div>
           <ol ref={tocRef}>
             {sections.map(({ nodes, title }) => (
               <TableOfContentsSection
@@ -64,7 +75,7 @@ export const TableOfContents = ({ pathname, sections, themeColor }) => {
       </nav>
       <ToggleTocBtn
         open={open}
-        backgroundColor={themeColor}
+        backgroundColor={workshop.themeColor}
         onToggle={() => setIsOpen(val => !val)}
         ref={toggleBtnRef}
         aria-haspopup="dialog"

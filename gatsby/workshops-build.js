@@ -122,6 +122,13 @@ exports.createWorkshopPages = function createWorkshopPages({
               id
               name
               themeColor
+              iconFile {
+                childImageSharp {
+                  resize(width: 48, height: 48) {
+                    src
+                  }
+                }
+              }
             }
           }
           next {
@@ -168,7 +175,12 @@ exports.createWorkshopPages = function createWorkshopPages({
             next:
               lesson.isLastLesson || index === edges.length - 1 ? null : next,
             lessonGroup,
-            workshop: lesson.workshop,
+            workshop: {
+              id: lesson.workshop.id,
+              name: lesson.workshop.name,
+              themeColor: lesson.workshop.themeColor,
+              icon: lesson.workshop.iconFile.childImageSharp.resize.src,
+            },
             // used in template
             slug: lesson.slug,
             commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${lesson.slug} in:title sort:created-asc`,

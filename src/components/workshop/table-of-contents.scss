@@ -12,12 +12,13 @@
   transition: right 350ms ease-in-out;
 
   @media screen and (max-width: $media-mobile) {
-    top: $appbar-height-small;
     z-index: $zindex-toc;
-    left: 0;
+    top: 0;
     right: 0;
     bottom: 0;
+    left: 0;
     opacity: 0;
+    padding: 0;
     pointer-events: none;
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
@@ -100,6 +101,25 @@
   min-width: 180px;
   margin: 0px auto;
   padding-bottom: $ios-bottom-offset;
+}
+
+.table-of-content-workshop-title {
+  position: sticky;
+  top: 0;
+  z-index: $zindex-toc-title;
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+  padding: $space $space * 2;
+  margin-bottom: $space;
+
+  > img {
+    margin-right: $space;
+  }
+
+  @media screen and (min-width: $media-mobile) {
+    display: none;
+  }
 }
 
 .toc-link {

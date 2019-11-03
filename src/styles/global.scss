@@ -514,9 +514,16 @@ p {
     &[id]:before {
       display: block;
       content: ' ';
-      margin-top: -75px; // Set the Appropriate Height
-      height: 75px; // Set the Appropriate Height
       visibility: hidden;
+
+      // offset for scroll target
+      margin-top: -$space * 2;
+      height: $space * 2;
+
+      @media screen and (min-width: $media-mobile) {
+        margin-top: -85px;
+        height: 85px;
+      }
     }
 
     .header-link-icon {

@@ -18,7 +18,7 @@ export const WorkshopLayout = ({
     {children}
     <TableOfContents
       sections={workshopSections}
-      themeColor={workshop.themeColor}
+      workshop={workshop}
       pathname={pathname}
     />
     <Footer left />

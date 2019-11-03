@@ -77,9 +77,10 @@ $media-xlarge: 1300px;
 
 // z-index
 $zindex-dialog: 6;
-$zindex-appbar: 5;
-$zindex-toc: 3;
-$zindex-toc-toggle-btn: 4;
+$zindex-appbar: 3;
+$zindex-toc: 4;
+$zindex-toc-title: 5;
+$zindex-toc-toggle-btn: 5;
 
 /* shadows */
 $box-shadow-1: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
