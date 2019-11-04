@@ -2,10 +2,15 @@ import * as React from 'react';
 
 type ObserveType = 'visible' | 'scrollover';
 
+type ObserveOptions = {
+  threshold?: number;
+  rootMargin?: string;
+  observeType?: ObserveType;
+};
+
 export const useObserver = (
   selectors: string[] | undefined,
-  observeType: ObserveType = 'visible',
-  threshold = 1
+  { threshold = 1, rootMargin, observeType = 'scrollover' }: ObserveOptions = {}
 ) => {
   const [showingItemIds, dispatch] = React.useReducer(observerReducer, []);
 
@@ -22,6 +27,7 @@ export const useObserver = (
         },
         {
           threshold,
+          rootMargin,
         }
       );
 
@@ -38,20 +44,15 @@ export const useObserver = (
         targetMap.clear();
       };
     }
-  }, [selectors, threshold]);
+  }, [selectors, threshold, rootMargin]);
 
   return showingItemIds;
 };
 
-type ObserverActions =
-  | {
-      type: 'visible';
-      payload: [IntersectionObserverEntry[], Map<Element, string>];
-    }
-  | {
-      type: 'scrollover';
-      payload: [IntersectionObserverEntry[], Map<Element, string>];
-    };
+type ObserverActions = {
+  type: ObserveType;
+  payload: [IntersectionObserverEntry[], Map<Element, string>];
+};
 
 const observerReducer: React.Reducer<string[], ObserverActions> = (
   state,
@@ -80,27 +81,26 @@ const observerReducer: React.Reducer<string[], ObserverActions> = (
     case 'scrollover': {
       const [entries, map] = action.payload;
       const reachedItems: string[] = [];
-      const leavingItems: string[] = [];
 
-      entries.forEach(entry => {
-        const selector = map.get(entry.target);
-        if (selector) {
-          const { top } = entry.boundingClientRect;
-          if (entry.isIntersecting) {
-            reachedItems.push(selector);
-          } else {
-            if (top < 0) {
-              reachedItems.push(selector);
-            } else {
-              leavingItems.push(selector);
-            }
-          }
+      map.forEach((value, key) => {
+        const { top } = key.getBoundingClientRect();
+        if (top < 0) {
+          reachedItems.push(value);
         }
       });
 
-      return state
-        .filter(item => !leavingItems.includes(item))
-        .concat(reachedItems);
+      entries.forEach(entry => {
+        const selector = map.get(entry.target);
+        if (
+          selector &&
+          entry.isIntersecting &&
+          !reachedItems.includes(selector)
+        ) {
+          reachedItems.push(selector);
+        }
+      });
+
+      return reachedItems;
     }
 
     default:

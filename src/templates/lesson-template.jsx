@@ -24,7 +24,9 @@ const LessonTemplate = ({
     [lesson.tableOfContents.items]
   );
 
-  const visibleIds = useObserver(headings, 'scrollover');
+  const visibleIds = useObserver(headings, {
+    rootMargin: `0px 0px -60% 0px`,
+  });
   const achievedHeadingIndex = React.useMemo(() => {
     let achievedIndex = -1;
     headings.forEach((heading, index) => {
