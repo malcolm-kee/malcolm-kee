@@ -66,7 +66,7 @@ $aside-width: 300px;
       top: $appbar-height + $space * 6;
       width: $toc-width;
       width: calc(
-        100vw - #{$read-width} - #{$aside-width + $right-nav-offset + $space * 4}
+        100vw - #{$read-width} - #{$aside-width + $right-nav-offset + $space * 6}
       );
       text-align: right;
 
