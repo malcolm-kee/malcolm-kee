@@ -18,3 +18,19 @@
     opacity: 1;
   }
 }
+
+.activeLink {
+  position: relative;
+  @media screen and (min-width: $media-xlarge) {
+    &::after {
+      position: absolute;
+      content: ' ';
+      width: $space / 2;
+      right: $space / 2;
+      top: 0;
+      background-color: $toc-light-selected;
+      background-color: var(--tocSelected);
+      height: 100%;
+    }
+  }
+}

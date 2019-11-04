@@ -7,14 +7,34 @@ import { Comments } from '../components/comments';
 import { ErrorBoundary } from '../components/error-boundary';
 import { ReportIssueLink } from '../components/report-issue-link';
 import { Seo } from '../components/Seo';
-import './lesson-template.scss';
+import { useObserver } from '../hooks/use-observer';
 import styles from './lesson-template.module.scss';
+import './lesson-template.scss';
 
 const LessonTemplate = ({
   data: { lesson, github },
   pageContext: { next, commentsSearch },
   location,
 }) => {
+  const headings = React.useMemo(
+    () =>
+      lesson.tableOfContents.items
+        ? lesson.tableOfContents.items.map(item => item.url)
+        : [],
+    [lesson.tableOfContents.items]
+  );
+
+  const visibleIds = useObserver(headings, 'scrollover');
+  const achievedHeadingIndex = React.useMemo(() => {
+    let achievedIndex = -1;
+    headings.forEach((heading, index) => {
+      if (visibleIds.includes(heading)) {
+        achievedIndex = index;
+      }
+    });
+    return achievedIndex;
+  }, [visibleIds, headings]);
+
   return (
     <ErrorBoundary>
       <div className="instruction-template-container">
@@ -45,8 +65,15 @@ const LessonTemplate = ({
           <div className="instruction-toc">
             {lesson.tableOfContents.items && (
               <ul>
-                {lesson.tableOfContents.items.map(item => (
-                  <li key={item.url}>
+                {lesson.tableOfContents.items.map((item, index) => (
+                  <li
+                    className={
+                      index <= achievedHeadingIndex
+                        ? styles.activeLink
+                        : undefined
+                    }
+                    key={item.url}
+                  >
                     <a href={item.url}>{item.title}</a>
                   </li>
                 ))}

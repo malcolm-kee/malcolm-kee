@@ -49,11 +49,12 @@ $aside-width: 300px;
     line-height: 1.3;
     ul {
       margin: 0;
-      padding: 0 $space * 2;
+      padding: 0;
       list-style: none;
     }
     li {
       margin-bottom: 0.5em;
+      padding: 0 $space * 2;
 
       a {
         text-decoration: none;
@@ -71,7 +72,8 @@ $aside-width: 300px;
       text-align: right;
 
       li {
-        padding: 0.2em 0;
+        margin: 0;
+        padding: $space $space * 2;
       }
     }
   }

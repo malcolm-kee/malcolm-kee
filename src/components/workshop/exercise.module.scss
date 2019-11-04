@@ -9,7 +9,7 @@
   margin: $space * 2 #{-$space * 2};
 
   @media screen and (min-width: $media-tablet) {
-    margin: $space * 2 -#{$space * 2};
+    margin: $space * 2 -#{$space};
     padding: $space $space * 2;
   }
 }
