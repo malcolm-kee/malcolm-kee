@@ -23,6 +23,28 @@
   font-style: italic;
 }
 
+.thread {
+  padding: $space 0;
+
+  ~ .thread {
+    border-top: 1px solid;
+    border-top-color: $text-light-pale;
+    border-top-color: var(--text-pale);
+  }
+
+  :global(body.light) & {
+    ~ .thread {
+      border-top-color: $grey-400;
+    }
+  }
+
+  :global(body.dark) & {
+    ~ .thread {
+      border-top-color: $grey-600;
+    }
+  }
+}
+
 .comment {
   @include link('a');
   position: relative;

@@ -116,36 +116,47 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
   );
 };
 
-const Comment = ({ bodyHTML, author, createdAt, url, comments, level = 0 }) => (
-  <>
-    <div className={styles.comment} style={{ marginLeft: level * 25 }}>
-      {url && (
-        <span className={styles.link}>
-          <OutLink href={url}>Reply</OutLink>
-        </span>
-      )}
-      <div className={styles.avatar}>
-        <img src={author.avatarUrl} alt={author.name} />
-      </div>
-      <div>
-        <div className={styles.author}>
-          <OutLink href={author.url}>
-            <span>{author.name}</span>
-          </OutLink>{' '}
-          on {parseDate(createdAt)}
+const Comment = ({ bodyHTML, author, createdAt, url, comments, level = 0 }) => {
+  const childNode = (
+    <>
+      <div
+        className={styles.comment}
+        style={level ? { marginLeft: level * 25 } : undefined}
+      >
+        {url && (
+          <span className={styles.link}>
+            <OutLink href={url}>Reply</OutLink>
+          </span>
+        )}
+        <div className={styles.avatar}>
+          <img src={author.avatarUrl} alt={author.name} />
         </div>
-        <div
-          className={styles.content}
-          dangerouslySetInnerHTML={{ __html: bodyHTML }}
-        />
+        <div>
+          <div className={styles.author}>
+            <OutLink href={author.url}>
+              <span>{author.name}</span>
+            </OutLink>{' '}
+            on {parseDate(createdAt)}
+          </div>
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: bodyHTML }}
+          />
+        </div>
       </div>
-    </div>
-    {comments &&
-      comments.nodes.map(comment => (
-        <Comment {...comment} level={level + 1} key={comment.id} />
-      ))}
-  </>
-);
+      {comments &&
+        comments.nodes.map(comment => (
+          <Comment {...comment} level={level + 1} key={comment.id} />
+        ))}
+    </>
+  );
+
+  return level === 0 ? (
+    <div className={styles.thread}>{childNode}</div>
+  ) : (
+    childNode
+  );
+};
 
 export const query = graphql`
   fragment Comment on GitHub_Issue {
