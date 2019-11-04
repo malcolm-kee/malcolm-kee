@@ -1,6 +1,8 @@
 @import '../constants/variable';
 
 $right-nav-offset: 224px;
+$toc-width: 160px;
+$aside-width: 300px;
 
 @keyframes expandX {
   from {
@@ -14,6 +16,10 @@ $right-nav-offset: 224px;
 .instruction-template {
   max-width: $read-width;
   margin: 0 auto;
+  @media screen and (min-width: $media-xlarge) {
+    margin-right: $aside-width;
+    margin-left: auto;
+  }
 
   &-container {
     padding: $space * 2 $space 32px;
@@ -58,8 +64,15 @@ $right-nav-offset: 224px;
       position: fixed;
       left: $space * 2;
       top: $appbar-height + $space * 6;
-      width: 300px;
+      width: $toc-width;
+      width: calc(
+        100vw - #{$read-width} - #{$aside-width + $right-nav-offset + $space * 4}
+      );
       text-align: right;
+
+      li {
+        padding: 0.2em 0;
+      }
     }
   }
 
@@ -129,7 +142,7 @@ $right-nav-offset: 224px;
     }
 
     .logo-container {
-      width: 200px;
+      width: 150px;
       margin: 0 auto;
     }
 
@@ -186,7 +199,7 @@ $right-nav-offset: 224px;
       @media screen and (min-width: $media-xlarge) {
         position: absolute;
         left: 100%;
-        width: 300px;
+        width: $aside-width;
         margin: 0;
         padding: 0 $space;
         transform: translate(0, -100%);
