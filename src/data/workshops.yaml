@@ -60,6 +60,7 @@
     - styleguidist
     - best practices
   themeColor: '#000000'
+  iconFile: '../assets/react-palettes.png'
 - name: Web Developer Toolbox
   id: web-developer-toolbox
   url: '/web-developer-toolbox'
