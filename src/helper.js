@@ -40,7 +40,9 @@ export function getContrastTextColor(hex) {
   const hBlue = hexToB(hex);
 
   const cBrightness = (hRed * 299 + hGreen * 587 + hBlue * 114) / 1000;
-  return cBrightness > threshold ? '#000000' : '#ffffff';
+  return cBrightness > threshold
+    ? 'rgba(0, 0, 0, 0.87)'
+    : 'rgba(255, 255, 255, 0.88)';
 }
 
 function cutHex(h) {

@@ -1,18 +1,9 @@
 import React from 'react';
 import { ChevronIcon } from '../chevron-icon';
-import { getContrastTextColor } from '../../helper';
 import './toggle-toc-btn.scss';
 
 export const ToggleTocBtn = React.forwardRef(
-  (
-    {
-      open,
-      onToggle,
-      backgroundColor = '#e44d26',
-      color = getContrastTextColor(backgroundColor),
-    },
-    ref
-  ) => {
+  ({ open, onToggle, backgroundColor = '#e44d26', color }, ref) => {
     const iconOffset = open ? 8 : -4;
 
     return (

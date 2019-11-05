@@ -15,9 +15,6 @@ import { CopyButton } from './copy-button';
 import { EditIcon } from './svg-icons';
 import { TypescriptEditor } from './typescript-editor';
 
-/**
- * @type {React.FC}
- */
 export const CodeRenderer = ({
   children,
   className,
@@ -37,7 +34,7 @@ export const CodeRenderer = ({
   const code = typeof children === 'string' ? children.trim() : children;
 
   return live && /^(jsx?|ts|javascript|typescript)$/.test(language) ? (
-    (/^(ts|typescript)$/.test(language) ? (
+    /^(ts|typescript)$/.test(language) ? (
       <TypescriptLiveEditor
         code={code}
         fileName={fileName}
@@ -55,18 +52,18 @@ export const CodeRenderer = ({
         fileName={fileName}
         previewOnly={previewOnly}
       />
-    ))
+    )
   ) : language ? (
-    (<CodeSnippet
+    <CodeSnippet
       code={code}
       language={language}
       theme={codeTheme}
       fileName={fileName}
       noWrapper={noWrapper}
       highlightedLines={highlightedLines}
-    />)
+    />
   ) : (
-    (<code className="language-text">{code}</code>)
+    <code className="language-text">{code}</code>
   );
 };
 

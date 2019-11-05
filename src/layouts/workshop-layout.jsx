@@ -10,11 +10,7 @@ export const WorkshopLayout = ({
   children,
 }) => (
   <div className="Layout">
-    <Navbar
-      title={workshop.name}
-      linkTarget={`/${workshop.id}`}
-      backgroundColor={workshop.themeColor}
-    />
+    <Navbar workshop={workshop} />
     {children}
     <TableOfContents
       sections={workshopSections}

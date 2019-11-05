@@ -2,6 +2,8 @@ import cx from 'classnames';
 import { Link } from 'gatsby';
 import React from 'react';
 import './Button.scss';
+import { getLinkTarget } from '../lib/util';
+import { OutLink } from './OutLink';
 
 interface BaseButtonProps {
   color?: 'primary' | 'secondary';
@@ -26,7 +28,7 @@ interface NativeButtonProps
 interface LinkButtonProps
   extends BaseButtonProps,
     Omit<React.ComponentProps<typeof Link>, 'color' | 'type' | 'ref'> {
-  component: typeof Link;
+  component: typeof Link | 'a' | typeof OutLink;
 }
 
 type ButtonProps = NativeButtonProps | LinkButtonProps;
@@ -92,4 +94,14 @@ export const Button = React.forwardRef<
 
 export const LinkButton: React.FC<
   Omit<LinkButtonProps, 'component'>
-> = props => <Button component={Link} {...props} />;
+> = props => {
+  const linkTarget = getLinkTarget(props.to);
+  return (
+    <Button
+      component={
+        linkTarget === 'inner' ? Link : linkTarget === 'outer' ? OutLink : 'a'
+      }
+      {...props}
+    />
+  );
+};

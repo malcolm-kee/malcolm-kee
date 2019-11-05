@@ -1,12 +1,30 @@
 $space: 8px;
-$space: $space;
+
+/* size */
+$size-0: $space / 2;
+$size-1: $space;
+$size-2: $space * 1.5;
+$size-3: $space * 2;
+$size-4: $space * 3;
+$size-5: $space * 4;
+$size-6: $space * 6;
+$size-7: $space * 8;
+$size-8: $space * 12;
+$size-9: $space * 16;
+$size-10: $space * 24;
+$size-11: $space * 32;
+$size-12: $space * 48;
+$size-13: $space * 64;
+$size-14: $space * 80;
+$size-15: $space * 96;
+
 $font-family: 'Roboto', 'Helvetica', 'Arial', 'Microsoft Yahei', '微软雅黑',
   STXihei, '华文细黑', sans-serif;
 $serif-font: Crimson, Georgia, serif;
 $appbar-height: 56px;
-$appbar-height-small: 48px;
+$appbar-height-small: $size-6;
 $ios-bottom-offset: 44px;
-$read-width: 630px;
+$read-width: $size-14;
 
 $react-color: #61dafb;
 $js-color: #f7df1e;
