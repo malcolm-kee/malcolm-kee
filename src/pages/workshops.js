@@ -1,11 +1,5 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
-import {
-  List,
-  ListItem,
-  ListItemLabel,
-  ListItemText,
-} from '../components/List';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
@@ -37,19 +31,6 @@ const WorkshopsPage = ({ location }) => {
             <WorkshopCard {...node} key={node.id} />
           ))}
         </WorkshopCardContainer>
-        <List>
-          {nodes.map(({ id, name, url, description, underConstruction }) => (
-            <ListItem link={url} key={id}>
-              <ListItemText
-                primaryText={name}
-                tertiaryText={description}
-                boldPrimary
-                className="workshop-item"
-              />
-              {underConstruction && <ListItemLabel>WIP</ListItemLabel>}
-            </ListItem>
-          ))}
-        </List>
       </main>
       <nav className="Toolbar center">
         <Link to="/" className="link-primary">

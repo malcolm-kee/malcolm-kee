@@ -6,7 +6,6 @@ import { useEventListener } from '../../hooks/use-event-listener';
 import { ChevronIcon } from '../chevron-icon';
 import './table-of-contents.scss';
 import { ToggleTocBtn } from './toggle-toc-btn';
-import { getContrastTextColor } from '../../helper';
 
 export const TableOfContents = ({ pathname, sections, workshop }) => {
   const [open, setIsOpen] = React.useState(false);
@@ -55,7 +54,7 @@ export const TableOfContents = ({ pathname, sections, workshop }) => {
             className="table-of-content-workshop-title"
             style={{
               color: workshop.themeColor,
-              backgroundColor: getContrastTextColor(workshop.themeColor),
+              backgroundColor: workshop.contrastColor,
             }}
           >
             <img src={workshop.icon} alt="" />
@@ -76,6 +75,7 @@ export const TableOfContents = ({ pathname, sections, workshop }) => {
       <ToggleTocBtn
         open={open}
         backgroundColor={workshop.themeColor}
+        color={workshop.contrastColor}
         onToggle={() => setIsOpen(val => !val)}
         ref={toggleBtnRef}
         aria-haspopup="dialog"

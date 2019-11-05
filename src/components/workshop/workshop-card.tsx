@@ -3,12 +3,12 @@ import { graphql } from 'gatsby';
 import Image, { FluidObject } from 'gatsby-image';
 import { LinkButton } from '../Button';
 import styles from './workshop-card.module.scss';
-import { getContrastTextColor } from '../../helper';
 
 export type WorkshopCardProps = {
   id: string;
   name: string;
   themeColor: string;
+  contrastColor: string;
   underConstruction: boolean;
   url: string;
   description: string;
@@ -21,7 +21,10 @@ export type WorkshopCardProps = {
 
 export const WorkshopCard = (props: WorkshopCardProps) => {
   return (
-    <article className={styles.card} style={{ borderColor: props.themeColor }}>
+    <article
+      className={`workshop-card ${styles.card}`}
+      style={{ borderColor: props.themeColor }}
+    >
       <div className={styles.content}>
         <h2 className={styles.title}>{props.name}</h2>
         <div className={styles.imageContainer}>
@@ -30,12 +33,15 @@ export const WorkshopCard = (props: WorkshopCardProps) => {
           )}
         </div>
         <p className={styles.description}>{props.description}</p>
+        {props.underConstruction && (
+          <span className={styles.badge}>In Progress</span>
+        )}
       </div>
       <div>
         <LinkButton
           style={{
             backgroundColor: props.themeColor,
-            color: getContrastTextColor(props.themeColor),
+            color: props.contrastColor,
           }}
           className={styles.button}
           to={props.url}
@@ -57,6 +63,7 @@ export const query = graphql`
     id
     name
     themeColor
+    contrastColor
     underConstruction
     description
     url

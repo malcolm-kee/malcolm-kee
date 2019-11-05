@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { mdxResolverPassthrough } = require('./shared');
+const { mdxResolverPassthrough, getContrastTextColor } = require('./shared');
 
 /**
  * Create `Lesson`node when mdx node is created.
@@ -122,6 +122,7 @@ exports.createWorkshopPages = function createWorkshopPages({
               id
               name
               themeColor
+              contrastColor
               iconFile {
                 childImageSharp {
                   resize(width: 48, height: 48) {
@@ -179,6 +180,7 @@ exports.createWorkshopPages = function createWorkshopPages({
               id: lesson.workshop.id,
               name: lesson.workshop.name,
               themeColor: lesson.workshop.themeColor,
+              contrastColor: lesson.workshop.contrastColor,
               icon: lesson.workshop.iconFile.childImageSharp.resize.src,
             },
             // used in template
@@ -197,9 +199,22 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
 }) {
   const { createTypes } = actions;
   const typeDefs = [
-    `type WorkshopsYaml implements Node {
-      underConstruction: Boolean
-    }`,
+    schema.buildObjectType({
+      name: 'WorkshopsYaml',
+      interfaces: ['Node'],
+      fields: {
+        underConstruction: {
+          type: 'Boolean',
+        },
+        themeColor: {
+          type: 'String!',
+        },
+        contrastColor: {
+          type: 'String!',
+          resolve: source => getContrastTextColor(source.themeColor),
+        },
+      },
+    }),
     schema.buildObjectType({
       name: 'Lesson',
       interfaces: ['Node'],
