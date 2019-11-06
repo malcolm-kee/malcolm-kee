@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: $size-3;
+  padding: $size-2;
 }
 
 .card {
@@ -15,6 +16,7 @@
   display: flex;
   flex-flow: column;
   position: relative;
+  box-shadow: $box-shadow-15;
 }
 
 .title {
@@ -57,7 +59,7 @@
   color: $text-light-pale;
   color: var(--text-pale);
   text-align: justify;
-  margin: $size-1 0;
+  margin: $size-1 $size-2 $size-3;
 }
 
 .button {

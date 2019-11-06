@@ -49,7 +49,7 @@
     - html
     - css
     - javascript
-  themeColor: '#61dafb'
+  themeColor: '#e54c25'
   iconFile: '../assets/html5.png'
 - name: Creating Project React Component Library
   id: react-component-lib
@@ -59,7 +59,7 @@
     - react components
     - styleguidist
     - best practices
-  themeColor: '#000000'
+  themeColor: '#D2CC4E'
   iconFile: '../assets/react-palettes.png'
 - name: Web Developer Toolbox
   id: web-developer-toolbox
