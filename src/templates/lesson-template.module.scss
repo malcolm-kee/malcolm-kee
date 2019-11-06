@@ -19,9 +19,12 @@
   }
 }
 
-.activeLink {
-  position: relative;
-  @media screen and (min-width: $media-xlarge) {
+$tx-duration: 250ms;
+
+@media screen and (min-width: $media-xlarge) {
+  .link,
+  .activeLink {
+    position: relative;
     &::after {
       position: absolute;
       content: ' ';
@@ -30,6 +33,20 @@
       top: 0;
       background-color: $toc-light-selected;
       background-color: var(--tocSelected);
+      transition-duration: $tx-duration;
+      transition-timing-function: linear;
+      transition-property: height;
+    }
+  }
+
+  .link {
+    &::after {
+      height: 0%;
+    }
+  }
+
+  .activeLink {
+    &::after {
       height: 100%;
     }
   }

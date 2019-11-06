@@ -2,7 +2,7 @@ import cx from 'classnames';
 import { Link } from 'gatsby';
 import React from 'react';
 import { useDiffEffect } from '../../hooks/use-diff-effect';
-import { useEventListener } from '../../hooks/use-event-listener';
+import { useWindowEventListener } from '../../hooks/use-event-listener';
 import { ChevronIcon } from '../chevron-icon';
 import './table-of-contents.scss';
 import { ToggleTocBtn } from './toggle-toc-btn';
@@ -10,7 +10,7 @@ import { ToggleTocBtn } from './toggle-toc-btn';
 export const TableOfContents = ({ pathname, sections, workshop }) => {
   const [open, setIsOpen] = React.useState(false);
 
-  useEventListener('keyup', e => {
+  useWindowEventListener('keyup', e => {
     if (e.key === 'Escape') {
       setIsOpen(false);
     }

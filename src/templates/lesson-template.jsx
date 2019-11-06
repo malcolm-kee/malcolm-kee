@@ -72,7 +72,7 @@ const LessonTemplate = ({
                     className={
                       index <= achievedHeadingIndex
                         ? styles.activeLink
-                        : undefined
+                        : styles.link
                     }
                     key={item.url}
                   >
