@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { mdxResolverPassthrough, getContrastTextColor } = require('./shared');
+const invert = require('invert-color');
+const { mdxResolverPassthrough } = require('./shared');
 
 /**
  * Create `Lesson`node when mdx node is created.
@@ -211,7 +212,11 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
         },
         contrastColor: {
           type: 'String!',
-          resolve: source => getContrastTextColor(source.themeColor),
+          resolve: source =>
+            invert(source.themeColor, {
+              white: '#ffffffe0',
+              black: '#000000de',
+            }),
         },
       },
     }),
