@@ -2,6 +2,7 @@
 title: More Types in TypeScript
 description: 'Learn type alias, interface, and index signature.'
 date: '2019-10-17'
+updated_at: '2019-11-25'
 ---
 
 ## Type Alias
@@ -87,6 +88,84 @@ const personMap: PersonMap = {
     name: 'Malcolm',
     age: 29,
     phone: '0139944857'
+  }
+}
+```
+
+## Declaration Space
+
+One of the implicit understanding of TypeScript is that there are two types of declaration: type declaration and variable declaration. 
+
+Following are a few type declarations:
+
+```ts noWrapper
+interface Animal {
+  name: string;
+  greet: () => void;
+}
+
+type Person = {
+  firstName: string;
+  talk: () => void;
+}
+```
+
+Which means you can use them as type annotation:
+
+```ts noWrapper
+const animal: Animal = {
+  name: 'dog',
+  greet: () => {
+    console.log(`Woff! Woff!`)
+  }
+}
+
+const me: Person = {
+  firstName: 'Malcolm',
+  talk: () => {
+    console.log(`Hello!`);
+  }
+}
+```
+
+But you can't use them as variable:
+
+```ts noWrapper
+const person = Person; // Error
+```
+
+Similarly, when you declare a variable, you can't use it as type annotation:
+
+```ts live
+const person = {
+  name: '',
+  talk: () => {
+    console.log(`Sawatika`);
+  }
+}
+
+const me: person = {
+  name: '',
+  talk: () => {
+    console.log(`Sawatika`);
+  }
+}
+```
+
+If what you want is to get the type of a variable and apply it to another variable, you can use the `typeof` keyword:
+
+```ts live
+const person = {
+  name: '',
+  talk: () => {
+    console.log(`Sawatika`);
+  }
+}
+
+const me: typeof person = {
+  name: '',
+  talk: () => {
+    console.log(`Sawatika`);
   }
 }
 ```

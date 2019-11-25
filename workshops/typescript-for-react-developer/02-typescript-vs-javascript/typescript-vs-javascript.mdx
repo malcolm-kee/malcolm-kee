@@ -2,15 +2,27 @@
 title: TypeScript vs JavaScript
 description: 'TypeScript is a superset of JavaScript. Therefore you still need to learn JavaScript when you write TypeScript.'
 date: '2019-10-04'
+updated_at: '2019-11-25'
 ---
 
 ## Any Valid JavaScript is Valid TypeScript
 
 ![TypeScript is superset of JavaScript](ts-js-venn.png)
 
-As shown in the diagram above, in addition of JavaScript, TypeScript also includes some JavaScript features that are yet to be standardized (e.g. decorator) as well as typing.
+TypeScript was designed to inter-operate with JavaScript seamlessly, therefore its language include JavaScript itself, with type annotation and a few JavaScript features that are yet to be standardized (e.g. decorator).
 
-In other words, you need to know JavaScript before TypeScript.
+As a metaphor, TypeScript to JavaScript is like
+
+- SASS is to CSS
+- (if you're old enough) C++ is to C
+
+In all cases, the former includes the latter and comes with more programming constructs.
+
+<aside>
+
+The metaphors also bring up a good point: mastery of the simpler language (JavaScript/CSS) is not required before you learning the more advanced one (TypeScript/SASS), but you must have at least moderate level of understanding of the simpler language to avoid getting overwhelmed.
+
+</aside>
 
 ## TypeScript !== OOP
 
@@ -20,7 +32,15 @@ Just like in JavaScript, even though OOP is supported in TypeScript, but that is
 
 In fact, I use TypeScript for more than two years and I seldom need to do OOP unless it is required by the framework/library.
 
-## You can use Both JavaScript and TypeScript in a Project
+<aside>
+
+Evan You, the creator of Vue, shared his thoughts on how TypeScript actually reduces the use of `class` when Vue migrates to TypeScript.
+
+![Evan You: Ironically I think TypeScript has helped me more with avoiding classes than using them. Vue 3 is a 100% TS codebase with 0 usage of classes.When shapes of objects can be expressed and checked purely in type land with interfaces, the actual implementation can just be plain literal objects. Instead of class methods, I just pass the objects around to plain functions.This isn't even about FP vs OO as some may assume - there's still a lot of mutable state and imperative code - it's just that with a type system they can be cleanly managed without classes.](evan-you-comments-on-typescript.png)
+
+</aside>
+
+## You can Use Both JavaScript and TypeScript in a Project
 
 You may think that if you want to use TypeScript, you have to start a new project or rewrite everything from JavaScript to TypeScript.
 
