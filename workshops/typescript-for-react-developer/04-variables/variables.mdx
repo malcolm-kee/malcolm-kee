@@ -2,6 +2,7 @@
 title: Variables in TypeScript
 description: 'Variables in TypeScript will be assigned with type, either by inference from TypeScript or explicit declaration by developer (you).'
 date: '2019-10-13'
+updated_at: '2019-11-27'
 ---
 
 Before we start our migration of React component, let's have an overview of TypeScript types and syntax.
@@ -59,8 +60,13 @@ in TypeScript
 
 Takeaways:
 
-1. TypeScript will help to infer types of a variable for you. It will try to be as strict as possible based on how JavaScript works, but not so strict that it makes you waste time on fighting the it.
+1. TypeScript will try to infer type of a variable for you. It will be as strict as possible based on how JavaScript works, but not so strict that it makes you waste time on fighting the it.
 1. But TypeScript could not read your mind, so you would need to declare the type explicitly in some case.
+1. You can declare the type of a variable by using the following syntax:
+
+   ```ts noWrapper
+   let variableName: Type;
+   ```
 
 ## Array and Tuple
 
@@ -105,6 +111,7 @@ frameworks.push('react');
 
 Takeaways:
 
+1. Two ways to declare array, `Type[]` or `Array<Type>` syntax. Personally I prefer the former as it is shorter.
 1. TypeScript inference will give preference to the most common usage pattern in JavaScript, e.g. prefer Array over Tuple.
 
 ## Object
@@ -274,6 +281,11 @@ const sendTextMessage = (
 // contactPeople("email", { name: "foo", phone: 12345678 });
 ```
 
+Additional Notes:
+
+1. Even though function return type can be inferred, you may want to declare it explicitly to make sure your function implementation follow your expectation. My personal preference is to declare return type if it is a large function (i.e. more than 10 lines). If it is a short function that just do simple computation, I will just let TypeScript do its magic.
+1. Overloading function is theoretically possible, but in practice I seldom use it because I perfer to have two separate functions instead of one function that behave differently based on parameter. The only time I need that is when the function need to handle dynamic data that is returned from an API.
+
 ## any
 
 In some case where you want to declare a variable that can be anything, make it an `any`.
@@ -289,4 +301,4 @@ x = {
 
 When you use `any`, what you tell TypeScript compiler is: "Hey this variable is so dynamic that you cannot figure out, leave me alone!". And TypeScript will let you be wild.
 
-Try to avoid `any`. If your code full of `any`, you may just don't use TypeScript. Save yourself time to type those `:any`.
+Try to avoid `any`. If your code full of `any`, you could just don't use TypeScript. Save yourself time to type those `:any`.
