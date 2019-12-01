@@ -2,7 +2,7 @@
 title: TypeScript vs JavaScript
 description: 'TypeScript is a superset of JavaScript. Therefore you still need to learn JavaScript when you write TypeScript.'
 date: '2019-10-04'
-updated_at: '2019-11-25'
+updated_at: '2019-12-01'
 ---
 
 ## Any Valid JavaScript is Valid TypeScript
@@ -47,3 +47,49 @@ You may think that if you want to use TypeScript, you have to start a new projec
 Luckily, TypeScript allows you to use TypeScript and JavaScript together. You can start slow by writing new codes in TypeScript, then only when you have time to spare, converting the old code from JavaScript to TypeScript.
 
 In fact, that's how we will learn in this workshop: migrating a React project written in JavaScript to TypeScript.
+
+## Jargons Demystified
+
+"Type-checking", "strongly typed", "type annotation"... many fancy words are thrown around when you try to learn TypeScript, which could be overwhelming.
+
+One way to think about all these is using TypeScript is nothing but making your code assumption explicit so that you can allow computer to cross-check assumptions throughout your code are aligned.
+
+Consider the following example:
+
+```js live
+const append = (array, item) => array.concat(item);
+const excludeUndefined = array => array.filter(item => typeof item !== 'undefined');
+
+const newList = append([1, 2, undefined, 6], undefined);
+const numbers = excludeUndefined(newList);
+console.log({ numbers })
+
+/* Uncomment the code below and you will get error */
+// const newList2 = append('malcolm', undefined);
+// const newName = excludeUndefined(newList2);
+// console.log({ newName });
+```
+
+When we write the function `append` and `excludeUndefined`, we assume the first parameter is an array. However because JavaScript is a weakly-typed language, you can pass a string to the functions, and JavaScript will still allows you to do so, which cause an error when the code runs.
+
+Using TypeScript, we can document our code explicitly, like below. (Don't worry about the syntax, which I will explain in details later)
+
+```ts live
+const append = <T>(array: T[], item: T): T[] => array.concat(item);
+const excludeUndefined = <T>(array: Array<T | undefined>): T[] => array.filter(item => typeof item !== 'undefined');
+
+const newList = append([1, 2, undefined, 6], undefined);
+const numbers = excludeUndefined(newList);
+console.log({ numbers })
+
+/* Uncomment the code below and you will get error from TypeScript */
+// const newList2 = append('malcolm', undefined);
+// const newName = excludeUndefined(newList2);
+// console.log({ newName });
+```
+
+Now that TypeScript will start yelling at us when we pass a string to the `append` function as it contradicts the assumption of the `append` function, so that we can fix our code even without running the code.
+
+- When you state your assumptions of variable/parameter, you are *declaring type* or *adding type annotation*.
+- The process of TypeScript validates all your types does not contradicts each other (e.g. assume function accept array but pass it string) is known as *type-checking*.
+- Because TypeScript able to support this process of declaring type (states assumption of data type of variable or parameter), TypeScript is considered as a *strongly-typed language*.

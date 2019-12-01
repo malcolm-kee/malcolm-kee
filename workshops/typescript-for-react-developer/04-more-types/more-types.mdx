@@ -72,24 +72,57 @@ What are the things that `interface` can do but `type` can't?
 
 ## Index signature
 
+One of the common usage of JavaScript is to use object as a simple key-value map object that you can use to lookup value.
+
+Consider the example below:
+
+```js
+const pokemonCache = {};
+
+const getPokemon = id => 
+  {
+    if (pokemonCache[id]) {
+      // if pokemon is already available, return it.
+      return Promise.resolve(pokemonCache[id])
+    }
+
+    // else fetch the pokemon data from api, cache it and return it
+    return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
+      .then(res => res.json())
+      .then(pokemon => {
+        pokemonCache[id] = pokemon;
+        return pokemon;
+      });
+  };
+```
+
+How can we declare typing of `pokemonCache`?
+
+Index signature.
+
 ```ts live
-type Person {
+type Pokemon = {
+  id: number;
   name: string;
-  age: number;
-  phone: string;
+  sprite: string;
+  thumbnail: string;
 }
 
-type PersonMap = {
-  [id: string]: Person;
-}
+const pokemonCache: {[id: number]: Pokemon} = {};
 
-const personMap: PersonMap = {
-  malcolm: {
-    name: 'Malcolm',
-    age: 29,
-    phone: '0139944857'
-  }
-}
+const getPokemon = id => 
+  {
+    if (pokemonCache[id]) {
+      return Promise.resolve(pokemonCache[id])
+    }
+
+    return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
+      .then(res => res.json())
+      .then((pokemon: Pokemon) => {
+        pokemonCache[id] = pokemon;
+        return pokemon;
+      });
+  };
 ```
 
 ## Declaration Space
