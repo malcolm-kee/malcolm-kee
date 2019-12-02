@@ -1,12 +1,13 @@
 ---
 title: React Styleguidist
 description: 'React Styleguidist and other component development tool allows you to develop your component in isolation and generates documentations from your code.'
-date: '2019-10-13'
+date: '2019-12-02'
+updated_at: '2019-12-02'
 ---
 
 [React Styleguidist][react-styleguidist] is a component development tools that would improves the workflow and code reuse in React project.
 
-It allows you to document your React component using comments, the [`prop-types`][prop-types] library and the component use cases with markdown files.
+By default, it allows you to document your React component using comments, the [`prop-types`][prop-types] library and the component use cases with markdown files.
 
 To show you an example, `Button` component in Shopit is documented with:
 
@@ -14,6 +15,8 @@ To show you an example, `Button` component in Shopit is documented with:
 - supported props using `prop-types` [here](https://github.com/malcolm-kee/react-ecomm-site/blob/redux/src/components/button.jsx#L31).
 - use cases with markdown [here](https://raw.githubusercontent.com/malcolm-kee/react-ecomm-site/redux/src/components/button.md).
 - output from React Styleguidist can be seen [here](https://react-ecomm-docs.netlify.com/#button).
+
+For this workshop, we can customize React Styleguidist so we can use TypeScript to document our component instead of `prop-types`.
 
 ## Benefits of Using Component Development Tools
 
@@ -28,7 +31,7 @@ If you wish to setup React Styleguidist for your project, you can refer to their
 
 </aside>
 
-Now we have completed introduction, let's dive into migrate our React components to TypeScript.
+Now we have completed introduction, let's dive into migrate our React projects to TypeScript.
 
 [react-styleguidist]: https://react-styleguidist.js.org
 [prop-types]: https://www.npmjs.com/package/prop-types

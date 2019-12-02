@@ -2,7 +2,7 @@
 title: More Types in TypeScript
 description: 'Learn type alias, interface, and index signature.'
 date: '2019-10-17'
-updated_at: '2019-11-25'
+updated_at: '2019-12-02'
 ---
 
 ## Type Alias
@@ -69,6 +69,83 @@ What are the things that `interface` can do but `type` can't?
 1. self-reference. Because `type` is eagerly evaluated, therefore you can't use declare a `type` that refers itself. Meanwhile, `interface` is lazily evaluated, therefore it can refer itself. Nonetheless, this limitation of `type` will be removed in TypeScript 3.7, which is in beta when I am writing this.
 
 </aside>
+
+## Accessing Type of an Object Type Property
+
+Sometimes you want to extract out the type of an Object Type and use it somewhere. Consider the example below:
+
+```ts
+type PersonDetails = {
+  name: string;
+  address: {
+    unit: string;
+    streetOrBuilding: string;
+    street: string;
+  }
+}
+
+export const updateAddress = (
+  currentDetails: PersonDetails, 
+  address: {
+    unit: string;
+    streetOrBuilding: string;
+    street: string;
+  }
+): PersonDetails => ({
+  ...currentDetails,
+  address
+})
+```
+
+`updateAddress` is a function that accept two parameters: `currentDetails` which is the current value, and `address` which is the new address details, and merge them together and returns a new object.
+
+Note that we have duplicated the address type in two places. We can remove that duplication by creating a type for the address:
+
+```ts
+// highlight-start
+type Address = {
+  unit: string;
+  streetOrBuilding: string;
+  street: string;
+}
+// highlight-end
+
+type PersonDetails = {
+  name: string;
+  address: Address; // highlight-line
+}
+
+export const updateAddress = (
+  currentDetails: PersonDetails, 
+  address: Address // highlight-line
+): PersonDetails => ({
+  ...currentDetails,
+  address
+})
+```
+
+However, sometimes this is not possible because you don't have control over type definition (e.g. type from library) so you can't just refactor the type definition.
+
+The solution is to extract the type of the property like this:
+
+```ts
+type PersonDetails = {
+  name: string;
+  address: {
+    unit: string;
+    streetOrBuilding: string;
+    street: string;
+  }
+}
+
+export const updateAddress = (
+  currentDetails: PersonDetails, 
+  address: PersonDetails['address'] // highlight-line
+): PersonDetails => ({
+  ...currentDetails,
+  address
+})
+```
 
 ## Index signature
 
