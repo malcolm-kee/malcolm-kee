@@ -2,6 +2,7 @@
 title: Generics
 description: 'Understand generics in TypeScript and how to use them in React project.'
 date: '2019-10-20'
+updated_at: '2019-12-03'
 ---
 
 ## Getting to Know Generics
@@ -25,7 +26,7 @@ forEach(numbers, item => {
 });
 ```
 
-You can of couse create a wrapper of `forEach`:
+You can, of course, create a wrapper of `forEach`:
 
 ```ts live
 const forEach = (array: any[], callBack: (element: any) => void) => {
@@ -145,5 +146,5 @@ const getJoke = (): Promise<Joke> =>
     },
   }).then(res => res.json());
 
-getJoke().then(joke => console.log(joke));
+getJoke().then(response => console.log(response.joke));
 ```
