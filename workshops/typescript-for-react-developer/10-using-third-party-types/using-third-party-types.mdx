@@ -2,12 +2,18 @@
 title: Using Third Party Types
 description: 'Learn how to utilize types from TypeScript and libraries'
 date: '2019-10-21'
+updated_at: '2019-12-07'
 ---
 
 ## Using Types from TypeScript and Libraries
 
-`React.FC`
-
-`JSX.InstrinsicElements`
+- `classnames` package does not comes with typings. Install `@types/classnames` (which we did previously).
+- `Slide` that use `react-transition-group`. Install `@types/react-transition-group`.
 
 ## Extending Third-Party Typing
+
+Examples: `share` function that use [`navigator.share` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share).
+
+Examples: `Image` component that use `loading` props on `img` tag.
+
+Examples: `DateInput` using `JQuery`

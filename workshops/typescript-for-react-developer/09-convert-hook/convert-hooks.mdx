@@ -2,18 +2,45 @@
 title: Convert React Hooks
 description: 'Learn how to add types to your React hooks'
 date: '2019-10-22'
+updated_at: '2019-12-07'
 ---
 
 ## Hooks
 
-`useState`
+### Typing `useState` hook
 
-Use generics to declare explicitly typeof your state.
+You don't need to specify the type manually most of the time as TypeScript able to infer it from the default value.
 
-`useEffect`
+In the rare event when TypeScript inference doesn't work for you, you can declare it explicitly.
 
-`useRef`
+- `<Image />`
+
+### Typing `useEffect` hook
+
+I never need to type `useEffect`, ever.
+
+This section is here just to assure you that. 😜
+
+### Typing `useRef` hook
+
+There are two use cases of `useRef`, and how to provide typing for it depends on your use case.
+
+1. Use it as a reference to DOM element.
+
+   To declare a `ref` for DOM element, just add the element type to the `useRef` hooks.
+
+   `<VideoPlayer />` -- TOO
+
+1. Use it as a placeholder for mutable value.
 
 ## Custom Hooks
 
+Because custom hooks are just functions, so you declare them just like how you declare them for typical functions in TypeScript.
+
+Examples -- TODO
+
 ## Organizing Type
+
+Because types can be export and import just like variables, there is no "standard" way of organizing it, just like there is no "standard way of organizing" variables.
+
+Usually I create a `type.ts` file in the `src` folder. Depends on your project, sometimes you may want to split it further. For example if your project split the code to modules, you may want to create a `<module>.type.ts` file for that module to avoid your `type.ts` file become a giant file.

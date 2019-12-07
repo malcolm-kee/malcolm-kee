@@ -2,20 +2,26 @@
 title: Install TypeScript
 description: 'Learn type alias, interface, and index signature.'
 date: '2019-10-19'
-updated_at: '2019-12-03'
+updated_at: '2019-12-07'
 ---
 
 ## Introducing TypeScript in Create React App project
 
 ```bash
-yarn add -D typescript @types/react @types/react-dom @types/node @types/jest
+yarn add -D typescript @types/react @types/react-dom @types/node @types/jest @types/classnames
 ```
 
 OR
 
 ```bash
-npm i -D typescript @types/react @types/react-dom @types/node @types/jest
+npm i -D typescript @types/react @types/react-dom @types/node @types/jest @types/classnames
 ```
+
+<aside>
+
+What are those `@types/??` packages? They are the third-party libraries that are maintained by communities. We will discuss them in more details in a [coming section](/typescript-for-react-developer/using-third-party-types#using-types-from-typescript-and-libraries).
+
+</aside>
 
 Note: For brevity, going forwared I will only show the yarn version. Just change `yarn add` to `npm i` for equivalent command for npm.
 
@@ -69,13 +75,3 @@ module.exports = {
 
 <!-- just change file extension -->
 - Footer
-<!-- use type to declare props -->
-- Spinner
-<!-- use React.ReactNode -->
-- Jumbotron
-- Navbar
-<!-- use union to model enum and React.ReactNode -->
-- Alert
-<!-- use JSX.IntrinsicElements -->
-- Table
-- PanelBody, PanelFooter, PanelHeading
