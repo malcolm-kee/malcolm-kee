@@ -8,7 +8,7 @@
   position: fixed;
   top: $appbar-height;
   bottom: 0;
-  right: 0;
+  left: 0;
   transition: right 350ms ease-in-out;
 
   @media screen and (max-width: $media-mobile) {
@@ -134,7 +134,11 @@
   border-radius: 0;
   transition: color 300ms ease-in-out, background-color 300ms ease-in-out,
     left 500ms ease-in-out, border-radius 500ms ease-in-out;
-  left: 0;
+  right: 0;
+
+  @media screen and (min-width: $media-mobile) {
+    text-align: right;
+  }
 
   &:hover,
   &:focus {
@@ -142,12 +146,12 @@
   }
 
   &.toc-link--active {
-    border-radius: 0 $space * 2 $space * 2 0;
+    border-radius: $space * 2 0 0 $space * 2;
     color: $toc-light-selected;
     color: var(--tocSelected);
     background-color: $bg-color-light;
     background-color: var(--bg);
-    left: -$space;
+    right: -$space;
     box-shadow: 0 2px 0 hsla(0, 0%, 100%, 0.15),
       inset 0 2px 2px hsla(0, 0%, 0%, 0.1);
 

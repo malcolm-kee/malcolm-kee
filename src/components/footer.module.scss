@@ -25,3 +25,12 @@
     margin-left: $space * 2;
   }
 }
+
+.contentRight {
+  text-align: right;
+  max-width: unset;
+
+  @media screen and (min-width: $media-tablet) {
+    margin-left: $space * 2;
+  }
+}

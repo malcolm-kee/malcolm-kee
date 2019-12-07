@@ -17,6 +17,6 @@ export const WorkshopLayout = ({
       workshop={workshop}
       pathname={pathname}
     />
-    <Footer left />
+    <Footer align="right" />
   </div>
 );

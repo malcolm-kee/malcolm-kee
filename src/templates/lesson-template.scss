@@ -16,16 +16,16 @@ $aside-width: 300px;
 .instruction-template {
   max-width: $read-width;
   margin: 0 auto;
-  @media screen and (min-width: $media-xlarge) {
-    margin-right: $aside-width;
-    margin-left: auto;
+
+  @media screen and (min-width: $media-mobile) {
+    margin-left: $right-nav-offset;
+    margin-right: auto;
   }
 
   &-container {
     padding: $space * 2 $space 32px;
     @media (min-width: $media-mobile) {
       padding: $appbar-height + $space $space 32px;
-      margin-right: $right-nav-offset;
     }
 
     @media screen and (min-width: $media-tablet) {
@@ -36,8 +36,13 @@ $aside-width: 300px;
 
   &-report-issue-container {
     margin-top: $space * 3;
-    padding: $space $space * 2;
     font-size: 0.8rem;
+    padding: $space;
+
+    @media screen and (min-width: $media-mobile) {
+      margin-left: $right-nav-offset;
+      padding: $space $space * 2;
+    }
   }
 
   h1 {
@@ -63,13 +68,12 @@ $aside-width: 300px;
     }
     @media screen and (min-width: $media-xlarge) {
       position: fixed;
-      left: $space * 2;
+      right: $space * 2;
       top: $appbar-height + $space * 6;
       width: $toc-width;
       width: calc(
         100vw - #{$read-width} - #{$aside-width + $right-nav-offset + $space * 6}
       );
-      text-align: right;
 
       li {
         margin: 0;

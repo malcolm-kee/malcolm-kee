@@ -1,16 +1,22 @@
 import cx from 'classnames';
 import React from 'react';
-import { content, contentLeft } from './footer.module.scss';
+import styles from './footer.module.scss';
 import { OutLink } from './OutLink';
 import { useLastBuild } from '../hooks/use-last-build';
 
 const year = new Date().getFullYear();
 
-export const Footer = ({ left }) => {
+export const Footer = ({ align }) => {
   const lastBuild = useLastBuild();
   return (
     <footer>
-      <div className={cx(content, left && contentLeft)}>
+      <div
+        className={cx(
+          styles.content,
+          align === 'left' && styles.contentLeft,
+          align === 'right' && styles.contentRight
+        )}
+      >
         <p>&copy; 2018-{year} Copyright Malcolm Kee. All rights reserved.</p>
         <p>
           <small>

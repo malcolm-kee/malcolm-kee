@@ -29,7 +29,7 @@ $tx-duration: 250ms;
       position: absolute;
       content: ' ';
       width: $space / 2;
-      right: $space / 2;
+      left: $space / 2;
       top: 0;
       background-color: $toc-light-selected;
       background-color: var(--tocSelected);
