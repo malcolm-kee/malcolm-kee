@@ -7,10 +7,19 @@ updated_at: '2019-12-07'
 
 ## Using Types from TypeScript and Libraries
 
-- `classnames` package does not comes with typings. Install `@types/classnames` (which we did previously).
-- `Slide` that use `react-transition-group`. Install `@types/react-transition-group`.
+Many open source projects include type definition by default, e.g. `redux`, `redux-thunk`. When you use those package with TypeScript, the package would just work without additional configuration on your side.
+
+However, some popular packages does not comes with type definition, e.g. `react`, `react-dom`, and `classnames`. However, as many people use them with TypeScript, you can install the type definition separately (which are maintained separately). For instance, we install `@types/classnames` for `classnames` package.
+
+<Exercise title="Do It: Installing Type Definition">
+
+Convert `<Slide />` component (`slide.tsx`) and install the required type definition.
+
+</Exercise>
 
 ## Extending Third-Party Typing
+
+Sometimes, the type definition of the libraries (and even those comes with TypeScript) may be outdated and you may want to extends them. This section teach you how to do that.
 
 Examples: `share` function that use [`navigator.share` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share).
 
