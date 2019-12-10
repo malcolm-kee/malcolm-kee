@@ -26,6 +26,8 @@ export const GifPlayer = ({
       tabIndex={0}
       onClick={toggle}
       onFocus={onFocus}
+      role="switch"
+      aria-checked={playing}
       aria-label="Enter to toggle animated and static image"
       onKeyDown={ev => {
         if (ev.key === ' ' || ev.key === 'Enter') {

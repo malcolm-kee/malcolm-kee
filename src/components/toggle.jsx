@@ -154,6 +154,7 @@ export class Toggle extends React.Component {
       (this.props.disabled ? ' react-toggle--disabled' : '') +
       (className ? ' ' + className : '');
     return (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
       <div
         className={classes}
         onClick={this.handleClick}

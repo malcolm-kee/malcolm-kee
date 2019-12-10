@@ -130,6 +130,7 @@ const CodeLiveEditor = ({
             {isEdit ? (
               <>
                 <LiveEditor
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus
                   onKeyDown={ev => {
                     if (ev.key === 'Escape') {
@@ -226,6 +227,7 @@ const TypescriptLiveEditor = ({
             onEmitCode={setJsCode}
             onEscape={() => setIsEdit(false)}
             height={estimatedHeight}
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
           />
           {executedCode && (
