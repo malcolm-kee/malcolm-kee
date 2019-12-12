@@ -65,8 +65,8 @@ Most of the thing that you can do using `interface` can be done using `type`, so
 
 What are the things that `interface` can do but `type` can't?
 
-1. declaration merging (extending an existing interface). This is usually only concerned by library developer, in which their interface can be extended.
-1. self-reference. Because `type` is eagerly evaluated, therefore you can't use declare a `type` that refers itself. Meanwhile, `interface` is lazily evaluated, therefore it can refer itself. Nonetheless, this limitation of `type` will be removed in TypeScript 3.7, which is in beta when I am writing this.
+1. declaration merging (extending an existing interface). This is usually only concerned by library developer, in which their interface can be extended. (We will discuss how to extend third-party library type definition in the [Using Third Party Types](/typescript-for-react-developer/using-third-party-types))
+1. self-reference. Because `type` is eagerly evaluated, therefore you can't use declare a `type` that refers itself. Meanwhile, `interface` is lazily evaluated, therefore it can refer itself. Nonetheless, this limitation of `type` is removed in TypeScript 3.7, which is just released few weeks ago before this workshop.
 
 </aside>
 

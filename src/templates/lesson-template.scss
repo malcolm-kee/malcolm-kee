@@ -1,7 +1,7 @@
 @import '../constants/variable';
 
-$right-nav-offset: 224px;
-$toc-width: 160px;
+$workshop-toc-offset: 225px;
+$lesson-toc-width: 160px;
 $aside-width: 300px;
 
 @keyframes expandX {
@@ -18,7 +18,7 @@ $aside-width: 300px;
   margin: 0 auto;
 
   @media screen and (min-width: $media-mobile) {
-    margin-left: $right-nav-offset;
+    margin-left: $workshop-toc-offset;
     margin-right: auto;
   }
 
@@ -40,7 +40,7 @@ $aside-width: 300px;
     padding: $space;
 
     @media screen and (min-width: $media-mobile) {
-      margin-left: $right-nav-offset;
+      margin-left: $workshop-toc-offset;
       padding: $space $space * 2;
     }
   }
@@ -70,9 +70,10 @@ $aside-width: 300px;
       position: fixed;
       right: $space * 2;
       top: $appbar-height + $space * 6;
-      width: $toc-width;
+      width: $lesson-toc-width;
       width: calc(
-        100vw - #{$read-width} - #{$aside-width + $right-nav-offset + $space * 6}
+        100vw - #{$read-width} - #{$aside-width + $workshop-toc-offset + $space *
+          8}
       );
 
       li {
