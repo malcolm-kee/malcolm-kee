@@ -48,48 +48,41 @@ Luckily, TypeScript allows you to use TypeScript and JavaScript together. You ca
 
 In fact, that's how we will learn in this workshop: migrating a React project written in JavaScript to TypeScript.
 
-## Jargons Demystified
+## Compilation of TypeScript to JavaScript
 
-"Type-checking", "strongly typed", "type annotation"... many fancy words are thrown around when you try to learn TypeScript, which could be overwhelming.
+Let's discuss briefly about how your code in TypeScript is being compiled (or transpiled/transformed) to the JavaScript that could actually run in browser.
 
-One way to think about all these is using TypeScript is nothing but making your code assumption explicit so that you can allow computer to cross-check assumptions throughout your code are aligned.
+The process is like how our React code in JSX is being transpiled to JavaScript with Babel.
 
-Consider the following example:
+A typical React project compilation pipeline look like this:
 
-```js live
-const append = (array, item) => array.concat(item);
-const excludeUndefined = array => array.filter(item => typeof item !== 'undefined');
+![Babel compile JSX by going through two process: parse and emit](babel-compilation.png)
 
-const newList = append([1, 2, undefined, 6], undefined);
-const numbers = excludeUndefined(newList);
-console.log({ numbers })
+The parse step is to generate a data structure of your code, which is known as AST. With the generated AST, Babel will use it to "emit" (output) the final code. Usually, the compilation will succeed if your code doesn't have syntax error, causing error in the parsing process.
 
-/* Uncomment the code below and you will get error */
-// const newList2 = append('malcolm', undefined);
-// const newName = excludeUndefined(newList2);
-// console.log({ newName });
-```
+TypeScript as a language, comes with its compiler. Conceptually, TypeScript compiler works almost similar to Babel, with an extra step of typechecking:
 
-When we write the function `append` and `excludeUndefined`, we assume the first parameter is an array. However because JavaScript is a weakly-typed language, you can pass a string to the functions, and JavaScript will still allows you to do so, which cause an error when the code runs.
+![TypeScript compilations takes three steps: parse, typecheck, and emit](typescript-compilation.png)
 
-Using TypeScript, we can document our code explicitly, like below. (Don't worry about the syntax, which I will explain in details later)
+In addition of generate the data structure, TypeScript compiler will do type-checking (make sure there is no invalid operation), before finally emit the final code.
 
-```ts live
-const append = <T>(array: T[], item: T): T[] => array.concat(item);
-const excludeUndefined = <T>(array: Array<T | undefined>): T[] => array.filter(item => typeof item !== 'undefined');
+### Combination of Babel and TypeScript
 
-const newList = append([1, 2, undefined, 6], undefined);
-const numbers = excludeUndefined(newList);
-console.log({ numbers })
+If TypeScript and Babel are two separate compilation processes, how do we migrate our code incrementally from JavaScript to TypeScript?
 
-/* Uncomment the code below and you will get error from TypeScript */
-// const newList2 = append('malcolm', undefined);
-// const newName = excludeUndefined(newList2);
-// console.log({ newName });
-```
+Previously, having such complex setup requires some good "webpack"-fu. However, Babel now has [a plugin][babel-typescript] that makes it possible to parse TypeScript code.
 
-Now that TypeScript will start yelling at us when we pass a string to the `append` function as it contradicts the assumption of the `append` function, so that we can fix our code even without running the code.
+Using this approach, we will able to convert our code to TypeScript with minimal change of our build pipeline. TypeScript compiler will be used to run the compilation separately without the emit step.
 
-- When you state your assumptions of variable/parameter, you are *declaring type* or *adding type annotation*.
-- The process of TypeScript validates all your types does not contradicts each other (e.g. assume function accept array but pass it string) is known as *type-checking*.
-- Because TypeScript able to support this process of declaring type (states assumption of data type of variable or parameter), TypeScript is considered as a *strongly-typed language*.
+This setup can be summarized as below:
+
+![Babel able to parse TypeScript code and emit code, while TypeScript compiler is used to parse and typecheck, without emit code](babel-compilation-with-typescript-typecheck.png)
+
+<aside>
+
+As mentioned previously, we will not go through how to setup this pipeline, as Create React App already setup that for us by default. If you want to learn how to setup for your own project which is not using Create React App, [this article][setup-guide] may be helpful.
+
+</aside>
+
+[babel-typescript]: https://babeljs.io/docs/en/babel-preset-typescript.html
+[setup-guide]: https://iamturns.com/typescript-babel/

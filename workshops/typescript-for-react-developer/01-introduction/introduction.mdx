@@ -9,8 +9,8 @@ updated_at: '2019-11-27'
 
 TypeScript makes your code easier to maintained:
 
-1. it is easier and safer to refactor.
 1. it reduces bug (by catching error in build time instead of runtime).
+1. it is easier and safer to refactor.
 1. it make code self-documented.
 
 However, TypeScript has some downsides too:
@@ -41,8 +41,68 @@ However, TypeScript has some downsides too:
 
 1. React fundamentals (covered in another workshop, [Introduction to React v2](/intro-to-react-js-v2))
 1. Modern JavaScript (covered in another workshop, [JavaScript: The React Parts](/js-the-react-parts))
-1. All TypeScript concepts (I only focus on those most relevant to React)
-1. How to configure TypeScript pipeline (I will cheat and use Create React App)
+1. All TypeScript concepts (I only focus on those most relevant to React. Many TypeScript concepts are omitted, e.g. type safe OOP, `enum`, and `namespace`).
+1. How to configure TypeScript pipeline (I will use Create React App which already configure the pipeline).
+
+## How TypeScript reduces Bug
+
+Let's explore that in more details how do TypeScript reduces bug.
+
+In its essence, TypeScript is making your code *type-safe*, or in a more layman term, use types to prevent code from doing invalid things.
+
+What are the invalid things? Here are two examples:
+
+1. multiplying a number with an array.
+1. pass a function with string when the function actually expects an array.
+
+Consider the following example:
+
+```js live
+const append = (array, item) => array.concat(item);
+const excludeUndefined = array => array.filter(item => typeof item !== 'undefined');
+
+const newList = append([1, 2, undefined, 6], undefined);
+const numbers = excludeUndefined(newList);
+console.log({ numbers })
+
+/* Uncomment the code below and you will get error */
+// const newList2 = append('malcolm', undefined);
+// const newName = excludeUndefined(newList2);
+// console.log({ newName });
+```
+
+When we write the function `append` and `excludeUndefined`, we assume the first parameter is an array. However because JavaScript is a weakly-typed language, you can pass a string to the functions, and JavaScript will still allows you to do so, which cause an error when the code runs.
+
+Using TypeScript, we can document our code explicitly, like below. (Don't worry about the syntax, which I will explain in details later)
+
+```ts live
+const append = <T>(array: T[], item: T): T[] => array.concat(item);
+const excludeUndefined = <T>(array: Array<T | undefined>): T[] => array.filter(item => typeof item !== 'undefined');
+
+const newList = append([1, 2, undefined, 6], undefined);
+const numbers = excludeUndefined(newList);
+console.log({ numbers })
+
+/* Uncomment the code below and you will get error from TypeScript */
+// const newList2 = append('malcolm', undefined);
+// const newName = excludeUndefined(newList2);
+// console.log({ newName });
+```
+
+Now that TypeScript will start yelling at us when we pass a string to the `append` function as it contradicts the assumption of the `append` function, so that we can fix our code without running the code.
+
+<aside>
+
+*Without running the code*, that's the key strength of TypeScript. Using TypeScript and editor that integrated with it (like VS Code), you can get feedbacks about whether your code would work while you types. 
+
+</aside>
+
+One way to think about all these is using TypeScript is nothing but making your code assumption explicit so that TypeScript can cross-check assumptions throughout your code are aligned.
+
+Now, some words that people use when they talk about TypeScript:
+
+- When you state your assumptions of variable/parameter, you are *annotate the variable with type*.
+- The process of TypeScript validates all your types does not contradicts each other (e.g. assume function accept array but pass it string) is known as *type-checking*.
 
 ## Overview of Code-Along Project
 

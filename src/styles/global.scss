@@ -583,9 +583,16 @@ p {
 
   ol,
   ul {
-    li:first-child {
-      p {
-        margin-top: 0.5em;
+    li {
+      > p {
+        &:not(:first-child) {
+          margin-top: 1em;
+        }
+      }
+      &:first-child {
+        > p {
+          margin-top: 0.5em;
+        }
       }
     }
   }

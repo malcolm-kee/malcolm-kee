@@ -16,6 +16,12 @@ Before we learn to use TypeScript in our React projects, let's have an overview 
 // let x = "hello js";
 
 /**
+ * with type annotation, we know what we can do with the variable.
+ */
+// console.log(x.toUpperCase()); // so this is fine
+// console.log(x.toFixed(2)); // this is not fine, because there is no `toFixed` method on string
+
+/**
  * reassignment is fine
  */
 // x = "hello ts";
@@ -31,9 +37,8 @@ Before we learn to use TypeScript in our React projects, let's have an overview 
 // const y = "hello";
 
 /**
- * This is called a 'string literal type'. y can never be reassigned since it's a const,
- * so we can regard it as only ever holding a value that's literally the string 'hello world'
- * and no other possible value
+ * This is called a 'literal type'. y can never be reassigned since it's a const, 
+ * so its value will only be literally the string 'hello world' and no other possible value
  */
 // if (y === 'whurt') {} // this check is unnecessary
 
@@ -60,13 +65,20 @@ in TypeScript
 
 Takeaways:
 
+1. Having type for variable tells us and TypeScript what we can do with that variable.
 1. TypeScript will try to infer type of a variable for you. It will be as strict as possible based on how JavaScript works, but not so strict that it makes you waste time on fighting the it.
-1. But TypeScript could not read your mind, so you would need to declare the type explicitly in some case.
-1. You can declare the type of a variable by using the following syntax:
+1. But TypeScript could not read your mind, so you would need to annotate the type explicitly in some case.
+1. You can annotate the type of a variable by using the following syntax:
 
    ```ts noWrapper
    let variableName: Type;
    ```
+
+<aside>
+
+What does *annotate* means? Its meaning is like "declare", but for type.
+
+</aside>
 
 ## Array and Tuple
 
@@ -302,6 +314,41 @@ x = {
 When you use `any`, what you tell TypeScript compiler is: "Hey this variable is so dynamic that you cannot figure out, leave me alone!". And TypeScript will let you be wild.
 
 Try to avoid `any`. If your code full of `any`, you could just don't use TypeScript. Save yourself time to type those `:any`.
+
+## unknown
+
+There are some cases where we can't really know the type in advance. Some common examples are:
+
+- response of API calls
+- returned value of `JSON.parse`
+
+When we writing wrapper for those common operation, the recommended type is `unknown`.
+
+```ts live
+const getStoredValue = (key: string): unknown => {
+  const storedValue = localStorage.getItem(key);
+  return storedValue ? JSON.parse(storedValue) : null;
+}
+
+const storedUser = getStoredValue('user');
+
+// uncomment below and see type error
+// console.log(storedUser.toUpperCase());
+
+if (typeof storedUser === 'string') {
+    console.log(storedUser.toUpperCase());
+}
+```
+
+The difference of `unkown` and `any` is `any` allows you to go wild and do any operation as you wish without giving you any type error, while for `unknown` value, you need to prove to TypeScript that it is really a specific type before you can use it.
+
+<aside>
+
+Many type definitions today use `any` as returned type, e.g. `JSON.parse` but should be typed with `unknown` for type-safety. This is due to `unknown` is a new base type that was only introduced in TypeScript 3.0, by then `any` has infiltrate most of the standard type definitions.
+
+Hopefully the `unknown` type will get more tractions and remove those `any` loop hole in TypeScript.
+
+</aside>
 
 <Exercise title="Do It: Convert JavaScript to TypeScript">
 
