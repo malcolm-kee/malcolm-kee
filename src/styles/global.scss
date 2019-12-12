@@ -608,6 +608,17 @@ p {
 
   @include link('a:not(.gatsby-resp-image-link)');
 
+  // this bug is coming back!!!
+  .gatsby-resp-image-image {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
   a[href^="https://www.youtube.com"] {
     display: flex;
     justify-content: center;
