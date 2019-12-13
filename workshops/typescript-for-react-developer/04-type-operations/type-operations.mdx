@@ -1,6 +1,6 @@
 ---
-title: More Types in TypeScript
-description: 'Learn type alias, interface, and index signature.'
+title: Type Operations
+description: 'Learn to use type alias, union, intersection, and type assertion to make type operations.'
 date: '2019-10-17'
 updated_at: '2019-12-13'
 objectives:
@@ -19,16 +19,16 @@ Type alias is the naming of type, so you can reuse it.
 
 ```ts live
 // instead of
-const sanitize = (data: string | number) => {};
-const clean = (data: string | number) => {};
+let w: string | number = 5;
+let x: string | number = 'five';
 
 // create a type alias to reuse
 type StringOrNumber = string | number;
-const sanit = (data: StringOrNumber) => {};
-const clea = (data: StringOrNumber) => {};
+let y: StringOrNumber = 5;
+let z: StringOrNumber = 'five';
 ```
 
-Type alias is not limited to primitive, you can use it to name object type or function signature as well.
+Type alias is not limited to primitive, you can use it to name object type as well.
 
 ```ts live
 type Job = {
@@ -39,12 +39,6 @@ type Job = {
 const a: Job = {
   name: 'programmer',
   salary: 0,
-};
-
-type Callback = () => void;
-
-const hello: Callback = () => {
-  console.log('Hello!');
 };
 
 type NumberOrStringArray = Array<number | string>;
@@ -122,7 +116,7 @@ Takeaways:
 
 Sometimes you want to extract out the type of an Object Type and use it somewhere. Consider the example below:
 
-```ts
+```ts live
 type PersonDetails = {
   name: string;
   address: {
@@ -132,20 +126,30 @@ type PersonDetails = {
   }
 }
 
-export const updateAddress = (
-  currentDetails: PersonDetails, 
+let oldDetails: PersonDetails = {
+  name: 'Malcolm',
   address: {
-    unit: string;
-    streetOrBuilding: string;
-    street: string;
+    unit: '12A',
+    streetOrBuilding: 'Jalan Besar',
+    street: 'Jalan'
   }
-): PersonDetails => ({
-  ...currentDetails,
-  address
-})
-```
+};
 
-`updateAddress` is a function that accept two parameters: `currentDetails` which is the current value, and `address` which is the new address details, and merge them together and returns a new object.
+let newAddress: {
+  unit: string;
+  streetOrBuilding: string;
+  street: string;
+} = {
+  unit: '13A',
+  streetOrBuilding: 'Bangunan Duta',
+  street: 'Jalan Duta'
+};
+
+let updatedDetails: PersonDetails = {
+  ...oldDetails,
+  address: newAddress
+}
+```
 
 Note that we have duplicated the address type in two places. We can remove that duplication by creating a type for the address:
 
@@ -163,13 +167,25 @@ type PersonDetails = {
   address: Address; // highlight-line
 }
 
-export const updateAddress = (
-  currentDetails: PersonDetails, 
-  address: Address // highlight-line
-): PersonDetails => ({
-  ...currentDetails,
-  address
-})
+let oldDetails: PersonDetails = {
+  name: 'Malcolm',
+  address: {
+    unit: '12A',
+    streetOrBuilding: 'Jalan Besar',
+    street: 'Jalan'
+  }
+};
+
+let newAddress: Address = { // highlight-line
+  unit: '13A',
+  streetOrBuilding: 'Bangunan Duta',
+  street: 'Jalan Duta'
+};
+
+let updatedDetails: PersonDetails = {
+  ...oldDetails,
+  address: newAddress
+}
 ```
 
 However, sometimes this is not possible because you don't have control over type definition (e.g. type from library) so you can't just refactor the type definition.
@@ -186,13 +202,25 @@ type PersonDetails = {
   }
 }
 
-export const updateAddress = (
-  currentDetails: PersonDetails, 
-  address: PersonDetails['address'] // highlight-line
-): PersonDetails => ({
-  ...currentDetails,
-  address
-})
+let oldDetails: PersonDetails = {
+  name: 'Malcolm',
+  address: {
+    unit: '12A',
+    streetOrBuilding: 'Jalan Besar',
+    street: 'Jalan'
+  }
+};
+
+let newAddress: PersonDetails['address'] = { // highlight-line
+  unit: '13A',
+  streetOrBuilding: 'Bangunan Duta',
+  street: 'Jalan Duta'
+};
+
+let updatedDetails: PersonDetails = {
+  ...oldDetails,
+  address: newAddress
+}
 ```
 
 ## Differentiating Type and Runtime: Declaration Space

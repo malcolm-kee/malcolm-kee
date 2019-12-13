@@ -8,7 +8,6 @@ objectives:
 - how to annotate types for array and tuple
 - how to annotate types for object using object literal and interface
 - how to annotate types for key-value object using index signature
-- how to annotate types for function
 - explain what are any and unknown types, and why unknown type is preferred than any
 ---
 
@@ -209,7 +208,7 @@ Consider the example below:
 ```js
 const pokemonCache = {};
 
-const getPokemon = id => 
+const getPokemon = (id: number) => 
   {
     if (pokemonCache[id]) {
       // if pokemon is already available in the cache, return it.
@@ -240,7 +239,7 @@ interface Pokemon {
 
 const pokemonCache: {[id: number]: Pokemon} = {};
 
-const getPokemon = id => 
+const getPokemon = (id: number) => 
   {
     if (pokemonCache[id]) {
       return Promise.resolve(pokemonCache[id])
@@ -254,90 +253,6 @@ const getPokemon = id =>
       });
   };
 ```
-
-## Function
-
-```ts live
-interface WithPhoneNumber {
-  name: string;
-  phone: number;
-}
-
-interface WithEmail {
-  name: string;
-  email: string;
-}
-
-/* function arguments and return values can have type annotations */
-function sendEmail(to: WithEmail): { recipient: string; body: string } {
-  return {
-    recipient: `${to.name} <${to.email}>`, // Malcolm Kee <malcolm@example.com>
-    body: "You're pre-qualified for the job!",
-  };
-}
-
-/* the arrow-function variant */
-const sendTextMessage = (
-  to: WithPhoneNumber
-): { recipient: string; body: string } => {
-  return {
-    recipient: `${to.name} <${to.phone}>`,
-    body: "You're pre-qualified for the job!",
-  };
-};
-
-/* return types can almost always be inferred */
-// function getNameParts(contact: { name: string }) {
-//   const parts = contact.name.split(/\s/g); // split @ whitespace
-//   if (parts.length < 2) {
-//     throw new Error(`Can't calculate name parts from name "${contact.name}"`);
-//   }
-//   return {
-//     first: parts[0],
-//     middle:
-//       parts.length === 2
-//         ? undefined
-//         : // everything except first and last
-//           parts.slice(1, parts.length - 2).join(" "),
-//     last: parts[parts.length - 1]
-//   };
-// }
-
-// * rest params work just as you'd think. Type must be array-ish
-// const sum = (...vals: number[]) => vals.reduce((sum, x) => sum + x, 0);
-// console.log(sum(3, 4, 6)); // 13
-
-// * we can even provide multiple function signatures
-// "overload signatures"
-// function contactPeople(method: "email", ...people: WithEmail[]): void;
-// function contactPeople(method: "phone", ...people: WithPhoneNumber[]): void;
-
-// * function implementation
-// function contactPeople(
-//   method: "email" | "phone",
-//   ...people: (WithEmail | WithPhoneNumber)[]
-// ): void {
-//   if (method === "email") {
-//     (people as WithEmail[]).forEach(sendEmail);
-//   } else {
-//     (people as WithPhoneNumber[]).forEach(sendTextMessage);
-//   }
-// }
-
-// * email works
-// contactPeople("email", { name: "foo", email: "" });
-
-// * phone works
-// contactPeople("phone", { name: "foo", phone: 12345678 });
-
-// ! mixing does not work
-// contactPeople("email", { name: "foo", phone: 12345678 });
-```
-
-Additional Notes:
-
-1. Even though function return type can be inferred, you may want to declare it explicitly to make sure your function implementation follow your expectation. My personal preference is to declare return type if it is a large function (i.e. more than 10 lines). If it is a short function that just do simple computation, I will just let TypeScript do its magic.
-1. Overloading function is theoretically possible, but in practice I seldom use it because I perfer to have two separate functions instead of one function that behave differently based on parameter. The only time I need that is when the function need to handle dynamic data that is returned from an API.
 
 ## any
 
@@ -390,11 +305,3 @@ Many type definitions today use `any` as returned type, e.g. `JSON.parse` but sh
 Hopefully the `unknown` type will get more tractions and remove those `any` loop hole in TypeScript.
 
 </aside>
-
-<Exercise title="Do It: Convert JavaScript to TypeScript">
-
-1. Rename `lib/format.js` to `lib/format.ts` and add required type declarations.
-1. Rename `lib/camelize.js` to `lib/camelize.ts` and add required type declaration for the function.
-1. Rename `lib/id.js` to `lib/id.ts` and add required type declarations. Note that return type of `getId` function depends on the parameter.
-
-</Exercise>
