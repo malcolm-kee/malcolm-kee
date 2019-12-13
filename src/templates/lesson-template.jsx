@@ -64,6 +64,16 @@ const LessonTemplate = ({
             </a>
             {lesson.title}
           </h1>
+          {lesson.objectives && (
+            <div className={styles.objective}>
+              <p>What you'll learn</p>
+              <ul>
+                {lesson.objectives.map((objective, index) => (
+                  <li key={index}>{objective}</li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div className="instruction-toc">
             {lesson.tableOfContents.items && (
               <ul>
@@ -143,6 +153,7 @@ export const pageQuery = graphql`
           }
         }
       }
+      objectives
       body
       tableOfContents(maxDepth: 2)
     }
