@@ -87,6 +87,11 @@ Even though function return type can be inferred, you may want to declare it exp
 //   }
 // }
 
+/* default parameter would allows TypeScript to infer your parameter type */
+// const logEvent = (msg: string, user = 'Anonymous') => {
+//   console.log(`${msg} has been logged by ${user}`);
+// };
+
 /* rest params work just as you'd think. Type must be array-ish */
 // const sum = (...vals: number[]) => vals.reduce((sum, x) => sum + x, 0);
 // console.log(sum(3, 4, 6)); // 13
