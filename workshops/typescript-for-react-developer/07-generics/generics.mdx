@@ -80,52 +80,55 @@ Even though generics is like "parameter" to a type/interface, TypeScript will tr
 Generics are not only used for function. We can used it for other TypeScript syntax too.
 
 ```ts live
-class Queue<T> {
-  private data: T[] = [];
-  push(item: T) {
-    this.data.push(item);
-  }
-  pop() {
-    return this.data.shift();
-  }
-}
+/* Using generics in class */
+// class Queue<T> {
+//   private data: T[] = [];
+//   push(item: T) {
+//     this.data.push(item);
+//   }
+//   pop() {
+//     return this.data.shift();
+//   }
+// }
 
-const queue = new Queue<number>();
-queue.push(3);
-queue.push('three'); // Error
+// const queue = new Queue<number>();
+// queue.push(3);
+// queue.push('three'); // Error
 
-type Wrapped<ValueType> = {
-  value: ValueType;
-  id: string;
-};
+/* Using generics in type alias */
+// type ValueWithId<ValueType> = {
+//   value: ValueType;
+//   id: string;
+// };
 
-const numberObject: Wrapped<number> = {
-  value: 5,
-  id: 'five',
-};
+// const numberObject: ValueWithId<number> = {
+//   value: 5,
+//   id: 'five',
+// };
 
-const stringObject: Wrapped<string> = {
-  value: 'hello',
-  id: 'h',
-};
+// const stringObject: ValueWithId<string> = {
+//   value: 'hello',
+//   id: 'h',
+// };
 
-interface Config<Type> {
-  type: Type;
-  required: boolean;
-}
+/* Using generics with interface */
+// interface Config<Type> {
+//   type: Type;
+//   required: boolean;
+// }
 
-interface SpecialConfig extends Config<'special'> {
-  name: string;
-}
+// interface SpecialConfig extends Config<'special'> {
+//   name: string;
+// }
 
-const myConfig: SpecialConfig = {
-  type: 'special',
-  required: false,
-  name: 'Special One',
-};
+// const myConfig: SpecialConfig = {
+//   type: 'special',
+//   required: false,
+//   name: 'Special One',
+// };
 ```
 
-Note that for the `Wrapped` and `Config` example above, the generics are not to provide some typechecking, but allow us to conveniently create some special type based on our use case.
+Note that for the `Wrapped` and `Config` example above, the generics allow us to conveniently create some special type based on our use case.
 
 An example of this is the `Promise` type that is included in TypeScript.
 

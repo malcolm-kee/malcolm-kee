@@ -7,7 +7,7 @@ updated_at: '2019-11-27'
 
 ## Why Use TypeScript in React Project
 
-TypeScript makes your code easier to maintained:
+TypeScript makes your code easier to maintain:
 
 1. it reduces bug (by catching error in build time instead of runtime).
 1. it is easier and safer to refactor.
@@ -19,7 +19,7 @@ However, TypeScript has some downsides too:
 1. Slightly less references and helps compared to JavaScript.
 1. May take longer time to write, especially when you're still new.
 
-    ![David K.:Me: I think I'm done. JavaScript: Looks good to me. Me: Hope it works. JS: I believe in you. Me: ... JS: undefined is not a function. Me: I thi-- TypeScript: Nope. Me: What abou-- TS: Wrong. Me: ... TS: cannot invoke an expression whose type lacks a call signature](david-k-piano-typescript-frustration.png)
+![David K.:Me: I think I'm done. JavaScript: Looks good to me. Me: Hope it works. JS: I believe in you. Me: ... JS: undefined is not a function. Me: I thi-- TypeScript: Nope. Me: What abou-- TS: Wrong. Me: ... TS: cannot invoke an expression whose type lacks a call signature](david-k-piano-typescript-frustration.png)
 
 ## Why Learn TypeScript as React Developer
 
@@ -35,7 +35,7 @@ However, TypeScript has some downsides too:
 
 1. TypeScript fundamentals required to use it in React
 1. How to slowly migrate your React codebase from JavaScript to TypeScript
-1. Common coding pattern when using TypeScript with React
+1. Common usage pattern when using TypeScript with React
 
 ## This Workshop Does Not Cover
 
@@ -89,7 +89,7 @@ console.log({ numbers })
 // console.log({ newName });
 ```
 
-Now that TypeScript will start yelling at us when we pass a string to the `append` function as it contradicts the assumption of the `append` function, so that we can fix our code without running the code.
+Now that TypeScript will start yelling at us when we pass a string to the `append` function as it contradicts the assumption of the `append` function, so that we can identify problem in our code without running the code.
 
 <aside>
 
@@ -97,9 +97,7 @@ Now that TypeScript will start yelling at us when we pass a string to the `appen
 
 </aside>
 
-One way to think about all these is using TypeScript is nothing but making your code assumption explicit so that TypeScript can cross-check assumptions throughout your code are aligned.
-
-Now, some words that people use when they talk about TypeScript:
+One way to think about all these is using TypeScript is nothing but making your code assumption explicit so that TypeScript can cross-check assumptions throughout your code.
 
 - When you state your assumptions of variable/parameter, you are *annotate the variable with type*.
 - The process of TypeScript validates all your types does not contradicts each other (e.g. assume function accept array but pass it string) is known as *type-checking*.

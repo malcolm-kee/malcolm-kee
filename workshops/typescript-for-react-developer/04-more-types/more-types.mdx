@@ -2,8 +2,12 @@
 title: More Types in TypeScript
 description: 'Learn type alias, interface, and index signature.'
 date: '2019-10-17'
-updated_at: '2019-12-02'
+updated_at: '2019-12-13'
 ---
+
+When we have a variable, we can perform operations on it. For example, we can use `*` to multiply two numbers, use `.split` to split a string into an array.
+
+If we have a type, we can perform operations on it too. We're going to discuss few of them in this lesson.
 
 ## Type Alias
 
@@ -44,21 +48,6 @@ type NumberOrStringArray = Array<number | string>;
 const items: NumberOrStringArray = [3, 'three', 4, 5];
 ```
 
-## Interface
-
-Interface can be used to describe object and function. Interface cannot be used to describe primitive, such as `string` or `boolean`.
-
-```ts live
-interface Job {
-  name: string;
-  salary: number;
-}
-
-interface SuckyJob extends Job {
-  boring: true;
-}
-```
-
 Most of the thing that you can do using `interface` can be done using `type`, so I usually just use `type` whenever possible.
 
 <aside>
@@ -66,9 +55,64 @@ Most of the thing that you can do using `interface` can be done using `type`, so
 What are the things that `interface` can do but `type` can't?
 
 1. declaration merging (extending an existing interface). This is usually only concerned by library developer, in which their interface can be extended. (We will discuss how to extend third-party library type definition in the [Using Third Party Types](/typescript-for-react-developer/using-third-party-types))
-1. self-reference. Because `type` is eagerly evaluated, therefore you can't use declare a `type` that refers itself. Meanwhile, `interface` is lazily evaluated, therefore it can refer itself. Nonetheless, this limitation of `type` is removed in TypeScript 3.7, which is just released few weeks ago before this workshop.
+1. self-reference. Because `type` is eagerly evaluated, therefore you can't use declare a `type` that refers itself. Meanwhile, `interface` is lazily evaluated, therefore it can refer itself. Nonetheless, this limitation of `type` is removed in TypeScript 3.7, which is just released few weeks ago before this workshop. An example of self-reference type looks like this:
 
 </aside>
+
+## Intersection & Union
+
+```ts live
+/**
+ * Union types
+ * Sometimes we have a type that can be one of several things
+ */
+
+interface WithPhoneNumber {
+  name: string;
+  phone: number;
+}
+
+interface WithEmail {
+  name: string;
+  email: string;
+}
+
+let contactInfo: WithPhoneNumber | WithEmail =
+  Math.random() > 0.5
+    ? {
+        // we can assign it to a WithPhoneNumber
+        name: 'Malcolm',
+        phone: 60174444444,
+      }
+    : {
+        // or a WithEmail
+        name: 'Malcolm',
+        email: 'malcolm@example.com',
+      };
+
+contactInfo.name; // NOTE: we can only access the .name property  (the stuff WithPhoneNumber and WithEmail have in common)
+
+/**
+ * Intersection types
+ */
+let otherContactInfo: WithPhoneNumber & WithEmail = {
+  //   we _must_ initialize it to a shape that's asssignable to WithEmail _and_ WithPhoneNumber
+  name: 'Malcolm',
+  email: 'malcolm@example.com',
+  phone: 601744444444,
+};
+
+otherContactInfo.name; // NOTE: we can access anything on _either_ type
+otherContactInfo.email;
+otherContactInfo.phone;
+```
+
+Takeaways:
+
+1. Union is like OR operator. In mathematics, union is represented by two overlapping circles with both of them covered.
+1. Intersection is like AND operator. In mathematics, intersection is presented by two overlapping circles with the overlapped parts covered.
+
+![Venn diagram showing comparisons of union and intersections](union_and_intersection.png)
 
 ## Accessing Type of an Object Type Property
 
@@ -147,62 +191,7 @@ export const updateAddress = (
 })
 ```
 
-## Index signature
-
-One of the common usage of JavaScript is to use object as a simple key-value map object that you can use to lookup value.
-
-Consider the example below:
-
-```js
-const pokemonCache = {};
-
-const getPokemon = id => 
-  {
-    if (pokemonCache[id]) {
-      // if pokemon is already available, return it.
-      return Promise.resolve(pokemonCache[id])
-    }
-
-    // else fetch the pokemon data from api, cache it and return it
-    return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
-      .then(res => res.json())
-      .then(pokemon => {
-        pokemonCache[id] = pokemon;
-        return pokemon;
-      });
-  };
-```
-
-How can we declare typing of `pokemonCache`?
-
-Index signature.
-
-```ts live
-type Pokemon = {
-  id: number;
-  name: string;
-  sprite: string;
-  thumbnail: string;
-}
-
-const pokemonCache: {[id: number]: Pokemon} = {};
-
-const getPokemon = id => 
-  {
-    if (pokemonCache[id]) {
-      return Promise.resolve(pokemonCache[id])
-    }
-
-    return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
-      .then(res => res.json())
-      .then((pokemon: Pokemon) => {
-        pokemonCache[id] = pokemon;
-        return pokemon;
-      });
-  };
-```
-
-## Declaration Space
+## Differentiating Type and Runtime: Declaration Space
 
 One of the implicit understanding of TypeScript is that there are two types of declaration: type declaration and variable declaration. 
 
@@ -280,7 +269,13 @@ const me: typeof person = {
 }
 ```
 
-## Type Assertion
+<aside>
+
+`typeof` is a keyword that works differently depends on the context it's being used. When used in variable space, it's just a typical JavaScript [`typeof`][typeof] operator that returns a string indicating the type. When used in declaration space, it's used to extract out the type of a variable.
+
+</aside>
+
+## Escape Hatch: Type Assertion
 
 Sometimes, some values are really dynamic that there are no ways for TypeScript to do type-checking for you. 
 
@@ -301,3 +296,5 @@ console.log((profileImage as HTMLImageElement).src); // highlight-line
 ```
 
 Note that type assertion does nothing in runtime; if the `document.querySelector` calls above returns a `div` instead of a `img`, the call could cause error.
+
+[typeof]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof

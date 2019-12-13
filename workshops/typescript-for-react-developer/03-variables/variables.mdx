@@ -159,60 +159,94 @@ Takeaways:
 // let ee: Address = { houseNumber: 33 };
 ```
 
-## Intersection & Union
+## Interface
+
+Interface can be used to describe object and function. Interface cannot be used to describe primitive, such as `string` or `boolean`.
 
 ```ts live
-/**
- * Union types
- * Sometimes we have a type that can be one of several things
- */
-
-interface WithPhoneNumber {
+interface Job {
   name: string;
-  phone: number;
+  salary: number;
 }
 
-interface WithEmail {
-  name: string;
-  email: string;
-}
-
-let contactInfo: WithPhoneNumber | WithEmail =
-  Math.random() > 0.5
-    ? {
-        // we can assign it to a WithPhoneNumber
-        name: 'Malcolm',
-        phone: 60174444444,
-      }
-    : {
-        // or a WithEmail
-        name: 'Malcolm',
-        email: 'malcolm@example.com',
-      };
-
-contactInfo.name; // NOTE: we can only access the .name property  (the stuff WithPhoneNumber and WithEmail have in common)
-
-/**
- * Intersection types
- */
-let otherContactInfo: WithPhoneNumber & WithEmail = {
-  //   we _must_ initialize it to a shape that's asssignable to WithEmail _and_ WithPhoneNumber
-  name: 'Malcolm',
-  email: 'malcolm@example.com',
-  phone: 601744444444,
+const job: Job = {
+  name: 'programmer',
+  salary: 3000
 };
 
-otherContactInfo.name; // NOTE: we can access anything on _either_ type
-otherContactInfo.email;
-otherContactInfo.phone;
+/* interface make sure the object fits the requirement */
+// const anotherJob: Job = {
+//   name: undefined,
+//   salary: 7000
+// }
+
+/* interface can be extended, but don't do this more than a level */
+interface AwesomeJob extends Job {
+  salary: 20_000;
+  benefits: string[];
+}
+
+const nonExistentJob: AwesomeJob = {
+  name: '@#$%^',
+  salary: 20000,
+  benefits: ['unlimited leaves', '1-year maternity leave']
+}
 ```
 
-Takeaways:
+## Index signature
 
-1. Union is like OR operator. In mathematics, union is represented by two overlapping circles with both of them covered.
-1. Intersection is like AND operator. In mathematics, intersection is presented by two overlapping circles with the overlapped parts covered.
+One of the common usage of JavaScript is to use object as a simple key-value map object that you can use to lookup value.
 
-![Venn diagram showing comparisons of union and intersections](union_and_intersection.png)
+Consider the example below:
+
+```js
+const pokemonCache = {};
+
+const getPokemon = id => 
+  {
+    if (pokemonCache[id]) {
+      // if pokemon is already available in the cache, return it.
+      return Promise.resolve(pokemonCache[id])
+    }
+
+    // else fetch the pokemon data from api, cache it and return it
+    return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
+      .then(res => res.json())
+      .then(pokemon => {
+        pokemonCache[id] = pokemon;
+        return pokemon;
+      });
+  };
+```
+
+How can we declare typing of `pokemonCache`?
+
+Index signature.
+
+```ts live
+interface Pokemon {
+  id: number;
+  name: string;
+  sprite: string;
+  thumbnail: string;
+}
+
+const pokemonCache: {[id: number]: Pokemon} = {};
+
+const getPokemon = id => 
+  {
+    if (pokemonCache[id]) {
+      return Promise.resolve(pokemonCache[id])
+    }
+
+    return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
+      .then(res => res.json())
+      .then((pokemon: Pokemon) => {
+        pokemonCache[id] = pokemon;
+        return pokemon;
+      });
+  };
+```
 
 ## Function
 
