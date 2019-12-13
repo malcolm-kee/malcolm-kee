@@ -3,6 +3,10 @@ title: Using Third Party Types
 description: 'Learn how to utilize types from TypeScript and libraries'
 date: '2019-10-21'
 updated_at: '2019-12-07'
+objectives:
+  - use types from libraries or install them from DefinitelyTyped
+  - write types for libraries whose types are not available in DefinitelyTyped
+  - extends types for libraries
 ---
 
 ## Using Types from TypeScript and Libraries
@@ -16,6 +20,16 @@ However, some popular packages does not comes with type definition, e.g. `react`
 Convert `<Slide />` component (`slide.tsx`) and install the required type definition.
 
 </Exercise>
+
+## Create Types for Third-Party Libraries
+
+Example: `simple-format-number`
+
+```ts
+declare module 'simple-format-number' {
+    ...TODO
+}
+```
 
 ## Extending Third-Party Typing
 

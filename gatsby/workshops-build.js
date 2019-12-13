@@ -34,6 +34,7 @@ exports.createLessonNode = async ({
       updated_at: node.frontmatter.updated_at || node.frontmatter.date,
       description: node.frontmatter.description,
       isLastLesson: node.frontmatter.isLastLesson || false,
+      objectives: node.frontmatter.objectives,
     };
 
     const lessonId = createNodeId(`${node.id} >>> Lesson`);
@@ -253,6 +254,9 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
             },
           },
           resolve: mdxResolverPassthrough('tableOfContents'),
+        },
+        objectives: {
+          type: `[String]`,
         },
       },
     }),
