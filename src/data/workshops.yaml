@@ -18,7 +18,6 @@
     - typescript
   themeColor: '#294E80'
   iconFile: '../assets/react-typescript.png'
-  underConstruction: true
 - name: Create a Fast Site with GatsbyJS
   id: fast-site-with-gatsby-js
   url: '/fast-site-with-gatsby-js'

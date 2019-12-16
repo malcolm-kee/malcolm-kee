@@ -66,7 +66,7 @@ const excludeUndefined = array => array.filter(item => typeof item !== 'undefine
 
 const newList = append([1, 2, undefined, 6], undefined);
 const numbers = excludeUndefined(newList);
-console.log({ numbers })
+console.log(numbers)
 
 /* Uncomment the code below and you will get error */
 // const newList2 = append('malcolm', undefined);
@@ -84,7 +84,7 @@ const excludeUndefined = <T>(array: Array<T | undefined>): T[] => array.filter(i
 
 const newList = append([1, 2, undefined, 6], undefined);
 const numbers = excludeUndefined(newList);
-console.log({ numbers })
+console.log(numbers)
 
 /* Uncomment the code below and you will get error from TypeScript */
 // const newList2 = append('malcolm', undefined);
