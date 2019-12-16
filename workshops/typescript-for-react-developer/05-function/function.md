@@ -8,6 +8,7 @@ objectives:
   - how to annotate optional parameters
   - how to annotate rest parameters
   - how to overload function annotations
+  - how to add TypeScript into a Create React App project
 ---
 
 ## Simple Function Annotations
@@ -129,10 +130,52 @@ Even though function return type can be inferred, you may want to declare it exp
 
 Even though overloading function is theoretically possible, but in practice I seldom use it because I perfer to have two separate functions instead of one function that behave differently based on parameter. The only time I need that is when the function need to handle dynamic data that is returned from an API.
 
+## Adding TypeScript in a Create React App project
+
+Before we start doing exercise on TypeScript, let's add TypeScript into our project.
+
+1. Install required packages.
+
+   ```bash
+   yarn add -D typescript @types/react @types/react-dom @types/node @types/jest @types/classnames
+   ```
+
+   OR
+
+   ```bash
+   npm i -D typescript @types/react @types/react-dom @types/node @types/jest @types/classnames
+   ```
+
+2. Change any `.js` file to `.ts` and then start local development server. Create React App will add `tsconfig.json` into the project with default configuration. (You can add it manually by copy pasting from some sample project if you wish)
+
+   ```bash
+   yarn start
+   ```
+
+   Kill the server and rename back the file to `.ts`.
+
+<aside>
+
+What are those `@types/??` packages? They are the third-party libraries that are maintained by communities. We will discuss them in more details in a [coming section](/typescript-for-react-developer/using-third-party-types#using-types-from-typescript-and-libraries).
+
+</aside>
+
+Note: For brevity, going forwared I will only show the yarn version. Just change `yarn add` to `npm i` for equivalent command for npm.
+
 <Exercise title="Do It: Convert JavaScript to TypeScript">
 
 1. Rename `lib/format.js` to `lib/format.ts` and add required type declarations.
+1. Rename `lib/typecheck.js` to `lib/typecheck.ts` and add required type declarations.
 1. Rename `lib/camelize.js` to `lib/camelize.ts` and add required type declaration for the function.
-1. Rename `lib/id.js` to `lib/id.ts` and add required type declarations. Note that return type of `getId` function depends on the parameter.
+1. Rename `lib/copy.js` to `lib/copy.ts` and add required type declaration for the function.
+1. Rename `lib/id.js` to `lib/id.ts` and add required type declarations. Note that return type of `getId` function depends on the parameter. Declare the type such that the following code example with not cause type error:
+
+   ```ts
+   const numId = getId(true);
+   console.log(numId * 10);
+
+   const stringId = getId();
+   console.log(stringId.toUpperCase());
+   ```
 
 </Exercise>

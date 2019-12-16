@@ -5,6 +5,7 @@ date: '2019-12-02'
 updated_at: '2019-12-02'
 objectives:
 - describe what is React Styleguidist and its benefits
+- configure React Styleguidist to parse React components written in TypeScript
 ---
 
 [React Styleguidist][react-styleguidist] is a component development tools that would improves the workflow and code reuse in React project.
@@ -33,7 +34,50 @@ If you wish to setup React Styleguidist for your project, you can refer to their
 
 </aside>
 
-Now we have completed introduction, let's dive into migrate our React projects to TypeScript.
+## Configure Styleguidist to Parse TypeScript
+
+By default, React Styleguidist use `prop-types` to generate documentation but we want it to generate from our TypeScript code.
+
+Let's configure it with the following steps.
+
+1. Install `react-docgen-typescript`, which will generates metadata from TypeScript code in the format that React Styleguidist can understand.
+
+    ```bash
+    yarn add -D react-docgen-typescript
+    ```
+
+2. Configure React Styleguidist to use `react-docgen-typescript` by editing `styleguide.config.js`.
+
+    ```js fileName=styleguide.config.js
+    const path = require('path'); // highlight-line
+
+    module.exports = {
+    components: 'src/components/**/*.{jsx,tsx}',
+    // highlight-start
+    propsParser: (filePath, source, resolver, handlers) => {
+        const { ext } = path.parse(filePath);
+        return ext === '.tsx'
+        ? require('react-docgen-typescript').parse(
+            filePath,
+            source,
+            resolver,
+            handlers
+            )
+        : require('react-docgen').parse(source, resolver, handlers);
+    },
+    // highlight-end
+    template: {
+        head: {
+        links: [
+            {
+            rel: 'stylesheet',
+            href: 'https://bootswatch.com/3/cerulean/bootstrap.min.css'
+            }
+        ]
+        }
+    }
+    };
+    ```
 
 [react-styleguidist]: https://react-styleguidist.js.org
 [prop-types]: https://www.npmjs.com/package/prop-types
