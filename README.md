@@ -10,6 +10,7 @@ Workshop materials:
 - [Web Developer Toolbox](https://malcolmkee.com/web-developer-toolbox)
 - [JavaScript: The React Parts](https://malcolmkee.com/js-the-react-parts)
 - [Create a Fast Site with GatsbyJS](https://malcolmkee.com/fast-site-with-gatsby-js)
+- [TypeScript for React Developer](https://malcolmkee.com/typescript-for-react-developer)
 
 ## Code Snippet MDX Usage
 
