@@ -20,9 +20,9 @@ afterAll(() => {
 });
 ```
 
-However, this approach has a downside that is there is any error thrown during the test, you can't see the error at all.
+However, this approach has a downside: if there is any error logged during the test, you can't see the error at all.
 
-To make sure that will not happen, the closest thing you can do is to assert the call time.
+To make sure that will not happen, the closest thing you can do is to assert how many the console method has been called.
 
 ```js
 beforeAll(() => {
@@ -39,4 +39,4 @@ test('my test case title', () => {
 });
 ```
 
-Then if there is any error happen that is not expected, at least the tests will catch it.
+Then if there is any error logged that is not expected, at least the tests will catch it.
