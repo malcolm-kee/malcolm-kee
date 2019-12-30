@@ -323,6 +323,14 @@ const accessibleGithub = {
             color: '#77774d',
           },
         }
+      : style.types.indexOf('function') !== -1
+      ? {
+          ...style,
+          style: {
+            ...style.style,
+            color: '#d43746',
+          },
+        }
       : style
   ),
 };
