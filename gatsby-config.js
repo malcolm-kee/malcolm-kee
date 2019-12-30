@@ -2,6 +2,10 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 const path = require('path');
+const postcssPresetEnv = require('postcss-preset-env');
+const postcssBrowserReporter = require('postcss-browser-reporter');
+const postcssReporter = require('postcss-reporter');
+const flexBugsFixes = require('postcss-flexbugs-fixes');
 const packageJson = require('./package.json');
 
 module.exports = {
@@ -17,8 +21,17 @@ module.exports = {
     },
   },
   plugins: [
-    `gatsby-plugin-sass`,
-    `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        postCssPlugins: [
+          postcssPresetEnv(),
+          postcssBrowserReporter(),
+          postcssReporter(),
+          flexBugsFixes(),
+        ],
+      },
+    },
     `gatsby-plugin-typescript`,
     `gatsby-plugin-js-fallback`,
     {
