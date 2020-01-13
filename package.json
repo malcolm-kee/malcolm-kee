@@ -112,6 +112,8 @@
     "prop-types": "^15.6.1",
     "puppeteer": "^2.0.0",
     "start-server-and-test": "^1.9.1",
+    "tailwindcss": "^1.1.4",
+    "tailwindcss-transition": "^1.0.5",
     "typescript": "^3.5.2"
   },
   "homepage": "https://malcolmkee.com/"
