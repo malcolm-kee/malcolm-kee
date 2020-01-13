@@ -55,7 +55,7 @@ const IndexPage = () => (
           </div>
         </LandingPageSection>
         <LandingPageSection>
-          <h2>Writings</h2>
+          <SectionHeader>Writings</SectionHeader>
           <div>
             <Link to="/blog" className="link-highlight animated">
               Read Blog
@@ -69,13 +69,19 @@ const IndexPage = () => (
         </LandingPageSection>
       </div>
       <section>
-        <div className="landing-page-form-container">
-          <h2 className="text-center">Contact Me</h2>
+        <div className="max-w-md mx-auto py-1 px-2 bg-gray-100 shadow-lg sm:rounded-lg">
+          <div className="text-center">
+            <h2 className="bg-primary-700 text-xl text-gray-100 inline-block min-w-lg py-2 px-4 relative rounded bottom-2 shadow">
+              Contact Me
+            </h2>
+          </div>
           <ContactForm />
         </div>
       </section>
     </main>
   </div>
 );
+
+const SectionHeader = ({ children }) => <h2 className="text-lg">{children}</h2>;
 
 export default IndexPage;

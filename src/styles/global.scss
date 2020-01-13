@@ -375,6 +375,15 @@ a {
   }
 }
 
+.bottom {
+  &-1 {
+    bottom: 8px;
+  }
+  &-2 {
+    bottom: 16px;
+  }
+}
+
 // add "animated" class to opt in for reduced behavior
 .animated,
 .animated::before,
