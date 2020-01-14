@@ -22,7 +22,7 @@ const IndexPage = () => (
           <p className="v-space leading-relaxed mb-2">
             I conducted workshops to teach others on React and web development
             in{' '}
-            <OutLink href="https://kl-react.com">
+            <OutLink to="https://kl-react.com">
               local meetup that I co-organize
             </OutLink>{' '}
             and occasionally corporate in-house training.
@@ -68,9 +68,9 @@ const IndexPage = () => (
         </LandingPageSection>
       </div>
       <section>
-        <div className="max-w-md mx-auto py-1 px-2 bg-gray-100 shadow-lg sm:rounded-lg">
+        <div className="max-w-md mx-auto py-1 px-4 bg-gray-100 shadow-lg sm:rounded-lg dark:bg-gray-800">
           <div className="text-center">
-            <h2 className="bg-primary-700 text-xl text-gray-100 inline-block min-w-lg py-2 px-4 relative rounded bottom-2 shadow">
+            <h2 className="bg-primary-700 text-2xl text-gray-100 inline-block min-w-lg py-2 px-4 relative rounded bottom-3 shadow">
               Contact Me
             </h2>
           </div>

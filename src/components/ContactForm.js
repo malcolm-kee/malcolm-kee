@@ -13,10 +13,21 @@ export const ContactForm = () => (
   >
     <Field label="Your Name" name="name" required />
     <Field label="Your Email" name="email" type="email" required />
-    <Field label="Message" name="message" InputComponent="textarea" required />
+    <Field
+      label="Message"
+      name="message"
+      InputComponent="textarea"
+      className="resize-y"
+      required
+    />
     <input type="hidden" name="form-name" value="contact-form" />
-    <div className="Toolbar center">
-      <Button type="submit" color="primary" minWidth="wider" raised>
+    <div className="py-4">
+      <Button
+        type="submit"
+        color="primary"
+        className="w-full py-2 text-lg"
+        raised
+      >
         Send
       </Button>
     </div>

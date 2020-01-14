@@ -25,7 +25,7 @@ export default function HTML(props) {
                 function setTheme(newTheme) {
                   window.__theme = newTheme;
                   preferredTheme = newTheme;
-                  document.body.className = newTheme;
+                  document.body.className = newTheme + (newTheme === 'dark' ? ' mode-dark' : '');
                   window.__onThemeChange(newTheme);
                 }
                 var preferredTheme;

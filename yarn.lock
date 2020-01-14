@@ -16157,6 +16157,13 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
+tailwindcss-dark-mode@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/tailwindcss-dark-mode/-/tailwindcss-dark-mode-1.1.1.tgz#efbe3ef1b046865360cf771d47d006dcc1014be9"
+  integrity sha512-xn19JYbCO4iUZz5jm46KRBbwJ7q91+4hnba/LYy1KAa68KjyVLVSdvv4b653sY4Y92EEG4dtudC0VK+u8okopA==
+  dependencies:
+    tailwindcss "^1.1.4"
+
 tailwindcss-transition@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/tailwindcss-transition/-/tailwindcss-transition-1.0.5.tgz#ae70fc3a883d563cfcecd485ea9459c30b3de38e"

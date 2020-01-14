@@ -22,14 +22,20 @@ module.exports = {
       },
     },
   },
+  variants: {
+    backgroundColor: ['dark'],
+    borderColor: ['dark'],
+    textColor: ['dark'],
+  },
   plugins: [
     require('tailwindcss-transition')({
       standard: 'all .3s ease',
       transitions: {
         slow: 'all 2s ease',
-        'normal-in-out-quad': 'all 2s cubic-bezier(0.455, 0.03, 0.515, 0.955)',
+        'normal-in-out-quad': 'all .3s cubic-bezier(0.455, 0.03, 0.515, 0.955)',
         'slow-in-out-quad': 'all 2s cubic-bezier(0.455, 0.03, 0.515, 0.955)',
       },
     }),
+    require('tailwindcss-dark-mode')(),
   ],
 };

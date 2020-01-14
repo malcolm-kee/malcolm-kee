@@ -1,7 +1,7 @@
 body {
   &.light {
-    background-color: $bg-color-light;
-    color: $text-light;
+    @apply bg-gray-200;
+    @apply text-gray-900;
     --bg: #{$bg-color-light};
     --bg-pale: #{$bg-color-light-pale};
     --bg-absolute: white;
@@ -17,8 +17,8 @@ body {
     --primary-fade: #{$primary-300};
   }
   &.dark {
-    background-color: $bg-color-dark;
-    color: $text-dark;
+    @apply bg-gray-900;
+    @apply text-gray-100;
     --bg: #{$bg-color-dark};
     --bg-pale: #{$bg-color-dark-pale};
     --bg-absolute: #{$grey-dark};
