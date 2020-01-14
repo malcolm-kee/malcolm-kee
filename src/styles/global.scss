@@ -7,17 +7,6 @@
 
 @tailwind utilities;
 
-a {
-  color: $link-light;
-  color: var(--link);
-  background-color: transparent;
-  -webkit-text-decoration-skip: objects;
-  &:active,
-  &:hover {
-    outline-width: 0;
-  }
-}
-
 .Toolbar {
   margin-top: $space;
   margin-bottom: $space;
@@ -110,16 +99,14 @@ a {
     left: -0.25em;
     right: -0.25em;
     border-radius: $space * 3;
-    background-color: $link-light;
-    background-color: var(--link);
+    @apply bg-primary-400;
     transform-origin: center right;
     transform: scaleX(0);
     transition: transform 0.2s ease-in-out;
   }
 
   &:hover {
-    color: $bg-color-light;
-    color: var(--bg);
+    @apply text-gray-900;
     border-bottom-color: transparent;
     &::before {
       transform: scaleX(1);
@@ -406,6 +393,8 @@ $sizes: (
     left: $value;
   }
 }
+
+@include link('.link');
 
 // add "animated" class to opt in for reduced behavior
 .animated,

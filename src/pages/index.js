@@ -5,7 +5,6 @@ import { ContactForm } from '../components/ContactForm';
 import { LandingPageHeader } from '../components/LandingPageHeader';
 import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
-import './index.scss';
 
 const IndexPage = () => (
   <div className="landing-page">
@@ -22,7 +21,7 @@ const IndexPage = () => (
           <p className="v-space leading-relaxed mb-2">
             I conducted workshops to teach others on React and web development
             in{' '}
-            <OutLink to="https://kl-react.com">
+            <OutLink className="link" to="https://kl-react.com">
               local meetup that I co-organize
             </OutLink>{' '}
             and occasionally corporate in-house training.

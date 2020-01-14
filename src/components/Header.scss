@@ -1,8 +1,7 @@
 @import '../constants/variable';
 
 .Header {
-  background-color: $primary-700;
-  margin: 0 auto;
+  @apply bg-primary-700;
   min-height: $appbar-height;
   transition-duration: 500ms;
   transition-timing-function: $timing-function-1;
@@ -13,11 +12,8 @@
   .heading-container {
     position: absolute;
     width: 100%;
-    top: 10px;
+    top: 0;
     transition: top 500ms $timing-function-1;
-    @media (min-width: $media-mobile) {
-      top: $space * 2;
-    }
   }
   .heading {
     position: absolute;
@@ -40,20 +36,17 @@
       margin: 0;
       padding: $space / 2 $space;
       display: inline-block;
-      font-size: 1.5rem;
       width: 100%;
       transition-duration: 0.5s;
       transition-timing-function: $timing-function-1;
       transition-property: font-size, padding, text-shadow;
       @media (min-width: $media-mobile) {
-        font-size: 2.25rem;
         padding: $space $space * 2;
       }
       a {
         pointer-events: auto;
         -webkit-tap-highlight-color: transparent;
         text-decoration: none;
-        color: #fff;
         transition: color 500ms $timing-function-1;
       }
       a:hover {
@@ -94,11 +87,7 @@
 
       h1 {
         text-shadow: 0px 2px 10px #222, 0px 2px 10px #444;
-        @media (min-width: $media-tablet) {
-          font-size: 4rem;
-        }
         a {
-          color: $primary-700;
           &:focus {
             border-bottom: none;
           }
@@ -122,8 +111,8 @@
 }
 
 .heading-line-top {
+  @apply bg-primary-700;
   height: $space;
-  background-color: $primary-700;
   z-index: $zindex-appbar;
   position: fixed;
   top: 0;
