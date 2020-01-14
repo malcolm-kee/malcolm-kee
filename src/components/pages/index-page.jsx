@@ -76,18 +76,13 @@ export const IndexPage = () => (
 );
 
 const LandingPageSection = ({ children, className }) => (
-  <section
-    className={cx(
-      'landing-page-section-content py-6 px-4 max-w-2xl mx-auto',
-      className
-    )}
-  >
+  <section className={cx('py-6 px-4 max-w-xl mx-auto', className)}>
     {children}
   </section>
 );
 
 const SectionHeader = ({ children }) => (
-  <h2 className="text-lg font-medium mb-4">{children}</h2>
+  <h2 className="text-2xl font-medium mb-4">{children}</h2>
 );
 
 const Box = ({ title, children }) => (

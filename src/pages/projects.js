@@ -188,14 +188,16 @@ const ProjectPage = ({ data: { allProjects }, location }) => {
       <MainContent as="div">
         <main>
           <PageTitleContainer title="Past Projects" />
-          {isRendered ? (
-            <FancyProjectView
-              projects={allProjects.edges}
-              location={location}
-            />
-          ) : (
-            <ProjectListView projects={allProjects.edges} />
-          )}
+          <div className="py-6 px-4">
+            {isRendered ? (
+              <FancyProjectView
+                projects={allProjects.edges}
+                location={location}
+              />
+            ) : (
+              <ProjectListView projects={allProjects.edges} />
+            )}
+          </div>
         </main>
         <nav className="Toolbar center">
           <Link to="/" className="link-primary">

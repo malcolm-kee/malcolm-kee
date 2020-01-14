@@ -1,7 +1,7 @@
 @import '../constants/variable';
 
 [data-reach-dialog-overlay] {
-  z-index: $zindex-dialog;
+  @apply z-30;
 }
 
 [data-reach-dialog-content] {

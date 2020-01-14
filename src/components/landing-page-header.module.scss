@@ -58,6 +58,16 @@ $bg: #111;
   }
 }
 
+.title {
+  @apply text-3xl;
+  @screen sm {
+    @apply text-4xl;
+  }
+  @screen md {
+    font-size: 7rem;
+  }
+}
+
 .subtitle {
   display: inline-block;
   color: $primary-100;
