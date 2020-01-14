@@ -381,6 +381,13 @@ $sizes: (
   '56': 14rem,
   '64': 16rem,
 );
+$screens: (
+  'xs': 450px,
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+);
 
 @each $size, $value in $sizes {
   .bottom-#{$size} {
@@ -391,6 +398,21 @@ $sizes: (
   }
   .left-#{$size} {
     left: $value;
+  }
+}
+
+.absolute-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@each $name, $width in $screens {
+  @media (min-width: $width) {
+    .#{$name}\:absolute-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }
 

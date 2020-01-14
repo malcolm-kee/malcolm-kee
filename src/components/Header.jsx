@@ -1,45 +1,22 @@
-import cx from 'classnames';
 import { Link } from 'gatsby';
 import React from 'react';
-import './Header.scss';
+// import './Header.scss';
 
-export const Header = React.memo(function Header({ isBanner }) {
+export const Header = React.memo(function Header() {
   return (
     <>
-      <div
-        className={cx(
-          'heading-line-top',
-          isBanner && 'heading-line-top--hidden'
-        )}
-      />
-      <div
-        className={cx(
-          'Header-outer-container',
-          isBanner && 'Header-outer-container-banner'
-        )}
-      >
-        <header
-          className={cx(
-            'Header mx-auto animated',
-            isBanner && 'Header--banner'
-          )}
-        >
-          <div className="heading-container animated">
-            <div className="heading animated">
-              <h1
-                className={cx(
-                  'font-medium text-2xl xs:text-3xl sm:text-4xl animated',
-                  isBanner ? 'text-primary-600 md:text-6xl' : 'text-gray-100'
-                )}
-              >
-                <Link to="/" tabIndex={isBanner ? -1 : undefined}>
-                  <span>Malcolm</span> <span>Kee</span>
-                </Link>
-              </h1>
-            </div>
+      <div className="fixed h-1 top-0 w-full bg-primary-500 z-50" />
+      <header className="Header mx-auto animated">
+        <div className="heading-container animated">
+          <div className="heading animated">
+            <h1 className="font-medium text-2xl xs:text-3xl sm:text-4xl animated text-gray-100">
+              <Link to="/">
+                <span>Malcolm</span> <span>Kee</span>
+              </Link>
+            </h1>
           </div>
-        </header>
-      </div>
+        </div>
+      </header>
     </>
   );
 });
