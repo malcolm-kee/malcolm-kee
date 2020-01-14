@@ -49,7 +49,7 @@ const LessonTemplate = ({
           pathname={location.pathname}
         />
         <div className="instruction-template">
-          <h1 className={styles.skipLinkContainer}>
+          <h1 className="relative text-5xl my-6 text-gray-700 dark:text-gray-300">
             <a
               href="#workshop-toc"
               id="skip-main"
@@ -58,23 +58,23 @@ const LessonTemplate = ({
             >
               <ChevronIcon
                 size={15}
-                styles={{ transform: `rotate(-90deg)` }}
+                styles={{ transform: `rotate(90deg)` }}
                 aria-hidden
               />
             </a>
             {lesson.title}
           </h1>
           {lesson.objectives && (
-            <div className={styles.objective}>
-              <p>What you'll learn</p>
-              <ul>
+            <div className="my-4 py-2 px-4 border-l-4 border-primary-700 bg-primary-200 text-gray-900">
+              <p className="font-semibold text-xl">What you'll learn</p>
+              <ul className="list-disc pl-4 leading-loose">
                 {lesson.objectives.map((objective, index) => (
                   <li key={index}>{objective}</li>
                 ))}
               </ul>
             </div>
           )}
-          <div className="instruction-toc">
+          <div className="instruction-toc py-4">
             {lesson.tableOfContents.items && (
               <ul>
                 {lesson.tableOfContents.items.map((item, index) => (
@@ -99,7 +99,12 @@ const LessonTemplate = ({
           </main>
           {next && (
             <div className="Toolbar right Toolbar--space-vertical">
-              <LinkButton to={next.slug} color="primary" raised>
+              <LinkButton
+                to={next.slug}
+                color="primary"
+                className="text-2xl"
+                raised
+              >
                 Next Lesson {rightArrow}
               </LinkButton>
             </div>

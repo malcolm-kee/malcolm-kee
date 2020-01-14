@@ -6,7 +6,6 @@ import { OutLink } from './OutLink';
 
 interface BaseButtonProps {
   color?: 'primary' | 'secondary';
-  size?: 'small' | 'large';
   minWidth?: 'wide' | 'widest';
   raised?: boolean;
 }
@@ -41,7 +40,6 @@ export const Button = React.forwardRef<
 >(function Button(props, ref) {
   const className = cx(
     'py-1 px-2 rounded-lg inline-flex justify-center items-center',
-    props.size && `btn-${props.size}`,
     props.color === 'primary' && 'bg-primary-600 text-gray-100',
     props.raised && 'shadow-lg',
     props.minWidth && props.minWidth === 'widest' ? 'min-w-md' : 'min-w-sm',
@@ -49,14 +47,7 @@ export const Button = React.forwardRef<
   );
 
   if (isButtonProps(props)) {
-    const {
-      color,
-      raised,
-      type = 'button',
-      size,
-      minWidth,
-      ...restProps
-    } = props;
+    const { color, raised, type = 'button', minWidth, ...restProps } = props;
 
     return (
       <button
@@ -69,7 +60,6 @@ export const Button = React.forwardRef<
     const {
       color,
       raised,
-      size,
       minWidth,
       component: Component,
       ...restProps

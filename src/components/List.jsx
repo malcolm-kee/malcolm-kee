@@ -74,7 +74,7 @@ export const ListItemText = ({
       className
     )}
   >
-    <p className={cx('primary animated', boldPrimary && 'bold')}>
+    <p className={cx('primary animated', boldPrimary && 'font-bold')}>
       {primaryText}
     </p>
     {secondaryText && <p className="secondary">{secondaryText}</p>}
