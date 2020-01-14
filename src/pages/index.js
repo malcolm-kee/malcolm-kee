@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import { Link } from 'gatsby';
 import React from 'react';
 import { ContactForm } from '../components/ContactForm';
@@ -6,23 +7,19 @@ import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
 import './index.scss';
 
-const LandingPageSection = ({ children }) => (
-  <section className="landing-page-section-content">{children}</section>
-);
-
 const IndexPage = () => (
   <div className="landing-page">
     <Seo />
     <LandingPageHeader />
-    <main className="landing-page-content">
+    <main className="landing-page-content pt-6">
       <LandingPageSection>
         <div className="content-section">
-          <h2>About</h2>
-          <p className="v-space">
+          <SectionHeader>About</SectionHeader>
+          <p className="v-space leading-relaxed mb-2">
             A frontend engineer making web applications functional and
             accessible.
           </p>
-          <p className="v-space">
+          <p className="v-space leading-relaxed mb-2">
             I conducted workshops to teach others on React and web development
             in{' '}
             <OutLink href="https://kl-react.com">
@@ -30,12 +27,14 @@ const IndexPage = () => (
             </OutLink>{' '}
             and occasionally corporate in-house training.
           </p>
-          <p className="v-space">Currently learning to play guitar.</p>
+          <p className="v-space leading-relaxed mb-2">
+            Currently learning to play guitar.
+          </p>
         </div>
       </LandingPageSection>
-      <div className="landing-page-section-group">
-        <LandingPageSection>
-          <h2>Works</h2>
+      <div className="max-w-2xl mx-auto pb-4 sm:flex">
+        <LandingPageSection className="text-center">
+          <SectionHeader>Works</SectionHeader>
           <div>
             <div>
               <Link to="/projects" className="link-highlight animated">
@@ -54,7 +53,7 @@ const IndexPage = () => (
             </div>
           </div>
         </LandingPageSection>
-        <LandingPageSection>
+        <LandingPageSection className="text-center">
           <SectionHeader>Writings</SectionHeader>
           <div>
             <Link to="/blog" className="link-highlight animated">
@@ -82,6 +81,19 @@ const IndexPage = () => (
   </div>
 );
 
-const SectionHeader = ({ children }) => <h2 className="text-lg">{children}</h2>;
+const LandingPageSection = ({ children, className }) => (
+  <section
+    className={cx(
+      'landing-page-section-content py-6 px-4 max-w-2xl mx-auto',
+      className
+    )}
+  >
+    {children}
+  </section>
+);
+
+const SectionHeader = ({ children }) => (
+  <h2 className="text-lg font-medium mb-4">{children}</h2>
+);
 
 export default IndexPage;

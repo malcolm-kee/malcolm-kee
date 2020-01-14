@@ -2,37 +2,13 @@
 
 .landing-page {
   &-content {
-    padding-top: $space * 3;
     background-color: $bg-color-light;
     background-color: var(--bg);
   }
 
   &-section {
     &-content {
-      padding: $space * 3 $space * 2;
-      max-width: 800px;
-      margin: 0 auto;
-
       @include link('a:not(.btn):not(.link-highlight)');
-
-      h2 {
-        margin-bottom: $space * 2;
-      }
-
-      p {
-        line-height: 1.5;
-      }
-    }
-    &-group {
-      max-width: 800px;
-      padding-bottom: $space * 2;
-      margin: 0 auto;
-      @media screen and (min-width: $media-mobile) {
-        display: flex;
-      }
-    }
-    &-group &-content {
-      text-align: center;
     }
 
     @media (max-width: $media-mobile) {
@@ -44,7 +20,7 @@
     }
   }
 
-  &-form-container {
+  /*   &-form-container {
     $max-width: 500px;
 
     max-width: $max-width;
@@ -93,5 +69,5 @@
         color: $primary-color-light;
       }
     }
-  }
+  } */
 }
