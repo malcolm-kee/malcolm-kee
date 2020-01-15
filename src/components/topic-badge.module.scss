@@ -16,4 +16,10 @@
   width: 24px;
   height: 24px;
   margin-right: $space;
+  display: inline-block;
+}
+
+.img {
+  max-height: 100%;
+  @apply mx-auto;
 }

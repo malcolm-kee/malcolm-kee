@@ -5,7 +5,9 @@ export const TopicBadge = ({ id, icon }) => {
   return (
     <span className={styles.container}>
       {icon && icon.publicURL && (
-        <img src={icon.publicURL} className={styles.icon} alt="" />
+        <span className={styles.icon}>
+          <img src={icon.publicURL} className={styles.img} alt="" />
+        </span>
       )}
       {id}
     </span>
