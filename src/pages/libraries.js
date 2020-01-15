@@ -27,7 +27,7 @@ const LibrariesPage = () => {
   return (
     <MainContent as="div">
       <Seo title="Libraries - Malcolm Kee" />
-      <main>
+      <main className="max-w-lg mx-auto">
         <PageTitleContainer title="Libraries" />
         <List>
           {libraries.map(({ name, description, version, links }) => (

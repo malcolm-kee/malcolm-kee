@@ -4,7 +4,7 @@ import { Header } from '../components/Header';
 
 export const Layout = ({ isRoot, children }) => (
   <div className="Layout">
-    <Header siteTitle="Malcolm Kee" isBanner={isRoot} />
+    {!isRoot && <Header siteTitle="Malcolm Kee" />}
     {children}
     <Footer />
   </div>

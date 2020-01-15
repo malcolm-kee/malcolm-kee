@@ -1,7 +1,6 @@
 import cx from 'classnames';
 import React from 'react';
 import { callAll } from '../lib/fp';
-import './Field.scss';
 
 export const Field = ({
   className,
@@ -15,21 +14,26 @@ export const Field = ({
 }) => {
   const [focused, setIsFocused] = React.useState(false);
   const inputRef = React.useRef(null);
+  const value =
+    inputProps.value || (inputRef.current && inputRef.current.value);
 
   return (
-    <div
-      className={cx(
-        'field',
-        focused && 'field--focused',
-        (inputProps.value || (inputRef.current && inputRef.current.value)) &&
-          'field--filled'
-      )}
-    >
-      <label htmlFor={id} className="label animated">
+    <div className={cx('pt-5 mt-2 mb-4 relative w-full')}>
+      <label
+        htmlFor={id}
+        className={cx(
+          'label animated select-none absolute pb-2 transition-normal-in-out-quad left-2',
+          value || focused ? 'top-0 text-xs' : 'top-6',
+          focused ? 'text-primary-700 dark:text-primary-400' : 'text-gray-600'
+        )}
+      >
         {label}
       </label>
       <InputComponent
-        className={cx('form-control', className)}
+        className={cx(
+          'form-control text-base block m-0 w-full border border-transparent rounded-lg px-3 py-1 shadow-inner bg-gray-200 text-gray-900',
+          className
+        )}
         name={name}
         id={id}
         {...inputProps}
@@ -41,7 +45,6 @@ export const Field = ({
         onBlur={callAll(inputProps.onBlur, () => setIsFocused(false))}
         ref={inputRef}
       />
-      <span className="animated" />
     </div>
   );
 };

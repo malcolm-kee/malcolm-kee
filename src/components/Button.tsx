@@ -1,14 +1,12 @@
 import cx from 'classnames';
 import { Link } from 'gatsby';
 import React from 'react';
-import './Button.scss';
 import { getLinkTarget } from '../lib/util';
 import { OutLink } from './OutLink';
 
 interface BaseButtonProps {
   color?: 'primary' | 'secondary';
-  size?: 'small' | 'large';
-  minWidth?: 'wide' | 'wider' | 'widest';
+  minWidth?: 'wide' | 'widest';
   raised?: boolean;
 }
 
@@ -39,29 +37,22 @@ const isButtonProps = (props: ButtonProps): props is NativeButtonProps =>
 export const Button = React.forwardRef<
   HTMLButtonElement | HTMLLinkElement,
   ButtonProps
->((props, ref) => {
+>(function Button(props, ref) {
+  const className = cx(
+    'py-1 px-2 rounded-lg inline-flex justify-center items-center',
+    props.color === 'primary' && 'bg-primary-600 text-gray-100',
+    props.raised && 'shadow-lg',
+    props.minWidth && props.minWidth === 'widest' ? 'min-w-md' : 'min-w-sm',
+    props.className
+  );
+
   if (isButtonProps(props)) {
-    const {
-      color,
-      raised,
-      type = 'button',
-      size,
-      className,
-      minWidth,
-      ...restProps
-    } = props;
+    const { color, raised, type = 'button', minWidth, ...restProps } = props;
 
     return (
       <button
-        className={cx(
-          'btn',
-          color && `btn-${color}`,
-          size && `btn-${size}`,
-          raised && 'btn-raised',
-          minWidth && `btn-${minWidth}`,
-          className
-        )}
         {...restProps}
+        className={className}
         ref={ref as React.Ref<HTMLButtonElement>}
       />
     );
@@ -69,32 +60,19 @@ export const Button = React.forwardRef<
     const {
       color,
       raised,
-      size,
-      className,
       minWidth,
       component: Component,
       ...restProps
     } = props;
 
-    return (
-      <Component
-        className={cx(
-          'btn',
-          color && `btn-${color}`,
-          size && `btn-${size}`,
-          raised && 'btn-raised',
-          minWidth && `btn-${minWidth}`,
-          className
-        )}
-        {...restProps}
-      />
-    );
+    return <Component {...restProps} className={className} />;
   }
 });
 
-export const LinkButton: React.FC<
-  Omit<LinkButtonProps, 'component'>
-> = props => {
+export const LinkButton: React.FC<Omit<
+  LinkButtonProps,
+  'component'
+>> = props => {
   const linkTarget = getLinkTarget(props.to);
   return (
     <Button

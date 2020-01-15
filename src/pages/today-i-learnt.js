@@ -19,7 +19,10 @@ const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
         <PageTitleContainer title="Today I Learnt" />
         <p className={styles.description}>
           Inspired by{' '}
-          <OutLink to="https://www.stefanjudis.com/today-i-learned/">
+          <OutLink
+            className="link"
+            to="https://www.stefanjudis.com/today-i-learned/"
+          >
             Stefan Judis
           </OutLink>
           , these are the little facts I learnt in my daily life as a Frontend

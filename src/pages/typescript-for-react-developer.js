@@ -35,8 +35,9 @@ const PageHeader = () => {
             <div className="Toolbar">
               <LinkButton
                 to="/typescript-for-react-developer/introduction"
-                color="bubble"
-                size="large"
+                color="primary"
+                minWidth="widest"
+                className="text-2xl"
               >
                 Start
               </LinkButton>

@@ -1,5 +1,9 @@
 @import '../constants/variable';
 
+.title {
+  hyphens: auto;
+}
+
 .imageAttribution {
   text-align: right;
   padding: $space $space 0;
@@ -67,5 +71,40 @@
   li {
     margin-bottom: $space;
   }
-  @include link('a');
+}
+
+.content {
+  @media screen and (min-width: $media-xlarge) {
+    position: relative;
+    left: -20%;
+    aside {
+      position: absolute;
+      left: 100%;
+      width: 350px;
+      margin: 0;
+      padding: 0 $space;
+      transform: translate(0, -100%);
+    }
+  }
+  a {
+    :global {
+      .gatsby-resp-image-link {
+        cursor: zoom-in;
+      }
+
+      :not(.gatsby-resp-image-link) {
+        text-decoration: none;
+        border-bottom-color: transparent;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        transition-duration: 500ms;
+        transition-timing-function: ease-in-out;
+        transition-property: border-bottom-color, color;
+        :hover {
+          color: $primary-color;
+          border-bottom-color: $primary-300;
+        }
+      }
+    }
+  }
 }

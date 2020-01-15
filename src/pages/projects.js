@@ -120,14 +120,16 @@ const FancyProjectCard = ({ project, location }) => {
       >
         <div className={styles.details}>
           <div className={`content-section ${styles.content}`}>
-            <h2 id={project.id}>{project.name}</h2>
-            <p>{project.description}</p>
-            <ul>
+            <h2 className="text-3xl mb-4" id={project.id}>
+              {project.name}
+            </h2>
+            <p className="mb-2">{project.description}</p>
+            <ul className="list-disc pl-4 mb-3">
               {project.technologies.map(tech => (
                 <li key={tech}>{tech}</li>
               ))}
             </ul>
-            <div>
+            <div className="-mx-2 my-2">
               {project.links.live && (
                 <Button
                   component={isInternalLink ? Link : OutLink}
@@ -188,14 +190,16 @@ const ProjectPage = ({ data: { allProjects }, location }) => {
       <MainContent as="div">
         <main>
           <PageTitleContainer title="Past Projects" />
-          {isRendered ? (
-            <FancyProjectView
-              projects={allProjects.edges}
-              location={location}
-            />
-          ) : (
-            <ProjectListView projects={allProjects.edges} />
-          )}
+          <div className="py-6 px-4">
+            {isRendered ? (
+              <FancyProjectView
+                projects={allProjects.edges}
+                location={location}
+              />
+            ) : (
+              <ProjectListView projects={allProjects.edges} />
+            )}
+          </div>
         </main>
         <nav className="Toolbar center">
           <Link to="/" className="link-primary">

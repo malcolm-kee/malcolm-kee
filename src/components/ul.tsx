@@ -8,5 +8,5 @@ type UlProps = React.DetailedHTMLProps<
 >;
 
 export const Ul: React.FC<UlProps> = ({ className, ...props }) => (
-  <ul className={cx(styles.ul, className)} {...props} />
+  <ul className={cx(styles.ul, 'block pl-6', className)} {...props} />
 );

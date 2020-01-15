@@ -26,7 +26,9 @@ export const WorkshopCard = (props: WorkshopCardProps) => {
       style={{ borderColor: props.themeColor }}
     >
       <div className={styles.content}>
-        <h2 className={styles.title}>{props.name}</h2>
+        <h2 className={`mb-2 text-2xl leading-snug font-bold ${styles.title}`}>
+          {props.name}
+        </h2>
         <div className={styles.imageContainer}>
           {props.iconFile && (
             <Image fluid={props.iconFile.childImageSharp.fluid} alt="" />
@@ -43,7 +45,7 @@ export const WorkshopCard = (props: WorkshopCardProps) => {
             backgroundColor: props.themeColor,
             color: props.contrastColor,
           }}
-          className={styles.button}
+          className="w-full text-lg"
           to={props.url}
           raised
         >
