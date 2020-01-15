@@ -34,7 +34,7 @@ const BlogListTemplate = ({
             : `Blogs - ${currentPage} of ${numPages} - Malcolm Kee`
         }
       />
-      <main>
+      <main className="max-w-lg mx-auto">
         <PageTitleContainer
           title={isFirstPage ? 'Blogs' : `Blogs - Page ${currentPage}`}
         />

@@ -126,9 +126,6 @@
 }
 
 .article-content {
-  padding: $space * 2 $space * 2 $space * 4;
-  font-family: $font-family;
-
   .header-link-icon {
     float: left;
     padding-left: 4px;
@@ -401,19 +398,8 @@ $screens: (
   }
 }
 
-.absolute-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-@each $name, $width in $screens {
-  @media (min-width: $width) {
-    .#{$name}\:absolute-center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
+.hyphen-auto {
+  hyphens: auto;
 }
 
 @include link('.link');

@@ -10,10 +10,10 @@ import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
 import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { ThemeToggle } from '../components/theme-toggle';
+import { Ul } from '../components/ul';
 import { getReadtimeText } from '../helper';
 import styles from './blog-template.module.scss';
 import './blog-template.scss';
-import { Ul } from '../components/ul';
 
 export default function BlogTemplate({ data, pageContext, location }) {
   const {
@@ -45,9 +45,11 @@ export default function BlogTemplate({ data, pageContext, location }) {
           pathname={location.pathname}
         />
         <main>
-          <article className="blog-post" lang={lang}>
-            <h1 className="blog-post--title">{title}</h1>
-            <div className="blog-post--detail-container">
+          <article className="blog-post px-4" lang={lang}>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl leading-loose sm:text-center max-w-lg mx-auto hyphen-auto">
+              {title}
+            </h1>
+            <div className="py-4 flex justify-between items-center">
               <div className="blog-post--date">
                 <span>{date}</span>
                 {timeToRead && (
@@ -57,7 +59,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
                   </>
                 )}
               </div>
-              <div className="blog-post--actions">
+              <div>
                 <ThemeToggle />
               </div>
             </div>
@@ -89,19 +91,23 @@ export default function BlogTemplate({ data, pageContext, location }) {
                 <p className={styles.summaryText}>{summary}</p>
               </div>
             )}
-            <div className="blog-post--content article-content">
+            <div
+              className={`article-content my-8 relative max-w-lg mx-auto ${styles.content}`}
+            >
               <MDXRenderer>{body}</MDXRenderer>
             </div>
           </article>
         </main>
         {tags && tags.length > 0 && (
-          <div className="blog-post--tag">
+          <div className="px-4 pt-4 pb-8">
             <span>Tags:</span>
             <span>
               {tags.map((tag, index, list) => (
                 <span key={tag}>
                   {' '}
-                  <Link to={`/tags/${kebabCase(tag)}`}>{tag}</Link>
+                  <Link to={`/tags/${kebabCase(tag)}`} className="link">
+                    {tag}
+                  </Link>
                   {index === list.length - 1 ? '' : ','}
                 </span>
               ))}
@@ -155,11 +161,13 @@ function AdjacentArticles({ previous, next }) {
 function RelatedBlogs({ blogs }) {
   return isArray(blogs) && blogs.length > 0 ? (
     <aside className={styles.relatedBlogs} aria-label="Related Blogs">
-      <p>You may also like:</p>
+      <p className="mb-2">You may also like:</p>
       <Ul>
         {blogs.map(({ node }) => (
           <li key={node.id}>
-            <Link to={node.slug}>{node.title}</Link>
+            <Link to={node.slug} className="link">
+              {node.title}
+            </Link>
           </li>
         ))}
       </Ul>

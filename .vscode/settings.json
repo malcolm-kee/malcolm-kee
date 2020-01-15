@@ -1,7 +1,7 @@
 {
   "workbench.colorCustomizations": {
-    "titleBar.activeBackground": "#e44d26",
-    "titleBar.activeForeground": "#fff"
+    "titleBar.activeBackground": "#38b2ac",
+    "titleBar.activeForeground": "#1a202c"
   },
   "[markdown]": {
     "editor.quickSuggestions": true,
