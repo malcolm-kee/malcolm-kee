@@ -1,8 +1,9 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { GatsbyLogo } from '../components/gatsby-logo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import { container } from './fast-site-with-gatsby-js.module.scss';
 
@@ -36,11 +37,12 @@ const PageHeader = () => {
             >
               {workshopsYaml.name}
             </h1>
-            <div className="Toolbar">
+            <div className="my-2 py-2">
               <LinkButton
                 to="/fast-site-with-gatsby-js/introduction"
-                color="bubble"
-                size="large"
+                color="primary"
+                minWidth="widest"
+                className="text-2xl"
               >
                 Start
               </LinkButton>
@@ -56,11 +58,7 @@ export default function FastSiteWithGatsbyJs() {
   return (
     <>
       <PageHeader />
-      <nav className="Toolbar center">
-        <Link className="link-primary" to="/workshops">
-          All Workshops
-        </Link>
-      </nav>
+      <WorkshopLandingPageFooter />
     </>
   );
 }

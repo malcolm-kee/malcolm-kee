@@ -36,8 +36,11 @@ const TilTemplate = ({ data, location }) => {
               </div>
             )}
           </article>
-          <nav className={`Toolbar space-between ${styles.toolbar}`}>
-            <Link to="/today-i-learnt">
+          <nav className={`p-2 my-2 ${styles.toolbar}`}>
+            <Link
+              to="/today-i-learnt"
+              className="link inline-flex items-center"
+            >
               <ChevronIcon
                 aria-hidden
                 style={{

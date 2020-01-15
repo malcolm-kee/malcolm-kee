@@ -98,11 +98,11 @@ const LessonTemplate = ({
             </article>
           </main>
           {next && (
-            <div className="Toolbar right Toolbar--space-vertical">
+            <div className="text-right p-2 my-4">
               <LinkButton
                 to={next.slug}
                 color="primary"
-                className="text-2xl"
+                className="text-2xl px-4"
                 raised
               >
                 Next Lesson {rightArrow}

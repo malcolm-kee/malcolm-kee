@@ -2,7 +2,7 @@ import { navigate } from '@reach/router';
 import { graphql, Link } from 'gatsby';
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import React from 'react';
-import { Button } from '../components/Button';
+import { Button, RoundedLinkButton } from '../components/Button';
 import { GifPlayer } from '../components/gif-player';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
 import { Dialog } from '../components/dialog';
@@ -14,6 +14,7 @@ import { Seo } from '../components/Seo';
 import './projects.scss';
 import styles from './projects.module.scss';
 import { preloadImage } from '../helper';
+import { Ul } from '../components/ul';
 
 const ProjectCard = ({ project }) => (
   <Card className="ProjectPage--project" role="listitem">
@@ -105,7 +106,7 @@ const FancyProjectCard = ({ project, location }) => {
         onSelect={() => setShowDialog(true)}
         className="ProjectPage--project-card"
       >
-        <CardContent className="text-center content-section">
+        <CardContent className="text-center text-lg content-section">
           {project.name}
         </CardContent>
       </Card>
@@ -124,12 +125,12 @@ const FancyProjectCard = ({ project, location }) => {
               {project.name}
             </h2>
             <p className="mb-2">{project.description}</p>
-            <ul className="list-disc pl-4 mb-3">
+            <Ul className="mb-3">
               {project.technologies.map(tech => (
                 <li key={tech}>{tech}</li>
               ))}
-            </ul>
-            <div className="-mx-2 my-2">
+            </Ul>
+            <div className="-mx-2 my-4">
               {project.links.live && (
                 <Button
                   component={isInternalLink ? Link : OutLink}
@@ -201,10 +202,8 @@ const ProjectPage = ({ data: { allProjects }, location }) => {
             )}
           </div>
         </main>
-        <nav className="Toolbar center">
-          <Link to="/" className="link-primary">
-            Home
-          </Link>
+        <nav className="text-center my-4 py-2">
+          <RoundedLinkButton to="/">Home</RoundedLinkButton>
         </nav>
       </MainContent>
     </div>

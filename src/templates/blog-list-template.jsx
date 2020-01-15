@@ -1,5 +1,6 @@
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import React from 'react';
+import { RoundedLinkButton } from '../components/Button';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';
@@ -76,14 +77,12 @@ const BlogListTemplate = ({
           );
         })}
       </PaginationContainer>
-      <nav className="Toolbar space-between">
+      <nav className="flex justify-between items-center py-2 my-4">
         <span>
-          <Link to="/" className="link-primary">
+          <RoundedLinkButton to="/" className="mr-2">
             Home
-          </Link>
-          <Link to="/tags" className="link-primary">
-            All tags
-          </Link>
+          </RoundedLinkButton>
+          <RoundedLinkButton to="/tags">All tags</RoundedLinkButton>
         </span>
         <SubscribeRssLink />
       </nav>

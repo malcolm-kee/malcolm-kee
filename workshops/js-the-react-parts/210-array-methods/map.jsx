@@ -25,7 +25,7 @@ export function MapAnimation() {
           />
         </div>
       </div>
-      <div className="Toolbar center">
+      <div className="my-2 h-12 flex justify-center items-center">
         {runState !== 'running' && (
           <Button
             color="primary"

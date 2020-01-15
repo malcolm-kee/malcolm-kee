@@ -1,8 +1,9 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import Image from 'gatsby-image';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import { logo } from './state-management-with-redux.module.scss';
 
@@ -46,11 +47,12 @@ const PageHeader = () => {
               {workshopsYaml.name}
             </h1>
             <p className="landing-subtitle">{workshopsYaml.description}</p>
-            <div className="Toolbar Toolbar--space-vertical">
+            <div className="py-2 my-4">
               <LinkButton
                 to="/state-management-with-redux/introduction"
-                color="bubble"
-                size="large"
+                color="primary"
+                minWidth="widest"
+                className="text-2xl"
               >
                 Start
               </LinkButton>
@@ -66,11 +68,7 @@ export default function ReactStateManagementWithRedux() {
   return (
     <>
       <PageHeader />
-      <nav className="Toolbar center">
-        <Link className="link-primary" to="/workshops">
-          All Workshops
-        </Link>
-      </nav>
+      <WorkshopLandingPageFooter />
     </>
   );
 }

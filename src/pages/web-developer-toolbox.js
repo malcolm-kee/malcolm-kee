@@ -1,9 +1,10 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import toolboxIcon from '../assets/toolbox.svg';
 import { LinkButton } from '../components/Button';
 import { OutLink } from '../components/OutLink';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import { icon } from './web-developer-toolbox.module.scss';
 
@@ -24,21 +25,22 @@ const PageHeader = () => {
       <WorkshopLandingPageBanner>
         <div>
           <div className="logo-section" style={{ paddingTop: 40 }}>
-            <img src={toolboxIcon} alt="" className={icon} />
+            <img src={toolboxIcon} alt="" className={`mx-auto ${icon}`} />
           </div>
           <div className="landing-title-container">
             <h1
-              className="landing-title"
+              className="text-4xl font-medium my-4"
               style={{ color: workshopsYaml.themeColor }}
             >
               {workshopsYaml.name}
             </h1>
             <p className="landing-subtitle">{workshopsYaml.description}</p>
-            <div className="Toolbar Toolbar--space-vertical">
+            <div className="py-2 my-4">
               <LinkButton
                 to="/web-developer-toolbox/introduction"
-                color="bubble"
-                size="large"
+                color="primary"
+                minWidth="widest"
+                className="text-2xl"
               >
                 Start
               </LinkButton>
@@ -52,7 +54,7 @@ const PageHeader = () => {
 };
 
 const flatIconAttribution = (
-  <div className="Toolbar right">
+  <div className="text-right p-2">
     <small>
       Icons made by{' '}
       <OutLink href="https://www.freepik.com/" style={{ color: 'inherit' }}>
@@ -77,11 +79,7 @@ export default function WebDeveloperToolbox() {
   return (
     <>
       <PageHeader />
-      <nav className="Toolbar center">
-        <Link className="link-primary" to="/workshops">
-          All Workshops
-        </Link>
-      </nav>
+      <WorkshopLandingPageFooter />
     </>
   );
 }

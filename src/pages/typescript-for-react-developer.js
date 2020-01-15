@@ -1,8 +1,9 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ReactTypescriptIcon } from '../components/react-typescript-icon';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import styles from './typescript-for-react-developer.module.scss';
 
@@ -32,7 +33,7 @@ const PageHeader = () => {
               <span className={styles.typescript}>TypeScript</span>
               <span className={styles.title}>for React Developer</span>
             </h1>
-            <div className="Toolbar">
+            <div className="py-2 my-2">
               <LinkButton
                 to="/typescript-for-react-developer/introduction"
                 color="primary"
@@ -53,11 +54,7 @@ export default function TypescriptForReactDeveloper() {
   return (
     <>
       <PageHeader />
-      <nav className="Toolbar center">
-        <Link className="link-primary" to="/workshops">
-          All Workshops
-        </Link>
-      </nav>
+      <WorkshopLandingPageFooter />
     </>
   );
 }

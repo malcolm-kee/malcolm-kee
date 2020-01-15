@@ -83,3 +83,23 @@ export const LinkButton: React.FC<Omit<
     />
   );
 };
+
+export type RoundedLinkButtonProps = {
+  children: React.ReactNode;
+  to: string;
+  className?: string;
+};
+
+export const RoundedLinkButton = (props: RoundedLinkButtonProps) => {
+  return (
+    <Link
+      to={props.to}
+      className={cx(
+        'inline-block text-xl border-2 text-primary-600 border-primary-600 px-8 py-2 rounded-full dark:text-primary-400 dark:border-primary-400',
+        props.className
+      )}
+    >
+      {props.children}
+    </Link>
+  );
+};

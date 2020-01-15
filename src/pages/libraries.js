@@ -1,5 +1,6 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
+import { RoundedLinkButton } from '../components/Button';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';
@@ -42,10 +43,8 @@ const LibrariesPage = () => {
           ))}
         </List>
       </main>
-      <nav className="Toolbar center">
-        <Link to="/" className="link-primary">
-          Home
-        </Link>
+      <nav className="text-center my-4 py-2">
+        <RoundedLinkButton to="/">Home</RoundedLinkButton>
       </nav>
     </MainContent>
   );

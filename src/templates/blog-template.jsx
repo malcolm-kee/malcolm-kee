@@ -4,6 +4,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import kebabCase from 'lodash/kebabCase';
 import React from 'react';
 import { isArray } from 'typesafe-is';
+import { RoundedLinkButton } from '../components/Button';
 import { Comments } from '../components/comments';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
@@ -124,10 +125,8 @@ export default function BlogTemplate({ data, pageContext, location }) {
           previous={pageContext.previous}
           next={pageContext.next}
         />
-        <nav className="Toolbar space-between">
-          <Link className="link-primary" to="/blog">
-            All Blogs
-          </Link>
+        <nav className="flex justify-between items-center py-2 my-4">
+          <RoundedLinkButton to="/blog">All Blogs</RoundedLinkButton>
           <SubscribeRssLink />
         </nav>
       </div>

@@ -158,7 +158,7 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
   #{$selector} {
     @apply text-primary-700;
     .mode-dark & {
-      @apply text-primary-500;
+      @apply text-primary-400;
     }
     position: relative;
     text-decoration: none;

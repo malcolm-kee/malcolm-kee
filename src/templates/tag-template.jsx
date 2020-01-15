@@ -1,6 +1,7 @@
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { RoundedLinkButton } from '../components/Button';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';
@@ -30,10 +31,8 @@ function BlogsWithTag({ data, pageContext, location }) {
             </ListItem>
           ))}
         </List>
-        <div className="Toolbar">
-          <Link to="/tags" className="link-primary">
-            All Tags
-          </Link>
+        <div className="py-2 my-4 px-4">
+          <RoundedLinkButton to="/tags">All Tags</RoundedLinkButton>
         </div>
       </MainContent>
     </>

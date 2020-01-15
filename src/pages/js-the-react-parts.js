@@ -1,9 +1,10 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import reactLogo from '../assets/react-logo.png';
 import { LinkButton } from '../components/Button';
 import { JsIcon } from '../components/svg-icons';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import './js-the-react-parts.scss';
 
@@ -44,11 +45,12 @@ const PageHeader = () => {
               <span className="javascript-text">JavaScript </span>
               <span className="react-text">The React Parts</span>
             </h1>
-            <div className="Toolbar">
+            <div className="my-2 py-2">
               <LinkButton
                 to="/js-the-react-parts/introduction"
-                color="bubble"
-                size="large"
+                color="primary"
+                minWidth="widest"
+                className="text-2xl"
               >
                 Start
               </LinkButton>
@@ -64,11 +66,7 @@ export default function JsTheReactParts() {
   return (
     <>
       <PageHeader />
-      <nav className="Toolbar center">
-        <Link className="link-primary" to="/workshops">
-          All Workshops
-        </Link>
-      </nav>
+      <WorkshopLandingPageFooter />
     </>
   );
 }

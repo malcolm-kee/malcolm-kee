@@ -7,30 +7,6 @@
 
 @tailwind utilities;
 
-.Toolbar {
-  margin-top: $space;
-  margin-bottom: $space;
-  min-height: 56px;
-  display: flex;
-  align-items: center;
-  padding: 0 $space;
-  &.center {
-    justify-content: center;
-  }
-  &.right {
-    justify-content: flex-end;
-  }
-  &.space-between {
-    justify-content: space-between;
-  }
-  &--space-vertical {
-    margin: $space * 3 0;
-  }
-  > .btn {
-    margin: 0 $space;
-  }
-}
-
 .Layout {
   min-height: 100vh;
   position: relative;
@@ -38,42 +14,6 @@
 
 .italic {
   font-style: italic;
-}
-
-.link-primary {
-  display: inline-block;
-  line-height: 1.5;
-  font-size: 1.3rem;
-  text-align: center;
-  margin: $space 0;
-  padding: $space / 2 $space * 2;
-  min-width: 100px;
-  background-color: rgba(0, 0, 0, 0);
-  border-radius: $space * 3;
-  border: 1px solid currentColor;
-  text-decoration: none;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
-  transition-property: color, background-color;
-
-  @media (min-width: $media-mobile) {
-    font-size: 1.5rem;
-    min-width: 120px;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px currentColor;
-  }
-
-  &:hover {
-    background-color: $grey-100;
-    background-color: var(--bg-mid);
-  }
-
-  & + & {
-    margin-left: $space;
-  }
 }
 
 .link-highlight {

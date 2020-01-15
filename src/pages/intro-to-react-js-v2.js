@@ -1,8 +1,9 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ReactLogo } from '../components/react-logo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 import './intro-to-react-js-v2.scss';
 
@@ -34,11 +35,12 @@ const PageHeader = () => {
             >
               {workshopsYaml.name}
             </h1>
-            <div className="Toolbar Toolbar--space-vertical">
+            <div className="text-center py-2 my-4">
               <LinkButton
                 to="/intro-to-react-js-v2/introduction"
-                color="bubble"
-                size="large"
+                color="primary"
+                minWidth="widest"
+                className="text-2xl"
               >
                 Start
               </LinkButton>
@@ -54,11 +56,7 @@ export default function IntroToReactJsV2() {
   return (
     <>
       <PageHeader />
-      <nav className="Toolbar center">
-        <Link className="link-primary" to="/workshops">
-          All Workshops
-        </Link>
-      </nav>
+      <WorkshopLandingPageFooter />
     </>
   );
 }
