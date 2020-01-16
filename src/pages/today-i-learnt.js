@@ -37,7 +37,7 @@ const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
 
             return (
               <div key={topic.id}>
-                <h2>
+                <h2 className="my-4">
                   <TopicBadge {...topic} />
                 </h2>
                 <ul className={styles.list}>

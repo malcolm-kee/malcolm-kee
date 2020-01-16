@@ -20,7 +20,7 @@ const TilTemplate = ({ data, location }) => {
       />
       <MainContent>
         <div className={styles.container}>
-          <article className={`article-content ${styles.content}`}>
+          <article className={`article-content px-4 ${styles.content}`}>
             <h1 className={styles.title}>{til.title}</h1>
             <MDXRenderer>{til.body}</MDXRenderer>
             {isArray(til.topics) && til.topics.length > 0 && (
