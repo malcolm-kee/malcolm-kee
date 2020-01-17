@@ -2,10 +2,10 @@ import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import React from 'react';
 import { isArray } from 'typesafe-is';
+import { ChevronIcon } from '../components/chevron-icon';
 import { MainContent } from '../components/main-content';
 import { Seo } from '../components/Seo';
 import { TopicBadge } from '../components/topic-badge';
-import { ChevronIcon } from '../components/chevron-icon';
 import styles from './til-template.module.scss';
 
 const TilTemplate = ({ data, location }) => {
@@ -19,16 +19,18 @@ const TilTemplate = ({ data, location }) => {
         image={`/og_image${location.pathname}.png`}
       />
       <MainContent>
-        <div className={styles.container}>
+        <div className="max-w-lg mx-auto">
           <article className={`article-content px-4 ${styles.content}`}>
-            <h1 className={styles.title}>{til.title}</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl leading-loose hyphen-auto">
+              {til.title}
+            </h1>
             <MDXRenderer>{til.body}</MDXRenderer>
             {isArray(til.topics) && til.topics.length > 0 && (
               <div>
                 <h2>Topics</h2>
-                <ul className={styles.list}>
+                <ul>
                   {til.topics.map(topic => (
-                    <li className={styles.item} key={topic.id}>
+                    <li className="mr-2" key={topic.id}>
                       <TopicBadge {...topic} />
                     </li>
                   ))}

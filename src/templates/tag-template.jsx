@@ -6,7 +6,6 @@ import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
-import styles from './tag-template.module.scss';
 
 function BlogsWithTag({ data, pageContext, location }) {
   const { tag } = pageContext;
@@ -17,7 +16,7 @@ function BlogsWithTag({ data, pageContext, location }) {
       <Seo title={`Tag - ${tag}`} pathname={location.pathname} />
       <MainContent>
         <PageTitleContainer title={tag} />
-        <p className={styles.count}>
+        <p className="pb-4 px-4">
           {totalCount} {totalCount > 1 ? 'posts' : 'post'}
         </p>
         <List>

@@ -2,6 +2,7 @@
 title: 迷信
 date: '2019-11-24'
 tags: ['personal']
+lang: zh-Hans
 published: true
 ---
 
