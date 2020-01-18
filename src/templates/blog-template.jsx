@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import { graphql, Link } from 'gatsby';
 import Image from 'gatsby-image';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
@@ -35,6 +36,8 @@ export default function BlogTemplate({ data, pageContext, location }) {
     },
   } = data;
 
+  const isChinese = lang.split('-')[0] === 'zh';
+
   return (
     <MainContent as="div">
       <div className="blog-post-container">
@@ -47,7 +50,14 @@ export default function BlogTemplate({ data, pageContext, location }) {
         />
         <main>
           <article className="blog-post px-4" lang={lang}>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl leading-loose sm:text-center max-w-lg mx-auto hyphen-auto">
+            <h1
+              className={cx(
+                'leading-loose sm:text-center max-w-lg mx-auto hyphen-auto',
+                isChinese
+                  ? 'text-4xl sm:text-5xl md:text-6xl'
+                  : 'text-2xl sm:text-3xl md:text-4xl'
+              )}
+            >
               {title}
             </h1>
             <div className="py-4 flex justify-between items-center">
