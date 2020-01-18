@@ -40,7 +40,7 @@ export const Button = React.forwardRef<
 >(function Button(props, ref) {
   const className = cx(
     'py-1 px-2 rounded-lg inline-flex justify-center items-center',
-    props.color === 'primary' && 'bg-primary-600 text-gray-100',
+    props.color === 'primary' && 'bg-primary-700 text-gray-100',
     props.raised && 'shadow-lg',
     props.minWidth && props.minWidth === 'widest' ? 'min-w-md' : 'min-w-sm',
     props.className

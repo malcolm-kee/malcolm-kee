@@ -10,11 +10,11 @@ export const LandingPageHeader = () => {
         <Avatar />
       </div>
       <div className="relative">
-        <div
+        <h1
           className={`text-primary-500 font-medium xs:pt-6 px-6 sm:px-10 md:text-center md:pt-0 md:top-0 md:absolute md:w-full ${styles.title}`}
         >
           Malcolm Kee
-        </div>
+        </h1>
       </div>
       <div className={`pt-8 pb-8 xs:pt-4 xs:pb-0 md:pt-12 ${styles.content}`}>
         <ul className={styles.subtitle}>
