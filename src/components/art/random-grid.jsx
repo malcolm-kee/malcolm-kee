@@ -8,7 +8,7 @@ import { Checkbox } from '../checkbox';
 import { Field } from '../Field';
 import { RandomIcon } from '../svg-icons';
 import { drawCircle, usePoints } from './art-lib';
-import { board, box, container, controls, h2 } from './random-grid.module.scss';
+import { board, box, container, controls } from './random-grid.module.scss';
 
 const radius = 0.005;
 
@@ -69,8 +69,10 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
   return (
     <div>
       <div className={container}>
-        <div>
-          <h2 className={h2}>Random Grid</h2>
+        <div className="pb-6">
+          <h2 className="py-4 text-gray-700 dark:text-gray-300 text-2xl">
+            Random Grid
+          </h2>
           <canvas
             className={board}
             ref={canvasRef}
@@ -84,8 +86,16 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
               color="primary"
               raised
               onClick={() => setSeed(random.getRandomSeed())}
+              minWidth="widest"
+              className="text-gray-200"
             >
-              <RandomIcon aria-hidden="true" focusable="false" />
+              <RandomIcon
+                aria-hidden="true"
+                focusable="false"
+                className=""
+                width={24}
+                className="fill-current"
+              />
               <span className="sr-only">Randomize</span>
             </Button>
           </div>

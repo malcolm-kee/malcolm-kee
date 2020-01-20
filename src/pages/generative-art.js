@@ -15,8 +15,10 @@ function GenerativeArt({ location }) {
       />
       <MainContent className="text-center" style={{ overflow: 'visible' }}>
         <PageTitleContainer title="Generative Art" />
-        <CircleLetter />
-        <RandomGrid />
+        <div className="px-4">
+          <CircleLetter />
+          <RandomGrid />
+        </div>
       </MainContent>
     </>
   );

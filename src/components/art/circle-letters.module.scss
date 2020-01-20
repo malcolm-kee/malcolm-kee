@@ -7,7 +7,7 @@
   @media screen and (min-width: $media-tablet) {
     display: grid;
     grid-template-columns: 1fr 200px;
-    grid-column-gap: $space;
+    grid-column-gap: $space * 2;
     justify-items: center;
   }
 
@@ -18,11 +18,6 @@
   @media screen and (min-width: $media-xlarge) {
     grid-template-columns: 1fr 500px;
   }
-}
-
-.h2 {
-  padding: $space * 2 0;
-  color: $grey-600;
 }
 
 .board {

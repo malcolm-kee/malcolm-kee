@@ -10,10 +10,11 @@ export const Checkbox = ({
   onChange,
   onChangeValue,
   className,
+  wrapperClassName,
   ...props
 }) => {
   return (
-    <div className={styles.root}>
+    <div className={cx('py-3', wrapperClassName)}>
       <input
         type="checkbox"
         onChange={callAll(
@@ -25,7 +26,7 @@ export const Checkbox = ({
         className={cx(styles.checkbox, className)}
         {...props}
       />
-      <label className={styles.text} htmlFor={id}>
+      <label className="mr-2" htmlFor={id}>
         {label}
       </label>
     </div>

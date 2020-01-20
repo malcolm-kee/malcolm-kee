@@ -5,7 +5,7 @@ import { Button } from '../Button';
 import { Field } from '../Field';
 import { RepeatIcon } from '../svg-icons';
 import { drawCircle } from './art-lib';
-import { board, h2, container } from './circle-letters.module.scss';
+import { board, container } from './circle-letters.module.scss';
 
 export const CircleLetter = () => {
   const [text, setText] = React.useState('MK');
@@ -17,7 +17,9 @@ export const CircleLetter = () => {
   return (
     <div className={container}>
       <div>
-        <h2 className={h2}>Circle Letters</h2>
+        <h2 className="py-4 text-gray-700 dark:text-gray-300 text-2xl">
+          Circle Letters
+        </h2>
         <CircleLetterCanvas
           key={key}
           text={text}
@@ -41,8 +43,9 @@ export const CircleLetter = () => {
                 setKey(k => k + 1);
                 setAnimationEnd(false);
               }}
+              minWidth="widest"
             >
-              <RepeatIcon aria-hidden="true" focusable="false" />
+              <RepeatIcon aria-hidden="true" focusable="false" width={24} />
               <span className="sr-only">Repeat</span>
             </Button>
           </div>

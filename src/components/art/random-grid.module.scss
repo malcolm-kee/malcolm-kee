@@ -16,16 +16,11 @@
   }
 }
 
-.h2 {
-  padding: $space * 2 0;
-  color: $grey-600;
-}
-
 .container {
   @media screen and (min-width: $media-tablet) {
     display: grid;
     grid-template-columns: 1fr 200px;
-    grid-column-gap: $space;
+    grid-column-gap: $space * 2;
     justify-items: center;
   }
 
@@ -42,6 +37,7 @@
   max-width: 100%;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin: 0 auto;
 }
 
 .controls {
