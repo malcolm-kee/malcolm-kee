@@ -3,7 +3,7 @@ require('./src/styles/animations.scss');
 
 exports.onClientEntry = () => {
   // IntersectionObserver polyfill for gatsby-image (Safari, IE)
-  if (typeof window.IntersectionObserver === `undefined`) {
+  if (typeof window.IntersectionObserver === 'undefined') {
     import(`intersection-observer`).then(() => {
       console.log(`IntersectionObserver is polyfilled`);
     });

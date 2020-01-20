@@ -62,21 +62,23 @@ const BlogListTemplate = ({
           ))}
         </List>
       </main>
-      <PaginationContainer prevLink={prevPage} nextLink={nextPage}>
-        {createEmptyArray(numPages).map((_, index) => {
-          const path = index === 0 ? `/blog` : `/blog/${index + 1}`;
-          const isCurrent = location.pathname === path;
-          return (
-            <PaginationItem
-              to={path}
-              aria-current={isCurrent ? true : undefined}
-              key={index}
-            >
-              {index + 1}
-            </PaginationItem>
-          );
-        })}
-      </PaginationContainer>
+      {numPages > 1 && (
+        <PaginationContainer prevLink={prevPage} nextLink={nextPage}>
+          {createEmptyArray(numPages).map((_, index) => {
+            const path = index === 0 ? `/blog` : `/blog/${index + 1}`;
+            const isCurrent = location.pathname === path;
+            return (
+              <PaginationItem
+                to={path}
+                aria-current={isCurrent ? true : undefined}
+                key={index}
+              >
+                {index + 1}
+              </PaginationItem>
+            );
+          })}
+        </PaginationContainer>
+      )}
       <nav className="flex justify-between items-center py-2 my-4">
         <span>
           <RoundedLinkButton to="/" className="mr-2">

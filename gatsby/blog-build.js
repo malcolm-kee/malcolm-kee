@@ -195,7 +195,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
       });
     });
 
-    const postsPerPage = 10;
+    const postsPerPage = 50;
     const numPages = Math.ceil(posts.length / postsPerPage);
 
     Array.from({ length: numPages }).forEach((_, i) => {
