@@ -36,7 +36,7 @@ function ReactTesting() {
             <p className="landing-subtitle">{workshop.description}</p>
             <div className="py-2 my-2">
               <LinkButton
-                to="/typescript-for-react-developer/introduction"
+                to="/react-testing/introduction"
                 color="primary"
                 minWidth="widest"
                 className="text-2xl"

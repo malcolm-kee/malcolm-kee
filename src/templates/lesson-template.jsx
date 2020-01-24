@@ -93,7 +93,7 @@ const LessonTemplate = ({
             )}
           </div>
           <main>
-            <article className="instruction-article article-content">
+            <article className="instruction-article article-content pb-4">
               <MDXRenderer>{lesson.body}</MDXRenderer>
             </article>
           </main>

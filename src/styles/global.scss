@@ -69,7 +69,8 @@
   .header-link-icon {
     float: left;
     padding-left: 4px;
-    margin-left: -20px;
+    margin-left: -($space * 3);
+    top: $space * 2;
     svg path {
       fill: $link-light;
       fill: var(--link);
