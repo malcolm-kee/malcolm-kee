@@ -3,9 +3,10 @@ import React from 'react';
 import { isNil } from 'typesafe-is';
 import { createClient, Provider } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
+import { ErrorBoundary } from '../components/error-boundary';
+import { MdxLink } from '../components/mdx-link';
 import { Ol } from '../components/ol';
 import { Ul } from '../components/ul';
-import { ErrorBoundary } from '../components/error-boundary';
 import { Aside } from '../components/workshop/aside';
 import { Exercise } from '../components/workshop/exercise';
 import { ThemeProvider } from '../theme';
@@ -22,6 +23,7 @@ const githubClient = createClient({
 });
 
 const mdxComponents = {
+  a: MdxLink,
   aside: Aside,
   code: CodeRenderer,
   inlineCode: ({ children }) => (

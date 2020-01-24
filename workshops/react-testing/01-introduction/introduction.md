@@ -36,9 +36,9 @@ By the end of this workshop, you'll be able to
 
 The tools that we'll use:
 
-- Jest
-- React Testing Library
-- Cypress
+- [Jest](https://jestjs.io)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [Cypress](https://www.cypress.io)
 
 ## This Workshop Does Not Cover
 

@@ -16,7 +16,7 @@ export function CopyButton({
   }
 
   return (
-    <Button onClick={copy} size="small" raised>
+    <Button onClick={copy} color="white" className="text-sm" raised>
       {showMessage ? copiedMessage : label}
     </Button>
   );

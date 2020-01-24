@@ -82,21 +82,6 @@
   h3,
   h4,
   h5 {
-    &[id]:before {
-      display: block;
-      content: ' ';
-      visibility: hidden;
-
-      // offset for scroll target
-      margin-top: -$space * 2;
-      height: $space * 2;
-
-      @media screen and (min-width: $media-mobile) {
-        margin-top: -85px;
-        height: 85px;
-      }
-    }
-
     .header-link-icon {
       svg {
         visibility: hidden;

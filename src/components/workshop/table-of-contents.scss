@@ -136,10 +136,6 @@
     left 500ms ease-in-out, border-radius 500ms ease-in-out;
   right: 0;
 
-  @media screen and (min-width: $media-mobile) {
-    text-align: right;
-  }
-
   &:hover,
   &:focus {
     background-color: var(--tocHoverBg);
