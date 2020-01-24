@@ -9,6 +9,16 @@
   themeColor: '#764abc'
   iconFile: '../assets/redux.png'
   underConstruction: true
+- name: 'Testing React Applications'
+  id: react-testing
+  url: '/react-testing'
+  description: 'Learn the principles of maintainable tests and how to write them'
+  keywords:
+    - react
+    - testing
+  themeColor: '#F2C94C'
+  iconFile: '../assets/react-test.png'
+  underConstruction: true
 - name: 'TypeScript for React Developer'
   id: typescript-for-react-developer
   url: '/typescript-for-react-developer'

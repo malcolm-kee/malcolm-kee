@@ -92,9 +92,8 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
               <RandomIcon
                 aria-hidden="true"
                 focusable="false"
-                className=""
-                width={24}
                 className="fill-current"
+                width={24}
               />
               <span className="sr-only">Randomize</span>
             </Button>
