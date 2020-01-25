@@ -1,6 +1,7 @@
 ---
 title: 'Reduce redux-connect Typescript boilerplate'
 date: '2019-09-21'
+updated_at: '2020-01-26'
 tags: ['typescript', 'react', 'redux']
 keywords: ['redux', 'typescript', 'boilerplate']
 summary: 'Use Typescript ReturnType to reduce your Redux connect boilerplate'
@@ -29,18 +30,22 @@ interface DispatchProps {
   toggle: () => void;
 }
 
-const TodoItemView: React.FC<
-  ParentProps & StoreProps & DispatchProps
-> = props => {
+const TodoItemView = (props: ParentProps & StoreProps & DispatchProps) => {
   return <div>...</div>;
 };
 
-const mapStatesToProps = (state: RootState, ownProps: ParentProps) => ({
+const mapStatesToProps = (
+  state: RootState,
+  ownProps: ParentProps
+): StoreProps => ({
   status: selectTodoStatus(state, ownProps.id),
   description: selectTodoDescription(state, ownProps.id),
 });
 
-const mapDispatchToProps = (dispatch: any, ownProps: ParentProps) => ({
+const mapDispatchToProps = (
+  dispatch: any,
+  ownProps: ParentProps
+): DispatchProps => ({
   toggle: () => dispatch(toggleTodo(ownProps.id)),
 });
 
@@ -65,13 +70,13 @@ interface ParentProps {
   id: string;
 }
 
-const TodoItemView: React.FC<
-  ParentProps &
+const TodoItemView = (
+  props: ParentProps &
     // highlight-start
     ReturnType<typeof mapStatesToProps> &
     ReturnType<typeof mapDispatchToProps>
   // highlight-end
-> = props => {
+) => {
   return <div>...</div>;
 };
 
@@ -91,3 +96,43 @@ export const TodoItem = connect(
 ```
 
 Now you doesn't need to type `StoreProps` and `DispatchProps` manually, Typescript will infer them from your selectors and actions.
+
+## Update on 26th Jan 2020
+
+I've learnt recently that `react-redux` actually exports a `ConnectedProps` type utility that will infers the correct injected props for us.
+
+Final version:
+
+```tsx
+import * as React from 'react';
+// highlight-next-line
+import { connect, ConnectedProps } from 'react-redux';
+import { toggleTodo } from './actions';
+import { selectTodoStatus, selectTodoDescription } from './selectors';
+import { RootState } from './type';
+
+interface ParentProps {
+  id: string;
+}
+
+const TodoItemView = (
+  props: ParentProps &
+    // highlight-next-line
+    ConnectedProps<typeof connector>
+) => {
+  return <div>...</div>;
+};
+
+const mapStatesToProps = (state: RootState, ownProps: ParentProps) => ({
+  status: selectTodoStatus(state, ownProps.id),
+  description: selectTodoDescription(state, ownProps.id),
+});
+
+const mapDispatchToProps = (dispatch: any, ownProps: ParentProps) => ({
+  toggle: () => dispatch(toggleTodo(ownProps.id)),
+});
+
+const connector = connect(mapStatesToProps, mapDispatchToProps); // highlight-line
+
+export const TodoItem = connector(TodoItemView); // highlight-line
+```
