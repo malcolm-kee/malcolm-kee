@@ -7,6 +7,7 @@ import { Comments } from '../components/comments';
 import { ErrorBoundary } from '../components/error-boundary';
 import { ReportIssueLink } from '../components/report-issue-link';
 import { Seo } from '../components/Seo';
+import { ShareButton } from '../components/share-button';
 import { useObserver } from '../hooks/use-observer';
 import styles from './lesson-template.module.scss';
 import './lesson-template.scss';
@@ -64,6 +65,17 @@ const LessonTemplate = ({
             </a>
             {lesson.title}
           </h1>
+          <div className="pb-4 text-right">
+            <ShareButton
+              details={{
+                title: `${lesson.workshop.name} - ${lesson.title}`,
+                url: location.href,
+                text: lesson.description || lesson.title,
+              }}
+            >
+              Share this lesson
+            </ShareButton>
+          </div>
           {lesson.objectives && (
             <div className="my-4 py-2 px-4 border-l-4 border-primary-700 bg-primary-200 text-gray-900">
               <p className="font-semibold text-xl">What you'll learn</p>

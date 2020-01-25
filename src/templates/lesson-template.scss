@@ -151,10 +151,7 @@ $aside-width: 300px;
     .code-editor,
     .code-snippet {
       break-inside: avoid;
-      margin: $space #{-2 * $space};
-      @media screen and (min-width: $media-tablet) {
-        margin: $space 0;
-      }
+      margin: $space 0;
     }
 
     .pre-responsive-table + table {

@@ -10,7 +10,7 @@ interface BaseButtonProps {
   raised?: boolean;
 }
 
-interface NativeButtonProps
+export interface NativeButtonProps
   extends BaseButtonProps,
     Omit<
       React.DetailedHTMLProps<
@@ -29,7 +29,7 @@ interface LinkButtonProps
   component: typeof Link | 'a' | typeof OutLink;
 }
 
-type ButtonProps = NativeButtonProps | LinkButtonProps;
+export type ButtonProps = NativeButtonProps | LinkButtonProps;
 
 const isButtonProps = (props: ButtonProps): props is NativeButtonProps =>
   !props.component || props.component === 'button';

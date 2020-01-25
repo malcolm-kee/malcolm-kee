@@ -10,6 +10,7 @@ import { Comments } from '../components/comments';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
+import { ShareButton } from '../components/share-button';
 import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { ThemeToggle } from '../components/theme-toggle';
 import { Ul } from '../components/ul';
@@ -109,6 +110,17 @@ export default function BlogTemplate({ data, pageContext, location }) {
             </div>
           </article>
         </main>
+        <div className="p-4">
+          <ShareButton
+            details={{
+              title,
+              url: location.href,
+              text: summary || title,
+            }}
+          >
+            Share this article
+          </ShareButton>
+        </div>
         {tags && tags.length > 0 && (
           <div className="px-4 pt-4 pb-8">
             <span>Tags:</span>

@@ -6,6 +6,7 @@ import { ChevronIcon } from '../components/chevron-icon';
 import { MainContent } from '../components/main-content';
 import { Seo } from '../components/Seo';
 import { TopicBadge } from '../components/topic-badge';
+import { ShareButton } from '../components/share-button';
 import styles from './til-template.module.scss';
 
 const TilTemplate = ({ data, location }) => {
@@ -38,6 +39,17 @@ const TilTemplate = ({ data, location }) => {
               </div>
             )}
           </article>
+          <div className="p-4">
+            <ShareButton
+              details={{
+                title: til.title,
+                url: location.href,
+                text: til.title,
+              }}
+            >
+              Share this article
+            </ShareButton>
+          </div>
           <nav className={`p-2 my-2 ${styles.toolbar}`}>
             <Link
               to="/today-i-learnt"
