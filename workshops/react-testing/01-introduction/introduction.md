@@ -43,3 +43,7 @@ The tools that we'll use:
 ## This Workshop Does Not Cover
 
 - how to setup Jest for your project (we'll use project created with Create React App, which already configure Jest for us)
+
+## About the Project
+
+TODO

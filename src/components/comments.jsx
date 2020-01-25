@@ -95,13 +95,13 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
           )
         )
       ) : (
-        <div className={styles.info}>
+        <div className="py-4 italic">
           <p>There is no comment on this post yet.</p>
         </div>
       )}
       <div className={styles.actions}>
         <Button
-          color="secondary"
+          color="link"
           component={OutLink}
           href={getGithubIssueLink(repositoryUrl, {
             title: articlePath,

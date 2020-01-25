@@ -5,7 +5,7 @@ import { getLinkTarget } from '../lib/util';
 import { OutLink } from './OutLink';
 
 interface BaseButtonProps {
-  color?: 'primary' | 'secondary' | 'white';
+  color?: 'primary' | 'white' | 'link';
   minWidth?: 'wide' | 'widest';
   raised?: boolean;
 }
@@ -42,6 +42,7 @@ export const Button = React.forwardRef<
     'py-1 px-2 rounded-lg inline-flex justify-center items-center font-sans',
     props.color === 'primary' && 'bg-primary-700 text-gray-100',
     props.color === 'white' && 'bg-gray-100 text-gray-900',
+    props.color === 'link' && 'text-primary-700 dark:text-primary-300',
     props.raised && 'shadow-lg',
     props.minWidth && props.minWidth === 'widest' ? 'min-w-md' : 'min-w-sm',
     props.className
