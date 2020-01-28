@@ -110,39 +110,43 @@ export default function BlogTemplate({ data, pageContext, location }) {
             </div>
           </article>
         </main>
-        <div className="p-4">
-          <ShareButton
-            details={{
-              title,
-              url: location.href,
-              text: summary || title,
-            }}
-          >
-            Share this article
-          </ShareButton>
-        </div>
-        {tags && tags.length > 0 && (
-          <div className="px-4 pt-4 pb-8">
-            <span>Tags:</span>
-            <span>
-              {tags.map((tag, index, list) => (
-                <span key={tag}>
-                  {' '}
-                  <Link to={`/tags/${kebabCase(tag)}`} className="link">
-                    {tag}
-                  </Link>
-                  {index === list.length - 1 ? '' : ','}
+        <div className="mx-auto max-w-4xl">
+          <div className="px-4 pt-4 pb-8 flex justify-between">
+            {tags && tags.length > 0 ? (
+              <div>
+                <span>Tags:</span>
+                <span>
+                  {tags.map((tag, index, list) => (
+                    <span key={tag}>
+                      {' '}
+                      <Link to={`/tags/${kebabCase(tag)}`} className="link">
+                        {tag}
+                      </Link>
+                      {index === list.length - 1 ? '' : ','}
+                    </span>
+                  ))}
                 </span>
-              ))}
-            </span>
+              </div>
+            ) : (
+              <span />
+            )}
+            <ShareButton
+              details={{
+                title,
+                url: location.href,
+                text: summary || title,
+              }}
+            >
+              Share this article
+            </ShareButton>
           </div>
-        )}
-        <RelatedBlogs blogs={pageContext.relatedBlogs} />
-        <Comments
-          comments={comments}
-          articlePath={slug}
-          searchTerm={pageContext.commentsSearch}
-        />
+          <RelatedBlogs blogs={pageContext.relatedBlogs} />
+          <Comments
+            comments={comments}
+            articlePath={slug}
+            searchTerm={pageContext.commentsSearch}
+          />
+        </div>
         <AdjacentArticles
           previous={pageContext.previous}
           next={pageContext.next}
