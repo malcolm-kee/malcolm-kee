@@ -33,6 +33,7 @@ export const CircleLetter = () => {
           value={text}
           onChangeValue={setText}
           maxLength={2}
+          labelClassName="dark:text-gray-500"
         />
         {animationEnd && (
           <div>

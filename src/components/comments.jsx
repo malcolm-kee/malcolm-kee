@@ -125,7 +125,12 @@ const Comment = ({ bodyHTML, author, createdAt, url, comments, level = 0 }) => {
       >
         {url && (
           <span className={styles.link}>
-            <OutLink href={url}>Reply</OutLink>
+            <OutLink
+              className="text-primary-700 dark:text-primary-300"
+              href={url}
+            >
+              Reply
+            </OutLink>
           </span>
         )}
         <div className={styles.avatar}>
@@ -133,7 +138,10 @@ const Comment = ({ bodyHTML, author, createdAt, url, comments, level = 0 }) => {
         </div>
         <div>
           <div className={styles.author}>
-            <OutLink href={author.url}>
+            <OutLink
+              href={author.url}
+              className="text-primary-700 dark:text-primary-300"
+            >
               <span>{author.name}</span>
             </OutLink>{' '}
             on {parseDate(createdAt)}

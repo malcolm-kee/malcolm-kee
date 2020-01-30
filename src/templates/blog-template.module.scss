@@ -30,11 +30,6 @@
   max-width: $read-width;
   text-align: justify;
   margin: 0 auto;
-  @media screen and (min-width: $media-xlarge) {
-    position: relative;
-    left: -20%;
-    text-align: right;
-  }
 }
 
 .adjacentArticles {
@@ -76,14 +71,13 @@
 .content {
   @media screen and (min-width: $media-xlarge) {
     position: relative;
-    left: -20%;
     aside {
       position: absolute;
       left: 100%;
       width: 350px;
       margin: 0;
       padding: 0 $space;
-      transform: translate(0, -100%);
+      transform: translate(0, -50%);
     }
   }
   a {

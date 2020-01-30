@@ -10,6 +10,7 @@ export const Field = ({
   id = name,
   onChangeValue,
   onChange,
+  labelClassName,
   ...inputProps
 }) => {
   const [focused, setIsFocused] = React.useState(false);
@@ -24,7 +25,8 @@ export const Field = ({
         className={cx(
           'label animated select-none absolute pb-2 transition-normal-in-out-quad left-2',
           value || focused ? 'top-0 text-xs' : 'top-6',
-          focused ? 'text-primary-700 dark:text-primary-400' : 'text-gray-700'
+          focused ? 'text-primary-700 dark:text-primary-400' : 'text-gray-700',
+          labelClassName
         )}
       >
         {label}

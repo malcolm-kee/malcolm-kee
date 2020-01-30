@@ -167,9 +167,11 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
       return Promise.reject(result.errors);
     }
 
+    const allBlogPosts = result.data.allBlogPost.edges;
+
     const posts = process.env.NUM_OF_BLOGS
-      ? result.data.allBlogPost.edges.slice(0, Number(process.env.NUM_OF_BLOGS))
-      : result.data.allBlogPost.edges;
+      ? allBlogPosts.slice(0, Number(process.env.NUM_OF_BLOGS))
+      : allBlogPosts;
 
     posts.forEach(({ node, next, previous }) => {
       createPage({
@@ -213,7 +215,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
     let tags = [];
 
-    posts.forEach(edge => {
+    allBlogPosts.forEach(edge => {
       if (_.get(edge, 'node.tags')) {
         tags = tags.concat(edge.node.tags);
       }

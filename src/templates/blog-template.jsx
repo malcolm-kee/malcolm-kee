@@ -53,7 +53,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
           <article className="blog-post px-4" lang={lang}>
             <h1
               className={cx(
-                'leading-loose sm:text-center max-w-lg mx-auto hyphen-auto',
+                'leading-relaxed sm:text-center max-w-xl mx-auto hyphen-auto pt-4',
                 isChinese
                   ? 'text-4xl sm:text-5xl md:text-6xl'
                   : 'text-2xl sm:text-3xl md:text-4xl'
@@ -151,7 +151,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
           previous={pageContext.previous}
           next={pageContext.next}
         />
-        <nav className="flex justify-between items-center py-2 my-4">
+        <nav className="flex justify-between items-center p-2 my-4">
           <RoundedLinkButton to="/blog">All Blogs</RoundedLinkButton>
           <SubscribeRssLink />
         </nav>

@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe('Accessibility checks', () => {
+describe(`Accessibility checks`, () => {
   beforeEach(() => {
     cy.visit('/');
     cy.initAxe();
@@ -120,11 +120,12 @@ describe('Accessibility checks', () => {
       .checkA11yResponsive();
   });
 
-  it('has no detectable a11y violations on tag page', () => {
+  it(`has no detectable a11y violations on tag page`, () => {
     cy.findByText('Read Blog')
       .click()
       .findByText('All tags')
       .click()
+      .wait(1000)
       .findAllByRole('listitem')
       .first()
       .click()
@@ -134,13 +135,18 @@ describe('Accessibility checks', () => {
   it('has no detectable a11y violations on tag page dark mode', () => {
     cy.findByText('Read Blog')
       .click()
+
       .findByText('All tags')
       .click()
+
+      .wait(1000)
       .findAllByRole('listitem')
       .first()
       .click()
+
       .findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
+
       .checkA11yResponsive();
   });
 });

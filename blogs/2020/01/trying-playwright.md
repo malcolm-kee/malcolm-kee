@@ -1,12 +1,18 @@
 ---
 title: 'Trying Playwright: Cross-Browser Testing'
 date: '2020-01-28'
-summary: 'The tools that is easiest to setup is still Jest and Cypress. Playwright has slight advantage over puppeteer as it supports more browsers, but the tooling around it is still lacking at the moment.'
+summary: 'The testing tools that are easiest to setup are still Jest and Cypress. Playwright has slight advantage over puppeteer as it supports more browsers, but the tooling around it is still lacking at the moment.'
 tags: ['testing']
 published: true
 ---
 
-Microsoft recently published a [puppeteer][puppeteer]-like library, [playwright], whose selling point over puppeteer is `playwright` supports 3 browser flavors: Chromium, Firefox, and Webkit instead of just Chromium (which both puppeteer and Cypress only supports at the moment).
+Microsoft recently published a [puppeteer][puppeteer]-like library, [playwright], whose selling point over puppeteer is `playwright` supports 3 browser flavors: Chromium, Firefox, and Webkit.
+
+<aside>
+
+As of 28th January 2020, `puppeteer` supports both Chromium and Firefox while [`cypress`](https://www.cypress.io/) only supports Chromium. Support for Firefox in `cypress` is still under development and tracked by [this issue](https://github.com/cypress-io/cypress/issues/1096).
+
+</aside>
 
 I've tried to set it up with Jest (trying to create something like [`jest-puppeteer`][jest-puppeteer]), and able to make it work somehow. You can see my setup in [this repo](https://github.com/malcolm-kee/react-ecomm-site/tree/redux-ts-playwright).
 
@@ -19,7 +25,7 @@ Some thoughts that comes to me when trying to setup that:
 
 ## Conclusion
 
-The tools that is easiest to setup is still Jest and Cypress. Playwright has slight advantage over `puppeteer` as it supports more browsers, but the tooling around it is still lacking at the moment.
+The testing tools that are easiest to setup are still Jest and Cypress. Playwright has slight advantage over `puppeteer` as it supports more browsers, but the tooling around it is still lacking at the moment.
 
 [puppeteer]: https://github.com/puppeteer/puppeteer
 [playwright]: https://github.com/microsoft/playwright

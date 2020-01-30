@@ -79,7 +79,7 @@ const BlogListTemplate = ({
           })}
         </PaginationContainer>
       )}
-      <nav className="flex justify-between items-center py-2 my-4">
+      <nav className="flex justify-between items-center p-2 my-4">
         <span>
           <RoundedLinkButton to="/" className="mr-2">
             Home

@@ -103,6 +103,7 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
             name="seed"
             value={seed}
             onChangeValue={setSeed}
+            labelClassName="dark:text-gray-500"
           />
           <div>
             {palette.map((p, i) => (
@@ -124,6 +125,7 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
                 step="0.01"
                 value={amplitude}
                 onChangeValue={setAmplitude}
+                labelClassName="dark:text-gray-500"
               />
               <Field
                 label="Noise Frequency"
@@ -132,6 +134,7 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
                 step="1"
                 value={frequency}
                 onChangeValue={setFrequency}
+                labelClassName="dark:text-gray-500"
               />
             </>
           )}
