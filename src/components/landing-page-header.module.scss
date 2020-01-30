@@ -65,6 +65,8 @@ $bg: #111;
   }
   @screen md {
     font-size: 7rem;
+    top: -80px;
+    text-shadow: 0px 1px 5px #333, 0px 1px 5px #444;
   }
 }
 

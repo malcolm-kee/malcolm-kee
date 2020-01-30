@@ -11,7 +11,7 @@ export const LandingPageHeader = () => {
       </div>
       <div className="relative">
         <h1
-          className={`text-primary-500 font-medium xs:pt-6 px-6 sm:px-10 md:text-center md:pt-0 md:top-0 md:absolute md:w-full ${styles.title}`}
+          className={`text-primary-500 font-medium xs:pt-6 px-6 sm:px-10 md:text-center md:pt-0 md:absolute md:w-full ${styles.title}`}
         >
           Malcolm Kee
         </h1>

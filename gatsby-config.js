@@ -130,7 +130,7 @@ module.exports = {
         start_url: '/',
         display: 'standalone',
         background_color: 'white',
-        theme_color: '#38b2ac',
+        theme_color: '#2c7a7b',
         icon: 'src/assets/mk-icon.png',
         include_favicon: false,
       },
