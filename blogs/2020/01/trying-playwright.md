@@ -1,6 +1,7 @@
 ---
 title: 'Trying Playwright: Cross-Browser Testing'
 date: '2020-01-28'
+updated_at: '2020-01-30'
 summary: 'The testing tools that are easiest to setup are still Jest and Cypress. Playwright has slight advantage over puppeteer as it supports more browsers, but the tooling around it is still lacking at the moment.'
 tags: ['testing']
 published: true

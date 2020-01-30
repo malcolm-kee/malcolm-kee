@@ -1,16 +1,18 @@
 /// <reference types="Cypress" />
+/// <reference types="../support" />
 
 describe(`Accessibility checks`, () => {
   beforeEach(() => {
-    cy.visit('/');
-    cy.initAxe();
-    cy.wait(500);
+    cy.visit('/')
+      .initAxe()
+      .wait(500);
   });
 
-  it('has no detectable a11y violations on landing page', () => {
-    cy.wait(1000).checkA11yResponsive();
+  it(`has no detectable a11y violations on landing page`, () => {
+    cy.wait(1000)
+      .checkA11yResponsive()
 
-    cy.findByText('Frontend Engineer')
+      .findByText('Frontend Engineer')
       .focus()
       .checkA11yResponsive();
   });
@@ -18,14 +20,17 @@ describe(`Accessibility checks`, () => {
   it('has no detectable a11y violations on landing page dark mode', () => {
     cy.findByText('Projects')
       .click()
+
       .findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
+
       .findByText('Malcolm')
-      .click();
+      .click()
 
-    cy.wait(1000).checkA11yResponsive();
+      .wait(1000)
+      .checkA11yResponsive()
 
-    cy.findByText('Frontend Engineer')
+      .findByText('Frontend Engineer')
       .focus()
       .checkA11yResponsive();
   });

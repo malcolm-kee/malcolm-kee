@@ -5,6 +5,7 @@ const { mdxResolverPassthrough } = require('./shared');
 
 /**
  * Create `BlogPost` node when mdx node is created.
+ * @type { import('gatsby').GatsbyNode['onCreateNode'] }
  */
 exports.createBlogNode = async ({
   node,
@@ -94,6 +95,9 @@ const blogListTemplate = path.resolve(
   'blog-list-template.jsx'
 );
 
+/**
+ * @type { import('gatsby').GatsbyNode['createSchemaCustomization'] }
+ */
 exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
   actions,
   schema,
@@ -131,6 +135,9 @@ exports.createBlogSchemaCustomization = function createBlogSchemaCustomization({
   createTypes(typeDefs);
 };
 
+/**
+ * @type { import('gatsby').GatsbyNode['createPages'] }
+ */
 exports.createBlogs = function createBlogs({ actions, graphql }) {
   if (process.env.DISABLE_BLOG) {
     // optimize local build time
