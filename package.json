@@ -21,7 +21,7 @@
     "@mdx-js/react": "^1.0.20",
     "@mdx-js/tag": "^0.20.3",
     "@philpl/buble": "^0.19.7",
-    "@reach/dialog": "^0.7.0",
+    "@reach/dialog": "^0.8.0",
     "canvas-sketch-util": "^1.8.0",
     "change-case": "^4.1.0",
     "classnames": "^2.2.6",
