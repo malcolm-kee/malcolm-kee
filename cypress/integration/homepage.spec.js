@@ -10,15 +10,12 @@ describe('homepage', () => {
   });
 
   it('able to fill up contact form', () => {
-    cy.findByLabelText('Your Name')
-      .type('Malcolm Kee')
-      .findByLabelText('Your Email')
-      .type('malcolm@malcolmkee.com')
-      .findByLabelText('Message')
-      .type(
-        `How are you?
+    cy.findByLabelText('Your Name').type('Malcolm Kee');
+    cy.findByLabelText('Your Email').type('malcolm@malcolmkee.com');
+    cy.findByLabelText('Message').type(
+      `How are you?
       E2E test are great!`
-      );
+    );
     /** we testing against actual site, let's don't submit the contact form */
     // .findByText('Send')
     // .click()
@@ -27,11 +24,9 @@ describe('homepage', () => {
   });
 
   it('will validate before submit contact form', () => {
-    cy.findByLabelText('Your Name')
-      .type('Malcolm Kee')
-      .findByLabelText('Your Email')
-      .type('malcolm@malcolmkee.com')
-      .findByText('Send')
+    cy.findByLabelText('Your Name').type('Malcolm Kee');
+    cy.findByLabelText('Your Email').type('malcolm@malcolmkee.com');
+    cy.findByText('Send')
       .click()
       .location('pathname')
       .should('not.include', 'message-received');

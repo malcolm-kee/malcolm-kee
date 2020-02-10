@@ -14,9 +14,8 @@ describe('Accessibility checks on Workshop Materials', () => {
   });
 
   it('has no detectable a11y violations on workshops page dark mode', () => {
-    cy.findByText('Workshops')
-      .click()
-      .findByLabelText('Switch between Dark and Light mode')
+    cy.findByText('Workshops').click();
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .checkA11yResponsive();
   });
@@ -40,9 +39,8 @@ describe('Accessibility checks on Workshop Materials', () => {
       })
       .checkA11yResponsive();
 
-    cy.findByText('All Workshops')
-      .click()
-      .findByText('JavaScript: The React Parts')
+    cy.findByText('All Workshops').click();
+    cy.findByText('JavaScript: The React Parts')
       .closest('.workshop-card')
       .within(() => {
         cy.findByText('Learn').click();
@@ -52,14 +50,13 @@ describe('Accessibility checks on Workshop Materials', () => {
   });
 
   it('has no detectable a11y violations on workshop content page', () => {
-    cy.findByText('Workshops')
-      .click()
-      .findByText('JavaScript: The React Parts')
+    cy.findByText('Workshops').click();
+    cy.findByText('JavaScript: The React Parts')
       .closest('.workshop-card')
       .within(() => {
         cy.findByText('Learn').click();
-      })
-      .findByText('Start')
+      });
+    cy.findByText('Start')
       .click()
       .checkA11yResponsive();
 
@@ -69,16 +66,14 @@ describe('Accessibility checks on Workshop Materials', () => {
   });
 
   it('has no detectable a11y violations on workshop content page dark mode', () => {
-    cy.findByText('Workshops')
-      .click()
-      .findByText('JavaScript: The React Parts')
+    cy.findByText('Workshops').click();
+    cy.findByText('JavaScript: The React Parts')
       .closest('.workshop-card')
       .within(() => {
         cy.findByText('Learn').click();
-      })
-      .findByText('Start')
-      .click()
-      .findByLabelText('Switch between Dark and Light mode')
+      });
+    cy.findByText('Start').click();
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .checkA11yResponsive();
 

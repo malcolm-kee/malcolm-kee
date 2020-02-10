@@ -9,28 +9,27 @@ describe(`Accessibility checks`, () => {
   });
 
   it(`has no detectable a11y violations on landing page`, () => {
-    cy.wait(1000)
-      .checkA11yResponsive()
+    cy.wait(1000).checkA11yResponsive();
 
-      .findByText('Frontend Engineer')
+    cy.findByText('Frontend Engineer')
       .focus()
       .checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on landing page dark mode', () => {
-    cy.findByText('Projects')
-      .click()
+    cy.findByText('Projects').click();
 
-      .findByLabelText('Switch between Dark and Light mode')
-      .click({ force: true })
+    cy.findByLabelText('Switch between Dark and Light mode').click({
+      force: true,
+    });
 
-      .findByText('Malcolm')
+    cy.findByText('Malcolm')
       .click()
 
       .wait(1000)
-      .checkA11yResponsive()
+      .checkA11yResponsive();
 
-      .findByText('Frontend Engineer')
+    cy.findByText('Frontend Engineer')
       .focus()
       .checkA11yResponsive();
   });
@@ -42,9 +41,8 @@ describe(`Accessibility checks`, () => {
   });
 
   it('has no detectable a11y violations on projects page dark mode', () => {
-    cy.findByText('Projects')
-      .click()
-      .findByLabelText('Switch between Dark and Light mode')
+    cy.findByText('Projects').click();
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .checkA11yResponsive();
   });
@@ -64,9 +62,8 @@ describe(`Accessibility checks`, () => {
   });
 
   it('has no detectable a11y violations on blogs page dark mode', () => {
-    cy.findByText('Read Blog')
-      .click()
-      .findByLabelText('Switch between Dark and Light mode')
+    cy.findByText('Read Blog').click();
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .checkA11yResponsive();
   });
@@ -93,8 +90,8 @@ describe(`Accessibility checks`, () => {
       .click()
       .get('.blog-list-item')
       .first()
-      .click()
-      .findByLabelText('Switch between Dark and Light mode')
+      .click();
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .checkA11yResponsive();
 
@@ -116,40 +113,36 @@ describe(`Accessibility checks`, () => {
   });
 
   it('has no detectable a11y violations on all tags page dark mode', () => {
-    cy.findByText('Read Blog')
-      .click()
-      .findByText('All tags')
-      .click()
-      .findByLabelText('Switch between Dark and Light mode')
+    cy.findByText('Read Blog').click();
+    cy.findByText('All tags').click();
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .checkA11yResponsive();
   });
 
   it(`has no detectable a11y violations on tag page`, () => {
-    cy.findByText('Read Blog')
+    cy.findByText('Read Blog').click();
+    cy.findByText('All tags')
       .click()
-      .findByText('All tags')
-      .click()
-      .wait(1000)
-      .findAllByRole('listitem')
+      .wait(1000);
+    cy.findAllByRole('listitem')
       .first()
       .click()
       .checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on tag page dark mode', () => {
-    cy.findByText('Read Blog')
+    cy.findByText('Read Blog').click();
+
+    cy.findByText('All tags')
       .click()
 
-      .findByText('All tags')
-      .click()
-
-      .wait(1000)
-      .findAllByRole('listitem')
+      .wait(1000);
+    cy.findAllByRole('listitem')
       .first()
-      .click()
+      .click();
 
-      .findByLabelText('Switch between Dark and Light mode')
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
 
       .checkA11yResponsive();

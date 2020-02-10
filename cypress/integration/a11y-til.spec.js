@@ -14,9 +14,8 @@ describe('Accessibility checks on Today I Learnt', () => {
   });
 
   it('has no a11y violation on til landing page dark mode', () => {
-    cy.findByText('Today I Learnt')
-      .click()
-      .findByLabelText('Switch between Dark and Light mode')
+    cy.findByText('Today I Learnt').click();
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .checkA11yResponsive();
   });
@@ -45,9 +44,8 @@ describe('Accessibility checks on Today I Learnt', () => {
   });
 
   it('has no a11y violation on til content dark mode', () => {
-    cy.findByText('Today I Learnt')
-      .click()
-      .findByLabelText('Switch between Dark and Light mode')
+    cy.findByText('Today I Learnt').click();
+    cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .get('.til-item')
       .first()

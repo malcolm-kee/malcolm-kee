@@ -12,8 +12,8 @@ describe('homepage', () => {
   it('loads all the projects', () => {
     cy.findByText('Generative Arts')
       .click()
-      .wait(500)
-      .findByText('Live')
+      .wait(500);
+    cy.findByText('Live')
       .click()
       .location('pathname')
       .should('include', 'generative-art');
