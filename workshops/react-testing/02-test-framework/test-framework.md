@@ -7,7 +7,7 @@ objectives:
   - understand the concept of assertion by writing a simple version from scratch
 ---
 
-Before we dive into how to write a test, let's discuss what tools is required for us to have automated tests.
+Before we dive into how to write a test, let's discuss what tools are required for us to have automated tests.
 
 ## Test Runner
 
