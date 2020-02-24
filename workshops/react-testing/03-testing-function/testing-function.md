@@ -177,14 +177,74 @@ Let's revert back the changes and you should be seeing the test pass again.
 
 ## Assertion
 
-Let's write a test for `pick` function
+Let's write a test for `pick` function in `src/lib/object.js`:
+
+```js fileName=src/lib/object.spec.js
+import { pick } from './object';
+
+test('pick', () => {
+  expect(
+    pick(
+      {
+        a: 'A',
+        b: 'B',
+      },
+      ['a']
+    )
+  ).toBe({
+    a: 'A',
+  });
+});
+```
+
+And the test fails!
+
+```bash
+● pick
+
+  expect(received).toBe(expected) // Object.is equality
+
+  If it should pass with deep equality, replace "toBe" with "toStrictEqual"
+
+  Expected: {"a": "A"}
+  Received: serializes to the same string
+
+    10 |       ['a']
+    11 |     )
+  > 12 |   ).toBe({
+       |     ^
+    13 |     a: 'A',
+    14 |   });
+    15 | });
+
+    at Object.<anonymous> (src/lib/object.spec.js:12:5)
+```
+
+If you `console.log` the result of the `pick` call, you would see `{a: 'A'}`. Why does it fail?
+
+If you read the error message above, you may already know why. This is because `.toBe` assertion compare value using `Object.is`, which check for identity equality if the comparison is between two objects.
+
+Fortunately, the error message also tell us how to fix that: just change the assertion from `.toBe` to `toStrictEqual`, and the test will pass.
+
+The test teaches us something new: we need to be careful that our comparisons is about two objects or two primitive value. But how do we know other assertions that are available in Jest?
+
+Two things to help you discover:
+
+1. Scan through [Jest `expect` documentation][expect-docs].
+1. Enable Intellisense to provide suggestions.
+
+Scanning through the docs will be left as an exercise for you. I will show you how to do item 2.
+
+To enable Intellisense, you need to install `@types/jest` (TypeScript definition for Jest) by running the following commands:
+
+```bash
+npm i -D @types/jest
+```
 
 TODO
 
-- realize .toBe fails
-- use .toEqual
-- there are many, but we cannot remember. Solution: install `@types/jest`
 - discussion on some common assertions, especially `toMatchSnapshot`
 
 [jest]: https://jestjs.io/
 [pure-function]: /js-the-react-parts/functional-programming#pure-function
+[expect-docs]: https://jestjs.io/docs/en/expect
