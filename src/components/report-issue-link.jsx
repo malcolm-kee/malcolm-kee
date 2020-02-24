@@ -12,6 +12,7 @@ export const ReportIssueLink = ({ title }) => {
         labels: 'bug',
         template: 'instruction-issue.md',
       })}
+      className="text-primary-600 dark:text-primary-400"
     >
       Report here
     </OutLink>

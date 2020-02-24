@@ -5,7 +5,6 @@ import Highlight, {
 } from 'prism-react-renderer';
 import * as React from 'react';
 import { transformTokens } from './code-transformers';
-import { CopyButton } from './copy-button';
 
 interface CodeSnippetProps {
   code: string;
@@ -37,13 +36,13 @@ export const CodeSnippet = ({
     <div className="code-snippet-plain">{highlightedCode}</div>
   ) : (
     <div className="code-snippet">
-      <div className="code-snippet-header-container">
-        <div className="code-snippet-header">
-          <span />
-          {fileName && <span>{fileName}</span>}
-          <CopyButton contentToCopy={code} />
-        </div>
-        <span className="code-snippet-language">
+      <div className="relative">
+        {fileName && (
+          <div className="text-center pb-1">
+            <span className="leading-relaxed">{fileName}</span>
+          </div>
+        )}
+        <span className="code-snippet-language text-sm">
           {shortenLanguage(language)}
         </span>
       </div>

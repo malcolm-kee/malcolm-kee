@@ -77,7 +77,7 @@ const LessonTemplate = ({
             </ShareButton>
           </div>
           {lesson.objectives && (
-            <div className="my-4 py-2 px-4 border-l-4 border-primary-700 bg-primary-200 text-gray-900">
+            <div className="my-4 py-2 px-4 border-l-4 border-primary-700 bg-primary-200 text-gray-900 dark:bg-primary-800 dark:text-gray-200 dark:border-primary-200">
               <p className="font-semibold text-xl">What you'll learn</p>
               <ul className="list-disc pl-4 leading-loose">
                 {lesson.objectives.map((objective, index) => (

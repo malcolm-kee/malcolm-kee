@@ -3,6 +3,7 @@ import Image from 'gatsby-image';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
+import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
 
 function ReactTesting() {
@@ -47,6 +48,7 @@ function ReactTesting() {
           </div>
         </div>
       </WorkshopLandingPageBanner>
+      <WorkshopLandingPageFooter />
     </>
   );
 }

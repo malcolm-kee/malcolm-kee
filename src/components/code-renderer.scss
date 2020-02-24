@@ -16,7 +16,6 @@
   right: $space * 2;
   text-transform: uppercase;
   line-height: 1.3;
-  font-size: 0.7rem;
   background-color: $react-color;
   color: $text-light;
   padding: 0 $space;
@@ -75,20 +74,10 @@ $code-padding: 1rem;
 }
 
 .code-snippet {
-  padding: 0 $space / 2 $space / 2;
+  padding: $space / 2;
   border-radius: $space / 2;
 
   background-color: var(--bg-pale);
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: $space;
-    overflow-x: auto;
-    &-container {
-      position: relative;
-    }
-  }
 
   &-icon {
     @include svg-icon();
