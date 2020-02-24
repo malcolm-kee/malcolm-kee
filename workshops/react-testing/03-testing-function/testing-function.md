@@ -1,6 +1,6 @@
 ---
 title: Testing function
-description: 'Test the behavior of a pure function'
+description: Test the behavior of a pure function
 date: '2020-02-13'
 objectives:
   - write tests for pure function in Jest
@@ -133,6 +133,8 @@ export function camelize(stringWithHyphen) {
 }
 ```
 
+Now you should be seeing the test fail!
+
 ```bash
 FAIL  src/lib/camelize.spec.js
   × camelize (13ms)
@@ -154,6 +156,15 @@ FAIL  src/lib/camelize.spec.js
 
       at Object.<anonymous>.test (src/lib/camelize.spec.js:4:40)
 ```
+
+Let's revert back the changes and you should be seeing the test pass again.
+
+<Exercise title="Exercise">
+
+1. Write tests for the `map` function in `src/lib/array.js`.
+1. (Optional) Write tests for the `flattenArray` function in `src/lib/array.js`.
+
+</Exercise>
 
 [jest]: https://jestjs.io/
 [pure-function]: /js-the-react-parts/functional-programming#pure-function
