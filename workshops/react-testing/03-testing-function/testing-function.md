@@ -96,6 +96,14 @@ test(`camelize`, () => {
 });
 ```
 
+<aside>
+
+Technically speaking, it is not mandatory to put your test next to the code under test and also name it similarly. Jest will be able to find it as long as its file name match the test filename patterns.
+
+However, this is a convention that has been used by many projects because it allows you to know which code has test written for it by checking if there is any test next to it within the same folder.
+
+</aside>
+
 Let's write a few more test cases:
 
 ```js fileName=src/lib/camelize.spec.js
@@ -114,7 +122,7 @@ test(`camelize`, () => {
 
 And the test is still passing!
 
-If you're like me, you probably will start doubting yourself if everytime goes too well. Let's "pincing ourselves" by breaking our code:
+If you're like me, you probably will start doubting yourself if everytime goes too well. Let's "pinch ourselves" by introducing bug to our code:
 
 ```js fileName=src/lib/camelize.js
 const hyphenPattern = /-(.)/g;
