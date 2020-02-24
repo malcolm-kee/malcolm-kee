@@ -98,6 +98,10 @@
         visibility: visible;
       }
     }
+
+    @media screen and (min-width: $media-mobile) {
+      scroll-margin-top: 5rem;
+    }
   }
 
   h2 {
