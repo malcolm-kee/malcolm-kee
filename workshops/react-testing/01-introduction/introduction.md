@@ -2,8 +2,9 @@
 title: Introduction
 description: 'Why write tests for React applications and objectives of the workshop.'
 date: '2020-01-24'
+updated_at: '2020-02-24'
 objectives:
-  - aware of benefits and costs of writing tests for React applications
+  - benefits and costs of writing tests for React applications
 ---
 
 Testing is one of the essential steps in professional software development.
@@ -46,4 +47,23 @@ The tools that we'll use:
 
 ## About the Project
 
-TODO
+In this workshop we will add tests to an existing React project.
+
+The site is called Shopit, an E-commerce SPA.
+
+- [Live version](https://shopit.space/)
+- [Code repository](https://github.com/malcolm-kee/react-ecomm-site)
+- [Branch that we will start with](https://github.com/malcolm-kee/react-ecomm-site/tree/workshop/testing/start)
+- [Branch we will aims to target](https://github.com/malcolm-kee/react-ecomm-site/tree/workshop/testing/solution) (use this as reference when you're stuck)
+
+## Setup
+
+To avoid the workshop time being spent on downloading and installing tools, make sure you have the following software installed before the workshop starts:
+
+- node.js and npm ([Download](https://nodejs.org/en/download/))
+- git ([Download](https://git-scm.com/downloads))
+- VS Code ([Download](https://code.visualstudio.com/Download)) - feel free to use others if you have a preference.
+
+Besides, sign up a [GitHub] account if you doesn't have one yet.
+
+[github]: https://github.com/

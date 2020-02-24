@@ -2,6 +2,7 @@
 title: Testing function
 description: Test the behavior of a pure function
 date: '2020-02-13'
+updated_at: '2020-02-24'
 objectives:
   - write tests for pure function in Jest
   - use assertion provided by Jest
@@ -9,7 +10,7 @@ objectives:
 
 In last section, we create our own wrapper to test function.
 
-In this section, we will starts to write unit tests for pure function using Jest.
+In this section, we will learn to write tests using [Jest].
 
 ## Creating a canary test
 
@@ -173,6 +174,17 @@ Let's revert back the changes and you should be seeing the test pass again.
 1. (Optional) Write tests for the `flattenArray` function in `src/lib/array.js`.
 
 </Exercise>
+
+## Assertion
+
+Let's write a test for `pick` function
+
+TODO
+
+- realize .toBe fails
+- use .toEqual
+- there are many, but we cannot remember. Solution: install `@types/jest`
+- discussion on some common assertions, especially `toMatchSnapshot`
 
 [jest]: https://jestjs.io/
 [pure-function]: /js-the-react-parts/functional-programming#pure-function
