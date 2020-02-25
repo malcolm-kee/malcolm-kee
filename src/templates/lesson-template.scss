@@ -57,13 +57,13 @@ $aside-width: 300px;
   @supports (display: grid) {
     @media screen and (min-width: $media-desktop) {
       margin: 0;
-      max-width: auto;
       justify-self: center;
       grid-area: content;
+      max-width: 100%; // required to avoid content overflow the allocated grid item width
 
       &-container {
         display: grid;
-        grid-template-columns: $workshop-toc-offset-lg 1fr $lesson-toc-width;
+        grid-template-columns: $workshop-toc-offset-lg minmax(0, 1fr) $lesson-toc-width + $space * 2;
         grid-template-areas:
           '. content .'
           '. footer footer';
@@ -73,6 +73,10 @@ $aside-width: 300px;
         margin-left: 0;
         grid-area: footer;
       }
+    }
+
+    @media screen and (min-width: $media-xlarge) {
+      max-width: $read-width;
     }
   }
 
