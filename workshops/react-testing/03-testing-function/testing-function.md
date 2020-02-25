@@ -182,7 +182,7 @@ Let's write a test for `pick` function in `src/lib/object.js`:
 ```js fileName=src/lib/object.spec.js
 import { pick } from './object';
 
-test('pick', () => {
+test(`pick`, () => {
   expect(
     pick(
       {
@@ -233,7 +233,7 @@ Two things to help you discover:
 1. Scan through [Jest `expect` documentation][expect-docs].
 1. Enable Intellisense to provide suggestions.
 
-Scanning through the docs will be left as an exercise for you. I will show you how to do item 2.
+Scanning through the docs will be left as an exercise for you. I will show you how to enable Intellisense.
 
 To enable Intellisense, you need to install `@types/jest` (TypeScript definition for Jest) by running the following commands:
 
@@ -241,9 +241,18 @@ To enable Intellisense, you need to install `@types/jest` (TypeScript definition
 npm i -D @types/jest
 ```
 
-TODO
+Once the installation completed, Intellisense will shows you the available assertion as shown below:
 
-- discussion on some common assertions, especially `toMatchSnapshot`
+![Intellisense showing available assertions in VS Code](jest-intellisense.png)
+
+Now you're be able to explore available assertions.
+
+<Exercise title="Exercise">
+
+1. Install Jest type definition to enable Intellisense.
+1. Write tests for the `omit` function in `src/lib/object.js`.
+
+</Exercise>
 
 [jest]: https://jestjs.io/
 [pure-function]: /js-the-react-parts/functional-programming#pure-function

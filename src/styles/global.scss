@@ -100,7 +100,9 @@
     }
 
     @media screen and (min-width: $media-mobile) {
-      scroll-margin-top: 5rem;
+      &[id] {
+        scroll-margin-top: 5rem;
+      }
     }
   }
 

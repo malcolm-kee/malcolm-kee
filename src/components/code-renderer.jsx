@@ -205,7 +205,8 @@ const TypescriptLiveEditor = ({
           ) : (
             <Button
               onClick={() => setIsEdit(true)}
-              size="small"
+              color="white"
+              className="text-sm"
               raised
               ref={editBtnRef}
             >

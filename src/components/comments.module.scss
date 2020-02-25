@@ -1,12 +1,5 @@
 @import '../constants/variable';
 
-.root {
-  padding: $space * 2;
-  box-shadow: $box-shadow-2;
-  border-radius: 8px;
-  background-color: $grey-100;
-  background-color: var(--bg-mid);
-}
 .header {
   font-size: 1.2rem;
   font-weight: bold;

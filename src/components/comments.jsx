@@ -1,3 +1,8 @@
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from '@reach/disclosure';
 import { graphql } from 'gatsby';
 import React from 'react';
 import { useQuery } from 'urql';
@@ -53,6 +58,42 @@ const getComments = `
 `;
 
 export const Comments = ({ comments, articlePath, searchTerm }) => {
+  const [show, setShow] = React.useState(false);
+
+  return (
+    <section className="px-2 py-4">
+      <Disclosure open={show} onChange={() => setShow(!show)}>
+        <header className={styles.header}>
+          <DisclosureButton
+            as={Button}
+            className="border border-gray-500 dark:border-gray-100"
+            minWidth="widest"
+            raised
+          >
+            {show || !comments.length ? (
+              'Comments'
+            ) : (
+              <>
+                Comments <span className="ml-2">({comments.length})</span>
+              </>
+            )}
+          </DisclosureButton>
+        </header>
+        <DisclosurePanel>
+          {show && (
+            <CommentsPanel
+              comments={comments}
+              articlePath={articlePath}
+              searchTerm={searchTerm}
+            />
+          )}
+        </DisclosurePanel>
+      </Disclosure>
+    </section>
+  );
+};
+
+const CommentsPanel = ({ comments, articlePath, searchTerm }) => {
   const repositoryUrl = useRepositoryUrl();
   const [commentsData, setComments] = React.useState(comments);
 
@@ -79,8 +120,7 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
   const hasComments = commentsData.length > 0;
 
   return (
-    <section className={styles.root}>
-      <header className={styles.header}>Comments</header>
+    <div className="shadow-inner px-1 rounded-md">
       {hasComments ? (
         commentsData.map(
           ({ bodyHTML, id, author, createdAt, url, comments }) => (
@@ -112,7 +152,7 @@ export const Comments = ({ comments, articlePath, searchTerm }) => {
           Add Comment
         </Button>
       </div>
-    </section>
+    </div>
   );
 };
 

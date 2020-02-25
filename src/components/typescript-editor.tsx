@@ -2,7 +2,7 @@ import * as React from 'react';
 import { debounce } from '../lib/fp';
 import styles from './typescript-editor.module.scss';
 
-let monaco: typeof import('monaco-editor');
+let monaco: typeof import('monaco-editor/esm/vs/editor/editor.api');
 
 interface TypescriptEditorProps {
   code: string;
