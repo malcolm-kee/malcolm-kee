@@ -1,7 +1,8 @@
 @import '../constants/variable';
 
-$workshop-toc-offset: 225px;
-$lesson-toc-width: 160px;
+$workshop-toc-offset: $size-10;
+$workshop-toc-offset-lg: $size-11;
+$lesson-toc-width: 200px;
 $aside-width: 300px;
 
 @keyframes expandX {
@@ -20,6 +21,10 @@ $aside-width: 300px;
   @media screen and (min-width: $media-mobile) {
     margin-left: $workshop-toc-offset;
     margin-right: auto;
+  }
+
+  @media screen and (min-width: $media-tablet) {
+    margin-left: $workshop-toc-offset-lg;
   }
 
   &-container {
@@ -43,6 +48,32 @@ $aside-width: 300px;
       margin-left: $workshop-toc-offset;
       padding: $space $space * 2;
     }
+
+    @media screen and (min-width: $media-tablet) {
+      margin-left: $workshop-toc-offset-lg;
+    }
+  }
+
+  @supports (display: grid) {
+    @media screen and (min-width: $media-desktop) {
+      margin: 0;
+      max-width: auto;
+      justify-self: center;
+      grid-area: content;
+
+      &-container {
+        display: grid;
+        grid-template-columns: $workshop-toc-offset-lg 1fr $lesson-toc-width;
+        grid-template-areas:
+          '. content .'
+          '. footer footer';
+      }
+
+      &-report-issue-container {
+        margin-left: 0;
+        grid-area: footer;
+      }
+    }
   }
 
   .instruction-toc {
@@ -54,26 +85,21 @@ $aside-width: 300px;
     }
     li {
       margin-bottom: 0.5em;
-      padding: 0 $space * 2;
+      padding: $space $space * 2;
 
       a {
         text-decoration: none;
         font-size: 0.8rem;
       }
     }
-    @media screen and (min-width: $media-xlarge) {
+    @media screen and (min-width: $media-desktop) {
       position: fixed;
       right: $space * 2;
       top: $appbar-height + $space * 6;
       width: $lesson-toc-width;
-      width: calc(
-        100vw - #{$read-width} - #{$aside-width + $workshop-toc-offset + $space *
-          8}
-      );
 
       li {
         margin: 0;
-        padding: $space $space * 2;
       }
     }
   }
@@ -191,17 +217,6 @@ $aside-width: 300px;
 
       p {
         margin-top: $space;
-      }
-    }
-
-    aside {
-      @media screen and (min-width: $media-xlarge) {
-        position: absolute;
-        left: 101.5%;
-        width: $aside-width;
-        margin: 0;
-        padding: 0 $space;
-        transform: translate(0, -50%);
       }
     }
   }

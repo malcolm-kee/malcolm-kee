@@ -21,7 +21,7 @@
 
 $tx-duration: 250ms;
 
-@media screen and (min-width: $media-xlarge) {
+@media screen and (min-width: $media-desktop) {
   .link,
   .activeLink {
     position: relative;

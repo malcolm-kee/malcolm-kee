@@ -97,10 +97,13 @@
 }
 
 .table-of-content-inner-container {
-  max-width: $size-11;
   min-width: 180px;
   margin: 0px auto;
   padding-bottom: $ios-bottom-offset;
+  max-width: $size-10;
+  @media screen and (min-width: $media-tablet) {
+    max-width: $size-11;
+  }
 }
 
 .table-of-content-workshop-title {
