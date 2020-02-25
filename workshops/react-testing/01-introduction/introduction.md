@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: 'Why write tests for React applications and objectives of the workshop.'
+description: Why write tests for React applications and objectives of the workshop.
 date: '2020-01-24'
 updated_at: '2020-02-24'
 objectives:
@@ -60,7 +60,7 @@ The site is called Shopit, an E-commerce SPA.
 
 To avoid the workshop time being spent on downloading and installing tools, make sure you have the following software installed before the workshop starts:
 
-- node.js and npm ([Download](https://nodejs.org/en/download/))
+- Node.js and npm ([Download](https://nodejs.org/en/download/))
 - git ([Download](https://git-scm.com/downloads))
 - VS Code ([Download](https://code.visualstudio.com/Download)) - feel free to use others if you have a preference.
 

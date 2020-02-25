@@ -9,4 +9,10 @@ objectives:
   - the right way of using snapshot testing
 ---
 
-TODO
+## Render a React Component to Verify Its Behavior
+
+## Use React Testing Library to Write Maintainable Tests
+
+## Test Asynchronous Behavior of React Component
+
+## Snapshot Testing: What and When to Use It

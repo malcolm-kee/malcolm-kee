@@ -6,3 +6,7 @@ objectives:
   - write tests to verify behavior of React component that use Redux
   - write tests to verify behavior of React component that use React Router
 ---
+
+## Test Redux Connected Components
+
+## Test Components that Use React Router

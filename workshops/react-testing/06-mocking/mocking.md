@@ -7,4 +7,15 @@ objectives:
   - how to mock in Jest
 ---
 
-TODO
+## What is Mocking
+
+## To Mock or Not to Mock
+
+- Avoid High Cost of Calling Services
+- Avoid Flakiness
+
+## How to Mock Your Code
+
+## How to Mock Libraries
+
+## Mocking Libraries
