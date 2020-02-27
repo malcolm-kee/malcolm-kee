@@ -67,7 +67,40 @@ debug();
 
 </aside>
 
-Now that we've tested the rendering of the component, let's test the event listener of the component.
+Now that we've tested the rendering of the component, let's test the behavior of the component.
+
+## Test Behavior of React Component (Event Listener)
+
+The behavior of component that is indicated here is how component responds to event.
+
+Let's add another test case for your TextField.
+
+```jsx fileName=src/components/text-field.spec.jsx
+import { fireEvent, render } from '@testing-library/react'; // highlight-line
+import React from 'react';
+import { TextField } from './text-field';
+
+test(`renders TextField`, () => {
+  const { getByLabelText } = render(<TextField label="Age" type="number" />);
+  expect(getByLabelText('Age').type).toBe('number');
+});
+
+// highlight-start
+test(`TextField invoke onChangeValue when input value change`, () => {
+  const onChangeValueHandler = jest.fn();
+  const { getByLabelText } = render(
+    <TextField label="Name" onChangeValue={onChangeValueHandler} />
+  );
+
+  fireEvent.change(getByLabelText('Name'), {
+    target: 'Malcolm',
+  });
+
+  expect(onChangeValueHandler).toHaveBeenCalledTimes(1);
+  expect(onChangeValueHandler).toHaveBeenCalledWith('Malcolm');
+});
+// highlight-end
+```
 
 ## Test Asynchronous Behavior of React Component
 
