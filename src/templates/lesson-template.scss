@@ -28,14 +28,9 @@ $aside-width: 300px;
   }
 
   &-container {
-    padding: $space * 2 $space 32px;
+    padding: $size-3 $size-3 $size-5;
     @media (min-width: $media-mobile) {
-      padding: $appbar-height + $space $space 32px;
-    }
-
-    @media screen and (min-width: $media-tablet) {
-      padding-left: $space * 2;
-      padding-right: $space * 2;
+      padding: $appbar-height + $space $size-3 $size-5;
     }
   }
 
@@ -46,7 +41,6 @@ $aside-width: 300px;
 
     @media screen and (min-width: $media-mobile) {
       margin-left: $workshop-toc-offset;
-      padding: $space $space * 2;
     }
 
     @media screen and (min-width: $media-tablet) {

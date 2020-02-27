@@ -1,5 +1,5 @@
 ---
-title: Testing React Component with Redux or React Router
+title: Testing with Redux or React Router
 description: Test the behavior of a React component that use Redux or React Router
 date: '2020-02-25'
 objectives:
