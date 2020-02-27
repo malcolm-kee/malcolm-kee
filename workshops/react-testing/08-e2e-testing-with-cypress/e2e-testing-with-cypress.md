@@ -6,3 +6,13 @@ objectives:
   - what is Cypress and its difference with other tools
   - use Cypress Testing Library to write effective tests
 ---
+
+## Installing Cypress
+
+```bash
+yarn add -D cypress
+```
+
+## Write Your First End-to-End Test
+
+## Running Cypress in CI

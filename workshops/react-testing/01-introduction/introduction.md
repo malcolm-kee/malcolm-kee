@@ -60,7 +60,8 @@ The site is called Shopit, an E-commerce SPA.
 
 To avoid the workshop time being spent on downloading and installing tools, make sure you have the following software installed before the workshop starts:
 
-- Node.js and npm ([Download](https://nodejs.org/en/download/))
+- Node.js ([Download](https://nodejs.org/en/download/))
+- Yarn v1 ([Download](https://classic.yarnpkg.com/en/docs/install))
 - git ([Download](https://git-scm.com/downloads))
 - VS Code ([Download](https://code.visualstudio.com/Download)) - feel free to use others if you have a preference.
 

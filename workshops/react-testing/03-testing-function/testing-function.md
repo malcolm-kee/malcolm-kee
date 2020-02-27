@@ -25,7 +25,7 @@ test(`canary test`, () => {
 Run the following command in your command line:
 
 ```bash
-npm run test
+yarn test
 ```
 
 You should be able to see the output similar to below:
@@ -42,7 +42,7 @@ Time:        3.53s
 
 Let's walkthrough what we've just did:
 
-1. When we execute `npm run test` in the command line, it will runs the command being configured in `scripts.test` in `package.json`, which is `react-scripts test`.
+1. When we execute `yarn test` in the command line, it will runs the command being configured in `scripts.test` in `package.json`, which is `react-scripts test`.
 
    ```json fileName=package.json highlightedLines=6
    {
@@ -238,7 +238,7 @@ Scanning through the docs will be left as an exercise for you. I will show you h
 To enable Intellisense, you need to install `@types/jest` (TypeScript definition for Jest) by running the following commands:
 
 ```bash
-npm i -D @types/jest
+yarn add -D @types/jest
 ```
 
 Once the installation completed, Intellisense will shows you the available assertion as shown below:

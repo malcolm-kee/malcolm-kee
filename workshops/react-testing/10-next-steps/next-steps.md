@@ -10,7 +10,7 @@ objectives:
 
 ## Generating Code Coverage Report
 
-Add a new npm scripts:
+Add a new scripts in `package.json`:
 
 ```json fileName=package.json highlightedLines=7
   {

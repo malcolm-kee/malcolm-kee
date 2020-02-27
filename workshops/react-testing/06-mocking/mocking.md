@@ -18,4 +18,6 @@ objectives:
 
 ## How to Mock Libraries
 
+## Mock Global Function/Object
+
 ## Mocking Libraries
