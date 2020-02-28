@@ -6,7 +6,6 @@ objectives:
   - write tests to verify behavior of React component
   - use React Testing Library to abstract common setup
   - write tests to verify asynchronous behavior of React component
-  - the right way of using snapshot testing
 ---
 
 ## Render a React Component to Verify Its Behavior
@@ -93,7 +92,7 @@ test(`TextField invoke onChangeValue when input value change`, () => {
   );
 
   fireEvent.change(getByLabelText('Name'), {
-    target: 'Malcolm',
+    target: { value: 'Malcolm' },
   });
 
   expect(onChangeValueHandler).toHaveBeenCalledTimes(1);
@@ -104,6 +103,68 @@ test(`TextField invoke onChangeValue when input value change`, () => {
 
 ## Test Asynchronous Behavior of React Component
 
-## Snapshot Testing: What and When to Use It
+```jsx fileName=src/components/spinner.spec.jsx
+import { render } from '@testing-library/react';
+import React from 'react';
+import { Spinner } from './spinner';
+
+test(`renders without props will show instantly`, () => {
+  const { getByRole } = render(<Spinner />);
+
+  expect(getByRole('progressbar')).not.toBeNull();
+});
+```
+
+Now let's add a test to verify that is `delayShow` is provided, nothing will be shown in the beginning.
+
+```jsx fileName=src/components/spinner.spec.jsx
+...
+
+test(`renders with delay will show after wait`, () => {
+  const { getByRole } = render(<Spinner delayShow={200} />);
+
+  expect(getByRole('progressbar')).toBeNull();
+});
+```
+
+Oops! The test fails!
+
+This is because all `getBy*` queries will throw error if not elements match it, which would make debugging easier.
+
+Luckily, there are another set of queries that will not fail if no elements match, which starts with `queryBy*`. Let's replace our `getByRole` accordingly:
+
+```jsx fileName=src/components/spinner.spec.jsx
+...
+
+test(`renders with delay will show after wait`, () => {
+  const { queryByRole } = render(<Spinner delayShow={200} />); // highlight-line
+
+  expect(queryByRole('progressbar')).toBeNull(); // highlight-line
+});
+```
+
+Now that we verify that nothing is shown in the beginning, let's verify that the spinner will be shown after the delay.
+
+But how do we wait the delay?
+
+Fortunately (again!), there are (yet) another of queries starts with `findBy*`. This set of queries will returns a `Promise` once a match is found.
+
+Let's use it in our test.
+
+```jsx fileName=src/components/spinner.spec.jsx
+...
+
+test(`renders with delay will show after wait`, async () => {
+  const { queryByRole, findByRole } = render(<Spinner delayShow={200} />); // highlight-line
+
+  expect(queryByRole('progressbar')).toBeNull();
+
+  // highlight-start
+  const spinner = await findByRole('progressbar');
+
+  expect(spinner).not.toBeNull();
+  // highlight-end
+});
+```
 
 [queries]: https://testing-library.com/docs/dom-testing-library/api-queries

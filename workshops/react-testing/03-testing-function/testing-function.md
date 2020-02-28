@@ -1,5 +1,5 @@
 ---
-title: Testing function
+title: Testing Function
 description: Test the behavior of a pure function
 date: '2020-02-13'
 updated_at: '2020-02-24'

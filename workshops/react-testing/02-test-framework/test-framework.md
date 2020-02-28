@@ -1,5 +1,5 @@
 ---
-title: Test framework
+title: Test Framework
 description: 'Understand the basic building blocks of test framework: test runner and assertion'
 date: '2020-01-26'
 objectives:
