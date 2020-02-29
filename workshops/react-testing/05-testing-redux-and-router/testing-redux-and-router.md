@@ -10,6 +10,8 @@ objectives:
 
 ## Test Redux Connected Components
 
+Example without router???
+
 ## Test Components that Use React Router
 
 ## Snapshot Testing: What and When to Use It

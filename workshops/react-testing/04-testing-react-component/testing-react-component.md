@@ -173,4 +173,10 @@ test(`renders with delay will show after wait`, async () => { // highlight-line
 });
 ```
 
+<Exercise title="Exercise">
+
+Write tests to verify behaviors of `ShareButton`.
+
+</Exercise>
+
 [queries]: https://testing-library.com/docs/dom-testing-library/api-queries
