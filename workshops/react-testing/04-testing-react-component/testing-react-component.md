@@ -101,6 +101,12 @@ test(`TextField invoke onChangeValue when input value change`, () => {
 // highlight-end
 ```
 
+<Exercise title="Exercise">
+
+Write tests to verify behaviors of `SelectField`.
+
+</Exercise>
+
 ## Test Asynchronous Behavior of React Component
 
 ```jsx fileName=src/components/spinner.spec.jsx
@@ -147,14 +153,14 @@ Now that we verify that nothing is shown in the beginning, let's verify that the
 
 But how do we wait the delay?
 
-Fortunately (again!), there are (yet) another of queries starts with `findBy*`. This set of queries will returns a `Promise` once a match is found.
+Fortunately (again!), there is (yet) another set of queries starts with `findBy*`. This set of queries will returns a `Promise` once a match is found.
 
-Let's use it in our test.
+Let's use it in our test and change our test to an `async` function.
 
 ```jsx fileName=src/components/spinner.spec.jsx
 ...
 
-test(`renders with delay will show after wait`, async () => {
+test(`renders with delay will show after wait`, async () => { // highlight-line
   const { queryByRole, findByRole } = render(<Spinner delayShow={200} />); // highlight-line
 
   expect(queryByRole('progressbar')).toBeNull();
