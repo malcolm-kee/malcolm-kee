@@ -264,4 +264,141 @@ test(`PaymentForm can be filled`, () => {
 });
 ```
 
+And it fails!
+
+<!-- TODO: show error message -->
+
+```jsx fileName=src/lib/test-util.jsx
+import { configureStore } from '@reduxjs/toolkit';
+import { render } from '@testing-library/react';
+import { createMemoryHistory } from 'history'; // highlight-line
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom'; // highlight-line
+import { rootReducer } from '../modules/root-reducer';
+
+// highlight-next-line
+export const renderWithStateMgmtAndRouter = (
+  ui,
+  { actions = [], route = '/' } = {}
+) => {
+  const store = configureStore({
+    reducer: rootReducer,
+  });
+
+  actions.forEach(action => store.dispatch(action));
+
+  // highlight-start
+  const history = createMemoryHistory({
+    initialEntries: [route],
+  });
+  // highlight-end
+
+  const renderResult = render(
+    // highlight-next-line
+    <Router history={history}>
+      <Provider store={store}>{ui}</Provider>
+      {/* highlight-next-line */}
+    </Router>
+  );
+
+  return {
+    ...renderResult,
+    store,
+    history,
+  };
+};
+```
+
+Then we can test the behavior after click:
+
+```jsx fileName=payment-form.spec.jsx
+...
+import { renderWithStateMgmtAndRouter } from '../../../lib/test-util'; // highlight-line
+...
+
+// highlight-next-line
+test(`PaymentForm can be filled`, async () => {
+  // highlight-next-line
+  const { getByText, getByLabelText, findByText } = renderWithStateMgmtAndRouter(<PaymentForm />, {
+    actions: [
+      cartActions.addItem({
+        product: {
+          id: 1,
+          price: 200,
+        },
+      }),
+    ],
+  });
+  ...
+  expect(getByText('Pay').disabled).toBe(false);
+
+  fireEvent.click(getByText('Pay'));
+
+  // highlight-next-line
+  await findByText('Paid');
+});
+```
+
 ## Snapshot Testing: What and When to Use It
+
+Let's change the code for `PaymentForm`:
+
+```jsx fileName=payment-form.jsx
+...
+
+const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
+  ...
+
+  return return paid ? (
+    <Alert color="success">
+      {/* highlight-next-line */}
+      <p className="text-xl text-center" data-testid="success-msg">Paid</p>
+      <div className="text-center py-3">
+        <Link to="/" className="text-blue-500">
+          Back to Home
+        </Link>
+      </div>
+    </Alert>
+  ) : (
+    <React.Suspense fallback={<Spinner />}>
+    ...
+    </React.Suspense>
+  );
+}
+```
+
+Then in the test:
+
+```jsx fileName=payment-form.spec.jsx
+...
+import { renderWithStateMgmtAndRouter } from '../../../lib/test-util';
+...
+
+test(`PaymentForm can be filled`, async () => {
+  // highlight-next-line
+  const { getByText, getByLabelText, findByTestId } = renderWithStateMgmtAndRouter(<PaymentForm />, {
+    actions: [
+      cartActions.addItem({
+        product: {
+          id: 1,
+          price: 200,
+        },
+      }),
+    ],
+  });
+  ...
+  expect(getByText('Pay').disabled).toBe(false);
+
+  fireEvent.click(getByText('Pay'));
+
+  const successMsg = await findByTestId('success-msg'); // highlight-next-line
+  expect(successMsg).toMatchInlineSnapshot();
+});
+```
+
+Effective uses of snapshot:
+
+1. aims to verify the render output, not just to increase test coverage
+1. the size of snapshot should be small so it will be easily verified
+1. prefer `toMatchInlineSnapshot` over `toMatchSnapshot`
