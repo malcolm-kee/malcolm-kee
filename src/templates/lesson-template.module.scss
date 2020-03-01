@@ -19,40 +19,21 @@
   }
 }
 
-$tx-duration: 250ms;
-
-@media screen and (min-width: $media-desktop) {
-  .link,
-  .activeLink {
-    position: relative;
-    &::after {
-      position: absolute;
-      content: ' ';
-      width: $space / 2;
-      left: $space / 2;
-      top: 0;
-      background-color: $toc-light-selected;
-      background-color: var(--tocSelected);
-      transition-duration: $tx-duration;
-      transition-timing-function: linear;
-      transition-property: height;
-    }
-  }
-
-  .link {
-    &::after {
-      height: 0%;
-    }
-  }
-
-  .activeLink {
-    &::after {
-      height: 100%;
-    }
-  }
-}
-
 .objective {
   padding: $space $space * 2;
   border-left: 4px solid $secondary-700;
+}
+
+.progressWrapper {
+  display: none;
+  @media screen and (min-width: $media-desktop) {
+    display: block;
+  }
+}
+
+.tocPlain {
+  display: block;
+  @media screen and (min-width: $media-desktop) {
+    display: none;
+  }
 }

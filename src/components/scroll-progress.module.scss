@@ -1,0 +1,27 @@
+@import '../constants/variable';
+
+.progress {
+  transform: rotate(90deg);
+  transform-origin: 0%;
+  width: 150%;
+  width: 45vh;
+  top: -2.5vh;
+
+  &::-webkit-progress-bar {
+    background-color: transparent;
+  }
+  &::-webkit-progress-value {
+    background-color: $toc-light-selected;
+    background-color: var(--tocSelected);
+  }
+  &::-moz-progress-bar {
+    background-color: $toc-light-selected;
+    background-color: var(--tocSelected);
+  }
+}
+
+.item {
+  border-bottom: 1px solid;
+  border-bottom-color: $bg-color-light-pale;
+  border-bottom-color: var(--bg-pale);
+}

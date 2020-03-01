@@ -6,9 +6,9 @@ import { ChevronIcon } from '../components/chevron-icon';
 import { Comments } from '../components/comments';
 import { ErrorBoundary } from '../components/error-boundary';
 import { ReportIssueLink } from '../components/report-issue-link';
+import { ScrollProgress } from '../components/scroll-progress';
 import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
-import { useObserver } from '../hooks/use-observer';
 import styles from './lesson-template.module.scss';
 import './lesson-template.scss';
 
@@ -17,27 +17,6 @@ const LessonTemplate = ({
   pageContext: { next, commentsSearch },
   location,
 }) => {
-  const headings = React.useMemo(
-    () =>
-      lesson.tableOfContents.items
-        ? lesson.tableOfContents.items.map(item => item.url)
-        : [],
-    [lesson.tableOfContents.items]
-  );
-
-  const visibleIds = useObserver(headings, {
-    rootMargin: `0px 0px -60% 0px`,
-  });
-  const achievedHeadingIndex = React.useMemo(() => {
-    let achievedIndex = -1;
-    headings.forEach((heading, index) => {
-      if (visibleIds.includes(heading)) {
-        achievedIndex = index;
-      }
-    });
-    return achievedIndex;
-  }, [visibleIds, headings]);
-
   return (
     <ErrorBoundary>
       <div className="instruction-template-container">
@@ -88,20 +67,18 @@ const LessonTemplate = ({
           )}
           <div className="instruction-toc py-4">
             {lesson.tableOfContents.items && (
-              <ul>
-                {lesson.tableOfContents.items.map((item, index) => (
-                  <li
-                    className={
-                      index <= achievedHeadingIndex
-                        ? styles.activeLink
-                        : styles.link
-                    }
-                    key={item.url}
-                  >
-                    <a href={item.url}>{item.title}</a>
-                  </li>
-                ))}
-              </ul>
+              <>
+                <div className={styles.progressWrapper}>
+                  <ScrollProgress items={lesson.tableOfContents.items} />
+                </div>
+                <ul className={styles.tocPlain}>
+                  {lesson.tableOfContents.items.map((item, i) => (
+                    <li key={i}>
+                      <a href={item.url}>{item.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              </>
             )}
           </div>
           <main>

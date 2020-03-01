@@ -93,6 +93,7 @@ $aside-width: 300px;
     }
     @media screen and (min-width: $media-desktop) {
       position: fixed;
+      min-height: 40vh;
       right: $space * 2;
       top: $appbar-height + $space * 6;
       width: $lesson-toc-width;
