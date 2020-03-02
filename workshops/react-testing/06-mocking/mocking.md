@@ -29,6 +29,44 @@ Nonetheless, as discussed, there are valid scenarios for mocking, just beware of
 
 ```jsx fileName=auth.service.spec.js
 import { register } from './auth.service';
+
+test(`register a new customer`, async () => {
+  const result = await register({
+    name: 'Andy Lau',
+    email: 'andy@lau.com',
+  });
+});
+```
+
+```jsx fileName=auth.service.spec.js
+import { fetchJson as fetchJsonMock } from '../../lib/ajax'; // highlight-line
+import { register } from './auth.service';
+
+jest.mock('../../lib/ajax'); // highlight-line
+
+// highlight-start
+const mockAuthUser = {
+  id: Date.now(),
+  name: 'Malcolm Kee',
+  email: 'malcolm@kee.com',
+  joinDate: Date.now(),
+};
+// highlight-end
+
+test(`register a new customer`, async () => {
+  // highlight-start
+  fetchJsonMock
+    .mockImplementationOnce(() => Promise.resolve([]))
+    .mockImplementationOnce(() => Promise.resolve(mockAuthUser));
+  // highlight-end
+
+  const result = await register({
+    name: 'Andy Lau',
+    email: 'andy@lau.com',
+  });
+
+  expect(result).toBe(mockAuthUser); // highlight-line
+});
 ```
 
 ## How to Mock Libraries
