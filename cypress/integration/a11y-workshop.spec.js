@@ -44,7 +44,9 @@ describe('Accessibility checks on Workshop Materials', () => {
       .closest('.workshop-card')
       .within(() => {
         cy.findByText('Learn').click();
-      })
+      });
+
+    cy.findByText('The React Parts')
       .wait(2000) // wait for animation
       .checkA11yResponsive();
   });

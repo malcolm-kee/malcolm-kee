@@ -53,12 +53,12 @@ describe(`Accessibility checks`, () => {
       .wait(1000)
       .checkA11yResponsive();
 
-    // focus doesn't trigger css style, don't know why
-    /* cy.findAllByRole('listitem')
+    cy.findAllByRole('listitem')
       .first()
       .find('a')
       .focus()
-      .checkA11y(); */
+
+      .checkA11y();
   });
 
   it('has no detectable a11y violations on blogs page dark mode', () => {
@@ -105,11 +105,10 @@ describe(`Accessibility checks`, () => {
   });
 
   it('has no detectable a11y violations on all tags page', () => {
-    cy.findByText('Read Blog')
-      .click()
-      .findByText('All tags')
-      .click()
-      .checkA11yResponsive();
+    cy.findByText('Read Blog').click();
+
+    cy.findByText('All tags').click();
+    cy.checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on all tags page dark mode', () => {
