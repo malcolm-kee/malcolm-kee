@@ -1,6 +1,7 @@
 import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
 import { isNil } from 'typesafe-is';
+import fetch from 'unfetch';
 import { createClient, Provider } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
 import { ErrorBoundary } from '../components/error-boundary';
@@ -15,6 +16,7 @@ import { WorkshopLayout } from './workshop-layout';
 
 const githubClient = createClient({
   url: 'https://api.github.com/graphql',
+  fetch,
   fetchOptions: {
     headers: {
       Authorization: `Bearer ${process.env.GATSBY_GITHUB_TOKEN}`,

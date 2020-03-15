@@ -78,6 +78,7 @@ export const HighlightedCode = React.memo(
         >
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             // tabIndex because this is scrollable
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             <pre className={className} style={style} tabIndex={0} ref={ref}>
               {transformTokens(tokens, lineIndexesToHighlight).map(
                 ({ line, isHighlighted }, i) => {

@@ -54,6 +54,7 @@ export const Button = React.forwardRef<
     return (
       <button
         {...restProps}
+        type={type}
         className={className}
         ref={ref as React.Ref<HTMLButtonElement>}
       />

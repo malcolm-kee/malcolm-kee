@@ -71,7 +71,7 @@ const ScrollItemLabel = React.memo(
       () => ({
         top: `${(top / total) * 100}%`,
       }),
-      [top]
+      [top, total]
     );
 
     return top ? (
