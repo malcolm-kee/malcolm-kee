@@ -40,7 +40,7 @@ export const Seo = ({
       : siteMetadata.keywords.join();
 
   return (
-    <Helmet>
+    <Helmet defer={false}>
       <title>{displayTitle}</title>
       <link rel="shortcut icon" href={icon || '/icons/icon-48x48.png'} />
       <meta name="author" content={siteMetadata.author} />
