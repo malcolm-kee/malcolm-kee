@@ -60,7 +60,7 @@ describe('Accessibility checks on Workshop Materials', () => {
       .click()
       .checkA11yResponsive();
 
-    cy.queryByText('Edit')
+    cy.findByText('Edit')
       .click()
       .checkA11yResponsive();
   });
@@ -77,7 +77,7 @@ describe('Accessibility checks on Workshop Materials', () => {
       .click({ force: true })
       .checkA11yResponsive();
 
-    cy.queryByText('Edit')
+    cy.findByText('Edit')
       .click()
       .checkA11yResponsive();
   });
