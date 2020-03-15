@@ -67,10 +67,9 @@
 
 .article-content {
   .header-link-icon {
-    float: left;
-    padding-left: 4px;
-    margin-left: -($space * 3);
-    top: $space * 2;
+    position: absolute;
+    right: 0;
+    top: 30%;
     svg path {
       fill: $link-light;
       fill: var(--link);
@@ -124,8 +123,8 @@
     }
   }
   p {
-    margin-bottom: 0;
-    margin-top: 2em;
+    margin-bottom: 0.5em;
+    margin-top: 1em;
     font-weight: 400;
     line-height: 1.8em;
     font-family: inherit;
@@ -174,8 +173,6 @@
       }
     }
   }
-
-  @include link('a:not(.gatsby-resp-image-link)');
 
   // this bug is coming back!!!
   .gatsby-resp-image-image {

@@ -154,10 +154,10 @@ $box-shadow-23: 0px 11px 14px -7px rgba(0, 0, 0, 0.2),
 $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
   0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 
-@mixin link($selector) {
+@mixin link($selector, $darkModeSelector: '.mode-dark') {
   #{$selector} {
     @apply text-primary-800;
-    .mode-dark & {
+    #{$darkModeSelector} & {
       @apply text-primary-400;
     }
     position: relative;
@@ -174,7 +174,7 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
       width: 100%;
       height: 1px;
       @apply bg-primary-800;
-      .mode-dark & {
+      #{$darkModeSelector} & {
         @apply text-primary-500;
       }
       transform-origin: center;

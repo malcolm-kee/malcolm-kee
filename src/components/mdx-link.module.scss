@@ -1,0 +1,3 @@
+@import '../constants/variable';
+
+@include link('.link', ':global(.mode-dark)');
