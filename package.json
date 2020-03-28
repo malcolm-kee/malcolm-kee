@@ -4,9 +4,8 @@
   "version": "1.0.0",
   "author": "Malcolm Kee <malcolm.keeweesiong@gmail.com>",
   "scripts": {
-    "start": "gatsby develop",
+    "start": "gatsby develop -H 0.0.0.0",
     "clean": "gatsby clean",
-    "dev": "gatsby develop",
     "serve": "gatsby serve",
     "format": "prettier --write \"src/**/*.{js,jsx,md,mdx}\"",
     "build": "gatsby build",
@@ -104,6 +103,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/request-promise-native": "^1.0.16",
     "axe-core": "^3.2.2",
+    "cross-env": "^7.0.2",
     "cypress": "^4.0.1",
     "cypress-axe": "^0.5.1",
     "dotenv-webpack": "^1.7.0",
