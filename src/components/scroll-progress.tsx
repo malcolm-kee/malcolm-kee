@@ -1,6 +1,7 @@
+import cx from 'classnames';
 import * as React from 'react';
-import styles from './scroll-progress.module.scss';
 import { useWindowEventListener } from '../hooks/use-event-listener';
+import styles from './scroll-progress.module.scss';
 
 export type ScrollItem = {
   url: string;
@@ -9,10 +10,10 @@ export type ScrollItem = {
 
 export type ScrollProgressProps = {
   items: ScrollItem[];
+  className?: string;
 };
 
 export const ScrollProgress = (props: ScrollProgressProps) => {
-  const progressRef = React.useRef<HTMLProgressElement>(null);
   const [max, setMax] = React.useState<null | number>(null);
   const [scrollPosition, setScrollPosition] = React.useState(0);
 
@@ -30,20 +31,20 @@ export const ScrollProgress = (props: ScrollProgressProps) => {
   useWindowEventListener('resize', getMax);
 
   return (
-    <>
+    <div className={cx(styles.root, props.className)}>
       {max && (
-        <progress
-          value={scrollPosition}
-          max={max}
-          className={`absolute h-1 w-full appearance-none bg-transparent text-primary-500 ${styles.progress}`}
-          ref={progressRef}
+        <div
+          className={`absolute top-0 bg-green-500 rounded ${styles.progress}`}
+          style={{
+            height: `${(scrollPosition / max) * 100}%`,
+          }}
         />
       )}
       {max &&
         props.items.map((item, i) => (
           <ScrollItemLabel details={item} total={max} key={i} />
         ))}
-    </>
+    </div>
   );
 };
 

@@ -1,23 +1,14 @@
 @import '../constants/variable';
 
-.progress {
-  transform: rotate(90deg);
-  transform-origin: 0%;
-  width: 150%;
-  width: 45vh;
-  top: -2.5vh;
+.root {
+  height: inherit;
+  position: relative;
+}
 
-  &::-webkit-progress-bar {
-    background-color: transparent;
-  }
-  &::-webkit-progress-value {
-    background-color: $toc-light-selected;
-    background-color: var(--tocSelected);
-  }
-  &::-moz-progress-bar {
-    background-color: $toc-light-selected;
-    background-color: var(--tocSelected);
-  }
+.progress {
+  transition: height 250ms ease-in-out;
+  left: -$space / 2;
+  width: 3px;
 }
 
 .item {
