@@ -1,5 +1,5 @@
 ---
-title: Bash
+title: Bash & Linux
 ---
 
 The following two formats of check file are the same:
@@ -55,5 +55,13 @@ To fix the code, there are two solutions:
    ```bash
    if [[ $MSG == "0" ]; then
    ```
+
+---
+
+There are 3 main layers of Linux:
+
+- user process
+- linux kernel
+- hardware
 
 ---
