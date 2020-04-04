@@ -7,7 +7,7 @@
     "start": "gatsby develop -H 0.0.0.0",
     "clean": "gatsby clean",
     "serve": "gatsby serve",
-    "format": "prettier --write \"src/**/*.{js,jsx,md,mdx}\"",
+    "format": "prettier --write \"src/**/*.{js,jsx,md,mdx}\" \"blogs/**/*.{js,jsx,md,mdx}\"",
     "build": "gatsby build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",

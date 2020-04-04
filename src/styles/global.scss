@@ -286,6 +286,15 @@
       }
     }
   }
+
+  .pre-bordered-table + table {
+    border-width: 1px;
+    margin: 0 -0.5rem;
+    th, td {
+      border-width: 1px;
+      padding: 0.5rem;
+    }
+  }
 }
 
 $sizes: (

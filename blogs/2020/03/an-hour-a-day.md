@@ -11,7 +11,7 @@ If I'm not struggling while I'm learning something, I always feel that I have no
 And I don't think it's just me. I believe most people that are exceptional in what they're doing always seek this struggle.
 
 Deliberate struggle.
- 
+
 But struggle consumes our willpower, that's why most people don't do this.
 
 Like now, I'm learning shell script, which is something that I think I always need to learn, but never spend time on it.

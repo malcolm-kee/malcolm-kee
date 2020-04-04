@@ -1,10 +1,10 @@
 ---
-path: "/blog/msia-ssm-change-monitor"
-date: "2018-10-24"
-title: "Monitoring Government Website for Content Change"
-tags: ["full stack development", "web scraping", "GatsbyJS"]
-keywords: ["GatsbyJS", "Malaysia Companies Act", "web scraping"]
-summary: "My experience on developing a web-scraping application that will notify subscribers for any changes of a government website"
+path: '/blog/msia-ssm-change-monitor'
+date: '2018-10-24'
+title: 'Monitoring Government Website for Content Change'
+tags: ['full stack development', 'web scraping', 'GatsbyJS']
+keywords: ['GatsbyJS', 'Malaysia Companies Act', 'web scraping']
+summary: 'My experience on developing a web-scraping application that will notify subscribers for any changes of a government website'
 published: true
 ---
 
@@ -24,8 +24,8 @@ The solution consists of three parts:
 
 1.  Scrapping the content
 2.  Checking for update and when any change is detected:
-    * email subscribers about it
-    * trigger the build of static site with the latest data
+    - email subscribers about it
+    - trigger the build of static site with the latest data
 3.  Scheduling for step 1 and step 2 to run daily
 
 ### 1. Scraping the content
@@ -34,8 +34,8 @@ Web-scraping nowadays is pretty easy and there are plenty ways to do it. However
 
 I uses the following npm libraries to scrap the content:
 
-* `request`: to make the http request to the site
-* `cheerio`: to parse the content of the page
+- `request`: to make the http request to the site
+- `cheerio`: to parse the content of the page
 
 With that, by inspecting the html on the page and write the selector accordingly, I able to extract out the information of all the Company Acts on the page.
 

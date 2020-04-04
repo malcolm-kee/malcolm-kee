@@ -1,5 +1,5 @@
 ---
-title: Interview as a Learning Tool 
+title: Interview as a Learning Tool
 date: '2020-03-28'
 published: true
 ---
