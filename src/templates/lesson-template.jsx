@@ -68,7 +68,7 @@ const LessonTemplate = ({
           <div className="instruction-toc py-4">
             {lesson.tableOfContents.items && (
               <>
-                <ScrollProgress items={lesson.tableOfContents.items} />
+                <ScrollProgress items={lesson.tableOfContents.items} className={styles.progressWrapper} />
                 <ul className={styles.tocPlain}>
                   {lesson.tableOfContents.items.map((item, i) => (
                     <li key={i}>
