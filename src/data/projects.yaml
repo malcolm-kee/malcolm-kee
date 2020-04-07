@@ -1,3 +1,17 @@
+- id: bid-it
+  name: 'Bid It'
+  description: 'An end-to-end scalable bidding system with microservices architecture.'
+  technologies:
+    - React
+    - TypeScript
+    - TailwindCSS
+    - NestJS
+    - MongoDB
+    - Redis
+    - Docker
+  links:
+    code: 'https://github.com/malcolm-kee/bid-it'
+  image: '../assets/bid-it.gif'
 - id: shopit
   name: 'Shopit'
   description: 'An e-commerce site project with multiple implementations.'

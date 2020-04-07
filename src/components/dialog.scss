@@ -35,12 +35,13 @@
     z-index: 1;
     top: $space;
     right: $space;
-    background: inherit;
-    color: inherit;
 
     &:hover {
-      background: inherit;
-      color: inherit;
+      background: $grey-200;
+
+      :global(body.dark) & {
+        background: $grey-800;
+      }
     }
 
     svg {

@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import React from 'react';
 import { getLinkTarget } from '../lib/util';
 import { OutLink } from './OutLink';
+import styles from './Button.module.scss';
 
 interface BaseButtonProps {
   color?: 'primary' | 'white' | 'link';
@@ -42,7 +43,8 @@ export const Button = React.forwardRef<
     'py-1 px-2 rounded-lg inline-flex justify-center items-center font-sans',
     props.color === 'primary' && 'bg-primary-700 text-gray-100',
     props.color === 'white' && 'bg-gray-100 text-gray-900',
-    props.color === 'link' && 'text-primary-700 dark:text-primary-300',
+    props.color === 'link' &&
+      `text-primary-700 dark:text-primary-300 ${styles.link}`,
     props.raised && 'shadow-lg',
     props.minWidth && props.minWidth === 'widest' ? 'min-w-md' : 'min-w-sm',
     props.className

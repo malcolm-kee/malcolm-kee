@@ -2,19 +2,20 @@ import { navigate } from '@reach/router';
 import { graphql, Link } from 'gatsby';
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import React from 'react';
+import { isDefined } from 'typesafe-is';
 import { Button, RoundedLinkButton } from '../components/Button';
-import { GifPlayer } from '../components/gif-player';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';
 import { Dialog } from '../components/dialog';
+import { GifPlayer } from '../components/gif-player';
 import { HashLink } from '../components/hash-link';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
-import './projects.scss';
-import styles from './projects.module.scss';
-import { preloadImage } from '../helper';
 import { Ul } from '../components/ul';
+import { preloadImage } from '../helper';
+import styles from './projects.module.scss';
+import './projects.scss';
 
 const ProjectCard = ({ project }) => (
   <Card className="ProjectPage--project" role="listitem">
@@ -83,15 +84,10 @@ const usePreloadImage = imageSrc => {
   return () => setShouldPreload(true);
 };
 
-const FancyProjectCard = ({ project, location }) => {
-  const [showDialog, setShowDialog] = React.useState(
-    location.hash === `#${project.id}`
-  );
-  const isInternalLink = project.links.live && project.links.live[0] === '/';
+const FancyProjectCard = ({ project, onActivate }) => {
   const preloadStaticImage = usePreloadImage(
     project.staticImage && project.staticImage.publicURL
   );
-  const preloadGif = usePreloadImage(project.image && project.image.publicURL);
 
   return (
     <li>
@@ -103,84 +99,168 @@ const FancyProjectCard = ({ project, location }) => {
         aria-haspopup="dialog"
         onMouseEnter={preloadStaticImage}
         onFocus={preloadStaticImage}
-        onSelect={() => setShowDialog(true)}
+        onSelect={onActivate}
         className="ProjectPage--project-card"
       >
         <CardContent className="text-center text-lg content-section">
           {project.name}
         </CardContent>
       </Card>
-      <Dialog
-        isOpen={showDialog}
-        onDismiss={() => {
-          setShowDialog(false);
-          navigate(location.pathname, { replace: true });
-        }}
-        large={!!project.staticImage}
-        aria-label={`Details for ${project.name}`}
-      >
-        <div className={styles.details}>
-          <div className={`content-section ${styles.content}`}>
-            <h2 className="text-3xl mb-4" id={project.id}>
-              {project.name}
-            </h2>
-            <p className="mb-2">{project.description}</p>
-            <Ul className="mb-3">
-              {project.technologies.map(tech => (
-                <li key={tech}>{tech}</li>
-              ))}
-            </Ul>
-            <div className="-mx-2 my-4">
-              {project.links.live && (
-                <Button
-                  component={isInternalLink ? Link : OutLink}
-                  href={isInternalLink ? undefined : project.links.live}
-                  to={isInternalLink ? project.links.live : undefined}
-                  color="primary"
-                  raised
-                  className={styles.btn}
-                >
-                  Live
-                </Button>
-              )}
-              {project.links.code && (
-                <Button
-                  component={OutLink}
-                  href={project.links.code}
-                  raised
-                  className={styles.btn}
-                >
-                  Code
-                </Button>
-              )}
-            </div>
-          </div>
-          <div className={styles.demo}>
-            {project.image && (
-              <GifPlayer
-                gif={project.image.publicURL}
-                still={project.staticImage.publicURL}
-                alt={`Demo of ${project.name}`}
-                onFocus={preloadGif}
-                onMouseEnter={preloadGif}
-                className={styles.image}
-                containerClassName={styles.imageWrapper}
-              />
-            )}
-          </div>
-        </div>
-      </Dialog>
     </li>
   );
 };
 
-const FancyProjectView = ({ projects, location }) => (
-  <ul className="ProjectPage--project-grid-container">
-    {projects.map(({ node }) => (
-      <FancyProjectCard project={node} location={location} key={node.id} />
-    ))}
-  </ul>
-);
+const useProjects = (projects, location) => {
+  const [focused, setFocusedIndex] = React.useState(() => {
+    const matchIndex = projects.findIndex(
+      project => `#${project.node.id}` === location.hash
+    );
+    return matchIndex > -1 ? matchIndex : undefined;
+  });
+
+  React.useEffect(() => {
+    if (typeof focused === 'undefined') {
+      navigate(location.pathname, { replace: true });
+    }
+  }, [focused, location.pathname]);
+
+  return {
+    focused,
+    setFocused: index => {
+      setFocusedIndex(index);
+      if (isDefined(index)) {
+        navigate(`#${projects[index].node.id}`, { replace: true });
+      }
+    },
+    next: () => {
+      const nextIndex = (focused + 1) % projects.length;
+      setFocusedIndex(nextIndex);
+      navigate(`#${projects[nextIndex].node.id}`, { replace: true });
+    },
+    prev: () => {
+      const prevIndex = (focused - 1 + projects.length) % projects.length;
+      setFocusedIndex(prevIndex);
+      navigate(`#${projects[prevIndex].node.id}`, { replace: true });
+    },
+  };
+};
+
+const FancyProjectView = ({ projects, location }) => {
+  const { focused, setFocused, next, prev } = useProjects(projects, location);
+  const project =
+    typeof focused !== 'undefined' ? projects[focused].node : undefined;
+
+  const isInternalLink =
+    project && project.links.live && project.links.live[0] === '/';
+  const preloadGif = usePreloadImage(
+    project && project.image && project.image.publicURL
+  );
+
+  return (
+    <>
+      <ul className="ProjectPage--project-grid-container">
+        {projects.map(({ node }, index) => (
+          <FancyProjectCard
+            project={node}
+            location={location}
+            active={focused === index}
+            onActivate={() => setFocused(index)}
+            onDismiss={() => setFocused(undefined)}
+            next={next}
+            prev={prev}
+            key={node.id}
+          />
+        ))}
+      </ul>
+      <Dialog
+        isOpen={!!project}
+        onDismiss={() => setFocused(undefined)}
+        large={!!(project && (project.staticImage || project.image))}
+        aria-label={`Details for ${project ? project.name : 'project'}`}
+        onKeyDown={ev => {
+          if (ev.key === 'ArrowLeft') {
+            prev();
+          }
+          if (ev.key === 'ArrowRight') {
+            next();
+          }
+        }}
+      >
+        {project && (
+          <>
+            <div className={styles.details}>
+              <div className={`content-section ${styles.content}`}>
+                <h2 className="text-3xl mb-4" id={project.id}>
+                  {project.name}
+                </h2>
+                <p className="mb-2">{project.description}</p>
+                <Ul className="mb-3">
+                  {project.technologies.map(tech => (
+                    <li key={tech}>{tech}</li>
+                  ))}
+                </Ul>
+                <div className="-mx-2 my-4">
+                  {project.links.live && (
+                    <Button
+                      component={isInternalLink ? Link : OutLink}
+                      href={isInternalLink ? undefined : project.links.live}
+                      to={isInternalLink ? project.links.live : undefined}
+                      color="primary"
+                      raised
+                      className={styles.btn}
+                    >
+                      Live
+                    </Button>
+                  )}
+                  {project.links.code && (
+                    <Button
+                      component={OutLink}
+                      href={project.links.code}
+                      raised
+                      className={styles.btn}
+                    >
+                      Code
+                    </Button>
+                  )}
+                </div>
+              </div>
+              <div className={styles.demo}>
+                {project.image &&
+                  (project.staticImage ? (
+                    <GifPlayer
+                      gif={project.image.publicURL}
+                      still={project.staticImage.publicURL}
+                      alt={`Demo of ${project.name}`}
+                      onFocus={preloadGif}
+                      onMouseEnter={preloadGif}
+                      className={styles.image}
+                      containerClassName={styles.imageWrapper}
+                    />
+                  ) : (
+                    <div className={styles.imageWrapper}>
+                      <img
+                        src={project.image.publicURL}
+                        className={styles.image}
+                        alt={`Demo of ${project.name}`}
+                      />
+                    </div>
+                  ))}
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <Button onClick={prev} className="text-lg" color="link">
+                Prev
+              </Button>
+              <Button onClick={next} className="text-lg" color="link">
+                Next
+              </Button>
+            </div>
+          </>
+        )}
+      </Dialog>
+    </>
+  );
+};
 
 const ProjectPage = ({ data: { allProjects }, location }) => {
   const isRendered = useIsJsEnabled();

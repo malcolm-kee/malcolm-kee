@@ -1,0 +1,11 @@
+@import '../constants/variable';
+
+.link {
+  &:hover {
+    background: $grey-200;
+
+    :global(body.dark) & {
+      background: $grey-800;
+    }
+  }
+}

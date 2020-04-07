@@ -1,7 +1,7 @@
 ---
 title: What is Redux?
 date: '2020-04-04'
-published: false 
+published: false
 ---
 
 There are many ways to understand a programming concept.
@@ -50,13 +50,13 @@ Let's walkthrough the previous example:
 | accumulator | item | result | remarks                                  |
 | ----------- | ---- | ------ | ---------------------------------------- |
 | 0           | 1    | 1      | accumulator = 2nd parameter of `.reduce` |
-| 1           | 2    | 3      | |
-| 3           | 3    | 6      | |
-| 6           | 4    | 10     | |
+| 1           | 2    | 3      |                                          |
+| 3           | 3    | 6      |                                          |
+| 6           | 4    | 10     |                                          |
 | 10          | 5    | 15     | no more item, so 15 becomes final result |
 
 ## Event Bus
 
-An event bus 
+An event bus
 
 To be continued...

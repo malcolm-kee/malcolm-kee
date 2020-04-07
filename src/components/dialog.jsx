@@ -1,10 +1,10 @@
-import cx from 'classnames';
-import { Dialog as ReachDialog } from '@reach/dialog';
+import { DialogContent, DialogOverlay } from '@reach/dialog';
 import '@reach/dialog/styles.css';
+import cx from 'classnames';
 import React from 'react';
-import { CloseIcon } from './svg-icons';
 import { Button } from './Button';
 import './dialog.scss';
+import { CloseIcon } from './svg-icons';
 
 export const Dialog = ({
   onDismiss,
@@ -14,27 +14,28 @@ export const Dialog = ({
   className,
   BtnComponent = Button,
   btnProps,
+  onKeyDown,
   ...props
 }) => {
   return (
-    <ReachDialog
-      className={cx(large && 'dialog--large', className)}
-      onDismiss={onDismiss}
-      isOpen={isOpen}
-      {...props}
-    >
-      <div className="dialog-content">
-        <BtnComponent
-          onClick={onDismiss}
-          className="dialog-close-btn"
-          size="small"
-          aria-label="close"
-          {...btnProps}
-        >
-          <CloseIcon />
-        </BtnComponent>
-        {children}
-      </div>
-    </ReachDialog>
+    <DialogOverlay isOpen={isOpen} onDismiss={onDismiss} onKeyDown={onKeyDown}>
+      <DialogContent
+        className={cx(large && 'dialog--large', className)}
+        {...props}
+      >
+        <div className="dialog-content">
+          <BtnComponent
+            onClick={onDismiss}
+            className="dialog-close-btn text-gray-600"
+            size="small"
+            aria-label="close"
+            {...btnProps}
+          >
+            <CloseIcon />
+          </BtnComponent>
+          {children}
+        </div>
+      </DialogContent>
+    </DialogOverlay>
   );
 };
