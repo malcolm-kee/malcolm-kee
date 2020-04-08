@@ -239,7 +239,7 @@ const FancyProjectView = ({ projects, location }) => {
                       onMouseEnter={preloadGif}
                       className={styles.image}
                       containerClassName={styles.imageWrapper}
-                      key={project}
+                      key={project.id}
                     />
                   ) : (
                     <div className={styles.imageWrapper}>
@@ -247,7 +247,7 @@ const FancyProjectView = ({ projects, location }) => {
                         src={project.image.publicURL}
                         className={styles.image}
                         alt={`Demo of ${project.name}`}
-                        key={project}
+                        key={project.id}
                       />
                     </div>
                   ))}
