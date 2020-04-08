@@ -110,6 +110,11 @@ const FancyProjectCard = ({ project, onActivate }) => {
   );
 };
 
+/**
+ *
+ * @param {Array} projects
+ * @param {Location} location
+ */
 const useProjects = (projects, location) => {
   const [focused, setFocusedIndex] = React.useState(() => {
     const matchIndex = projects.findIndex(
@@ -147,8 +152,7 @@ const useProjects = (projects, location) => {
 
 const FancyProjectView = ({ projects, location }) => {
   const { focused, setFocused, next, prev } = useProjects(projects, location);
-  const project =
-    typeof focused !== 'undefined' ? projects[focused].node : undefined;
+  const project = isDefined(focused) ? projects[focused].node : undefined;
 
   const isInternalLink =
     project && project.links.live && project.links.live[0] === '/';
@@ -235,6 +239,7 @@ const FancyProjectView = ({ projects, location }) => {
                       onMouseEnter={preloadGif}
                       className={styles.image}
                       containerClassName={styles.imageWrapper}
+                      key={project}
                     />
                   ) : (
                     <div className={styles.imageWrapper}>
@@ -242,6 +247,7 @@ const FancyProjectView = ({ projects, location }) => {
                         src={project.image.publicURL}
                         className={styles.image}
                         alt={`Demo of ${project.name}`}
+                        key={project}
                       />
                     </div>
                   ))}
