@@ -11,7 +11,7 @@
     "build": "gatsby build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "test:e2e": "start-server-and-test dev http://localhost:8000 cy:open",
+    "test:e2e": "start-server-and-test start http://localhost:8000 cy:open",
     "deploy:preview": "netlify deploy --dir=public",
     "deploy": "netlify deploy --dir=public --prod"
   },
@@ -72,6 +72,7 @@
     "react-gif-player": "^0.4.2",
     "react-helmet": "^6.0.0-beta",
     "react-live": "^2.1.2",
+    "react-share": "^4.1.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "scroll-to-element": "^2.0.3",
