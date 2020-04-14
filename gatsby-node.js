@@ -6,6 +6,11 @@ const {
   createBlogSchemaCustomization,
 } = require('./gatsby/blog-build');
 const {
+  createEducationNode,
+  createEduPages,
+  createEduSchemaCustomization,
+} = require('./gatsby/education-build');
+const {
   createLessonNode,
   createWorkshopPages,
   createWorkshopSchemaCustomization,
@@ -28,6 +33,13 @@ exports.onCreateNode = async ({
 }) => {
   if (node.internal.type === 'Mdx') {
     await Promise.all([
+      createEducationNode({
+        node,
+        actions,
+        getNode,
+        createNodeId,
+        createContentDigest,
+      }),
       createLessonNode({
         node,
         actions,
@@ -57,6 +69,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   createWorkshopSchemaCustomization({ actions, schema });
   createBlogSchemaCustomization({ actions, schema });
   createTilSchemaCustomization({ actions, schema });
+  createEduSchemaCustomization({ actions, schema });
 
   const fallbackTypes = [
     `type NpmsIoMalcolmLinks {
@@ -80,6 +93,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     createBlogs({ actions, graphql, reporter }),
     createWorkshopPages({ actions, graphql, reporter }),
     createTils({ actions, graphql }),
+    createEduPages({ actions, graphql, reporter }),
   ]);
 };
 

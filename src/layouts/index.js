@@ -1,6 +1,6 @@
 import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
-import { isNil } from 'typesafe-is';
+import { isDefined } from 'typesafe-is';
 import fetch from 'unfetch';
 import { createClient, Provider } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
@@ -12,6 +12,7 @@ import { Aside } from '../components/workshop/aside';
 import { Exercise } from '../components/workshop/exercise';
 import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
+import { EduLayout } from './edu-layout';
 import { WorkshopLayout } from './workshop-layout';
 
 const githubClient = createClient({
@@ -48,16 +49,14 @@ const LayoutContainer = ({ children, pageContext, location }) => {
     }
   }, [location.pathname, isRoot]);
 
-  const { workshop, lessonGroup } = pageContext;
+  const { workshop, subject, lessonGroup } = pageContext;
 
   return (
     <ErrorBoundary>
       <Provider value={githubClient}>
         <ThemeProvider value={themeValue}>
           <MDXProvider components={mdxComponents}>
-            {isNil(workshop) ? (
-              <Layout isRoot={isRoot}>{children}</Layout>
-            ) : (
+            {isDefined(workshop) ? (
               <WorkshopLayout
                 workshop={workshop}
                 workshopSections={lessonGroup}
@@ -65,6 +64,10 @@ const LayoutContainer = ({ children, pageContext, location }) => {
               >
                 {children}
               </WorkshopLayout>
+            ) : isDefined(subject) ? (
+              <EduLayout subject={subject}>{children}</EduLayout>
+            ) : (
+              <Layout isRoot={isRoot}>{children}</Layout>
             )}
           </MDXProvider>
         </ThemeProvider>

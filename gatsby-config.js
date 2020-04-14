@@ -4,6 +4,9 @@ require('dotenv').config({
 const path = require('path');
 const packageJson = require('./package.json');
 
+/**
+ * @type {import('gatsby').GatsbyConfig}
+ */
 module.exports = {
   siteMetadata: {
     title: 'Malcolm Kee',
@@ -18,7 +21,7 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-sass`,
+      resolve: 'gatsby-plugin-sass',
       options: {
         postCssPlugins: [
           require('tailwindcss'),
@@ -29,19 +32,19 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-typescript`,
-    `gatsby-plugin-js-fallback`,
+    'gatsby-plugin-typescript',
+    'gatsby-plugin-js-fallback',
     {
-      resolve: `gatsby-plugin-compile-es6-packages`,
+      resolve: 'gatsby-plugin-compile-es6-packages',
       options: {
         modules: [`@philpl/buble`, `buble`],
       },
     },
-    `gatsby-plugin-layout`,
-    `gatsby-plugin-react-helmet`,
-    `gatsby-transformer-yaml`,
+    'gatsby-plugin-layout',
+    'gatsby-plugin-react-helmet',
+    'gatsby-transformer-yaml',
     {
-      resolve: `gatsby-source-graphql`,
+      resolve: 'gatsby-source-graphql',
       options: {
         typeName: 'GitHub',
         fieldName: 'github',
@@ -77,6 +80,13 @@ module.exports = {
       options: {
         path: path.join(__dirname, 'src', 'data'),
         name: 'data',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: path.join(__dirname, 'education'),
+        name: 'education',
       },
     },
     {
