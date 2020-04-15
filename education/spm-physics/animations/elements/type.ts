@@ -1,21 +1,27 @@
+import { EventEmitter } from './event-emitter';
+
 export type CanvasContext = CanvasRenderingContext2D;
 
-export interface DrawingObject {
-  nextFrame: () => void;
+export type RenderProps = {
+  ctx: CanvasContext;
+  boundary: XandY;
+};
+
+export type DrawingObjectEvents = {
   pause: () => void;
-  render: (ctx: CanvasContext) => void;
+};
+
+export interface DrawingObject extends EventEmitter<DrawingObjectEvents> {
+  nextFrame: (boundary: XandY) => void;
+  pause: () => void;
+  render: (props: RenderProps) => void;
   peekPosition: () => Readonly<XandY>;
+  restart: () => void;
 }
 
 export type XandY = [number, number];
 
 export interface ConstructorByType {
-  'fixed-speed': {
-    size: XandY;
-    position: XandY;
-    color: string;
-    velocity: XandY;
-  };
   'fixed-acceleration': {
     acceleration: XandY;
     initial: {
@@ -24,30 +30,8 @@ export interface ConstructorByType {
     };
     size: XandY;
     color: string;
+    stopAtBoundary: boolean;
     withSpeedLabel: boolean;
   };
   clock: { font: string; color: string; x: number; y: number };
 }
-
-export type ConstructorEvent = {
-  [key in keyof ConstructorByType]: {
-    type: key;
-    payload: ConstructorByType[key];
-  };
-}[keyof ConstructorByType];
-
-export type WorkerEvent =
-  | ConstructorEvent
-  | {
-      type: 'init';
-      canvas: OffscreenCanvas;
-      width: number;
-      height: number;
-      gridLine: number;
-    }
-  | {
-      type: 'run';
-    }
-  | {
-      type: 'pause';
-    };

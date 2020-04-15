@@ -11,9 +11,16 @@ objectives:
 
 Click Play and look at the dot below. Is it fast or is it slow?
 
-import { SingleObjectAnimation } from '../animations/animation-container';
+import { Scene, ConstantAccSquare } from '../animations';
 
-<SingleObjectAnimation initialSpeed={100} initialPosition={40} />
+<Scene className="md:hidden">
+  <ConstantAccSquare initialSpeed={200} initialX={100} />
+  <ConstantAccSquare initialSpeed={300} color="red" />
+</Scene>
+<Scene width={500} className="hidden md:block">
+  <ConstantAccSquare initialSpeed={200} initialX={100} />
+  <ConstantAccSquare initialSpeed={300} color="red" />
+</Scene>
 
 ## Distance
 

@@ -1,6 +1,13 @@
-import { CanvasContext, ConstructorByType, DrawingObject } from './type';
+import { EventEmitter } from './event-emitter';
+import {
+  ConstructorByType,
+  DrawingObject,
+  DrawingObjectEvents,
+  RenderProps,
+} from './type';
 
-export class Clock implements DrawingObject {
+export class Clock extends EventEmitter<DrawingObjectEvents>
+  implements DrawingObject {
   private lastRun: Date | undefined;
   private msPassed: number = 0;
   private font: string;
@@ -9,6 +16,7 @@ export class Clock implements DrawingObject {
   private y: number;
 
   constructor({ font, color, x, y }: ConstructorByType['clock']) {
+    super();
     this.font = font;
     this.color = color;
     this.x = x;
@@ -30,7 +38,7 @@ export class Clock implements DrawingObject {
     this.lastRun = undefined;
   }
 
-  render(ctx: CanvasContext) {
+  render({ ctx }: RenderProps) {
     ctx.font = this.font;
     ctx.fillStyle = this.color;
     ctx.textAlign = 'center';
@@ -39,5 +47,10 @@ export class Clock implements DrawingObject {
 
   peekPosition() {
     return [this.x, this.y] as const;
+  }
+
+  restart() {
+    this.msPassed = 0;
+    this.lastRun = undefined;
   }
 }

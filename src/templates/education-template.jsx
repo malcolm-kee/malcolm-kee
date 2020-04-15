@@ -4,11 +4,10 @@ import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ChevronIcon } from '../components/chevron-icon';
 import { ErrorBoundary } from '../components/error-boundary';
-import { ScrollProgress } from '../components/scroll-progress';
 import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
 import styles from './lesson-template.module.scss';
-import './lesson-template.scss';
+import eduStyles from './education-template.module.scss';
 
 const EducationTemplate = ({
   data: { education },
@@ -17,15 +16,16 @@ const EducationTemplate = ({
 }) => {
   return (
     <ErrorBoundary>
-      <div className="instruction-template-container">
+      <div className={eduStyles.main}>
         <Seo
           title={`${education.chapter} - ${education.title}`}
           description={education.description}
           keywords={education.keywords}
           pathname={location.pathname}
         />
-        <div className="instruction-template">
-          <h1 className="relative text-5xl my-6 text-gray-700 dark:text-gray-300">
+        <div className={`max-w-2xl sm:mr-6 px-2 ml-auto ${eduStyles.content}`}>
+          <p className="mt-6">{education.chapter}</p>
+          <h1 className="relative text-3xl sm:text-5xl mb-6 text-gray-700 dark:text-gray-300">
             <a
               href="#workshop-toc"
               id="skip-main"
@@ -61,24 +61,7 @@ const EducationTemplate = ({
               </ul>
             </div>
           )}
-          <div className="instruction-toc py-4">
-            {education.tableOfContents.items && (
-              <>
-                <ScrollProgress
-                  items={education.tableOfContents.items}
-                  className={styles.progressWrapper}
-                />
-                <ul className={styles.tocPlain}>
-                  {education.tableOfContents.items.map((item, i) => (
-                    <li key={i}>
-                      <a href={item.url}>{item.title}</a>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </div>
-          <main>
+          <main className="py-8">
             <article className="instruction-article article-content pb-4">
               <MDXRenderer>{education.body}</MDXRenderer>
             </article>
@@ -125,7 +108,6 @@ export const pageQuery = graphql`
       chapter
       objectives
       body
-      tableOfContents(maxDepth: 2)
     }
   }
 `;
