@@ -1,16 +1,16 @@
 import { isFunction } from 'typesafe-is';
 
-interface CallBack<Params extends any[]> {
-  (...args: Params): void;
+interface CallBack<This, Params extends any[]> {
+  (this: This, ...args: Params): void;
 }
 
-export function debounce<Params extends any[]>(
-  fn: CallBack<Params>,
+export function debounce<This, Params extends any[]>(
+  fn: CallBack<This, Params>,
   wait: number = 300
 ) {
   let timeout: number | undefined = undefined;
 
-  return function(...args: Params) {
+  return function(this: This, ...args: Params) {
     const context = this;
     window.clearTimeout(timeout);
     timeout = window.setTimeout(function() {
@@ -20,10 +20,10 @@ export function debounce<Params extends any[]>(
   };
 }
 
-export function throttle<Params extends any[]>(
-  fn: CallBack<Params>,
+export function throttle<This, Params extends any[]>(
+  fn: CallBack<This, Params>,
   wait = 250,
-  context: any = null
+  context: This = null as any
 ) {
   let timeout: undefined | number = undefined;
   let args: undefined | Params = undefined;
@@ -42,5 +42,5 @@ export function throttle<Params extends any[]>(
 }
 
 export const callAll = <Params extends any[]>(
-  ...fns: Array<CallBack<Params> | undefined>
+  ...fns: Array<CallBack<void, Params> | undefined>
 ) => (...args: Params) => fns.forEach(fn => isFunction(fn) && fn(...args));
