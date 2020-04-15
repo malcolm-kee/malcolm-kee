@@ -3,6 +3,9 @@ title: How Does That Scales?
 date: '2020-04-15'
 summary: "A frontend developer's answer for the question."
 tags: ['full-stack-development']
+image: './bicycles.jpg'
+imageBy: 'Berto Macario'
+imageByLink: 'https://unsplash.com/@bertomacario'
 published: true
 ---
 
