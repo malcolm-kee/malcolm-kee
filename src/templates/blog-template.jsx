@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import { graphql, Link } from 'gatsby';
 import Image from 'gatsby-image';
+import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import kebabCase from 'lodash/kebabCase';
 import React from 'react';
@@ -39,6 +40,8 @@ export default function BlogTemplate({ data, pageContext, location }) {
   } = data;
 
   const isChinese = lang.split('-')[0] === 'zh';
+
+  const isJsEnabled = useIsJsEnabled();
 
   return (
     <MainContent as="div">
@@ -147,11 +150,13 @@ export default function BlogTemplate({ data, pageContext, location }) {
             articlePath={slug}
             searchTerm={pageContext.commentsSearch}
           />
-          <FriendlyComments
-            identifier={pageContext.id}
-            title={title}
-            url={slug}
-          />
+          {isJsEnabled && (
+            <FriendlyComments
+              identifier={pageContext.id}
+              title={title}
+              url={slug}
+            />
+          )}
         </div>
         <AdjacentArticles
           previous={pageContext.previous}
