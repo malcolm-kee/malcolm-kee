@@ -5,11 +5,13 @@
   },
   "[markdown]": {
     "editor.quickSuggestions": true,
-    "editor.wordWrap": "bounded"
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 130
   },
   "[mdx]": {
     "editor.quickSuggestions": true,
-    "editor.wordWrap": "bounded"
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 130
   },
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

@@ -110,37 +110,45 @@ exports.createWorkshopPages = function createWorkshopPages({
   }
 
   const { createPage } = actions;
-  return graphql(`
-    {
-      allLesson(sort: { fields: fileAbsolutePath, order: ASC }) {
-        edges {
-          node {
-            id
-            title
-            slug
-            section
-            isLastLesson
-            workshop {
+  return graphql(
+    `
+      query getLessons($regex: String!) {
+        allLesson(
+          sort: { fields: fileAbsolutePath, order: ASC }
+          filter: { workshop: { id: { regex: $regex } } }
+        ) {
+          edges {
+            node {
               id
-              name
-              themeColor
-              contrastColor
-              iconFile {
-                childImageSharp {
-                  resize(width: 48, height: 48) {
-                    src
+              title
+              slug
+              section
+              isLastLesson
+              workshop {
+                id
+                name
+                themeColor
+                contrastColor
+                iconFile {
+                  childImageSharp {
+                    resize(width: 48, height: 48) {
+                      src
+                    }
                   }
                 }
               }
             }
-          }
-          next {
-            slug
+            next {
+              slug
+            }
           }
         }
       }
+    `,
+    {
+      regex: ONLY_WORKSHOP ? `/${ONLY_WORKSHOP}/` : '/\\.*/g', // optimize build
     }
-  `).then(result => {
+  ).then(result => {
     if (result.errors) {
       return Promise.reject(result.errors);
     }
@@ -162,11 +170,6 @@ exports.createWorkshopPages = function createWorkshopPages({
     });
 
     groups.forEach(group => {
-      if (ONLY_WORKSHOP && group.workshop !== ONLY_WORKSHOP) {
-        // optimize build
-        return;
-      }
-
       const lessonGroup = groupInstruction(group.edges);
 
       group.edges.forEach(({ node: lesson, next }, index, edges) => {

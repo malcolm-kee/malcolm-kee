@@ -46,6 +46,7 @@ export const Seo = ({
       <meta name="author" content={siteMetadata.author} />
       <meta name="description" content={displayDescription} />
       <meta name="keywords" content={displayKeywords} />
+      <meta property="og:type" content="website" />
       <meta
         property="og:url"
         content={siteMetadata.siteUrl + (pathname || '')}
