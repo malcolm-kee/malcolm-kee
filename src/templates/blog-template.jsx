@@ -7,6 +7,7 @@ import React from 'react';
 import { isArray } from 'typesafe-is';
 import { RoundedLinkButton } from '../components/Button';
 import { Comments } from '../components/comments';
+import { FriendlyComments } from '../components/friendly-comments';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
@@ -145,6 +146,11 @@ export default function BlogTemplate({ data, pageContext, location }) {
             comments={comments}
             articlePath={slug}
             searchTerm={pageContext.commentsSearch}
+          />
+          <FriendlyComments
+            identifier={pageContext.id}
+            title={title}
+            url={slug}
           />
         </div>
         <AdjacentArticles

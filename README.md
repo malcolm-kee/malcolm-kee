@@ -58,6 +58,7 @@ DISABLE_WORKSHOP=true
 ONLY_WORKSHOP=intro-to-react-js-v2
 GITHUB_TOKEN=<Your_Github_Token>
 GATSBY_GITHUB_TOKEN=<Your_Github_Token>
+GATSBY_DISCUQ_NAME=<Your_Discuq_Shortname>
 ```
 
 [gatsby-mdx]: https://github.com/ChristopherBiscardi/gatsby-mdx
