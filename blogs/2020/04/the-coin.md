@@ -1,0 +1,72 @@
+---
+title: The Coin Always Has Two Sides
+date: '2020-04-18'
+summary: 'The bad of good things and the good of bad things'
+tags: ['personal']
+image: './coin.jpg'
+imageBy: 'Virgil Cayasa'
+imageByLink: 'https://unsplash.com/@virgilcayasa'
+published: true
+---
+
+All over the world, a common trend is that there are more boys than girls studying STEM (Science, Technology, and Mathematics) or having a job in the fields.
+
+This may gives the impression that boys are naturally better at mathematics than girl. However, scientists have did some research and find out that _averagely_, there are little difference of mathematics ability between girls and boys when they are young, but the boys' mathematics skill improves more than girls as they ages.
+
+Is it because girls' mathematics skill somehow stagnant due to some difference of the gender? Nobody really know. One theory to explains this phenomenon points out that even though little boys and little girls have similar skills in mathematics, however, young girls have better verbal skill than boys.
+
+![At young age, even though mathematics skills is similar across gender, but girl has better verbal skill than boy](boys-vs-girls.jpg)
+
+The higher verbal ability of girl may seems something nice to have, but it makes language becomes a much more appealing subject for the girl. On the other hand, the average boy like me, whose mathematics skill is not really much better than the girl counterpart, feel like mathematics is more fun than language. As people are prones to pay more efforts to what they are good at and avoid what frustrates them, slowly the boys are really better at mathematics than the girls due to their higher investments on the subject while the girls spend more of their efforts on languages.
+
+<aside>
+
+Disclaimer: The discussions above is about the difference between genders _on average_. I know some girls are really good at mathematics, I'm not doubting that.
+
+</aside>
+
+---
+
+The point I want to bring up from the previous discussion is that, we can't really predict if something that appears good is really beneficial to us in advance.
+
+Who would have thought that a better verbal skill would cause the girls leaving behind on the STEM subject and industry?
+
+Purely looking at their overall mental development at young age, most of us may bet that girls have better chances excelling in mathematics than boys (they are smarter than boys in overall!), but the complex interactions between factors in real world is beyond our calculation.
+
+Another example of this ambiguity of bad-and-good is having a dyslexia.
+
+As parent, we wish our kids to not having dyslexia, as it will causes learning difficulties, and definitely make their life harder.
+
+Or does it?
+
+Statistics shows that there are twice more dyslexics among enterpreneurs when compared to the general populations. The speculated reason is the difficulty that is caused by dyslexia trains dyslexics to develop coping mechanism to deal with the difficulties and build up a more resilient character.
+
+---
+
+So what's the takeaway?
+
+It's not that because good and bad are so hard to predict, let's just throw the towel and don't do analysis before making decision. Some situations are really bad, like abusive relationship and boss that pressure you to overwork.
+
+Avoid them if you can.
+
+But, sometimes we don't really have a choice.
+
+We don't get what we wish.
+
+We're not born into rich family.
+
+We don't get that job offer or promotion.
+
+That sucks. But... maybe it's not.
+
+The coin always has two sides.
+
+Knowing that goods and bads are so hard to predict in advance, we may just dodge a bullet.
+
+There is no need of "if only...", it's unnecessary and could be wrong anyway.
+
+Just continue with what we have know.
+
+This may be the best path that we can take.
+
+The obstacle is the way.
