@@ -1,5 +1,5 @@
 ---
-title: How Does That Scales?
+title: How Does That Scale?
 date: '2020-04-15'
 summary: "A frontend developer's answer for the question."
 tags: ['full-stack-development']
@@ -9,7 +9,7 @@ imageByLink: 'https://unsplash.com/@bertomacario'
 published: true
 ---
 
-"How does that scales?" is not a common question frontend developer asks.
+"How does that scale?" is not a common question frontend developer asks.
 
 That's because for frontend, the code runs on clients (which are mostly browsers), and they live in users' machine/phone, so scaleability is usually not an issue.
 
