@@ -188,7 +188,6 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
           id: node.id,
           next: previous, // we need to invert these 2 because we query date descending
           previous: next,
-          commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${node.slug} in:title sort:created-asc`,
           relatedBlogs: _.sampleSize(
             posts.filter(
               post =>

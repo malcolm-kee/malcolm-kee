@@ -187,7 +187,6 @@ exports.createWorkshopPages = function createWorkshopPages({
             },
             // used in template
             slug: lesson.slug,
-            commentsSearch: `repo:malcolm-kee/malcolm-kee label:comment ${lesson.slug} in:title sort:created-asc`,
           },
         });
       });

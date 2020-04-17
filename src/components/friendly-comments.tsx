@@ -17,24 +17,23 @@ export type FriendlyCommentsProps = {
 
 export const FriendlyComments = (props: FriendlyCommentsProps) => {
   return (
-    <Disclosure>
-      <div>
+    <div className="px-2">
+      <Disclosure>
         <DisclosureButton
           as={Button}
-          className="border border-gray-500 dark:border-gray-100"
+          className="border border-gray-500 dark:border-gray-100 text-lg"
           minWidth="widest"
-          raised
         >
           Comments
         </DisclosureButton>
-      </div>
-      <DisclosurePanel>
-        <React.Suspense fallback="Loading...">
-          <ErrorBoundary>
-            <DiscuqComments {...props} />
-          </ErrorBoundary>
-        </React.Suspense>
-      </DisclosurePanel>
-    </Disclosure>
+        <DisclosurePanel>
+          <React.Suspense fallback="Loading...">
+            <ErrorBoundary>
+              <DiscuqComments {...props} />
+            </ErrorBoundary>
+          </React.Suspense>
+        </DisclosurePanel>
+      </Disclosure>
+    </div>
   );
 };

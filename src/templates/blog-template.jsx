@@ -7,7 +7,6 @@ import kebabCase from 'lodash/kebabCase';
 import React from 'react';
 import { isArray } from 'typesafe-is';
 import { RoundedLinkButton } from '../components/Button';
-import { Comments } from '../components/comments';
 import { FriendlyComments } from '../components/friendly-comments';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
@@ -33,9 +32,6 @@ export default function BlogTemplate({ data, pageContext, location }) {
       body,
       timeToRead,
       slug,
-    },
-    github: {
-      search: { nodes: comments },
     },
   } = data;
 
@@ -145,11 +141,6 @@ export default function BlogTemplate({ data, pageContext, location }) {
             </ShareButton>
           </div>
           <RelatedBlogs blogs={pageContext.relatedBlogs} />
-          <Comments
-            comments={comments}
-            articlePath={slug}
-            searchTerm={pageContext.commentsSearch}
-          />
           {isJsEnabled && (
             <FriendlyComments
               identifier={pageContext.id}
@@ -212,7 +203,7 @@ function RelatedBlogs({ blogs }) {
 }
 
 export const pageQuery = graphql`
-  query BlogPostById($id: String!, $commentsSearch: String!) {
+  query BlogPostById($id: String!) {
     blogPost(id: { eq: $id }) {
       body
       slug
@@ -237,13 +228,6 @@ export const pageQuery = graphql`
         }
       }
       timeToRead
-    }
-    github {
-      search(query: $commentsSearch, type: ISSUE, first: 100) {
-        nodes {
-          ...Comment
-        }
-      }
     }
   }
 `;

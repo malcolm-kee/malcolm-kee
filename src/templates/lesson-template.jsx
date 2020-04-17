@@ -1,9 +1,10 @@
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import React from 'react';
 import { LinkButton } from '../components/Button';
 import { ChevronIcon } from '../components/chevron-icon';
-import { Comments } from '../components/comments';
+import { FriendlyComments } from '../components/friendly-comments';
 import { ErrorBoundary } from '../components/error-boundary';
 import { ReportIssueLink } from '../components/report-issue-link';
 import { ScrollProgress } from '../components/scroll-progress';
@@ -13,10 +14,12 @@ import styles from './lesson-template.module.scss';
 import './lesson-template.scss';
 
 const LessonTemplate = ({
-  data: { lesson, github },
+  data: { lesson },
   pageContext: { next, commentsSearch },
   location,
 }) => {
+  const isJsEnabled = useIsJsEnabled();
+
   return (
     <ErrorBoundary>
       <div className="instruction-template-container">
@@ -99,11 +102,13 @@ const LessonTemplate = ({
               </LinkButton>
             </div>
           )}
-          <Comments
-            comments={github.search.nodes}
-            articlePath={lesson.slug}
-            searchTerm={commentsSearch}
-          />
+          {isJsEnabled && (
+            <FriendlyComments
+              identifier={lesson.id}
+              title={lesson.title}
+              url={lesson.slug}
+            />
+          )}
         </div>
         <div className="instruction-template-report-issue-container">
           <p>
@@ -130,7 +135,7 @@ const rightArrow = (
 export default LessonTemplate;
 
 export const pageQuery = graphql`
-  query LessonBySlug($slug: String!, $commentsSearch: String!) {
+  query LessonBySlug($slug: String) {
     lesson(slug: { eq: $slug }) {
       id
       slug
@@ -151,13 +156,6 @@ export const pageQuery = graphql`
       objectives
       body
       tableOfContents(maxDepth: 2)
-    }
-    github {
-      search(query: $commentsSearch, type: ISSUE, first: 100) {
-        nodes {
-          ...Comment
-        }
-      }
     }
   }
 `;

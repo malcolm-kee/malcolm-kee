@@ -1,8 +1,6 @@
 import { MDXProvider } from '@mdx-js/react';
 import React from 'react';
 import { isDefined } from 'typesafe-is';
-import fetch from 'unfetch';
-import { createClient, Provider } from 'urql';
 import { CodeRenderer } from '../components/code-renderer';
 import { ErrorBoundary } from '../components/error-boundary';
 import { MdxLink } from '../components/mdx-link';
@@ -14,16 +12,6 @@ import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
 import { EduLayout } from './edu-layout';
 import { WorkshopLayout } from './workshop-layout';
-
-const githubClient = createClient({
-  url: 'https://api.github.com/graphql',
-  fetch,
-  fetchOptions: {
-    headers: {
-      Authorization: `Bearer ${process.env.GATSBY_GITHUB_TOKEN}`,
-    },
-  },
-});
 
 const mdxComponents = {
   a: MdxLink,
@@ -53,25 +41,23 @@ const LayoutContainer = ({ children, pageContext, location }) => {
 
   return (
     <ErrorBoundary>
-      <Provider value={githubClient}>
-        <ThemeProvider value={themeValue}>
-          <MDXProvider components={mdxComponents}>
-            {isDefined(workshop) ? (
-              <WorkshopLayout
-                workshop={workshop}
-                workshopSections={lessonGroup}
-                pathname={location.pathname}
-              >
-                {children}
-              </WorkshopLayout>
-            ) : isDefined(subject) ? (
-              <EduLayout subject={subject}>{children}</EduLayout>
-            ) : (
-              <Layout isRoot={isRoot}>{children}</Layout>
-            )}
-          </MDXProvider>
-        </ThemeProvider>
-      </Provider>
+      <ThemeProvider value={themeValue}>
+        <MDXProvider components={mdxComponents}>
+          {isDefined(workshop) ? (
+            <WorkshopLayout
+              workshop={workshop}
+              workshopSections={lessonGroup}
+              pathname={location.pathname}
+            >
+              {children}
+            </WorkshopLayout>
+          ) : isDefined(subject) ? (
+            <EduLayout subject={subject}>{children}</EduLayout>
+          ) : (
+            <Layout isRoot={isRoot}>{children}</Layout>
+          )}
+        </MDXProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 };
