@@ -146,39 +146,67 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
   const { createPage } = actions;
 
-  return graphql(`
-    {
-      allBlogPost(sort: { fields: date, order: DESC }, limit: 1000) {
-        edges {
-          node {
-            id
-            title
-            tags
-            summary
-            keywords
-            slug
+  return graphql(
+    `
+      query getBlogs($limit: Int) {
+        publishedBlogs: allBlogPost(
+          sort: { fields: date, order: DESC }
+          limit: $limit
+          filter: { published: { eq: true } }
+        ) {
+          edges {
+            node {
+              id
+              title
+              tags
+              summary
+              keywords
+              slug
+            }
+            next {
+              title
+              slug
+            }
+            previous {
+              title
+              slug
+            }
           }
-          next {
-            title
-            slug
-          }
-          previous {
-            title
-            slug
+        }
+        draftBlogs: allBlogPost(filter: { published: { eq: false } }) {
+          edges {
+            node {
+              id
+              title
+              tags
+              summary
+              keywords
+              slug
+            }
           }
         }
       }
+    `,
+    {
+      limit: process.env.NUM_OF_BLOGS ? Number(process.env.NUM_OF_BLOGS) : 1000,
     }
-  `).then(result => {
+  ).then(result => {
     if (result.errors) {
       return Promise.reject(result.errors);
     }
 
-    const allBlogPosts = result.data.allBlogPost.edges;
+    result.data.draftBlogs.edges.forEach(({ node }) => {
+      createPage({
+        path: node.slug,
+        component: blogPostTemplate,
+        context: {
+          id: node.id,
+          relatedBlogs: [],
+        },
+      });
+    });
 
-    const posts = process.env.NUM_OF_BLOGS
-      ? allBlogPosts.slice(0, Number(process.env.NUM_OF_BLOGS))
-      : allBlogPosts;
+    const posts = result.data.publishedBlogs.edges;
 
     posts.forEach(({ node, next, previous }) => {
       createPage({
@@ -221,7 +249,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
     let tags = [];
 
-    allBlogPosts.forEach(edge => {
+    posts.forEach(edge => {
       if (_.get(edge, 'node.tags')) {
         tags = tags.concat(edge.node.tags);
       }
