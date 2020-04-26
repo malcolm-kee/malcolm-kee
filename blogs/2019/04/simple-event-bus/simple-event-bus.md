@@ -18,7 +18,7 @@ In fact, that's what happened to me in work recently. So instead of using anothe
 const eventBus = createEventBus();
 // eventBus is an object with two methods: `subscribe` and `publish`.
 
-const unsub = eventBus.subscribe(function(ev) {
+const unsub = eventBus.subscribe(function (ev) {
   console.log(ev);
 });
 
@@ -46,7 +46,7 @@ function createEventBus() {
   }
 
   function publish(event) {
-    subscribers.forEach(subscriber => {
+    subscribers.forEach((subscriber) => {
       try {
         subscriber(event);
       } catch (e) {

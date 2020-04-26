@@ -10,9 +10,7 @@ describe(`project page`, () => {
   });
 
   it('loads all the projects', () => {
-    cy.findByText('Generative Arts')
-      .click()
-      .wait(500);
+    cy.findByText('Generative Arts').click().wait(500);
     cy.findByText('Live')
       .click()
       .location('pathname')

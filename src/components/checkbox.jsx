@@ -19,7 +19,7 @@ export const Checkbox = ({
         type="checkbox"
         onChange={callAll(
           onChange,
-          onChangeValue && (ev => onChangeValue(ev.target.checked))
+          onChangeValue && ((ev) => onChangeValue(ev.target.checked))
         )}
         name={name}
         id={id}

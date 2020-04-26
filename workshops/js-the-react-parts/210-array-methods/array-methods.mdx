@@ -42,7 +42,7 @@ Because transformation of array item is such a common use case, utilities librar
 ```javascript
 const numbers = [1, 2, 3, 4, 5];
 
-const result = map(numbers, x => x * 2); // [2, 3, 6, 8, 10];
+const result = map(numbers, (x) => x * 2); // [2, 3, 6, 8, 10];
 ```
 
 The implementation of `map` is just few lines of code:
@@ -86,7 +86,7 @@ Now we will go through each of them below.
 
 ```js live
 const numbers = [1, 2, 3];
-const doubles = numbers.map(num => num * 2);
+const doubles = numbers.map((num) => num * 2);
 
 console.log(doubles); // [2, 4, 6]
 console.log(numbers); // no change
@@ -98,7 +98,7 @@ const persons = [
   { firstName: 'Steve', lastName: 'Jobs' },
 ];
 
-const names = persons.map(person => `${person.firstName} ${person.lastName}`);
+const names = persons.map((person) => `${person.firstName} ${person.lastName}`);
 
 console.log(names);
 ```
@@ -139,7 +139,7 @@ Get the IC numbers for all the participants
 
 ```js live
 const numbers = [1, 2, 3, 4, 5];
-const evenNumbers = numbers.filter(num => num % 2 === 0);
+const evenNumbers = numbers.filter((num) => num % 2 === 0);
 
 console.log(evenNumbers); // [2, 4]
 console.log(numbers); // still [1, 2, 3, 4, 5], because `filter` doesn't change the original array
@@ -151,7 +151,7 @@ const persons = [
   { name: 'Siti Nurhaliza', isMalaysian: true },
 ];
 
-const malaysians = persons.filter(person => person.isMalaysian);
+const malaysians = persons.filter((person) => person.isMalaysian);
 
 console.log(malaysians);
 ```
@@ -187,8 +187,8 @@ Because both `filter` and `map` returns a new array, it's common to chain them t
 ```js live
 const numbers = [1, 2, 3, 4];
 const doubleOddNumbers = numbers
-  .filter(num => num % 2 === 1) // this will returns [1, 3]
-  .map(num => num * 2); // this will returns [2, 6]
+  .filter((num) => num % 2 === 1) // this will returns [1, 3]
+  .map((num) => num * 2); // this will returns [2, 6]
 
 console.log(doubleOddNumbers);
 ```

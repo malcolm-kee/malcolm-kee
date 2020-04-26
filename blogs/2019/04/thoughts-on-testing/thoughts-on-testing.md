@@ -18,7 +18,7 @@ published: true
     import _ from 'lodash';
 
     export function mapData(serverData) {
-      return serverData.map(itemData => _.pick(itemData, ['id']));
+      return serverData.map((itemData) => _.pick(itemData, ['id']));
     }
     ```
 

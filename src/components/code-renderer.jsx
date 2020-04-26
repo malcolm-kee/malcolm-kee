@@ -131,7 +131,7 @@ const CodeLiveEditor = ({
                 <LiveEditor
                   // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus
-                  onKeyDown={ev => {
+                  onKeyDown={(ev) => {
                     if (ev.key === 'Escape') {
                       setIsEdit(false);
                     }
@@ -262,7 +262,7 @@ const useToggleContent = () => {
   const showBtnRef = React.useRef(null);
 
   useDiffEffect(
-    prev => {
+    (prev) => {
       if (prev && prev[0] && !show) {
         showBtnRef.current && showBtnRef.current.focus();
       }
@@ -299,7 +299,7 @@ const accessibleGithub = {
     ...github.plain,
     backgroundColor: '#ffffff',
   },
-  styles: github.styles.map(style =>
+  styles: github.styles.map((style) =>
     style.types.indexOf('entity') !== -1
       ? {
           ...style,
@@ -336,7 +336,7 @@ const accessibleGithub = {
 
 const accessibleNightOwl = {
   ...nightOwl,
-  styles: nightOwl.styles.map(style =>
+  styles: nightOwl.styles.map((style) =>
     style.types.indexOf('comment') !== -1
       ? {
           ...style,

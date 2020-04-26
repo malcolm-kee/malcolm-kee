@@ -141,7 +141,7 @@ export class Button extends React.Component {
   };
 
   handleToggleOn = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       on: !prevState.on,
     }));
   };
@@ -169,7 +169,7 @@ export class Button extends React.Component<{}, ButtonState> {
   };
 
   handleToggleOn = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       on: !prevState.on,
     }));
   };

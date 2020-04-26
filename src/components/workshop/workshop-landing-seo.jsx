@@ -2,7 +2,7 @@ import React from 'react';
 import { Seo } from '../Seo';
 import { graphql } from 'gatsby';
 
-export const WorkshopLandingSeo = props => {
+export const WorkshopLandingSeo = (props) => {
   return (
     <Seo
       title={props.name}

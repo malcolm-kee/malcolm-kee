@@ -104,7 +104,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       }
     );
 
-    this.editor.onKeyDown(ev => {
+    this.editor.onKeyDown((ev) => {
       if (ev.keyCode === 9) {
         // 'Escape Key'
         this.handleKey();
@@ -122,8 +122,8 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
     if (model) {
       monaco.languages.typescript
         .getTypeScriptWorker()
-        .then(worker => worker(model.uri))
-        .then(proxy => {
+        .then((worker) => worker(model.uri))
+        .then((proxy) => {
           this.tsProxy = proxy;
         });
     }

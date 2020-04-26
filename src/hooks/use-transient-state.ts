@@ -11,7 +11,7 @@ export const useTransientState = <T>(
     newValue: React.SetStateAction<T>
   ) {
     setState(newValue);
-    setCallTimes(t => t + 1);
+    setCallTimes((t) => t + 1);
   },
   []);
 

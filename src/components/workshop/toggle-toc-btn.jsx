@@ -14,7 +14,7 @@ export const ToggleTocBtn = React.forwardRef(
         onClick={onToggle}
         aria-label="Toggle Table of Contents"
         ref={ref}
-        onKeyPress={ev => {
+        onKeyPress={(ev) => {
           if (ev.which === 32 || ev.which === 13) {
             ev.preventDefault(); // prevent default scroll behavior when space is pressed
             onToggle();

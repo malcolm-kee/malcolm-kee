@@ -28,14 +28,14 @@ Update `loadMovies` function in `api.js` to accept a `searchKey` parameters:
 
 ```javascript
 // highlight-next-line
-export const loadMovies = searchKey =>
+export const loadMovies = (searchKey) =>
   getAxios()
-    .then(axios =>
+    .then((axios) =>
       axios.default('https://react-intro-movies.herokuapp.com/movies', {
         params: { q: searchKey }, // highlight-line
       })
     )
-    .then(res => res.data);
+    .then((res) => res.data);
 ```
 
 - axios accept a second parameter to customize the ajax call. `params` is an object that will be transformed to query string and append to the end of the ajax call.

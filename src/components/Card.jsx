@@ -14,7 +14,7 @@ export const Card = ({
     className={cx('card', selectable && styles.selectable, className)}
     tabIndex={selectable ? 0 : undefined}
     onClick={selectable ? onSelect : undefined}
-    onKeyPress={ev => {
+    onKeyPress={(ev) => {
       if (ev.key === 'Enter' || ev.key === ' ') {
         ev.preventDefault();
         onSelect();

@@ -205,9 +205,9 @@ const person = {
 };
 
 const getAge = () => person.age;
-const isUnderage = person => person.age < 18;
-const getNextYearAge = person => person.age + 1;
-const makePersonOlder = person => person.age++;
+const isUnderage = (person) => person.age < 18;
+const getNextYearAge = (person) => person.age + 1;
+const makePersonOlder = (person) => person.age++;
 ```
 
 ```js live
@@ -217,14 +217,14 @@ const persons = [
   { name: 'Tristan Gomez', isWeird: true },
 ];
 
-const getFirstNames = persons =>
-  persons.map(person => person.name.split(' ')[0]);
+const getFirstNames = (persons) =>
+  persons.map((person) => person.name.split(' ')[0]);
 
 const getFirstPerson = () => persons[0];
 
-const getWeirdPersons = () => persons.filter(person => person.isWeird);
+const getWeirdPersons = () => persons.filter((person) => person.isWeird);
 
-const groupPersonByWeirdness = persons => {
+const groupPersonByWeirdness = (persons) => {
   const weirdos = [];
   const normals = [];
 
@@ -271,7 +271,7 @@ The implementation of `callAll` is actually very short, but may takes some time 
 
 ```js live
 const callAll = (...fns) => (...args) =>
-  fns.forEach(fn => typeof fn === 'function' && fn(...args));
+  fns.forEach((fn) => typeof fn === 'function' && fn(...args));
 ```
 
 It's rewritten more verbosely to make it easier to understand:
@@ -284,7 +284,7 @@ const callAll = (...fns) =>
     // due to closure, combinedFn has access to fns array
     // it will go through the fns array and invoke each item by spreading all the parameters
     // to the item if the array item is a function
-    fns.forEach(fn => typeof fn === 'function' && fn(...args));
+    fns.forEach((fn) => typeof fn === 'function' && fn(...args));
   };
 ```
 
@@ -295,26 +295,20 @@ You may notice that even though `callAll` is a pure function, but that doesn't m
 `pipe` combines multiple functions into a single function, in which the output of that a function will become input for the next function.
 
 ```javascript
-const triple = x => x * 3;
-const increment = x => x + 1;
+const triple = (x) => x * 3;
+const increment = (x) => x + 1;
 
-const tripleThenIncrement = pipe(
-  triple,
-  increment
-);
+const tripleThenIncrement = pipe(triple, increment);
 tripleThenIncrement(2); // (2 * 3) + 1 = 7
 
-const incrementThenTriple = pipe(
-  increment,
-  triple
-);
+const incrementThenTriple = pipe(increment, triple);
 incrementThenTriple(2); // (2 + 1) * 3 = 9
 ```
 
 The implementation of `pipe`, just like `callAll`, is short but takes time to digest:
 
 ```js live
-const pipe = (...fns) => arg => fns.reduce((result, fn) => fn(result), arg);
+const pipe = (...fns) => (arg) => fns.reduce((result, fn) => fn(result), arg);
 ```
 
 A more verbose version:
@@ -327,7 +321,7 @@ const pipe = (...fns) =>
     let result = arg;
     // due to closure, pipedFn has access to fns array
     // it will go through the array and use the result of previous function as parameter of next function
-    fns.forEach(fn => {
+    fns.forEach((fn) => {
       // we loop through
       result = fn(result);
     });
@@ -343,24 +337,14 @@ In contrast with `callAll` (where it doesn't restrict what function you can pass
 You can join `callAll` and `pipe` together, like this:
 
 ```javascript
-const double = x => x * 2;
-const plusOne = x => x + 1;
-const cube = x => x * x * x;
+const double = (x) => x * 2;
+const plusOne = (x) => x + 1;
+const cube = (x) => x * x * x;
 
 const logAll = callAll(
-  pipe(
-    double,
-    console.log
-  ),
-  pipe(
-    plusOne,
-    double,
-    console.log
-  ),
-  pipe(
-    cube,
-    console.log
-  )
+  pipe(double, console.log),
+  pipe(plusOne, double, console.log),
+  pipe(cube, console.log)
 );
 
 logAll(2);

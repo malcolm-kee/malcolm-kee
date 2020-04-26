@@ -43,10 +43,10 @@ Now that we know the actual AJAX call works by using tools, let's proceed to do 
 Create a `createMovie` function in `api.js` that will make the request
 
 ```js
-export const createMovie = movie =>
+export const createMovie = (movie) =>
   axios
     .post('https://react-intro-movies.herokuapp.com/movies', movie)
-    .then(res => res.data);
+    .then((res) => res.data);
 ```
 
 - axios allows you to makes API call with specific method, e.g. `get`, `post`, `put` etc., corresponding to our REST call methods.
@@ -68,14 +68,14 @@ class MovieForm extends React.Component {
     releaseDate: '',
   };
 
-  handleInputChange = ev => {
+  handleInputChange = (ev) => {
     const { name, value } = ev.target;
     this.setState({
       [name]: value,
     });
   };
 
-  handleSubmit = ev => {
+  handleSubmit = (ev) => {
     ev.preventDefault();
     createMovie(this.state);
   };

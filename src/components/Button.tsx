@@ -74,10 +74,9 @@ export const Button = React.forwardRef<
   }
 });
 
-export const LinkButton: React.FC<Omit<
-  LinkButtonProps,
-  'component'
->> = props => {
+export const LinkButton: React.FC<Omit<LinkButtonProps, 'component'>> = (
+  props
+) => {
   const linkTarget = getLinkTarget(props.to);
   return (
     <Button

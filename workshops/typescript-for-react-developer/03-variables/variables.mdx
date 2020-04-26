@@ -4,11 +4,11 @@ description: 'Variables in TypeScript will be assigned with type, either by infe
 date: '2019-10-13'
 updated_at: '2019-11-27'
 objectives:
-- how to annotate types for primitive values (string, boolean, and number)
-- how to annotate types for array and tuple
-- how to annotate types for object using object literal and interface
-- how to annotate types for key-value object using index signature
-- explain what are any and unknown types, and why unknown type is preferred than any
+  - how to annotate types for primitive values (string, boolean, and number)
+  - how to annotate types for array and tuple
+  - how to annotate types for object using object literal and interface
+  - how to annotate types for key-value object using index signature
+  - explain what are any and unknown types, and why unknown type is preferred than any
 ---
 
 Before we learn to use TypeScript in our React projects, let's have an overview of TypeScript types and syntax.
@@ -43,7 +43,7 @@ Before we learn to use TypeScript in our React projects, let's have an overview 
 // const y = "hello";
 
 /**
- * This is called a 'literal type'. y can never be reassigned since it's a const, 
+ * This is called a 'literal type'. y can never be reassigned since it's a const,
  * so its value will only be literally the string 'hello world' and no other possible value
  */
 // if (y === 'whurt') {} // this check is unnecessary
@@ -82,7 +82,7 @@ Takeaways:
 
 <aside>
 
-What does *annotate* means? Its meaning is like "declare", but for type.
+What does _annotate_ means? Its meaning is like "declare", but for type.
 
 </aside>
 
@@ -177,7 +177,7 @@ interface Job {
 
 const job: Job = {
   name: 'programmer',
-  salary: 3000
+  salary: 3000,
 };
 
 /* interface make sure the object fits the requirement */
@@ -195,8 +195,8 @@ interface AwesomeJob extends Job {
 const nonExistentJob: AwesomeJob = {
   name: '@#$%^',
   salary: 20000,
-  benefits: ['unlimited leaves', '1-year maternity leave']
-}
+  benefits: ['unlimited leaves', '1-year maternity leave'],
+};
 ```
 
 ## Index signature
@@ -208,21 +208,20 @@ Consider the example below:
 ```js
 const pokemonCache = {};
 
-const getPokemon = (id: number) => 
-  {
-    if (pokemonCache[id]) {
-      // if pokemon is already available in the cache, return it.
-      return Promise.resolve(pokemonCache[id])
-    }
+const getPokemon = (id: number) => {
+  if (pokemonCache[id]) {
+    // if pokemon is already available in the cache, return it.
+    return Promise.resolve(pokemonCache[id]);
+  }
 
-    // else fetch the pokemon data from api, cache it and return it
-    return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
-      .then(res => res.json())
-      .then(pokemon => {
-        pokemonCache[id] = pokemon;
-        return pokemon;
-      });
-  };
+  // else fetch the pokemon data from api, cache it and return it
+  return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
+    .then((res) => res.json())
+    .then((pokemon) => {
+      pokemonCache[id] = pokemon;
+      return pokemon;
+    });
+};
 ```
 
 How can we declare typing of `pokemonCache`?
@@ -237,21 +236,20 @@ interface Pokemon {
   thumbnail: string;
 }
 
-const pokemonCache: {[id: number]: Pokemon} = {};
+const pokemonCache: { [id: number]: Pokemon } = {};
 
-const getPokemon = (id: number) => 
-  {
-    if (pokemonCache[id]) {
-      return Promise.resolve(pokemonCache[id])
-    }
+const getPokemon = (id: number) => {
+  if (pokemonCache[id]) {
+    return Promise.resolve(pokemonCache[id]);
+  }
 
-    return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
-      .then(res => res.json())
-      .then((pokemon: Pokemon) => {
-        pokemonCache[id] = pokemon;
-        return pokemon;
-      });
-  };
+  return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
+    .then((res) => res.json())
+    .then((pokemon: Pokemon) => {
+      pokemonCache[id] = pokemon;
+      return pokemon;
+    });
+};
 ```
 
 ## any
@@ -284,7 +282,7 @@ When we writing wrapper for those common operation, the recommended type is `unk
 const getStoredValue = (key: string): unknown => {
   const storedValue = localStorage.getItem(key);
   return storedValue ? JSON.parse(storedValue) : null;
-}
+};
 
 const storedUser = getStoredValue('user');
 
@@ -292,7 +290,7 @@ const storedUser = getStoredValue('user');
 // console.log(storedUser.toUpperCase());
 
 if (typeof storedUser === 'string') {
-    console.log(storedUser.toUpperCase());
+  console.log(storedUser.toUpperCase());
 }
 ```
 

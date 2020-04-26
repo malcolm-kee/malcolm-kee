@@ -24,7 +24,7 @@ const ProjectCard = ({ project }) => (
         <h2 id={project.id}>{project.name}</h2>
         <p>{project.description}</p>
         <ul>
-          {project.technologies.map(tech => (
+          {project.technologies.map((tech) => (
             <li key={tech}>{tech}</li>
           ))}
         </ul>
@@ -70,7 +70,7 @@ const ProjectListView = ({ projects }) => (
   </div>
 );
 
-const usePreloadImage = imageSrc => {
+const usePreloadImage = (imageSrc) => {
   const [shouldPreload, setShouldPreload] = React.useState(false);
   const started = React.useRef(false);
 
@@ -118,7 +118,7 @@ const FancyProjectCard = ({ project, onActivate }) => {
 const useProjects = (projects, location) => {
   const [focused, setFocusedIndex] = React.useState(() => {
     const matchIndex = projects.findIndex(
-      project => `#${project.node.id}` === location.hash
+      (project) => `#${project.node.id}` === location.hash
     );
     return matchIndex > -1 ? matchIndex : undefined;
   });
@@ -131,7 +131,7 @@ const useProjects = (projects, location) => {
 
   return {
     focused,
-    setFocused: index => {
+    setFocused: (index) => {
       setFocusedIndex(index);
       if (isDefined(index)) {
         navigate(`#${projects[index].node.id}`, { replace: true });
@@ -181,7 +181,7 @@ const FancyProjectView = ({ projects, location }) => {
         onDismiss={() => setFocused(undefined)}
         large={!!(project && (project.staticImage || project.image))}
         aria-label={`Details for ${project ? project.name : 'project'}`}
-        onKeyDown={ev => {
+        onKeyDown={(ev) => {
           if (ev.key === 'ArrowLeft') {
             prev();
           }
@@ -199,7 +199,7 @@ const FancyProjectView = ({ projects, location }) => {
                 </h2>
                 <p className="mb-2">{project.description}</p>
                 <Ul className="mb-3">
-                  {project.technologies.map(tech => (
+                  {project.technologies.map((tech) => (
                     <li key={tech}>{tech}</li>
                   ))}
                 </Ul>

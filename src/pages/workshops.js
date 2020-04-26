@@ -28,7 +28,7 @@ const WorkshopsPage = ({ location }) => {
       <main>
         <PageTitleContainer title="Workshops" />
         <WorkshopCardContainer>
-          {nodes.map(node => (
+          {nodes.map((node) => (
             <WorkshopCard {...node} key={node.id} />
           ))}
         </WorkshopCardContainer>

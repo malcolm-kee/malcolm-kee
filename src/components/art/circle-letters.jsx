@@ -41,7 +41,7 @@ export const CircleLetter = () => {
               raised
               color="primary"
               onClick={() => {
-                setKey(k => k + 1);
+                setKey((k) => k + 1);
                 setAnimationEnd(false);
               }}
               minWidth="widest"
@@ -142,7 +142,7 @@ const CircleLetterCanvas = React.memo(
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.fillStyle = 'black';
       context.fillRect(0, 0, canvas.width, canvas.height);
-      points.forEach(pt => {
+      points.forEach((pt) => {
         drawCircle(context, {
           x: (pt.x * width) / 4,
           y: (pt.y * width) / 4,

@@ -13,7 +13,7 @@ export const GifPlayer = ({
 }) => {
   const [playing, setPlaying] = React.useState(false);
 
-  const toggle = () => setPlaying(prevPlaying => !prevPlaying);
+  const toggle = () => setPlaying((prevPlaying) => !prevPlaying);
 
   return (
     <div
@@ -29,7 +29,7 @@ export const GifPlayer = ({
       role="switch"
       aria-checked={playing}
       aria-label="Enter to toggle animated and static image"
-      onKeyDown={ev => {
+      onKeyDown={(ev) => {
         if (ev.key === ' ' || ev.key === 'Enter') {
           ev.preventDefault();
           toggle();

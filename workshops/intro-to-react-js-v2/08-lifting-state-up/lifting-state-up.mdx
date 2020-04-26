@@ -40,10 +40,10 @@ Now when you load your app, you should be see your update is shown.
 Create a `saveMovie` function in `api.js`:
 
 ```javascript fileName=src/api.js
-export const saveMovie = movie =>
+export const saveMovie = (movie) =>
   axios
     .put(`https://react-intro-movies.herokuapp.com/movies/${movie.id}`, movie)
-    .then(res => res.data);
+    .then((res) => res.data);
 ```
 
 Since there is some duplications of the URL, let's refactor them:
@@ -53,13 +53,13 @@ import axios from 'axios';
 
 const MOVIE_ENDPOINT = 'https://react-intro-movies.herokuapp.com/movies';
 
-export const loadMovies = () => axios(MOVIE_ENDPOINT).then(res => res.data);
+export const loadMovies = () => axios(MOVIE_ENDPOINT).then((res) => res.data);
 
-export const createMovie = movie =>
-  axios.post(MOVIE_ENDPOINT, movie).then(res => res.data);
+export const createMovie = (movie) =>
+  axios.post(MOVIE_ENDPOINT, movie).then((res) => res.data);
 
-export const saveMovie = movie =>
-  axios.put(`${MOVIE_ENDPOINT}/${movie.id}`, movie).then(res => res.data);
+export const saveMovie = (movie) =>
+  axios.put(`${MOVIE_ENDPOINT}/${movie.id}`, movie).then((res) => res.data);
 ```
 
 - similar to `axios.put`, the second parameter of `axios.put` is the data you want to submit.

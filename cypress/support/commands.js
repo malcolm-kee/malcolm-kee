@@ -22,15 +22,9 @@ Cypress.Commands.add('initAxe', () => {
 });
 
 Cypress.Commands.add('checkA11yResponsive', () => {
-  cy.viewport('macbook-15')
-    .wait(500)
-    .checkA11y();
+  cy.viewport('macbook-15').wait(500).checkA11y();
 
-  cy.viewport('ipad-2')
-    .wait(500)
-    .checkA11y();
+  cy.viewport('ipad-2').wait(500).checkA11y();
 
-  cy.viewport('iphone-5')
-    .wait(500)
-    .checkA11y();
+  cy.viewport('iphone-5').wait(500).checkA11y();
 });

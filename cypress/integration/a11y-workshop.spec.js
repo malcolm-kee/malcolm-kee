@@ -8,9 +8,7 @@ describe('Accessibility checks on Workshop Materials', () => {
   });
 
   it('has no detectable a11y violations on workshops page', () => {
-    cy.findByText('Workshops')
-      .click()
-      .checkA11yResponsive();
+    cy.findByText('Workshops').click().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on workshops page dark mode', () => {
@@ -58,13 +56,9 @@ describe('Accessibility checks on Workshop Materials', () => {
       .within(() => {
         cy.findByText('Learn').click();
       });
-    cy.findByText('Start')
-      .click()
-      .checkA11yResponsive();
+    cy.findByText('Start').click().checkA11yResponsive();
 
-    cy.findByText('Edit')
-      .click()
-      .checkA11yResponsive();
+    cy.findByText('Edit').click().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on workshop content page dark mode', () => {
@@ -79,8 +73,6 @@ describe('Accessibility checks on Workshop Materials', () => {
       .click({ force: true })
       .checkA11yResponsive();
 
-    cy.findByText('Edit')
-      .click()
-      .checkA11yResponsive();
+    cy.findByText('Edit').click().checkA11yResponsive();
   });
 });

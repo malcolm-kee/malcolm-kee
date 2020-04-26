@@ -13,14 +13,14 @@ export class WebComponentWrapper extends React.Component {
   eventCallbacks = {};
   componentRef = React.createRef();
 
-  onEvent = eventType => event => {
+  onEvent = (eventType) => (event) => {
     // we will get the latest callback when the event happens
     this.props.eventHandlers[eventType](event);
   };
 
   componentDidMount() {
     const { eventHandlers } = this.props;
-    Object.keys(eventHandlers).forEach(eventType => {
+    Object.keys(eventHandlers).forEach((eventType) => {
       this.eventCallbacks[eventType] = this.onEvent(eventType);
       this.componentRef.current.addEventListener(
         eventType,
@@ -30,7 +30,7 @@ export class WebComponentWrapper extends React.Component {
   }
 
   componentWillUnmount() {
-    Object.keys(this.eventCallbacks).forEach(eventType => {
+    Object.keys(this.eventCallbacks).forEach((eventType) => {
       this.componentRef.current.removeEventListener(
         eventType,
         this.eventCallbacks[eventType]

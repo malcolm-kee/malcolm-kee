@@ -98,7 +98,7 @@ exports.sourceNodes = async ({ reporter }, configOptions) => {
   // highlight-start
   const pokemons = await fetch(
     'https://pokemon-json.herokuapp.com/api/pokedex'
-  ).then(res => res.json());
+  ).then((res) => res.json());
 
   console.log(pokemons);
   // highlight-end
@@ -122,10 +122,10 @@ exports.sourceNodes = async (
 
   const pokemons = await fetch(
     'https://pokemon-json.herokuapp.com/api/pokedex'
-  ).then(res => res.json());
+  ).then((res) => res.json());
 
   // highlight-start
-  pokemons.forEach(pokemon => {
+  pokemons.forEach((pokemon) => {
     const nodeId = createNodeId(`pokemon-${pokemon.id}`);
     const nodeContent = JSON.stringify(pokemon);
     const nodeData = Object.assign({}, pokemon, {
@@ -186,7 +186,7 @@ const AllPokemonsPage = ({ data }) => {
     <Layout>
       <table>
         <tbody>
-          {pokemons.map(pokemon => (
+          {pokemons.map((pokemon) => (
             <tr key={pokemon.id}>
               <td>
                 <img src={pokemon.sprite} alt={pokemon.name.english} />

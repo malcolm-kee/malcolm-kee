@@ -16,7 +16,7 @@ TypeScript is aware of your `if` check and able to narrow down the type. Conside
 
 ```ts live
 const findEvenNumberAndDivideIt = (numbers: number[]): number => {
-  const evenNumber = numbers.find(num => num % 2 === 0);
+  const evenNumber = numbers.find((num) => num % 2 === 0);
   return evenNumber / 2; // Hey, this could be undefined!
 };
 ```
@@ -25,7 +25,7 @@ The type error of TypeScript is valid. We can fix it by doing a null check:
 
 ```ts
 const findEvenNumberAndDivideIt = (numbers: number[]): number => {
-  const evenNumber = numbers.find(num => num % 2 === 0);
+  const evenNumber = numbers.find((num) => num % 2 === 0);
   if (evenNumber) {
     return evenNumber / 2;
   }
@@ -49,9 +49,9 @@ Now if we apply to the `findEvenNumberAndDivideIt` example:
 const isDefined = (value: any) => typeof value !== 'undefined';
 
 const findEvenNumberAndDivideIt = (numbers: number[]): number => {
-  const evenNumber = numbers.find(num => num % 2 === 0);
+  const evenNumber = numbers.find((num) => num % 2 === 0);
   if (isDefined(evenNumber)) {
-      // This could be undefined??? 🤦‍♂️🤦‍♂️
+    // This could be undefined??? 🤦‍♂️🤦‍♂️
     return evenNumber / 2;
   }
   return 0;
@@ -63,12 +63,13 @@ This is because TypeScript will not go into the implementation of `isDefined` to
 We can restore the previous typechecking ability by making the `isDefined` function as custom type guard:
 
 ```ts live
-const isDefined = <T>(value: T | undefined): value is T => typeof value !== 'undefined';
+const isDefined = <T>(value: T | undefined): value is T =>
+  typeof value !== 'undefined';
 
 const findEvenNumberAndDivideIt = (numbers: number[]): number => {
-  const evenNumber = numbers.find(num => num % 2 === 0);
+  const evenNumber = numbers.find((num) => num % 2 === 0);
   if (isDefined(evenNumber)) {
-      // Oh my lord TypeScript is happy again 🙏🙏
+    // Oh my lord TypeScript is happy again 🙏🙏
     return evenNumber / 2;
   }
   return 0;
@@ -109,8 +110,8 @@ type MyProps = Pick<ThirdPartyProps, 'color' | 'size'>;
 
 ```ts noWrapper
 type MyProps = {
-    color: ThirdPartyProps['color'];
-    size?: ThirdPartyProps['size'];
+  color: ThirdPartyProps['color'];
+  size?: ThirdPartyProps['size'];
 };
 ```
 

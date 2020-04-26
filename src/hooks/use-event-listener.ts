@@ -15,7 +15,7 @@ export const useWindowEventListener = <EventName extends keyof WindowEventMap>(
   }, [handler]);
 
   React.useEffect(() => {
-    const eventListener: EventHandler<EventName> = event =>
+    const eventListener: EventHandler<EventName> = (event) =>
       savedHandler.current(event);
     window.addEventListener(eventName, eventListener);
     return () => {

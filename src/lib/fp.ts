@@ -10,10 +10,10 @@ export function debounce<This, Params extends any[]>(
 ) {
   let timeout: number | undefined = undefined;
 
-  return function(this: This, ...args: Params) {
+  return function (this: This, ...args: Params) {
     const context = this;
     window.clearTimeout(timeout);
-    timeout = window.setTimeout(function() {
+    timeout = window.setTimeout(function () {
       timeout = undefined;
       fn.apply(context, args);
     }, wait);
@@ -33,7 +33,7 @@ export function throttle<This, Params extends any[]>(
     timeout = undefined;
   };
 
-  return function(...ars: Params) {
+  return function (...ars: Params) {
     if (!timeout) {
       args = ars;
       timeout = window.setTimeout(later, wait);
@@ -43,4 +43,4 @@ export function throttle<This, Params extends any[]>(
 
 export const callAll = <Params extends any[]>(
   ...fns: Array<CallBack<void, Params> | undefined>
-) => (...args: Params) => fns.forEach(fn => isFunction(fn) && fn(...args));
+) => (...args: Params) => fns.forEach((fn) => isFunction(fn) && fn(...args));

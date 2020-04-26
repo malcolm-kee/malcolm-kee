@@ -11,7 +11,7 @@ Due to its single-thread nature (meaning only one process that run at one time),
 Let's see the simplest example of asynchronous programming: `setTimeout`.
 
 ```js live
-setTimeout(function() {
+setTimeout(function () {
   console.log('Hi');
 }, 1000);
 
@@ -40,7 +40,7 @@ To get the result of the ajax call, we need to pass callback to `ajax`:
 
 ```js live
 ajax('https://icanhazdadjoke.com/', {
-  onSuccess: function(result) {
+  onSuccess: function (result) {
     console.log(result);
   },
 });
@@ -56,7 +56,7 @@ Let's see an example:
 
 ```js live
 function dangerLater(message, callback) {
-  setTimeout(function() {
+  setTimeout(function () {
     if (message.length > 10) {
       throw new Error('Message too long!');
     }
@@ -78,7 +78,7 @@ Our `try...catch` clause actually not able the catch the error. In order to catc
 
   ```js live
   function dangerLater(message, callback, onError) {
-    setTimeout(function() {
+    setTimeout(function () {
       if (message.length > 10) {
         onError(new Error('Message too long!'));
         return;
@@ -94,7 +94,7 @@ Our `try...catch` clause actually not able the catch the error. In order to catc
 
   ```js live
   function dangerLater(message, callback) {
-    setTimeout(function() {
+    setTimeout(function () {
       if (message.length > 10) {
         callback(new Error('Message too long!'));
         return;
@@ -103,7 +103,7 @@ Our `try...catch` clause actually not able the catch the error. In order to catc
     }, 1000);
   }
 
-  dangerLater('1239393984477', function(error, message) {
+  dangerLater('1239393984477', function (error, message) {
     if (error) {
       console.error(error);
       return;
@@ -164,7 +164,7 @@ function getExamResult(callback) {
   }, 1000);
 }
 
-getExamResult(function(x) {
+getExamResult(function (x) {
   if (x > 50) {
     console.log('Congratulation! You passed!');
   } else {
@@ -191,7 +191,7 @@ function getExamResult() {
 
 const examResultPromise = getExamResult();
 
-examResultPromise.then(marks => {
+examResultPromise.then((marks) => {
   if (marks > 50) {
     console.log(`Congratulation! You passed with the marks ${marks}!`);
   } else {
@@ -210,13 +210,13 @@ To get notified when a `Promise` complete, you call the `then` method on the `Pr
 - You can call `then` method multiple times to perform multiple response after the `Promise` complete, and they will be called in the sequence they call the `then` method.
 
 ```javascript
-examResultPromise.then(marks => {
+examResultPromise.then((marks) => {
   if (marks > 50) {
     console.log('Mum I did it!');
   }
 });
 
-examResultPromise.then(marks => {
+examResultPromise.then((marks) => {
   if (marks > 80) {
     console.log('Celebrate!');
   }
@@ -226,7 +226,7 @@ examResultPromise.then(marks => {
 Assigning a promise to a variable and then call `then` method is only needed if you need to call the `then` method multiple times. If you only need to call it once, a more common pattern is to call it right after the asynchronous function.
 
 ```javascript
-getExamResult().then(marks => {
+getExamResult().then((marks) => {
   if (marks > 50) {
     console.log(`Congratulation! You passed with the marks ${marks}!`);
   } else {
@@ -257,7 +257,7 @@ function getServerTime(callback) {
   xmlHttp.send('');
 }
 
-getServerTime(serverTime => console.log(`Server time is ${serverTime}`));
+getServerTime((serverTime) => console.log(`Server time is ${serverTime}`));
 ```
 
 ### Promise as Event Completion

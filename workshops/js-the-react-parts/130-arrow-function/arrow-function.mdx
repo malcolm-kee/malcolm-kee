@@ -13,7 +13,7 @@ function myFunction() {
   // do something
 }
 
-var mySecondFunction = function() {
+var mySecondFunction = function () {
   // do something else
 };
 ```
@@ -41,7 +41,7 @@ Other than the fact that `=>` is shorter than writing the whole `function` keywo
      return x * 2;
    }
 
-   var newDouble = x => {
+   var newDouble = (x) => {
      return x * 2;
    };
    ```
@@ -72,12 +72,12 @@ Those compact syntaxes would make your code much more shorter, especially in two
 
    ```js live
    function add(x) {
-     return function(y) {
+     return function (y) {
        return x + y;
      };
    }
 
-   var newAdd = x => y => x + y;
+   var newAdd = (x) => (y) => x + y;
    ```
 
 1. Inline function
@@ -87,11 +87,11 @@ Those compact syntaxes would make your code much more shorter, especially in two
 
    // `map` is a method on all Array object. We will discuss this later.
 
-   numbers.map(function(num) {
+   numbers.map(function (num) {
      return num * 2;
    });
 
-   numbers.map(num => num * 2);
+   numbers.map((num) => num * 2);
    ```
 
 <Exercise title="Exercise">
@@ -110,24 +110,24 @@ function multiply(x, y) {
 }
 
 function multiplyCurry(x) {
-  return function(y) {
+  return function (y) {
     return x * y;
   };
 }
 
 function multiplyAll(...numbers) {
-  return numbers.reduce(function(result, num) {
+  return numbers.reduce(function (result, num) {
     return result * num;
   }, 1);
 }
 
 function doubleAndMultiplyAll(factor) {
-  return function(...numbers) {
+  return function (...numbers) {
     return numbers
-      .map(function(num) {
+      .map(function (num) {
         return num * factor;
       })
-      .reduce(function(result, num) {
+      .reduce(function (result, num) {
         return result * num;
       }, 1);
   };

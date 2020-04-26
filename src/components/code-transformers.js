@@ -5,7 +5,7 @@ import { includes } from '../lib/array';
  * renders the logs
  * @param {string} code
  */
-export const wrapJsCode = code => `
+export const wrapJsCode = (code) => `
   class CodeWrapper extends React.Component {
       constructor(props) {
           super(props);
@@ -61,7 +61,7 @@ export function transformTokens(tokens, highlightedLineIndexes) {
   let keepHighlighting = false;
 
   tokens
-    .map(currentLine => ({
+    .map((currentLine) => ({
       line: currentLine,
       isNextLineHighlighted: isHighlightNextLine(currentLine),
     }))
@@ -106,26 +106,26 @@ export function transformTokens(tokens, highlightedLineIndexes) {
   return results;
 }
 
-const isHighlightNextLine = tokens =>
+const isHighlightNextLine = (tokens) =>
   Array.isArray(tokens) &&
   tokens.some(
-    token =>
+    (token) =>
       includes(token.types, 'comment') &&
       includes(token.content, 'highlight-next-line')
   );
 
-const isHighlightStart = tokens =>
+const isHighlightStart = (tokens) =>
   Array.isArray(tokens) &&
   tokens.some(
-    token =>
+    (token) =>
       includes(token.types, 'comment') &&
       includes(token.content, 'highlight-start')
   );
 
-const isHighlightEnd = tokens =>
+const isHighlightEnd = (tokens) =>
   Array.isArray(tokens) &&
   tokens.some(
-    token =>
+    (token) =>
       includes(token.types, 'comment') &&
       includes(token.content, 'highlight-end')
   );
@@ -134,9 +134,9 @@ const isHighlightEnd = tokens =>
  *
  * @param {Array} tokens
  */
-const findHighlightLineCommentIndex = tokens =>
+const findHighlightLineCommentIndex = (tokens) =>
   tokens.findIndex(
-    token =>
+    (token) =>
       includes(token.types, 'comment') &&
       includes(token.content, 'highlight-line')
   );
@@ -151,7 +151,7 @@ const findHighlightLineCommentIndex = tokens =>
  * - `// highlight-line`
  * @param {string} code
  */
-export const removeHighlightComment = code =>
+export const removeHighlightComment = (code) =>
   typeof code === 'string'
     ? code.replace(
         /(^\s*\/\/\s*[highlight\-next\-line|highlight\-start|highlight\-end].*\n?|\/\/\s*highlight-line)/gm,

@@ -29,11 +29,11 @@ const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
           Engineer.
         </p>
         <div className={styles.grid}>
-          {allTopics.nodes.map(topic => {
+          {allTopics.nodes.map((topic) => {
             const nodes =
               allTil.group
-                .filter(til => til.topic === topic.id)
-                .map(til => til.nodes)[0] || [];
+                .filter((til) => til.topic === topic.id)
+                .map((til) => til.nodes)[0] || [];
 
             return (
               <div key={topic.id}>
@@ -41,7 +41,7 @@ const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
                   <TopicBadge {...topic} />
                 </h2>
                 <ul className={styles.list}>
-                  {nodes.map(til => (
+                  {nodes.map((til) => (
                     <li className={styles.item} key={til.slug}>
                       <Link className="til-item" to={til.slug}>
                         {til.title}

@@ -41,7 +41,7 @@ export const Field = ({
         {...inputProps}
         onChange={callAll(
           onChange,
-          onChangeValue && (ev => onChangeValue(ev.target.value))
+          onChangeValue && ((ev) => onChangeValue(ev.target.value))
         )}
         onFocus={callAll(inputProps.onFocus, () => setIsFocused(true))}
         onBlur={callAll(inputProps.onBlur, () => setIsFocused(false))}

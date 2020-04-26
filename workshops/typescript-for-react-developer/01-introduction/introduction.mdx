@@ -4,8 +4,8 @@ description: 'Rationale of learning TypeScript as a React developer and objectiv
 date: '2019-10-02'
 updated_at: '2019-12-13'
 objectives:
-- aware of advantage and disadvantage of using TypeScript
-- understand how TypeScript reduces bug in your code
+  - aware of advantage and disadvantage of using TypeScript
+  - understand how TypeScript reduces bug in your code
 ---
 
 ## Why Use TypeScript in React Project
@@ -28,13 +28,13 @@ However, TypeScript has some downsides too:
 
 1. Better job prospect
 
-    ![Ryan Florence:Side note. TypeScript is taking over. It has gained rapid adoption in 2018 and its embarrassing that I don't know it. If you're looking for a job, there's a 50/50 chance your next code base will be using it if my workshop attendees are any sort of decently random sample.](ryan-florence-typescript-comment.png)
+   ![Ryan Florence:Side note. TypeScript is taking over. It has gained rapid adoption in 2018 and its embarrassing that I don't know it. If you're looking for a job, there's a 50/50 chance your next code base will be using it if my workshop attendees are any sort of decently random sample.](ryan-florence-typescript-comment.png)
 
 1. Improves your JavaScript skill
 
-    Just like React helps you to write better JavaScript by making write pure function a second nature, TypeScript would help you to write better JavaScript by making you more thoughtful about your data structure. Many times when a code is hard to implement in TypeScript because it is dynamic, it is probable that you had over-complicated your code.
+   Just like React helps you to write better JavaScript by making write pure function a second nature, TypeScript would help you to write better JavaScript by making you more thoughtful about your data structure. Many times when a code is hard to implement in TypeScript because it is dynamic, it is probable that you had over-complicated your code.
 
-## Scope of This Workshop 
+## Scope of This Workshop
 
 This workshop covers
 
@@ -53,7 +53,7 @@ This workshop does not cover
 
 Let's explore that in more details how do TypeScript reduces bug.
 
-In its essence, TypeScript is making your code *type-safe*, or in a more layman term, use types to prevent code from doing invalid things.
+In its essence, TypeScript is making your code _type-safe_, or in a more layman term, use types to prevent code from doing invalid things.
 
 What are the invalid things? Here are two examples:
 
@@ -64,11 +64,12 @@ Consider the following example:
 
 ```js live
 const append = (array, item) => array.concat(item);
-const excludeUndefined = array => array.filter(item => typeof item !== 'undefined');
+const excludeUndefined = (array) =>
+  array.filter((item) => typeof item !== 'undefined');
 
 const newList = append([1, 2, undefined, 6], undefined);
 const numbers = excludeUndefined(newList);
-console.log(numbers)
+console.log(numbers);
 
 /* Uncomment the code below and you will get error */
 // const newList2 = append('malcolm', undefined);
@@ -82,11 +83,12 @@ Using TypeScript, we can document our code explicitly, like below. (Don't worry 
 
 ```ts live
 const append = <T>(array: T[], item: T): T[] => array.concat(item);
-const excludeUndefined = <T>(array: Array<T | undefined>): T[] => array.filter(item => typeof item !== 'undefined');
+const excludeUndefined = <T>(array: Array<T | undefined>): T[] =>
+  array.filter((item) => typeof item !== 'undefined');
 
 const newList = append([1, 2, undefined, 6], undefined);
 const numbers = excludeUndefined(newList);
-console.log(numbers)
+console.log(numbers);
 
 /* Uncomment the code below and you will get error from TypeScript */
 // const newList2 = append('malcolm', undefined);
@@ -98,14 +100,14 @@ Now that TypeScript will start yelling at us when we pass a string to the `appen
 
 <aside>
 
-*Without running the code*, that's the key strength of TypeScript. Using TypeScript and editor that integrated with it (like VS Code), you can get feedbacks about whether your code would work while you types. 
+_Without running the code_, that's the key strength of TypeScript. Using TypeScript and editor that integrated with it (like VS Code), you can get feedbacks about whether your code would work while you types.
 
 </aside>
 
 One way to think about all these is using TypeScript is nothing but making your code assumption explicit so that TypeScript can cross-check assumptions throughout your code.
 
-- When you state your assumptions of variable/parameter, you are *annotate the variable with type*.
-- The process of TypeScript validates all your types does not contradicts each other (e.g. assume function accept array but pass it string) is known as *type-checking*.
+- When you state your assumptions of variable/parameter, you are _annotate the variable with type_.
+- The process of TypeScript validates all your types does not contradicts each other (e.g. assume function accept array but pass it string) is known as _type-checking_.
 
 ## Overview of Code-Along Project
 

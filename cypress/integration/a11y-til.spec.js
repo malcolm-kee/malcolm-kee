@@ -8,9 +8,7 @@ describe('Accessibility checks on Today I Learnt', () => {
   });
 
   it('has no a11y violation on til landing page', () => {
-    cy.findByText('Today I Learnt')
-      .click()
-      .checkA11yResponsive();
+    cy.findByText('Today I Learnt').click().checkA11yResponsive();
   });
 
   it('has no a11y violation on til landing page dark mode', () => {

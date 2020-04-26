@@ -30,7 +30,7 @@ const TilTemplate = ({ data, location }) => {
               <div>
                 <h2>Topics</h2>
                 <ul>
-                  {til.topics.map(topic => (
+                  {til.topics.map((topic) => (
                     <li className="mr-2" key={topic.id}>
                       <TopicBadge {...topic} />
                     </li>

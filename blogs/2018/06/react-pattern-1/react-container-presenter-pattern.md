@@ -84,8 +84,8 @@ class CommentListContainer extends React.Component {
 
   componentDidMount() {
     fetch('/my-comments.json')
-      .then(res => res.json())
-      .then(comments => this.setState({ comments, isLoading: false }));
+      .then((res) => res.json())
+      .then((comments) => this.setState({ comments, isLoading: false }));
   }
 
   render() {

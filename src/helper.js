@@ -60,7 +60,7 @@ function hexToB(h) {
 
 export function getGithubIssueLink(repositoryUrl, params) {
   const paramString = Object.keys(params)
-    .map(key => `${key}=${params[key]}`)
+    .map((key) => `${key}=${params[key]}`)
     .join('&');
 
   return encodeURI(`${repositoryUrl}/issues/new?${paramString}`);
@@ -81,7 +81,7 @@ export function ajax(url, options) {
     request.setRequestHeader('Accept', 'application/json');
   }
 
-  request.onload = function() {
+  request.onload = function () {
     if (request.status >= 200 && request.status < 400) {
       onSuccess(request.response);
     } else {

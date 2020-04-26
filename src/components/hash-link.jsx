@@ -6,7 +6,7 @@ export const HashLink = ({ target, onClick, children, ...props }) => {
   return (
     <a
       href={`#${target}`}
-      onClick={callAll(ev => {
+      onClick={callAll((ev) => {
         ev.preventDefault();
         navigate(`#${target}`, { replace: true });
       }, onClick)}

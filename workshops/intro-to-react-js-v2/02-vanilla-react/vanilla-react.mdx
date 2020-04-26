@@ -180,7 +180,7 @@ ReactDOM.render(React.createElement(App), document.getElementById('root'));
 We have multiple movies but it's not very useful component yet, since not all movies has name Aquaman. Let's make Movie component a bit more useful.
 
 ```javascript
-const Movie = props =>
+const Movie = (props) =>
   React.createElement('div', { className: 'movie-container' }, [
     React.createElement('h1', {}, props.name),
     React.createElement('h2', {}, props.releaseDate),

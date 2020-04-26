@@ -4,9 +4,9 @@ description: 'Learn to use type alias, union, intersection, and type assertion t
 date: '2019-10-17'
 updated_at: '2019-12-13'
 objectives:
-- how to create type alias to refer another type
-- how to use union and intersection to combine types
-- how to use type assertion as an escape hatch of untyped values
+  - how to create type alias to refer another type
+  - how to use union and intersection to combine types
+  - how to use type assertion as an escape hatch of untyped values
 ---
 
 When we have a variable, we can perform operations on it. For example, we can use `*` to multiply two numbers, use `.split` to split a string into an array.
@@ -123,16 +123,16 @@ type PersonDetails = {
     unit: string;
     streetOrBuilding: string;
     street: string;
-  }
-}
+  };
+};
 
 let oldDetails: PersonDetails = {
   name: 'Malcolm',
   address: {
     unit: '12A',
     streetOrBuilding: 'Jalan Besar',
-    street: 'Jalan'
-  }
+    street: 'Jalan',
+  },
 };
 
 let newAddress: {
@@ -142,13 +142,13 @@ let newAddress: {
 } = {
   unit: '13A',
   streetOrBuilding: 'Bangunan Duta',
-  street: 'Jalan Duta'
+  street: 'Jalan Duta',
 };
 
 let updatedDetails: PersonDetails = {
   ...oldDetails,
-  address: newAddress
-}
+  address: newAddress,
+};
 ```
 
 Note that we have duplicated the address type in two places. We can remove that duplication by creating a type for the address:
@@ -159,33 +159,34 @@ type Address = {
   unit: string;
   streetOrBuilding: string;
   street: string;
-}
+};
 // highlight-end
 
 type PersonDetails = {
   name: string;
   address: Address; // highlight-line
-}
+};
 
 let oldDetails: PersonDetails = {
   name: 'Malcolm',
   address: {
     unit: '12A',
     streetOrBuilding: 'Jalan Besar',
-    street: 'Jalan'
-  }
+    street: 'Jalan',
+  },
 };
 
-let newAddress: Address = { // highlight-line
+let newAddress: Address = {
+  // highlight-line
   unit: '13A',
   streetOrBuilding: 'Bangunan Duta',
-  street: 'Jalan Duta'
+  street: 'Jalan Duta',
 };
 
 let updatedDetails: PersonDetails = {
   ...oldDetails,
-  address: newAddress
-}
+  address: newAddress,
+};
 ```
 
 However, sometimes this is not possible because you don't have control over type definition (e.g. type from library) so you can't just refactor the type definition.
@@ -199,33 +200,34 @@ type PersonDetails = {
     unit: string;
     streetOrBuilding: string;
     street: string;
-  }
-}
+  };
+};
 
 let oldDetails: PersonDetails = {
   name: 'Malcolm',
   address: {
     unit: '12A',
     streetOrBuilding: 'Jalan Besar',
-    street: 'Jalan'
-  }
+    street: 'Jalan',
+  },
 };
 
-let newAddress: PersonDetails['address'] = { // highlight-line
+let newAddress: PersonDetails['address'] = {
+  // highlight-line
   unit: '13A',
   streetOrBuilding: 'Bangunan Duta',
-  street: 'Jalan Duta'
+  street: 'Jalan Duta',
 };
 
 let updatedDetails: PersonDetails = {
   ...oldDetails,
-  address: newAddress
-}
+  address: newAddress,
+};
 ```
 
 ## Differentiating Type and Runtime: Declaration Space
 
-One of the implicit understanding of TypeScript is that there are two types of declaration: type declaration and variable declaration. 
+One of the implicit understanding of TypeScript is that there are two types of declaration: type declaration and variable declaration.
 
 Following are a few type declarations:
 
@@ -238,7 +240,7 @@ interface Animal {
 type Person = {
   firstName: string;
   talk: () => void;
-}
+};
 ```
 
 Which means you can use them as type annotation:
@@ -247,16 +249,16 @@ Which means you can use them as type annotation:
 const animal: Animal = {
   name: 'dog',
   greet: () => {
-    console.log(`Woff! Woff!`)
-  }
-}
+    console.log(`Woff! Woff!`);
+  },
+};
 
 const me: Person = {
   firstName: 'Malcolm',
   talk: () => {
     console.log(`Hello!`);
-  }
-}
+  },
+};
 ```
 
 But you can't use them as variable:
@@ -272,15 +274,15 @@ const person = {
   name: '',
   talk: () => {
     console.log(`Sawatika`);
-  }
-}
+  },
+};
 
 const me: person = {
   name: '',
   talk: () => {
     console.log(`Sawatika`);
-  }
-}
+  },
+};
 ```
 
 If what you want is to get the type of a variable and apply it to another variable, you can use the `typeof` keyword:
@@ -290,15 +292,15 @@ const person = {
   name: '',
   talk: () => {
     console.log(`Sawatika`);
-  }
-}
+  },
+};
 
 const me: typeof person = {
   name: '',
   talk: () => {
     console.log(`Sawatika`);
-  }
-}
+  },
+};
 ```
 
 <aside>
@@ -309,14 +311,14 @@ const me: typeof person = {
 
 ## Escape Hatch: Type Assertion
 
-Sometimes, some values are really dynamic that there are no ways for TypeScript to do type-checking for you. 
+Sometimes, some values are really dynamic that there are no ways for TypeScript to do type-checking for you.
 
 Consider the following example:
 
 ```ts live
 const profileImage = document.querySelector('#profile');
 
-console.log(profileImage.src) // Error because `src` property may not be there
+console.log(profileImage.src); // Error because `src` property may not be there
 ```
 
 If we really sure that the `document.querySelector` call returns an image, we can make a type assertion to tell TypeScript:

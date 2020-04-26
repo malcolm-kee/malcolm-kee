@@ -88,7 +88,7 @@ const useTransientState = (steadyState, restorationTime = 2000) => {
     newValue
   ) {
     setState(newValue);
-    setCallTimes(t => t + 1); // highlight-line
+    setCallTimes((t) => t + 1); // highlight-line
   },
   []);
 

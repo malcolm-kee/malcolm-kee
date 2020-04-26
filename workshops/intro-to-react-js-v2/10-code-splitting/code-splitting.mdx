@@ -27,23 +27,23 @@ const MOVIE_ENDPOINT = 'https://react-intro-movies.herokuapp.com/movies';
 export const loadMovies = () =>
   // highlight-start
   getAxios()
-    .then(axios => axios.default(MOVIE_ENDPOINT))
+    .then((axios) => axios.default(MOVIE_ENDPOINT))
     // highlight-end
-    .then(res => res.data);
+    .then((res) => res.data);
 
-export const createMovie = movie =>
+export const createMovie = (movie) =>
   // highlight-start
   getAxios()
-    .then(axios => axios.post(MOVIE_ENDPOINT, movie))
+    .then((axios) => axios.post(MOVIE_ENDPOINT, movie))
     // highlight-end
-    .then(res => res.data);
+    .then((res) => res.data);
 
-export const saveMovie = movie =>
+export const saveMovie = (movie) =>
   // highlight-start
   getAxios()
-    .then(axios => axios.put(`${MOVIE_ENDPOINT}/${movie.id}`, movie))
+    .then((axios) => axios.put(`${MOVIE_ENDPOINT}/${movie.id}`, movie))
     // highlight-end
-    .then(res => res.data);
+    .then((res) => res.data);
 ```
 
 - The `import axios from 'axios';` statement at the beginning of the file is removed.
@@ -120,7 +120,7 @@ function App() {
             <BusyContainer isLoading={isLoading}>
               {/* highlight-next-line */}
               <React.Suspense fallback={<span className="spinner" />}>
-                {movies.map(movie => (
+                {movies.map((movie) => (
                   <Movie
                     name={movie.name}
                     releaseDate={movie.releaseDate}

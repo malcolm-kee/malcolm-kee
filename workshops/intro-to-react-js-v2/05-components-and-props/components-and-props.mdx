@@ -15,7 +15,7 @@ Let's convert `Movie` component to use JSX. It will look like this:
 ```jsx fileName=src/components/movie.js
 import React from 'react';
 
-export const Movie = props => (
+export const Movie = (props) => (
   <div className="movie-container">
     <h1>{props.name}</h1>
     <h2>{props.releaseDate}</h2>
@@ -83,7 +83,7 @@ Let's extract the title section in our `App` to a `TitleBar` component.
 ```jsx fileName=src/components/title-bar.js
 import React from 'react';
 
-export const TitleBar = props => (
+export const TitleBar = (props) => (
   <div className="title-bar">{props.children}</div>
 );
 ```
@@ -115,7 +115,7 @@ function App() {
 - Note that this is not the only way to extract `TitleBar`, I could of course make it stricter by extract it the following way:
 
 ```jsx fileName=src/components/title-bar.js
-export const TitleBar = props => (
+export const TitleBar = (props) => (
   <div className="title-bar">
     <h1>{props.title}</h1>
   </div>
@@ -137,7 +137,7 @@ function App() {
   1.  Unless it's one-to-one component (e.g. `Button` component that render a `button` element), I usually only start extracting when I see more than two repetitions. With three use cases, I have better idea on whether I should be more flexible or restricted.
   1.  Err on the side of restricted component API. Most of the time you can loosen it up if you think you need the extra flexibility, e.g.:
       ```jsx
-      export const TitleBar = props => (
+      export const TitleBar = (props) => (
         <div className="title-bar">
           {props.title && <h1>{props.title}</h1>}
           {props.children}
@@ -154,7 +154,7 @@ We will gonna need a `Button` component in next section. Let's create it now.
 ```jsx fileName=src/components/button.js
 import React from 'react';
 
-export const Button = props => <button className="button" {...props} />;
+export const Button = (props) => <button className="button" {...props} />;
 ```
 
 - `Button` component is a simple wrapper around `button` element, and I want to make it accept all props a `button` component would accepts. There are many props a `button` element accept, instead of manually type all of them, we can use the useful object spread operators (the `...props` syntax).

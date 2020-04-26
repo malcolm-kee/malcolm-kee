@@ -4,8 +4,8 @@ description: 'Understand generics in TypeScript and how to use them in React pro
 date: '2019-10-20'
 updated_at: '2019-12-16'
 objectives:
-- use generics to annotate function to constraint the parameters
-- use generics to create type utility
+  - use generics to annotate function to constraint the parameters
+  - use generics to create type utility
 ---
 
 ## Getting to Know Generics
@@ -23,7 +23,7 @@ const forEach = (array: any[], callBack: (element: any) => void) => {
 
 const numbers = [1, 2, 3];
 
-forEach(numbers, item => {
+forEach(numbers, (item) => {
   console.log(item.toFixed(2));
   console.log(item.padStart()); // runtime error
 });
@@ -43,7 +43,7 @@ const forEachNumber = (array: number[], callBack: (element: number) => void) =>
 
 const numbers = [1, 2, 3];
 
-forEachNumber(numbers, item => {
+forEachNumber(numbers, (item) => {
   console.log(item.toFixed(2));
   console.log(item.padStart()); // type error
 });
@@ -64,7 +64,7 @@ const forEach = <Item>(array: Item[], callBack: (element: Item) => void) => {
 
 const numbers = [1, 2, 3];
 
-forEach(numbers, item => {
+forEach(numbers, (item) => {
   console.log(item.toFixed(2));
   console.log(item.padStart()); // type error, yay!
 });
@@ -141,9 +141,9 @@ const getJokeText = (): Promise<string> =>
     headers: {
       Accept: 'text/plain',
     },
-  }).then(res => res.text());
+  }).then((res) => res.text());
 
-getJokeText().then(joke => console.log(joke));
+getJokeText().then((joke) => console.log(joke));
 
 type Joke = {
   id: string;
@@ -156,14 +156,14 @@ const getJoke = (): Promise<Joke> =>
     headers: {
       Accept: 'application/json',
     },
-  }).then(res => res.json());
+  }).then((res) => res.json());
 
-getJoke().then(response => console.log(response.joke));
+getJoke().then((response) => console.log(response.joke));
 ```
 
 <Exercise title="Do It: Using Generics">
 
-Rename `lib/array.js` to `lib/array.ts`. 
+Rename `lib/array.js` to `lib/array.ts`.
 
 1. Annotate `includes` function
 2. Annotate `map` function

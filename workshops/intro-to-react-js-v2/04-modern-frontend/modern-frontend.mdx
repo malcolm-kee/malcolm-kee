@@ -50,7 +50,7 @@ If you realize, currently our `index.js` consists of 3 parts: the `Movie` compon
     ```javascript fileName=src/components/movie.js
     import React from 'react';
 
-    export const Movie = props =>
+    export const Movie = (props) =>
       React.createElement('div', { className: 'movie-container' }, [
         React.createElement('h1', {}, props.name),
         React.createElement('h2', {}, props.releaseDate),

@@ -131,12 +131,12 @@ Update the `Button` properties in `App` component:
   - pass a function that will return the new value as parameter, like this:
 
     ```javascript
-    setState(function(prevValue) {
+    setState(function (prevValue) {
       return newValue;
     });
 
     // OR
-    setState(prevValue => newValue);
+    setState((prevValue) => newValue);
     ```
 
     this should be how you call `setState` if your new value depends on previous value. In our case, because toggle the value is just negation of the previous value, so this should be how we call `setShowMovies`.
@@ -177,9 +177,9 @@ Let's create a `hooks` folder within `src` folder, and add a file `use-toggle.js
 // src/hooks/use-toggle.js
 import React from 'react';
 
-export const useToggle = initialOn => {
+export const useToggle = (initialOn) => {
   const [on, setOn] = React.useState(initialOn);
-  return [on, () => setOn(prevOn => !prevOn)];
+  return [on, () => setOn((prevOn) => !prevOn)];
 };
 ```
 
@@ -257,7 +257,7 @@ To load data from backend API:
 
     export const loadMovies = () =>
       axios('https://react-intro-movies.herokuapp.com/movies').then(
-        res => res.data
+        (res) => res.data
       );
     ```
 
@@ -352,7 +352,7 @@ To show loading indicator when waiting API response:
       const [movies, setMovies] = React.useState([]);
       const [isLoading, setIsLoading] = React.useState(true);
       React.useEffect(() => {
-        loadMovies().then(movieData => {
+        loadMovies().then((movieData) => {
           setMovies(movieData);
           setIsLoading(false);
         });
@@ -370,7 +370,7 @@ To show loading indicator when waiting API response:
           </div>
           {moviesShown && (
             <BusyContainer isLoading={isLoading}>
-              {movies.map(movie => (
+              {movies.map((movie) => (
                 <Movie
                   name={movie.name}
                   releaseDate={movie.releaseDate}
@@ -395,7 +395,7 @@ function useMovieData() {
   const [movies, setMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   React.useEffect(() => {
-    loadMovies().then(movieData => {
+    loadMovies().then((movieData) => {
       setMovies(movieData);
       setIsLoading(false);
     });
@@ -423,7 +423,7 @@ function App() {
       </div>
       {moviesShown && (
         <BusyContainer isLoading={isLoading}>
-          {movies.map(movie => (
+          {movies.map((movie) => (
             <Movie
               name={movie.name}
               releaseDate={movie.releaseDate}

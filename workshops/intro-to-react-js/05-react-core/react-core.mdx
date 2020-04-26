@@ -14,7 +14,7 @@ Let's convert `Movie` component to using JSX. It will look like this:
 ```jsx fileName=src/movie.js
 import React from 'react';
 
-const Movie = props => (
+const Movie = (props) => (
   <div className="movie-container">
     <h1>{props.name}</h1>
     <h2>{props.releaseDate}</h2>
@@ -343,7 +343,7 @@ class App extends React.Component {
   };
 
   toggleMovies = () =>
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       showMovies: !prevState.showMovies,
     }));
 
@@ -385,7 +385,7 @@ In short, you can pass `setState` either of the following:
    ```
 1. a function that returns the change (use this if the new value depends on previous value)
    ```javascript noWrapper
-   this.setState(prevState => ({ show: !prevState.show }));
+   this.setState((prevState) => ({ show: !prevState.show }));
    ```
 
 Another things about `setState` that may surprise React beginner is that it is asynchronous, which means that when you call `setState`, the state will not be updated straight-away (you can verify this by adding `console.log(this.state)` after `setState` call). If you want to perform some action whenever state is updated, you can provide a callback as second parameter to `setState`:
@@ -451,7 +451,7 @@ To load data from backend API:
 
    export const loadMovies = () =>
      axios('https://react-intro-movies.herokuapp.com/movies').then(
-       res => res.data
+       (res) => res.data
      );
    ```
 
@@ -560,11 +560,13 @@ To show loading indicator when waiting API response:
      };
 
      componentDidMount() {
-       loadMovies().then(movies => this.setState({ movies, isLoading: false })); // highlight-line
+       loadMovies().then((movies) =>
+         this.setState({ movies, isLoading: false })
+       ); // highlight-line
      }
 
      toggleMovies = () => {
-       this.setState(prevState => ({
+       this.setState((prevState) => ({
          showMovies: !prevState.showMovies,
        }));
      };
@@ -583,7 +585,7 @@ To show loading indicator when waiting API response:
            {this.state.showMovies && (
              // highlight-next-line
              <BusyContainer isLoading={this.state.isLoading}>
-               {this.state.movies.map(movie => (
+               {this.state.movies.map((movie) => (
                  <Movie
                    name={movie.name}
                    releaseDate={movie.releaseDate}

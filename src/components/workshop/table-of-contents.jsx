@@ -10,7 +10,7 @@ import { ToggleTocBtn } from './toggle-toc-btn';
 export const TableOfContents = ({ pathname, sections, workshop }) => {
   const [open, setIsOpen] = React.useState(false);
 
-  useWindowEventListener('keyup', e => {
+  useWindowEventListener('keyup', (e) => {
     if (e.key === 'Escape') {
       setIsOpen(false);
     }
@@ -23,7 +23,7 @@ export const TableOfContents = ({ pathname, sections, workshop }) => {
   const toggleBtnRef = React.useRef();
 
   useDiffEffect(
-    prevDeps => {
+    (prevDeps) => {
       if (prevDeps) {
         const [prevOpen] = prevDeps;
         // we only do the focusing work if there is difference between the open state
@@ -76,7 +76,7 @@ export const TableOfContents = ({ pathname, sections, workshop }) => {
         open={open}
         backgroundColor={workshop.themeColor}
         color={workshop.contrastColor}
-        onToggle={() => setIsOpen(val => !val)}
+        onToggle={() => setIsOpen((val) => !val)}
         ref={toggleBtnRef}
         aria-haspopup="dialog"
       />
@@ -88,11 +88,11 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
   const withSection = title !== 'null';
 
   const [isActive, setIsActive] = React.useState(() =>
-    nodes.some(node => node.slug === pathname)
+    nodes.some((node) => node.slug === pathname)
   );
   const activateRef = React.useRef(null);
-  activateRef.current = function() {
-    if (!isActive && nodes.some(node => node.slug === pathname)) {
+  activateRef.current = function () {
+    if (!isActive && nodes.some((node) => node.slug === pathname)) {
       setIsActive(true);
     }
   };

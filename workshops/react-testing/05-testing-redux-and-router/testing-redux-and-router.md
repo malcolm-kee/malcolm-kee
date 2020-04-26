@@ -69,7 +69,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { rootReducer } from '../modules/root-reducer';
 
-export const renderWithStateMgmt = ui => {
+export const renderWithStateMgmt = (ui) => {
   const store = configureStore({
     reducer: rootReducer,
   });
@@ -130,7 +130,7 @@ export const renderWithStateMgmt = (ui, { actions = [] } = {}) => {
     reducer: rootReducer,
   });
 
-  actions.forEach(action => store.dispatch(action)); // highlight-line
+  actions.forEach((action) => store.dispatch(action)); // highlight-line
 
   const renderResult = render(<Provider store={store}>{ui}</Provider>);
 
@@ -286,7 +286,7 @@ export const renderWithStateMgmtAndRouter = (
     reducer: rootReducer,
   });
 
-  actions.forEach(action => store.dispatch(action));
+  actions.forEach((action) => store.dispatch(action));
 
   // highlight-start
   const history = createMemoryHistory({

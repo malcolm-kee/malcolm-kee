@@ -39,7 +39,7 @@ In its simplest form, event emitter exposes two methods, `subscribe` and `emit`.
 
 ```javascript
 const evEmitter = createEventEmitter();
-evEmitter.subscribe(val => console.log(`Event emitted with value ${val}`));
+evEmitter.subscribe((val) => console.log(`Event emitted with value ${val}`));
 evEmitter.emit('hello');
 evEmitter.emit('bye');
 ```
@@ -63,11 +63,11 @@ How does the code of `createEventEmitter` looks like?
 ```js live
 const createEventEmitter = () => {
   const subscribers = [];
-  const subscribe = subscriber => {
+  const subscribe = (subscriber) => {
     subscribers.push(subscriber);
   };
-  const emit = value => {
-    subscribers.forEach(sub => typeof sub === 'function' && sub(value));
+  const emit = (value) => {
+    subscribers.forEach((sub) => typeof sub === 'function' && sub(value));
   };
 
   return {
@@ -77,7 +77,7 @@ const createEventEmitter = () => {
 };
 
 const evEmitter = createEventEmitter();
-evEmitter.subscribe(val => console.log(`Event emitted with value ${val}`));
+evEmitter.subscribe((val) => console.log(`Event emitted with value ${val}`));
 evEmitter.emit('hello');
 evEmitter.emit('bye');
 ```

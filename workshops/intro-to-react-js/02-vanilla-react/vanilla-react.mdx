@@ -45,7 +45,7 @@ Pro Tips: If you're using VS Code (which supports emmet out-out-the-box), you ca
 In the `<script>` tag, add the following code
 
 ```javascript
-const App = function() {
+const App = function () {
   return React.createElement(
     'div',
     {},
@@ -80,7 +80,7 @@ const Movie = () =>
     React.createElement('h2', {}, '2018-12-07'),
   ]);
 
-const App = function() {
+const App = function () {
   return React.createElement('div', {}, [
     React.createElement(
       'div',
@@ -107,13 +107,13 @@ ReactDOM.render(React.createElement(App), document.getElementById('root'));
 We have multiple movies but it's not very useful component yet, since not all movies has name Aquaman. Let's make Movie component a bit more useful.
 
 ```javascript
-const Movie = props =>
+const Movie = (props) =>
   React.createElement('div', { className: 'movie-container' }, [
     React.createElement('h1', {}, props.name),
     React.createElement('h2', {}, props.releaseDate),
   ]);
 
-const App = function() {
+const App = function () {
   return React.createElement('div', {}, [
     React.createElement(
       'div',

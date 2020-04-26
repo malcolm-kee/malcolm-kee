@@ -19,7 +19,7 @@ export const useObserver = (
       const targetMap = new Map<Element, string>();
 
       const observer = new IntersectionObserver(
-        entries => {
+        (entries) => {
           dispatch({
             type: observeType,
             payload: [entries, targetMap],
@@ -31,7 +31,7 @@ export const useObserver = (
         }
       );
 
-      selectors.forEach(selector => {
+      selectors.forEach((selector) => {
         const target = document.querySelector(selector);
         if (target) {
           targetMap.set(target, selector);
@@ -63,7 +63,7 @@ const observerReducer: React.Reducer<string[], ObserverActions> = (
       const [entries, map] = action.payload;
       const enteringItems: string[] = [];
       const leavingItems: string[] = [];
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         const selector = map.get(entry.target);
         if (selector) {
           if (entry.isIntersecting) {
@@ -74,7 +74,7 @@ const observerReducer: React.Reducer<string[], ObserverActions> = (
         }
       });
       return state
-        .filter(item => !leavingItems.includes(item))
+        .filter((item) => !leavingItems.includes(item))
         .concat(enteringItems);
     }
 
@@ -89,7 +89,7 @@ const observerReducer: React.Reducer<string[], ObserverActions> = (
         }
       });
 
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         const selector = map.get(entry.target);
         if (
           selector &&

@@ -66,7 +66,7 @@ export const HighlightedCode = React.memo(
     ) {
       const lineIndexesToHighlight =
         typeof highlightedLines === 'string'
-          ? highlightedLines.split(',').map(num => Number(num) - 1)
+          ? highlightedLines.split(',').map((num) => Number(num) - 1)
           : [];
 
       return (

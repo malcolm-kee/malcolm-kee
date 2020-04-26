@@ -27,16 +27,16 @@ Example: `simple-format-number`
 
 ```ts fileName=type.d.ts
 declare module 'simple-format-number' {
-    export default function format(
-      num: number,
-      options?: {
-        fractionDigits?: number;
-        symbols?: {
-          decimal?: string;
-          grouping?: string;
-        };
-      }
-    ): string;
+  export default function format(
+    num: number,
+    options?: {
+      fractionDigits?: number;
+      symbols?: {
+        decimal?: string;
+        grouping?: string;
+      };
+    }
+  ): string;
 }
 ```
 

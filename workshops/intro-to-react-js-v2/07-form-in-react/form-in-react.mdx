@@ -44,10 +44,10 @@ Now that we know the actual AJAX call works by using tools, let's proceed to do 
 Create a `createMovie` function in `api.js` that will make the request
 
 ```javascript fileName=src/api.js
-export const createMovie = movie =>
+export const createMovie = (movie) =>
   axios
     .post('https://react-intro-movies.herokuapp.com/movies', movie)
-    .then(res => res.data);
+    .then((res) => res.data);
 ```
 
 - axios allows you to makes API call with specific method, e.g. `get`, `post`, `put` etc., corresponding to our REST call methods.
@@ -67,7 +67,7 @@ export const MovieForm = () => {
   const [name, setName] = React.useState('');
   const [releaseDate, setReleaseDate] = React.useState('');
 
-  const handleSubmit = ev => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
     createMovie({
       name,
@@ -91,7 +91,7 @@ export const MovieForm = () => {
             value={name}
             id="name"
             name="name"
-            onChange={ev => setName(ev.target.value)}
+            onChange={(ev) => setName(ev.target.value)}
             required
           />
         </div>
@@ -105,7 +105,7 @@ export const MovieForm = () => {
             id="releaseDate"
             name="releaseDate"
             type="date"
-            onChange={ev => setReleaseDate(ev.target.value)}
+            onChange={(ev) => setReleaseDate(ev.target.value)}
             required
           />
         </div>
@@ -189,7 +189,7 @@ We can achieve this by passing a callback from `App` to `MovieForm`.
       // highlight-start
       const loadMoviesData = () => {
         setIsLoading(true);
-        loadMovies().then(movieData => {
+        loadMovies().then((movieData) => {
           setMovies(movieData);
           setIsLoading(false);
         });
@@ -226,7 +226,7 @@ We can achieve this by passing a callback from `App` to `MovieForm`.
               </div>
               {moviesShown && (
                 <BusyContainer isLoading={isLoading}>
-                  {movies.map(movie => (
+                  {movies.map((movie) => (
                     <Movie
                       name={movie.name}
                       releaseDate={movie.releaseDate}
@@ -300,7 +300,7 @@ const useMovieForm = () => {
 export const MovieForm = ({ onSubmitSuccess }) => {
   const { values, setName, setReleaseDate } = useMovieForm(); // highlight-line
 
-  const handleSubmit = ev => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
     createMovie(values).then(() => {
       onSubmitSuccess();
@@ -322,7 +322,7 @@ export const MovieForm = ({ onSubmitSuccess }) => {
             value={values.name}
             id="name"
             name="name"
-            onChange={ev => setName(ev.target.value)}
+            onChange={(ev) => setName(ev.target.value)}
             required
           />
         </div>
@@ -336,7 +336,7 @@ export const MovieForm = ({ onSubmitSuccess }) => {
             id="releaseDate"
             name="releaseDate"
             type="date"
-            onChange={ev => setReleaseDate(ev.target.value)}
+            onChange={(ev) => setReleaseDate(ev.target.value)}
             required
           />
         </div>

@@ -8,7 +8,7 @@ import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 import './tags.scss';
 
-const getItemClassName = count =>
+const getItemClassName = (count) =>
   count >= 4 ? 'tag-count-4' : `tag-count-${count}`;
 
 const randomSort = () => (Math.random() > 0.5 ? -1 : 1);
@@ -26,7 +26,7 @@ const TagsPage = ({
         {[]
           .concat(group)
           .sort(randomSort)
-          .map(tag => (
+          .map((tag) => (
             <ListItem
               link={`/tags/${tag.fieldValue}`}
               className={getItemClassName(tag.totalCount)}

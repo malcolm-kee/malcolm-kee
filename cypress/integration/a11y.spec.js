@@ -3,17 +3,13 @@
 
 describe(`Accessibility checks`, () => {
   beforeEach(() => {
-    cy.visit('/')
-      .initAxe()
-      .wait(500);
+    cy.visit('/').initAxe().wait(500);
   });
 
   it(`has no detectable a11y violations on landing page`, () => {
     cy.wait(1000).checkA11yResponsive();
 
-    cy.findByText('Frontend Engineer')
-      .focus()
-      .checkA11yResponsive();
+    cy.findByText('Frontend Engineer').focus().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on landing page dark mode', () => {
@@ -29,15 +25,11 @@ describe(`Accessibility checks`, () => {
       .wait(1000)
       .checkA11yResponsive();
 
-    cy.findByText('Frontend Engineer')
-      .focus()
-      .checkA11yResponsive();
+    cy.findByText('Frontend Engineer').focus().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on projects page', () => {
-    cy.findByText('Projects')
-      .click()
-      .checkA11yResponsive();
+    cy.findByText('Projects').click().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on projects page dark mode', () => {
@@ -48,10 +40,7 @@ describe(`Accessibility checks`, () => {
   });
 
   it('has no detectable a11y violations on blogs page', () => {
-    cy.findByText('Read Blog')
-      .click()
-      .wait(1000)
-      .checkA11yResponsive();
+    cy.findByText('Read Blog').click().wait(1000).checkA11yResponsive();
 
     cy.findAllByRole('listitem')
       .first()
@@ -76,32 +65,20 @@ describe(`Accessibility checks`, () => {
       .click()
       .checkA11yResponsive();
 
-    cy.findByTestId('prevBtn')
-      .click()
-      .checkA11yResponsive();
+    cy.findByTestId('prevBtn').click().checkA11yResponsive();
 
-    cy.findByTestId('prevBtn')
-      .click()
-      .checkA11yResponsive();
+    cy.findByTestId('prevBtn').click().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on blog post dark mode', () => {
-    cy.findByText('Read Blog')
-      .click()
-      .get('.blog-list-item')
-      .first()
-      .click();
+    cy.findByText('Read Blog').click().get('.blog-list-item').first().click();
     cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
       .checkA11yResponsive();
 
-    cy.findByTestId('prevBtn')
-      .click()
-      .checkA11yResponsive();
+    cy.findByTestId('prevBtn').click().checkA11yResponsive();
 
-    cy.findByTestId('prevBtn')
-      .click()
-      .checkA11yResponsive();
+    cy.findByTestId('prevBtn').click().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on all tags page', () => {
@@ -121,13 +98,8 @@ describe(`Accessibility checks`, () => {
 
   it(`has no detectable a11y violations on tag page`, () => {
     cy.findByText('Read Blog').click();
-    cy.findByText('All tags')
-      .click()
-      .wait(1000);
-    cy.findAllByRole('listitem')
-      .first()
-      .click()
-      .checkA11yResponsive();
+    cy.findByText('All tags').click().wait(1000);
+    cy.findAllByRole('listitem').first().click().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on tag page dark mode', () => {
@@ -137,9 +109,7 @@ describe(`Accessibility checks`, () => {
       .click()
 
       .wait(1000);
-    cy.findAllByRole('listitem')
-      .first()
-      .click();
+    cy.findAllByRole('listitem').first().click();
 
     cy.findByLabelText('Switch between Dark and Light mode')
       .click({ force: true })
