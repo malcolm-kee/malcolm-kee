@@ -8,12 +8,15 @@ import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
 import styles from './lesson-template.module.scss';
 import eduStyles from './education-template.module.scss';
+import { useLayout } from '../layouts/layout-context';
 
 const EducationTemplate = ({
   data: { education },
   pageContext: { next },
   location,
 }) => {
+  useLayout('edu');
+
   return (
     <ErrorBoundary>
       <div className={eduStyles.main}>

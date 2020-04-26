@@ -10,6 +10,7 @@ import { ReportIssueLink } from '../components/report-issue-link';
 import { ScrollProgress } from '../components/scroll-progress';
 import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
+import { useLayout } from '../layouts/layout-context';
 import styles from './lesson-template.module.scss';
 import './lesson-template.scss';
 
@@ -19,6 +20,7 @@ const LessonTemplate = ({
   location,
 }) => {
   const isJsEnabled = useIsJsEnabled();
+  useLayout('workshop');
 
   return (
     <ErrorBoundary>

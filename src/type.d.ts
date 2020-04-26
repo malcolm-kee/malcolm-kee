@@ -12,3 +12,8 @@ type NavigatorShareOption = {
 interface Navigator {
   share: (options: NavigatorShareOption) => Promise<void>;
 }
+
+declare module 'react-awesome-slider/src/styles' {
+  const content: { [className: string]: string };
+  export = content;
+}

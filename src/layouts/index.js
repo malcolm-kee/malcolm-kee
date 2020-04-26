@@ -1,6 +1,5 @@
 import { MDXProvider } from '@mdx-js/react';
-import React from 'react';
-import { isDefined } from 'typesafe-is';
+import * as React from 'react';
 import { CodeRenderer } from '../components/code-renderer';
 import { ErrorBoundary } from '../components/error-boundary';
 import { MdxLink } from '../components/mdx-link';
@@ -11,7 +10,10 @@ import { Exercise } from '../components/workshop/exercise';
 import { ThemeProvider } from '../theme';
 import { Layout } from './default-layout';
 import { EduLayout } from './edu-layout';
+import { LayoutContext } from './layout-context';
 import { WorkshopLayout } from './workshop-layout';
+
+const Fragment = ({ children }) => <React.Fragment>{children}</React.Fragment>;
 
 const mdxComponents = {
   a: MdxLink,
@@ -27,37 +29,28 @@ const mdxComponents = {
 
 const LayoutContainer = ({ children, pageContext, location }) => {
   const themeValue = useTheme();
+  const [layoutType, setLayoutType] = React.useState('standard');
 
-  const [isRoot, setIsRoot] = React.useState(() => location.pathname === '/');
-  React.useEffect(() => {
-    if (location.pathname === '/' && !isRoot) {
-      setIsRoot(true);
-    } else if (location.pathname !== '/' && isRoot) {
-      setIsRoot(false);
-    }
-  }, [location.pathname, isRoot]);
+  const LayoutByType = {
+    standard: Layout,
+    workshop: WorkshopLayout,
+    edu: EduLayout,
+    none: Fragment,
+  };
 
-  const { workshop, subject, lessonGroup } = pageContext;
+  const LayoutComponent = LayoutByType[layoutType];
 
   return (
     <ErrorBoundary>
-      <ThemeProvider value={themeValue}>
-        <MDXProvider components={mdxComponents}>
-          {isDefined(workshop) ? (
-            <WorkshopLayout
-              workshop={workshop}
-              workshopSections={lessonGroup}
-              pathname={location.pathname}
-            >
+      <LayoutContext.Provider value={setLayoutType}>
+        <ThemeProvider value={themeValue}>
+          <MDXProvider components={mdxComponents}>
+            <LayoutComponent pageContext={pageContext} location={location}>
               {children}
-            </WorkshopLayout>
-          ) : isDefined(subject) ? (
-            <EduLayout subject={subject}>{children}</EduLayout>
-          ) : (
-            <Layout isRoot={isRoot}>{children}</Layout>
-          )}
-        </MDXProvider>
-      </ThemeProvider>
+            </LayoutComponent>
+          </MDXProvider>
+        </ThemeProvider>
+      </LayoutContext.Provider>
     </ErrorBoundary>
   );
 };
