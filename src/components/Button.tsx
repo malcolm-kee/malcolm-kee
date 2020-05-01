@@ -13,13 +13,7 @@ interface BaseButtonProps {
 
 export interface NativeButtonProps
   extends BaseButtonProps,
-    Omit<
-      React.DetailedHTMLProps<
-        React.ButtonHTMLAttributes<HTMLButtonElement>,
-        HTMLButtonElement
-      >,
-      'color'
-    > {
+    Omit<React.ComponentProps<'button'>, 'color'> {
   component?: 'button';
   type?: 'button' | 'submit' | 'reset';
 }
