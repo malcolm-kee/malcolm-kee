@@ -157,7 +157,7 @@ Our current code works, but it is unoptimal because we make an AJAX call for eve
 To do that, let's create a file `use-debounced-effect.js` in `src/hooks` folder:
 
 ```javascript
-import React from 'react';
+import * as React from 'react';
 
 export const useDebouncedEffect = (effect, deps, timeout = 500) => {
   React.useEffect(() => {

@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import styles from './footer.module.scss';
 import { OutLink } from './OutLink';
 import { useLastBuild } from '../hooks/use-last-build';

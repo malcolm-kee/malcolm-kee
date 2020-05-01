@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 /**
  * Shameless stealing from https://github.com/gaearon/overreacted.io

@@ -5,7 +5,7 @@ import {
 } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { Button } from './Button';
 import './dialog.scss';
 import { CloseIcon } from './svg-icons';

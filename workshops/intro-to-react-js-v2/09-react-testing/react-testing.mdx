@@ -125,7 +125,7 @@ Let's explore how to do that.
 We will write test for `busy-container.js`. But before that, let's modify `BusyContainer` slightly:
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 
 export const BusyContainer = ({ isLoading, children }) => (
   <div>
@@ -144,7 +144,7 @@ export const BusyContainer = ({ isLoading, children }) => (
 Let's create a file `busy-container.test.js` next to `busy-container.js` with the following contents:
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { BusyContainer } from './busy-container';
 
@@ -216,7 +216,7 @@ npm install -D @testing-library/react
 Let's change `busy-container.test.js` to the following:
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { BusyContainer } from './busy-container';
 
@@ -276,7 +276,7 @@ Commit: [`add react component test example`](https://github.com/malcolm-kee/reac
 The previous React test is quite straight-forward as the `BusyContainer` is simple (as it should be!). Following is a sample of more complex React component test that test our `App` component.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { render, fireEvent, wait } from '@testing-library';
 import '@testing-library/cleanup-after-each';
 import App from './app';

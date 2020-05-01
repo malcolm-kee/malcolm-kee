@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { Link } from 'gatsby';
-import React from 'react';
+import * as React from 'react';
 import { useDiffEffect } from '../../hooks/use-diff-effect';
 import { useWindowEventListener } from '../../hooks/use-event-listener';
 import { ChevronIcon } from '../chevron-icon';

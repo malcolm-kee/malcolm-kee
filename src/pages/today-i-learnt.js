@@ -1,5 +1,5 @@
 import { graphql, Link } from 'gatsby';
-import React from 'react';
+import * as React from 'react';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';

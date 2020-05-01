@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 type EventHandler<EventName extends keyof WindowEventMap> = (
   event: WindowEventMap[EventName]

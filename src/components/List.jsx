@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { Link } from 'gatsby';
-import React from 'react';
+import * as React from 'react';
 import { getLinkTarget } from '../lib/util';
 import styles from './List.module.scss';
 import './List.scss';

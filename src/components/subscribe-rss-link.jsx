@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { OutLink } from './OutLink';
 import { RssIcon } from './rss-icon';
 import styles from './subscribe-rss-link.module.scss';

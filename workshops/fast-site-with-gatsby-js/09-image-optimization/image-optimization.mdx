@@ -75,7 +75,7 @@ Let's load your photo by setting a fixed width of 500px.
 ```jsx fileName=src/pages/index.js
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image'; // highlight-line
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout';
 
 const HomePage = ({ data }) => {
@@ -118,7 +118,7 @@ export const query = graphql`
 ```jsx fileName=src/pages/index.js
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout';
 
 const HomePage = ({ data }) => {

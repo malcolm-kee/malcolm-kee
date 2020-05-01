@@ -95,13 +95,13 @@ Now webpack is managing dependencies between our codes (`index.js`, `app.js` and
 1. At the top of your `index.js`, add the following statements:
 
    ```javascript fileName=src/index.js
-   import React from 'react';
+   import * as React from 'react';
    import ReactDOM from 'react-dom';
    ```
 
 1. At the top of `app.js` and `movie.js`, add the following statement:
    ```javascript
-   import React from 'react';
+   import * as React from 'react';
    ```
 1. Remove the unpkg script tags for React and ReactDOM in your `index.html`.
 1. Run `npm run build` again. Verify that your code still works as before.

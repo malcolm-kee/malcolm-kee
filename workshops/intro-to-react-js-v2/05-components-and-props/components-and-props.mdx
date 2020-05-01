@@ -13,7 +13,7 @@ You do not need JSX to use React, as I've shown you in [previous section](/intro
 Let's convert `Movie` component to use JSX. It will look like this:
 
 ```jsx fileName=src/components/movie.js
-import React from 'react';
+import * as React from 'react';
 
 export const Movie = (props) => (
   <div className="movie-container">
@@ -81,7 +81,7 @@ There are few reasons to extract components:
 Let's extract the title section in our `App` to a `TitleBar` component.
 
 ```jsx fileName=src/components/title-bar.js
-import React from 'react';
+import * as React from 'react';
 
 export const TitleBar = (props) => (
   <div className="title-bar">{props.children}</div>
@@ -152,7 +152,7 @@ Don’t be afraid to split components into smaller components.
 We will gonna need a `Button` component in next section. Let's create it now.
 
 ```jsx fileName=src/components/button.js
-import React from 'react';
+import * as React from 'react';
 
 export const Button = (props) => <button className="button" {...props} />;
 ```

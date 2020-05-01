@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { copyToClipboard } from '../helper';
 import { useTransientState } from '../hooks/use-transient-state';
 import { Button } from './Button';

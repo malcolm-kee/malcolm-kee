@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { RoundedLinkButton } from '../components/Button';
 import { MainContent } from '../components/main-content';
 

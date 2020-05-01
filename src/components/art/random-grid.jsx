@@ -1,7 +1,7 @@
 import { lerp } from 'canvas-sketch-util/math';
 import randomUtil from 'canvas-sketch-util/random';
 import palettes from 'nice-color-palettes';
-import React from 'react';
+import * as React from 'react';
 import { getContrastTextColor } from '../../helper';
 import { Button } from '../Button';
 import { Checkbox } from '../checkbox';

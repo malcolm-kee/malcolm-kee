@@ -1,5 +1,5 @@
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
-import React from 'react';
+import * as React from 'react';
 import moon from '../assets/moon.png';
 import sun from '../assets/sun.png';
 import { useTheme } from '../theme';

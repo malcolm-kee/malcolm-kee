@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { getGithubIssueLink } from '../helper';
 import { useRepositoryUrl } from '../hooks/use-repository-url';
 import { OutLink } from './OutLink';

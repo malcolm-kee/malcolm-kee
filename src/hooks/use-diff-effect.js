@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 /**
  * useDiffEffect is like useEffect hooks, with the only difference where the effect

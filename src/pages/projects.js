@@ -1,7 +1,7 @@
 import { navigate } from '@reach/router';
 import { graphql, Link } from 'gatsby';
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
-import React from 'react';
+import * as React from 'react';
 import { isDefined } from 'typesafe-is';
 import { Button, RoundedLinkButton } from '../components/Button';
 import { Card, CardActions, CardContent, CardImage } from '../components/Card';

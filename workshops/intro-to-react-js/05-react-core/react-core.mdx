@@ -12,7 +12,7 @@ You do not need JSX to use React, as I've shown you in [previous section](/vanil
 Let's convert `Movie` component to using JSX. It will look like this:
 
 ```jsx fileName=src/movie.js
-import React from 'react';
+import * as React from 'react';
 
 const Movie = (props) => (
   <div className="movie-container">
@@ -458,7 +458,7 @@ To load data from backend API:
 1. modify your `App` constructor and define a `componentDidMount` method as below:
 
    ```jsx fileName=src/app.js
-   import React from 'react';
+   import * as React from 'react';
    import Movie from './movie';
    import { loadMovies } from './api'; // highlight-line
 
@@ -531,7 +531,7 @@ To show loading indicator when waiting API response:
 1. create a file `busy-container.js` in `src` folder with the following contents:
 
    ```jsx fileName=src/busy-container.js
-   import React from 'react';
+   import * as React from 'react';
 
    export const BusyContainer = ({ isLoading, children }) => (
      <div>
@@ -547,7 +547,7 @@ To show loading indicator when waiting API response:
 1. update `App` component:
 
    ```jsx fileName=src/app.js
-   import React from 'react';
+   import * as React from 'react';
    import { loadMovies } from './api';
    import { BusyContainer } from './busy-container'; // highlight-line
    import Movie from './movie';

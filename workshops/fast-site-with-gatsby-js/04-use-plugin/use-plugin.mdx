@@ -149,7 +149,7 @@ $max-width: 1020px;
 ```
 
 ```jsx fileName=src/components/header.jsx
-import React from 'react';
+import * as React from 'react';
 import './header.scss'; // highlight-line
 
 export const Header = () => {
@@ -171,7 +171,7 @@ export const Header = () => {
 ```
 
 ```jsx fileName=src/components/layout.jsx
-import React from 'react';
+import * as React from 'react';
 import { Header } from './header';
 import './layout.scss'; // highlight-line
 

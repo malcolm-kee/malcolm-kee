@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { box, circle } from './shapes.module.scss';
 
 export const Box = ({ className, ...props }) => (

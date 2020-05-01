@@ -51,7 +51,7 @@ npm start
 Take a `Profile` component that shows username and email address as an example:
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 
 export const Profile = props => {
     return (

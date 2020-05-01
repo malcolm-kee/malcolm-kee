@@ -1,6 +1,6 @@
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import React from 'react';
+import * as React from 'react';
 import { isArray } from 'typesafe-is';
 import { ChevronIcon } from '../components/chevron-icon';
 import { MainContent } from '../components/main-content';

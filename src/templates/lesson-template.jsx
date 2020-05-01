@@ -1,11 +1,11 @@
 import { graphql } from 'gatsby';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
-import React from 'react';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import * as React from 'react';
 import { LinkButton } from '../components/Button';
 import { ChevronIcon } from '../components/chevron-icon';
-import { FriendlyComments } from '../components/friendly-comments';
 import { ErrorBoundary } from '../components/error-boundary';
+import { FriendlyComments } from '../components/friendly-comments';
 import { ReportIssueLink } from '../components/report-issue-link';
 import { ScrollProgress } from '../components/scroll-progress';
 import { Seo } from '../components/Seo';

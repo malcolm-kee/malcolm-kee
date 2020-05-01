@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import React from 'react';
+import * as React from 'react';
 
 export const Header = React.memo(function Header() {
   return (

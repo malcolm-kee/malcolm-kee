@@ -33,12 +33,12 @@ const LayoutContainer = ({ children, pageContext, location }) => {
 
   const LayoutByType = {
     standard: Layout,
-    workshop: WorkshopLayout,
     edu: EduLayout,
+    workshop: WorkshopLayout,
     none: Fragment,
   };
 
-  const LayoutComponent = LayoutByType[layoutType];
+  const LayoutComponent = LayoutByType[layoutType] || Fragment;
 
   return (
     <ErrorBoundary>

@@ -33,7 +33,7 @@ JS module system consists of the following rules:
 Now looking at `index.js` file:
 
 ```javascript fileName=src/index.js
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 ...
 ```
@@ -48,7 +48,7 @@ If you realize, currently our `index.js` consists of 3 parts: the `Movie` compon
 1.  create a `components` folder in `src` folder, and add a `movie.js` file in it with the following content:
 
     ```javascript fileName=src/components/movie.js
-    import React from 'react';
+    import * as React from 'react';
 
     export const Movie = (props) =>
       React.createElement('div', { className: 'movie-container' }, [
@@ -60,7 +60,7 @@ If you realize, currently our `index.js` consists of 3 parts: the `Movie` compon
 1.  create a `app.js` file next to `index.js` with the following content:
 
     ```javascript fileName=src/app.js
-    import React from 'react';
+    import * as React from 'react';
     import { Movie } from './components/movie';
 
     function App() {
@@ -91,7 +91,7 @@ If you realize, currently our `index.js` consists of 3 parts: the `Movie` compon
 1.  Lastly, modify `index.js` to following:
 
     ```javascript fileName=src/index.js
-    import React from 'react';
+    import * as React from 'react';
     import ReactDOM from 'react-dom';
     import App from './app';
 

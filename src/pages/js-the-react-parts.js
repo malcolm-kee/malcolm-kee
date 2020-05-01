@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
+import * as React from 'react';
 import reactLogo from '../assets/react-logo.png';
 import { LinkButton } from '../components/Button';
 import { JsIcon } from '../components/svg-icons';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { RandomGrid } from '../components/art/random-grid';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';

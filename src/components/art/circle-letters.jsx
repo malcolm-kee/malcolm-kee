@@ -1,5 +1,5 @@
 import randomUtil from 'canvas-sketch-util/random';
-import React from 'react';
+import * as React from 'react';
 import { useAnimationFrame } from '../../hooks/use-animation-frame';
 import { Button } from '../Button';
 import { Field } from '../Field';

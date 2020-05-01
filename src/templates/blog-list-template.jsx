@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby';
-import React from 'react';
+import * as React from 'react';
 import { RoundedLinkButton } from '../components/Button';
 import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';

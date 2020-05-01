@@ -1,7 +1,7 @@
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import github from 'prism-react-renderer/themes/github';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
-import React from 'react';
+import * as React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { useDiffEffect } from '../hooks/use-diff-effect';
 import { useId } from '../hooks/use-id';

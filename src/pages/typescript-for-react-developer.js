@@ -1,5 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import React from 'react';
+import * as React from 'react';
 import { LinkButton } from '../components/Button';
 import { ReactTypescriptIcon } from '../components/react-typescript-icon';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';

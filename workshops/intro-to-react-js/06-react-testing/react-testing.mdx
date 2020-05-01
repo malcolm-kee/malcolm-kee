@@ -196,7 +196,7 @@ Let's explore how to do that.
 We will write test for `busy-container.js`. But before that, let's modify `BusyContainer` slightly:
 
 ```jsx fileName=src/busy-container.js
-import React from 'react';
+import * as React from 'react';
 
 export const BusyContainer = ({ isLoading, children }) => (
   <div>
@@ -216,7 +216,7 @@ export const BusyContainer = ({ isLoading, children }) => (
 Let's create a file `busy-container.test.js` next to `busy-container.js` with the following contents:
 
 ```jsx fileName=src/busy-container.test.js
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { BusyContainer } from './busy-container';
 
@@ -288,7 +288,7 @@ npm install -D react-testing-library
 Let's change `busy-container.test.js` to the following:
 
 ```jsx fileName=busy-container.test.js
-import React from 'react';
+import * as React from 'react';
 import { render, cleanup } from 'react-testing-library';
 import { BusyContainer } from './busy-container';
 
@@ -344,7 +344,7 @@ Commit: [`130-react-test`](https://github.com/malcolm-kee/react-movie-app/tree/1
 The previous React test is quite straight-forward as the `BusyContainer` is simple (as it should be!). Following is a sample of more complex React component test that test our `App` component.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { render, fireEvent, wait } from 'react-testing-library';
 import 'react-testing-library/cleanup-after-each';
 import App from './app';

@@ -89,7 +89,7 @@ touch src/pages/index.js
 ```
 
 ```jsx fileName=src/pages/index.js
-import React from 'react';
+import * as React from 'react';
 
 const HomePage = () => {
   return (
@@ -151,7 +151,7 @@ touch src/pages/404.js
 ```
 
 ```jsx fileName=src/pages/404.js
-import React from 'react';
+import * as React from 'react';
 
 const NotFoundPage = () => {
   return (
@@ -179,7 +179,7 @@ touch src/components/layout.jsx
 ```
 
 ```jsx fileName=src/components/header.jsx
-import React from 'react';
+import * as React from 'react';
 
 export const Header = () => {
   return (
@@ -191,7 +191,7 @@ export const Header = () => {
 ```
 
 ```jsx fileName=src/components/layout.jsx
-import React from 'react';
+import * as React from 'react';
 import { Header } from './header';
 
 export const Layout = ({ children }) => {
@@ -207,7 +207,7 @@ export const Layout = ({ children }) => {
 Then use the `Layout` component in both our home page and not found page:
 
 ```jsx fileName=src/pages/index.js
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout'; // highlight-line
 
 const HomePage = () => {
@@ -225,7 +225,7 @@ export default HomePage;
 ```
 
 ```jsx fileName=src/pages/404.js
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout'; // highlight-line
 
 const NotFoundPage = () => {
@@ -264,7 +264,7 @@ touch src/components/layout.css
 ```
 
 ```jsx fileName=src/components/header.jsx
-import React from 'react';
+import * as React from 'react';
 import './header.css'; // highlight-line
 
 export const Header = () => {
@@ -284,7 +284,7 @@ export const Header = () => {
 ```
 
 ```jsx fileName=src/components/layout.jsx
-import React from 'react';
+import * as React from 'react';
 import { Header } from './header';
 import './layout.css'; // highlight-line
 
@@ -314,7 +314,7 @@ touch src/pages/about-me.js
 ```
 
 ```jsx fileName=src/pages/about-me.js
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout';
 
 const AboutMePage = () => {
@@ -336,7 +336,7 @@ Let's add the link to this new page from home page:
 
 ```jsx fileName=src/pages/index.js
 import { Link } from 'gatsby'; // highlight-line
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout';
 
 const HomePage = () => {
@@ -357,7 +357,7 @@ Add the link to home page from Not Found page and About page:
 
 ```jsx fileName=src/pages/404.js
 import { Link } from 'gatsby'; // highlight-line
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout';
 
 const NotFoundPage = () => {
@@ -376,7 +376,7 @@ export default NotFoundPage;
 
 ```jsx fileName=src/pages/about-me.js
 import { Link } from 'gatsby'; // highlight-line
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout';
 
 const AboutMePage = () => {

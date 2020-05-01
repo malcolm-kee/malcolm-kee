@@ -175,7 +175,7 @@ Let's create a `hooks` folder within `src` folder, and add a file `use-toggle.js
 
 ```javascript
 // src/hooks/use-toggle.js
-import React from 'react';
+import * as React from 'react';
 
 export const useToggle = (initialOn) => {
   const [on, setOn] = React.useState(initialOn);
@@ -330,7 +330,7 @@ To show loading indicator when waiting API response:
 1.  create a file `busy-container.js` in `src/components` folder with the following contents:
 
     ```jsx
-    import React from 'react';
+    import * as React from 'react';
 
     export const BusyContainer = ({ isLoading, children }) => (
       <div>

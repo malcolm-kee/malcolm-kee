@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { Button } from '../../../src/components/Button';
 import { Box } from '../../../src/components/shapes';
 import { activated, container, innerContainer } from './reduce.module.scss';

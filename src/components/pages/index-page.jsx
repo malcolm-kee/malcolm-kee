@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { Link } from 'gatsby';
-import React from 'react';
+import * as React from 'react';
 import { ContactForm } from '../ContactForm';
 import { LandingPageHeader } from '../landing-page-header';
 import { OutLink } from '../OutLink';

@@ -4,7 +4,7 @@ import Image from 'gatsby-image';
 import { useIsJsEnabled } from 'gatsby-plugin-js-fallback';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import kebabCase from 'lodash/kebabCase';
-import React from 'react';
+import * as React from 'react';
 import { isArray } from 'typesafe-is';
 import { RoundedLinkButton } from '../components/Button';
 import { FriendlyComments } from '../components/friendly-comments';

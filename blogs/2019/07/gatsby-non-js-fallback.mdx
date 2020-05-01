@@ -22,7 +22,7 @@ The graceful degration in Gatsby site will be lost in some use case. For instanc
 To avoid this problem, the solution that I've come up with is to provide a fallback UI when JS is not available and another UI when JS is available. For the app to know which one is available, I create a custom hooks that will only returns true when JS is available:
 
 ```javascript use-is-js-enabled.js
-import React from 'react';
+import * as React from 'react';
 
 export function useIsJsEnabled() {
   const [isJsEnabled, setIsJsEnabled] = React.useState(false);
@@ -38,7 +38,7 @@ export function useIsJsEnabled() {
 To use it:
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { useIsJsEnabled } from './use-is-js-enabled';
 
 export const MyPage = () => {

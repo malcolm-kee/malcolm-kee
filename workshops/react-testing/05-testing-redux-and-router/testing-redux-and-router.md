@@ -14,7 +14,7 @@ Let's try to test `PaymentForm` in `src/modules/cart/components/payment-form.jsx
 
 ```jsx fileName=payment-form.spec.jsx
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { PaymentForm } from './payment-form';
 
 test(`PaymentForm can be rendered`, () => {
@@ -38,7 +38,7 @@ As explained in the error message, this is because we use `connect` function fro
 ```jsx fileName=payment-form.spec.jsx
 import { configureStore } from '@reduxjs/toolkit'; // highlight-line
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux'; // highlight-line
 import { rootReducer } from '../../root-reducer'; // highlight-line
 import { PaymentForm } from './payment-form';
@@ -65,7 +65,7 @@ Add a `src/lib/test-util.jsx` file with the following content:
 ```jsx fileName=src/lib/test-util.jsx
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { rootReducer } from '../modules/root-reducer';
 
@@ -89,7 +89,7 @@ export const renderWithStateMgmt = (ui) => {
 Then we can use it in our test like this:
 
 ```jsx fileName=payment-form.spec.jsx
-import React from 'react';
+import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util'; // highlight-line
 import { PaymentForm } from './payment-form';
 
@@ -120,7 +120,7 @@ Let's modify `renderWithStateMgmt` to supports this use case:
 ```jsx fileName=src/lib/test-util.jsx
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { rootReducer } from '../modules/root-reducer';
 
@@ -144,7 +144,7 @@ export const renderWithStateMgmt = (ui, { actions = [] } = {}) => {
 Then in our test:
 
 ```jsx fileName=payment-form.spec.jsx
-import React from 'react';
+import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice'; // highlight-line
 import { PaymentForm } from './payment-form';
@@ -172,7 +172,7 @@ test(`PaymentForm can be filled`, () => {
 And the amount is displayed! Let's add an assertion:
 
 ```jsx fileName=payment-form.spec.jsx
-import React from 'react';
+import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice'; // highlight-line
 import { PaymentForm } from './payment-form';
@@ -200,7 +200,7 @@ Then simulate user filling up the form:
 
 ```jsx fileName=payment-form.spec.jsx
 import { fireEvent } from '@testing-library/react'; // highlight-line
-import React from 'react';
+import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice';
 import { PaymentForm } from './payment-form';
@@ -272,7 +272,7 @@ And it fails!
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history'; // highlight-line
-import React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom'; // highlight-line
 import { rootReducer } from '../modules/root-reducer';

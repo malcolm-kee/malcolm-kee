@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Footer } from '../components/footer';
 import { ThemeToggle } from '../components/theme-toggle';
 import { Subject } from '../data/definition';

@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import 'react-gif-player/dist/gifplayer.css';
 import styles from './gif-player.module.scss';
 

@@ -86,7 +86,7 @@ touch src/components/instagram.scss
 ```jsx fileName=src/components/instagram.jsx
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import React from 'react';
+import * as React from 'react';
 import './instagram.scss';
 
 export const Instagram = () => {
@@ -155,7 +155,7 @@ export const Instagram = () => {
 ```jsx fileName=src/pages/index.js
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import React from 'react';
+import * as React from 'react';
 import { Instagram } from '../components/instagram'; // highlight-line
 import { Layout } from '../components/layout';
 

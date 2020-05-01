@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import React from 'react';
+import * as React from 'react';
 import { LinkButton } from '../components/Button';
 import { ChevronIcon } from '../components/chevron-icon';
 import { ErrorBoundary } from '../components/error-boundary';

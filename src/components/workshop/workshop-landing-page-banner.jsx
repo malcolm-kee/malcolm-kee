@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import './workshop-landing-page-banner.scss';
 
 export const WorkshopLandingPageBanner = ({ children, inverse }) => (

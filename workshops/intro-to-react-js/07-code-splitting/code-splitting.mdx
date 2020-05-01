@@ -16,7 +16,7 @@ To start lazy-loading JS code, the most straightforward way is through the dynam
 We will lazy load the code in `api.js`.
 
 ```jsx fileName=src/app.js
-import React from 'react';
+import * as React from 'react';
 import { BusyContainer } from './busy-container';
 import Movie from './movie';
 
@@ -103,7 +103,7 @@ Once you understand dynamic `import()` for JS code, lazy-loading React Component
 Let's lazy load our `Movie` components by modify `app.js`:
 
 ```jsx fileName=src/app.js
-import React from 'react';
+import * as React from 'react';
 import { BusyContainer } from './busy-container';
 
 const Movie = React.lazy(() =>

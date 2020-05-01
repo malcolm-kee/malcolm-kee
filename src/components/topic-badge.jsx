@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styles from './topic-badge.module.scss';
 
 export const TopicBadge = ({ id, icon }) => {

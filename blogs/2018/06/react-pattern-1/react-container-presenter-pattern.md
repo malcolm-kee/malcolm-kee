@@ -53,7 +53,7 @@ A container:
 
 ```jsx
 // CommentList.js - Presenter
-import React from 'react';
+import * as React from 'react';
 
 const Commentlist = ({ comments, isLoading }) => (
   <ul>
@@ -73,7 +73,7 @@ const Commentlist = ({ comments, isLoading }) => (
 
 ```jsx
 // CommentListContainer.js - Container
-import React from 'react';
+import * as React from 'react';
 import CommentList from './CommentList';
 
 class CommentListContainer extends React.Component {

@@ -60,7 +60,7 @@ Now that we have function to make the API call, let's create the form component.
 Add a file `movie-form.js` with the following content:
 
 ```jsx fileName=src/movie-form.js
-import React from 'react';
+import * as React from 'react';
 import { createMovie } from './api';
 
 export const MovieForm = () => {
@@ -279,7 +279,7 @@ Now the movie list should be updated once you submit create movie!
 Let's extract out some code in `MovieForm`:
 
 ```jsx fileName=src/movie-form.js
-import React from 'react';
+import * as React from 'react';
 import { createMovie } from './api';
 
 // highlight-start

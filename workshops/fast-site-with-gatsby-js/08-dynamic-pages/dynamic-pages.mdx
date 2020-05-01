@@ -48,7 +48,7 @@ touch src/templates/blog-template.jsx
 ```
 
 ```jsx fileName=src/templates/blog-template.jsx
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout';
 
 const BlogTemplate = () => {
@@ -109,7 +109,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
 ```jsx fileName=src/templates/blog-template.jsx
 import { graphql } from 'gatsby'; // highlight-line
-import React from 'react';
+import * as React from 'react';
 import { Layout } from '../components/layout';
 
 // highlight-start

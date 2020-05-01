@@ -98,7 +98,7 @@ export default Movie; // highlight-line
 2.  Modify `app.js`:
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { BusyContainer } from './busy-container';
 
 const Movie = React.lazy(() => import('./components/movie')); // highlight-line

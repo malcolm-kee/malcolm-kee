@@ -15,7 +15,7 @@ Let's test `TextField` component (at `src/components/text-field.jsx`) by renders
 Add a file `text-field.spec.jsx` with following content:
 
 ```jsx fileName=src/components/text-field.spec.jsx
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { TextField } from './text-field';
 
@@ -35,7 +35,7 @@ yarn add -D @testing-library/react
 
 ```jsx fileName=src/components/text-field.spec.jsx
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { TextField } from './text-field';
 
 test(`renders TextField`, () => {
@@ -76,7 +76,7 @@ Let's add another test case for your TextField.
 
 ```jsx fileName=src/components/text-field.spec.jsx
 import { fireEvent, render } from '@testing-library/react'; // highlight-line
-import React from 'react';
+import * as React from 'react';
 import { TextField } from './text-field';
 
 test(`renders TextField`, () => {
@@ -111,7 +111,7 @@ Write tests to verify behaviors of `SelectField`.
 
 ```jsx fileName=src/components/spinner.spec.jsx
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 import { Spinner } from './spinner';
 
 test(`renders without props will show instantly`, () => {
