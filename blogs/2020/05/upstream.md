@@ -36,7 +36,7 @@ On the other hand, from your perspective, you may realize that you also contribu
 
 And you can continue to "go upstream" further. Perhaps you wasn't a harsh person before this. The problem is your current job is stressful and toxic, making you a grumpy person. To solve the problem, maybe you should just fire your boss.
 
-Nonetheless, many good managers and programmers that I know seems to possess this ability to think upstream and see if an alternative solution is more optimal to solve a particular problem. Often, when a hard problem can be solved by eliminating the upstream that is causing it.
+Even though this means there is no definite answer to solve a problem. Nonetheless, many good managers and programmers that I know seems to possess this ability to think upstream and see if an alternative solution is more optimal to solve a particular problem. Often, a hard problem can be solved by eliminating the upstream that is causing it.
 
 ---
 
