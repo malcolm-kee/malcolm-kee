@@ -176,7 +176,7 @@ module.exports = {
               }
             `,
             serialize: ({ query: { site, allBlogPost } }) => {
-              return allBlogPost.edges.map(edge => {
+              return allBlogPost.edges.map((edge) => {
                 return Object.assign({}, edge.node, {
                   description: edge.node.summary,
                   url: site.siteMetadata.siteUrl + edge.node.slug,

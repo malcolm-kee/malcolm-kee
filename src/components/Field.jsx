@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
 import { callAll } from '../lib/fp';
+import styles from './field.module.scss';
 
 export const Field = ({
   className,
@@ -23,7 +24,8 @@ export const Field = ({
       <label
         htmlFor={id}
         className={cx(
-          'label animated select-none absolute pb-2 transition-normal-in-out-quad left-2',
+          'label animated select-none absolute pb-2 left-2',
+          styles.label,
           value || focused ? 'top-0 text-xs' : 'top-6',
           focused ? 'text-primary-700 dark:text-primary-400' : 'text-gray-700',
           labelClassName

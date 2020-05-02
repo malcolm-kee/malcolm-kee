@@ -16,10 +16,14 @@ module.exports = {
       lg: '1024px',
       xl: '1280px',
     },
-    extend: {
-      colors: {
-        primary: colors.teal,
-      },
+    colors: {
+      primary: colors.teal,
+      black: colors.black,
+      white: colors.white,
+      red: colors.red,
+      green: colors.green,
+      blue: colors.blue,
+      gray: colors.gray,
     },
   },
   variants: {
@@ -27,15 +31,15 @@ module.exports = {
     borderColor: ['dark'],
     textColor: ['dark'],
   },
-  plugins: [
-    require('tailwindcss-transition')({
-      standard: 'all .3s ease',
-      transitions: {
-        slow: 'all 2s ease',
-        'normal-in-out-quad': 'all .3s cubic-bezier(0.455, 0.03, 0.515, 0.955)',
-        'slow-in-out-quad': 'all 2s cubic-bezier(0.455, 0.03, 0.515, 0.955)',
-      },
-    }),
-    require('tailwindcss-dark-mode')(),
-  ],
+  plugins: [require('tailwindcss-dark-mode')()],
+  corePlugins: {
+    placeholderColor: false,
+    placeholderOpacity: false,
+    scale: false,
+    transitionProperty: false,
+    rotate: false,
+    translate: false,
+    skew: false,
+    transformOrigin: false,
+  },
 };
