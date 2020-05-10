@@ -5,6 +5,7 @@ const { mdxResolverPassthrough } = require('./shared');
 
 /**
  * Create `Lesson`node when mdx node is created.
+ * @type {import('gatsby').GatsbyNode['onCreateNode']}
  */
 exports.createLessonNode = async ({
   node,
@@ -72,9 +73,9 @@ const ONLY_WORKSHOP = process.env.ONLY_WORKSHOP;
 function groupInstruction(edges) {
   const sectionsByKey = {};
 
-  const nodes = edges.map(edge => edge.node);
+  const nodes = edges.map((edge) => edge.node);
 
-  nodes.forEach(node => {
+  nodes.forEach((node) => {
     if (sectionsByKey[node.section]) {
       sectionsByKey[node.section].push({
         title: node.title,
@@ -90,12 +91,15 @@ function groupInstruction(edges) {
     }
   });
 
-  return Object.keys(sectionsByKey).map(title => ({
+  return Object.keys(sectionsByKey).map((title) => ({
     title,
     nodes: sectionsByKey[title],
   }));
 }
 
+/**
+ * @type {import('gatsby').GatsbyNode['createPages']}
+ */
 exports.createWorkshopPages = function createWorkshopPages({
   actions,
   graphql,
@@ -148,16 +152,16 @@ exports.createWorkshopPages = function createWorkshopPages({
     {
       regex: ONLY_WORKSHOP ? `/${ONLY_WORKSHOP}/` : '/\\.*/g', // optimize build
     }
-  ).then(result => {
+  ).then((result) => {
     if (result.errors) {
       return Promise.reject(result.errors);
     }
 
     // group manually instead of relying on group in GraphQL as that will breaks hot-reload (no idea why)
     const groups = [];
-    result.data.allLesson.edges.forEach(edge => {
+    result.data.allLesson.edges.forEach((edge) => {
       const groupIndex = groups.findIndex(
-        group => group.workshop === edge.node.workshop.id
+        (group) => group.workshop === edge.node.workshop.id
       );
       if (groupIndex > -1) {
         groups[groupIndex].edges.push(edge);
@@ -169,7 +173,7 @@ exports.createWorkshopPages = function createWorkshopPages({
       }
     });
 
-    groups.forEach(group => {
+    groups.forEach((group) => {
       const lessonGroup = groupInstruction(group.edges);
 
       group.edges.forEach(({ node: lesson, next }, index, edges) => {
@@ -215,7 +219,7 @@ exports.createWorkshopSchemaCustomization = function createWorkshopSchemaCustomi
         },
         contrastColor: {
           type: 'String!',
-          resolve: source =>
+          resolve: (source) =>
             invert(source.themeColor, {
               white: '#ffffffe0',
               black: '#000000de',
