@@ -7,8 +7,6 @@ import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 import styles from './recordings.module.scss';
 
-console.log({ styles });
-
 export default function Recordings({ data }) {
   return (
     <>
