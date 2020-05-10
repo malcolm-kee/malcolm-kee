@@ -44,6 +44,13 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-yaml',
     {
+      resolve: 'gatsby-source-youtube-v2',
+      options: {
+        channelId: [process.env.YOUTUBE_CHANNEL_ID],
+        apiKey: process.env.YOUTUBE_API_ID,
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: path.join(__dirname, 'workshops'),

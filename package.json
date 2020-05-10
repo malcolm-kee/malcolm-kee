@@ -50,6 +50,7 @@
     "gatsby-remark-images": "^3.0.16",
     "gatsby-source-filesystem": "^2.0.39",
     "gatsby-source-npmsio": "^1.0.0",
+    "gatsby-source-youtube-v2": "^1.0.1",
     "gatsby-transformer-sharp": "^2.1.8",
     "gatsby-transformer-yaml": "^2.2.12",
     "intersection-observer": "^0.10.0",

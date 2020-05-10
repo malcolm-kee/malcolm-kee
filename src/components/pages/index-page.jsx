@@ -34,7 +34,7 @@ export const IndexPage = () => (
         <div className="max-w-4xl mx-auto pb-4 px-2 lg:max-w-full">
           <LandingPageSection>
             <SectionHeader>Works</SectionHeader>
-            <ul className="flex justify-around">
+            <ul className="flex justify-around flex-wrap">
               <li className="mx-1">
                 <Link to="/projects" className="link-highlight animated">
                   Projects
@@ -43,6 +43,11 @@ export const IndexPage = () => (
               <li className="mx-1">
                 <Link to="/workshops" className="link-highlight animated">
                   Workshops
+                </Link>
+              </li>
+              <li className="mx-1">
+                <Link to="/recordings" className="link-highlight animated">
+                  Recordings
                 </Link>
               </li>
               <li className="mx-1">
