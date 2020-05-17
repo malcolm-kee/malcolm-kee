@@ -7,7 +7,7 @@ import { Dialog } from './dialog';
 const SocialMediaButtons = React.lazy(() => import('./social-media-buttons'));
 
 type ShareButtonProps = {
-  details: NavigatorShareOption;
+  details: ShareData & { url: string };
   children?: React.ReactNode;
 } & Omit<NativeButtonProps, 'ref'>;
 

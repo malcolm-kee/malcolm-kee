@@ -3,6 +3,15 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { isArray } from 'typesafe-is';
 
+export type SeoProps = {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  image?: string;
+  icon?: string;
+  pathname?: string;
+};
+
 export const Seo = ({
   title,
   description,
@@ -10,7 +19,7 @@ export const Seo = ({
   image,
   icon,
   pathname,
-}) => {
+}: SeoProps) => {
   const {
     site: { siteMetadata },
   } = useStaticQuery(

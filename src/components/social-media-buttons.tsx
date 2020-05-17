@@ -13,7 +13,7 @@ import {
 } from 'react-share';
 
 export type SocialMediaButtonsProps = {
-  details: NavigatorShareOption;
+  details: ShareData & { url: string };
   onDone: () => void;
 };
 

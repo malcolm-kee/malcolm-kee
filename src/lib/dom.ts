@@ -14,7 +14,7 @@ export const scrollIntoView = (
 
 export const isShareSupported = () => typeof navigator.share === 'function';
 
-export const share = (options: NavigatorShareOption) => {
+export const share = (options: ShareData) => {
   if (navigator.share) {
     return navigator.share(options);
   }
