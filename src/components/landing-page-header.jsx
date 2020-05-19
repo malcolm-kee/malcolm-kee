@@ -19,17 +19,17 @@ export const LandingPageHeader = () => {
       <div className={`pt-8 pb-8 xs:pt-4 xs:pb-0 md:pt-12 ${styles.content}`}>
         <ul className={styles.subtitle}>
           <li>
-            <Link to="/projects" className="md:text-lg animated">
+            <Link to="/projects/" className="md:text-lg animated">
               Frontend Engineer
             </Link>
           </li>
           <li>
-            <Link to="/workshops" className="md:text-lg animated">
+            <Link to="/workshops/" className="md:text-lg animated">
               Teacher
             </Link>
           </li>
           <li>
-            <Link to="/libraries" className="md:text-lg animated">
+            <Link to="/libraries/" className="md:text-lg animated">
               Open Source Contributor
             </Link>
           </li>

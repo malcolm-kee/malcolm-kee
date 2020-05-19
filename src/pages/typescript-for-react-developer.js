@@ -35,7 +35,7 @@ const PageHeader = () => {
             </h1>
             <div className="py-2 my-2">
               <LinkButton
-                to="/typescript-for-react-developer/introduction"
+                to="/typescript-for-react-developer/introduction/"
                 color="primary"
                 minWidth="widest"
                 className="text-2xl"

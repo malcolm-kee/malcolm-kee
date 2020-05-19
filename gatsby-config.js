@@ -4,21 +4,23 @@ require('dotenv').config({
 const path = require('path');
 const packageJson = require('./package.json');
 
+const siteMetadata = {
+  title: 'Malcolm Kee',
+  description: packageJson.description,
+  siteUrl: packageJson.homepage,
+  author: packageJson.author,
+  keywords: packageJson.keywords,
+  repositoryUrl: packageJson.repository.url,
+  social: {
+    twitter: '@Malcolm_Kee',
+  },
+};
+
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
-  siteMetadata: {
-    title: 'Malcolm Kee',
-    description: packageJson.description,
-    siteUrl: packageJson.homepage,
-    author: packageJson.author,
-    keywords: packageJson.keywords,
-    repositoryUrl: packageJson.repository.url,
-    social: {
-      twitter: '@Malcolm_Kee',
-    },
-  },
+  siteMetadata,
   plugins: [
     {
       resolve: 'gatsby-plugin-sass',
@@ -43,6 +45,12 @@ module.exports = {
     'gatsby-plugin-layout',
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-yaml',
+    {
+      resolve: 'gatsby-plugin-canonical-urls',
+      options: {
+        siteUrl: siteMetadata.siteUrl,
+      },
+    },
     {
       resolve: 'gatsby-source-youtube-v2',
       options: {

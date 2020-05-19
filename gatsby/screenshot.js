@@ -22,7 +22,9 @@ exports.screenshot = async function screenshot(
 
   for (const node of nodes) {
     const { title, date, slug, subtitle, icon } = node;
-    const filePath = path.resolve(`public/og_image/${slug}.png`);
+    const filePath = path.resolve(
+      `public/og_image/${removeTrailingSlash(slug)}.png`
+    );
     ensureDirectoryExistence(filePath);
 
     if (fs.existsSync(filePath)) continue;
@@ -64,4 +66,14 @@ function ensureDirectoryExistence(filePath) {
   }
   ensureDirectoryExistence(dirname);
   fs.mkdirSync(dirname);
+}
+
+/**
+ *
+ * @param {string} text
+ */
+function removeTrailingSlash(text) {
+  return text && text[text.length - 1] === '/'
+    ? text.substring(0, text.length - 1)
+    : text;
 }

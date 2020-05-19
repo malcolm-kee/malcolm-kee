@@ -16,6 +16,7 @@ import { SubscribeRssLink } from '../components/subscribe-rss-link';
 import { ThemeToggle } from '../components/theme-toggle';
 import { Ul } from '../components/ul';
 import { getReadtimeText } from '../helper';
+import { removeTrailingSlash } from '../lib/util';
 import styles from './blog-template.module.scss';
 import './blog-template.scss';
 
@@ -46,7 +47,7 @@ export default function BlogTemplate({ data, pageContext, location }) {
           title={title}
           keywords={keywords}
           description={summary}
-          image={`/og_image${location.pathname}.png`}
+          image={`/og_image${removeTrailingSlash(location.pathname)}.png`}
           pathname={location.pathname}
         />
         <main>

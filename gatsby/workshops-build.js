@@ -23,7 +23,7 @@ exports.createLessonNode = async ({
     // use filename and directory name to generate path
     const { dir, name } = path.parse(fileNode.relativePath);
     const workshop = dir.split('/')[0];
-    const slug = `/${workshop}/${name}`;
+    const slug = `/${workshop}/${name}/`;
 
     const fieldsData = {
       title: node.frontmatter.title,

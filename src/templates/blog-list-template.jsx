@@ -22,9 +22,10 @@ const BlogListTemplate = ({
   const prevPage = isFirstPage
     ? null
     : currentPage === 2
-    ? `/blog`
-    : `/blog/${currentPage - 1}`;
-  const nextPage = currentPage === numPages ? null : `/blog/${currentPage + 1}`;
+    ? `/blog/`
+    : `/blog/${currentPage - 1}/`;
+  const nextPage =
+    currentPage === numPages ? null : `/blog/${currentPage + 1}/`;
 
   return (
     <MainContent as="div">
@@ -65,7 +66,7 @@ const BlogListTemplate = ({
       {numPages > 1 && (
         <PaginationContainer prevLink={prevPage} nextLink={nextPage}>
           {createEmptyArray(numPages).map((_, index) => {
-            const path = index === 0 ? `/blog` : `/blog/${index + 1}`;
+            const path = index === 0 ? `/blog/` : `/blog/${index + 1}/`;
             const isCurrent = location.pathname === path;
             return (
               <PaginationItem
@@ -84,7 +85,7 @@ const BlogListTemplate = ({
           <RoundedLinkButton to="/" className="mr-2">
             Home
           </RoundedLinkButton>
-          <RoundedLinkButton to="/tags">All tags</RoundedLinkButton>
+          <RoundedLinkButton to="/tags/">All tags</RoundedLinkButton>
         </span>
         <SubscribeRssLink />
       </nav>

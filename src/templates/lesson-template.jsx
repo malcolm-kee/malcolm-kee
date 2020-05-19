@@ -11,6 +11,7 @@ import { ScrollProgress } from '../components/scroll-progress';
 import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
 import { useLayout } from '../layouts/layout-context';
+import { removeTrailingSlash } from '../lib/util';
 import styles from './lesson-template.module.scss';
 import './lesson-template.scss';
 
@@ -29,7 +30,7 @@ const LessonTemplate = ({
           title={`${lesson.title} - ${lesson.workshop.name}`}
           description={lesson.description}
           keywords={lesson.keywords}
-          image={`/og_image${location.pathname}.png`}
+          image={`/og_image${removeTrailingSlash(location.pathname)}.png`}
           icon={lesson.workshop.iconFile.childImageSharp.resize.src}
           pathname={location.pathname}
         />

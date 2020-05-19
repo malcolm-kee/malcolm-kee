@@ -12,7 +12,7 @@ export const Navbar = ({ workshop }) => (
         color: workshop.contrastColor,
       }}
     >
-      <Link to={`/${workshop.id}`}>{workshop.name}</Link>
+      <Link to={`/${workshop.id}/`}>{workshop.name}</Link>
       <div className="workshop-navbar-toolbar">
         <ThemeToggle />
       </div>

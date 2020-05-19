@@ -8131,6 +8131,13 @@ gatsby-plugin-advanced-sitemap@^1.1.1:
     moment "^2.24.0"
     xml "^1.0.1"
 
+gatsby-plugin-canonical-urls@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-canonical-urls/-/gatsby-plugin-canonical-urls-2.3.1.tgz#ef511f0afe18a507372f6ae19e4170c142875f6e"
+  integrity sha512-2F7Srn3vJw6/MS7aJREBkVN6f2JzhJowAR7/OSPjF4gejfiGYHb/YI6/7qO4YDSn1sF37IAcyvX8DTxsEFsUZw==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+
 gatsby-plugin-catch-links@^2.0.15:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.3.1.tgz#1450501b0cf88b045abde92ae30f74bf66cdf1ca"

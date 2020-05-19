@@ -36,22 +36,22 @@ export const IndexPage = () => (
             <SectionHeader>Works</SectionHeader>
             <ul className="flex justify-around flex-wrap">
               <li className="mx-1">
-                <Link to="/projects" className="link-highlight animated">
+                <Link to="/projects/" className="link-highlight animated">
                   Projects
                 </Link>
               </li>
               <li className="mx-1">
-                <Link to="/workshops" className="link-highlight animated">
+                <Link to="/workshops/" className="link-highlight animated">
                   Workshops
                 </Link>
               </li>
               <li className="mx-1">
-                <Link to="/recordings" className="link-highlight animated">
+                <Link to="/recordings/" className="link-highlight animated">
                   Recordings
                 </Link>
               </li>
               <li className="mx-1">
-                <Link to="/libraries" className="link-highlight animated">
+                <Link to="/libraries/" className="link-highlight animated">
                   Libraries
                 </Link>
               </li>
@@ -61,12 +61,12 @@ export const IndexPage = () => (
             <SectionHeader>Writings</SectionHeader>
             <ul className="flex justify-around">
               <li>
-                <Link to="/blog" className="link-highlight animated">
+                <Link to="/blog/" className="link-highlight animated">
                   Read Blog
                 </Link>
               </li>
               <li>
-                <Link to="/today-i-learnt" className="link-highlight animated">
+                <Link to="/today-i-learnt/" className="link-highlight animated">
                   Today I Learnt
                 </Link>
               </li>

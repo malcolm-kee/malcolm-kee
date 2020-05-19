@@ -31,7 +31,7 @@ function BlogsWithTag({ data, pageContext, location }) {
           ))}
         </List>
         <div className="py-2 my-4 px-4">
-          <RoundedLinkButton to="/tags">All Tags</RoundedLinkButton>
+          <RoundedLinkButton to="/tags/">All Tags</RoundedLinkButton>
         </div>
       </MainContent>
     </>

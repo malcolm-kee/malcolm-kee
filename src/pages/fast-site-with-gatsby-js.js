@@ -39,7 +39,7 @@ const PageHeader = () => {
             </h1>
             <div className="my-2 py-2">
               <LinkButton
-                to="/fast-site-with-gatsby-js/introduction"
+                to="/fast-site-with-gatsby-js/introduction/"
                 color="primary"
                 minWidth="widest"
                 className="text-2xl"

@@ -27,7 +27,7 @@ exports.createBlogNode = async ({
     } else {
       const { name } = path.parse(fileNode.relativePath);
 
-      slug = `/blog/${name}`;
+      slug = `/blog/${name}/`;
     }
 
     const tags = (node.frontmatter.tags || []).map(_.kebabCase);
@@ -190,7 +190,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
     {
       limit: process.env.NUM_OF_BLOGS ? Number(process.env.NUM_OF_BLOGS) : 1000,
     }
-  ).then(result => {
+  ).then((result) => {
     if (result.errors) {
       return Promise.reject(result.errors);
     }
@@ -218,10 +218,10 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
           previous: next,
           relatedBlogs: _.sampleSize(
             posts.filter(
-              post =>
+              (post) =>
                 post.node !== node &&
-                (post.node.tags.some(tag => node.tags.includes(tag)) ||
-                  post.node.keywords.some(keyword =>
+                (post.node.tags.some((tag) => node.tags.includes(tag)) ||
+                  post.node.keywords.some((keyword) =>
                     node.keywords.includes(keyword)
                   ))
             ),
@@ -236,7 +236,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
     Array.from({ length: numPages }).forEach((_, i) => {
       createPage({
-        path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+        path: i === 0 ? `/blog/` : `/blog/${i + 1}/`,
         component: blogListTemplate,
         context: {
           limit: postsPerPage,
@@ -249,7 +249,7 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
     let tags = [];
 
-    posts.forEach(edge => {
+    posts.forEach((edge) => {
       if (_.get(edge, 'node.tags')) {
         tags = tags.concat(edge.node.tags);
       }
@@ -257,9 +257,9 @@ exports.createBlogs = function createBlogs({ actions, graphql }) {
 
     tags = _.uniq(tags);
 
-    tags.forEach(tag => {
+    tags.forEach((tag) => {
       createPage({
-        path: `tags/${tag}`,
+        path: `tags/${tag}/`,
         component: tagTemplate,
         context: {
           tag,

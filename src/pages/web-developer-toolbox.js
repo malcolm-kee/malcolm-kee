@@ -37,7 +37,7 @@ const PageHeader = () => {
             <p className="landing-subtitle">{workshopsYaml.description}</p>
             <div className="py-2 my-4">
               <LinkButton
-                to="/web-developer-toolbox/introduction"
+                to="/web-developer-toolbox/introduction/"
                 color="primary"
                 minWidth="widest"
                 className="text-2xl"

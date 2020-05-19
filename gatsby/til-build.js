@@ -25,7 +25,7 @@ exports.createTilNode = async ({
     } else {
       const { name } = path.parse(fileNode.relativePath);
 
-      slug = `/today-i-learnt/${name}`;
+      slug = `/today-i-learnt/${name}/`;
     }
 
     const fieldsData = {
@@ -114,12 +114,12 @@ exports.createTils = function createTils({ actions, graphql }) {
         }
       }
     }
-  `).then(result => {
+  `).then((result) => {
     if (result.errors) {
       return Promise.reject(result.errors);
     }
 
-    result.data.allTil.nodes.forEach(til => {
+    result.data.allTil.nodes.forEach((til) => {
       createPage({
         path: til.slug,
         component: tilTemplate,

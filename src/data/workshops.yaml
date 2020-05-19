@@ -1,6 +1,6 @@
 - name: 'State Management with Redux'
   id: state-management-with-redux
-  url: '/state-management-with-redux'
+  url: '/state-management-with-redux/'
   description: 'Understand key concepts of redux and how to use it effectively. Featuring usages with React'
   keywords:
     - redux
@@ -11,7 +11,7 @@
   underConstruction: true
 - name: 'Testing React Applications'
   id: react-testing
-  url: '/react-testing'
+  url: '/react-testing/'
   description: 'Learn the principles of maintainable tests and how to write them'
   keywords:
     - react
@@ -21,7 +21,7 @@
   underConstruction: true
 - name: 'TypeScript for React Developer'
   id: typescript-for-react-developer
-  url: '/typescript-for-react-developer'
+  url: '/typescript-for-react-developer/'
   description: 'Learn the Typescript fundamentals to make your React codebase more maintainable'
   keywords:
     - react
@@ -30,7 +30,7 @@
   iconFile: '../assets/react-typescript.png'
 - name: Create a Fast Site with GatsbyJS
   id: fast-site-with-gatsby-js
-  url: '/fast-site-with-gatsby-js'
+  url: '/fast-site-with-gatsby-js/'
   description: 'Learn how to build blog with GatsbyJS, which automatically optimize your site to make it fast without sacrificing developer usability or accessibility.'
   keywords:
     - react
@@ -40,7 +40,7 @@
   iconFile: '../assets/gatsbyjs.png'
 - name: 'JavaScript: The React Parts'
   id: js-the-react-parts
-  url: '/js-the-react-parts'
+  url: '/js-the-react-parts/'
   description: 'JavaScript fundamentals and concepts that are commonly used when developing in React.'
   keywords:
     - javascript fundamentals
@@ -72,7 +72,7 @@
   iconFile: '../assets/react-palettes.png'
 - name: Web Developer Toolbox
   id: web-developer-toolbox
-  url: '/web-developer-toolbox'
+  url: '/web-developer-toolbox/'
   description: 'Learn the tools that will make you productive as a Web Developer'
   keywords:
     - emmet
@@ -84,7 +84,7 @@
   iconFile: '../assets/toolbox.png'
 - name: 'Introduction to React v2'
   id: intro-to-react-js-v2
-  url: '/intro-to-react-js-v2'
+  url: '/intro-to-react-js-v2/'
   description: 'An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.'
   keywords:
     - react for beginners
@@ -93,7 +93,7 @@
   iconFile: '../assets/react-logo.png'
 - name: Introduction to React
   id: intro-to-react-js
-  url: '/intro-to-react-js'
+  url: '/intro-to-react-js/'
   description: 'A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting.'
   keywords:
     - react for beginners

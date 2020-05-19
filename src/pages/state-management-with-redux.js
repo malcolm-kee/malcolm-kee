@@ -49,7 +49,7 @@ const PageHeader = () => {
             <p className="landing-subtitle">{workshopsYaml.description}</p>
             <div className="py-2 my-4">
               <LinkButton
-                to="/state-management-with-redux/introduction"
+                to="/state-management-with-redux/introduction/"
                 color="primary"
                 minWidth="widest"
                 className="text-2xl"

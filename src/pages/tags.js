@@ -28,7 +28,7 @@ const TagsPage = ({
           .sort(randomSort)
           .map((tag) => (
             <ListItem
-              link={`/tags/${tag.fieldValue}`}
+              link={`/tags/${tag.fieldValue}/`}
               className={getItemClassName(tag.totalCount)}
               key={tag.fieldValue}
             >

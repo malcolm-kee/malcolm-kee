@@ -5,8 +5,9 @@ import { isArray } from 'typesafe-is';
 import { ChevronIcon } from '../components/chevron-icon';
 import { MainContent } from '../components/main-content';
 import { Seo } from '../components/Seo';
-import { TopicBadge } from '../components/topic-badge';
 import { ShareButton } from '../components/share-button';
+import { TopicBadge } from '../components/topic-badge';
+import { removeTrailingSlash } from '../lib/util';
 import styles from './til-template.module.scss';
 
 const TilTemplate = ({ data, location }) => {
@@ -17,7 +18,7 @@ const TilTemplate = ({ data, location }) => {
       <Seo
         title={til.title}
         pathname={location.pathname}
-        image={`/og_image${location.pathname}.png`}
+        image={`/og_image${removeTrailingSlash(location.pathname)}.png`}
       />
       <MainContent>
         <div className="max-w-lg mx-auto">
@@ -52,7 +53,7 @@ const TilTemplate = ({ data, location }) => {
           </div>
           <nav className={`p-2 my-2 ${styles.toolbar}`}>
             <Link
-              to="/today-i-learnt"
+              to="/today-i-learnt/"
               className="link inline-flex items-center"
             >
               <ChevronIcon
