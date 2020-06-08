@@ -53,3 +53,8 @@ jobs:
         run: yarn build
         env:
           CI: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GATSBY_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GATSBY_DISCUQ_NAME: malcolmkee
+          YOUTUBE_API_ID: ${{ secrets.YOUTUBE_API_ID }}
+          YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
