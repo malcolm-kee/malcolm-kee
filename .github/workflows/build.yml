@@ -1,10 +1,5 @@
 name: Build Site and Deploy
-on:
-  push:
-  issues:
-    types: [opened, edited]
-  issue_comment:
-    types: [created, edited]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -59,6 +54,7 @@ jobs:
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.1
+        id: netlify-deploy
         with:
           publish-dir: './public'
           production-branch: master
@@ -67,3 +63,6 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Check Deploy Output
+        run: echo ${{ steps.netlify-deploy.outputs.deploy-url }}
