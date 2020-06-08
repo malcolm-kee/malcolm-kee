@@ -75,11 +75,8 @@
     "react-helmet": "^6.0.0-beta",
     "react-live": "^2.1.2",
     "react-share": "^4.1.0",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.7",
     "scroll-to-element": "^2.0.3",
-    "typesafe-is": "^1.1.2",
-    "unfetch": "^4.1.0"
+    "typesafe-is": "^1.1.2"
   },
   "keywords": [
     "Malcolm Kee",
@@ -94,22 +91,18 @@
     "url": "https://github.com/malcolm-kee/malcolm-kee"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.3.3",
     "@testing-library/cypress": "^6.0.0",
-    "@types/aws-lambda": "^8.10.23",
     "@types/classnames": "^2.2.9",
     "@types/cypress-axe": "^0.8.0",
     "@types/node": "12",
     "@types/puppeteer": "^3.0.0",
     "@types/react": "^16.9.13",
     "@types/react-dom": "^16.9.0",
-    "@types/request-promise-native": "^1.0.16",
     "axe-core": "^3.2.2",
     "cross-env": "^7.0.2",
     "cypress": "^4.0.1",
     "cypress-axe": "^0.8.1",
     "dotenv-webpack": "^1.7.0",
-    "gatsby-plugin-typescript": "^2.1.8",
     "monaco-editor-webpack-plugin": "^1.7.0",
     "netlify-cli": "^2.15.0",
     "prettier": "^2.0.5",

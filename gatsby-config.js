@@ -34,7 +34,6 @@ module.exports = {
         ],
       },
     },
-    'gatsby-plugin-typescript',
     'gatsby-plugin-js-fallback',
     {
       resolve: 'gatsby-plugin-compile-es6-packages',
