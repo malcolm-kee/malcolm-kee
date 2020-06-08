@@ -1,6 +1,18 @@
 const { colors } = require('tailwindcss/defaultTheme');
 
 module.exports = {
+  purge: [
+    './src/**/*.js',
+    './src/**/*.jsx',
+    './src/**/*.tsx',
+    './src/**/*.ts',
+    './blogs/**/*.md',
+    './blogs/**/*.mdx',
+    './til/**/*.md',
+    './til/**/*.mdx',
+    './workshops/**/*.md',
+    './workshops/**/*.mdx',
+  ],
   theme: {
     minWidth: {
       '0': '0',

@@ -1,7 +1,5 @@
 # malcolmkee.com
 
-[![Build Status](https://travis-ci.org/malcolm-kee/malcolm-kee.svg?branch=master)](https://travis-ci.org/malcolm-kee/malcolm-kee)
-
 Source code for Malcolm Kee's [personal site](https://malcolmkee.com/) and workshop materials.
 
 Workshop materials:
