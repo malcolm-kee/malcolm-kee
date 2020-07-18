@@ -11,6 +11,11 @@ const {
   createEduSchemaCustomization,
 } = require('./gatsby/education-build');
 const {
+  createNoteNode,
+  createNoteSchemaCustomization,
+  createNotePage,
+} = require('./gatsby/note-build');
+const {
   createLessonNode,
   createWorkshopPages,
   createWorkshopSchemaCustomization,
@@ -23,44 +28,14 @@ const {
 const { screenshot } = require('./gatsby/screenshot');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
-exports.onCreateNode = async ({
-  node,
-  getNode,
-  actions,
-  reporter,
-  createNodeId,
-  createContentDigest,
-}) => {
-  if (node.internal.type === 'Mdx') {
+exports.onCreateNode = async (createNodeParam) => {
+  if (createNodeParam.node.internal.type === 'Mdx') {
     await Promise.all([
-      createEducationNode({
-        node,
-        actions,
-        getNode,
-        createNodeId,
-        createContentDigest,
-      }),
-      createLessonNode({
-        node,
-        actions,
-        getNode,
-        createNodeId,
-        createContentDigest,
-      }),
-      createBlogNode({
-        node,
-        actions,
-        getNode,
-        createNodeId,
-        createContentDigest,
-      }),
-      createTilNode({
-        node,
-        actions,
-        getNode,
-        createNodeId,
-        createContentDigest,
-      }),
+      createEducationNode(createNodeParam),
+      createLessonNode(createNodeParam),
+      createBlogNode(createNodeParam),
+      createTilNode(createNodeParam),
+      createNoteNode(createNodeParam),
     ]);
   }
 };
@@ -70,6 +45,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   createBlogSchemaCustomization({ actions, schema });
   createTilSchemaCustomization({ actions, schema });
   createEduSchemaCustomization({ actions, schema });
+  createNoteSchemaCustomization({ actions, schema });
 
   const fallbackTypes = [
     `type NpmsIoMalcolmLinks {
@@ -88,12 +64,13 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   actions.createTypes(fallbackTypes);
 };
 
-exports.createPages = async ({ actions, graphql, reporter }) => {
+exports.createPages = async (createPageArgs) => {
   await Promise.all([
-    createBlogs({ actions, graphql, reporter }),
-    createWorkshopPages({ actions, graphql, reporter }),
-    createTils({ actions, graphql }),
-    createEduPages({ actions, graphql, reporter }),
+    createBlogs(createPageArgs),
+    createWorkshopPages(createPageArgs),
+    createTils(createPageArgs),
+    createEduPages(createPageArgs),
+    createNotePage(createPageArgs),
   ]);
 };
 
@@ -170,18 +147,18 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
   }
 
   const nodes = result.data.allTil.nodes;
-  const blogNodes = result.data.allBlogPost.nodes.map(node => ({
+  const blogNodes = result.data.allBlogPost.nodes.map((node) => ({
     slug: node.slug,
     title: node.title,
     icon: node.previewImage.image,
   }));
-  const lessonNodes = result.data.allLesson.nodes.map(node => ({
+  const lessonNodes = result.data.allLesson.nodes.map((node) => ({
     slug: node.slug,
     title: node.title,
     subtitle: node.workshop.name,
     icon: node.workshop.iconFile,
   }));
-  const workshops = result.data.workshops.nodes.map(node => ({
+  const workshops = result.data.workshops.nodes.map((node) => ({
     slug: `/${node.id}`,
     title: node.title,
     icon: node.icon,

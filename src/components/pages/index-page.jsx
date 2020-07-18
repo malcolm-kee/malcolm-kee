@@ -15,7 +15,7 @@ export const IndexPage = () => (
         <LandingPageSection className="col-span-2 lg:text-right lg:mr-0 lg:pr-0">
           <div className="content-section">
             <p className="v-space leading-relaxed mb-2">
-              A frontend engineer making web applications functional and
+              A software engineer making web applications functional and
               accessible.
             </p>
             <p className="v-space leading-relaxed mb-2">

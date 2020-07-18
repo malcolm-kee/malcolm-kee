@@ -25,7 +25,7 @@ export default function Recordings({ data }) {
               >
                 <Image
                   fixed={video.localThumbnail.childImageSharp.fixed}
-                  className={styles.img}
+                  className={`rounded overflow-hidden ${styles.img}`}
                 />
               </OutLink>
               <h2 className="text-2xl">

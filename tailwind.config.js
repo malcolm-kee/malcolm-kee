@@ -40,7 +40,7 @@ module.exports = {
   },
   variants: {
     backgroundColor: ['dark'],
-    borderColor: ['dark'],
+    borderColor: ['dark', 'focus'],
     textColor: ['dark'],
   },
   plugins: [require('tailwindcss-dark-mode')()],

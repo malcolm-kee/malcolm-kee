@@ -1,4 +1,6 @@
-# Docker Swarm
+---
+title: Docker Swarm
+---
 
 ## Initialize a Docker Swarm
 

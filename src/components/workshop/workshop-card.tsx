@@ -22,42 +22,48 @@ export type WorkshopCardProps = {
 export const WorkshopCard = (props: WorkshopCardProps) => {
   return (
     <article
-      className={`workshop-card ${styles.card}`}
+      className="workshop-card relative p-3 border-l-4 md:border-l-8 rounded sm:rounded-lg shadow bg-gray-100 dark:bg-gray-800"
       style={{ borderColor: props.themeColor }}
     >
-      <div className={styles.content}>
-        <h2 className={`mb-2 text-2xl leading-snug font-bold ${styles.title}`}>
-          {props.name}
-        </h2>
-        <div className={styles.imageContainer}>
+      <div className="lg:flex lg:flex-row-reverse lg:items-start">
+        <div className="float-right lg:float-none w-1/4 ml-2">
           {props.iconFile && (
             <Image fluid={props.iconFile.childImageSharp.fluid} alt="" />
           )}
         </div>
-        <p className={styles.description}>{props.description}</p>
-        {props.underConstruction && (
-          <span className={styles.badge}>In Progress</span>
-        )}
+        <div className="px-2 flex-1">
+          <h2 className="mb-2 text-2xl leading-snug font-bold text-gray-700 dark:text-gray-400">
+            {props.name}
+          </h2>
+          <p className="leading-relaxed">{props.description}</p>
+          <div className="pt-4 pb-2">
+            <LinkButton
+              style={{
+                backgroundColor: props.themeColor,
+                color: props.contrastColor,
+              }}
+              className="text-lg w-40"
+              to={props.url}
+              raised
+            >
+              Learn
+            </LinkButton>
+          </div>
+        </div>
       </div>
-      <div>
-        <LinkButton
-          style={{
-            backgroundColor: props.themeColor,
-            color: props.contrastColor,
-          }}
-          className="w-full text-lg"
-          to={props.url}
-          raised
-        >
-          Learn
-        </LinkButton>
-      </div>
+      {props.underConstruction && (
+        <span className={styles.badge}>In Progress</span>
+      )}
     </article>
   );
 };
 
 export const WorkshopCardContainer = (props: { children: React.ReactNode }) => {
-  return <div className={styles.container}>{props.children}</div>;
+  return (
+    <div className="grid p-3 gap-3 lg:gap-5 grid-cols-1 lg:grid-cols-2">
+      {props.children}
+    </div>
+  );
 };
 
 export const query = graphql`

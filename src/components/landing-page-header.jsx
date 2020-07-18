@@ -20,7 +20,7 @@ export const LandingPageHeader = () => {
         <ul className={styles.subtitle}>
           <li>
             <Link to="/projects/" className="md:text-lg animated">
-              Frontend Engineer
+              Software Engineer
             </Link>
           </li>
           <li>
