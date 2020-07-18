@@ -1,3 +1,15 @@
+- name: 'Becoming a JQuery Ninja'
+  id: becoming-a-jquery-ninja
+  url: '/becoming-a-jquery-ninja/'
+  description: |
+    Get started with creating interactive websites using JQuery. Learn common JQuery operations: manipulate HTML, responding to user actions, 
+    loading data using AJAX request and the best practices on how to write JQuery code that works for all browsers.
+  keywords:
+    - jquery
+    - beginner
+  iconFile: '../assets/jquery.png'
+  underConstruction: true
+  themeColor: '#0769ad'
 - name: 'State Management with Redux'
   id: state-management-with-redux
   url: '/state-management-with-redux/'

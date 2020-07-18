@@ -7,7 +7,6 @@ import { ChevronIcon } from '../components/chevron-icon';
 import { ErrorBoundary } from '../components/error-boundary';
 import { FriendlyComments } from '../components/friendly-comments';
 import { ReportIssueLink } from '../components/report-issue-link';
-import { ScrollProgress } from '../components/scroll-progress';
 import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
 import { useLayout } from '../layouts/layout-context';
@@ -73,23 +72,19 @@ const LessonTemplate = ({
           )}
           <div className="instruction-toc py-4">
             {lesson.tableOfContents.items && (
-              <>
-                <ScrollProgress
-                  items={lesson.tableOfContents.items}
-                  className={styles.progressWrapper}
-                />
-                <ul className={styles.tocPlain}>
-                  {lesson.tableOfContents.items.map((item, i) => (
-                    <li key={i}>
-                      <a href={item.url}>{item.title}</a>
-                    </li>
-                  ))}
-                </ul>
-              </>
+              <ul className={styles.tocPlain}>
+                {lesson.tableOfContents.items.map((item, i) => (
+                  <li className="mb-3 lg:mb-5" key={i}>
+                    <a href={item.url} className="block px-4 py-2 text-sm">
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
           <main>
-            <article className="instruction-article article-content pb-4">
+            <article className="instruction-article article-content pb-8">
               <MDXRenderer>{lesson.body}</MDXRenderer>
             </article>
           </main>

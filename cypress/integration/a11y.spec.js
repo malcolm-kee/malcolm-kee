@@ -9,7 +9,7 @@ describe(`Accessibility checks`, () => {
   it(`has no detectable a11y violations on landing page`, () => {
     cy.wait(1000).checkA11yResponsive();
 
-    cy.findByText('Frontend Engineer').focus().checkA11yResponsive();
+    cy.findByText('Software Engineer').focus().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on landing page dark mode', () => {
@@ -25,7 +25,7 @@ describe(`Accessibility checks`, () => {
       .wait(1000)
       .checkA11yResponsive();
 
-    cy.findByText('Frontend Engineer').focus().checkA11yResponsive();
+    cy.findByText('Software Engineer').focus().checkA11yResponsive();
   });
 
   it('has no detectable a11y violations on projects page', () => {

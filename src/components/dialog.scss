@@ -8,8 +8,6 @@
   background: white;
   background: var(--bg-front);
   padding: 0;
-  border-radius: $space * 3;
-  border: $space / 2 solid $primary-color;
 
   @media screen and (max-width: $media-tablet) {
     width: 90vw;

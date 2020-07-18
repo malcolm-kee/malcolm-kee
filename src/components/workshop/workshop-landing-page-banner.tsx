@@ -2,7 +2,15 @@ import cx from 'classnames';
 import * as React from 'react';
 import './workshop-landing-page-banner.scss';
 
-export const WorkshopLandingPageBanner = ({ children, inverse }) => (
+export type WorkshopLandingPageBannerProps = {
+  children: React.ReactNode;
+  inverse?: boolean;
+};
+
+export const WorkshopLandingPageBanner = ({
+  children,
+  inverse,
+}: WorkshopLandingPageBannerProps) => (
   <main
     className={cx(
       'workshop-landing-page-header',

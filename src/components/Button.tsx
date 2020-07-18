@@ -34,7 +34,7 @@ export const Button = React.forwardRef<
   ButtonProps
 >(function Button(props, ref) {
   const className = cx(
-    'py-1 px-2 rounded-lg inline-flex justify-center items-center font-sans',
+    'py-1 px-3 rounded-lg inline-flex justify-center items-center font-sans',
     props.color === 'primary' && 'bg-primary-700 text-gray-100',
     props.color === 'white' && 'bg-gray-100 text-gray-900',
     props.color === 'link' &&

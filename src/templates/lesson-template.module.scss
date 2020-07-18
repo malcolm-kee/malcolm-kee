@@ -24,16 +24,6 @@
   border-left: 4px solid $secondary-700;
 }
 
-.progressWrapper {
-  display: none;
-  @media screen and (min-width: $media-desktop) {
-    display: block;
-  }
-}
-
 .tocPlain {
   display: block;
-  @media screen and (min-width: $media-desktop) {
-    display: none;
-  }
 }

@@ -181,6 +181,7 @@ const FancyProjectView = ({ projects, location }) => {
         onDismiss={() => setFocused(undefined)}
         large={!!(project && (project.staticImage || project.image))}
         aria-label={`Details for ${project ? project.name : 'project'}`}
+        heading={project && project.name}
         onKeyDown={(ev) => {
           if (ev.key === 'ArrowLeft') {
             prev();
@@ -193,10 +194,10 @@ const FancyProjectView = ({ projects, location }) => {
         {project && (
           <>
             <div className={styles.details}>
-              <div className={`content-section ${styles.content}`}>
-                <h2 className="text-3xl mb-4" id={project.id}>
-                  {project.name}
-                </h2>
+              <div
+                className={`content-section ${styles.content}`}
+                id={project.id}
+              >
                 <p className="mb-2">{project.description}</p>
                 <Ul className="mb-3">
                   {project.technologies.map((tech) => (

@@ -38,11 +38,11 @@ export const ShareButton = ({
       </Button>
       <Dialog
         aria-label="Options of sharing"
+        heading="Choose where to share"
         isOpen={showCustomDialog}
         onDismiss={() => setShowCustomDialog(false)}
         className="max-w-md"
       >
-        <p className="text-lg font-semibold pb-3">Choose where to share</p>
         <React.Suspense fallback={<>Loading...</>}>
           <div className="flex justify-between flex-wrap">
             <SocialMediaButtons
