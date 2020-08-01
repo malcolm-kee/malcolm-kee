@@ -25,17 +25,17 @@ export const WorkshopCard = (props: WorkshopCardProps) => {
       className="workshop-card relative p-3 border-l-4 md:border-l-8 rounded sm:rounded-lg shadow bg-gray-100 dark:bg-gray-800"
       style={{ borderColor: props.themeColor }}
     >
-      <div className="lg:flex lg:flex-row-reverse lg:items-start">
+      <div className="lg:flex lg:flex-row-reverse lg:items-start h-full">
         <div className="float-right lg:float-none w-1/4 ml-2">
           {props.iconFile && (
             <Image fluid={props.iconFile.childImageSharp.fluid} alt="" />
           )}
         </div>
-        <div className="px-2 flex-1">
+        <div className="px-2 flex-1 h-full flex flex-col">
           <h2 className="mb-2 text-2xl leading-snug font-bold text-gray-700 dark:text-gray-400">
             {props.name}
           </h2>
-          <p className="leading-relaxed">{props.description}</p>
+          <p className="leading-relaxed flex-1">{props.description}</p>
           <div className="pt-4 pb-2">
             <LinkButton
               style={{

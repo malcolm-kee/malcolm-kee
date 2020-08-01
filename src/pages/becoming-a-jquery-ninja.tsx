@@ -25,8 +25,10 @@ const BecomingAJQueryNinja = () => {
           <div className="w-56 mx-auto lg:mt-6">
             <JQueryLogo />
           </div>
-          <h1 className="my-6 text-3xl text-center">{workshopsYaml.name}</h1>
-          <p className="px-4 my-6 leading-loose max-w-lg text-gray-400 text-justify mx-auto">
+          <h1 className="my-6 text-3xl text-center text-white">
+            {workshopsYaml.name}
+          </h1>
+          <p className="px-4 my-6 leading-relaxed max-w-lg text-gray-400 text-justify mx-auto">
             {workshopsYaml.description}
           </p>
           <div className="my-2 py-2 text-center">
