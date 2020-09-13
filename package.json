@@ -91,7 +91,7 @@
     "url": "https://github.com/malcolm-kee/malcolm-kee"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^6.0.0",
+    "@testing-library/cypress": "^7.0.0",
     "@types/classnames": "^2.2.9",
     "@types/cypress-axe": "^0.8.0",
     "@types/node": "12",
