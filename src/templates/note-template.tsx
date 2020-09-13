@@ -12,7 +12,7 @@ const NoteTemplate = ({
     <>
       <Seo title={note.title} pathname={location.pathname} />
       <MainContent>
-        <div className="max-w-lg mx-auto">
+        <div className="max-w-3xl px-2 md:p-3 mx-auto">
           <article className="article-content px-4 mb-6">
             <h1 className="text-2xl sm:text-3xl md:text-4xl leading-loose hyphen-auto">
               {note.title}
