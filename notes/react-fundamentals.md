@@ -165,3 +165,30 @@ So we have to remember to update the length in those cases too.
 The root cause of the issue is we are very used to think in terms of _events_: when something happens, do something.
 
 In React, what you should think should be instead of _states_: when something happens, state must be updated.
+
+Therefore, thinking in events is kinda tricky because you need to figure all the events that may cause the message to changed, including initial page load.
+
+When we thinking of states, we can describe what we want as: "whenever the message changes, the length display should be updated as well".
+
+To achieve that in React, we can use another hook in React: the effect hook.
+
+```jsx
+React.useEffect(() => {
+  msgLengthRef.current.innerText = message.length;
+}, [message]);
+```
+
+Effect hook allows you to have granular control on when something should happens, e.g.
+
+```jsx
+const firstTwenty = message.substring(0, 20);
+
+React.useEffect(() => {
+  document.title = firstTwenty ? `New Post: ${firstTwenty}` : 'Site title';
+}, [firstTwenty]);
+```
+
+Let's do some exercise that showcase:
+
+- how the lint rule help you to write effect hooks correctly
+- how the lint rule tell you cannot use hooks conditionally
