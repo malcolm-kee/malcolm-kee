@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { debounce } from '../lib/fp';
 import styles from './typescript-editor.module.scss';
+import type { languages } from 'monaco-editor';
 
 let monaco: typeof import('monaco-editor/esm/vs/editor/editor.api');
 
@@ -24,7 +25,7 @@ interface TypescriptEditorProps {
 export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
   containerRef = React.createRef<HTMLDivElement>();
   editor: undefined | ReturnType<typeof monaco.editor.create>;
-  tsProxy: any;
+  tsProxy: languages.typescript.TypeScriptWorker | undefined;
   _isMounted: boolean = false;
 
   componentDidMount() {
@@ -144,7 +145,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       if (model) {
         this.tsProxy
           .getEmitOutput(model.uri.toString())
-          .then((result: any) => {
+          .then((result) => {
             const emittedCode = result.outputFiles[0].text;
             if (this.props.onEmitCode && this._isMounted) {
               this.props.onEmitCode(emittedCode);

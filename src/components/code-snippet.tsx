@@ -35,21 +35,21 @@ export const CodeSnippet = ({
   return noWrapper ? (
     <div className="code-snippet-plain">{highlightedCode}</div>
   ) : (
-    <div className="code-snippet">
+    <div className="code-snippet p-1 rounded">
       <div className="relative">
-        {fileName && (
-          <div className="text-center pb-1">
-            <span className="leading-relaxed">{fileName}</span>
-          </div>
-        )}
-        <span className="code-snippet-language text-sm">
-          {shortenLanguage(language)}
-        </span>
+        {fileName && <div className="px-1 pt-0.5 pb-1.5">{fileName}</div>}
+        <LanguageIndicator language={language} />
       </div>
       {highlightedCode}
     </div>
   );
 };
+
+export const LanguageIndicator = (props: { language: string }) => (
+  <span className="absolute top-full right-4 z-10 px-2 leading-5 text-sm uppercase rounded-b bg-blue-600 text-gray-100 dark:bg-blue-400 dark:text-gray-900">
+    {shortenLanguage(props.language)}
+  </span>
+);
 
 interface HighlightedCodeProps {
   theme: PrismTheme;

@@ -11,25 +11,25 @@ export const LandingPageHeader = () => {
       </div>
       <div className="relative">
         <h1
-          className={`text-primary-500 font-medium xs:pt-6 px-6 sm:px-10 md:text-center md:pt-0 md:absolute md:w-full ${styles.title}`}
+          className={`text-primary-500 font-medium xs:pt-6 px-4 sm:px-8 md:text-center md:pt-0 md:absolute md:w-full ${styles.title}`}
         >
           Malcolm Kee
         </h1>
       </div>
       <div className={`pt-8 pb-8 xs:pt-4 xs:pb-0 md:pt-12 ${styles.content}`}>
         <ul className={styles.subtitle}>
-          <li>
-            <Link to="/projects/" className="md:text-lg animated">
+          <li className="px-3 py-2">
+            <Link to="/projects/" className="px-1.5 py-2 md:text-lg animated">
               Software Engineer
             </Link>
           </li>
-          <li>
-            <Link to="/workshops/" className="md:text-lg animated">
+          <li className="px-3 py-2">
+            <Link to="/workshops/" className="px-1.5 py-2 md:text-lg animated">
               Teacher
             </Link>
           </li>
-          <li>
-            <Link to="/libraries/" className="md:text-lg animated">
+          <li className="px-3 py-2">
+            <Link to="/libraries/" className="px-1.5 py-2 md:text-lg animated">
               Open Source Contributor
             </Link>
           </li>

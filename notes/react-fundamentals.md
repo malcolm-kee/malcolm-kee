@@ -192,3 +192,59 @@ Let's do some exercise that showcase:
 
 - how the lint rule help you to write effect hooks correctly
 - how the lint rule tell you cannot use hooks conditionally
+
+The most common use case of a frontend application is making API calls, and that's what we gonna do here.
+
+To make a API calls, usually we need a state hook and another effect hook:
+
+```js
+const [value, setValue] = React.useState(undefined);
+
+React.useEffect(() => {
+  apiCalls(id).then((res) => setValue(res));
+});
+```
+
+But we will have an infinite loop, to fix that we need pass the `id` to the effect hooks dependencies:
+
+```js
+const [value, setValue] = React.useState(undefined);
+
+React.useEffect(() => {
+  apiCalls(id).then((res) => setValue(res));
+  // highlight-next-line
+}, [id]);
+```
+
+We still have another problem here, but this time it's more subtle.
+
+If we click around we may get a React error about unmount component cannot setState. To fix that, we need to use the cleanup function of effect hooks.
+
+The effect hooks signature actually looks like:
+
+```js
+React.useEffect(() => {
+  // operation depending on dependencies
+
+  return functionThatCleanupOperation;
+}, [...dependencies]);
+```
+
+For the api calls, the simplest way to do that is to add a local variable `isCurrent`:
+
+```js
+const [value, setValue] = React.useState(undefined);
+
+React.useEffect(() => {
+  let isCurrent = true;
+  apiCalls(id).then((res) => {
+    if (isCurrent) {
+      setValue(res);
+    }
+  });
+
+  return () => {
+    isCurrent = false;
+  };
+}, [id]);
+```

@@ -74,8 +74,11 @@ const LessonTemplate = ({
             {lesson.tableOfContents.items && (
               <ul className={styles.tocPlain}>
                 {lesson.tableOfContents.items.map((item, i) => (
-                  <li className="mb-3 lg:mb-5" key={i}>
-                    <a href={item.url} className="block px-4 py-2 text-sm">
+                  <li className="mb-1 lg:mb-5" key={i}>
+                    <a
+                      href={item.url}
+                      className="block px-4 py-2 text-sm leading-6"
+                    >
                       {item.title}
                     </a>
                   </li>

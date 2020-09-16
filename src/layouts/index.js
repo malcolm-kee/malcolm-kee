@@ -2,6 +2,7 @@ import { MDXProvider } from '@mdx-js/react';
 import * as React from 'react';
 import { CodeRenderer } from '../components/code-renderer';
 import { ErrorBoundary } from '../components/error-boundary';
+import { Helmet } from 'react-helmet';
 import { MdxLink } from '../components/mdx-link';
 import { Ol } from '../components/ol';
 import { Ul } from '../components/ul';
@@ -42,6 +43,9 @@ const LayoutContainer = ({ children, pageContext, location }) => {
 
   return (
     <ErrorBoundary>
+      <Helmet>
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      </Helmet>
       <LayoutContext.Provider value={setLayoutType}>
         <ThemeProvider value={themeValue}>
           <MDXProvider components={mdxComponents}>

@@ -1,52 +1,10 @@
 @import '../constants/variable';
 
-@mixin svg-icon {
-  width: 25px;
-  height: 25px;
-  svg {
-    color: inherit;
-    fill: currentColor;
-  }
-}
-
-@mixin language-label {
-  position: absolute;
-  z-index: 1; // else will be hidden by code editor
-  top: 100%;
-  right: $space * 2;
-  text-transform: uppercase;
-  line-height: 1.3;
-  background-color: $react-color;
-  color: $text-light;
-  padding: 0 $space;
-  border-radius: 0 0 $space / 2 $space / 2;
-}
-
 $code-padding: 1rem;
 
 .code-editor {
-  padding: 0 $space / 2 $space / 2;
-  border-radius: $space / 2;
   background-color: var(--bg-pale);
   line-height: 1.25rem;
-
-  &-header {
-    padding: $space;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    &-container {
-      position: relative;
-    }
-  }
-
-  &-icon {
-    @include svg-icon();
-  }
-
-  &-language {
-    @include language-label();
-  }
 }
 
 .code-preview {
@@ -74,19 +32,7 @@ $code-padding: 1rem;
 }
 
 .code-snippet {
-  padding: $space / 2;
-  border-radius: $space / 2;
-
   background-color: var(--bg-pale);
-
-  &-icon {
-    @include svg-icon();
-    margin-right: $space;
-  }
-
-  &-language {
-    @include language-label();
-  }
 }
 
 .code-snippet,

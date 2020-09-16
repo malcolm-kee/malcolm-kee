@@ -1,4 +1,4 @@
-const { colors } = require('tailwindcss/defaultTheme');
+const { colors, fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
   purge: [
@@ -15,7 +15,7 @@ module.exports = {
   ],
   theme: {
     minWidth: {
-      '0': '0',
+      0: '0',
       sm: '4rem',
       md: '8rem',
       lg: '16rem',
@@ -37,13 +37,18 @@ module.exports = {
       blue: colors.blue,
       gray: colors.gray,
     },
+    extend: {
+      fontFamily: {
+        sans: ['Inter var', ...fontFamily.sans],
+      },
+    },
   },
   variants: {
     backgroundColor: ['dark'],
     borderColor: ['dark', 'focus'],
     textColor: ['dark'],
   },
-  plugins: [require('tailwindcss-dark-mode')()],
+  plugins: [require('@tailwindcss/ui'), require('tailwindcss-dark-mode')()],
   corePlugins: {
     placeholderColor: false,
     placeholderOpacity: false,

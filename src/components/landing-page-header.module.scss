@@ -64,9 +64,12 @@ $bg: #111;
     @apply text-4xl;
   }
   @screen md {
-    font-size: 7rem;
+    font-size: 6rem;
     top: -80px;
     text-shadow: 0px 1px 5px #333, 0px 1px 5px #444;
+  }
+  @screen lg {
+    font-size: 7rem;
   }
 }
 
@@ -90,9 +93,6 @@ $bg: #111;
   }
 
   li {
-    list-style-type: none;
-    padding: $space $space * 2;
-
     @screen md {
       border-top: none;
       border-bottom: none;
@@ -112,7 +112,6 @@ $bg: #111;
       text-decoration: none;
       color: inherit;
       line-height: 1.2;
-      padding: $space;
       display: inline-block;
       border-radius: $space * 2;
 

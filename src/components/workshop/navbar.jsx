@@ -6,7 +6,7 @@ import './navbar.scss';
 export const Navbar = ({ workshop }) => (
   <>
     <header
-      className="workshop-navbar"
+      className="workshop-navbar z-30"
       style={{
         backgroundColor: workshop.themeColor,
         color: workshop.contrastColor,

@@ -1,4 +1,5 @@
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
+import MenuIcon from 'heroicons/react/outline/Menu';
 import github from 'prism-react-renderer/themes/github';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import * as React from 'react';
@@ -7,11 +8,14 @@ import { useDiffEffect } from '../hooks/use-diff-effect';
 import { useId } from '../hooks/use-id';
 import { scrollIntoView } from '../lib/dom';
 import { useTheme } from '../theme';
-import { Button } from './Button';
 import './code-renderer.scss';
-import { CodeSnippet, HighlightedCode } from './code-snippet';
+import {
+  CodeSnippet,
+  HighlightedCode,
+  LanguageIndicator,
+} from './code-snippet';
 import { removeHighlightComment, wrapJsCode } from './code-transformers';
-import { EditIcon } from './svg-icons';
+import { Dropdown, DropdownOption } from './dropdown';
 import { TypescriptEditor } from './typescript-editor';
 
 export const CodeRenderer = ({
@@ -94,7 +98,7 @@ const CodeLiveEditor = ({
   const id = 'code-editor' + useId();
 
   return (
-    <div className="code-editor">
+    <CodeEditorContainer>
       <LiveProvider
         code={removeHighlightComment(code)}
         scope={injectedComponents}
@@ -105,26 +109,26 @@ const CodeLiveEditor = ({
       >
         {!previewOnly && (
           <>
-            <div className="code-editor-header-container">
-              <div className="code-editor-header">
+            <div className="relative px-1 py-1.5 flex justify-between items-center">
+              <span>{fileName}</span>
+              <Dropdown
+                alignRight
+                icon
+                label={<MenuIcon />}
+                className="text-gray-600 dark:text-gray-200"
+                ref={editBtnRef}
+              >
                 {isEdit ? (
-                  <div className="code-editor-icon">
-                    <EditIcon />
-                  </div>
+                  <DropdownOption onSelect={() => setIsEdit(false)}>
+                    Done Edit
+                  </DropdownOption>
                 ) : (
-                  <Button
-                    onClick={() => setIsEdit(true)}
-                    color="white"
-                    className="text-sm"
-                    raised
-                    ref={editBtnRef}
-                  >
+                  <DropdownOption onSelect={() => setIsEdit(true)}>
                     Edit
-                  </Button>
+                  </DropdownOption>
                 )}
-                {fileName && <span>{fileName}</span>}
-              </div>
-              <span className="code-editor-language text-sm">{language}</span>
+              </Dropdown>
+              <LanguageIndicator language={language} />
             </div>
             {isEdit ? (
               <>
@@ -151,7 +155,7 @@ const CodeLiveEditor = ({
         <LiveError className="code-error" />
         <LivePreview className="code-preview" />
       </LiveProvider>
-    </div>
+    </CodeEditorContainer>
   );
 };
 
@@ -184,38 +188,32 @@ const TypescriptLiveEditor = ({
   }, [isEdit]);
 
   return (
-    <div className="code-editor">
-      <div className="code-editor-header-container">
-        <div className="code-editor-header">
-          {isEdit ? (
-            jsCode ? (
-              <Button
-                onClick={() => setExecutedCode(jsCode)}
-                size="small"
-                color="primary"
-                raised
-              >
-                Run Code
-              </Button>
-            ) : (
-              <div className="code-editor-icon">
-                <EditIcon />
-              </div>
-            )
-          ) : (
-            <Button
-              onClick={() => setIsEdit(true)}
-              color="white"
-              className="text-sm"
-              raised
-              ref={editBtnRef}
-            >
-              Edit
-            </Button>
+    <CodeEditorContainer>
+      <div className="relative px-1 py-1.5 flex justify-between items-center">
+        <span>{fileName}</span>
+        <Dropdown
+          alignRight
+          icon
+          label={<MenuIcon />}
+          className="text-gray-600 dark:text-gray-200"
+          ref={editBtnRef}
+        >
+          {isEdit && jsCode && (
+            <DropdownOption onSelect={() => setExecutedCode(jsCode)}>
+              Run Code
+            </DropdownOption>
           )}
-          {fileName && <span>{fileName}</span>}
-        </div>
-        <span className="code-editor-language text-sm">{language}</span>
+          {isEdit ? (
+            <DropdownOption onSelect={() => setIsEdit(false)}>
+              Done Edit
+            </DropdownOption>
+          ) : (
+            <DropdownOption onSelect={() => setIsEdit(true)}>
+              Edit
+            </DropdownOption>
+          )}
+        </Dropdown>
+        <LanguageIndicator language={language} />
       </div>
       {isEdit ? (
         <>
@@ -253,9 +251,13 @@ const TypescriptLiveEditor = ({
           ref={codeRef}
         />
       )}
-    </div>
+    </CodeEditorContainer>
   );
 };
+
+const CodeEditorContainer = ({ children }) => (
+  <div className="code-editor px-1 pb-1 rounded">{children}</div>
+);
 
 const useToggleContent = () => {
   const [show, setShow] = React.useState(false);
