@@ -1,7 +1,9 @@
-import * as React from 'react';
-import { debounce } from '../lib/fp';
-import styles from './typescript-editor.module.scss';
+// import type { IDisposable, languages } from 'monaco-editor';
 import type { languages } from 'monaco-editor';
+import * as React from 'react';
+import { debounce } from '../../lib/fp';
+import styles from './typescript-editor.module.scss';
+// import { getWorker } from './typings-worker';
 
 let monaco: typeof import('monaco-editor/esm/vs/editor/editor.api');
 
@@ -17,21 +19,28 @@ interface TypescriptEditorProps {
   height?: number;
 }
 
+// Store details about typings we have loaded
+// const extraLibs = new Map<string, IDisposable>();
+
 /**
  * Wrapper over 'monaco-editor'. 'monaco-editor' will be lazy-loaded.
  *
  * Currently does not support tsx.
  */
 export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
-  containerRef = React.createRef<HTMLDivElement>();
-  editor: undefined | ReturnType<typeof monaco.editor.create>;
-  tsProxy: languages.typescript.TypeScriptWorker | undefined;
-  _isMounted: boolean = false;
+  private containerRef = React.createRef<HTMLDivElement>();
+  private editor: undefined | ReturnType<typeof monaco.editor.create>;
+  private tsProxy: languages.typescript.TypeScriptWorker | undefined;
+  // private typingWorker: ReturnType<typeof getWorker> = false;
+  private _isMounted: boolean = false;
 
   componentDidMount() {
     this._isMounted = true;
+    // this.typingWorker = getWorker();
+
     if (monaco) {
       this.initEditor();
+      // this.addReactTypes();
     } else {
       Promise.all([
         import('monaco-editor/esm/vs/editor/editor.api'),
@@ -39,9 +48,18 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
         import('monaco-themes/themes/GitHub.json'),
       ]).then(([loadedMonaco, loadedDarkTheme, loadedLightTheme]) => {
         monaco = loadedMonaco;
+        // monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
+        // monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        //   allowJs: true,
+        //   allowSyntheticDefaultImports: true,
+        //   strict: true,
+        //   jsx: monaco.languages.typescript.JsxEmit.React,
+        //   jsxFactory: 'React.createElement',
+        // });
         monaco.editor.defineTheme('nightOwl', loadedDarkTheme as any);
         monaco.editor.defineTheme('github', loadedLightTheme as any);
         this.initEditor();
+        // this.addReactTypes();
       });
     }
     window.addEventListener('resize', this.handleResize);
@@ -56,6 +74,9 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       }
       this.editor.dispose();
     }
+    // if (this.typingWorker) {
+    //   this.typingWorker.terminate();
+    // }
     window.removeEventListener('resize', this.handleResize);
   }
 
@@ -89,6 +110,36 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       );
     }
   }
+
+  // private addReactTypes() {
+  //   this.addTypings({
+  //     name: 'react',
+  //     version: '16.9.49',
+  //   });
+  // }
+
+  // private addTypings(pkg: { name: string; version: string }) {
+  //   if (this.typingWorker) {
+  //     this.typingWorker.getTypeDefinition(pkg).then((data) => {
+  //       if (data) {
+  //         Object.keys(data.typings).forEach((path) => {
+  //           const extraLib = extraLibs.get(path);
+
+  //           if (extraLib) {
+  //             extraLib.dispose();
+  //           }
+
+  //           const newLib = monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  //             data.typings[path],
+  //             path
+  //           );
+
+  //           extraLibs.set(path, newLib);
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
   initEditor = () => {
     this.editor = monaco.editor.create(
