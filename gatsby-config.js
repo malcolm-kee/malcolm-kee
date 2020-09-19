@@ -22,7 +22,6 @@ const siteMetadata = {
 module.exports = {
   siteMetadata,
   plugins: [
-    'gatsby-plugin-workerize-loader',
     {
       resolve: 'gatsby-plugin-sass',
       options: {

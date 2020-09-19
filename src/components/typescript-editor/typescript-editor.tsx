@@ -165,6 +165,9 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
 
     this.editor.onDidBlurEditorText(this.handleBlur);
     this.editor.onDidChangeModelContent(this.handleChange);
+    this.editor.onDidChangeModelContent((ev) => {
+      console.log(ev.changes);
+    });
 
     if (this.props.autoFocus) {
       this.editor.focus();
