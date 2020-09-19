@@ -26,6 +26,7 @@ const {
   createTils,
 } = require('./gatsby/til-build');
 const { screenshot } = require('./gatsby/screenshot');
+const { setupWebpackConfigForWorker } = require('./gatsby/worker-build');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 exports.onCreateNode = async (createNodeParam) => {
@@ -74,10 +75,13 @@ exports.createPages = async (createPageArgs) => {
   ]);
 };
 
-exports.onCreateWebpackConfig = ({ actions }) => {
+/**
+ * @type {import('gatsby').GatsbyNode['onCreateWebpackConfig']}
+ */
+exports.onCreateWebpackConfig = (args, options) => {
   // switching buble to '@philpl/buble' to reduce bundle size
   // but does not support ESNext regex. See https://github.com/FormidableLabs/react-live#what-bundle-size-can-i-expect
-  actions.setWebpackConfig({
+  args.actions.setWebpackConfig({
     resolve: {
       alias: {
         buble: '@philpl/buble',
@@ -89,6 +93,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       }),
     ],
   });
+  setupWebpackConfigForWorker(args, options);
 };
 
 exports.onPostBuild = async ({ graphql, reporter }) => {
