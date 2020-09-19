@@ -14,7 +14,7 @@ Workshop materials:
 
 Live code editor mode will be enabled in markdown when _all_ following conditions are met:
 
-- the language is `js`, `jsx`, or `ts`.
+- the language is `js`, `jsx`, `ts`, or `tsx`.
 - the props `live` is provided.
 
 For example:

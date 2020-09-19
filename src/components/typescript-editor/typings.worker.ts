@@ -56,7 +56,7 @@ const fetchFromDefinitelyTyped = (
       .replace('@', '')
       .replace(/\//g, '__')}/index.d.ts`
   ).then((typings) => {
-    fetchedPaths[`node_modules/${dependency}/index.d.ts`] = typings;
+    fetchedPaths[`node_modules/@types/${dependency}/index.d.ts`] = typings;
   });
 
 const getRequireStatements = (title: string, code: string) => {

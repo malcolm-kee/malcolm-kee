@@ -78,7 +78,7 @@ exports.createPages = async (createPageArgs) => {
 /**
  * @type {import('gatsby').GatsbyNode['onCreateWebpackConfig']}
  */
-exports.onCreateWebpackConfig = (args, options, cb) => {
+exports.onCreateWebpackConfig = (args, options) => {
   // switching buble to '@philpl/buble' to reduce bundle size
   // but does not support ESNext regex. See https://github.com/FormidableLabs/react-live#what-bundle-size-can-i-expect
   args.actions.setWebpackConfig({
@@ -93,7 +93,7 @@ exports.onCreateWebpackConfig = (args, options, cb) => {
       }),
     ],
   });
-  setupWebpackConfigForWorker(args, options, cb);
+  setupWebpackConfigForWorker(args, options);
 };
 
 exports.onPostBuild = async ({ graphql, reporter }) => {

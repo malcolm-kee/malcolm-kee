@@ -47,6 +47,8 @@ export const wrapJsCode = (code) => `
   }
 `;
 
+export const sanitizeTsxCode = (code) => code.replace(/^"use strict";\s/, '');
+
 /**
  * transformCodeToken to identify highlight comments:
  * - highlight-next-line

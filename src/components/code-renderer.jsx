@@ -14,7 +14,11 @@ import {
   HighlightedCode,
   LanguageIndicator,
 } from './code-snippet';
-import { removeHighlightComment, wrapJsCode } from './code-transformers';
+import {
+  removeHighlightComment,
+  sanitizeTsxCode,
+  wrapJsCode,
+} from './code-transformers';
 import { Dropdown, DropdownOption } from './dropdown';
 import { TypescriptEditor } from './typescript-editor';
 
@@ -36,14 +40,15 @@ export const CodeRenderer = ({
 
   const code = typeof children === 'string' ? children.trim() : children;
 
-  return live && /^(jsx?|ts|javascript|typescript)$/.test(language) ? (
-    /^(ts|typescript)$/.test(language) ? (
+  return live && /^(jsx?|tsx?|javascript|typescript)$/.test(language) ? (
+    /^(tsx?|typescript)$/.test(language) ? (
       <TypescriptLiveEditor
         code={code}
         fileName={fileName}
         language={language}
         theme={codeTheme}
         themeMode={theme}
+        noInline={noInline}
       />
     ) : (
       <CodeLiveEditor
@@ -165,6 +170,7 @@ const TypescriptLiveEditor = ({
   language,
   themeMode,
   theme,
+  noInline,
 }) => {
   const [latestTsCode, setTsCode] = React.useState(code);
   const [jsCode, setJsCode] = React.useState('');
@@ -224,6 +230,7 @@ const TypescriptLiveEditor = ({
             onEmitCode={setJsCode}
             onEscape={() => setIsEdit(false)}
             height={estimatedHeight}
+            tsx={language === 'tsx'}
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
           />
@@ -231,9 +238,10 @@ const TypescriptLiveEditor = ({
             <LiveProvider
               code={executedCode}
               scope={injectedGlobals}
-              transformCode={wrapJsCode}
+              transformCode={language === 'tsx' ? sanitizeTsxCode : wrapJsCode}
               theme={theme}
               language="jsx"
+              noInline={noInline}
               key={executedCode}
             >
               <LiveError className="code-error" />
