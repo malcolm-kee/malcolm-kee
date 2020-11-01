@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
 import { callAll } from '../lib/fp';
-import styles from './field.module.scss';
+import styles from './field.module.css';
 
 export const Field = ({
   className,

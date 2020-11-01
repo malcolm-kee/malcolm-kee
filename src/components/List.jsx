@@ -2,8 +2,8 @@ import cx from 'classnames';
 import { Link } from 'gatsby';
 import * as React from 'react';
 import { getLinkTarget } from '../lib/util';
-import styles from './List.module.scss';
-import './List.scss';
+import styles from './List.module.css';
+import './List.css';
 import { OutLink } from './OutLink';
 
 export const List = ({

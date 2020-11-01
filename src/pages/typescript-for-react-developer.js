@@ -5,7 +5,7 @@ import { ReactTypescriptIcon } from '../components/react-typescript-icon';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
-import styles from './typescript-for-react-developer.module.scss';
+import styles from './typescript-for-react-developer.module.css';
 
 const PageHeader = () => {
   const { workshop } = useStaticQuery(graphql`

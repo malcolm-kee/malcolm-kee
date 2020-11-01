@@ -5,7 +5,7 @@ import { LinkButton } from '../components/Button';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
-import { logo } from './state-management-with-redux.module.scss';
+import { logo } from './state-management-with-redux.module.css';
 
 const PageHeader = () => {
   const { workshopsYaml } = useStaticQuery(graphql`

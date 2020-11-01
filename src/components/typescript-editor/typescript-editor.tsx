@@ -1,7 +1,7 @@
 import type { IDisposable, languages } from 'monaco-editor';
 import * as React from 'react';
 import { debounce } from '../../lib/fp';
-import styles from './typescript-editor.module.scss';
+import styles from './typescript-editor.module.css';
 import { getWorker } from './typings-worker';
 
 let monaco: typeof import('monaco-editor/esm/vs/editor/editor.api');

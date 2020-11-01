@@ -8,13 +8,8 @@
     box-shadow: $box-shadow-5;
   }
 
-  &:focus {
+  &:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px $primary-color;
-  }
-
-  @include focusedByMouse {
-    filter: none;
-    border-color: transparent;
   }
 }

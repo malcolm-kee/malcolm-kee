@@ -6,7 +6,7 @@ import {
 import '@reach/dialog/styles.css';
 import cx from 'classnames';
 import * as React from 'react';
-import './dialog.scss';
+import './dialog.css';
 import { CloseIcon } from './svg-icons';
 
 export type DialogProps = ReachDialogProps & {

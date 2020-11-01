@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from '../../../src/components/Button';
 import { Box, Circle } from '../../../src/components/shapes';
-import './map.scss';
+import './map.css';
 
 export function MapAnimation() {
   const [runState, setRunState] = React.useState('not_run');

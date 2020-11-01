@@ -1,6 +1,6 @@
 @import '../../../src/constants/variable';
 
-@mixin box-offset($index) {
+/* @mixin box-offset($index) {
   top: $space + (($space + 25px) * $index);
   left: $space * 2;
 }
@@ -32,7 +32,7 @@ $indexes: 0, 1, 2, 3;
 
 @each $index in $indexes {
   @include generate-animation($index);
-}
+} */
 
 .container {
   position: relative;
@@ -51,35 +51,36 @@ $indexes: 0, 1, 2, 3;
   > * {
     &:first-child {
       background: yellowgreen;
-      @include box-offset(0);
+      /* @include box-offset(0); */
     }
 
     &:nth-child(2) {
       background: maroon;
       transform: scale(0.8);
-      @include box-offset(1);
+      /* @include box-offset(1); */
     }
 
     &:nth-child(3) {
       transform: scale(0.6);
       background: orchid;
-      @include box-offset(2);
+      /* @include box-offset(2); */
     }
 
     &:nth-child(4) {
       transform: scale(0.4);
       background: orange;
-      @include box-offset(3);
+      /* @include box-offset(3); */
     }
   }
 
   &.activated {
-    > * {
+    /* TODO */
+    /* > * {
       @each $index in $indexes {
         &:nth-child(#{$index + 1}) {
           animation: zigzag-#{$index} 4s linear forwards;
         }
       }
-    }
+    } */
   }
 }

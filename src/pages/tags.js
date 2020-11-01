@@ -6,7 +6,7 @@ import { List, ListItem, ListItemText } from '../components/List';
 import { MainContent } from '../components/main-content';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
-import './tags.scss';
+import './tags.css';
 
 const getItemClassName = (count) =>
   count >= 4 ? 'tag-count-4' : `tag-count-${count}`;

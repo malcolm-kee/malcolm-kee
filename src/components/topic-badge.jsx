@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from './topic-badge.module.scss';
+import styles from './topic-badge.module.css';
 
 export const TopicBadge = ({ id, icon }) => {
   return (

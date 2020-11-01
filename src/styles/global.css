@@ -1,11 +1,8 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 @import '../constants/variable';
-@import './theme.scss';
-
-@tailwind base;
-
-@tailwind components;
-
-@tailwind utilities;
+@import './theme.css';
 
 .Layout {
   min-height: 100vh;
@@ -174,7 +171,7 @@
     }
   }
 
-  // this bug is coming back!!!
+  /* this bug is coming back!!! */
   .gatsby-resp-image-image {
     width: 100%;
     height: 100%;
@@ -185,7 +182,8 @@
     left: 0;
   }
 
-  a[href^="https://www.youtube.com"] {
+  a[href^="https://www.youtube.com"]
+  {
     display: flex;
     justify-content: center;
     position: relative;
@@ -290,7 +288,8 @@
   .pre-bordered-table + table {
     border-width: 1px;
     margin: 0 -0.5rem;
-    th, td {
+    th,
+    td {
       border-width: 1px;
       padding: 0.5rem;
     }
@@ -338,13 +337,4 @@ $screens: (
 
 .hyphen-auto {
   hyphens: auto;
-}
-
-@include link('.link');
-
-// add "animated" class to opt in for reduced behavior
-.animated,
-.animated::before,
-.animated::after {
-  @include reducedMotion;
 }

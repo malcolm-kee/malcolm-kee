@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
 import { useWindowEventListener } from '../hooks/use-event-listener';
-import styles from './scroll-progress.module.scss';
+import styles from './scroll-progress.module.css';
 
 export type ScrollItem = {
   url: string;

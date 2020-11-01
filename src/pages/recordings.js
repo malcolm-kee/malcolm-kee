@@ -5,7 +5,7 @@ import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
-import styles from './recordings.module.scss';
+import styles from './recordings.module.css';
 
 export default function Recordings({ data }) {
   return (

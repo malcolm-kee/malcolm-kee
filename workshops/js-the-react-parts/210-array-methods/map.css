@@ -1,13 +1,13 @@
 @import '../../../src/constants/variable';
 
-@mixin box-offset($index) {
+/* @mixin box-offset($index) {
   top: $space + (($space + 25px) * $index);
   left: $space * 2;
 }
 
-$indexes: 0, 1, 2, 3;
+$indexes: 0, 1, 2, 3; */
 
-#filter-demo {
+#map-demo {
   position: relative;
   height: 175px;
   background: white;
@@ -22,43 +22,47 @@ $indexes: 0, 1, 2, 3;
   }
 
   .box {
-    transition-property: left opacity;
+    filter: hue-rotate(0deg);
+    transform: scale(1);
+    transition-property: filter left transform;
     transition-timing-function: linear;
     transition-duration: 0s;
 
     &:nth-child(1) {
       background: yellowgreen;
-      @include box-offset(0);
+      /* @include box-offset(0); */
     }
 
     &:nth-child(2) {
       background: maroon;
-      @include box-offset(1);
+      /* @include box-offset(1); */
     }
 
     &:nth-child(3) {
       background: orchid;
-      @include box-offset(2);
+      /* @include box-offset(2); */
     }
 
     &:nth-child(4) {
       background: orange;
-      @include box-offset(3);
+      /* @include box-offset(3); */
     }
 
     &:nth-child(5) {
       background: darkcyan;
-      @include box-offset(4);
+      /* @include box-offset(4); */
     }
   }
 
   &.activated {
     .box {
+      filter: hue-rotate(90deg);
       left: 100%;
       transition-duration: 1s;
     }
-    .filtered {
-      opacity: 0;
+    .shrinked {
+      filter: hue-rotate(0deg);
+      transform: scale(0.6);
     }
   }
 }

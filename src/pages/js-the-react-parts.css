@@ -125,8 +125,4 @@
       animation: delay-fade 3s ease-in-out;
     }
   }
-
-  * {
-    @include reducedMotion;
-  }
 }

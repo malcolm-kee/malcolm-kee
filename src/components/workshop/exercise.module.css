@@ -6,7 +6,7 @@
   border-radius: $space;
   box-shadow: $box-shadow-3;
   padding: $space $space * 3;
-  margin: $space * 2 #{-$space};
+  /* margin: $space * 2 #{-$space}; */
 
   @media screen and (min-width: $media-mobile) {
     margin: $space * 2 0;

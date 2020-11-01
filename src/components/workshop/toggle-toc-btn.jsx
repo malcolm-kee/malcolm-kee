@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ChevronIcon } from '../chevron-icon';
-import './toggle-toc-btn.scss';
+import './toggle-toc-btn.css';
 
 export const ToggleTocBtn = React.forwardRef(
   ({ open, onToggle, backgroundColor = '#e44d26', color }, ref) => {

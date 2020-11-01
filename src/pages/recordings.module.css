@@ -2,6 +2,6 @@
 
 :global(body.dark) {
   .img {
-    @include darkenImg();
+    filter: brightness(0.8);
   }
 }

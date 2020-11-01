@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
-import './Card.scss';
-import styles from './card.module.scss';
+import './Card.css';
+import styles from './card.module.css';
 
 export const Card = ({
   as: Component = 'div',

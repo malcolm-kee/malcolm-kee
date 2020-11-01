@@ -5,7 +5,7 @@ import { Button } from '../Button';
 import { Field } from '../Field';
 import { RepeatIcon } from '../svg-icons';
 import { drawCircle } from './art-lib';
-import { board, container } from './circle-letters.module.scss';
+import { board, container } from './circle-letters.module.css';
 
 export const CircleLetter = () => {
   const [text, setText] = React.useState('MK');

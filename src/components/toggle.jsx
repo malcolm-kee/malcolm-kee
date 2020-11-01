@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './toggle.scss';
+import './toggle.css';
 
 // Copyright 2015-present Drifty Co.
 // http://drifty.com/

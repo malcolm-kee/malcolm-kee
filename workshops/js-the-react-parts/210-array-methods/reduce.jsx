@@ -2,7 +2,7 @@ import cx from 'classnames';
 import * as React from 'react';
 import { Button } from '../../../src/components/Button';
 import { Box } from '../../../src/components/shapes';
-import { activated, container, innerContainer } from './reduce.module.scss';
+import { activated, container, innerContainer } from './reduce.module.css';
 
 export function ReduceAnimation() {
   const [runState, setRunState] = React.useState('not_run');

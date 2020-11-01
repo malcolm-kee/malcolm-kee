@@ -22,18 +22,7 @@ const siteMetadata = {
 module.exports = {
   siteMetadata,
   plugins: [
-    {
-      resolve: 'gatsby-plugin-sass',
-      options: {
-        postCssPlugins: [
-          require('tailwindcss'),
-          require('postcss-preset-env'),
-          require('postcss-browser-reporter'),
-          require('postcss-reporter'),
-          require('postcss-flexbugs-fixes'),
-        ],
-      },
-    },
+    'gatsby-plugin-postcss',
     'gatsby-plugin-js-fallback',
     {
       resolve: 'gatsby-plugin-compile-es6-packages',

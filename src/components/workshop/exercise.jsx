@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from './exercise.module.scss';
+import styles from './exercise.module.css';
 
 export const Exercise = ({ title, children }) => {
   return (

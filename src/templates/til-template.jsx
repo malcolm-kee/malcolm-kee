@@ -8,7 +8,7 @@ import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
 import { TopicBadge } from '../components/topic-badge';
 import { removeTrailingSlash } from '../lib/util';
-import styles from './til-template.module.scss';
+import styles from './til-template.module.css';
 
 const TilTemplate = ({ data, location }) => {
   const { til } = data;

@@ -53,7 +53,7 @@ $aside-width: 300px;
       margin: 0;
       justify-self: center;
       grid-area: content;
-      max-width: 100%; // required to avoid content overflow the allocated grid item width
+      max-width: 100%; /* required to avoid content overflow the allocated grid item width */
 
       &-container {
         display: grid;
@@ -147,7 +147,7 @@ $aside-width: 300px;
 
     img.gatsby-resp-image-image {
       transition: box-shadow 300ms ease-in-out;
-      // this important hack is necessary because the style was set as inline style;
+      /* this important hack is necessary because the style was set as inline style; */
       box-shadow: var(--bg) 0px 0px 0px 400px inset !important;
     }
 

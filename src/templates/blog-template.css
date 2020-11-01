@@ -51,6 +51,6 @@
 body.dark .blog-post {
   img.gatsby-resp-image-image,
   img.blog-gif {
-    @include darkenImg();
+    filter: brightness(0.8);
   }
 }
