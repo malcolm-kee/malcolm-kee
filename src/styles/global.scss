@@ -1,0 +1,350 @@
+@import '../constants/variable';
+@import './theme.scss';
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.Layout {
+  min-height: 100vh;
+  position: relative;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.link-highlight {
+  display: inline-block;
+  line-height: 1.5;
+  text-align: center;
+  margin: $space 0;
+  padding: $space / 2 $space;
+  min-width: 80px;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+  border-radius: $space * 2;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: -0.25em;
+    right: -0.25em;
+    border-radius: $space * 3;
+    @apply bg-primary-400;
+    transform-origin: center right;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &:hover {
+    @apply text-gray-900;
+    border-bottom-color: transparent;
+    &::before {
+      transform: scaleX(1);
+      transform-origin: center left;
+    }
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $primary-color;
+  }
+
+  @media (min-width: $media-mobile) {
+    min-width: 100px;
+    padding: $space / 2 $space;
+  }
+}
+
+.article-content {
+  .header-link-icon {
+    position: absolute;
+    right: 0;
+    top: 30%;
+    svg path {
+      fill: $link-light;
+      fill: var(--link);
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    .header-link-icon {
+      svg {
+        visibility: hidden;
+      }
+      &:focus {
+        svg {
+          visibility: visible;
+        }
+      }
+    }
+
+    &:hover {
+      .header-link-icon svg {
+        visibility: visible;
+      }
+    }
+
+    @media screen and (min-width: $media-mobile) {
+      &[id] {
+        scroll-margin-top: 5rem;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin-top: 1em;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    @media only screen and (max-width: 480px) {
+      font-size: 1.4rem;
+    }
+  }
+  > h3 {
+    margin: 1em 0 0.5rem;
+    font-size: 1.2rem;
+    line-height: 1.8em;
+    @media only screen and (max-width: 480px) {
+      font-size: 1.4rem;
+    }
+  }
+  p {
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+    font-weight: 400;
+    line-height: 1.8em;
+    font-family: inherit;
+    color: $text-light;
+    color: var(--text);
+  }
+  > p:first-child {
+    margin-top: 0;
+  }
+  h3,
+  h4,
+  h5 {
+    & + p {
+      margin-top: 1em;
+    }
+  }
+
+  ol,
+  ul {
+    li {
+      > p {
+        &:not(:first-child) {
+          margin-top: 1em;
+        }
+      }
+      &:first-child {
+        > p {
+          margin-top: 0.5em;
+        }
+      }
+    }
+  }
+  li {
+    margin-bottom: 0.9em;
+  }
+  em {
+    font-style: italic;
+  }
+  img.blog-gif {
+    display: block;
+    width: 100%;
+    &--narrow {
+      @media (min-width: $media-mobile) {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  // this bug is coming back!!!
+  .gatsby-resp-image-image {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  a[href^="https://www.youtube.com"] {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    &::after {
+      content: '\25BA';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 120px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+  hr {
+    margin: 2em 0 0;
+    padding: 0;
+    height: 1px;
+    background: $grey-300;
+  }
+  blockquote {
+    font-family: $serif-font;
+    font-size: 1.1rem;
+    border-radius: $space;
+    margin: 2em 0;
+    padding: $space;
+    background-color: $bg-color-light-pale;
+    background-color: var(--bg-pale);
+    position: relative;
+    &::before {
+      content: '\275d';
+      position: absolute;
+      font-size: 2rem;
+      color: $primary-300;
+      color: var(--primary-fade);
+    }
+    &::after {
+      content: '\275e';
+      position: absolute;
+      right: $space;
+      bottom: $space;
+      font-size: 1.6rem;
+      color: $primary-300;
+      color: var(--primary-fade);
+    }
+    > p {
+      position: relative;
+      text-indent: $space * 1.5;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  figure {
+    margin: 1em auto;
+    max-width: 800px;
+  }
+
+  figcaption {
+    padding-top: 0.5em;
+    text-align: right;
+    line-height: 1.2;
+  }
+
+  .gatsby-highlight {
+    margin-top: 1.75rem;
+  }
+
+  /* Inline code */
+  code[class*='language-text'] {
+    border-radius: 0.3em;
+    background-color: $bg-color-light-pale;
+    background-color: var(--bg-pale);
+    padding: 0.15em 0.2em 0.05em;
+    font-size: 0.8em;
+    white-space: normal;
+  }
+
+  pre > code[class*='language-text'] {
+    white-space: pre;
+    display: block;
+    padding: 1rem;
+  }
+
+  a {
+    > code[class*='language-text'] {
+      color: $text-light;
+      color: var(--text);
+      padding: 0.1em 0.2em 0;
+      border-bottom: 0.05em solid;
+      border-bottom-color: $link-light;
+      border-bottom-color: var(--link);
+    }
+
+    &:hover {
+      > code[class*='language-text'] {
+        border-bottom-color: transparent;
+      }
+    }
+  }
+
+  .pre-bordered-table + table {
+    border-width: 1px;
+    margin: 0 -0.5rem;
+    th, td {
+      border-width: 1px;
+      padding: 0.5rem;
+    }
+  }
+}
+
+$sizes: (
+  '1': 0.25rem,
+  '2': 0.5rem,
+  '3': 0.75rem,
+  '4': 1rem,
+  '5': 1.25rem,
+  '6': 1.5rem,
+  '8': 2rem,
+  '10': 2.5rem,
+  '12': 3rem,
+  '16': 4rem,
+  '20': 5rem,
+  '24': 6rem,
+  '32': 8rem,
+  '40': 10rem,
+  '48': 12rem,
+  '56': 14rem,
+  '64': 16rem,
+);
+$screens: (
+  'xs': 450px,
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+);
+
+@each $size, $value in $sizes {
+  .bottom-#{$size} {
+    bottom: $value;
+  }
+  .top-#{$size} {
+    top: $value;
+  }
+  .left-#{$size} {
+    left: $value;
+  }
+}
+
+.hyphen-auto {
+  hyphens: auto;
+}
+
+@include link('.link');
+
+// add "animated" class to opt in for reduced behavior
+.animated,
+.animated::before,
+.animated::after {
+  @include reducedMotion;
+}

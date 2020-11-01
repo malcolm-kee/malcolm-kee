@@ -1,0 +1,39 @@
+@import '../constants/variable';
+
+.description {
+  padding: 0 $space * 2 $space * 2;
+  line-height: 1.8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  padding: $space $space * 2;
+  grid-gap: 4em;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.item {
+  margin-bottom: $space;
+  > a {
+    display: inline-block;
+    padding: $space / 4 0;
+  }
+}
+
+.description,
+.item {
+  > a {
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color ease 300ms;
+
+    &:hover {
+      border-bottom: 1px solid currentColor;
+    }
+  }
+}

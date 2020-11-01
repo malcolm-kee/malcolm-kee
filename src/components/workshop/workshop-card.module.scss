@@ -1,0 +1,14 @@
+@import '../../constants/variable';
+
+.badge {
+  position: absolute;
+  top: -$size-1;
+  right: -$size-1;
+  font-size: 0.9rem;
+  display: inline-block;
+  padding: $size-0 $size-1;
+  background-color: $primary-700;
+  color: white;
+  transform: rotate(15deg);
+  box-shadow: $box-shadow-3;
+}

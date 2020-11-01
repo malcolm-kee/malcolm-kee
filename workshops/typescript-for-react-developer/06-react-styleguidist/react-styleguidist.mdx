@@ -1,0 +1,83 @@
+---
+title: React Styleguidist
+description: 'React Styleguidist and other component development tool allows you to develop your component in isolation and generates documentations from your code.'
+date: '2019-12-02'
+updated_at: '2019-12-02'
+objectives:
+  - describe what is React Styleguidist and its benefits
+  - configure React Styleguidist to parse React components written in TypeScript
+---
+
+[React Styleguidist][react-styleguidist] is a component development tools that would improves the workflow and code reuse in React project.
+
+By default, it allows you to document your React component using comments, the [`prop-types`][prop-types] library and the component use cases with markdown files.
+
+To show you an example, `Button` component in Shopit is documented with:
+
+- component description using comment [here](https://github.com/malcolm-kee/react-ecomm-site/blob/redux/src/components/button.jsx#L5)
+- supported props using `prop-types` [here](https://github.com/malcolm-kee/react-ecomm-site/blob/redux/src/components/button.jsx#L31).
+- use cases with markdown [here](https://raw.githubusercontent.com/malcolm-kee/react-ecomm-site/redux/src/components/button.md).
+- output from React Styleguidist can be seen [here](https://react-ecomm-docs.netlify.com/#button).
+
+For this workshop, we can customize React Styleguidist so we can use TypeScript to document our component instead of `prop-types`.
+
+## Benefits of Using Component Development Tools
+
+1. allows you to develop component in isolation. This allows you to ignore the business rules and focus on developing a reusable UI component.
+1. encourage component reuse as it is easier to explore and try the components that have been developed.
+1. reduce need of manual documentation. As documentation are generated with comment and code itself, you do not need to worry about outdated documentation.
+1. ease communications with designers and business stackholders. It is a great tools when all your UI components is available in single page that you can compare and highlight variation and inconsistency.
+
+<aside>
+
+If you wish to setup React Styleguidist for your project, you can refer to their [installation docs](https://react-styleguidist.js.org/docs/getting-started.html). The steps are quite straightforward especially if your project is setup with Create React App.
+
+</aside>
+
+## Configure Styleguidist to Parse TypeScript
+
+By default, React Styleguidist use `prop-types` to generate documentation but we want it to generate from our TypeScript code.
+
+Let's configure it with the following steps.
+
+1. Install `react-docgen-typescript`, which will generates metadata from TypeScript code in the format that React Styleguidist can understand.
+
+   ```bash
+   yarn add -D react-docgen-typescript
+   ```
+
+2. Configure React Styleguidist to use `react-docgen-typescript` by editing `styleguide.config.js`.
+
+   ```js fileName=styleguide.config.js
+   const path = require('path'); // highlight-line
+
+   module.exports = {
+     components: 'src/components/**/*.{jsx,tsx}',
+     // highlight-start
+     propsParser: (filePath, source, resolver, handlers) => {
+       const { ext } = path.parse(filePath);
+       return ext === '.tsx'
+         ? require('react-docgen-typescript').parse(
+             filePath,
+             source,
+             resolver,
+             handlers
+           )
+         : require('react-docgen').parse(source, resolver, handlers);
+     },
+     // highlight-end
+     template: {
+       head: {
+         links: [
+           {
+             rel: 'stylesheet',
+             href: 'https://bootswatch.com/3/cerulean/bootstrap.min.css',
+           },
+         ],
+       },
+     },
+   };
+   ```
+
+[react-styleguidist]: https://react-styleguidist.js.org
+[prop-types]: https://www.npmjs.com/package/prop-types

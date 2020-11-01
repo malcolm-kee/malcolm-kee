@@ -1,0 +1,36 @@
+---
+title: 'Container-Presenter Pattern Revisited'
+date: '2019-09-15'
+tags: ['react', 'design pattern']
+summary: 'Instead of separating container-presenter components based on arbitrary rules, separate components into business components and UI components.'
+image: './containers.jpg'
+imageBy: chuttersnap
+imageByLink: 'https://unsplash.com/@chuttersnap'
+published: true
+---
+
+Previously I had shared my view about [Container-Presenter Pattern](/blog/react-container-presenter-pattern) in React. Recently I had a new perspective on that.
+
+In its essense, container-presenter pattern recommends you to split components into those care about how things look (rendering HTML) and those care about how things work (state management and lifecycle methods).
+
+With the hooks API introduced, this separation seems no longer useful as "how things work" can be encapsulated into a custom hook. (The original author that introduced the concept, Dan Abramov, discourages that separation in [his update on the article][dan-article]).
+
+So, what would be the guideline to separate components now?
+
+From my experience, I find a good way to separate components is to split them into UI components and business components.
+
+- UI components
+  1. generic components that encapsulate UI view and behavior and does not concern about specific business domain.
+  2. UI components can have state, e.g. an Accordion component that has `isExpanded` state, but its does not coded with specific business domain in mind. Consequently, its props should also be named from a UI perspective, e.g. `isExpanded` instead of `isCustomerDetailsExpanded`.
+- Business components
+  1. components that is only applicable for a particular use case/domain.
+  2. Business components mostly render UI components. It can render its own HTML markup as well, but most of the time the markup can be encapsulated with generic UI components, so you can reuse them elsewhere.
+  3. Business components are coded for specific business domain/use case, so you name props and variable with that specific use case, e.g. `isCustomerDataLoaded` etc.
+
+To differentiate between the two, a question to ask is: "does this component can be reused in another project/domain with same design?" If yes, it is an UI component, else it is business component.
+
+Another way to think of UI component is UI component are those provided by component libraries e.g. Material UI or bootstrap.
+
+As I am not thought leader so I am not entitled to invent new terms, I would like to call Business/UI components as the _new Container-Presenter pattern_.
+
+[dan-article]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0

@@ -1,0 +1,48 @@
+@import '../constants/variable';
+
+.details {
+  @media screen and (min-width: $media-tablet) {
+    display: flex;
+  }
+}
+
+.content,
+.demo {
+  display: inline-block;
+  margin: $space 0;
+  max-width: 600px;
+  flex: 1;
+}
+
+.demo {
+  text-align: center;
+  max-height: 70vh;
+}
+
+.image {
+  max-height: inherit;
+  display: block;
+}
+
+.imageWrapper {
+  margin: 0 auto;
+  max-height: inherit;
+}
+
+@supports (display: grid) {
+  .details {
+    display: grid;
+    gap: $space;
+    @media screen and (min-width: $media-desktop) {
+      grid-template-columns: 1fr max-content;
+    }
+  }
+
+  .demo {
+    margin: 0 auto;
+  }
+}
+
+.btn {
+  margin: 0 $space;
+}

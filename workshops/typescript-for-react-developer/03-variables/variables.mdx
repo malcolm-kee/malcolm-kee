@@ -1,0 +1,305 @@
+---
+title: Variables in TypeScript
+description: 'Variables in TypeScript will be assigned with type, either by inference from TypeScript or explicit declaration by developer (you).'
+date: '2019-10-13'
+updated_at: '2019-11-27'
+objectives:
+  - how to annotate types for primitive values (string, boolean, and number)
+  - how to annotate types for array and tuple
+  - how to annotate types for object using object literal and interface
+  - how to annotate types for key-value object using index signature
+  - explain what are any and unknown types, and why unknown type is preferred than any
+---
+
+Before we learn to use TypeScript in our React projects, let's have an overview of TypeScript types and syntax.
+
+## Basic Variable and Type Declaration
+
+```ts live
+/**
+ * x is a string (inferred)
+ */
+// let x = "hello js";
+
+/**
+ * with type annotation, we know what we can do with the variable.
+ */
+// console.log(x.toUpperCase()); // so this is fine
+// console.log(x.toFixed(2)); // this is not fine, because there is no `toFixed` method on string
+
+/**
+ * reassignment is fine
+ */
+// x = "hello ts";
+
+/**
+ * but it will error if we try to change type
+ */
+// x = 42; // Error
+
+/**
+ * let's look at const. The type is literally 'hello'
+ */
+// const y = "hello";
+
+/**
+ * This is called a 'literal type'. y can never be reassigned since it's a const,
+ * so its value will only be literally the string 'hello world' and no other possible value
+ */
+// if (y === 'whurt') {} // this check is unnecessary
+
+/**
+ * sometimes we need to declare a variable without initializing it
+ */
+// let z;
+// z = 41;
+// z = "abc"; // oh no! TypeScript didn't error
+
+/**
+ * If we look at the type of z, it's `any`. This is the most flexible type
+in TypeScript
+ */
+
+/**
+ * we could improve this situation by providing a type annotation
+ * when we declare our variable
+ */
+// let zz: number;
+// zz = 41;
+// zz = "abc"; // ERROR, yay!
+```
+
+Takeaways:
+
+1. Having type for variable tells us and TypeScript what we can do with that variable.
+1. TypeScript will try to infer type of a variable for you. It will be as strict as possible based on how JavaScript works, but not so strict that it makes you waste time on fighting the it.
+1. But TypeScript could not read your mind, so you would need to annotate the type explicitly in some case.
+1. You can annotate the type of a variable by using the following syntax:
+
+   ```ts noWrapper
+   let variableName: Type;
+   ```
+
+<aside>
+
+What does _annotate_ means? Its meaning is like "declare", but for type.
+
+</aside>
+
+## Array and Tuple
+
+```ts live
+/**
+ * simple array types can be expressed using []
+ */
+let luckyNumbers: number[] = [];
+luckyNumbers.push(33);
+// luckyNumbers.push("abc"); // !ERROR
+
+/* array type will be inferred as well if you provide initial value */
+let luckyPersons = ['Steve', 'Bill'];
+luckyPersons.push('Elon');
+// luckyPersons.push(66); // ERROR
+
+/**
+ * Array<> works too
+ */
+const frameworks: Array<string> = [];
+frameworks.push('react');
+// frameworks.push(true); // !ERROR
+
+/**
+ * we can even define a tuple, a fixed length and specific type for each item
+ */
+// let address: [number, string, string, number] = [
+//   123,
+//   "Jalan Besar",
+//   "Kuala Lumpur",
+//   10110
+// ];
+
+// address = [1, 2, 3]; // !ERROR: Type 'number' is not assignable to type 'string'.
+
+/**
+ * (Tuple values often require type annotations (  : [number, number] )
+ */
+// const xx = [32, 31]; // number[];
+// const yy: [number, number] = [32, 31];
+```
+
+Takeaways:
+
+1. Two ways to declare array, `Type[]` or `Array<Type>` syntax. Personally I prefer the former as it is shorter.
+1. TypeScript inference will give preference to the most common usage pattern in JavaScript, e.g. prefer Array over Tuple.
+
+## Object
+
+```ts live
+/**
+ * object types can be expressed using {} and property names
+ */
+// let address: { houseNumber: number; streetName: string };
+// address = {
+//   streetName: "Fake Street",
+//   houseNumber: 123
+// };
+
+// address = {
+//   houseNumber: 33
+// }; // !Error: Property 'streetName' is missing
+
+/**
+ * You can use the optional operator (?) to indicate that something may or may not be there
+ */
+// let add: { houseNumber: number; streetName?: string };
+// add = {
+//   houseNumber: 33
+// };
+
+// Use `interface` to reuse object type
+// interface Address {
+//   houseNumber: number;
+//   streetName?: string;
+// }
+// * and refer to it by name
+// let ee: Address = { houseNumber: 33 };
+```
+
+## Interface
+
+Interface can be used to describe object and function. Interface cannot be used to describe primitive, such as `string` or `boolean`.
+
+```ts live
+interface Job {
+  name: string;
+  salary: number;
+}
+
+const job: Job = {
+  name: 'programmer',
+  salary: 3000,
+};
+
+/* interface make sure the object fits the requirement */
+// const anotherJob: Job = {
+//   name: undefined,
+//   salary: 7000
+// }
+
+/* interface can be extended, but don't do this more than a level */
+interface AwesomeJob extends Job {
+  salary: 20_000;
+  benefits: string[];
+}
+
+const nonExistentJob: AwesomeJob = {
+  name: '@#$%^',
+  salary: 20000,
+  benefits: ['unlimited leaves', '1-year maternity leave'],
+};
+```
+
+## Index signature
+
+One of the common usage of JavaScript is to use object as a simple key-value map object that you can use to lookup value.
+
+Consider the example below:
+
+```js
+const pokemonCache = {};
+
+const getPokemon = (id: number) => {
+  if (pokemonCache[id]) {
+    // if pokemon is already available in the cache, return it.
+    return Promise.resolve(pokemonCache[id]);
+  }
+
+  // else fetch the pokemon data from api, cache it and return it
+  return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
+    .then((res) => res.json())
+    .then((pokemon) => {
+      pokemonCache[id] = pokemon;
+      return pokemon;
+    });
+};
+```
+
+How can we declare typing of `pokemonCache`?
+
+Index signature.
+
+```ts live
+interface Pokemon {
+  id: number;
+  name: string;
+  sprite: string;
+  thumbnail: string;
+}
+
+const pokemonCache: { [id: number]: Pokemon } = {};
+
+const getPokemon = (id: number) => {
+  if (pokemonCache[id]) {
+    return Promise.resolve(pokemonCache[id]);
+  }
+
+  return fetch(`https://pokemon-json.herokuapp.com/api/pokemons/${id}`)
+    .then((res) => res.json())
+    .then((pokemon: Pokemon) => {
+      pokemonCache[id] = pokemon;
+      return pokemon;
+    });
+};
+```
+
+## any
+
+In some case where you want to declare a variable that can be anything, make it an `any`.
+
+```ts live
+let x: any;
+x = 5;
+x = true;
+x = {
+  y: true,
+};
+```
+
+When you use `any`, what you tell TypeScript compiler is: "Hey this variable is so dynamic that you cannot figure out, leave me alone!". And TypeScript will let you be wild.
+
+Try to avoid `any`. If your code full of `any`, you could just don't use TypeScript. Save yourself time to type those `:any`.
+
+## unknown
+
+There are some cases where we can't really know the type in advance. Some common examples are:
+
+- response of API calls
+- returned value of `JSON.parse`
+
+When we writing wrapper for those common operation, the recommended type is `unknown`.
+
+```ts live
+const getStoredValue = (key: string): unknown => {
+  const storedValue = localStorage.getItem(key);
+  return storedValue ? JSON.parse(storedValue) : null;
+};
+
+const storedUser = getStoredValue('user');
+
+// uncomment below and see type error
+// console.log(storedUser.toUpperCase());
+
+if (typeof storedUser === 'string') {
+  console.log(storedUser.toUpperCase());
+}
+```
+
+The difference of `unkown` and `any` is `any` allows you to go wild and do any operation as you wish without giving you any type error, while for `unknown` value, you need to prove to TypeScript that it is really a specific type before you can use it.
+
+<aside>
+
+Many type definitions today use `any` as returned type, e.g. `JSON.parse` but should be typed with `unknown` for type-safety. This is due to `unknown` is a new base type that was only introduced in TypeScript 3.0, by then `any` has infiltrate most of the standard type definitions.
+
+Hopefully the `unknown` type will get more tractions and remove those `any` loop hole in TypeScript.
+
+</aside>

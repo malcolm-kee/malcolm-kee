@@ -1,0 +1,404 @@
+---
+title: Testing with Redux or React Router
+description: Test the behavior of a React component that use Redux or React Router
+date: '2020-02-25'
+objectives:
+  - write tests to verify behavior of React component that use Redux
+  - write tests to verify behavior of React component that use React Router
+  - the right way of using snapshot testing
+---
+
+## Test Redux Connected Components
+
+Let's try to test `PaymentForm` in `src/modules/cart/components/payment-form.jsx`:
+
+```jsx fileName=payment-form.spec.jsx
+import { render } from '@testing-library/react';
+import * as React from 'react';
+import { PaymentForm } from './payment-form';
+
+test(`PaymentForm can be rendered`, () => {
+  render(<PaymentForm />);
+});
+```
+
+Woah! The test fails!
+
+```bash
+FAIL  src/modules/cart/components/payment-form.spec.jsx (5.568s)
+× PaymentForm can be rendered (69ms)
+
+● PaymentForm can be rendered
+
+  Could not find "store" in the context of "Connect(PaymentFormView)". Either wrap the root component in a <Provider>, or pass a custom React context provider to <Provider> and the corresponding React context consumer to Connect(PaymentFormView) in connect options.
+```
+
+As explained in the error message, this is because we use `connect` function from `redux`, and it expects there is a `Provider` as ancestor of the component. Let's proceed to do that:
+
+```jsx fileName=payment-form.spec.jsx
+import { configureStore } from '@reduxjs/toolkit'; // highlight-line
+import { render } from '@testing-library/react';
+import * as React from 'react';
+import { Provider } from 'react-redux'; // highlight-line
+import { rootReducer } from '../../root-reducer'; // highlight-line
+import { PaymentForm } from './payment-form';
+
+test(`PaymentForm can be rendered`, () => {
+  const store = configureStore({ reducer: rootReducer }); // highlight-line
+
+  render(
+    // highlight-next-line
+    <Provider store={store}>
+      <PaymentForm />
+      {/* highlight-next-line */}
+    </Provider>
+  );
+});
+```
+
+And the test passes!
+
+Before we proceed further, let's abstract the setup so we can use it everytime our test involves components requiring redux store.
+
+Add a `src/lib/test-util.jsx` file with the following content:
+
+```jsx fileName=src/lib/test-util.jsx
+import { configureStore } from '@reduxjs/toolkit';
+import { render } from '@testing-library/react';
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import { rootReducer } from '../modules/root-reducer';
+
+export const renderWithStateMgmt = (ui) => {
+  const store = configureStore({
+    reducer: rootReducer,
+  });
+
+  const renderResult = render(<Provider store={store}>{ui}</Provider>);
+
+  return {
+    ...renderResult,
+    store,
+  };
+};
+```
+
+- `renderWithStateMgmt` accepts React element as its parameter, just like `render` from React Testing Library.
+- In addition of returning all results from `render`, `renderWithStateMgmt` also returns the redux store, so your tests can dispatch additional actions as you wish.
+
+Then we can use it in our test like this:
+
+```jsx fileName=payment-form.spec.jsx
+import * as React from 'react';
+import { renderWithStateMgmt } from '../../../lib/test-util'; // highlight-line
+import { PaymentForm } from './payment-form';
+
+test(`PaymentForm can be rendered`, () => {
+  renderWithStateMgmt(<PaymentForm />); // highlight-line
+});
+```
+
+And our test still passes!
+
+The next test will be filling up the form. Before we do that, let's check the rendered UI by using the `debug` helper:
+
+```jsx fileName=payment-form.spec.jsx
+...
+test(`PaymentForm can be filled`, () => {
+  const { debug } = renderWithStateMgmt(<PaymentForm />);
+
+  debug();
+});
+```
+
+And we realize, the payment amount is 0.
+
+This is because in actual scenario, customer need to add some product into cart before they able to see the payment form. Therefore, we need some way to simulate the behavior.
+
+Let's modify `renderWithStateMgmt` to supports this use case:
+
+```jsx fileName=src/lib/test-util.jsx
+import { configureStore } from '@reduxjs/toolkit';
+import { render } from '@testing-library/react';
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import { rootReducer } from '../modules/root-reducer';
+
+// highlight-next-line
+export const renderWithStateMgmt = (ui, { actions = [] } = {}) => {
+  const store = configureStore({
+    reducer: rootReducer,
+  });
+
+  actions.forEach((action) => store.dispatch(action)); // highlight-line
+
+  const renderResult = render(<Provider store={store}>{ui}</Provider>);
+
+  return {
+    ...renderResult,
+    store,
+  };
+};
+```
+
+Then in our test:
+
+```jsx fileName=payment-form.spec.jsx
+import * as React from 'react';
+import { renderWithStateMgmt } from '../../../lib/test-util';
+import { cartActions } from '../cart.slice'; // highlight-line
+import { PaymentForm } from './payment-form';
+
+...
+
+test(`PaymentForm can be filled`, () => {
+  // highlight-start
+  const { debug } = renderWithStateMgmt(<PaymentForm />, {
+    actions: [
+      cartActions.addItem({
+        product: {
+          id: 1,
+          price: 200,
+        },
+      }),
+    ],
+  });
+  // highlight-end
+
+  debug();
+});
+```
+
+And the amount is displayed! Let's add an assertion:
+
+```jsx fileName=payment-form.spec.jsx
+import * as React from 'react';
+import { renderWithStateMgmt } from '../../../lib/test-util';
+import { cartActions } from '../cart.slice'; // highlight-line
+import { PaymentForm } from './payment-form';
+
+...
+
+test(`PaymentForm can be filled`, () => {
+  // highlight-next-line
+  const { getByText } = renderWithStateMgmt(<PaymentForm />, {
+    actions: [
+      cartActions.addItem({
+        product: {
+          id: 1,
+          price: 200,
+        },
+      }),
+    ],
+  });
+
+  expect(getByText('RM 200.00')).not.toBeNull(); // highlight-line
+});
+```
+
+Then simulate user filling up the form:
+
+```jsx fileName=payment-form.spec.jsx
+import { fireEvent } from '@testing-library/react'; // highlight-line
+import * as React from 'react';
+import { renderWithStateMgmt } from '../../../lib/test-util';
+import { cartActions } from '../cart.slice';
+import { PaymentForm } from './payment-form';
+...
+
+test(`PaymentForm can be filled`, () => {
+  // highlight-next-line
+  const { getByText, getByLabelText } = renderWithStateMgmt(<PaymentForm />, {
+    actions: [
+      cartActions.addItem({
+        product: {
+          id: 1,
+          price: 200,
+        },
+      }),
+    ],
+  });
+
+  expect(getByText('RM 200.00')).not.toBeNull();
+  // highlight-start
+  expect(getByText('Pay').disabled).toBe(true);
+
+  fireEvent.change(getByLabelText('Card Number'), {
+    target: {
+      value: '5572336646354657',
+    },
+  });
+  fireEvent.change(getByLabelText('Name'), {
+    target: {
+      value: 'James Bond',
+    },
+  });
+  fireEvent.change(getByLabelText('Valid Thru'), {
+    target: {
+      value: '12/25',
+    },
+  });
+  fireEvent.change(getByLabelText('CVC'), {
+    target: {
+      value: '123',
+    },
+  });
+
+  expect(getByText('Pay').disabled).toBe(false);
+  // highlight-end
+});
+```
+
+## Test Components that Use React Router
+
+Let's continue the last test by clicking the Pay button:
+
+```jsx fileName=payment-form.spec.jsx
+...
+
+test(`PaymentForm can be filled`, () => {
+  ...
+  expect(getByText('Pay').disabled).toBe(false);
+
+  fireEvent.click(getByText('Pay')); // highlight-line
+});
+```
+
+And it fails!
+
+<!-- TODO: show error message -->
+
+```jsx fileName=src/lib/test-util.jsx
+import { configureStore } from '@reduxjs/toolkit';
+import { render } from '@testing-library/react';
+import { createMemoryHistory } from 'history'; // highlight-line
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom'; // highlight-line
+import { rootReducer } from '../modules/root-reducer';
+
+// highlight-next-line
+export const renderWithStateMgmtAndRouter = (
+  ui,
+  { actions = [], route = '/' } = {}
+) => {
+  const store = configureStore({
+    reducer: rootReducer,
+  });
+
+  actions.forEach((action) => store.dispatch(action));
+
+  // highlight-start
+  const history = createMemoryHistory({
+    initialEntries: [route],
+  });
+  // highlight-end
+
+  const renderResult = render(
+    // highlight-next-line
+    <Router history={history}>
+      <Provider store={store}>{ui}</Provider>
+      {/* highlight-next-line */}
+    </Router>
+  );
+
+  return {
+    ...renderResult,
+    store,
+    history,
+  };
+};
+```
+
+Then we can test the behavior after click:
+
+```jsx fileName=payment-form.spec.jsx
+...
+import { renderWithStateMgmtAndRouter } from '../../../lib/test-util'; // highlight-line
+...
+
+// highlight-next-line
+test(`PaymentForm can be filled`, async () => {
+  // highlight-next-line
+  const { getByText, getByLabelText, findByText } = renderWithStateMgmtAndRouter(<PaymentForm />, {
+    actions: [
+      cartActions.addItem({
+        product: {
+          id: 1,
+          price: 200,
+        },
+      }),
+    ],
+  });
+  ...
+  expect(getByText('Pay').disabled).toBe(false);
+
+  fireEvent.click(getByText('Pay'));
+
+  // highlight-next-line
+  await findByText('Paid');
+});
+```
+
+## Snapshot Testing: What and When to Use It
+
+Let's change the code for `PaymentForm`:
+
+```jsx fileName=payment-form.jsx
+...
+
+const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
+  ...
+
+  return return paid ? (
+    <Alert color="success">
+      {/* highlight-next-line */}
+      <p className="text-xl text-center" data-testid="success-msg">Paid</p>
+      <div className="text-center py-3">
+        <Link to="/" className="text-blue-500">
+          Back to Home
+        </Link>
+      </div>
+    </Alert>
+  ) : (
+    <React.Suspense fallback={<Spinner />}>
+    ...
+    </React.Suspense>
+  );
+}
+```
+
+Then in the test:
+
+```jsx fileName=payment-form.spec.jsx
+...
+import { renderWithStateMgmtAndRouter } from '../../../lib/test-util';
+...
+
+test(`PaymentForm can be filled`, async () => {
+  // highlight-next-line
+  const { getByText, getByLabelText, findByTestId } = renderWithStateMgmtAndRouter(<PaymentForm />, {
+    actions: [
+      cartActions.addItem({
+        product: {
+          id: 1,
+          price: 200,
+        },
+      }),
+    ],
+  });
+  ...
+  expect(getByText('Pay').disabled).toBe(false);
+
+  fireEvent.click(getByText('Pay'));
+
+  const successMsg = await findByTestId('success-msg'); // highlight-next-line
+  expect(successMsg).toMatchInlineSnapshot();
+});
+```
+
+Effective uses of snapshot:
+
+1. aims to verify the render output, not just to increase test coverage
+1. the size of snapshot should be small so it will be easily verified
+1. prefer `toMatchInlineSnapshot` over `toMatchSnapshot`

@@ -1,0 +1,50 @@
+@import '../constants/variable';
+
+[data-reach-dialog-overlay] {
+  @apply z-30;
+}
+
+[data-reach-dialog-content] {
+  background: white;
+  background: var(--bg-front);
+  padding: 0;
+
+  @media screen and (max-width: $media-tablet) {
+    width: 90vw;
+  }
+}
+
+.dialog {
+  &--large {
+    width: 90vw;
+  }
+
+  &-content {
+    position: relative;
+    padding: 2rem;
+
+    @media screen and (max-width: $media-tablet) {
+      padding: 1rem;
+    }
+  }
+
+  &-close-btn {
+    position: absolute;
+    z-index: 1;
+    top: $space;
+    right: $space;
+
+    &:hover {
+      background: $grey-200;
+
+      :global(body.dark) & {
+        background: $grey-800;
+      }
+    }
+
+    svg {
+      fill: currentColor;
+      stroke: currentColor;
+    }
+  }
+}

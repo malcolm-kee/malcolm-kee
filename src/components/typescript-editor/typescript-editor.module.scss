@@ -1,0 +1,29 @@
+@import '../../constants/variable';
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.root {
+  min-height: 200px;
+  position: relative;
+  background-color: white;
+  background-color: var(--bg-absolute);
+
+  &::before {
+    display: block;
+    content: ' ';
+    position: absolute;
+    left: 50%;
+    left: calc(50% - 2.5em);
+    top: 30%;
+    border: 8px solid $grey-500;
+    border-top-color: #294e80;
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+    animation: spin 1s linear infinite;
+  }
+}

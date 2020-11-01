@@ -1,0 +1,26 @@
+@import '../../constants/variable';
+
+.toggle-toc-btn {
+  position: fixed;
+  z-index: $zindex-toc-toggle-btn;
+  bottom: $ios-bottom-offset;
+  cursor: pointer;
+  right: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  -webkit-tap-highlight-color: transparent;
+  transform: scale(1) rotate(0deg);
+  transition: transform 0.5s ease;
+
+  @media screen and (min-width: $media-mobile) {
+    display: none;
+  }
+
+  &-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+  }
+}

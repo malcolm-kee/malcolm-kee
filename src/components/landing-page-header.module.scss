@@ -1,0 +1,152 @@
+@import '../constants/variable';
+
+@keyframes subtitle-text-enter {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+$bg: #111;
+
+.root {
+  padding: $space 0;
+  box-shadow: inset $box-shadow-3-inv;
+  background-color: $bg;
+  background: linear-gradient(
+    60deg,
+    rgba(17, 17, 17, 1) 12%,
+    rgba(34, 34, 34, 1) 95%
+  );
+}
+
+.avatar {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  right: $space;
+  top: $space * 4;
+  border-width: $space;
+  border-style: solid;
+  border-color: $bg-color-light;
+  border-color: var(--bg);
+
+  @screen sm {
+    right: $space * 2;
+    width: 300px;
+    height: 300px;
+  }
+
+  @screen md {
+    margin: 0 auto -#{$space * 3};
+    position: static;
+    border-width: 0;
+  }
+}
+
+.content {
+  @screen md {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+}
+
+.title {
+  @apply text-3xl;
+  @screen sm {
+    @apply text-4xl;
+  }
+  @screen md {
+    font-size: 6rem;
+    top: -80px;
+    text-shadow: 0px 1px 5px #333, 0px 1px 5px #444;
+  }
+  @screen lg {
+    font-size: 7rem;
+  }
+}
+
+.subtitle {
+  display: inline-block;
+  color: $primary-100;
+  text-shadow: 0px 1px 5px #333, 0px 1px 5px #444;
+  padding: 0;
+  position: relative;
+
+  @screen sm {
+    padding: $space * 2;
+  }
+
+  @screen md {
+    display: flex;
+    margin: 0;
+    align-items: flex-end;
+    justify-content: center;
+    flex-flow: row;
+  }
+
+  li {
+    @screen md {
+      border-top: none;
+      border-bottom: none;
+      border-right: 1px solid $grey-300;
+      border-left: 1px solid $grey-300;
+
+      &:first-of-type {
+        border-left: none;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    & > a {
+      text-decoration: none;
+      color: inherit;
+      line-height: 1.2;
+      display: inline-block;
+      border-radius: $space * 2;
+
+      &:hover {
+        @apply text-primary-500;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px $primary-700;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: $grey-800;
+      }
+    }
+
+    &:first-of-type {
+      & > a {
+        animation: subtitle-text-enter 1s 0.2s $timing-function-overshoot both;
+      }
+    }
+
+    &:nth-of-type(2) {
+      & > a {
+        animation: subtitle-text-enter 1s 0.6s $timing-function-overshoot both;
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+      & > a {
+        animation: subtitle-text-enter 1s 1s $timing-function-overshoot both;
+      }
+    }
+  }
+}

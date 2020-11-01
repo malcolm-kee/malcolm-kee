@@ -1,0 +1,51 @@
+---
+title: Using Third Party Types
+description: 'Learn how to utilize types from TypeScript and libraries'
+date: '2019-10-21'
+updated_at: '2019-12-07'
+objectives:
+  - use types from libraries or install them from DefinitelyTyped
+  - write types for libraries whose types are not available in DefinitelyTyped
+  - extends types for libraries
+---
+
+## Using Types from TypeScript and Libraries
+
+Many open source projects include type definition by default, e.g. `redux`, `redux-thunk`. When you use those package with TypeScript, the package would just work without additional configuration on your side.
+
+However, some popular packages does not comes with type definition, e.g. `react`, `react-dom`, and `classnames`. However, as many people use them with TypeScript, you can install the type definition separately (which are maintained separately). For instance, we install `@types/classnames` for `classnames` package.
+
+<Exercise title="Do It: Installing Type Definition">
+
+Convert `<Slide />` component (`slide.tsx`) and install the required type definition.
+
+</Exercise>
+
+## Create Types for Third-Party Libraries
+
+Example: `simple-format-number`
+
+```ts fileName=type.d.ts
+declare module 'simple-format-number' {
+  export default function format(
+    num: number,
+    options?: {
+      fractionDigits?: number;
+      symbols?: {
+        decimal?: string;
+        grouping?: string;
+      };
+    }
+  ): string;
+}
+```
+
+## Extending Third-Party Typing
+
+Sometimes, the type definition of the libraries (and even those comes with TypeScript) may be outdated and you may want to extends them. This section teach you how to do that.
+
+Examples: `share` function that use [`navigator.share` Web API](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share).
+
+Examples: `Image` component that use `loading` props on `img` tag.
+
+Examples: `DateInput` using `JQuery`

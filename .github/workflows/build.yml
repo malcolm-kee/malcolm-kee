@@ -1,0 +1,64 @@
+name: Build Site and Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Begin CI...
+        uses: actions/checkout@v2
+
+      - name: Use Node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Use cached node_modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            nodeModules-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Build
+        run: yarn build
+        env:
+          CI: true
+          GATSBY_DISCUQ_NAME: malcolmkee
+          YOUTUBE_API_ID: ${{ secrets.YOUTUBE_API_ID }}
+          YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        id: netlify-deploy
+        with:
+          publish-dir: './public'
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: 'Deploy from GitHub Actions'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Check Deploy Output
+        run: echo ${{ steps.netlify-deploy.outputs.deploy-url }}
+
+      - name: Run E2E Test
+        uses: cypress-io/github-action@v1
+        with:
+          config: baseUrl=${{ steps.netlify-deploy.outputs.deploy-url }}

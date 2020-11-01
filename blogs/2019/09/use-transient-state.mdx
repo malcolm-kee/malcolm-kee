@@ -1,0 +1,126 @@
+---
+title: 'Custom Hooks: useTransientState'
+date: '2019-09-05'
+tags: ['react', 'react hooks']
+summary: 'A custom hooks to declare state that will restore to its steady-state value after some delay. This will be useful when you want to show some UI element temporarily and then hide it after some delay.'
+image: './time.jpg'
+imageBy: 'Aron Visuals'
+imageByLink: 'https://unsplash.com/@aronvisuals'
+published: true
+---
+
+import { Button } from '../../../src/components/Button';
+
+One of the common pattern in UI is to show something in a short period then hide it, e.g. using [Snackbars] for notification or popup for brief message.
+
+In good old jquery times where things are imperative, we usually do something like this:
+
+```javascript noWrapper
+$('#element').toast('show', { delay: 500 });
+```
+
+But how do we model this kind of behavior in React?
+
+I was thinking about this question when I want to show some brief message while developing [a nonsense game][game] (whose UI is mostly a copy from Wendy's [RxJS Mamak][rxjs-mamak]) to learn [xstate].
+
+After searching for some library and see their API and I have an epiphany: what I want essentially is a state that will auto restore to its steady state after some delay everytime you change it.
+
+And here I present to you the custom hook: `useTransientState`.
+
+```jsx live noInline
+const useTransientState = (steadyState, restorationTime = 2000) => {
+  const [state, setState] = React.useState(steadyState);
+
+  const setTemporaryState = React.useCallback(function setTemporaryState(
+    newValue
+  ) {
+    setState(newValue);
+  },
+  []);
+
+  React.useEffect(() => {
+    if (state !== steadyState && restorationTime) {
+      const timeoutId = setTimeout(
+        () => setState(steadyState),
+        restorationTime
+      );
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [state, steadyState, restorationTime]);
+
+  return [state, setTemporaryState];
+};
+
+const TemporaryMessage = () => {
+  const [show, setShow] = useTransientState(false, 1000);
+
+  return (
+    <div>
+      <Button onClick={() => setShow(true)}>Show Message</Button>
+      {show && <p>I only appear a while!</p>}
+    </div>
+  );
+};
+
+render(<TemporaryMessage />);
+```
+
+- `useCallback` hook is used because I want to make the return stateSetter callback identity is always the same, just like `useState`. As everyone using React hooks know `useState`, I want to make this custom hook to be like `useState` as much as possible.
+- The effect hook will be run everytime the state is changed. It will set up a timeout which will set the state back to `steadState`.
+
+## Improvement
+
+While writing this blog I realize there is a problem with the code above, which is the timeout is not reset when you update the state again.
+
+You can reproduce this behavior if you click on the button above multiple times, and the message will auto hide 1 seconds after the first time you click it. This is because the effect hooks will not rerun if `state`, `steadyState`, and `restorationTime` is unchanged.
+
+This may or may not be what you want, but for me it's unintuitive. The more intuitive behavior would be the timeout will be reset everytime the `setTemporaryState` callback is invoked.
+
+To have that reset timeout behavior, we can create another state to make sure the effect is run everytime `setTemporaryState` is invoked.
+
+```jsx live noInline
+const useTransientState = (steadyState, restorationTime = 2000) => {
+  const [state, setState] = React.useState(steadyState);
+  const [calledTimes, setCallTimes] = React.useState(0); // highlight-line
+
+  const setTemporaryState = React.useCallback(function setTemporaryState(
+    newValue
+  ) {
+    setState(newValue);
+    setCallTimes((t) => t + 1); // highlight-line
+  },
+  []);
+
+  React.useEffect(() => {
+    if (state !== steadyState && restorationTime) {
+      const timeoutId = setTimeout(
+        () => setState(steadyState),
+        restorationTime
+      );
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [state, steadyState, restorationTime, calledTimes]); // highlight-line
+
+  return [state, setTemporaryState];
+};
+
+const TemporaryMessage = () => {
+  const [show, setShow] = useTransientState(false, 1000);
+
+  return (
+    <div>
+      <Button onClick={() => setShow(true)}>Show Message</Button>
+      {show && <p>I only appear a while!</p>}
+    </div>
+  );
+};
+
+render(<TemporaryMessage />);
+```
+
+[snackbars]: https://material.io/components/snackbars/
+[game]: https://xstate-game.netlify.com
+[rxjs-mamak]: https://rxjs-mamak.wendko.com
+[xstate]: https://xstate.js.org

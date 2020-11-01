@@ -1,0 +1,17 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#38b2ac",
+    "titleBar.activeForeground": "#1a202c"
+  },
+  "[markdown]": {
+    "editor.quickSuggestions": true,
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 130
+  },
+  "[mdx]": {
+    "editor.quickSuggestions": true,
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 130
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}

@@ -1,0 +1,207 @@
+---
+title: 'ES Module'
+description: ''
+section: 'new features'
+---
+
+JavaScript didn't have concept of module; your scripts included in a webpage are in global scope by default.
+
+```html
+<head>
+  <script>
+    var x = 15;
+    function incrementX() {
+      x++;
+    }
+    function getX() {
+      return x;
+    }
+  </script>
+</head>
+<body>
+  <script>
+    console.log(x); // x is available here!!
+  </script>
+</body>
+```
+
+As you can imagine, it becomes hard to maintain once your application grow big.
+
+ES Module is the module system introduced into JavaScript.
+
+<aside>
+
+In order for you to simulate module system, the files must be served via a web server. If you using Chrome, you can install [Web Server for Chrome][web-server-for-chrome] to have a simple web server that serves files from a specific folder.
+
+If you're not using Chrome, a demo is available at <a href="https://js-the-react-parts.netlify.com/module-demo" target="_BLANK" rel="noopener noreferrer">/module-demo</a>. But you can't edit it.
+
+</aside>
+
+## export and import
+
+In ES Module, a file is a module. All variables defined within the file will be kept within the file and cannot be accessed by other file directly.
+
+To export variables/function from a file, you use the keyword `export`.
+
+```javascript
+const x = 5; // x can only be accessible within this file.
+export const y = 10; // y can be accessed by other files.
+```
+
+To import a variable from another file, you use the keyword `import`.
+
+```javascript
+import { x } from './another-file.js';
+```
+
+The syntax of `import` is:
+
+```javascript
+import { variableName } from '<path-to-the-file-from-this-file>';
+```
+
+To illustrate, imagine you have two files: `x.js` and `y.js` placed next to each other in a folder:
+
+```
+myFolder
+├──x.js
+└──y.js
+```
+
+`y.js` export a variable `myName` and a function `doSomething`:
+
+```javascript
+// y.js
+export const myName = 'Malcolm';
+
+export function doSomething() {
+  console.log('Something happened!');
+}
+```
+
+To import `doSomething` into `x.js`, this is what you do:
+
+```javascript
+// x.js
+import { doSomething } from './y.js';
+
+doSomething(); // we can use doSomething in x.js
+```
+
+Now imagine if y is in a subfolder called `others`:
+
+```
+myFolder
+├──x.js
+└──others
+    └──y.js
+```
+
+Now the `import` statement in `x.js` should change to:
+
+```javascript
+import { doSomething } from './others/y.js';
+```
+
+Now assume if `x.js` is in the `others` subfolder while `y.js` is in `myFolder` directly:
+
+```
+myFolder
+├──y.js
+└──others
+    └──x.js
+```
+
+The `import` statement in `x.js` should now change to:
+
+```javascript
+import { doSomething } from '../others/y.js';
+```
+
+The `.`, `..`, and `/` in the file path is actually follow the command line convention:
+
+- `.` means within same folder
+- `..` means parent directory
+- `/` is used to separate folder name, file name, and the `.`/`..` characters.
+
+<Exercise title="Exercise">
+
+Given the following folder structure and files.
+
+```
+myFolder
+├──a.js
+├──subfolderA
+│  ├──b.js
+│  ├──c.js
+│  └──subfolderI
+│     └──d.js
+└──subfolderB
+   ├──e.js
+   └──subfolderII
+      └──f.js
+```
+
+All js files export a constant similar to their filename, e.g. `a.js` exports a constant `a`, `e.js` exports a constant `e`.
+
+Write the import statements to import all the constants into `b.js`.
+
+```javascript
+// b.js
+import { c } from './c.js';
+// write other import statements
+```
+
+</Exercise>
+
+## Default Export
+
+There is another way to export something from a file, which is known as "Default Export", which look like this:
+
+```javascript
+// do-that.js
+function doThat() {
+  console.log('Yes Sir');
+}
+
+export default doThat;
+```
+
+To import `doThat` in another file, you do this:
+
+```javascript
+import doThat from './do-that.js';
+
+doThat(); // 'Yes Sir';
+```
+
+Note that the naming here is up to you when you write the import statement, therefore, the following works too:
+
+```javascript
+import doFancyStuff from './do-that.js';
+
+doFancyStuff(); // 'Yes Sir';
+```
+
+To differentiate these two kinds of export, we call them "named export" and "default export".
+
+```javascript
+export const sayA = () => console.log('a'); // named export
+
+export const sayB = () => console.log('b'); // named export
+
+export default sayB; // default export
+```
+
+As the code snippet above show, you can use both named export and default export in a same file.
+
+So, which one should you use? Named export or default export?
+
+For me that's based on your personal taste, I'll just present to you two conventions people are following in regards to this:
+
+1. Approach 1: use export default if your file only exporting one thing (a function, a constant), else use named export.
+1. Approach 2: use named export unless default export is required by the library/framework that you use. For instance, lazy loading React component with `React.lazy` could only be used with component that uses default export.
+
+My personal preference is approach 2 because I don't like to juggle between two syntaxes, and there is no way for you to explore if a file has default export (named export can be explored with intellisense). However, I'm not insistent on that; if a project that I join already use approach 1 as its convention, I'll follow that approach instead.
+
+[web-server-for-chrome]: https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en

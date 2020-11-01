@@ -1,0 +1,132 @@
+---
+title: Modern Frontend
+description: 'Learn the benefits of modern frontend development and how to utilize them'
+section: 'setup'
+---
+
+In last section, we've used Create React App to create our React project and transfer our code into it.
+
+Before we proceed further, let's take a step back and review what is the benefits tools like Create React App bring us and how we can utilize them.
+
+## Benefits of Modern Frontend Development Tools
+
+Modern frontend development tools like Create React App enables us to:
+
+1.  create a web server that will serve our local code and automatically refresh our page when code change (you can try to change the code in `index.js` and see the magic),
+1.  compile our code with new JS syntax to older syntax (using [Babel]), so that we can support older browser (you can try open the previous code with IE, and it won't run due to syntax error; but if you open the URL [http://localhost:3000](http://localhost:3000) with IE now, it works!),
+1.  creating optimized code to be used in production in which comments are stripped out and code are minified (run `npm run build` and you'll see the minified code in a `build` folder),
+1.  integrate JS, CSS, and HTML file automatically (no more manual change the script tag),
+1.  enable a module system that we can use to structure our code effectively but at the same time produce a single bundled JS file so it can be loaded easily (more on this later),
+1.  make powerful tactics like code-splitting possible (explained in later section), and
+1.  many more than could be possibly explained here, e.g. typechecking, Hot Reload.
+
+## The Module System
+
+A module system allows us to specify what is the dependency of a piece of code and what functionality this code expose to others.
+
+JS module system consists of the following rules:
+
+1.  a file is a module
+1.  you use `import` to states what is the dependency of this module (file).
+1.  you use `export` to states what is accessible by others from this module (file).
+
+Now looking at `index.js` file:
+
+```javascript fileName=src/index.js
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+...
+```
+
+- the two `import` statements states that this file depends on the two packages, `react` and `react-dom`. When the tools see the statement above, it will look into the `node_modules` folder for `react` and `react-dom`, which you should be able to see.
+- we no longer need to include the two unpkg script tags because now they are included as part of final bundled code.
+
+### Utilizing the Module System
+
+If you realize, currently our `index.js` consists of 3 parts: the `Movie` component, the `App` component, and the rendering code. Let's split them up:
+
+1.  create a `components` folder in `src` folder, and add a `movie.js` file in it with the following content:
+
+    ```javascript fileName=src/components/movie.js
+    import * as React from 'react';
+
+    export const Movie = (props) =>
+      React.createElement('div', { className: 'movie-container' }, [
+        React.createElement('h1', {}, props.name),
+        React.createElement('h2', {}, props.releaseDate),
+      ]);
+    ```
+
+1.  create a `app.js` file next to `index.js` with the following content:
+
+    ```javascript fileName=src/app.js
+    import * as React from 'react';
+    import { Movie } from './components/movie';
+
+    function App() {
+      return React.createElement('div', {}, [
+        React.createElement(
+          'div',
+          { className: 'title-bar' },
+          React.createElement('h1', {}, 'React Movie App')
+        ),
+        React.createElement(Movie, {
+          name: 'Aquaman',
+          releaseDate: '2018-12-07',
+        }),
+        React.createElement(Movie, {
+          name: 'Bumblebee',
+          releaseDate: '2018-12-15',
+        }),
+        React.createElement(Movie, {
+          name: 'Fantastic Beasts: The Crimes of Grindelwald',
+          releaseDate: '2018-11-14',
+        }),
+      ]);
+    }
+
+    export default App;
+    ```
+
+1.  Lastly, modify `index.js` to following:
+
+    ```javascript fileName=src/index.js
+    import * as React from 'react';
+    import ReactDOM from 'react-dom';
+    import App from './app';
+
+    ReactDOM.render(React.createElement(App), document.getElementById('root'));
+    ```
+
+The code should still works as before.
+
+- Our code is now split into smaller modules and the dependencies of each code is clearer while still produce a single bundled output.
+- There are two ways to use `export`:
+  1.  named export: we expose to code with a specific name. When other module import it, they need to use the name, e.g. Movie component.
+      ```javascript
+      // movie.js
+      export const Movie = props =>
+      ...
+      // app.js
+      import { Movie } from './components/movie';
+      ```
+  1.  default export: we expose to code without a specific name. When other module import it, they can name it as they wish, e.g. App component.
+      ```javascript
+      // app.js
+      export default App;
+      ...
+      // index.js
+      import App from './app';
+      ```
+  1.  Personally in my own project I always use named export (except due to limitation of library/tools, e.g. `React.lazy` only support default export), because I doesn't like to juggle between two syntax and named export works better for VS Code Intellisense. People use both out there, so you need to know both.
+- It is common practice to have a `components` folder which consists of reusable UI components without business logic.
+- Even though it's still not common practice in React projects, but I recommend to keep your file as [kebab-case], consistent with Angular CLI defaults. This is because file resolution in Windows are case-insensitive, while in Unix is case-sensitive. When you mistype file name, it would works in Windows but breaks in Unix, so better to avoid that possibility with kebab-case convention.
+
+<aside>
+
+Commit: [`transfer file to project`](https://github.com/malcolm-kee/react-movie-app-v2/commit/e1f6db4ce284d6ffb5ef3ab4e13391d566601ac8)
+
+</aside>
+
+[babel]: https://babeljs.io/
+[kebab-case]: http://wiki.c2.com/?KebabCase

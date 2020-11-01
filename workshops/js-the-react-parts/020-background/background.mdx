@@ -1,0 +1,53 @@
+---
+title: 'Background'
+description: ''
+section: 'introduction'
+---
+
+Before we deep dive into specific JavaScript features, I would like to take a step back and introduce you to the bigger picture of JavaScript language today and the issue of browser compatibility.
+
+## The Evolution of JavaScript
+
+JavaScript is a language that is keep evolving. Every year, a committee that maintains the JavaScript specific known as [TC39][tc39] will release a new edition of JavaScript with the addition of new features. The name of each edition will based on the year of that release, thus we have ES2015, ES2016, ES2017, etc.
+
+But how this committee come up with the list of features to be added? By a process of reviews and discussions.
+
+A new feature need to be suggested, and then go through multiple stages of reviews and discussions:
+
+- stage 0 (strawperson)
+- stage 1 (proposal)
+- stage 2 (draft)
+- stage 3 (candidate)
+- stage 4 (finished/included into JavaScript specification)
+
+The key takeaways from this is that when you see some people posting some JavaScript code snippets with weird features that is throwing syntax error when you run it, it's possible that code is using new JavaScript features that is not part of JavaScript features.
+
+In this workshop, I will stick to the features that is accepted into ES201X, therefore they are officially part of JavaScript language. Therefore, you can be rest assured that what you learn today will be useful, regardless which framework you use.
+
+## My Boss Say We Need to Support IE!
+
+You may wonder, hey, those new JavaScript features are cool, but my boss say we need to support IE! Those JavaScript code doesn't work in IE, so is it still relevant to me?
+
+I'm glad that you ask.
+
+There are two types of new JavaScript features, and both of them can be solved to support older browser that doesn't recognize them.
+
+### New Methods on Existing Object
+
+Examples: `Array.some`, `Object.values`
+
+**Solution**: Use [polyfill] (code that provide modern functionality on older browsers that do not natively support it.) Usually you need to make sure polyfill are run before any of your code run.
+
+### New Syntaxes
+
+Examples: destructuring, arrow function
+
+**Solution**: Use compiler like [Babel][babel] to compile to the older version of JavaScript. Usually you just need to specify the version of browsers you need to support, and the compiler will figure out which syntaxes are supported and compile them accordingly.
+
+Note: Babel actually doesn't restrict you to compile only syntaxes that is part of JavaScript spec. You can actually teach Babel to parse any syntaxes by writing a plugin, and that's how people use JavaScript syntaxes that they like before the syntaxes are included into the spec.
+
+Now, let's get started.
+
+[tc39]: https://tc39.github.io/
+[polyfill]: https://developer.mozilla.org/en-US/docs/Glossary/Polyfill
+[babel]: https://babeljs.io/

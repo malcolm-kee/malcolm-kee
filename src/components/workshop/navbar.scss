@@ -1,0 +1,47 @@
+@import '../../constants/variable';
+
+.workshop-navbar {
+  min-height: $appbar-height-small;
+  padding: $space * 2 $space * 2 $space;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  width: 100%;
+  transition: top 350ms ease-in-out;
+
+  @media screen and (min-width: $media-mobile) {
+    position: fixed;
+    padding: $space $space * 2;
+    z-index: $zindex-appbar;
+    box-shadow: $box-shadow-1;
+    min-height: $appbar-height;
+  }
+
+  > a {
+    font-family: 'Roboto', 'Helvetica', 'Arial', 'sans serif';
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.5;
+  }
+
+  &-toolbar {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    > * {
+      margin: 0 $space;
+    }
+  }
+
+  &-line {
+    height: $space;
+    position: sticky;
+    top: 0;
+    z-index: $zindex-appbar;
+  }
+}

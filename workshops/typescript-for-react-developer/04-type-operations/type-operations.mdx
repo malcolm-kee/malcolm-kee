@@ -1,0 +1,345 @@
+---
+title: Type Operations
+description: 'Learn to use type alias, union, intersection, and type assertion to make type operations.'
+date: '2019-10-17'
+updated_at: '2019-12-13'
+objectives:
+  - how to create type alias to refer another type
+  - how to use union and intersection to combine types
+  - how to use type assertion as an escape hatch of untyped values
+---
+
+When we have a variable, we can perform operations on it. For example, we can use `*` to multiply two numbers, use `.split` to split a string into an array.
+
+If we have a type, we can perform operations on it too. We're going to discuss few of them in this lesson.
+
+## Type Alias
+
+Type alias is the naming of type, so you can reuse it.
+
+```ts live
+// instead of
+let w: string | number = 5;
+let x: string | number = 'five';
+
+// create a type alias to reuse
+type StringOrNumber = string | number;
+let y: StringOrNumber = 5;
+let z: StringOrNumber = 'five';
+```
+
+Type alias is not limited to primitive, you can use it to name object type as well.
+
+```ts live
+type Job = {
+  name: string;
+  salary: number;
+};
+
+const a: Job = {
+  name: 'programmer',
+  salary: 0,
+};
+
+type NumberOrStringArray = Array<number | string>;
+
+const items: NumberOrStringArray = [3, 'three', 4, 5];
+```
+
+Most of the thing that you can do using `interface` can be done using `type`, so I usually just use `type` whenever possible.
+
+<aside>
+
+What are the things that `interface` can do but `type` can't?
+
+1. declaration merging (extending an existing interface). This is usually only concerned by library developer, in which their interface can be extended. (We will discuss how to extend third-party library type definition in the [Using Third Party Types](/typescript-for-react-developer/using-third-party-types))
+1. self-reference. Because `type` is eagerly evaluated, therefore you can't use declare a `type` that refers itself. Meanwhile, `interface` is lazily evaluated, therefore it can refer itself. Nonetheless, this limitation of `type` is removed in TypeScript 3.7, which is just released few weeks ago before this workshop. An example of self-reference type looks like this:
+
+```ts live
+type RecursiveArray<T> = Array<T | RecursiveArray<T>>;
+
+const texts: RecursiveArray<string> = [
+  'hi',
+  'I',
+  'am',
+  ['in', ['another'], 'array'],
+];
+```
+
+</aside>
+
+## Intersection & Union
+
+```ts live
+/**
+ * Union types
+ * Sometimes we have a type that can be one of several things
+ */
+
+interface WithPhoneNumber {
+  name: string;
+  phone: number;
+}
+
+interface WithEmail {
+  name: string;
+  email: string;
+}
+
+let contactInfo: WithPhoneNumber | WithEmail =
+  Math.random() > 0.5
+    ? {
+        // we can assign it to a WithPhoneNumber
+        name: 'Malcolm',
+        phone: 60174444444,
+      }
+    : {
+        // or a WithEmail
+        name: 'Malcolm',
+        email: 'malcolm@example.com',
+      };
+
+contactInfo.name; // NOTE: we can only access the .name property  (the stuff WithPhoneNumber and WithEmail have in common)
+
+/**
+ * Intersection types
+ */
+let otherContactInfo: WithPhoneNumber & WithEmail = {
+  //   we _must_ initialize it to a shape that's asssignable to WithEmail _and_ WithPhoneNumber
+  name: 'Malcolm',
+  email: 'malcolm@example.com',
+  phone: 601744444444,
+};
+
+otherContactInfo.name; // NOTE: we can access anything on _either_ type
+otherContactInfo.email;
+otherContactInfo.phone;
+```
+
+Takeaways:
+
+1. Union is like OR operator. In mathematics, union is represented by two overlapping circles with both of them covered.
+1. Intersection is like AND operator. In mathematics, intersection is presented by two overlapping circles with the overlapped parts covered.
+
+![Venn diagram showing comparisons of union and intersections](union_and_intersection.png)
+
+## Accessing Type of an Object Type Property
+
+Sometimes you want to extract out the type of an Object Type and use it somewhere. Consider the example below:
+
+```ts live
+type PersonDetails = {
+  name: string;
+  address: {
+    unit: string;
+    streetOrBuilding: string;
+    street: string;
+  };
+};
+
+let oldDetails: PersonDetails = {
+  name: 'Malcolm',
+  address: {
+    unit: '12A',
+    streetOrBuilding: 'Jalan Besar',
+    street: 'Jalan',
+  },
+};
+
+let newAddress: {
+  unit: string;
+  streetOrBuilding: string;
+  street: string;
+} = {
+  unit: '13A',
+  streetOrBuilding: 'Bangunan Duta',
+  street: 'Jalan Duta',
+};
+
+let updatedDetails: PersonDetails = {
+  ...oldDetails,
+  address: newAddress,
+};
+```
+
+Note that we have duplicated the address type in two places. We can remove that duplication by creating a type for the address:
+
+```ts
+// highlight-start
+type Address = {
+  unit: string;
+  streetOrBuilding: string;
+  street: string;
+};
+// highlight-end
+
+type PersonDetails = {
+  name: string;
+  address: Address; // highlight-line
+};
+
+let oldDetails: PersonDetails = {
+  name: 'Malcolm',
+  address: {
+    unit: '12A',
+    streetOrBuilding: 'Jalan Besar',
+    street: 'Jalan',
+  },
+};
+
+let newAddress: Address = {
+  // highlight-line
+  unit: '13A',
+  streetOrBuilding: 'Bangunan Duta',
+  street: 'Jalan Duta',
+};
+
+let updatedDetails: PersonDetails = {
+  ...oldDetails,
+  address: newAddress,
+};
+```
+
+However, sometimes this is not possible because you don't have control over type definition (e.g. type from library) so you can't just refactor the type definition.
+
+The solution is to extract the type of the property like this:
+
+```ts
+type PersonDetails = {
+  name: string;
+  address: {
+    unit: string;
+    streetOrBuilding: string;
+    street: string;
+  };
+};
+
+let oldDetails: PersonDetails = {
+  name: 'Malcolm',
+  address: {
+    unit: '12A',
+    streetOrBuilding: 'Jalan Besar',
+    street: 'Jalan',
+  },
+};
+
+let newAddress: PersonDetails['address'] = {
+  // highlight-line
+  unit: '13A',
+  streetOrBuilding: 'Bangunan Duta',
+  street: 'Jalan Duta',
+};
+
+let updatedDetails: PersonDetails = {
+  ...oldDetails,
+  address: newAddress,
+};
+```
+
+## Differentiating Type and Runtime: Declaration Space
+
+One of the implicit understanding of TypeScript is that there are two types of declaration: type declaration and variable declaration.
+
+Following are a few type declarations:
+
+```ts noWrapper
+interface Animal {
+  name: string;
+  greet: () => void;
+}
+
+type Person = {
+  firstName: string;
+  talk: () => void;
+};
+```
+
+Which means you can use them as type annotation:
+
+```ts noWrapper
+const animal: Animal = {
+  name: 'dog',
+  greet: () => {
+    console.log(`Woff! Woff!`);
+  },
+};
+
+const me: Person = {
+  firstName: 'Malcolm',
+  talk: () => {
+    console.log(`Hello!`);
+  },
+};
+```
+
+But you can't use them as variable:
+
+```ts noWrapper
+const person = Person; // Error
+```
+
+Similarly, when you declare a variable, you can't use it as type annotation:
+
+```ts live
+const person = {
+  name: '',
+  talk: () => {
+    console.log(`Sawatika`);
+  },
+};
+
+const me: person = {
+  name: '',
+  talk: () => {
+    console.log(`Sawatika`);
+  },
+};
+```
+
+If what you want is to get the type of a variable and apply it to another variable, you can use the `typeof` keyword:
+
+```ts live
+const person = {
+  name: '',
+  talk: () => {
+    console.log(`Sawatika`);
+  },
+};
+
+const me: typeof person = {
+  name: '',
+  talk: () => {
+    console.log(`Sawatika`);
+  },
+};
+```
+
+<aside>
+
+`typeof` is a keyword that works differently depends on the context it's being used. When used in variable space, it's just a typical JavaScript [`typeof`][typeof] operator that returns a string indicating the type. When used in declaration space, it's used to extract out the type of a variable.
+
+</aside>
+
+## Escape Hatch: Type Assertion
+
+Sometimes, some values are really dynamic that there are no ways for TypeScript to do type-checking for you.
+
+Consider the following example:
+
+```ts live
+const profileImage = document.querySelector('#profile');
+
+console.log(profileImage.src); // Error because `src` property may not be there
+```
+
+If we really sure that the `document.querySelector` call returns an image, we can make a type assertion to tell TypeScript:
+
+```ts noWrapper
+const profileImage = document.querySelector('#profile');
+
+console.log((profileImage as HTMLImageElement).src); // highlight-line
+```
+
+Note that type assertion does nothing in runtime; if the `document.querySelector` calls above returns a `div` instead of a `img`, the call could cause error.
+
+[typeof]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof

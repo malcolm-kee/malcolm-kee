@@ -1,0 +1,50 @@
+---
+title: 'How to Keep Creating'
+date: '2020-05-02'
+tags: ['personal']
+published: true
+---
+
+<div className="font-serif text-lg">
+
+You have something to say.
+
+Not because you want to be famous.
+
+It's just something that you can't find online, something that you wish someone has written so you can read/watch it.
+
+So, you decide to be a creator.
+
+Putting your little voice out there.
+
+But.
+
+But someone else already say something almost like that.
+
+Somebody else that is smarter, more famous, and more handsome already written that.
+
+So, you tell yourself, perhaps don't waste your time.
+
+"Build it, and they will come". But what if they don't?
+
+Nobody want to read your sh\*t.
+
+So you dismiss yourself.
+
+Continue scrolling your News Feed, clicking the next Instagram Story.
+
+Or.
+
+Or you stop worrying and just go create it.
+
+Don't create for "them". The faceless "them", may not come.
+
+But that's always one person. The one friend, your mum, your sister.
+
+The one that you know would happy to hear from you, and would benefit from what you say.
+
+Create for her.
+
+Then you can keep creating.
+
+</div>

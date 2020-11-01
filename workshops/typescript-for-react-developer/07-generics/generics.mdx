@@ -1,0 +1,173 @@
+---
+title: Generics
+description: 'Understand generics in TypeScript and how to use them in React project.'
+date: '2019-10-20'
+updated_at: '2019-12-16'
+objectives:
+  - use generics to annotate function to constraint the parameters
+  - use generics to create type utility
+---
+
+## Getting to Know Generics
+
+Generics allows you to "parameterize" your type. Let's see an example to understand what it means.
+
+Consider the following `forEach` function.
+
+```ts live
+const forEach = (array: any[], callBack: (element: any) => void) => {
+  for (let item of array) {
+    callBack(item);
+  }
+};
+
+const numbers = [1, 2, 3];
+
+forEach(numbers, (item) => {
+  console.log(item.toFixed(2));
+  console.log(item.padStart()); // runtime error
+});
+```
+
+You can, of course, create a wrapper of `forEach`:
+
+```ts live
+const forEach = (array: any[], callBack: (element: any) => void) => {
+  for (let item of array) {
+    callBack(item);
+  }
+};
+
+const forEachNumber = (array: number[], callBack: (element: number) => void) =>
+  forEach(array, callBack);
+
+const numbers = [1, 2, 3];
+
+forEachNumber(numbers, (item) => {
+  console.log(item.toFixed(2));
+  console.log(item.padStart()); // type error
+});
+```
+
+But that will be painful when you have to create a wrapper for each data type, when there are zero behavior improvement.
+
+What you want is a way to say, whatever type of the item in the array will be the type of the element passed to callback.
+
+Generics allows us to do so:
+
+```ts live
+const forEach = <Item>(array: Item[], callBack: (element: Item) => void) => {
+  for (let item of array) {
+    callBack(item);
+  }
+};
+
+const numbers = [1, 2, 3];
+
+forEach(numbers, (item) => {
+  console.log(item.toFixed(2));
+  console.log(item.padStart()); // type error, yay!
+});
+```
+
+`Item` in the example above is called `generics`, it allows us to provide a "placeholder" for our type, so we can specify the relationship between multiple variables.
+
+<aside>
+
+Even though generics is like "parameter" to a type/interface, TypeScript will try to infer it itself instead of needing you to specify it manually.
+
+</aside>
+
+## Other Generics Format
+
+Generics are not only used for function. We can used it for other TypeScript syntax too.
+
+```ts live
+/* Using generics in class */
+// class Queue<T> {
+//   private data: T[] = [];
+//   push(item: T) {
+//     this.data.push(item);
+//   }
+//   pop() {
+//     return this.data.shift();
+//   }
+// }
+
+// const queue = new Queue<number>();
+// queue.push(3);
+// queue.push('three'); // Error
+
+/* Using generics in type alias */
+// type ValueWithId<ValueType> = {
+//   value: ValueType;
+//   id: string;
+// };
+
+// const numberObject: ValueWithId<number> = {
+//   value: 5,
+//   id: 'five',
+// };
+
+// const stringObject: ValueWithId<string> = {
+//   value: 'hello',
+//   id: 'h',
+// };
+
+/* Using generics with interface */
+// interface Config<Type> {
+//   type: Type;
+//   required: boolean;
+// }
+
+// interface SpecialConfig extends Config<'special'> {
+//   name: string;
+// }
+
+// const myConfig: SpecialConfig = {
+//   type: 'special',
+//   required: false,
+//   name: 'Special One',
+// };
+```
+
+Note that for the `Wrapped` and `Config` example above, the generics allow us to conveniently create some special type based on our use case.
+
+An example of this is the `Promise` type that is included in TypeScript.
+
+```ts live
+const getJokeText = (): Promise<string> =>
+  fetch('https://icanhazdadjoke.com/', {
+    headers: {
+      Accept: 'text/plain',
+    },
+  }).then((res) => res.text());
+
+getJokeText().then((joke) => console.log(joke));
+
+type Joke = {
+  id: string;
+  joke: string;
+  status: number;
+};
+
+const getJoke = (): Promise<Joke> =>
+  fetch('https://icanhazdadjoke.com/', {
+    headers: {
+      Accept: 'application/json',
+    },
+  }).then((res) => res.json());
+
+getJoke().then((response) => console.log(response.joke));
+```
+
+<Exercise title="Do It: Using Generics">
+
+Rename `lib/array.js` to `lib/array.ts`.
+
+1. Annotate `includes` function
+2. Annotate `map` function
+
+Challenge: Annotate `flattenArray` function
+
+</Exercise>

@@ -1,0 +1,359 @@
+---
+title: React Testing
+description: 'Learn to write unit tests in Javascript and React components.'
+section: 'extra'
+---
+
+In this section, we will discuss how to test javascript in general and then how to test React component.
+
+## Testing Javascript (not React specific)
+
+### Creating utility function to generate className
+
+A common utility that you would need when writing React is to generate className to be attached to DOM element for styling based on props.
+
+The offical packages to do that is a package known as [classnames], however, for the sake of learning let's write it as our own code.
+
+Create a file `lib.js` with the content from [this gist](https://gist.github.com/malcolm-kee/30cd26b80c5f45e443ae44dd5a3b4f01).
+
+- `classNames` is a function that take any number of arguments, and join them together as a string. Only string and number will be included in final results and falsy value will be excluded. Array will be flattened
+- Example usage:
+
+  ```javascript
+  // simple usage
+  classNames('btn', 'btn--default'); // 'btn btn--default'
+
+  // use ternary expression as falsy value will be ignored
+  classNames('btn', true && 'btn--default', false && 'btn--raised', null); // 'btn btn--default'
+
+  // you may pass down array if you wish, and it will be flattened
+  classNames(['btn', null, 'btn--default']); // 'btn btn--default'
+  ```
+
+### Create test for the utility function
+
+Let's write unit test for the utility function.
+
+Create a file `lib.test.js` next to `lib.js`. Write the following test case as per usage above.
+
+```javascript
+import { classNames } from './lib.js';
+
+test('classNames', () => {
+  expect(classNames('btn', 'btn--default')).toBe('btn btn--default');
+  expect(
+    classNames('btn', true && 'btn--default', false && 'btn--raised', null)
+  ).toBe('btn btn--default');
+  expect(classNames(['btn', null, 'btn--default'])).toBe('btn btn--default');
+});
+```
+
+Now when you run `npm test`, you should be able to see the following output:
+
+```bash
+ PASS  src/lib.test.js
+  √ classNames (5ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.789s, estimated 2s
+Ran all test suites.
+```
+
+Congratulations! You just written your first test.
+
+- By default, Jest (the underlying test framework of Create React App) will look for any files that is inside folder `__test__` or file name end with `.test.js` or `spec.js`. Therefore by naming the file as `lib.test.js`, the file will be treated as test file that Jest need to run. I recommend to place the test file next to the code that it's testing with the naming convention `<code-under-test>.test.js`, so that it's clear on the purpose of the test, and what code has test associated with it.
+- When Jest run the test file, it will injects few variables globally, e.g. `test` and `expect`.
+- `test` is used to wrap your unit test and give it a name. When your test fails, the test name will be displayed in the console.
+- `expect` is used to assert the result of your test. Common usages are:
+
+  ```javascript
+  expect(result).toBe(expected); // use ==== for equality check
+  expect(result).toEqual(expected); // recursively check for value equality, this is useful when you want to verify the value but not the identity
+
+  // you can prefix with .not to invert the assertion
+  expect(result).not.toBe(unexpected);
+
+  // some common checking is included for your convenience
+  expect(result).toBeDefined(); // equivalent to expect(result).not.toBe(undefined);
+  ```
+
+  Read through the [Jest expect docs][jest-expect] to get an idea of the supported assertions.
+
+### Code Coverage Reports
+
+You may want to explore how many of your code is covered.
+
+To generate code coverage report:
+
+1.  add a new npm script:
+    ```bash
+    "test:coverage": "npm run test -- --coverage"
+    ```
+1.  run `npm run test:coverage`
+1.  explore the `coverage/lcov-report` folder that has been generated. Open the `index.html` file with your browser.
+
+<Exercise title="Do It: write unit tests">
+
+1.  copy the utility code as provided and write the tests to test the function.
+1.  run `npm run test` and verify that the tests are passed.
+1.  generate code coverage report as described
+1.  (optional) write unit tests for the function `joinString`.
+1.  (optional) increase conditional coverage of `lib.js` to 100%.
+
+</Exercise>
+
+<aside>
+
+Commit: [`add unit test`](https://github.com/malcolm-kee/react-movie-app-v2/commit/837ba589d271517703016cb84faec788e2916db6)
+
+</aside>
+
+## Testing React Components
+
+Before we start writing tests for React components, let's take a step back and discuss how we write a test.
+
+When writing tests for a function, it is mostly about asserting the returns of the function given a specific parameters. The convention is `When Y, then Z`. For instance, when calling `classNames` with parameters of 'btn' and 'btn--default', then it will returns the result of `'btn btn--default'`.
+
+Same test structure would applies when writing tests for React Components. The difference of React components is we do not call React Component itself directly and get the output of the component, but pass the output to `ReactDOM.render`, which will decide what to append/update in the DOM.
+
+Let's explore how to do that.
+
+### Write React Component test
+
+We will write test for `busy-container.js`. But before that, let's modify `BusyContainer` slightly:
+
+```jsx
+import * as React from 'react';
+
+export const BusyContainer = ({ isLoading, children }) => (
+  <div>
+    {isLoading && <span data-testid="loading-indicator">loading...</span>}
+    {children}
+  </div>
+);
+```
+
+<aside>
+
+`data-testid` attribute is a common convention to add "hook" to DOM for automated testing.
+
+</aside>
+
+Let's create a file `busy-container.test.js` next to `busy-container.js` with the following contents:
+
+```jsx
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { BusyContainer } from './busy-container';
+
+describe('BusyContainer', () => {
+  it('is defined', () => {
+    expect(BusyContainer).toBeDefined();
+  });
+
+  it('renders loading indicator when props is loading', () => {
+    // Thanks to JSDOM (included part of Jest), we have access to browser object like document
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    ReactDOM.render(
+      <BusyContainer isLoading={true}>
+        <div id="children">Hello Test</div>
+      </BusyContainer>,
+      div
+    );
+
+    const loadingIndicator = div.querySelector(
+      '[data-testid="loading-indicator"]'
+    );
+
+    expect(loadingIndicator).toBeDefined();
+
+    // cleanup after test is done
+    ReactDOM.unmountComponentAtNode(div);
+    document.body.removeChild(div);
+  });
+
+  it('not renders loading indicator when props loading = false', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+
+    ReactDOM.render(
+      <BusyContainer isLoading={false}>
+        <div id="children">Hello Test</div>
+      </BusyContainer>,
+      div
+    );
+
+    const loadingIndicator = div.querySelector(
+      '[data-testid="loading-indicator"]'
+    );
+
+    expect(loadingIndicator).toBe(null);
+
+    // cleanup after test is done
+    ReactDOM.unmountComponentAtNode(div);
+    document.body.removeChild(div);
+  });
+});
+```
+
+- `describe` and `it` are two other global helpers injected by Jest in all test files. `describe` is used to group tests into logical group, while `it` is equivalent to `test`.
+- As Jest will run the test in [jsdom] (a environment that runs in NodeJS and supports most browser features listed in web standards), so we have access to DOM API like [`document.createElement`][document-createelement], [`querySelector`][document-queryselector] and [`appendChild`][appendchild].
+- For each test, we need to
+  - setup our DOM by creating a div and append to body, then we use `ReactDOM` to render our components
+  - use `querySelector` to check the current state of the DOM and assert it.
+  - unmount the component with `ReactDOM.unmountComponentAtNode`, then remove the container from the body
+
+As the setup and cleanup are required and similar for all tests, there is a library that already implements them with a bunch of helpers. The library is [`@testing-library/react`][react-testing-library] (surprise, surprise!). Let's install that:
+
+```bash
+npm install -D @testing-library/react
+```
+
+Let's change `busy-container.test.js` to the following:
+
+```jsx
+import * as React from 'react';
+import { render, cleanup } from '@testing-library/react';
+import { BusyContainer } from './busy-container';
+
+afterEach(cleanup);
+
+describe('BusyContainer', () => {
+  it('is defined', () => {
+    expect(BusyContainer).toBeDefined();
+  });
+
+  it('renders loading indicator when props is loading', () => {
+    const { getByTestId } = render(
+      <BusyContainer isLoading={true}>
+        <div id="children">Hello Test</div>
+      </BusyContainer>
+    );
+
+    const loadingIndicator = getByTestId('loading-indicator');
+
+    expect(loadingIndicator).toBeDefined();
+  });
+
+  it('not renders loading indicator when props loading = false', () => {
+    const { queryByTestId } = render(
+      <BusyContainer isLoading={false}>
+        <div id="children">Hello Test</div>
+      </BusyContainer>
+    );
+
+    const loadingIndicator = queryByTestId('loading-indicator');
+
+    expect(loadingIndicator).toBe(null);
+  });
+});
+```
+
+- `cleanup` will perform the cleanup step of unmount component and remove container that we did manually previously.
+- `render` will create a container and mount our component in the container, as we did manually previously.
+- `render` will also returns a few helpers for us to query the DOM. In our case, we use `getByTestId` and `queryByTestId`, which is just a wrapper over `querySelector` (the difference between the two is `getByTestId` will throws error if no result returns while `queryByTestId` will not throw error and returns `null`). For a full list of supported queries, refer to the [Queries docs][react-testing-library-queries].
+
+<Exercise title="Do It: write React component test">
+
+1.  install `@testing-library/react` as described.
+1.  modify `BusyContainer` and write the test for it.
+1.  ensure all the tests are passed
+
+</Exercise>
+
+<aside>
+
+Commit: [`add react component test example`](https://github.com/malcolm-kee/react-movie-app-v2/commit/1035bb7bdb743ac6d6b38cea8a5f5e3f91653514)
+
+</aside>
+
+### Write React Component test that check stateful behavior
+
+The previous React test is quite straight-forward as the `BusyContainer` is simple (as it should be!). Following is a sample of more complex React component test that test our `App` component.
+
+```jsx
+import * as React from 'react';
+import { render, fireEvent, wait } from '@testing-library';
+import '@testing-library/cleanup-after-each';
+import App from './app';
+import * as api from './api';
+
+const mockMovieData = [
+  {
+    id: 1,
+    name: 'Aquaman',
+    releaseDate: '2018-12-07',
+    description:
+      'Arthur Curry learns that he is the heir to the underwater kingdom of Atlantis, and must step forward to lead his people and be a hero to the world.',
+  },
+  {
+    id: 2,
+    name: 'Bumblebee',
+    releaseDate: '2018-12-15',
+    description:
+      'On the run in the year 1987, Bumblebee finds refuge in a junkyard in a small Californian beach town. Charlie, on the cusp of turning 18 and trying to find her place in the world, discovers Bumblebee, battle-scarred and broken. When Charlie revives him, she quickly learns this is no ordinary yellow VW bug.',
+  },
+  {
+    id: 3,
+    name: 'Fantastic Beasts: The Crimes of Grindelwald',
+    releaseDate: '2018-11-14',
+    description:
+      'Gellert Grindelwald has escaped imprisonment and has begun gathering followers to his cause—elevating wizards above all non-magical beings. The only one capable of putting a stop to him is the wizard he once called his closest friend, Albus Dumbledore. However, Dumbledore will need to seek help from the wizard who had thwarted Grindelwald once before, his former student Newt Scamander, who agrees to help, unaware of the dangers that lie ahead. Lines are drawn as love and loyalty are tested, even among the truest friends and family, in an increasingly divided wizarding world.',
+  },
+];
+
+describe('<App />', () => {
+  it('is defined', () => {
+    expect(App).toBeDefined();
+  });
+
+  it('shows movie list when show button is clicked', () => {
+    const { getByText, getByTestId } = render(<App />);
+
+    fireEvent.click(getByText('Show Movies'));
+
+    expect(getByTestId('loading-indicator')).toBeDefined();
+  });
+
+  it('displays movies list when show button is clicked and data is loaded', async () => {
+    jest
+      .spyOn(api, 'loadMovies')
+      .mockImplementation(() => Promise.resolve(mockMovieData));
+
+    const { getByText, getAllByTestId } = render(<App />);
+
+    await wait();
+
+    fireEvent.click(getByText('Show Movies'));
+
+    // Note: assertion below requires `data-testid` attribute in Movie component
+    expect(getAllByTestId('movie').length).toBe(mockMovieData.length);
+  });
+});
+```
+
+- we define `mockMovieData` which will be used to act as mock response for the api call. Usually you can get his via the data contract that has been agreed with your the API developer or via the sample REST call to the actual API.
+- we use `fireEvent` helper from `react-testing-library` to simulate event. In the tests, we use it to simulate click event. You can use it to simulate most of the browser events, e.g. focus, blur, change etc.
+- we use `jest.spyOn` to spy the calling of the `loadMovies` function and mock a implementation that will return a Promise that resolve with our `mockMovieData`.
+- we use `wait` helper from `react-testing-library` to introduce some delay. This is because the `loadMovies` returns a promise, which will only be resolve in next ticks on the JS event cycle.
+- we use `getAllByTestId` to get the count of the mounted movie components and asserts the count is equal to the number of movies in our mock data.
+
+<aside>
+
+Commit: [`add stateful react component test`](https://github.com/malcolm-kee/react-movie-app-v2/commit/4ad4c4cc775992ffc207d49977beffc459c4940c)
+
+</aside>
+
+[jest]: https://jestjs.io/en/
+[classnames]: https://www.npmjs.com/package/classnames
+[jest-expect]: https://jestjs.io/docs/en/expect
+[react-testing-library]: https://testing-library.com/react
+[jsdom]: https://github.com/jsdom/jsdom
+[document-createelement]: https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement
+[document-queryselector]: https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
+[appendchild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
+[react-testing-library-queries]: https://testing-library.com/docs/dom-testing-library/api-queries

@@ -1,0 +1,118 @@
+---
+title: Advanced Types
+description: 'Learn advanced types such as typeguard, type utilities, and discriminated union'
+date: '2019-11-25'
+updated_at: '2019-12-07'
+objectives:
+  - use type guard to narrow down types
+  - use type utilities Omit and Pick to extract out types
+---
+
+In this section we will discuss some advanced concepts and techniques that would helps to improve your TypeScript code.
+
+## Type Guard
+
+TypeScript is aware of your `if` check and able to narrow down the type. Consider the following example:
+
+```ts live
+const findEvenNumberAndDivideIt = (numbers: number[]): number => {
+  const evenNumber = numbers.find((num) => num % 2 === 0);
+  return evenNumber / 2; // Hey, this could be undefined!
+};
+```
+
+The type error of TypeScript is valid. We can fix it by doing a null check:
+
+```ts
+const findEvenNumberAndDivideIt = (numbers: number[]): number => {
+  const evenNumber = numbers.find((num) => num % 2 === 0);
+  if (evenNumber) {
+    return evenNumber / 2;
+  }
+  return 0;
+};
+```
+
+TypeScript is smart enough to know that once you do a null check, the value will no longer be `undefined`.
+
+### Custom Type Guard
+
+Many times you want to abstract away common type check, like `isDefined` function:
+
+```ts
+const isDefined = (value: any) => typeof value !== 'undefined';
+```
+
+Now if we apply to the `findEvenNumberAndDivideIt` example:
+
+```ts live
+const isDefined = (value: any) => typeof value !== 'undefined';
+
+const findEvenNumberAndDivideIt = (numbers: number[]): number => {
+  const evenNumber = numbers.find((num) => num % 2 === 0);
+  if (isDefined(evenNumber)) {
+    // This could be undefined??? 🤦‍♂️🤦‍♂️
+    return evenNumber / 2;
+  }
+  return 0;
+};
+```
+
+This is because TypeScript will not go into the implementation of `isDefined` to figure our the implementation. For TypeScript it is just a function that returns a boolean value.
+
+We can restore the previous typechecking ability by making the `isDefined` function as custom type guard:
+
+```ts live
+const isDefined = <T>(value: T | undefined): value is T =>
+  typeof value !== 'undefined';
+
+const findEvenNumberAndDivideIt = (numbers: number[]): number => {
+  const evenNumber = numbers.find((num) => num % 2 === 0);
+  if (isDefined(evenNumber)) {
+    // Oh my lord TypeScript is happy again 🙏🙏
+    return evenNumber / 2;
+  }
+  return 0;
+};
+```
+
+<Exercise title="Do It: Creating Type Guard">
+
+Refactor all the functions in `typecheck.ts` so that they becomes typeguard.
+
+</Exercise>
+
+## Type Utilities
+
+### Omit
+
+`<Form />`
+
+`<Input />`
+
+### Pick
+
+- Opposite of `Omit`
+
+```ts live
+type ThirdPartyProps = {
+  color: 'default' | 'success' | 'danger' | 'info' | 'warning';
+  size?: 'large' | 'small';
+  children: string;
+};
+
+type MyProps = Pick<ThirdPartyProps, 'color' | 'size'>;
+```
+
+<aside>
+
+`Pick` is not that useful compared to `Omit` because there are workaround. The previous example could be achieved with
+
+```ts noWrapper
+type MyProps = {
+  color: ThirdPartyProps['color'];
+  size?: ThirdPartyProps['size'];
+};
+```
+
+</aside>

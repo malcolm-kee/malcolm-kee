@@ -1,0 +1,20 @@
+@import '../constants/variable';
+
+.link {
+  transform: scale(1);
+  transition: transform $timing-function 300ms;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.root {
+  display: inline-block;
+  line-height: 0;
+  padding: $space;
+  border-radius: $space * 2;
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px currentColor;
+  }
+}

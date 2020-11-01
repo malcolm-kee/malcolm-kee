@@ -1,0 +1,28 @@
+@import '../constants/variable';
+
+.card {
+  position: relative;
+  background: $grey-100;
+  background: var(--bg-mid);
+  box-shadow: $box-shadow-2;
+  border-radius: $space * 3;
+  transition-property: bottom, box-shadow;
+  transition-timing-function: ease;
+  transition-duration: 200ms;
+  text-decoration: none;
+
+  &-content {
+    padding: $space * 2;
+  }
+
+  &-actions {
+    padding: $space $space * 2 $space * 2;
+  }
+
+  color: $text-light;
+  color: var(--text);
+  h2 {
+    color: $text-light-pale;
+    color: var(--text-pale);
+  }
+}

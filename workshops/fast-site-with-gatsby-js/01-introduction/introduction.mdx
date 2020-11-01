@@ -1,0 +1,76 @@
+---
+title: Introduction
+description: ''
+section: 'introduction'
+updated_at: '2019-07-13'
+---
+
+import { GatsbyLogo } from '../../../src/components/gatsby-logo';
+
+<div class="logo-container">
+  <GatsbyLogo />
+</div>
+
+Welcome!
+
+## Why Gatsby
+
+Before we jump into learning how to write code in Gatsby, let's take a step back and see why you may want to use it for your next project.
+
+### Before: Traditional CMS
+
+Typically, websites are usually managed with content-management system (CMS) like Wordpress and Drupal. CMS allows anyone with basic HTML & CSS knowledge to update the website contents such as text or images without writing any code.
+
+However, using CMS comes with few drawbacks:
+
+1. use the old frontend paradigm
+   - states are coupled with DOM
+   - slow, manual DOM manipulation
+   - document-based sites. Dynamic behavior (go to different page, submit a form) usually involves a full-page reload
+   - in other words, many improvements that comes with modern frontend frameworks (e.g. virtual-dom, proper state-management, hot reloading) are not available
+1. performance need to be manually managed and hand-tweaked
+1. manual content and data migration required when data is available from multiple sources
+
+### After: Gatsby
+
+Gatsby is created to solve these problems:
+
+1. utilize modern frontend technologies (webpack, React, SCSS, GraphQL) that gives you good developer experience and scaleable code management
+1. automated performance tuning, e.g. inline critical assets, image optimization, lazy-loading and prefetch contents
+1. pull data from anywhere with GraphQL. You can pull data from any API that expose data (including CMS such as Wordpress/Contentful or third-party services such as GitHub or Shopify), or databases (MongoDB/MySQL). You owns your data, and Gatsby allows you to present your data in the format you wish.
+
+In the meantime, content creator can still manage the content via CMS.
+
+How to utilize those features from Gatsby is the goal of this workshop.
+
+### Own Your Data
+
+I love Gatsby and use it for my personal website (the one you're looking at right now) not just because of its features, but also because of I like full control of how I store my data and the user experience.
+
+I can store the contents in a headless-CMS, as a Markdown file in this repository, or in Instagram. The gap between the service and a the UI is usually just a plugin away. My visitors would not need to register another account just to view the contents created by me.
+
+Because Gatsby allows me to distribute my contents into multiple sources as I wish, it's easy to migrate if I'm not happy with any services without requiring major change to my code.
+
+## Workshop Agenda
+
+- Introduction to Concepts in Gatsby
+- Create Pages in Gatsby and Deploy It
+- Use Gatsby Source Plugins to pull data into our sites
+- Dynamically Create Pages from data
+- Use Gatsby to optimize our image automatically
+
+We will learn those by creating a personal website with blogs that you can use right after this workshop, which I think you should have one. If you don't think so, perhaps you will after reading [this article][why-personal-website].
+
+If you're not into writing, I think personal website is also a good playground for you to try the technologies that you love or could be too cutting-edge to introduce into your job, such as React and GraphQL.
+
+## Expectation
+
+To get most from this workshop, it's advised that you:
+
+1. before the workshop, read and complete [the setup instructions][gatsby-setup].
+1. during the workshop, instead of listening passively, follow along the setup.
+1. think how you can apply the knowledge you learn in your personal projects or works. Ask if you have difficulty relates them.
+
+[gatsby]: https://www.gatsbyjs.org/
+[why-personal-website]: http://bradfrost.com/blog/post/write-on-your-own-website/
+[gatsby-setup]: https://www.gatsbyjs.org/tutorial/part-zero/

@@ -1,0 +1,93 @@
+@import '../constants/variable';
+
+.TagPage {
+  padding-top: 5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  @media (min-width: $media-tablet) {
+    overflow: hidden;
+    align-items: center;
+  }
+  &--panel {
+    display: block;
+  }
+  .List {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    &--ListItem {
+      text-align: center;
+      width: auto;
+      &Text {
+        .tertiary {
+          text-align: inherit;
+        }
+      }
+    }
+  }
+  @media (min-width: $media-tablet) {
+    &--panel {
+      flex: 1;
+      &.tag-list {
+        height: 100%;
+        overflow-y: auto;
+      }
+    }
+    .List {
+      &--ListItem {
+        width: auto;
+        margin: $space;
+      }
+    }
+  }
+  @supports (display: grid) {
+    @media (min-width: $media-tablet) {
+      .List {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 200px);
+        grid-auto-rows: 100px;
+        grid-auto-flow: dense;
+      }
+
+      .tag-count {
+        &-1 {
+          grid-row: span 1;
+          grid-column: span 1;
+        }
+        &-2 {
+          grid-row: span 2;
+          grid-column: span 1;
+          .List--ListItemText {
+            .primary {
+              font-size: 1.5em;
+              max-width: 100%;
+            }
+          }
+        }
+        &-3 {
+          grid-row: span 2;
+          grid-column: span 2;
+          .List--ListItemText .primary {
+            font-size: 2em;
+            max-width: 100%;
+          }
+          .List--ListItemText .tertiary {
+            font-size: 1.2em;
+          }
+        }
+        &-4 {
+          grid-row: span 2;
+          grid-column: span 2;
+          .List--ListItemText .primary {
+            font-size: 3em;
+            max-width: 100%;
+          }
+          .List--ListItemText .tertiary {
+            font-size: 1.5em;
+          }
+        }
+      }
+    }
+  }
+}

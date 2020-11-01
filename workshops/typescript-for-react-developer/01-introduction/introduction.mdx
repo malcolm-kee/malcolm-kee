@@ -1,0 +1,179 @@
+---
+title: Introduction
+description: 'Rationale of learning TypeScript as a React developer and objectives of the workshop.'
+date: '2019-10-02'
+updated_at: '2019-12-13'
+objectives:
+  - aware of advantage and disadvantage of using TypeScript
+  - understand how TypeScript reduces bug in your code
+---
+
+## Why Use TypeScript in React Project
+
+TypeScript makes your code easier to maintain:
+
+1. it reduces bug (by catching error in build time instead of runtime).
+1. it is easier and safer to refactor.
+1. it make code self-documented.
+
+However, TypeScript has some downsides too:
+
+1. Definitely higher learning curve than JavaScript.
+1. Slightly less references and helps compared to JavaScript.
+1. May take longer time to write, especially when you're still new.
+
+![David K.:Me: I think I'm done. JavaScript: Looks good to me. Me: Hope it works. JS: I believe in you. Me: ... JS: undefined is not a function. Me: I thi-- TypeScript: Nope. Me: What abou-- TS: Wrong. Me: ... TS: cannot invoke an expression whose type lacks a call signature](david-k-piano-typescript-frustration.png)
+
+## Why Learn TypeScript as React Developer
+
+1. Better job prospect
+
+   ![Ryan Florence:Side note. TypeScript is taking over. It has gained rapid adoption in 2018 and its embarrassing that I don't know it. If you're looking for a job, there's a 50/50 chance your next code base will be using it if my workshop attendees are any sort of decently random sample.](ryan-florence-typescript-comment.png)
+
+1. Improves your JavaScript skill
+
+   Just like React helps you to write better JavaScript by making write pure function a second nature, TypeScript would help you to write better JavaScript by making you more thoughtful about your data structure. Many times when a code is hard to implement in TypeScript because it is dynamic, it is probable that you had over-complicated your code.
+
+## Scope of This Workshop
+
+This workshop covers
+
+1. TypeScript fundamentals required to use it in React
+1. How to slowly migrate your React codebase from JavaScript to TypeScript
+1. Common usage pattern when using TypeScript with React
+
+This workshop does not cover
+
+1. React fundamentals (covered in another workshop, [Introduction to React v2](/intro-to-react-js-v2))
+1. Modern JavaScript (covered in another workshop, [JavaScript: The React Parts](/js-the-react-parts))
+1. All TypeScript concepts (I only focus on those most relevant to React. Many TypeScript concepts are omitted, e.g. type safe OOP, `enum`, and `namespace`).
+1. How to configure TypeScript pipeline (I will use Create React App which already configure the pipeline).
+
+## How TypeScript reduces Bug
+
+Let's explore that in more details how do TypeScript reduces bug.
+
+In its essence, TypeScript is making your code _type-safe_, or in a more layman term, use types to prevent code from doing invalid things.
+
+What are the invalid things? Here are two examples:
+
+1. multiplying a number with an array.
+1. pass a function with string when the function actually expects an array.
+
+Consider the following example:
+
+```js live
+const append = (array, item) => array.concat(item);
+const excludeUndefined = (array) =>
+  array.filter((item) => typeof item !== 'undefined');
+
+const newList = append([1, 2, undefined, 6], undefined);
+const numbers = excludeUndefined(newList);
+console.log(numbers);
+
+/* Uncomment the code below and you will get error */
+// const newList2 = append('malcolm', undefined);
+// const newName = excludeUndefined(newList2);
+// console.log({ newName });
+```
+
+When we write the function `append` and `excludeUndefined`, we assume the first parameter is an array. However because JavaScript is a weakly-typed language, you can pass a string to the functions, and JavaScript will still allows you to do so, which cause an error when the code runs.
+
+Using TypeScript, we can document our code explicitly, like below. (Don't worry about the syntax, which I will explain in details later)
+
+```ts live
+const append = <T>(array: T[], item: T): T[] => array.concat(item);
+const excludeUndefined = <T>(array: Array<T | undefined>): T[] =>
+  array.filter((item) => typeof item !== 'undefined');
+
+const newList = append([1, 2, undefined, 6], undefined);
+const numbers = excludeUndefined(newList);
+console.log(numbers);
+
+/* Uncomment the code below and you will get error from TypeScript */
+// const newList2 = append('malcolm', undefined);
+// const newName = excludeUndefined(newList2);
+// console.log({ newName });
+```
+
+Now that TypeScript will start yelling at us when we pass a string to the `append` function as it contradicts the assumption of the `append` function, so that we can identify problem in our code without running the code.
+
+<aside>
+
+_Without running the code_, that's the key strength of TypeScript. Using TypeScript and editor that integrated with it (like VS Code), you can get feedbacks about whether your code would work while you types.
+
+</aside>
+
+One way to think about all these is using TypeScript is nothing but making your code assumption explicit so that TypeScript can cross-check assumptions throughout your code.
+
+- When you state your assumptions of variable/parameter, you are _annotate the variable with type_.
+- The process of TypeScript validates all your types does not contradicts each other (e.g. assume function accept array but pass it string) is known as _type-checking_.
+
+## Overview of Code-Along Project
+
+In this workshop we will migrate an existing React project to use TypeScript.
+
+The site is called Shopit, an E-commerce SPA.
+
+- [Live version](https://shopit.space/)
+- [Code repository](https://github.com/malcolm-kee/react-ecomm-site)
+- [Branch that we will start with](https://github.com/malcolm-kee/react-ecomm-site/tree/redux)
+- [Branch we will aims to target](https://github.com/malcolm-kee/react-ecomm-site/tree/master) (use this as reference when you're stuck)
+
+<Exercise title="Project Setup">
+
+Let's setup the project locally before we go further:
+
+1. Clone the project and checkout `redux` branch:
+
+   ```bash noWrapper
+   git clone -b redux https://github.com/malcolm-kee/react-ecomm-site.git
+   ```
+
+2. Install the dependencies:
+
+   ```bash noWrapper
+   cd react-ecomm-site
+   yarn install
+   ```
+
+   _If you have not installed `yarn`, replace the `yarn` command with `npm install`._
+
+</Exercise>
+
+Libraries used in the project:
+
+- [Create React App][create-react-app] for build pipleline.
+- [`@reach/router`][reach-router] for client-side routing.
+- [`redux`][redux] for state management.
+- [`react-styleguidist`][react-styleguidist] for component development environment.
+
+Don't worry if you're not familar with those libraries as I will explain them whenever required. But don't get excited that you will master all of them after this workshop, I will not go deep into them.
+
+The focus of this workshop is using TypeScript in React. The reason I include those libraries into the project is to make it more like a real-life project so that it is easier for you to translate what you learn today and apply them to your work.
+
+## Setup
+
+To avoid the workshop time being spent on downloading and installing tools, make sure you have the following software installed before the workshop starts:
+
+- node.js and npm ([Download](https://nodejs.org/en/download/))
+- git ([Download](https://git-scm.com/downloads))
+- VS Code ([Download](https://code.visualstudio.com/Download)) - you can use other editor if you wish, but VS Code has best default TypeScript integration as far as I know, as VS Code team work closely with TypeScript team within Microsoft.
+
+Besides, sign up a [GitHub] account if you doesn't have one yet.
+
+## Looking Ahead
+
+The lessons of the workshops will be vaguely consists of the following sections:
+
+1. Intro and prerequisite: we will discuss what is TypeScript and its relationship with JavaScript. We will also briefly go through React Styleguidist, a library that help you to develop React components in isolation as this is where we will write our code today.
+
+1. TypeScript fundamentals: we will discuss the basic concepts in TypeScript, how to use it, and how it will catch type error.
+
+1. TypeScript in React: we will get our hand dirty by installing TypeScript in our React projects, applying what we have learnt. And then we will discuss a slightly advanced topics like generics and typeguard and how to use them in React.
+
+[create-react-app]: https://create-react-app.dev/
+[reach-router]: https://reach.tech/router
+[redux]: https://redux.js.org
+[react-styleguidist]: https://github.com/styleguidist/react-styleguidist
+[github]: https://github.com/

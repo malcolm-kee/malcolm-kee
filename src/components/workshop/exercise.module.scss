@@ -1,0 +1,15 @@
+@import '../../constants/variable';
+
+.root {
+  background-color: $grey-100;
+  background-color: var(--bg-mid);
+  border-radius: $space;
+  box-shadow: $box-shadow-3;
+  padding: $space $space * 3;
+  margin: $space * 2 #{-$space};
+
+  @media screen and (min-width: $media-mobile) {
+    margin: $space * 2 0;
+    padding: $space $space * 2;
+  }
+}

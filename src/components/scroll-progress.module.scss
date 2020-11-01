@@ -1,0 +1,18 @@
+@import '../constants/variable';
+
+.root {
+  height: inherit;
+  position: relative;
+}
+
+.progress {
+  transition: height 250ms ease-in-out;
+  left: -$space / 2;
+  width: 3px;
+}
+
+.item {
+  border-bottom: 1px solid;
+  border-bottom-color: $bg-color-light-pale;
+  border-bottom-color: var(--bg-pale);
+}

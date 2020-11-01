@@ -1,0 +1,78 @@
+@import '../constants/variable';
+
+$code-padding: 1rem;
+
+.code-editor {
+  background-color: var(--bg-pale);
+  line-height: 1.25rem;
+}
+
+.code-preview {
+  font-family: $font-family;
+  padding: $space;
+
+  .log-output-container {
+    width: 100%;
+    overflow: auto;
+  }
+
+  .log-output {
+    line-height: 1.75;
+    &::before {
+      content: '> ';
+    }
+  }
+}
+
+.code-error {
+  padding: $space;
+  margin-bottom: 0;
+  background-color: #f44336;
+  font-weight: bold;
+}
+
+.code-snippet {
+  background-color: var(--bg-pale);
+}
+
+.code-snippet,
+.code-editor {
+  pre {
+    font-size: 0.9rem;
+    padding: 1rem;
+    line-height: 1.25rem;
+    overflow-x: auto;
+    box-shadow: 0 2px 0 hsla(0, 0%, 100%, 0.15),
+      inset 0 2px 2px hsla(0, 0%, 0%, 0.1);
+  }
+}
+
+.code-snippet,
+.code-editor,
+.code-snippet-plain {
+  $highlight-width: 0.25rem;
+
+  .highlighted-code-line {
+    background-color: $highlighted-code-bg-light;
+    background-color: var(--highlightedCode);
+    display: inline-block;
+    min-width: 100%;
+    min-width: calc(100% + #{2 * $code-padding});
+    margin-right: -$code-padding;
+    margin-left: -$code-padding;
+    padding-right: $code-padding;
+    padding-left: $code-padding - $highlight-width;
+    border-left: $highlight-width solid $secondary-color;
+  }
+}
+
+.code-snippet-plain {
+  margin: $space / 2 0;
+
+  pre {
+    font-size: 0.9rem;
+    padding: $code-padding;
+    line-height: 1.25rem;
+    overflow-x: auto;
+  }
+}

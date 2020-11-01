@@ -1,0 +1,23 @@
+@import '../constants/variable';
+
+.theme-toggle {
+  align-items: center;
+  display: none;
+  // the following will hide the toggle is CSS variable not supported
+  --display: inline-flex;
+  display: var(--display);
+
+  .react-toggle-track {
+    background-color: $grey-300;
+    img {
+      filter: drop-shadow(-1px 1px #333);
+    }
+  }
+
+  input:checked + .react-toggle-track {
+    background-color: hsl(222, 14%, 7%);
+    img {
+      filter: drop-shadow(-1px 1px 4px white);
+    }
+  }
+}

@@ -1,0 +1,205 @@
+@import '../constants/variable';
+
+$workshop-toc-offset: $size-10;
+$workshop-toc-offset-lg: $size-11;
+$lesson-toc-width: 200px;
+$aside-width: 300px;
+
+@keyframes expandX {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.instruction-template {
+  max-width: $read-width;
+  margin: 0 auto;
+
+  @media screen and (min-width: $media-mobile) {
+    margin-left: $workshop-toc-offset;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: $media-tablet) {
+    margin-left: $workshop-toc-offset-lg;
+  }
+
+  &-container {
+    padding: $size-3 $size-3 $size-5;
+    @media (min-width: $media-mobile) {
+      padding: $appbar-height + $space $size-3 $size-5;
+    }
+  }
+
+  &-report-issue-container {
+    margin-top: $space * 3;
+    font-size: 0.8rem;
+    padding: $space;
+
+    @media screen and (min-width: $media-mobile) {
+      margin-left: $workshop-toc-offset;
+    }
+
+    @media screen and (min-width: $media-tablet) {
+      margin-left: $workshop-toc-offset-lg;
+    }
+  }
+
+  @supports (display: grid) {
+    @media screen and (min-width: $media-desktop) {
+      margin: 0;
+      justify-self: center;
+      grid-area: content;
+      max-width: 100%; // required to avoid content overflow the allocated grid item width
+
+      &-container {
+        display: grid;
+        grid-template-columns: $workshop-toc-offset-lg minmax(0, 1fr) $lesson-toc-width;
+        grid-gap: $size-1;
+        grid-template-areas:
+          '. content .'
+          '. footer footer';
+      }
+
+      &-report-issue-container {
+        margin-left: 0;
+        grid-area: footer;
+      }
+    }
+
+    @media screen and (min-width: $media-xlarge) {
+      max-width: $read-width;
+    }
+  }
+
+  .instruction-toc {
+    line-height: 1.3;
+    @media screen and (min-width: $media-desktop) {
+      position: fixed;
+      height: 60vh;
+      right: $space * 2;
+      top: $appbar-height + $space;
+      width: $lesson-toc-width;
+    }
+  }
+
+  .instruction-article {
+    position: relative;
+
+    > h2 {
+      border-bottom: 1px solid;
+      border-bottom-color: inherit;
+      line-height: 2;
+    }
+
+    :target {
+      position: relative;
+      border-bottom: none;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: $link-light;
+        background-color: var(--link);
+        transform-origin: bottom left;
+        animation: expandX 0.5s ease forwards;
+        @media screen and (min-width: $media-mobile) {
+          animation: expandX 1s ease forwards;
+        }
+      }
+    }
+
+    > p {
+      text-align: justify;
+      > img[src$='.gif'] {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+
+        @media (min-width: $media-mobile) {
+          max-width: 400px;
+        }
+      }
+    }
+
+    li {
+      margin-bottom: 0.5em;
+    }
+
+    img[src$='.svg'] {
+      display: block;
+      margin: $space * 2 auto;
+
+      &.large-svg {
+        max-width: $media-tablet;
+      }
+
+      &.dark-bg {
+        background-color: $bg-color-dark;
+      }
+    }
+
+    img.gatsby-resp-image-image {
+      transition: box-shadow 300ms ease-in-out;
+      // this important hack is necessary because the style was set as inline style;
+      box-shadow: var(--bg) 0px 0px 0px 400px inset !important;
+    }
+
+    .logo-container {
+      width: 150px;
+      margin: 0 auto;
+    }
+
+    .code-editor,
+    .code-snippet {
+      break-inside: avoid;
+      margin: $space 0;
+    }
+
+    .pre-responsive-table + table {
+      @media (max-width: 450px) {
+        thead {
+          display: none;
+        }
+        tr {
+          display: flex;
+          flex-flow: column;
+          margin-bottom: $space;
+
+          > td:first-child {
+            border-bottom: none;
+          }
+
+          &:first-child {
+            > td:first-child {
+              border-top-color: hsla(0, 0%, 0%, 0.12);
+              border-top-style: solid;
+              border-top-width: 1px;
+
+              body.dark & {
+                border-top-color: #666666;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    details {
+      padding: 0 $space $space * 2;
+      > summary {
+        cursor: pointer;
+      }
+
+      p {
+        margin-top: $space;
+      }
+    }
+  }
+}

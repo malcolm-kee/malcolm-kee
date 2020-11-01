@@ -1,0 +1,194 @@
+---
+title: 'More Source Plugin'
+description: ''
+section: 'advanced'
+---
+
+## Source Instagram Photos into Site
+
+```bash
+npm i gatsby-source-instagram
+```
+
+```javascript fileName=gatsby-config.js
+module.exports = {
+  plugins: [
+    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'src',
+        path: `${__dirname}/src`,
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'blogs',
+        path: `${__dirname}/blogs`,
+      },
+    },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 700,
+            },
+          },
+        ],
+      },
+    },
+    'gatsby-plugin-sharp',
+    'gatsby-transfomer-sharp',
+    // highlight-start
+    {
+      resolve: 'gatsby-source-instagram',
+      options: {
+        username: 'malcolm__kee',
+      },
+    },
+    // highlight-end
+  ],
+};
+```
+
+Running the following queries in GraphiQL, you would able to get data for instagram photos of the user:
+
+```graphql
+{
+  allInstaNode {
+    nodes {
+      id
+      caption
+      username
+      localFile {
+        childImageSharp {
+          fluid {
+            srcSet
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Create Component to Show Instagram Photos
+
+```bash
+touch src/components/instagram.jsx
+touch src/components/instagram.scss
+```
+
+```jsx fileName=src/components/instagram.jsx
+import { useStaticQuery, graphql } from 'gatsby';
+import Image from 'gatsby-image';
+import * as React from 'react';
+import './instagram.scss';
+
+export const Instagram = () => {
+  const data = useStaticQuery(graphql`
+    {
+      allInstaNode {
+        nodes {
+          id
+          caption
+          username
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 250, maxHeight: 250) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
+  const photos = data.allInstaNode.nodes;
+
+  return (
+    <div className="instagram">
+      <div>
+        <a href={`https://www.instagram.com/${photos[0].username}/`}>
+          Follow me on Instagram
+        </a>
+      </div>
+      {photos.map((photo) => (
+        <a
+          className="instagram-photo"
+          href={`https://www.instagram.com/p/${photo.id}/`}
+          key={photo.id}
+        >
+          <Image
+            fluid={photo.localFile.childImageSharp.fluid}
+            alt={photo.caption}
+          />
+        </a>
+      ))}
+    </div>
+  );
+};
+```
+
+```scss fileName=src/components/instagram.scss
+@import '../constants';
+
+.instagram {
+  &-photo {
+    display: inline-block;
+    width: 250px + $space * 2;
+    height: 250px + $space * 2;
+    padding: $space;
+
+    &:hover {
+      box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+        0px 3px 3px -2px rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+```
+
+```jsx fileName=src/pages/index.js
+import { graphql } from 'gatsby';
+import Image from 'gatsby-image';
+import * as React from 'react';
+import { Instagram } from '../components/instagram'; // highlight-line
+import { Layout } from '../components/layout';
+
+const HomePage = ({ data }) => {
+  const metadata = data.site.siteMetadata;
+  const imageData = data.file.childImageSharp;
+
+  return (
+    <Layout>
+      <h1>Welcome to {metadata.title}'s Website</h1>
+      <p>{metadata.description}</p>
+      <Image fluid={imageData.fluid} alt="Photo of Me" />
+      {/* highlight-next-line */}
+      <Instagram />
+    </Layout>
+  );
+};
+
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
+    file(relativePath: { eq: "images/my-image.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 500) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`;
+```

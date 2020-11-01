@@ -1,0 +1,16 @@
+# Project dependencies
+.cache
+node_modules
+yarn-error.log
+
+# Secrets
+.env
+.env.development
+.env.production
+
+# Build directory
+/public
+.DS_Store
+/functions
+# Local Netlify folder
+.netlify

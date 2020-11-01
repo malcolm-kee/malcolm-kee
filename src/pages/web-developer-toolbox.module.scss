@@ -1,0 +1,11 @@
+@import '../constants/variable';
+
+.icon {
+  width: 150px;
+  height: 150px;
+
+  @media screen and (min-width: $media-mobile) {
+    width: 200px;
+    height: 200px;
+  }
+}

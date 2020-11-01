@@ -1,0 +1,21 @@
+@import '../constants/variable';
+
+#intro-to-react-js-v2-landing {
+  .react-logo-container {
+    animation-name: spin;
+    animation-iteration-count: infinite;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-play-state: running;
+    width: 150px;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+
+    @media screen and (min-width: $media-mobile) {
+      width: 320px;
+    }
+
+    @include reducedMotion;
+  }
+}
