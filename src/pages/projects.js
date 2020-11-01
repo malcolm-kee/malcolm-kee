@@ -10,7 +10,6 @@ import { GifPlayer } from '../components/gif-player';
 import { HashLink } from '../components/hash-link';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
-import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 import { Ul } from '../components/ul';
 import { preloadImage } from '../helper';
@@ -277,7 +276,14 @@ const ProjectPage = ({ data: { allProjects }, location }) => {
       <Seo title="Past Projects" />
       <MainContent as="div">
         <main>
-          <PageTitleContainer title="Past Projects" />
+          <div className="text-center my-6">
+            <h1 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+              Sample Projects
+            </h1>
+            <p className="mt-3 max-w-2xl mx-auto text-xl leading-7 text-gray-500 sm:mt-4">
+              Sample projects that I've worked on.
+            </p>
+          </div>
           <div className="py-6 px-4">
             {isRendered ? (
               <FancyProjectView

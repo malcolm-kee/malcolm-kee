@@ -1,7 +1,6 @@
 import { useStaticQuery, graphql } from 'gatsby';
 import { DiscussionEmbed } from 'disqus-react';
 import * as React from 'react';
-import { useTheme } from '../theme';
 
 // const DISCUQ_SHORTNAME = process.env.GATSBY_DISCUQ_NAME as string;
 const DISCUQ_SHORTNAME = 'malcolmkee';
@@ -27,8 +26,6 @@ export default function DisqusComments(props: DisqusCommentsProps) {
     `
   );
 
-  const [theme] = useTheme();
-
   const discuqProps = {
     shortname: DISCUQ_SHORTNAME,
     config: {
@@ -36,7 +33,6 @@ export default function DisqusComments(props: DisqusCommentsProps) {
       identifier: props.identifier,
       title: props.title,
     },
-    theme,
   };
 
   return <DiscussionEmbed {...discuqProps} />;

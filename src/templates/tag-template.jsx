@@ -1,65 +1,37 @@
 import { graphql } from 'gatsby';
-import PropTypes from 'prop-types';
 import * as React from 'react';
+import { BlogCard } from '../components/blog-card';
 import { RoundedLinkButton } from '../components/Button';
-import { List, ListItem, ListItemText } from '../components/List';
-import { MainContent } from '../components/main-content';
-import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 
-function BlogsWithTag({ data, pageContext, location }) {
+export default function BlogsWithTag({ data, pageContext, location }) {
   const { tag } = pageContext;
   const { edges: posts, totalCount } = data.allBlogPost;
 
   return (
-    <>
+    <div className="px-4 md:px-8 py-3">
       <Seo title={`Tag - ${tag}`} pathname={location.pathname} />
-      <MainContent>
-        <PageTitleContainer title={tag} />
-        <p className="pb-4 px-4">
-          {totalCount} {totalCount > 1 ? 'posts' : 'post'}
-        </p>
-        <List>
-          {posts.map(({ node: { slug, title, summary, id } }) => (
-            <ListItem link={slug} key={id}>
-              <ListItemText
-                primaryText={title}
-                boldPrimary
-                tertiaryText={summary}
-              />
-            </ListItem>
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center">
+          <h1 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+            Blogs tagged with "{tag}"
+          </h1>
+          <p className="mt-3 max-w-2xl mx-auto text-xl leading-7 text-gray-500 sm:mt-4">
+            {totalCount} {totalCount > 1 ? 'posts' : 'post'}
+          </p>
+        </div>
+        <ul className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
+          {posts.map(({ node: blog }) => (
+            <BlogCard blog={blog} disabledTag={tag} key={blog.id} />
           ))}
-        </List>
+        </ul>
         <div className="py-2 my-4 px-4">
           <RoundedLinkButton to="/tags/">All Tags</RoundedLinkButton>
         </div>
-      </MainContent>
-    </>
+      </div>
+    </div>
   );
 }
-
-BlogsWithTag.propTypes = {
-  pageContext: PropTypes.shape({
-    tag: PropTypes.string.isRequired,
-  }),
-  data: PropTypes.shape({
-    allBlogPost: PropTypes.shape({
-      totalCount: PropTypes.number.isRequired,
-      edges: PropTypes.arrayOf(
-        PropTypes.shape({
-          node: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            slug: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            summary: PropTypes.string.isRequired,
-          }),
-        }).isRequired
-      ),
-    }),
-  }),
-};
-
-export default BlogsWithTag;
 
 export const pageQuery = graphql`
   query TagPage($tag: String) {
@@ -72,9 +44,7 @@ export const pageQuery = graphql`
       edges {
         node {
           id
-          slug
-          title
-          summary
+          ...BlogCard
         }
       }
     }

@@ -44,11 +44,9 @@ module.exports = {
     },
   },
   variants: {
-    backgroundColor: ['dark'],
-    borderColor: ['dark', 'focus'],
-    textColor: ['dark'],
+    borderColor: ({ after }) => after['focus'],
   },
-  plugins: [require('@tailwindcss/ui'), require('tailwindcss-dark-mode')()],
+  plugins: [require('@tailwindcss/ui')],
   corePlugins: {
     placeholderColor: false,
     placeholderOpacity: false,

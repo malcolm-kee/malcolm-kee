@@ -11,5 +11,5 @@ export const MainContent = <ComponentType extends React.ElementType<any>>({
   className,
   ...props
 }: MainContentProps<ComponentType>) => (
-  <Component className={cx('max-w-6xl mx-auto', className)} {...props} />
+  <Component className={cx('max-w-7xl mx-auto', className)} {...props} />
 );

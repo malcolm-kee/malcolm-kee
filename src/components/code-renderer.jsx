@@ -1,6 +1,5 @@
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
 import MenuIcon from 'heroicons/react/outline/Menu';
-import github from 'prism-react-renderer/themes/github';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -8,7 +7,6 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { useDiffEffect } from '../hooks/use-diff-effect';
 import { useId } from '../hooks/use-id';
 import { scrollIntoView } from '../lib/dom';
-import { useTheme } from '../theme';
 import './code-renderer.scss';
 import {
   CodeSnippet,
@@ -35,10 +33,6 @@ export const CodeRenderer = ({
 }) => {
   const language = (className && className.split('-').pop()) || '';
 
-  const [theme] = useTheme();
-
-  const codeTheme = theme === 'dark' ? accessibleNightOwl : accessibleGithub;
-
   const code = typeof children === 'string' ? children.trim() : children;
 
   return live && /^(jsx?|tsx?|javascript|typescript)$/.test(language) ? (
@@ -47,15 +41,13 @@ export const CodeRenderer = ({
         code={code}
         fileName={fileName}
         language={language}
-        theme={codeTheme}
-        themeMode={theme}
+        theme={accessibleNightOwl}
         noInline={noInline}
       />
     ) : (
       <CodeLiveEditor
         code={code}
-        theme={codeTheme}
-        themeMode={theme}
+        theme={accessibleNightOwl}
         language={language}
         noInline={noInline}
         fileName={fileName}
@@ -66,7 +58,7 @@ export const CodeRenderer = ({
     <CodeSnippet
       code={code}
       language={language}
-      theme={codeTheme}
+      theme={accessibleNightOwl}
       fileName={fileName}
       noWrapper={noWrapper}
       highlightedLines={highlightedLines}
@@ -169,7 +161,6 @@ const TypescriptLiveEditor = ({
   fileName,
   code,
   language,
-  themeMode,
   theme,
   noInline,
 }) => {
@@ -226,7 +217,6 @@ const TypescriptLiveEditor = ({
         <>
           <TypescriptEditor
             code={latestTsCode}
-            theme={themeMode}
             onChange={setTsCode}
             onEmitCode={setJsCode}
             onEscape={() => setIsEdit(false)}
@@ -303,47 +293,6 @@ function shallowConcat(targetArr, item) {
   newArr.push(item);
   return newArr;
 }
-
-const accessibleGithub = {
-  ...github,
-  plain: {
-    ...github.plain,
-    backgroundColor: '#ffffff',
-  },
-  styles: github.styles.map((style) =>
-    style.types.indexOf('entity') !== -1
-      ? {
-          ...style,
-          style: {
-            color: '#347d7c',
-          },
-        }
-      : style.types.indexOf('attr-name') !== -1
-      ? {
-          ...style,
-          style: {
-            color: '#0078a0',
-          },
-        }
-      : style.types.indexOf('comment') !== -1
-      ? {
-          ...style,
-          style: {
-            ...style.style,
-            color: '#77774d',
-          },
-        }
-      : style.types.indexOf('function') !== -1
-      ? {
-          ...style,
-          style: {
-            ...style.style,
-            color: '#d43746',
-          },
-        }
-      : style
-  ),
-};
 
 const accessibleNightOwl = {
   ...nightOwl,

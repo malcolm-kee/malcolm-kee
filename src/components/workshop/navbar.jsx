@@ -1,6 +1,5 @@
 import { Link } from 'gatsby';
 import * as React from 'react';
-import { ThemeToggle } from '../theme-toggle';
 import './navbar.scss';
 
 export const Navbar = ({ workshop }) => (
@@ -13,9 +12,6 @@ export const Navbar = ({ workshop }) => (
       }}
     >
       <Link to={`/${workshop.id}/`}>{workshop.name}</Link>
-      <div className="workshop-navbar-toolbar">
-        <ThemeToggle />
-      </div>
     </header>
     <div
       className="workshop-navbar-line"

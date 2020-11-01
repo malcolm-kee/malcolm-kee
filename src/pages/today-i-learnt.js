@@ -2,7 +2,6 @@ import { graphql, Link } from 'gatsby';
 import * as React from 'react';
 import { MainContent } from '../components/main-content';
 import { OutLink } from '../components/OutLink';
-import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 import { TopicBadge } from '../components/topic-badge';
 import styles from './today-i-learnt.module.scss';
@@ -16,18 +15,22 @@ const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
         pathname={location.pathname}
       />
       <MainContent>
-        <PageTitleContainer title="Today I Learnt" />
-        <p className={styles.description}>
-          Inspired by{' '}
-          <OutLink
-            className="link"
-            to="https://www.stefanjudis.com/today-i-learned/"
-          >
-            Stefan Judis
-          </OutLink>
-          , these are the little facts I learnt in my daily life as a Frontend
-          Engineer.
-        </p>
+        <div className="text-center my-6">
+          <h1 className="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+            Today I Learnt
+          </h1>
+          <p className="mt-3 max-w-2xl mx-auto text-xl leading-7 text-gray-500 sm:mt-4">
+            Inspired by{' '}
+            <OutLink
+              className="hover:underline"
+              to="https://www.stefanjudis.com/today-i-learned/"
+            >
+              Stefan Judis
+            </OutLink>
+            , these are the little facts I learnt in my daily life as a Frontend
+            Engineer.
+          </p>
+        </div>
         <div className={styles.grid}>
           {allTopics.nodes.map((topic) => {
             const nodes =

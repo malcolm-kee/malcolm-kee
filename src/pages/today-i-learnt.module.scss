@@ -1,10 +1,5 @@
 @import '../constants/variable';
 
-.description {
-  padding: 0 $space * 2 $space * 2;
-  line-height: 1.8;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
@@ -26,7 +21,6 @@
   }
 }
 
-.description,
 .item {
   > a {
     border-bottom: 1px solid transparent;

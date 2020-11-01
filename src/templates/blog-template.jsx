@@ -13,9 +13,7 @@ import { OutLink } from '../components/OutLink';
 import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
 import { SubscribeRssLink } from '../components/subscribe-rss-link';
-import { ThemeToggle } from '../components/theme-toggle';
 import { Ul } from '../components/ul';
-import { getReadtimeText } from '../helper';
 import { removeTrailingSlash } from '../lib/util';
 import styles from './blog-template.module.scss';
 import './blog-template.scss';
@@ -31,7 +29,6 @@ export default function BlogTemplate({ data, pageContext, location }) {
       lang,
       previewImage: { image, by },
       body,
-      timeToRead,
       slug,
     },
   } = data;
@@ -45,36 +42,27 @@ export default function BlogTemplate({ data, pageContext, location }) {
       <div className="blog-post-container">
         <Seo
           title={title}
+          type="article"
           keywords={keywords}
+          tags={tags}
           description={summary}
           image={`/og_image${removeTrailingSlash(location.pathname)}.png`}
           pathname={location.pathname}
         />
         <main>
           <article className="blog-post px-4" lang={lang}>
-            <h1
-              className={cx(
-                'leading-relaxed sm:text-center max-w-xl mx-auto hyphen-auto pt-4',
-                isChinese
-                  ? 'text-4xl sm:text-5xl md:text-6xl'
-                  : 'text-2xl sm:text-3xl md:text-4xl'
-              )}
-            >
-              {title}
-            </h1>
-            <div className="py-4 flex justify-between items-center">
-              <div className="blog-post--date">
-                <span>{date}</span>
-                {timeToRead && (
-                  <>
-                    <span>{` • `}</span>
-                    <span>{getReadtimeText(timeToRead)} read</span>
-                  </>
+            <div className="text-center mb-6">
+              <h1
+                className={cx(
+                  'leading-relaxed sm:text-center font-extrabold max-w-xl mx-auto hyphen-auto pt-4',
+                  isChinese
+                    ? 'text-4xl sm:text-5xl md:text-6xl'
+                    : 'text-2xl sm:text-3xl md:text-4xl'
                 )}
-              </div>
-              <div>
-                <ThemeToggle />
-              </div>
+              >
+                {title}
+              </h1>
+              <p>{date}</p>
             </div>
             {image && (
               <>
@@ -104,7 +92,9 @@ export default function BlogTemplate({ data, pageContext, location }) {
                 <p className={styles.summaryText}>{summary}</p>
               </div>
             )}
-            <div className={`article-content my-8 relative ${styles.content}`}>
+            <div
+              className={`article-content my-8 relative gap-x-2 ${styles.content}`}
+            >
               <MDXRenderer>{body}</MDXRenderer>
             </div>
           </article>
@@ -226,7 +216,6 @@ export const pageQuery = graphql`
           url
         }
       }
-      timeToRead
     }
   }
 `;

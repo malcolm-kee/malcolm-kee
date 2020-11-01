@@ -8,7 +8,6 @@ let monaco: typeof import('monaco-editor/esm/vs/editor/editor.api');
 
 interface TypescriptEditorProps {
   code: string;
-  theme: 'light' | 'dark';
   onChange?: (updatedCode: string) => void;
   onEmitCode?: (emitedJsCode: string) => void;
   onEscape?: () => void;
@@ -43,14 +42,12 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       Promise.all([
         import('monaco-editor/esm/vs/editor/editor.api'),
         import('monaco-themes/themes/Night Owl.json'),
-        import('monaco-themes/themes/GitHub.json'),
-      ]).then(([loadedMonaco, loadedDarkTheme, loadedLightTheme]) => {
+      ]).then(([loadedMonaco, loadedDarkTheme]) => {
         monaco = loadedMonaco;
         setupTypescript(loadedMonaco);
         this.addReactTypes().then(() => {
           if (this._isMounted) {
             monaco.editor.defineTheme('nightOwl', loadedDarkTheme as any);
-            monaco.editor.defineTheme('github', loadedLightTheme as any);
             this.initEditor();
           }
         });
@@ -96,12 +93,6 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
       ) {
         this.editor.layout();
       }
-    }
-
-    if (monaco && prevProps.theme !== this.props.theme) {
-      monaco.editor.setTheme(
-        this.props.theme === 'light' ? 'github' : 'nightOwl'
-      );
     }
   }
 
@@ -161,7 +152,7 @@ export class TypescriptEditor extends React.Component<TypescriptEditorProps> {
           monaco.Uri.parse(`file:///main.${this.props.tsx ? 'tsx' : 'ts'}`)
         ),
         language: 'typescript',
-        theme: this.props.theme === 'light' ? 'github' : 'nightOwl',
+        theme: 'nightOwl',
         scrollBeyondLastLine: false,
         lineNumbers: 'off',
         minimap: {

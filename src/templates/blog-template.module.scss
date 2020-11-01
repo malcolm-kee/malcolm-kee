@@ -86,12 +86,7 @@
   @media screen and (min-width: $media-xlarge) {
     position: relative;
     aside {
-      position: absolute;
-      left: 100%;
-      width: 350px;
-      margin: 0;
-      padding: 0 $space;
-      transform: translate(0, -50%);
+      grid-column: 3;
     }
   }
   a {
