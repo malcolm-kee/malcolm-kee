@@ -1,7 +1,6 @@
 import cx from 'classnames';
 import { Link } from 'gatsby';
 import * as React from 'react';
-import styles from './mdx-link.module.scss';
 import { OutLink } from './OutLink';
 
 type MdxLinkProps = Omit<JSX.IntrinsicElements['a'], 'ref'>;
@@ -17,20 +16,20 @@ export const MdxLink = ({
   }
   if (href[0] === '/') {
     return (
-      <Link to={href} className={cx(styles.link, className)} {...props}>
+      <Link to={href} className={cx('', className)} {...props}>
         {children}
       </Link>
     );
   }
   if (href[0] === '#') {
     return (
-      <a href={href} className={cx(styles.link, className)} {...props}>
+      <a href={href} className={cx('', className)} {...props}>
         {children}
       </a>
     );
   }
   return (
-    <OutLink href={href} className={cx(styles.link, className)} {...props}>
+    <OutLink href={href} className={cx('', className)} {...props}>
       {children}
     </OutLink>
   );

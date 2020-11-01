@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useDiffEffect } from '../../hooks/use-diff-effect';
 import { useWindowEventListener } from '../../hooks/use-event-listener';
 import { ChevronIcon } from '../chevron-icon';
-import './table-of-contents.scss';
+import './table-of-contents.css';
 import { ToggleTocBtn } from './toggle-toc-btn';
 
 export const TableOfContents = ({ pathname, sections, workshop }) => {

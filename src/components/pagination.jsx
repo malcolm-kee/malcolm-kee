@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import * as React from 'react';
 import { ChevronIcon } from './chevron-icon';
-import './pagination.scss';
+import './pagination.css';
 
 export const PaginationContainer = ({ children, nextLink, prevLink }) => {
   return (

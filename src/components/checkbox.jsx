@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
 import { callAll } from '../lib/fp';
-import styles from './checkbox.module.scss';
+import styles from './checkbox.module.css';
 
 export const Checkbox = ({
   name,

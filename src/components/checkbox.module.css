@@ -1,8 +1,8 @@
 @import '../constants/variable';
 
 .checkbox {
-  position: absolute; // take it out of document flow
-  opacity: 0; // hide it
+  position: absolute; /* take it out of document flow */
+  opacity: 0; /* hide it */
 
   & + label {
     position: relative;
@@ -20,34 +20,34 @@
     background: white;
   }
 
-  // Box hover
+  /* // Box hover */
   &:hover + label:before {
     background: $primary-400;
   }
 
-  // Box focus
+  /* // Box focus */
   &:focus + label:before {
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
   }
 
-  // Box checked
+  /* // Box checked */
   &:checked + label:before {
     background: $primary-color;
   }
 
-  // Disabled state label.
+  /* // Disabled state label. */
   &:disabled + label {
     color: #b8b8b8;
     cursor: auto;
   }
 
-  // Disabled box.
+  /* // Disabled box. */
   &:disabled + label:before {
     box-shadow: none;
     background: #ddd;
   }
 
-  // Checkmark. Could be replaced with an image
+  /* // Checkmark. Could be replaced with an image */
   &:checked + label:after {
     content: '';
     position: absolute;

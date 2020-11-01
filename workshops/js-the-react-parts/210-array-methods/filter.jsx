@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from '../../../src/components/Button';
 import { Box, Circle } from '../../../src/components/shapes';
-import './filter.scss';
+import './filter.css';
 
 export function FilterAnimation() {
   const [runState, setRunState] = React.useState('not_run');

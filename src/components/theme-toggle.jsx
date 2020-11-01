@@ -3,7 +3,7 @@ import * as React from 'react';
 import moon from '../assets/moon.png';
 import sun from '../assets/sun.png';
 import { useTheme } from '../theme';
-import './theme-toggle.scss';
+import './theme-toggle.css';
 import { Toggle } from './toggle';
 
 export function ThemeToggle(toggleProps) {

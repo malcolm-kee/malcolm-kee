@@ -6,7 +6,7 @@ import { OutLink } from '../components/OutLink';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
-import { icon } from './web-developer-toolbox.module.scss';
+import { icon } from './web-developer-toolbox.module.css';
 
 const PageHeader = () => {
   const { workshopsYaml } = useStaticQuery(graphql`

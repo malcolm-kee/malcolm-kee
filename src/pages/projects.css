@@ -2,9 +2,6 @@
 
 .ProjectPage {
   &--project {
-    .card-content {
-      @include link(a);
-    }
     margin: $space * 2 0;
     h2 {
       margin-bottom: $space;
@@ -84,7 +81,7 @@ body.dark {
   .ProjectPage {
     &--demo-image {
       > img {
-        @include darkenImg();
+        filter: brightness(0.8);
       }
     }
   }

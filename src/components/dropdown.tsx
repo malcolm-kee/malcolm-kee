@@ -12,7 +12,7 @@ import { positionDefault, positionRight } from '@reach/popover';
 import cx from 'classnames';
 import * as React from 'react';
 import { Button } from './Button';
-import './dropdown.scss';
+import './dropdown.css';
 import { IconButton } from './icon-button';
 
 export type DropdownProps = {

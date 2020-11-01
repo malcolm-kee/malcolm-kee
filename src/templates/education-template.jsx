@@ -6,8 +6,8 @@ import { ChevronIcon } from '../components/chevron-icon';
 import { ErrorBoundary } from '../components/error-boundary';
 import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
-import styles from './lesson-template.module.scss';
-import eduStyles from './education-template.module.scss';
+import styles from './lesson-template.module.css';
+import eduStyles from './education-template.module.css';
 import { useLayout } from '../layouts/layout-context';
 
 const EducationTemplate = ({

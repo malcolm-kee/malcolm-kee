@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import * as React from 'react';
-import styles from './ul.module.scss';
+import styles from './ul.module.css';
 
 type UlProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLUListElement>,

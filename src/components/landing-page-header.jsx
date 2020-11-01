@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import * as React from 'react';
 import { Avatar } from './avatar';
-import styles from './landing-page-header.module.scss';
+import styles from './landing-page-header.module.css';
 
 export const LandingPageHeader = () => {
   return (

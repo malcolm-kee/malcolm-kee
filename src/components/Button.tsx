@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import * as React from 'react';
 import { getLinkTarget } from '../lib/util';
 import { OutLink } from './OutLink';
-import styles from './Button.module.scss';
+import styles from './Button.module.css';
 
 interface BaseButtonProps {
   color?: 'primary' | 'white' | 'link';

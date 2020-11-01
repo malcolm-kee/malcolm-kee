@@ -5,7 +5,7 @@ import { ReactLogo } from '../components/react-logo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
-import './intro-to-react-js-v2.scss';
+import './intro-to-react-js-v2.css';
 
 const PageHeader = () => {
   const { workshopsYaml } = useStaticQuery(graphql`

@@ -11,8 +11,8 @@ import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
 import { useLayout } from '../layouts/layout-context';
 import { removeTrailingSlash } from '../lib/util';
-import styles from './lesson-template.module.scss';
-import './lesson-template.scss';
+import styles from './lesson-template.module.css';
+import './lesson-template.css';
 
 const LessonTemplate = ({
   data: { lesson },

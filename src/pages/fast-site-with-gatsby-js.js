@@ -5,7 +5,7 @@ import { GatsbyLogo } from '../components/gatsby-logo';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
-import { container } from './fast-site-with-gatsby-js.module.scss';
+import { container } from './fast-site-with-gatsby-js.module.css';
 
 const PageHeader = () => {
   const { workshopsYaml } = useStaticQuery(graphql`

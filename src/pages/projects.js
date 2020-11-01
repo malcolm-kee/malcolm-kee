@@ -14,8 +14,8 @@ import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 import { Ul } from '../components/ul';
 import { preloadImage } from '../helper';
-import styles from './projects.module.scss';
-import './projects.scss';
+import styles from './projects.module.css';
+import './projects.css';
 
 const ProjectCard = ({ project }) => (
   <Card className="ProjectPage--project" role="listitem">

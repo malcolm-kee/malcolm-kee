@@ -1,5 +1,6 @@
-require('./src/styles/global.scss');
-require('./src/styles/animations.scss');
+require('focus-visible');
+require('./src/styles/global.css');
+require('./src/styles/animations.css');
 
 exports.onClientEntry = () => {
   // IntersectionObserver polyfill for gatsby-image (Safari, IE)

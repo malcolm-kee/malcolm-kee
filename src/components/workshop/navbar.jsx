@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import * as React from 'react';
 import { ThemeToggle } from '../theme-toggle';
-import './navbar.scss';
+import './navbar.css';
 
 export const Navbar = ({ workshop }) => (
   <>

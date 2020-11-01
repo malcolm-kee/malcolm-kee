@@ -5,7 +5,7 @@ import { OutLink } from '../components/OutLink';
 import { PageTitleContainer } from '../components/page-title-container';
 import { Seo } from '../components/Seo';
 import { TopicBadge } from '../components/topic-badge';
-import styles from './today-i-learnt.module.scss';
+import styles from './today-i-learnt.module.css';
 
 const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
   return (

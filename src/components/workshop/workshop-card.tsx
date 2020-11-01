@@ -2,7 +2,7 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import Image, { FluidObject } from 'gatsby-image';
 import { LinkButton } from '../Button';
-import styles from './workshop-card.module.scss';
+import styles from './workshop-card.module.css';
 
 export type WorkshopCardProps = {
   id: string;

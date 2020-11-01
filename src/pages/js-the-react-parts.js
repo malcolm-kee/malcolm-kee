@@ -6,7 +6,7 @@ import { JsIcon } from '../components/svg-icons';
 import { WorkshopLandingPageBanner } from '../components/workshop/workshop-landing-page-banner';
 import { WorkshopLandingPageFooter } from '../components/workshop/workshop-landing-page-footer';
 import { WorkshopLandingSeo } from '../components/workshop/workshop-landing-seo';
-import './js-the-react-parts.scss';
+import './js-the-react-parts.css';
 
 /* eslint-disable no-script-url */
 

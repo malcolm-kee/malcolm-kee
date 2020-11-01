@@ -9,7 +9,7 @@ import { useDiffEffect } from '../hooks/use-diff-effect';
 import { useId } from '../hooks/use-id';
 import { scrollIntoView } from '../lib/dom';
 import { useTheme } from '../theme';
-import './code-renderer.scss';
+import './code-renderer.css';
 import {
   CodeSnippet,
   HighlightedCode,

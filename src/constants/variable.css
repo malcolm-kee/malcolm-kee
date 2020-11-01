@@ -63,7 +63,7 @@ $grey-900: #1a202c;
 $grey-light: $grey-200;
 $grey-dark: $grey-900;
 
-// light theme
+/* light theme */
 $bg-color-light: $grey-200;
 $bg-color-light-pale: rgba(228, 224, 205, 0.5);
 $text-light: rgba(0, 0, 0, 0.87);
@@ -73,7 +73,7 @@ $toc-light-selected: $primary-800;
 $toc-light-hover: $primary-900;
 $highlighted-code-bg-light: $grey-100;
 
-// dark theme
+/* dark theme */
 $bg-color-dark: $grey-900;
 $bg-color-dark-pale: $grey-700;
 $text-dark: rgba(255, 255, 255, 0.88);
@@ -93,7 +93,7 @@ $media-tablet: 720px;
 $media-desktop: 960px;
 $media-xlarge: 1380px;
 
-// z-index
+/* z-index */
 $zindex-dialog: 6;
 $zindex-appbar: 3;
 $zindex-toc: 4;
@@ -153,61 +153,3 @@ $box-shadow-23: 0px 11px 14px -7px rgba(0, 0, 0, 0.2),
   0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12);
 $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
   0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
-
-@mixin link($selector, $darkModeSelector: '.mode-dark') {
-  #{$selector} {
-    @apply text-primary-800;
-    #{$darkModeSelector} & {
-      @apply text-primary-400;
-    }
-    position: relative;
-    text-decoration: none;
-    transition-duration: 500ms;
-    transition-timing-function: ease-in-out;
-    transition-property: border-bottom-color, color, transform, background-color;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: 100%;
-      height: 1px;
-      @apply bg-primary-800;
-      #{$darkModeSelector} & {
-        @apply text-primary-500;
-      }
-      transform-origin: center;
-      transform: translate(-50%, 0) scaleX(0);
-      transition: transform 0.3s ease-in-out;
-    }
-  }
-  #{$selector}:hover {
-    &::before {
-      transform: translate(-50%, 0) scaleX(1);
-    }
-  }
-}
-
-@mixin darkenImg() {
-  filter: brightness(0.8);
-}
-
-// utility to make animation to be non-animated based on user preference
-@mixin reducedMotion {
-  @media (prefers-reduced-motion: reduce) {
-    animation-duration: 1ms !important;
-    transition-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    animation-delay: 0s !important;
-    transition-delay: 0s !important;
-  }
-}
-
-@mixin focusedByMouse {
-  &:focus {
-    &:not(:focus-visible) {
-      @content;
-    }
-  }
-}

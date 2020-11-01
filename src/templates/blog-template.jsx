@@ -17,8 +17,8 @@ import { ThemeToggle } from '../components/theme-toggle';
 import { Ul } from '../components/ul';
 import { getReadtimeText } from '../helper';
 import { removeTrailingSlash } from '../lib/util';
-import styles from './blog-template.module.scss';
-import './blog-template.scss';
+import styles from './blog-template.module.css';
+import './blog-template.css';
 
 export default function BlogTemplate({ data, pageContext, location }) {
   const {

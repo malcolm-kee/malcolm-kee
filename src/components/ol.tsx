@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import * as React from 'react';
-import styles from './ol.module.scss';
+import styles from './ol.module.css';
 
 type OlProps = React.DetailedHTMLProps<
   React.OlHTMLAttributes<HTMLOListElement>,

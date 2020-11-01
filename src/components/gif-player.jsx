@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import * as React from 'react';
 import 'react-gif-player/dist/gifplayer.css';
-import styles from './gif-player.module.scss';
+import styles from './gif-player.module.css';
 
 export const GifPlayer = ({
   gif,
