@@ -46,7 +46,7 @@ const TodayILearnt = ({ data: { allTil, allTopics }, location }) => {
                 <ul className={styles.list}>
                   {nodes.map((til) => (
                     <li className={styles.item} key={til.slug}>
-                      <Link className="til-item" to={til.slug}>
+                      <Link className="til-item hover:underline" to={til.slug}>
                         {til.title}
                       </Link>
                     </li>

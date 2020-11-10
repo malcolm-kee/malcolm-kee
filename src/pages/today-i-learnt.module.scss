@@ -20,14 +20,3 @@
     padding: $space / 4 0;
   }
 }
-
-.item {
-  > a {
-    border-bottom: 1px solid transparent;
-    transition: border-bottom-color ease 300ms;
-
-    &:hover {
-      border-bottom: 1px solid currentColor;
-    }
-  }
-}
