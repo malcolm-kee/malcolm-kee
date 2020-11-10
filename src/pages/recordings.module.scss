@@ -1,7 +1,0 @@
-@import '../constants/variable';
-
-:global(body.dark) {
-  .img {
-    @include darkenImg();
-  }
-}
