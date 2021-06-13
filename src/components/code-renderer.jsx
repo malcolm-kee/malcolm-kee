@@ -1,5 +1,5 @@
 import { useMDXScope } from 'gatsby-plugin-mdx/context';
-import MenuIcon from 'heroicons/react/outline/Menu';
+import { MenuIcon } from '@heroicons/react/outline';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';

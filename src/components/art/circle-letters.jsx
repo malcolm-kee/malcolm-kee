@@ -1,9 +1,9 @@
+import { RefreshIcon } from '@heroicons/react/outline';
 import randomUtil from 'canvas-sketch-util/random';
 import * as React from 'react';
 import { useAnimationFrame } from '../../hooks/use-animation-frame';
 import { Button } from '../Button';
 import { Field } from '../Field';
-import { RepeatIcon } from '../svg-icons';
 import { drawCircle } from './art-lib';
 import { board, container } from './circle-letters.module.scss';
 
@@ -46,7 +46,7 @@ export const CircleLetter = () => {
               }}
               minWidth="widest"
             >
-              <RepeatIcon aria-hidden="true" focusable="false" width={24} />
+              <RefreshIcon aria-hidden="true" focusable="false" width={24} />
               <span className="sr-only">Repeat</span>
             </Button>
           </div>

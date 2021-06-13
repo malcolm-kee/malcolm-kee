@@ -57,9 +57,3 @@ declare module 'react-helmet' {
     static canUseDOM: boolean;
   }
 }
-
-declare module 'heroicons/react/*' {
-  import * as React from 'react';
-  function Icon(props: React.ComponentPropsWithoutRef<'svg'>): React.ReactNode;
-  export default Icon;
-}

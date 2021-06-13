@@ -1,3 +1,4 @@
+import { XIcon as CloseIcon } from '@heroicons/react/outline';
 import {
   DialogContent,
   DialogOverlay,
@@ -7,7 +8,6 @@ import '@reach/dialog/styles.css';
 import cx from 'classnames';
 import * as React from 'react';
 import './dialog.scss';
-import { CloseIcon } from './svg-icons';
 
 export type DialogProps = ReachDialogProps & {
   large?: boolean;

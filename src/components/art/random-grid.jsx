@@ -1,3 +1,4 @@
+import { LightBulbIcon } from '@heroicons/react/outline';
 import { lerp } from 'canvas-sketch-util/math';
 import randomUtil from 'canvas-sketch-util/random';
 import palettes from 'nice-color-palettes';
@@ -6,7 +7,6 @@ import { getContrastTextColor } from '../../helper';
 import { Button } from '../Button';
 import { Checkbox } from '../checkbox';
 import { Field } from '../Field';
-import { RandomIcon } from '../svg-icons';
 import { drawCircle, usePoints } from './art-lib';
 import { board, box, container, controls } from './random-grid.module.scss';
 
@@ -89,7 +89,7 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
               minWidth="widest"
               className="text-gray-200"
             >
-              <RandomIcon
+              <LightBulbIcon
                 aria-hidden="true"
                 focusable="false"
                 className="fill-current"

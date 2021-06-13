@@ -38,7 +38,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-compile-es6-packages',
       options: {
-        modules: [`@philpl/buble`, `buble`, 'heroicons'],
+        modules: [`@philpl/buble`, `buble`],
         test: /\.jsx?$/,
       },
     },
