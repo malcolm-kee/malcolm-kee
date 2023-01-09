@@ -47,12 +47,6 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-yaml',
     {
-      resolve: 'gatsby-plugin-canonical-urls',
-      options: {
-        siteUrl: siteMetadata.siteUrl,
-      },
-    },
-    {
       resolve: 'gatsby-source-youtube-v2',
       options: {
         channelId: [process.env.YOUTUBE_CHANNEL_ID],

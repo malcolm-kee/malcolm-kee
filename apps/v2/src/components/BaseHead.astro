@@ -5,7 +5,7 @@ export interface Props {
 	permalink?: string;
 	date?: string
 }
-const { title = 'Malcolm Writes', description, permalink = 'https://malcolm-write.netlify.app/', date } = Astro.props;
+const { title = 'Malcolm Writes', description, permalink = 'https://malcolmkee.com/', date } = Astro.props;
 
 const ogImage = `https://malcolm-writes-og-image.vercel.app/${title}.png${date && `?date=${date}`}`
 ---

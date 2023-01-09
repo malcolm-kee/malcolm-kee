@@ -35,3 +35,8 @@
   from = "/intro-to-react-js/*"
   to = "/archive/intro-to-react-js/:splat"
   status = 200
+
+[[redirects]]
+  from = "https://malcolmkee.netlify.app/*"
+  to = "https://malcolmkee.com/:splat"
+  status = 301
