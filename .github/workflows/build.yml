@@ -13,10 +13,10 @@ jobs:
       - name: Begin CI...
         uses: actions/checkout@v2
 
-      - name: Use Node 12
+      - name: Use Node 14
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 14.x
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -47,7 +47,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.1
         id: netlify-deploy
         with:
-          publish-dir: './public'
+          publish-dir: './apps/archive/public'
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
