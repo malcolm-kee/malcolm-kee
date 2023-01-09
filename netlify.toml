@@ -1,0 +1,37 @@
+[build.processing]
+  skip_processing = true
+
+[[redirects]]
+  from = "/react-testing/*"
+  to = "/archive/react-testing/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/typescript-for-react-developer/*"
+  to = "/archive/typescript-for-react-developer/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/fast-site-with-gatsby-js/*"
+  to = "/archive/fast-site-with-gatsby-js/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/js-the-react-parts/*"
+  to = "/archive/js-the-react-parts/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/web-developer-toolbox/*"
+  to = "/archive/web-developer-toolbox/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/intro-to-react-js-v2/*"
+  to = "/archive/intro-to-react-js-v2/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/intro-to-react-js/*"
+  to = "/archive/intro-to-react-js/:splat"
+  status = 200
