@@ -1,0 +1,37 @@
+---
+// Component Imports
+import BaseHead from '../components/BaseHead.astro';
+import BlogPostPreview from '../components/BlogPostPreview.astro';
+import PageLayout from '../components/PageLayout.astro';
+
+const title = 'Blogs - Malcolm Kee';
+const description = 'My thoughts on technologies, books, or just any random stuffs.';
+
+// Data Fetching: List all Markdown posts in the repo.
+
+let allPosts = await Astro.glob('./posts/*.mdx');
+allPosts = allPosts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.pubDate).valueOf() -
+    new Date(a.frontmatter.pubDate).valueOf()
+);
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <PageLayout>
+      <span slot="title">Blogs</span>
+      <span slot="description">{description}</span>
+      <section aria-label="Blog post list" class="flex flex-col gap-16">
+        {allPosts.map((p) => <BlogPostPreview post={p} />)}
+      </section>
+    </PageLayout>
+  </body>
+</html>

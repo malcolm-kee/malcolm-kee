@@ -1,0 +1,140 @@
+---
+title: Using TypeScript with Module Federation
+pubDate: 1 Jul 2022
+description: How to use TypeScript in Module Federation without overengineering
+layout: ../../layouts/BlogPost.astro
+---
+
+import Aside from '../../components/Aside.tsx';
+
+[Module Federation](https://webpack.js.org/concepts/module-federation/) of webpack is a powerful tool to support microfrontend architecture. It allows code from multiple webpack builds to be stitched together seamlessly **in runtime** as if they are within the same codebase.
+
+Module federation allows multiple sub-applications to be tested, built, and deployed independently, which is a productivity booster if the application is developed by many teams. However, this flexibility would make the application hard to understand and buggy when the application evolves, as engineers need to keep track of logic across applications.
+
+One way to avoid the risk of bugs is to add TypeScript to perform typechecking across all the microfrontends. But the question is, how do we use TypeScript (a build time construct) to something that is dynamic in runtime?
+
+## Using TypeScript in Module Federation
+
+Currently, the semi-recommended way to do that is via `@module-federation/typescript` package (see [this GitHub issue](https://github.com/module-federation/module-federation-examples/issues/20)), which has two drawbacks:
+
+1. it is closed source
+2. it reduces the developer experience (DX) by creating frictions when introducing changes.
+
+To understand how this approach is bad for DX, we need to look closer. Imagine a a remote application introduces a change of the types, your workflow would be similar to below:
+
+1. Making the changes in remote application.
+2. Use the new changes/interfaces in the consumer application and make changes if needed.
+3. Deploy both applications concurrently. Note that this would causes some downtime if the change is not backward compatible.
+
+<Aside heading="Removing downtime entirely">
+
+To solve the problem of short downtime during deployment, in theory we could deploy multiple versions of each application, and switch them at once using runtime configuration using [`external-remotes-plugin`](https://github.com/module-federation/external-remotes-plugin).
+
+We could create a service that allows us to update the URL of each remote applications on the fly, and the consumer can fetch the data from this service during bootstrap.
+
+I definitely did not try to do it (wink).
+
+Anyway, I digress. I'm sorry.
+
+</Aside>
+
+## Standardizing Remotes
+
+The issue of using TypeScript that I describe above is due to the host is dependent on the types exposed by the remotes, therefore each time remote change the type of what it exposes, the host need to be updated.
+
+We can solve the problem by standardizing the interface that each remote exposes.
+
+For example, host may enforces all remotes that it consumes must expose a single object with the following interfaces:
+
+```ts
+export interface Exposes {
+  routes: Array<{
+    path: string;
+    Component: React.ComponentType<{}>;
+  }>;
+  navItems: Array<{
+    label: string;
+    to: string;
+  }>;
+}
+```
+
+In remote, we create a file that follow the interface:
+
+```tsx
+const exposes: Exposes = {
+  routes: [
+    {
+      path: 'listing-page',
+      Component: ListingPage,
+    },
+  ],
+  navItems: [],
+};
+
+export default exposes;
+```
+
+Then, in the host, it can render something like this:
+
+```tsx
+import { Routes, Route } from 'react-router-dom';
+import * as React from 'react';
+
+const getAllRemotes = () =>
+  Promise.all([
+    import('microfrontend1/exposes'),
+    import('microfrontend2/exposes'),
+    import('microfrontend3/exposes'),
+    // list of remote app need to be updated once when introducing a new remote app
+  ]) as Promise<Array<{ default: Exposes }>>;
+
+const App = () => {
+  const [remotes, setRemotes] = React.useState([]);
+  React.useEffect(() => {
+    getAllRemotes().then(setRemotes);
+  }, []);
+
+  return (
+    <Routes>
+      {remotes
+        .map((r) => r.default.routes)
+        .flat()
+        .map(({ path, Component }, index) => (
+          <Route path={route.path} key={index}>
+            <Component />
+          </Route>
+        ))}
+    </Routes>
+  );
+};
+```
+
+Note that now that the host expect each remote exposes the same interface, there is no need for the host to consume any type definitions from the remote.
+
+## Standardization Allows Extensible Host
+
+By standardizing the remote, we achieve something more profound than solving the TypeScript definition issue.
+
+With standardized remotes, remotes can introduces new route, new navigation items etc, but there is no need for the host to make any changes, and it will just work.
+
+One way to look at the two approaches is to look at the dependency direction:
+
+1. In the initial approach, remotes are free to exposes anything that they want, and the host/consumer choose to import them and use the type definition the remotes expose.
+2. With the standardized remote approach, remotes must follow the interface the host/consumer is expecting and follow it.
+
+In other words, the initial approach makes remotes independent and very reusable in different scenarios, but the host implementation is coupled/dependent to the remotes types.
+
+On the other hand, with the remote standardization, remote are no longer independent and tightly coupled to the interface that the host is enforcing. However, the host is not coupled to the actual implementation of each remote, and can be extended to support many remotes.
+
+Which one you should choose depends on which benefit is more important for your use case: do you need a remote that can be reused in many different consumers, or do you want a host that is not coupled with the remote implementation?
+
+When you are developing code that should be reusable across different use cases (e.g. a component library exposes as remote), then the initial approach of remote exposing type definition make sense (although I would still argue the simpler solution is to publish it as a npm package).
+
+When you are developing code for feature that are fairly standardized (e.g. admin screens that have listing/details page), then remote standardization would be a technique to apply.
+
+<Aside heading="Parallel in HTML/CSS">
+
+There is a parallel between the two approaches with the relationship between HTML and CSS. If you loves parallels in programming, you can read this article by Adam Wathan: [CSS Utility Classes and "Separation of Concerns"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
+
+</Aside>

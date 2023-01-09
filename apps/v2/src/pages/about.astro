@@ -1,0 +1,58 @@
+---
+// Component Imports
+import BaseHead from '../components/BaseHead.astro';
+import Layout from '../components/Layout.astro';
+import Container from '../components/Container';
+import SocialIcons from '../components/SocialIcons';
+
+let title = 'Malcolm Kee - Web developer, front end engineer';
+let description = `I'm Malcolm Kee. I live in Sydney, where I build web apps and websites.`;
+
+// Data Fetching: List all Markdown posts in the repo.
+
+let allPosts = await Astro.glob('./posts/*.mdx');
+allPosts = allPosts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.pubDate).valueOf() -
+    new Date(a.frontmatter.pubDate).valueOf()
+);
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <Layout>
+      <Container className="mt-16 sm:mt-32">
+        <div class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+          <div class="lg:pl-20">
+            <div class="max-w-xs px-2.5 lg:max-w-none">
+              <img
+                src="/assets/portrait.jpg"
+                alt=""
+                sizes="(min-width: 1024px) 32rem, 20rem"
+                class="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover"
+              />
+            </div>
+          </div>
+          <div class="lg:order-first lg:row-span-2">
+            <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">{description}</h1>
+            <div class="mt-6 space-y-7 text-base text-zinc-600">
+              <p>A software engineer making web applications functional and accessible.</p>
+              <p>I conducted workshops to teach others on React and web development in local meetup that I co-organize.</p>
+              <p>Lifelong learner and programming craftman.</p>
+            </div>
+          </div>
+          <div class="lg:pl-20">
+            <SocialIcons variant="iconWithText" />
+          </div>
+        </div>
+      </Container>      
+    </Layout>
+  </body>
+</html>

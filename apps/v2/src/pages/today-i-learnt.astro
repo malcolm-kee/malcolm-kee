@@ -1,0 +1,50 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import PageLayout from '../components/PageLayout.astro';
+import { groupArrayBy } from "../lib/array";
+
+const title = 'Today I Learnt - Malcolm Kee';
+const description = `Inspired by Stefan Judis, these are the little facts I learnt in my daily life as a Frontend Engineer.`;
+
+type TilMetadata = {
+    title: string;
+    date: string;
+    topics: Array<string>
+}
+
+let allTils = await Astro.glob<TilMetadata>('./today-i-learnt/*.md');
+
+let allTilMdxs = await Astro.glob<TilMetadata>('./today-i-learnt/*.mdx');
+
+const tilMap = groupArrayBy(allTils.concat(allTilMdxs), til => til.frontmatter.topics)
+---
+
+<html lang="en">
+    <head>
+        <BaseHead title={title} description={description} />
+    </head>
+    <body>
+        <PageLayout>
+                <span slot="title">Today I Learnt</span>
+                <span slot="description">
+                    Inspired by <a href="https://www.stefanjudis.com/today-i-learned/" class="hover:underline">Stefan Judis</a>, these are the little facts I learnt in my daily life as a Frontend Engineer.
+                </span>
+                <div class="grid grid-cols-[repeat(auto-fit,minmax(15em,1fr))] gap-8">
+                    {[...tilMap].map(([key, tils]) => (
+                        <div>
+                            <h2 class="text-sm px-3 font-medium text-zinc-400">{key}</h2>
+                            <ul class="flex flex-col gap-6 mt-3">
+                                {tils.map(til => 
+                                    <li>
+                                        <a href={til.url} class="block px-2 border-l-4 border-transparent hover:border-primary-700/40 transition-colors">
+                                            {til.frontmatter.title}    
+                                        </a>
+                                    </li>)
+                                }    
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+        </PageLayout>
+    </body>
+</html>
