@@ -1,10 +1,9 @@
-const process = require('node:process');
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert');
 const fsP = require('fs-extra');
 
-const root = process.cwd();
+const root = path.resolve(__dirname, '..');
 const mainWebsiteOutput = path.resolve(root, 'apps/v2/dist');
 const archiveOutput = path.resolve(root, 'apps/archive/public');
 const target = path.resolve(root, 'public');
