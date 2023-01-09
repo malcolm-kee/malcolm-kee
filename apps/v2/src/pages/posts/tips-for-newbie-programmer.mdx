@@ -1,0 +1,61 @@
+---
+title: Tips for Newbie Frontend Engineer
+pubDate: 23 Oct 2022
+layout: ../../layouts/BlogPost.astro
+---
+
+import Aside from '../../components/Aside.tsx';
+
+## 1. Learn and Practice Editor Shortcut Keys
+
+A chef would learn how to use all the cooking utensils efficiently because if a step just save few seconds, it adds up if he have to repeat the same steps hundreds of times a day.
+
+Similarly, as a coder we write our code everyday, and using shortcut keys is a quick way to reduce the coding time.
+
+For VS Code, there are many shorcut keys, which are summarized in [this table](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf).
+
+Don't feel pressured that you need to learn all (I myself don't remember all as well). Instead, pick a few that you can imagine you're currently doing but is using mouse instead.
+
+As starter, try these fews:
+
+- Toggle sidebar (Ctrl + B) - to get more viewing space for your code.
+- Split editor (Ctrl + \\) - this works best with Quick Open (Ctrl + P), when you want to open two files side-by-side. To focus on specific editor, use (Ctrl + 1 / 2 /3) to focus on a specific panel.
+- Move line up/down (Alt + Up/Down) - this works when you select multiple lines and move the whole chunks at once.
+
+How I usually do is to learn only one shortcut in one coding session, and in that session keep remind myself to use that shorcut key whenever the needs come.
+
+## 2. Use Code Snippets to Repeat Common Code
+
+VS Code has a handy feature, [snippet](https://code.visualstudio.com/docs/editor/userdefinedsnippets) that allows you to use shortcut key for code that you commonly write.
+
+For example, I've configured the following snippet with the characters `imr`:
+
+```ts
+import * as React from 'react';
+```
+
+<Aside heading="My Personal Experience">
+
+There are VS Code extensions that comes with snippets, however I never found them useful because they include too many stuffs that I seldom use, and just making my code suggestions noisy.
+
+</Aside>
+
+## 3. Practice Touch Typing
+
+This is a somehow related to 1 (editor shortcut key), and I think it's a low hanging fruit that many newbies do not aware.
+
+Our brain has limited working memory (like RAM in your computer). If you have to think where to move your finger to type next character, you will have less brainpower to think about the code itself.
+
+Use free tool like [keybr.com](https://www.keybr.com/) to practice for at least 15 minutes a day and monitor your speed. Slowly reduce the practice time if you find yourself don't improve much anymore.
+
+## 4. Never Copy Paste Code from Stack Overflow
+
+As starter, if you really want to steal the answer, typing it out manually. Typing it out manually will forces you to inspect the code, and to really think what is it really doing.
+
+Then if you're not in rush, go beyond that answer to find other references, such as [MDN](https://developer.mozilla.org/en-US/) or GitHub issues (if it involves a library).
+
+It may seems unnecessary to find the real reasons and related information if you've already "make it work", but without knowing and understand why, (1) it may not really work but you just get lucky this time and (2) you would not be able to solve/prevent similar issue in future.
+
+---
+
+That's all for now! I'll update this if I can think of more!

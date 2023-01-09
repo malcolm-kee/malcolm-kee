@@ -1,0 +1,46 @@
+---
+// Component Imports
+import BaseHead from '../components/BaseHead.astro';
+import Layout from '../components/Layout.astro';
+import Container from '../components/Container';
+import BlogPostPreview from '../components/BlogPostPreview.astro';
+import SocialIcons from '../components/SocialIcons'
+
+let title = 'Malcolm Kee - front end engineer that loves building tools';
+let description = 'A place to write my mind.';
+
+// Data Fetching: List all Markdown posts in the repo.
+
+let allPosts = await Astro.glob('./posts/*.mdx');
+allPosts = allPosts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.pubDate).valueOf() -
+    new Date(a.frontmatter.pubDate).valueOf()
+);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body>
+    <Layout isHomePage>
+      <Container className="mt-9">
+        <div class="max-w-2xl">
+          <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">Front end engineer that loves building tools</h1>
+          <p class="mt-6 text-zinc-600">
+            I'm Malcolm, a front end engineer based in Sydney. 
+            I loves creating libraries and tools with TypeScript, React, and webpack.
+          </p>
+          <SocialIcons className="mt-6" variant="iconOnly" />
+        </div>
+      </Container>
+      <Container className="mt-24 md:mt-28">
+        <section class="flex flex-col gap-16">
+          {allPosts.map((p) => <BlogPostPreview post={p} />)}
+        </section>
+      </Container>
+    </Layout>
+  </body>
+</html>

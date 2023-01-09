@@ -5,6 +5,6 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "yarn workspace malcolm-kee-archive run build"
+    "build": "yarn workspaces run build"
   }
 }
