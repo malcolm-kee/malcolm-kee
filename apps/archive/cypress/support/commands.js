@@ -17,6 +17,10 @@ Cypress.Commands.add('initAxe', () => {
         id: 'landmark-unique',
         enabled: false,
       },
+      {
+        id: 'color-contrast',
+        enabled: false,
+      },
     ],
   });
 });

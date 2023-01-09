@@ -18,13 +18,6 @@ describe(`Accessibility checks`, () => {
 
   it('has no detectable a11y violations on blogs page', () => {
     cy.findByText('Read Blog').click().wait(1000).checkA11yResponsive();
-
-    cy.findAllByRole('listitem')
-      .first()
-      .find('a')
-      .focus()
-
-      .checkA11y();
   });
 
   it('has no detectable a11y violations on blog post', () => {

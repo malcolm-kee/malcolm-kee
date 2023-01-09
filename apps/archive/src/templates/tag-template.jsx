@@ -9,7 +9,7 @@ export default function BlogsWithTag({ data, pageContext, location }) {
   const { edges: posts, totalCount } = data.allBlogPost;
 
   return (
-    <div className="px-4 md:px-8 py-3">
+    <main className="px-4 md:px-8 py-3">
       <Seo title={`Tag - ${tag}`} pathname={location.pathname} />
       <div className="max-w-7xl mx-auto">
         <div className="text-center">
@@ -22,14 +22,19 @@ export default function BlogsWithTag({ data, pageContext, location }) {
         </div>
         <ul className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
           {posts.map(({ node: blog }) => (
-            <BlogCard blog={blog} disabledTag={tag} key={blog.id} />
+            <BlogCard
+              blog={blog}
+              disabledTag={tag}
+              headingLevel="h2"
+              key={blog.id}
+            />
           ))}
         </ul>
         <div className="py-2 my-4 px-4">
           <RoundedLinkButton to="/tags/">All Tags</RoundedLinkButton>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
