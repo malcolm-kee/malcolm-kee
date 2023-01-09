@@ -43,6 +43,14 @@ jobs:
           YOUTUBE_API_ID: ${{ secrets.YOUTUBE_API_ID }}
           YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
 
+      - name: Migration Report
+        run: yarn report
+
+      - name: Commit Migration Report if Changed
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply migration report changes
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         id: netlify-deploy
