@@ -47,7 +47,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
         id: netlify-deploy
         with:
-          publish-dir: './apps/archive/public'
+          publish-dir: './public'
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: 'Deploy from GitHub Actions'
@@ -61,5 +61,5 @@ jobs:
       - name: Run E2E Test
         uses: cypress-io/github-action@v5
         with:
-          config: baseUrl=${{ steps.netlify-deploy.outputs.deploy-url }}
+          config: baseUrl=${{ steps.netlify-deploy.outputs.deploy-url }}/archive
           project: ./apps/archive

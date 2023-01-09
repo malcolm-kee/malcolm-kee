@@ -21,6 +21,7 @@ const siteMetadata = {
  */
 module.exports = {
   siteMetadata,
+  pathPrefix: '/archive',
   plugins: [
     {
       resolve: 'gatsby-plugin-sass',
@@ -211,60 +212,6 @@ module.exports = {
             title: `Malcolm Kee's blog`,
           },
         ],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-advanced-sitemap`,
-      options: {
-        query: `{
-          allSitePage {
-            edges {
-              node {
-                id
-                slug: path
-                url: path
-              }
-            }
-          },
-          allBlogPost {
-            edges {
-              node {
-                id
-                slug
-                url: slug
-                updated_at
-              }
-            }
-          }
-          allLesson {
-            edges {
-              node {
-                id
-                slug
-                url: slug
-                updated_at
-              }
-            }
-          }
-        }`,
-        mapping: {
-          allSitePage: {
-            sitemap: `pages`,
-          },
-          allBlogPost: {
-            sitemap: `blogs`,
-          },
-          allLesson: {
-            sitemap: `lessons`,
-          },
-        },
-        exclude: [
-          `/dev-404-page`,
-          `/404`,
-          `/404.html`,
-          `/offline-plugin-app-shell-fallback`,
-        ],
-        createLinkInHead: true,
       },
     },
     `gatsby-plugin-netlify`,

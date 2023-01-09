@@ -5,6 +5,13 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "yarn workspaces run build"
+    "build": "yarn run build:sites && yarn run merge:sites",
+    "build:sites": "yarn workspaces run build",
+    "merge:sites": "node scripts/merge-output.js",
+    "preview": "serve public"
+  },
+  "devDependencies": {
+    "fs-extra": "^11.1.0",
+    "serve": "^14.1.2"
   }
 }
