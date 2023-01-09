@@ -26,11 +26,6 @@ export const Footer = ({ align }) => {
             . Last built on {lastBuild}.
           </small>
         </p>
-        <p>
-          <small>
-            <a href="/sitemap.xml">Sitemap</a>
-          </small>
-        </p>
       </div>
     </footer>
   );

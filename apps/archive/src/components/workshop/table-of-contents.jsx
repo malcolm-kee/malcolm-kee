@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { Link } from 'gatsby';
+import { Link, withPrefix } from 'gatsby';
 import * as React from 'react';
 import { useDiffEffect } from '../../hooks/use-diff-effect';
 import { useWindowEventListener } from '../../hooks/use-event-listener';
@@ -88,11 +88,11 @@ const TableOfContentsSection = ({ nodes, title, pathname }) => {
   const withSection = title !== 'null';
 
   const [isActive, setIsActive] = React.useState(() =>
-    nodes.some((node) => node.slug === pathname)
+    nodes.some((node) => withPrefix(node.slug) === pathname)
   );
   const activateRef = React.useRef(null);
   activateRef.current = function () {
-    if (!isActive && nodes.some((node) => node.slug === pathname)) {
+    if (!isActive && nodes.some((node) => withPrefix(node.slug) === pathname)) {
       setIsActive(true);
     }
   };
