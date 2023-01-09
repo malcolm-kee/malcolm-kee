@@ -8,7 +8,8 @@
     "build": "yarn run build:sites && yarn run merge:sites",
     "build:sites": "yarn workspaces run build",
     "merge:sites": "node scripts/merge-output.js",
-    "preview": "serve public"
+    "preview": "serve public",
+    "archive": "yarn workspace malcolm-kee-archive"
   },
   "devDependencies": {
     "fs-extra": "^11.1.0",
