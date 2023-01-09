@@ -9,7 +9,8 @@
     "build:sites": "yarn workspaces run build",
     "merge:sites": "node scripts/merge-output.js",
     "preview": "serve public",
-    "archive": "yarn workspace malcolm-kee-archive"
+    "archive": "yarn workspace malcolm-kee-archive",
+    "report": "node scripts/migration-progress.js"
   },
   "devDependencies": {
     "fs-extra": "^11.1.0",
