@@ -44,7 +44,7 @@ jobs:
           YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
 
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.1
+        uses: nwtgck/actions-netlify@v1.2
         id: netlify-deploy
         with:
           publish-dir: './apps/archive/public'
@@ -62,3 +62,4 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           config: baseUrl=${{ steps.netlify-deploy.outputs.deploy-url }}
+          project: ./apps/archive
