@@ -25,7 +25,7 @@ const BlogListTemplate = ({
     currentPage === numPages ? null : `/blog/${currentPage + 1}/`;
 
   return (
-    <div className="px-4 md:px-8 py-3">
+    <main className="px-4 md:px-8 py-3">
       <Seo
         title={
           isFirstPage
@@ -44,7 +44,12 @@ const BlogListTemplate = ({
         </div>
         <ul className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
           {posts.map(({ node: blog }) => (
-            <BlogCard blog={blog} key={blog.id} />
+            <BlogCard
+              blog={blog}
+              headingLevel="h2"
+              className="blog-list-item"
+              key={blog.id}
+            />
           ))}
         </ul>
         {numPages > 1 && (
@@ -74,7 +79,7 @@ const BlogListTemplate = ({
           <SubscribeRssLink />
         </nav>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -4,12 +4,20 @@
     "titleBar.activeForeground": "#1a202c"
   },
   "[markdown]": {
-    "editor.quickSuggestions": true,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 130
   },
   "[mdx]": {
-    "editor.quickSuggestions": true,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 130
   },

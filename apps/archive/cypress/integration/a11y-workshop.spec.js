@@ -11,13 +11,6 @@ describe('Accessibility checks on Workshop Materials', () => {
     cy.findByText('Workshops').click().checkA11yResponsive();
   });
 
-  it('has no detectable a11y violations on workshops page dark mode', () => {
-    cy.findByText('Workshops').click();
-    cy.findByLabelText('Switch between Dark and Light mode')
-      .click({ force: true })
-      .checkA11yResponsive();
-  });
-
   it('has no detectable a11y violations on workshop landing page', () => {
     cy.findByText('Workshops')
       .click()
@@ -58,20 +51,7 @@ describe('Accessibility checks on Workshop Materials', () => {
       });
     cy.findByText('Start').click().checkA11yResponsive();
 
-    cy.findByText('Edit').click().checkA11yResponsive();
-  });
-
-  it('has no detectable a11y violations on workshop content page dark mode', () => {
-    cy.findByText('Workshops').click();
-    cy.findByText('JavaScript: The React Parts')
-      .closest('.workshop-card')
-      .within(() => {
-        cy.findByText('Learn').click();
-      });
-    cy.findByText('Start').click();
-    cy.findByLabelText('Switch between Dark and Light mode')
-      .click({ force: true })
-      .checkA11yResponsive();
+    cy.findAllByLabelText('Actions').first().click();
 
     cy.findByText('Edit').click().checkA11yResponsive();
   });

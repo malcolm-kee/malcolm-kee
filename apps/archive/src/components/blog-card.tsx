@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link, graphql } from 'gatsby';
+import cx from 'classnames';
 
 export type BlogCardProps = {
   blog: {
@@ -10,11 +11,21 @@ export type BlogCardProps = {
     date: string;
   };
   disabledTag?: string;
+  headingLevel?: 'h2' | 'h3' | 'h4';
+  className?: string;
 };
 
-export const BlogCard = ({ blog, disabledTag }: BlogCardProps) => {
+export const BlogCard = ({
+  blog,
+  disabledTag,
+  headingLevel: Heading = 'h3',
+  className,
+}: BlogCardProps) => {
   return (
-    <li className="rounded-lg shadow-lg overflow-hidden" key={blog.slug}>
+    <li
+      className={cx('rounded-lg shadow-lg overflow-hidden', className)}
+      key={blog.slug}
+    >
       <div className="bg-white p-6 h-full flex flex-col">
         <p className="text-sm leading-5 font-medium text-primary-600 space-x-1">
           {blog.tags &&
@@ -30,9 +41,9 @@ export const BlogCard = ({ blog, disabledTag }: BlogCardProps) => {
         </p>
         <Link to={blog.slug} className="flex-1 flex flex-col">
           <div className="flex-1">
-            <h3 className="mt-2 text-xl leading-7 font-semibold text-gray-900">
+            <Heading className="mt-2 text-xl leading-7 font-semibold text-gray-900">
               {blog.title}
-            </h3>
+            </Heading>
             <p className="mt-3 text-base leading-6 text-gray-500">
               {blog.summary}
             </p>

@@ -115,6 +115,7 @@ const CodeLiveEditor = ({
                 label={<MenuIcon />}
                 className="text-gray-600 dark:text-gray-200"
                 ref={editBtnRef}
+                aria-label="Actions"
               >
                 {isEdit ? (
                   <DropdownOption onSelect={() => setIsEdit(false)}>
