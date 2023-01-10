@@ -9,14 +9,13 @@ import SocialIcons from '../components/SocialIcons'
 let title = 'Malcolm Kee - front end engineer that loves building tools';
 let description = 'A place to write my mind.';
 
-// Data Fetching: List all Markdown posts in the repo.
-
-let allPosts = await Astro.glob('./posts/*.mdx');
-allPosts = allPosts.sort(
+const allMdxPosts = await Astro.glob('./posts/*.mdx');
+const allMdPosts = await Astro.glob('./posts/*.md');
+const allPosts = allMdPosts.concat(allMdxPosts).sort(
   (a, b) =>
     new Date(b.frontmatter.pubDate).valueOf() -
     new Date(a.frontmatter.pubDate).valueOf()
-);
+).slice(0, 10);
 ---
 
 <html lang="en">

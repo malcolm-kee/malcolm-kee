@@ -1,9 +1,8 @@
 ---
 title: 'Next.js: First Impression'
-date: '2020-02-29'
-tags: ['react', 'gatsby-js']
-summary: 'Next.js is very versatile compared to GatsbyJS or Create React App. This flexibility is very appealing as you can evolves your application architecture as requirements change.'
-published: true
+pubDate: 29 Feb 2020
+description: 'Next.js is very versatile compared to GatsbyJS or Create React App. This flexibility is very appealing as you can evolves your application architecture as requirements change.'
+layout: ~/layouts/BlogPost.astro
 ---
 
 Spend few hours to go through [Next.js tutorial][tutorial], my first impression is Next.js is very versatile (compared to Gatsby and Create React App). You can use it to create an application that uses SSR throughout your site or only client site, or a combination of both.

@@ -1,7 +1,7 @@
 ---
 title: Interview as a Learning Tool
-date: '2020-03-28'
-published: true
+pubDate: 28 Mar 2020
+layout: ~/layouts/BlogPost.astro
 ---
 
 Testing is a good learning tool, compared to just reread stuff. This is because actively recall things helps to consolidate your memory better, and testing also acts as a feedback loop for you to find out the gap of your understanding.

@@ -7,10 +7,9 @@ import PageLayout from '../components/PageLayout.astro';
 const title = 'Blogs - Malcolm Kee';
 const description = 'My thoughts on technologies, books, or just any random stuffs.';
 
-// Data Fetching: List all Markdown posts in the repo.
-
-let allPosts = await Astro.glob('./posts/*.mdx');
-allPosts = allPosts.sort(
+const allMdxPosts = await Astro.glob('./posts/*.mdx');
+const allMdPosts = await Astro.glob('./posts/*.md');
+const allPosts = allMdPosts.concat(allMdxPosts).sort(
   (a, b) =>
     new Date(b.frontmatter.pubDate).valueOf() -
     new Date(a.frontmatter.pubDate).valueOf()

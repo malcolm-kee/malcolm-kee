@@ -12,6 +12,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "importsNotUsedAsValues": "preserve",
-    "types": ["astro/client"]
+    "types": ["astro/client"],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    }
   }
 }

@@ -1,16 +1,17 @@
 ---
 title: React Portal to Subtree
-date: '2020-10-29'
-tags: ['react']
-summary: 'How to render into any subtree in React'
-published: true
+pubDate: 29 Oct 2020
+description: 'How to render into any subtree in React'
+layout: ~/layouts/BlogPost.astro
 ---
+
+import layoutImg from './layout.png';
 
 ## Problem
 
 Below is a use case that I encounter recently. Imagine a standard sidebar shell UI design that look like below:
 
-![Sidebar Shell Layout](layout.png)
+<img alt="Sidebar Shell Layout" src={layoutImg} />
 
 The sidebar + the breadcrumb is the "shell" of the application, while the content is rendered by individual page.
 
