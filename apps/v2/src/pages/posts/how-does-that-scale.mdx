@@ -1,13 +1,12 @@
 ---
 title: How Does That Scale?
-date: '2020-04-15'
-summary: "A frontend developer's answer for the question."
-tags: ['full-stack-development']
-image: './bicycles.jpg'
-imageBy: 'Berto Macario'
-imageByLink: 'https://unsplash.com/@bertomacario'
-published: true
+pubDate: 15 Apr 2020
+description: "A frontend developer's answer for the question."
+layout: ~/layouts/BlogPost.astro
 ---
+
+import simpleArchImg from './simple-architecture.png';
+import simpleArchScaledImg from './simple-architecture-scaled.png';
 
 "How does that scale?" is not a common question frontend developer asks.
 
@@ -17,7 +16,9 @@ However, sometimes you need to worry about that. Maybe your backend developer is
 
 After doing some readings and going through some interviews, my understanding of that question can be translated to:
 
-<p class="text-2xl px-4 py-2 border-2 rounded">Can we increase capacity by buying more low-spec servers?</p>
+<p class="text-2xl px-4 py-2 border-2 rounded">
+  Can we increase capacity by buying more low-spec servers?
+</p>
 
 "Buying more low-space servers", also known as horizontal scaling, is the scaling of services by duplicating applications in multiple servers. It is usually cheaper than vertical scaling, which is upgrading your server's computing power. (Why cheaper? Just like mobile phones, for similar computing power, buying four 1GB-RAM Android phones is much cheaper than buying a 4GB-RAM Android phones.)
 
@@ -27,7 +28,10 @@ Stateless applications are usually easily horizontally scaleable while stateful 
 
 For example, assuming you have an e-commerce application consists of the following features:
 
-![Architecture consistsing of a web service, a database service, and a websocket service](simple-architecture.png)
+<img
+  alt="Architecture consistsing of a web service, a database service, and a websocket service"
+  src={simpleArchImg}
+/>
 
 - web service to handle API calls from clients
 - database service to persist the order status and customer information
@@ -35,7 +39,10 @@ For example, assuming you have an e-commerce application consists of the followi
 
 Of all the three services, only database is stateful, so if these 3 services are independent applications, we can easily duplicate web services and websocket services:
 
-![Architecture consistsing of web service with multiple instances, a database service, and websocket service with multiple instances](simple-architecture-scaled.png)
+<img
+  alt="Architecture consistsing of web service with multiple instances, a database service, and websocket service with multiple instances"
+  src={simpleArchScaledImg}
+/>
 
 - For this to happens, the services should be independent, this is why microservice architecture is so appealing.
 - Note that web service doesn't have to scale together with socket service. We can scale up web service while maintaining websocket service, and vice versa.

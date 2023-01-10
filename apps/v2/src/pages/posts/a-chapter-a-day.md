@@ -1,7 +1,7 @@
 ---
 title: A Chapter A Day
-date: '2020-03-26'
-published: true
+pubDate: 26 Mar 2020
+layout: ~/layouts/BlogPost.astro
 ---
 
 I always believe that learning is supposed to be a struggling process.

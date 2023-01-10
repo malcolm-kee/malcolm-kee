@@ -1,7 +1,7 @@
-const { execSync } = require('node:child_process');
-const fs = require('node:fs/promises');
-const os = require('node:os');
-const path = require('node:path');
+import { execSync } from 'node:child_process';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
 
 const root = path.resolve(__dirname, '..');
 const reportFilePath = path.resolve(root, 'migration-progress.md');
@@ -32,7 +32,7 @@ async function migrationProgress() {
 
   const currentLastLine = currentReportLines.pop();
 
-  if (currentLastLine !== getResultComment(result)) {
+  if (currentLastLine && currentLastLine !== getResultComment(result)) {
     await fs.writeFile(
       reportFilePath,
       `${currentReportLines.filter(Boolean).join(os.EOL)}${os.EOL}${
@@ -40,6 +40,8 @@ async function migrationProgress() {
       }${result}${os.EOL}${os.EOL}${getResultComment(result)}`,
       'utf-8'
     );
+  } else {
+    console.log(`No update.`);
   }
 }
 
@@ -48,11 +50,8 @@ const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
-/**
- *
- * @param {number} percent
- */
-const formatPercent = (percent) => formatter.format(percent);
+
+const formatPercent = (percent: number) => formatter.format(percent);
 
 const now = new Date();
 const getTodayDate = () =>
@@ -63,18 +62,10 @@ const getTodayDate = () =>
 const startOfComment = '<!-- Last result: ';
 const endOfComment = ' -->';
 
-/**
- *
- * @param {string} result
- */
-const getResultComment = (result) =>
+const getResultComment = (result: string) =>
   `${startOfComment}${result}${endOfComment}`;
 
-/**
- *
- * @param {string} text
- */
-const isResultComment = (text) =>
+const isResultComment = (text: string) =>
   text.startsWith(startOfComment) && text.endsWith(endOfComment);
 
 migrationProgress();

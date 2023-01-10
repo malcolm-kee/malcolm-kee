@@ -1,7 +1,7 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const assert = require('node:assert');
-const fsP = require('fs-extra');
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert';
+import fsP from 'fs-extra';
 
 const root = path.resolve(__dirname, '..');
 const mainWebsiteOutput = path.resolve(root, 'apps/v2/dist');

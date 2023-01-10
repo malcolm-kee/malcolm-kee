@@ -1,7 +1,7 @@
 ---
 title: What is Redux?
-date: '2020-04-04'
-published: false
+pubDate: 4 Apr 2020
+draft: true
 ---
 
 There are many ways to understand a programming concept.

@@ -1,12 +1,8 @@
 ---
 title: Empathize with Backend Developer
-date: '2020-01-17'
-updated_at: '2020-01-20'
-tags: ['full-stack-development']
-image: './monkey-talking.jpg'
-imageBy: 'Mihai Surdu'
-imageByLink: 'https://unsplash.com/@mihaisurdu'
-published: true
+pubDate: 17 Jan 2020
+updatedDate: 20 Jan 2020
+layout: ~/layouts/BlogPost.astro
 ---
 
 As someone that code primarily in JavaScript (with a little bit Unix scripting here and there), the ceremonies of many backend programming language seems overkill.

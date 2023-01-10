@@ -2,7 +2,7 @@
 title: Using TypeScript with Module Federation
 pubDate: 1 Jul 2022
 description: How to use TypeScript in Module Federation without overengineering
-layout: ../../layouts/BlogPost.astro
+layout: ~/layouts/BlogPost.astro
 ---
 
 import Aside from '../../components/Aside.tsx';
@@ -28,6 +28,7 @@ To understand how this approach is bad for DX, we need to look closer. Imagine a
 
 <Aside heading="Removing downtime entirely">
 
+
 To solve the problem of short downtime during deployment, in theory we could deploy multiple versions of each application, and switch them at once using runtime configuration using [`external-remotes-plugin`](https://github.com/module-federation/external-remotes-plugin).
 
 We could create a service that allows us to update the URL of each remote applications on the fly, and the consumer can fetch the data from this service during bootstrap.
@@ -37,6 +38,7 @@ I definitely did not try to do it (wink).
 Anyway, I digress. I'm sorry.
 
 </Aside>
+
 
 ## Standardizing Remotes
 
@@ -135,6 +137,8 @@ When you are developing code for feature that are fairly standardized (e.g. admi
 
 <Aside heading="Parallel in HTML/CSS">
 
+
 There is a parallel between the two approaches with the relationship between HTML and CSS. If you loves parallels in programming, you can read this article by Adam Wathan: [CSS Utility Classes and "Separation of Concerns"](https://adamwathan.me/css-utility-classes-and-separation-of-concerns/)
 
 </Aside>
+
