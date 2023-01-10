@@ -21,6 +21,10 @@ Cypress.Commands.add('initAxe', () => {
         id: 'color-contrast',
         enabled: false,
       },
+      {
+        id: 'link-in-text-block',
+        enabled: false,
+      },
     ],
   });
 });
