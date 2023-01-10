@@ -161,7 +161,7 @@ $box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
       @apply text-primary-400;
     }
     position: relative;
-    text-decoration: none;
+    text-decoration: underline;
     transition-duration: 500ms;
     transition-timing-function: ease-in-out;
     transition-property: border-bottom-color, color, transform, background-color;

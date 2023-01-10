@@ -71,4 +71,4 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           config: baseUrl=${{ steps.netlify-deploy.outputs.deploy-url }}/archive
-          project: ./apps/archive
+          project: ./e2e

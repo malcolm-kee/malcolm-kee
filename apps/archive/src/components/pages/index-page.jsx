@@ -65,11 +65,6 @@ export const IndexPage = () => (
                   Read Blog
                 </Link>
               </li>
-              <li>
-                <Link to="/today-i-learnt/" className="link-highlight animated">
-                  Today I Learnt
-                </Link>
-              </li>
             </ul>
           </LandingPageSection>
         </div>

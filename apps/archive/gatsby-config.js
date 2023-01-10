@@ -77,13 +77,6 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: path.join(__dirname, 'til'),
-        name: 'til',
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
         path: path.join(__dirname, 'src', 'data'),
         name: 'data',
       },

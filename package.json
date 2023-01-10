@@ -2,14 +2,16 @@
   "name": "malcolm-kee-workspace",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "e2e"
   ],
   "scripts": {
     "build": "yarn run build:sites && yarn run merge:sites",
-    "build:sites": "yarn workspaces run build",
+    "build:sites": "yarn v2 run build && yarn archive run build",
     "merge:sites": "node scripts/merge-output.js",
     "preview": "serve public",
     "archive": "yarn workspace malcolm-kee-archive",
+    "v2": "yarn workspace v2",
     "report": "node scripts/migration-progress.js"
   },
   "devDependencies": {
