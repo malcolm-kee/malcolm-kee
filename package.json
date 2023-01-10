@@ -2,7 +2,8 @@
   "name": "malcolm-kee-workspace",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "e2e"
   ],
   "scripts": {
     "build": "yarn run build:sites && yarn run merge:sites",

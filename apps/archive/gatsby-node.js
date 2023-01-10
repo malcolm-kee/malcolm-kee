@@ -20,11 +20,6 @@ const {
   createWorkshopPages,
   createWorkshopSchemaCustomization,
 } = require('./gatsby/workshops-build');
-const {
-  createTilNode,
-  createTilSchemaCustomization,
-  createTils,
-} = require('./gatsby/til-build');
 const { screenshot } = require('./gatsby/screenshot');
 const { setupWebpackConfigForWorker } = require('./gatsby/worker-build');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
@@ -35,7 +30,6 @@ exports.onCreateNode = async (createNodeParam) => {
       createEducationNode(createNodeParam),
       createLessonNode(createNodeParam),
       createBlogNode(createNodeParam),
-      createTilNode(createNodeParam),
       createNoteNode(createNodeParam),
     ]);
   }
@@ -44,7 +38,6 @@ exports.onCreateNode = async (createNodeParam) => {
 exports.createSchemaCustomization = ({ actions, schema }) => {
   createWorkshopSchemaCustomization({ actions, schema });
   createBlogSchemaCustomization({ actions, schema });
-  createTilSchemaCustomization({ actions, schema });
   createEduSchemaCustomization({ actions, schema });
   createNoteSchemaCustomization({ actions, schema });
 
@@ -69,7 +62,6 @@ exports.createPages = async (createPageArgs) => {
   await Promise.all([
     createBlogs(createPageArgs),
     createWorkshopPages(createPageArgs),
-    createTils(createPageArgs),
     createEduPages(createPageArgs),
     createNotePage(createPageArgs),
   ]);
@@ -114,13 +106,6 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
           }
         }
       }
-      allTil {
-        nodes {
-          title
-          date(formatString: "MMM DD, YYYY")
-          slug
-        }
-      }
       allLesson {
         nodes {
           slug
@@ -151,7 +136,6 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
     return reporter.error(result.errors);
   }
 
-  const nodes = result.data.allTil.nodes;
   const blogNodes = result.data.allBlogPost.nodes.map((node) => ({
     slug: node.slug,
     title: node.title,
@@ -170,12 +154,6 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
   }));
 
   await Promise.all([
-    screenshot(
-      { nodes, reporter },
-      {
-        template: path.resolve(__dirname, 'og-image-template', 'basic.html'),
-      }
-    ),
     screenshot(
       {
         nodes: blogNodes,
