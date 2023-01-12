@@ -98,12 +98,6 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
           title
           date(formatString: "MMM DD, YYYY")
           slug
-          previewImage {
-            image {
-              absolutePath
-              extension
-            }
-          }
         }
       }
       allLesson {
@@ -139,7 +133,6 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
   const blogNodes = result.data.allBlogPost.nodes.map((node) => ({
     slug: node.slug,
     title: node.title,
-    icon: node.previewImage.image,
   }));
   const lessonNodes = result.data.allLesson.nodes.map((node) => ({
     slug: node.slug,

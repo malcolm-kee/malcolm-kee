@@ -8,15 +8,6 @@ import SocialIcons from '../components/SocialIcons';
 let title = 'Malcolm Kee - Web developer, front end engineer';
 let description = `I'm Malcolm Kee. I live in Sydney, where I build web apps and websites.`;
 
-// Data Fetching: List all Markdown posts in the repo.
-
-let allPosts = await Astro.glob('./posts/*.mdx');
-allPosts = allPosts.sort(
-  (a, b) =>
-    new Date(b.frontmatter.pubDate).valueOf() -
-    new Date(a.frontmatter.pubDate).valueOf()
-);
-
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---

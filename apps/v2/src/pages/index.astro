@@ -9,8 +9,8 @@ import SocialIcons from '../components/SocialIcons'
 let title = 'Malcolm Kee - front end engineer that loves building tools';
 let description = 'A place to write my mind.';
 
-const allMdxPosts = await Astro.glob('./posts/*.mdx');
-const allMdPosts = await Astro.glob('./posts/*.md');
+const allMdxPosts = await Astro.glob('./blog/*.mdx');
+const allMdPosts = await Astro.glob('./blog/*.md');
 const allPosts = allMdPosts.concat(allMdxPosts).sort(
   (a, b) =>
     new Date(b.frontmatter.pubDate).valueOf() -

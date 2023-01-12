@@ -1,9 +1,8 @@
 ---
 title: 迷信
-date: '2019-11-24'
-tags: ['personal']
+pubDate: 24 Nov 2019
 lang: zh-Hans
-published: true
+layout: ~/layouts/BlogPost.astro
 ---
 
 家里都会为过世的家人的忌日拜拜。

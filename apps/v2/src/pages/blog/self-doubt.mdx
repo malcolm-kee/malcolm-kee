@@ -1,12 +1,10 @@
 ---
 title: Self Doubt
-date: '2019-10-21'
-tags: ['personal']
-image: './grey-staircase.jpg'
-imageBy: 'Boris Stefanik'
-imageByLink: 'https://unsplash.com/@bstefanik'
-published: true
+pubDate: 21 Oct 2019
+layout: ~/layouts/BlogPost.astro
 ---
+
+import chartImg from './dunning-kruger-effect.png';
 
 I have problem posting any opinion in social media.
 
@@ -22,7 +20,7 @@ Compared to how a smarter person judges himself, stupid person thinks of themsel
 
 The technical name of this human tendency is known as the Dunning-Kruger effect, and the chart look like this.
 
-![Dunning-Kruger Effect Chart](dunning-kruger-effect.png)
+<img src={chartImg} alt="Dunning-Kruger Effect Chart" />
 
 As you can see in the chart, stupid persons (the beginning of the chart rates themselves highly), while a slightly smarter person think very low of themselves, until they spend many times improve themselves until they get good, but they never rate themselves as high as the stupid one.
 

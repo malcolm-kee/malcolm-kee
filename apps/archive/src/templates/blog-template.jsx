@@ -20,17 +20,7 @@ import './blog-template.scss';
 
 export default function BlogTemplate({ data, pageContext, location }) {
   const {
-    blogPost: {
-      title,
-      date,
-      tags,
-      keywords,
-      summary,
-      lang,
-      previewImage: { image, by },
-      body,
-      slug,
-    },
+    blogPost: { title, date, tags, keywords, summary, lang, body, slug },
   } = data;
 
   const isChinese = lang.split('-')[0] === 'zh';
@@ -64,29 +54,6 @@ export default function BlogTemplate({ data, pageContext, location }) {
               </h1>
               <p>{date}</p>
             </div>
-            {image && (
-              <>
-                <div className={styles.image}>
-                  <div>
-                    <Image fluid={image.childImageSharp.fluid} alt="" />
-                  </div>
-                </div>
-                {by.name && (
-                  <p className={styles.imageAttribution}>
-                    <small>
-                      Photo by{' '}
-                      {by.url ? (
-                        <OutLink className={styles.imageAuthor} to={by.url}>
-                          {by.name}
-                        </OutLink>
-                      ) : (
-                        by.name
-                      )}
-                    </small>
-                  </p>
-                )}
-              </>
-            )}
             {summary && (
               <div className={styles.summary}>
                 <p className={styles.summaryText}>{summary}</p>
@@ -202,20 +169,6 @@ export const pageQuery = graphql`
       keywords
       summary
       lang
-      previewImage {
-        image {
-          publicURL
-          childImageSharp {
-            fluid(maxWidth: 1020) {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
-            }
-          }
-        }
-        by {
-          name
-          url
-        }
-      }
     }
   }
 `;
