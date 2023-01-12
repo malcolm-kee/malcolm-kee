@@ -1,14 +1,9 @@
 ---
 title: 'How to Become a Racist'
-date: '2019-09-29'
-summary: 'Every time you try to use race to making a us-versus-them comparison, you are introducing the risk of becoming a racist.'
-tags: ['pyschology']
-keywords: ['racist', 'malaysia']
-updated_at: '2019-09-30'
-image: './photo-malaysia.jpg'
-imageBy: 'Deva Darshan'
-imageByLink: 'https://unsplash.com/@darshan394'
-published: true
+pubDate: 29 Sep 2019
+description: 'Every time you try to use race to making a us-versus-them comparison, you are introducing the risk of becoming a racist.'
+updatedDate: 30 Sep 2019
+layout: ~/layouts/BlogPost.astro
 ---
 
 It's easy to become a racist.
@@ -53,6 +48,6 @@ Individuate, individuate, individuate (Apology for the bad English, blame the au
 
 Fight your tendency to generalize person based on race (and gender, and occupation, and age...).
 
-Just like [growth mindset](/blog/attitude-to-competency), I find that knowing the "us versus them" mindset helps me to analyze my own racism, and (hopefully) reduce it.
+Just like growth mindset, I find that knowing the "us versus them" mindset helps me to analyze my own racism, and (hopefully) reduce it.
 
 [behave]: https://www.goodreads.com/book/show/31170723-behave

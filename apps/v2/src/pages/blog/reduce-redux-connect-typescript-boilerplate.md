@@ -1,11 +1,9 @@
 ---
 title: 'Reduce redux-connect Typescript boilerplate'
-date: '2019-09-21'
-updated_at: '2020-01-26'
-tags: ['typescript', 'react', 'redux']
-keywords: ['redux', 'typescript', 'boilerplate']
-summary: 'Use Typescript ReturnType to reduce your Redux connect boilerplate'
-published: true
+pubDate: 21 Sep 2019
+updatedDate: 26 Jan 2020
+description: 'Use Typescript ReturnType to reduce your Redux connect boilerplate'
+layout: ~/layouts/BlogPost.astro
 ---
 
 When you write React Redux connected component with Typescript, if you want a make sure your `mapStatesToProps` and `mapDispatchToProps` are typed-checked, often you need to write verbose code like below:

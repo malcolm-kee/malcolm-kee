@@ -1,9 +1,8 @@
 ---
 title: '@content: SASS equivalent of React children'
-date: '2019-09-19'
-tags: ['sass']
-summary: 'Use @content to inject arbitrary content into your SASS @mixin'
-published: true
+pubDate: 19 Sep 2019
+description: 'Use @content to inject arbitrary content into your SASS @mixin'
+layout: ~/layouts/BlogPost.astro
 ---
 
 Do you know that you can use `@content` in SASS `mixin`? It works like React Children.

@@ -1,11 +1,19 @@
 ---
 title: 'Joining a Hackathon'
-date: '2019-05-05'
-tags: ['personal']
-summary: 'Personal notes on my recent experience of joining Can You Hack It hackathon.'
-published: true
-image: './can-you-hack-it.jpg'
+pubDate: 5 May 2019
+description: 'Personal notes on my recent experience of joining Can You Hack It hackathon.'
+layout: ~/layouts/BlogPost.astro
 ---
+
+import eventImg from './can-you-hack-it.jpg';
+import teamMembersImg from './team-members.jpeg';
+import codeAndSingImg from './me-coding-at-midnight-and-singing.jpeg';
+import loanFormImg from './loan-form.png';
+import bankApproval from './bank-approval.gif';
+import approvalStatus from './approval-status.gif';
+import finalPptImg from './top-10-presentation.jpeg';
+
+<img src={eventImg} alt="Can You Hack It event banner" />
 
 Last week I joined a hackathon organized by Hong Leong Bank, [Can You Hack It][can-you-hack-it].
 
@@ -25,7 +33,7 @@ Our team consists of:
 1.  Ale - works in Panasonic air-conditioner embedded system
 1.  Malcolm - that's me
 
-![Matt, Ale, and I](team-members.jpeg)
+<img src={teamMembersImg} alt="Matt, Ale, and I" />
 
 Matt registered our team name as "Overeact" (perhaps getting inspiration from Dan Abromov's blog, [Overreacted]? I never ask), but somehow in the organizer system we appears as "Ordinary". =.=
 
@@ -54,7 +62,10 @@ We spend a lot of times to brainstorm how to change our idea or how to answer th
 
 Halfway through, I was like, we wouldn't have enough time to build the prototype if we keep discussing, so I just excuse myself and let the other two guys continue the discussion. I've became the nerdy programmer that not interested in contributing to idea and only like to write code in his own world. The idea is that I will build the prototype based on the original idea, so in case we won't have better idea, at least we have something to present.
 
-![I was coding while singing, and Matt took the snap](me-coding-at-midnight-and-singing.jpeg)
+<img
+  alt="I was coding while singing, and Matt took the snap"
+  src={codeAndSingImg}
+/>
 
 In retrospect, I think I'm just avoiding the tough problem (figuring out what to build), and choose to do what's easy for me (implementing). I could of course argue that I'm doing what's best for the team, but to be honest, that was not the reason.
 
@@ -100,15 +111,24 @@ Because I'm the only one doing web development professionally in the team, so th
 
 ### The Application Form
 
-![The form that captures customer information required for loan application](loan-form.png)
+<img
+  src={loanFormImg}
+  alt="The form that captures customer information required for loan application"
+/>
 
 ### The Bank Approval Portal
 
-<img src="bank-approval.gif" alt="The portal that allow banks to review and approve/reject loan application" class="blog-gif blog-gif--narrow" />
+<img
+  src={bankApproval}
+  alt="The portal that allow banks to review and approve/reject loan application"
+/>
 
 ### Approval Status Portal
 
-<img src="approval-status.gif" alt="The portal that allow customer to review approval status and select the best loan" class="blog-gif" />
+<img
+  src={approvalStatus}
+  alt="The portal that allow customer to review approval status and select the best loan"
+/>
 
 The code are hosted in [this GitHub repository][code-repo].
 
@@ -120,7 +140,7 @@ So, did we won anything?
 
 We made it to top 10, but sadly we didn't make it to the Top 3, and I'm not bitter about it, because I think our idea are not special and not using some advanced technology e.g. AI or AR etc.
 
-![We presenting during the finalist presentation](top-10-presentation.jpeg)
+<img src={finalPptImg} alt="We presenting during the finalist presentation" />
 
 It's just that, the Top 3 winners are... as disappointing as ours. There are other top 10 finalist that I think are more promising.
 

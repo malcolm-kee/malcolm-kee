@@ -8,6 +8,6 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://malcolm-write.netlify.app',
+  site: 'https://malcolmkee.com',
   integrations: [react(), mdx(), tailwind(), partytown(), sitemap()],
 });

@@ -7,8 +7,8 @@ import PageLayout from '../components/PageLayout.astro';
 const title = 'Blogs - Malcolm Kee';
 const description = 'My thoughts on technologies, books, or just any random stuffs.';
 
-const allMdxPosts = await Astro.glob('./posts/*.mdx');
-const allMdPosts = await Astro.glob('./posts/*.md');
+const allMdxPosts = await Astro.glob('./blog/*.mdx');
+const allMdPosts = await Astro.glob('./blog/*.md');
 const allPosts = allMdPosts.concat(allMdxPosts).sort(
   (a, b) =>
     new Date(b.frontmatter.pubDate).valueOf() -
