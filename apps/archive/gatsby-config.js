@@ -63,13 +63,6 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: path.join(__dirname, 'blogs'),
-        name: 'blogs',
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
         path: path.join(__dirname, 'notes'),
         name: 'notes',
       },
@@ -86,15 +79,6 @@ module.exports = {
       options: {
         path: path.join(__dirname, 'education'),
         name: 'education',
-      },
-    },
-    {
-      resolve: `gatsby-source-npmsio`,
-      options: {
-        name: 'malcolm',
-        qualifier: {
-          author: `malcolmkee`,
-        },
       },
     },
     {
@@ -149,56 +133,6 @@ module.exports = {
       options: {
         trackingId: 'UA-53298674-1',
         anonymize: true,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-feed`,
-      options: {
-        query: `
-          {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-              }
-            }
-          }
-        `,
-        feeds: [
-          {
-            query: `
-              {
-                allBlogPost(
-                  filter: { published: { eq: true } }
-                  sort: { order: DESC, fields: [date] }
-                ) {
-                  edges {
-                    node {
-                      slug
-                      html
-                      title
-                      date(formatString: "MMM DD, YYYY")
-                      summary
-                    }
-                  }
-                }
-              }
-            `,
-            serialize: ({ query: { site, allBlogPost } }) => {
-              return allBlogPost.edges.map((edge) => {
-                return Object.assign({}, edge.node, {
-                  description: edge.node.summary,
-                  url: site.siteMetadata.siteUrl + edge.node.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.slug,
-                  custom_elements: [{ 'content:encoded': edge.node.html }],
-                });
-              });
-            },
-            output: '/rss.xml',
-            title: `Malcolm Kee's blog`,
-          },
-        ],
       },
     },
     `gatsby-plugin-netlify`,

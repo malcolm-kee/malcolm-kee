@@ -10,7 +10,17 @@ import remarkShikiTwoSlash from 'remark-shiki-twoslash';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://malcolmkee.com',
-  integrations: [react(), mdx(), tailwind(), partytown(), sitemap()],
+  integrations: [
+    react(),
+    mdx(),
+    tailwind(),
+    partytown({
+      config: {
+        forward: ['dataLayer.push'],
+      },
+    }),
+    sitemap(),
+  ],
   markdown: {
     remarkPlugins: [[remarkShikiTwoSlash.default, { theme: 'github-light' }]],
     extendDefaultPlugins: true,
