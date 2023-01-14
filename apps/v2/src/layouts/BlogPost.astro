@@ -5,24 +5,26 @@ import Layout from '../components/Layout.astro';
 import './shiki.css';
 
 const { content } = Astro.props;
-const { title, description, pubDate, author, heroImage, permalink, alt } = content;
+const { title, description, pubDate, author, heroImage, permalink, alt } =
+  content;
 ---
 
-<html lang={content.lang || 'en' }>
+<html lang={content.lang || 'en'}>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-lucario.css"
+    />
+    <BaseHead {title} {description} {permalink} date={pubDate} />
+  </head>
 
-<head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-lucario.css" />
-	<BaseHead {title} {description} {permalink} date={pubDate} />
-</head>
-
-<body>
-	<Layout>
-		<div class="wrapper">
-			<BlogPost {title} {author} {heroImage} publishDate={pubDate} {alt}>
-				<slot />
-			</BlogPost>
-		</div>
-	</Layout>
-</body>
-
+  <body>
+    <Layout>
+      <div class="wrapper">
+        <BlogPost {title} {author} {heroImage} publishDate={pubDate} {alt}>
+          <slot />
+        </BlogPost>
+      </div>
+    </Layout>
+  </body>
 </html>

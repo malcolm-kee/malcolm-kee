@@ -3,21 +3,24 @@ import Header from './Header';
 import Footer from './Footer';
 
 export interface Props {
-  isHomePage?: boolean
+  isHomePage?: boolean;
 }
 
 const { isHomePage } = Astro.props;
 const currentPath = new URL(Astro.request.url).pathname;
 ---
 
-
 <div class="fixed inset-0 flex justify-center sm:px-8">
   <div class="flex w-full max-w-7xl lg:px-8">
-    <div class="w-full bg-white ring-1 ring-zinc-100" />
+    <div class="w-full bg-white ring-1 ring-zinc-100"></div>
   </div>
 </div>
 <div class="relative">
-  <Header isHomePage={isHomePage || false} currentPath={currentPath} client:load />
+  <Header
+    isHomePage={isHomePage || false}
+    currentPath={currentPath}
+    client:load
+  />
   <main><slot /></main>
   <Footer />
 </div>

@@ -47,8 +47,10 @@ It is commonly used in React when you want to wrap some component to have additi
 Its implementation in javascript is pretty simple:
 
 ```js live
-const callAll = (...fns) => (...args) =>
-  fns.forEach((fn) => typeof fn === 'function' && fn(...args));
+const callAll =
+  (...fns) =>
+  (...args) =>
+    fns.forEach((fn) => typeof fn === 'function' && fn(...args));
 ```
 
 However, when I wanted to use that function in Typescript, I had problem providing the typings for the `fns` and `args` parameters. I had to resort to use `any`, which lose proper typechecking and intellisense for the function parameters.
@@ -56,8 +58,10 @@ However, when I wanted to use that function in Typescript, I had problem providi
 ```ts twoslash
 type CallBack = (...args: any[]) => void;
 
-const callAll = (...fns: Array<CallBack | undefined>) => (...args: any[]) =>
-  fns.forEach((fn) => typeof fn === 'function' && fn(...args));
+const callAll =
+  (...fns: Array<CallBack | undefined>) =>
+  (...args: any[]) =>
+    fns.forEach((fn) => typeof fn === 'function' && fn(...args));
 ```
 
 Recently I've do some googling (or you could say "researching"), and I find out that we could have typesafe `callAll` by utilizing [rest elements in tuple types][rest-tuple-types] that is introduced in Typescript 3.
@@ -70,10 +74,10 @@ interface CallBack<Params extends any[]> {
   (...args: Params): void;
 }
 
-const callAll = <Params extends any[]>(
-  ...fns: Array<CallBack<Params> | undefined>
-) => (...args: Params) =>
-  fns.forEach((fn) => typeof fn === 'function' && fn(...args));
+const callAll =
+  <Params extends any[]>(...fns: Array<CallBack<Params> | undefined>) =>
+  (...args: Params) =>
+    fns.forEach((fn) => typeof fn === 'function' && fn(...args));
 
 // Use cases
 const resultCb = callAll(

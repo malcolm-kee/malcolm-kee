@@ -20,7 +20,9 @@ let description = `I'm Malcolm Kee. I live in Sydney, where I build web apps and
   <body>
     <Layout>
       <Container className="mt-16 sm:mt-32">
-        <div class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+        <div
+          class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12"
+        >
           <div class="lg:pl-20">
             <div class="max-w-xs px-2.5 lg:max-w-none">
               <img
@@ -32,10 +34,20 @@ let description = `I'm Malcolm Kee. I live in Sydney, where I build web apps and
             </div>
           </div>
           <div class="lg:order-first lg:row-span-2">
-            <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">{description}</h1>
+            <h1
+              class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl"
+            >
+              {description}
+            </h1>
             <div class="mt-6 space-y-7 text-base text-zinc-600">
-              <p>A software engineer making web applications functional and accessible.</p>
-              <p>I conducted workshops to teach others on React and web development in local meetup that I co-organize.</p>
+              <p>
+                A software engineer making web applications functional and
+                accessible.
+              </p>
+              <p>
+                I conducted workshops to teach others on React and web
+                development in local meetup that I co-organize.
+              </p>
               <p>Lifelong learner and programming craftman.</p>
             </div>
           </div>
@@ -43,7 +55,7 @@ let description = `I'm Malcolm Kee. I live in Sydney, where I build web apps and
             <SocialIcons variant="iconWithText" />
           </div>
         </div>
-      </Container>      
+      </Container>
     </Layout>
   </body>
 </html>

@@ -1,29 +1,30 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import PageLayout from '../components/PageLayout.astro';
-import { projects } from '../data/projects'
-import ProjectCard from '../components/ProjectCard'
+import { projects } from '../data/projects';
+import ProjectCard from '../components/ProjectCard';
 
-const description = `I've worked on many projects over the years but these are the ones that`
-+ ` I'm most proud of. Many of them are open-source, so if you see something that interests you,`
-+ ` check out the code and contribute if you have ideas for how it can be improved.`;
+const description =
+  `I've worked on many projects over the years but these are the ones that` +
+  ` I'm most proud of. Many of them are open-source, so if you see something that interests you,` +
+  ` check out the code and contribute if you have ideas for how it can be improved.`;
 ---
 
 <html lang="en">
-    <head>
-        <BaseHead title="Projects - Malcolm Kee" description={description} />
-    </head>
+  <head>
+    <BaseHead title="Projects - Malcolm Kee" description={description} />
+  </head>
 
-    <body>
-        <PageLayout>
-            <span slot="title">Things I've made</span>
-            <span slot="description">{description}</span>
-            <ul
-          role="list"
-          class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
-        >
-            {projects.map(project => <ProjectCard project={project} />)}
-        </ul>
-        </PageLayout>
-    </body>
+  <body>
+    <PageLayout>
+      <span slot="title">Things I've made</span>
+      <span slot="description">{description}</span>
+      <ul
+        role="list"
+        class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </ul>
+    </PageLayout>
+  </body>
 </html>

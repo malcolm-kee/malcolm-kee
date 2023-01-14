@@ -21,5 +21,8 @@
     "editor.wordWrap": "bounded",
     "editor.wordWrapColumn": 130
   },
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

@@ -5,15 +5,19 @@ import BlogPostPreview from '../components/BlogPostPreview.astro';
 import PageLayout from '../components/PageLayout.astro';
 
 const title = 'Blogs - Malcolm Kee';
-const description = 'My thoughts on technologies, books, or just any random stuffs.';
+const description =
+  'My thoughts on technologies, books, or just any random stuffs.';
 
 const allMdxPosts = await Astro.glob('./blog/*.mdx');
 const allMdPosts = await Astro.glob('./blog/*.md');
-const allPosts = allMdPosts.concat(allMdxPosts).sort(
-  (a, b) =>
-    new Date(b.frontmatter.pubDate).valueOf() -
-    new Date(a.frontmatter.pubDate).valueOf()
-);
+const allPosts = allMdPosts
+  .concat(allMdxPosts)
+  .filter((post) => !post.frontmatter.preview)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  );
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
