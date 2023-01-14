@@ -1,10 +1,8 @@
 ---
 title: 'Introduction to React with Typescript'
-date: '2018-05-10'
-tags: ['react', 'typescript', 'beginner']
-summary: 'Using typescript allow static typechecking and intellisense in your React application, and it is easy to get started.'
-published: true
-updated_at: '2019-10-06'
+pubDate: 10 May 2018
+updatedDate: 6 Oct 2019
+description: 'Using typescript allow static typechecking and intellisense in your React application, and it is easy to get started.'
 ---
 
 ## Background

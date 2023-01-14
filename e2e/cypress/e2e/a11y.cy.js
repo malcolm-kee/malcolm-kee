@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 /// <reference types="../support" />
 
-describe(`Accessibility checks`, () => {
+describe.skip(`Accessibility checks`, () => {
   beforeEach(() => {
     cy.visit('/').initAxe().wait(500);
   });

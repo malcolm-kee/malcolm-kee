@@ -1,11 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const {
-  createBlogNode,
-  createBlogs,
-  createBlogSchemaCustomization,
-} = require('./gatsby/blog-build');
-const {
   createEducationNode,
   createEduPages,
   createEduSchemaCustomization,
@@ -29,7 +24,6 @@ exports.onCreateNode = async (createNodeParam) => {
     await Promise.all([
       createEducationNode(createNodeParam),
       createLessonNode(createNodeParam),
-      createBlogNode(createNodeParam),
       createNoteNode(createNodeParam),
     ]);
   }
@@ -37,30 +31,12 @@ exports.onCreateNode = async (createNodeParam) => {
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
   createWorkshopSchemaCustomization({ actions, schema });
-  createBlogSchemaCustomization({ actions, schema });
   createEduSchemaCustomization({ actions, schema });
   createNoteSchemaCustomization({ actions, schema });
-
-  const fallbackTypes = [
-    `type NpmsIoMalcolmLinks {
-      homepage: String
-    }
-
-    type NpmsIoMalcolm implements Node {
-      name: String!
-      version: String
-      description: String
-      date: Date @dateformat
-      links: NpmsIoMalcolmLinks
-    }`,
-  ];
-
-  actions.createTypes(fallbackTypes);
 };
 
 exports.createPages = async (createPageArgs) => {
   await Promise.all([
-    createBlogs(createPageArgs),
     createWorkshopPages(createPageArgs),
     createEduPages(createPageArgs),
     createNotePage(createPageArgs),
@@ -93,13 +69,6 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
 
   const result = await graphql(`
     {
-      allBlogPost {
-        nodes {
-          title
-          date(formatString: "MMM DD, YYYY")
-          slug
-        }
-      }
       allLesson {
         nodes {
           slug
@@ -130,10 +99,6 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
     return reporter.error(result.errors);
   }
 
-  const blogNodes = result.data.allBlogPost.nodes.map((node) => ({
-    slug: node.slug,
-    title: node.title,
-  }));
   const lessonNodes = result.data.allLesson.nodes.map((node) => ({
     slug: node.slug,
     title: node.title,
@@ -147,15 +112,6 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
   }));
 
   await Promise.all([
-    screenshot(
-      {
-        nodes: blogNodes,
-        reporter,
-      },
-      {
-        template: path.resolve(__dirname, 'og-image-template', 'blog.html'),
-      }
-    ),
     screenshot(
       { nodes: lessonNodes, reporter },
       {

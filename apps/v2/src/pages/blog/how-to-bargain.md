@@ -1,9 +1,8 @@
 ---
 title: 'How to bargain in marketplace like a tactful auntie'
-date: '2018-06-24'
-tags: ['social', 'bargaining', 'auntie']
-summary: 'To bargain successfully in marketplace, make abrupt concession and threaten to flip-table effectively.'
-published: true
+pubDate: 24 Jun 2018
+description: 'To bargain successfully in marketplace, make abrupt concession and threaten to flip-table effectively.'
+layout: ~/layouts/BlogPost.astro
 ---
 
 ## Bargaining in Marketplace - The Skill that Seems Only Taught in the Auntie Cult

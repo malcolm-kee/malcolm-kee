@@ -1,9 +1,8 @@
 ---
 title: 'My first Meetup'
-date: '2018-05-01'
-tags: ['meetup']
-summary: 'A journal on my first Meetup experience'
-published: true
+pubDate: 1 May 2018
+description: 'A journal on my first Meetup experience'
+layout: ~/layouts/BlogPost.astro
 ---
 
 Last week, I have hosted my first Meetup. Even though only one attendee show up, but in overall the experience is quite good.

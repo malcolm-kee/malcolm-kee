@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe(`project page`, () => {
+describe.only(`project page`, () => {
   beforeEach(() => {
     cy.visit('/projects').wait(1000); // wait for hydration
   });

@@ -1,9 +1,8 @@
 ---
 title: 'The best way is to Improve Yourself'
-date: '2018-05-07'
-tags: ['note to self']
-summary: 'Note to remind myself of my working philosophy'
-published: true
+pubDate: 7 May 2018
+description: 'Note to remind myself of my working philosophy'
+layout: ~/layouts/BlogPost.astro
 ---
 
 ## Opportunity
