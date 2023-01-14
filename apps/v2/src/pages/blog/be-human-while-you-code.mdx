@@ -1,10 +1,13 @@
 ---
 title: 'Be Human While You Code'
-date: '2019-03-19'
-tags: ['accessibility']
-summary: "Even when your colleague or boss doesn't care, write accessible code. Because you can. Because you should. Because you're human, and you care about other human too."
-published: true
+pubDate: 19 Mar 2019
+description: "Even when your colleague or boss doesn't care, write accessible code. Because you can. Because you should. Because you're human, and you care about other human too."
+layout: ~/layouts/BlogPost.astro
 ---
+
+import aHoleParkingImg from './asshole-parking.jpg';
+import mouseStickImg from './mouse-stick.jpg';
+import screenReaderImg from './screen-reader.jpg';
 
 Everytime I see disabled people on the street moving with wheelchair on their own, or blind people taking LRT themselves, usually two thoughts will come to my mind.
 
@@ -24,11 +27,11 @@ For some people that has motor skill difficulty, they may only use keyboard only
 
 For blind people, you use screen reader, which actually software that will read the website to them while they can tab through the content. It's almost similar to the keyboard-only user, but they listens instead of see, so all fancy icon and image means nothing to them.
 
-![A blind person using screen reader](screen-reader.jpg)
+<img alt="A blind person using screen reader" src={screenReaderImg} />
 
 If you can't use your hand, you would use something called mouse stick, which is actually mouse held with your mouth. Holding the stick with your mouth, while hoping the button is larger so that the stick can hit it easily, is how it goes usually.
 
-![A handicapped person using mouse stick](mouse-stick.jpg)
+<img src={mouseStickImg} alt="A handicapped person using mouse stick" />
 
 ## Are You An A\*\*hole?
 
@@ -44,7 +47,7 @@ Or your answer is, you doesn't care?
 
 Like the a\*\*hole that park on the reserved parking for disabled people?
 
-![A**hole parking at reserved parking](asshole-parking.jpg)
+<img src={aHoleParkingImg} alt="A**hole parking at reserved parking" />
 
 _(Photo from [You Park Like An Asshole](https://www.facebook.com/groups/betterMalaysia/) Facebook group)_
 

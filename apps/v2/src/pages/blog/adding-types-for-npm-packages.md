@@ -1,9 +1,8 @@
 ---
 title: 'Adding Types for npm Packages'
-date: '2019-04-01'
-tags: ['typescript']
-summary: "How to add custom types for npm packages that doesn't have declaration nor DefinitelyTyped support."
-published: true
+pubDate: 1 Apr 2019
+description: "How to add custom types for npm packages that doesn't have declaration nor DefinitelyTyped support."
+layout: ~/layouts/BlogPost.astro
 ---
 
 If you're using Typescript in your project, sooner or later you would encounter a problem: the npm packages that you've installed doesn't have declaration.
@@ -18,7 +17,7 @@ Following are the steps:
     For example, if you're creating typing for `react-router-dom`, create a file with name `react-router-dom.d.ts`. (`react-router-dom` do have DefinitelyTyped declaration, but let's assume it doesn't.)
 1.  In the file, start with the namespace declaration `declare module '<package-name>'` and add all the typings within the namespace. For example:
 
-    ```typescript
+    ```ts
     declare module 'react-router-dom' {
       import * as React from 'react';
 

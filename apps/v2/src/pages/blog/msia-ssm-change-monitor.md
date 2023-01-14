@@ -1,11 +1,8 @@
 ---
-path: '/blog/msia-ssm-change-monitor'
-date: '2018-10-24'
 title: 'Monitoring Government Website for Content Change'
-tags: ['full stack development', 'web scraping', 'GatsbyJS']
-keywords: ['GatsbyJS', 'Malaysia Companies Act', 'web scraping']
-summary: 'My experience on developing a web-scraping application that will notify subscribers for any changes of a government website'
-published: true
+pubDate: 24 Oct 2018
+description: 'My experience on developing a web-scraping application that will notify subscribers for any changes of a government website'
+layout: ~/layouts/BlogPost.astro
 ---
 
 As a software engineer, the most fulfilling parts of the job is to solve the problem that makes people's life easier.

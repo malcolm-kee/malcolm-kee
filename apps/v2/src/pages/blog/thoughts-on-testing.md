@@ -1,9 +1,8 @@
 ---
 title: 'Thoughts on Testing'
-date: '2019-04-15'
-tags: ['testing', 'javascript']
-summary: 'A list of unorganized random thoughts on automated testing'
-published: true
+pubDate: 15 Apr 2019
+description: 'A list of unorganized random thoughts on automated testing'
+layout: ~/layouts/BlogPost.astro
 ---
 
 1.  Automated test are just code with different purposes. Therefore, many principles of coding, e.g. DRY and abstraction, still applies. However, you may overdo DRY and abstraction for test, just like how it could happens when you write code.
@@ -14,7 +13,7 @@ published: true
 
 1.  What does "testing it as a black box" supposed to mean? Let's see an example:
 
-    ```javascript
+    ```js
     import _ from 'lodash';
 
     export function mapData(serverData) {
@@ -24,7 +23,7 @@ published: true
 
     Following are the tests that test it as a black-box and as a white-box. (The tests assume [Jest] as the test framework.)
 
-    ```javascript
+    ```js
     import _ from 'lodash';
     import { mapData } from './map-data';
 

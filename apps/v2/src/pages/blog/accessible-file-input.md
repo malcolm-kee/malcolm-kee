@@ -1,9 +1,8 @@
 ---
 title: 'Accessible HTML File Input'
-date: '2018-09-26'
-tags: ['HTML', 'CSS', 'accessibility']
-summary: 'By being more thoughtful, we can have a file input that is beautiful but still accessible.'
-published: true
+pubDate: 26 Sep 2018
+description: 'By being more thoughtful, we can have a file input that is beautiful but still accessible.'
+layout: ~/layouts/BlogPost.astro
 ---
 
 Disclaimer: no testing had been done via screen reader. It would be great if you can inform me if you find anything that is not accessible.

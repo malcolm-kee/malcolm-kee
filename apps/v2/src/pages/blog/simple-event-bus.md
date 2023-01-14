@@ -1,9 +1,8 @@
 ---
 title: 'Creating a Simple Event Bus'
-date: '2019-04-09'
-tags: ['javascript']
-summary: 'How to create an event bus to coordinate multiple section of your Javascript app.'
-published: true
+pubDate: 9 April 2019
+description: 'How to create an event bus to coordinate multiple section of your Javascript app.'
+layout: ~/layouts/BlogPost.astro
 ---
 
 If you're developing for a web application with frontend consists of multiple smaller apps, a common use case that you may need is to coordinate between those apps.
@@ -14,7 +13,7 @@ In fact, that's what happened to me in work recently. So instead of using anothe
 
 ## Usages
 
-```javascript
+```js
 const eventBus = createEventBus();
 // eventBus is an object with two methods: `subscribe` and `publish`.
 
@@ -82,7 +81,7 @@ Also because of closure, `unsubscribe` function has the access to `subscriber` t
 
 If the example above is too confusing, especially if closure is a new concept to you, let's see another simple example.
 
-```javascript
+```js
 function createCounter(initialCount, step) {
   let count = initialCount;
   function increment() {

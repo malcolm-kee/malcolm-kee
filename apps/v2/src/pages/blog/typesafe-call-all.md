@@ -1,9 +1,8 @@
 ---
 title: 'Type-Safe callAll'
-date: '2019-02-24'
-tags: ['typescript']
-summary: 'You can have typesafe callAll utility in Typescript 3'
-published: true
+pubDate: 24 Feb 2019
+description: 'You can have typesafe callAll utility in Typescript 3'
+layout: ~/layouts/BlogPost.astro
 ---
 
 When writing React components, one of the utility functions that I find useful and commonly use is the `callAll` function, which I learnt from [Kent C. Dodds][kentcdodds] from one of his classes.
@@ -12,7 +11,7 @@ The use of `callAll` is to wrap few functions together (some of them optional, t
 
 For example:
 
-```javascript
+```js
 function fn1(x) {
   console.log('x from fn1: ', x);
 }
@@ -54,7 +53,7 @@ const callAll = (...fns) => (...args) =>
 
 However, when I wanted to use that function in Typescript, I had problem providing the typings for the `fns` and `args` parameters. I had to resort to use `any`, which lose proper typechecking and intellisense for the function parameters.
 
-```typescript
+```ts twoslash
 type CallBack = (...args: any[]) => void;
 
 const callAll = (...fns: Array<CallBack | undefined>) => (...args: any[]) =>
@@ -65,7 +64,8 @@ Recently I've do some googling (or you could say "researching"), and I find out 
 
 The implementation:
 
-```typescript
+```ts twoslash
+// @errors: 2345
 interface CallBack<Params extends any[]> {
   (...args: Params): void;
 }
@@ -74,6 +74,16 @@ const callAll = <Params extends any[]>(
   ...fns: Array<CallBack<Params> | undefined>
 ) => (...args: Params) =>
   fns.forEach((fn) => typeof fn === 'function' && fn(...args));
+
+// Use cases
+const resultCb = callAll(
+  (inputNumber: number) => console.log(inputNumber * 3),
+  (secondInput) => console.log(secondInput / 2)
+  // ^?
+);
+
+resultCb(100); // ok
+resultCb(true); // error
 ```
 
 That's it!

@@ -1,9 +1,8 @@
 ---
 title: 'My First Tech Talk: Render Props & Higher Order Components'
-date: '2018-08-20'
-tags: ['meetup', 'talk', 'react', 'design pattern']
-summary: 'A note on my first technical talk on React. I find the act of preparing and delivering the talk satisfying.'
-published: true
+pubDate: 20 Aug 2018
+description: 'A note on my first technical talk on React. I find the act of preparing and delivering the talk satisfying.'
+layout: ~/layouts/BlogPost.astro
 ---
 
 Last Thursday (16-Aug), I had given a tech talk on React patterns in a local meetup hosted by Suria Labs.

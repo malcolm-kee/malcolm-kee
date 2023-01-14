@@ -1,11 +1,9 @@
 ---
-path: '/blog/redbean/'
-date: '2019-03-30'
 title: '红豆'
-tags: ['personal']
-summary: '小学时期种红豆的故事'
+pubDate: 30 Mar 2019
+description: '小学时期种红豆的故事'
 lang: zh-Hans
-published: true
+layout: ~/layouts/BlogPost.astro
 ---
 
 小学一年级。

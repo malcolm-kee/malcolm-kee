@@ -6,7 +6,7 @@ export interface Props {
 const { post } = Astro.props;
 ---
 
-<article>
+<article lang={post.frontmatter.lang}>
 	<header>
 		<time class="mb-3 text-sm text-zinc-400">{post.frontmatter.pubDate}</time>
 		<h2 class="text-base font-semibold tracking-tight text-zinc-800">

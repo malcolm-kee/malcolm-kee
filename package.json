@@ -1,6 +1,10 @@
 {
   "name": "malcolm-kee-workspace",
   "private": true,
+  "engines": {
+    "node": "14.x",
+    "yarn": "1.x"
+  },
   "workspaces": [
     "apps/*",
     "e2e"
