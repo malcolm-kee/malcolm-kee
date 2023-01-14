@@ -1,19 +1,35 @@
 import rss from '@astrojs/rss';
+import sanitizeHtml from 'sanitize-html';
 
-export const get = () =>
-  rss({
-    // `<title>` field in output xml
+const allMdxList = import.meta.glob('./blog/**/*.mdx', { eager: true });
+const allMdList = import.meta.glob('./blog/**/*.md', { eager: true });
+
+const posts = Object.values(allMdxList)
+  .map((post) => ({
+    ...post,
+    isMdx: true,
+  }))
+  .concat(Object.values(allMdList))
+  .filter((post) => !post.frontmatter.preview)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  );
+
+export const get = () => {
+  return rss({
     title: 'Malcolm Kee',
-    // `<description>` field in output xml
     description: 'Web developer, front end engineer',
-    // base URL for RSS <item> links
-    // SITE will use "site" from your project's astro.config.
     site: import.meta.env.SITE,
-    // list of `<item>`s in output xml
-    // simple example: generate items for every md file in /src/pages
-    // see "Generating items" section for required frontmatter and advanced use cases
-    items: import.meta.glob('./blog/**/*.mdx'),
+    items: posts.map((post) => ({
+      link: post.url,
+      title: post.frontmatter.title,
+      pubDate: post.frontmatter.pubDate,
+      description: post.frontmatter.description,
+      content: post.isMdx ? undefined : sanitizeHtml(post.compiledContent()),
+      customData: `<language>${post.frontmatter.lang || 'en-US'}</language>`,
+    })),
     stylesheet: '/rss/styles.xsl',
-    // (optional) inject custom xml
-    // customData: `<language>en-us</language>`,
   });
+};
