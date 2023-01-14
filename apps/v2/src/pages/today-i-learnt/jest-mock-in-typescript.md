@@ -19,13 +19,12 @@ jest.mock('./fs-util');
 
 If you're using `ts-jest` (which you probably already are if you write your tests in TypeScript), it provides a `mocked` helper.
 
-```ts
-import { mocked } from 'ts-jest/utils'; // highlight-line
+```ts {0,5}
+import { mocked } from 'ts-jest/utils';
 import { readFile } from './fs-util';
 
 jest.mock('./fs-util');
 
-// highlight-next-line
 mocked(readFile).mockImplementation(path => {
     ...
 });

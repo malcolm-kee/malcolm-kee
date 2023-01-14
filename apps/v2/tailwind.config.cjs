@@ -8,6 +8,15 @@ module.exports = {
       colors: {
         primary: colors.teal,
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            pre: {
+              padding: 0,
+            },
+          },
+        },
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],

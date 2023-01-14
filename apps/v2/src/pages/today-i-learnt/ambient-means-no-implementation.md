@@ -16,15 +16,21 @@ I learnt the concept of "ambient" in TypeScript from these two references. Read 
 
 Assuming you're writing a TypeScript code that depends on jquery available on global (included via `script` tag), how do you do that?
 
-```ts noWrapper
-$('.btn').toggleClass('active'); // Cannot find name '$'.
+```ts twoslash
+// @errors: 2581
+$('.btn').toggleClass('active');
 ```
 
 Use the `declare` keyword:
 
-```ts noWrapper
-declare var $: any; // highlight-line
-$('.btn').toggleClass('active'); // no more error
+```ts twoslash
+declare var $: {
+  (selector: string): {
+    toggleClass: (className: string) => void;
+  };
+};
+
+$('.btn').toggleClass('active');
 ```
 
 The `declare` keyword is known as _ambient declaration_, which means you declare the typing of a variable without implementation, and TypeScript will just assume you will somehow include that implementation yourself (via adding a `script` tag or inject via webpack, or whatever custom compiler you have).
@@ -39,13 +45,13 @@ A ES Module is just a fancy way to describe a JavaScript file that use `import` 
 
 For an example, you have the following ES Module (a file in your project):
 
-```js fileName=src/math.js
+```js title="src/math.js"
 export const sum = (a, b) => a + b;
 ```
 
 To import it in TypeScript file, TypeScript will yell at you (unless you opt out this check by setting `compilerOptions.allowJs` to `true` in `tsconfig.json`):
 
-```js fileName=src/app.ts
+```js title="src/app.ts"
 import { sum } from './math'; // TypeScript Error: no declaration bla bla bla
 
 console.log(sum(4, 5));
@@ -53,7 +59,7 @@ console.log(sum(4, 5));
 
 To fix it, create a `math.d.ts`:
 
-```ts fileName=src/math.d.ts
+```ts title="src/math.d.ts"
 export function sum(a: number, b: number): number;
 ```
 
@@ -71,7 +77,7 @@ Few possibilities:
 1. If the third-party package does not include typing, you may be able to find type definition contributed by others from [DefinitelyTyped](http://definitelytyped.org/), which publish its package under `@types` scope. For instance, `react-router-dom` does not comes with typing definition and you can install the typing with `npm install @types/react-router-dom`. By default, if TypeScript could not find typing definition in the package folder, it will try to resolve it in `node_modules/@types` folder.
 1. If unfortunately nobody contribute the typing of the package you use to DefinitelyTyped, the last resort is to declare it yourself. To do that you need to create an _ambient module declaration_. An ambient module declaration has the following format and must follow the naming `.d.ts`.
 
-   ```ts fileName=xyz.d.ts
+   ```ts title="xyz.d.ts"
    declare module 'my-utils' {
      export const a: number;
      export function doX(a: boolean): void;

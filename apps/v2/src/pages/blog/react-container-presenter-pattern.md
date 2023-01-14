@@ -50,8 +50,7 @@ A container:
 
 (Shamelessly steal and modified based on Michael Chan's [gist][gist])
 
-```jsx
-// CommentList.js - Presenter
+```jsx title="CommentList.js (Presenter)"
 import * as React from 'react';
 
 const Commentlist = ({ comments, isLoading }) => (
@@ -70,8 +69,7 @@ const Commentlist = ({ comments, isLoading }) => (
 );
 ```
 
-```jsx
-// CommentListContainer.js - Container
+```jsx title="CommentListContainer.js (Container)"
 import * as React from 'react';
 import CommentList from './CommentList';
 

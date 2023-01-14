@@ -57,12 +57,26 @@ And that's a pain-in-the-ass, as your selectors and actions are already properly
 
 Recently, I've stumble upon `ReturnType` in Typescript, and that's the solution to fix the boiletplate:
 
-```tsx
-import * as React from 'react';
+```tsx twoslash {24-26}
 import { connect } from 'react-redux';
-import { toggleTodo } from './actions';
-import { selectTodoStatus, selectTodoDescription } from './selectors';
-import { RootState } from './type';
+import type { Dispatch } from 'redux';
+
+type TodoStatus = 'not_started' | 'in_progress' | 'done';
+
+type RootState = {
+  todos: Record<string, { status: TodoStatus; description: string }>;
+};
+
+const toggleTodo = (id: string) => ({
+  type: 'toggle',
+  id,
+});
+
+const selectTodoStatus = (state: RootState, id: string) =>
+  state.todos[id].status;
+
+const selectTodoDescription = (state: RootState, id: string) =>
+  state.todos[id].description;
 
 interface ParentProps {
   id: string;
@@ -70,10 +84,9 @@ interface ParentProps {
 
 const TodoItemView = (
   props: ParentProps &
-    // highlight-start
+    // ^?
     ReturnType<typeof mapStatesToProps> &
     ReturnType<typeof mapDispatchToProps>
-  // highlight-end
 ) => {
   return <div>...</div>;
 };
@@ -83,7 +96,7 @@ const mapStatesToProps = (state: RootState, ownProps: ParentProps) => ({
   description: selectTodoDescription(state, ownProps.id),
 });
 
-const mapDispatchToProps = (dispatch: any, ownProps: ParentProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: ParentProps) => ({
   toggle: () => dispatch(toggleTodo(ownProps.id)),
 });
 
@@ -101,13 +114,26 @@ I've learnt recently that `react-redux` actually exports a `ConnectedProps` type
 
 Final version:
 
-```tsx
-import * as React from 'react';
-// highlight-next-line
+```tsx twoslash {1,24,25,39,41}
 import { connect, ConnectedProps } from 'react-redux';
-import { toggleTodo } from './actions';
-import { selectTodoStatus, selectTodoDescription } from './selectors';
-import { RootState } from './type';
+import type { Dispatch } from 'redux';
+
+type TodoStatus = 'not_started' | 'in_progress' | 'done';
+
+type RootState = {
+  todos: Record<string, { status: TodoStatus; description: string }>;
+};
+
+const toggleTodo = (id: string) => ({
+  type: 'toggle',
+  id,
+});
+
+const selectTodoStatus = (state: RootState, id: string) =>
+  state.todos[id].status;
+
+const selectTodoDescription = (state: RootState, id: string) =>
+  state.todos[id].description;
 
 interface ParentProps {
   id: string;
@@ -115,7 +141,7 @@ interface ParentProps {
 
 const TodoItemView = (
   props: ParentProps &
-    // highlight-next-line
+    // ^?
     ConnectedProps<typeof connector>
 ) => {
   return <div>...</div>;
@@ -126,11 +152,11 @@ const mapStatesToProps = (state: RootState, ownProps: ParentProps) => ({
   description: selectTodoDescription(state, ownProps.id),
 });
 
-const mapDispatchToProps = (dispatch: any, ownProps: ParentProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: ParentProps) => ({
   toggle: () => dispatch(toggleTodo(ownProps.id)),
 });
 
-const connector = connect(mapStatesToProps, mapDispatchToProps); // highlight-line
+const connector = connect(mapStatesToProps, mapDispatchToProps);
 
-export const TodoItem = connector(TodoItemView); // highlight-line
+export const TodoItem = connector(TodoItemView);
 ```
