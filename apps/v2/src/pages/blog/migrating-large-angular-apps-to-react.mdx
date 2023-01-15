@@ -14,11 +14,37 @@ In this post, I would like to share my previous experience driving migration of 
 
 ## Why Migrate to React
 
-## Migration Strategies
+The tech stack used by the company was based on modern and popular technologies, and in general were maintained for few years when I joined the company. On frontend, two frontend frameworks were used: Angular (2 web apps) & React (1 web app).
+
+At the same time, the company had the ambition to add many features in next future, therefore code reuse and developer experience are highly valuable to ensure we can achieve the ambition. One of the key technical strategies was to build a design system to be used across all applications in order to shorten design and development time. However, using two frontend frameworks means we have to create two versions of the design system, which is not a good use of efforts.
+
+Although there is only one web application using React at that time, but based on discussions with the engineers in the company, most engineers prefer React as they can work more productively with it. Given that I personally also has more experiences and expertise in React, I proposed to migrate all frameworks to Angular, which were approved by the engineering leader.
+
+At first glance, this may sound like making decision based on popularity and personal preference. But if we give it more thoughts, presuming that both Angular & React are scalable frontend frameworks, choosing the framework that the engineers have more experiences and expertise is **the right technical decision** because engineers spend less time learning the frameworks, and easier to get support if someone encounters a bug.
+
+## Migration Approach
+
+After discussion, we use different approach to migrate the two Angular applications: rewrite from scratch and incremental migration.
 
 ### Small App: Rewrite & Launch
 
+One of the Angular app is relatively smaller with only about 5 CRUD screens. After communicating upfront, I rewrote the application in a long weekend with a giant PR the next monday.
+
+Pros:
+
+- bring impact fast
+- minimal management and coordination overhead
+- fun, felt like my personal hackathon
+
+Cons:
+
+- not possible with large application
+
 ### Large App: Incremental Migration
+
+For the large Angular app, we applies the incremental approaches.
+
+The reason for not using the same rewrite approach is that given the amount of code,
 
 ## But, I Failed to Make It Happen
 
