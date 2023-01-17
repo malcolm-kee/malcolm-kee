@@ -6,29 +6,29 @@ layout: ~/layouts/BlogPost.astro
 preview: true
 ---
 
-There are tons of articles with click-baity title like "Framework Battle" available today, as choosing frontend frameworks is an unsolved question that frontend engineers will face when evaluating their current projects.
+There are tons of articles with click-baity titles like "Framework Battle" available today, as choosing frontend frameworks is an unsolved question that frontend engineers will face when evaluating their current projects.
 
-However, there are not much being discussed about how to do the migration when you decided that you want to migrate to another framework.
+However, there is not much being discussed about how to do the migration when you decided that you want to migrate to another framework.
 
-In this post, I would like to share my previous experience driving migration of large Angular applications to React, and some of the lessons learnt that I think can be applies to many migration projects. Spoiler alert: I failed.
+In this post, I would like to share my previous experience driving migration of large Angular applications to React, and some of the lessons learnt that (in my opinion) are applicable to migration projects in general.
 
 ## Why Migrate to React
 
-The tech stack used by the company was based on modern and popular technologies, and in general were maintained for few years when I joined the company. On frontend, two frontend frameworks were used: Angular (2 web apps) & React (1 web app).
+The tech stack used by the company was based on modern and popular technologies, and in general were maintained for a few years when I joined the company. On frontend, two frontend frameworks were used: Angular (2 web apps) & React (1 web app).
 
-At the same time, the company had the ambition to add many features in next future, therefore code reuse and developer experience are highly valuable to ensure we can achieve the ambition. One of the key technical strategies was to build a design system to be used across all applications in order to shorten design and development time. However, using two frontend frameworks means we have to create two versions of the design system, which is not a good use of efforts.
+At the same time, the company had the ambition to add many features in next future, therefore code reuse and developer experience are highly valuable to ensure we can achieve the ambition. One of the key technical strategies was to build a design system to be used across all applications in order to shorten design and development time. However, using two frontend frameworks means we have to create two versions of the design system, which is not a good use of effort.
 
-Although there is only one web application using React at that time, but based on discussions with the engineers in the company, most engineers prefer React as they can work more productively with it. Given that I personally also has more experiences and expertise in React, I proposed to migrate all frameworks to Angular, which were approved by the engineering leader.
+Although there was only one web application using React at that time, based on discussions with the engineers in the company, most engineers prefer React as they can work more productively with it. Given that I personally also have more experiences and expertise in React, I proposed to migrate all frameworks to Angular, which were approved by the engineering leader.
 
-At first glance, this may sound like making decision based on popularity and personal preference. But if we give it more thoughts, presuming that both Angular & React are scalable frontend frameworks, choosing the framework that the engineers have more experiences and expertise is **the right technical decision** because engineers spend less time learning the frameworks, and easier to get support if someone encounters a bug.
+At first glance, this may sound like making decisions based on popularity and personal preference. But if we give it more thoughts, assuming that both Angular & React are scalable frontend frameworks, I would argue that **choosing the framework that the engineers have more experiences and expertise is making the right decision** because engineers spend less time learning the frameworks, easier to get support if someone encounters a bug, and evaluate candidates more accurately when hiring.
 
-## Migration Approach
+## The Migration
 
 After discussion, we use different approach to migrate the two Angular applications: rewrite from scratch and incremental migration.
 
 ### Small App: Rewrite & Launch
 
-One of the Angular app is relatively smaller with only about 5 CRUD screens. After communicating upfront, I rewrote the application in a long weekend with a giant PR the next monday.
+One of the Angular app is relatively smaller with only about 5 CRUD screens. With some upfront communications, I rewrote the application in a long weekend with a giant PR the next monday.
 
 Pros:
 
@@ -42,10 +42,92 @@ Cons:
 
 ### Large App: Incremental Migration
 
-For the large Angular app, we applies the incremental approaches.
+For the large Angular app, we went with an incremental approach.
 
-The reason for not using the same rewrite approach is that given the amount of code,
+We did not use the rewrite approach for this app because given the amount of code in the project, rewriting from scratch means we have to pause development for the application, which would block ongoing development & launching of features.
 
-## But, I Failed to Make It Happen
+The plan is to :
 
-## Looking Back and Lessons Learnt
+1. Migrate one route at a time by mounting a React component in a Angular component (see code snippet below). Cypress tests are usually created during this step to test against page in legacy Angular implementation and then against the page re-implemented with React. 
+2. All new features in the application must be written with this React in Angular approach.
+3. Once most pages are migrated, a final rewrite of the routing with the root component from Angular to React.
+
+```tsx
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
+// 1. Reimplement function in React
+const MyReactComponent = (props: {id: string}) => {
+    return (<div>
+        {/* implementation */}
+    </div>);
+};
+
+@Component({
+  // 2. Render an empty div in Angular component
+  template: '<div #container></div>',
+})
+export class MyAngularComponent implements AfterViewInit, OnDestroy {
+    // 3. Get access to the empty div that is rendered by Angular
+    @ViewChild('container', { static: false })
+    wrapper: ElementRef<HTMLDivElement>;
+
+    constructor(private route: ActivatedRoute) {}
+
+    ngAfterViewInit() {
+        this.render();
+    }
+
+    ngOnDestroy() {
+        ReactDOM.unmountComponentAtNode(this.wrapper.nativeElement);
+    }
+
+    render() {
+        if (this.wrapper && this.wrapper.nativeElement) {
+            // 4. Mount the react component onto the empty div rendered by Angular
+            ReactDOM.render(
+                <MyReactComponent id={this.route.snapshot.paramMap.get('id')} />,
+                this.wrapper.nativeElement
+            );
+        }
+    }
+}
+```
+
+### Results
+
+Unfortunately, the migration of the large Angular app was not done until the day I left the company. 
+
+Although we achieved the goal of reusing a single implementation of the design system in all web applications, the application is left with the ugly state of using two frontend frameworks.
+
+Since the application is only used internally, the large bundle size may not have direct business impact, however, from engineering perspective it is still a tech debt to solve due to: 
+
+- adding a new route still requires adding an Angular component
+- the overhead of upgrading dependencies
+
+## Lessons Learnt and Possible Alternatives
+
+Looking back, although I'm still proud of what I've accomplished in the migration, sometimes I still wonder what I could have done differently so that the migration can be done.
+
+Things that I'm happy with:
+
+1. Went with rewriting the smaller app and completing it in a short time.
+2. Came up with the incremental migration approach to achieve business goals fast.
+
+Following are some things that I wish I can do differently:
+
+1. Realize that the migration has achieved most of its goal from the business perspective (code reuse and UI consistency), and therefore requires more push and attention from engineering (i.e. me as the owner of the project).
+2. "React in Angular" may not be the best approach because new features still require some bootstrap code with Angular. Instead, an alternative approach is to [build the Angular app with base href](https://angular.io/api/common/APP_BASE_HREF) value (say `/legacy/`) and then mount React in the root (`/`). With this approach, new feature no longer need to touch any Angular code anymore.
+3. Invest in automated progress tracking. Automated progress tracking is important as it provides instant feedback to whoever works on the migration. This is somehow related to the item 2 above, the "React in Angular" approach makes the migration tracking challenging as legacy code in Angular and new code in React are interleaved together. If we went with the base href approach, progress tracking can be simply counting the number of files of Angular code.
+
+## Conclusion
+
+Although Angular and React are both mature frontend frameworks that are scalable, sometimes it is valuable to migrate from one to another in order to consolidate tech stack. For relatively small projects, rewrite from scratch is usually the preferred approach as it has the least overhead. For larger projects, incremental migration is probably the only option without impacting business operation, however, extra care should be given to avoid the migration from stalling.
