@@ -12,9 +12,9 @@ const {
   date,
 } = Astro.props;
 
-const ogImage = `https://malcolm-writes-og-image.vercel.app/${title}.png${
-  date && `?date=${date}`
-}`;
+const ogImage = `https://malcolm-kee-og.vercel.app/api/og?title=${encodeURIComponent(
+  title
+)}${date && `&date=${encodeURIComponent(date)}`}`;
 ---
 
 <!-- Global Metadata -->
