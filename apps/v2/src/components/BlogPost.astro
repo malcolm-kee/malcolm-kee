@@ -2,8 +2,8 @@
 export interface Props {
   title: string;
   publishDate: string;
-  heroImage: string;
-  alt: string;
+  heroImage?: string | undefined;
+  alt?: string | undefined;
 }
 
 const { title, publishDate, heroImage, alt } = Astro.props;
