@@ -50,6 +50,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Apply migration report changes
+          file_pattern: ./migration-progress.md
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
