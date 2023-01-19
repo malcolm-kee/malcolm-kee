@@ -16,6 +16,11 @@ pre {
   overflow-x: auto;
   position: relative;
 }
+
+figure pre.shiki {
+  margin: 0;
+}
+
 pre.shiki {
   --code-color: theme(colors.gray.400);
   border-color: var(--code-color);
