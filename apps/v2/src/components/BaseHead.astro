@@ -3,20 +3,22 @@ export interface Props {
   title?: string | undefined;
   description?: string | undefined;
   permalink?: string;
-  date?: string;
   contentType?: 'website' | 'article';
+  publishedDate: Date | undefined;
+  updatedDate?: Date | undefined;
 }
 const {
   title = 'Malcolm Kee',
   description,
   permalink = 'https://malcolmkee.com/',
-  date,
   contentType = 'website',
+  publishedDate,
+  updatedDate,
 } = Astro.props;
 
 const ogImage = `https://malcolm-kee-og.vercel.app/api/og?title=${encodeURIComponent(
   title
-)}${date && `&date=${encodeURIComponent(date)}`}`;
+)}`;
 ---
 
 <!-- Global Metadata -->
@@ -35,6 +37,22 @@ const ogImage = `https://malcolm-kee-og.vercel.app/api/og?title=${encodeURICompo
 <meta property="og:title" content={title} />
 {description && <meta property="og:description" content={description} />}
 <meta property="og:image" content={ogImage} />
+{
+  publishedDate && (
+    <meta
+      property="article:published_time"
+      content={publishedDate.toISOString()}
+    />
+  )
+}
+{
+  updatedDate && (
+    <meta
+      property="article:modified_time"
+      content={updatedDate.toISOString()}
+    />
+  )
+}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -42,6 +60,7 @@ const ogImage = `https://malcolm-kee-og.vercel.app/api/og?title=${encodeURICompo
 <meta property="twitter:title" content={title} />
 {description && <meta property="twitter:description" content={description} />}
 <meta property="twitter:image" content={ogImage} />
+<meta property="twitter:creator" content="@Malcolm_Kee" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com" />

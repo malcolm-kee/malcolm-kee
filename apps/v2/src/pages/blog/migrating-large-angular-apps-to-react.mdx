@@ -1,6 +1,7 @@
 ---
 title: Migrating Large Angular Apps to React
 pubDate: 20 Jan 2023
+updatedDate: 21 Jan 2023
 description: 'My experience migrating production angular applications to React and lessons learnt in the process'
 layout: ~/layouts/BlogPost.astro
 ---
@@ -9,13 +10,13 @@ import Aside from '~/components/Aside.tsx';
 import Figure from '~/components/Figure.tsx';
 import angularToReactImg from './angular-to-react.png';
 
-In this post, I would like to share my past experience migration large Angular applications to React, and some of the lessons learnt that (in my opinion) are applicable to migration projects in general.
+In this post, I would like to share my past experience migrating large Angular applications to React, and some of the lessons learnt that (in my opinion) are applicable to migration projects in general.
 
 ## Background
 
 When I joined the company, the tech stack of the company was based on modern technologies and was maintained for a few years. On frontend, two frontend frameworks were used: Angular (2 web apps) & React (1 web app).
 
-At the same time, the company had the ambition to add many features in next future, therefore code reuse and developer experience are highly valuable to ensure we can achieve the ambition. One of the key technical strategies was to build a design system to be used across all applications in order to shorten design and development time. However, using two frontend frameworks means we have to create two versions of the design system, which is not a good use of effort.
+At the same time, the company had the ambition to add many features in next future, therefore code reuse and developer experience are highly valuable to ensure we can achieve the ambition. One strategy to achieve that was to build a design system to be used across all applications, in order to shorten design and development time. However, using two frontend frameworks means we have to create two versions of the design system, which is not a good use of effort.
 
 Although there was only one web application using React at that time, based on discussions with the engineers in the company, most engineers prefer React as they can work more productively with it. Given that I personally also have more experiences and expertise in React, I proposed to migrate all frameworks to Angular, which were approved by the engineering leader, and that's how it get started.
 

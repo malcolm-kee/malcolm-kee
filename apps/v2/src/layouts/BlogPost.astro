@@ -10,6 +10,7 @@ type Props = MarkdownLayoutProps<{
   title: string;
   description?: string;
   pubDate: string;
+  updatedDate?: string;
   heroImage?: string;
   alt?: string;
   lang?: string;
@@ -20,6 +21,7 @@ const {
   title,
   description,
   pubDate,
+  updatedDate,
   heroImage,
   alt,
   lang = 'en',
@@ -37,7 +39,8 @@ const permalink = new URL(url!, Astro.site).toString();
     <BaseHead
       title={title}
       description={description}
-      date={pubDate}
+      publishedDate={new Date(pubDate)}
+      updatedDate={updatedDate ? new Date(updatedDate) : undefined}
       contentType="article"
       permalink={permalink}
     />
