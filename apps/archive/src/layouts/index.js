@@ -10,7 +10,6 @@ import { Ul } from '../components/ul';
 import { Aside } from '../components/workshop/aside';
 import { Exercise } from '../components/workshop/exercise';
 import { Layout } from './default-layout';
-import { EduLayout } from './edu-layout';
 import { LayoutContext } from './layout-context';
 import { WorkshopLayout } from './workshop-layout';
 
@@ -36,7 +35,6 @@ const LayoutContainer = ({ children, pageContext, location }) => {
 
   const LayoutByType = {
     standard: Layout,
-    edu: EduLayout,
     workshop: WorkshopLayout,
     none: Fragment,
   };

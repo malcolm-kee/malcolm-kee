@@ -1,11 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const {
-  createEducationNode,
-  createEduPages,
-  createEduSchemaCustomization,
-} = require('./gatsby/education-build');
-const {
   createNoteNode,
   createNoteSchemaCustomization,
   createNotePage,
@@ -22,7 +17,6 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 exports.onCreateNode = async (createNodeParam) => {
   if (createNodeParam.node.internal.type === 'Mdx') {
     await Promise.all([
-      createEducationNode(createNodeParam),
       createLessonNode(createNodeParam),
       createNoteNode(createNodeParam),
     ]);
@@ -31,14 +25,12 @@ exports.onCreateNode = async (createNodeParam) => {
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
   createWorkshopSchemaCustomization({ actions, schema });
-  createEduSchemaCustomization({ actions, schema });
   createNoteSchemaCustomization({ actions, schema });
 };
 
 exports.createPages = async (createPageArgs) => {
   await Promise.all([
     createWorkshopPages(createPageArgs),
-    createEduPages(createPageArgs),
     createNotePage(createPageArgs),
   ]);
 };
