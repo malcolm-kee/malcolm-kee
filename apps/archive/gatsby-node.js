@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const {
   createNoteNode,
   createNoteSchemaCustomization,
@@ -10,7 +8,6 @@ const {
   createWorkshopPages,
   createWorkshopSchemaCustomization,
 } = require('./gatsby/workshops-build');
-const { screenshot } = require('./gatsby/screenshot');
 const { setupWebpackConfigForWorker } = require('./gatsby/worker-build');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
@@ -54,69 +51,4 @@ exports.onCreateWebpackConfig = (args, options) => {
     ],
   });
   setupWebpackConfigForWorker(args, options);
-};
-
-exports.onPostBuild = async ({ graphql, reporter }) => {
-  reporter.info(`Start generating social media preview images`);
-
-  const result = await graphql(`
-    {
-      allLesson {
-        nodes {
-          slug
-          title
-          workshop {
-            name
-            iconFile {
-              absolutePath
-              extension
-            }
-          }
-        }
-      }
-      workshops: allWorkshopsYaml {
-        nodes {
-          id
-          title: name
-          icon: iconFile {
-            absolutePath
-            extension
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    return reporter.error(result.errors);
-  }
-
-  const lessonNodes = result.data.allLesson.nodes.map((node) => ({
-    slug: node.slug,
-    title: node.title,
-    subtitle: node.workshop.name,
-    icon: node.workshop.iconFile,
-  }));
-  const workshops = result.data.workshops.nodes.map((node) => ({
-    slug: `/${node.id}`,
-    title: node.title,
-    icon: node.icon,
-  }));
-
-  await Promise.all([
-    screenshot(
-      { nodes: lessonNodes, reporter },
-      {
-        template: path.resolve(__dirname, 'og-image-template', 'workshop.html'),
-      }
-    ),
-    screenshot(
-      { nodes: workshops, reporter },
-      {
-        template: path.resolve(__dirname, 'og-image-template', 'workshop.html'),
-      }
-    ),
-  ]);
-
-  reporter.info(`Done generating social media preview images`);
 };

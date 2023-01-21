@@ -32,7 +32,7 @@ const ogImage = `https://malcolm-kee-og.vercel.app/api/og?title=${encodeURICompo
     : ''
 }${
   articleType
-    ? `&type=${encodeURIComponent(
+    ? `&heading=${encodeURIComponent(
         { blog: 'BLOG', til: 'Today I Learnt' }[articleType]
       )}`
     : ''

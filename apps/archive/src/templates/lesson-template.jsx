@@ -10,17 +10,28 @@ import { ReportIssueLink } from '../components/report-issue-link';
 import { Seo } from '../components/Seo';
 import { ShareButton } from '../components/share-button';
 import { useLayout } from '../layouts/layout-context';
-import { removeTrailingSlash } from '../lib/util';
 import styles from './lesson-template.module.scss';
 import './lesson-template.scss';
 
 const LessonTemplate = ({
   data: { lesson },
-  pageContext: { next, commentsSearch },
+  pageContext: { next },
   location,
 }) => {
   const isJsEnabled = useIsJsEnabled();
   useLayout('workshop');
+
+  const seoImageUrl = React.useMemo(
+    () =>
+      `https://malcolm-kee-og.vercel.app/api/og?title=${
+        lesson.title
+      }&bgImage=${encodeURIComponent(
+        lesson.workshop.iconUrl
+      )}&borderColor=${normalizeColor(
+        lesson.workshop.themeColor
+      )}&heading=${encodeURI(lesson.workshop.name)}`,
+    [lesson]
+  );
 
   return (
     <ErrorBoundary>
@@ -29,7 +40,7 @@ const LessonTemplate = ({
           title={`${lesson.title} - ${lesson.workshop.name}`}
           description={lesson.description}
           keywords={lesson.keywords}
-          image={`/og_image${removeTrailingSlash(location.pathname)}.png`}
+          image={seoImageUrl}
           icon={lesson.workshop.iconFile.childImageSharp.resize.src}
           pathname={location.pathname}
         />
@@ -133,6 +144,13 @@ const rightArrow = (
   />
 );
 
+/**
+ *
+ * @param {string} color : ;
+ */
+const normalizeColor = (color) =>
+  color && color.startsWith('#') ? color.slice(1) : color;
+
 export default LessonTemplate;
 
 export const pageQuery = graphql`
@@ -146,6 +164,8 @@ export const pageQuery = graphql`
       keywords
       workshop {
         name
+        iconUrl
+        themeColor
         iconFile {
           childImageSharp {
             resize(width: 16, height: 16) {

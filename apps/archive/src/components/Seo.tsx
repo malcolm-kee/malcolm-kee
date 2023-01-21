@@ -73,9 +73,7 @@ export const Seo = ({
       />
       <meta property="og:title" content={displayTitle} />
       <meta property="og:description" content={displayDescription} />
-      {image && (
-        <meta property="og:image" content={siteMetadata.siteUrl + image} />
-      )}
+      {image && <meta property="og:image" content={image} />}
       {type === 'article' && (
         <meta property="article:author" content={siteMetadata.author} />
       )}
@@ -87,9 +85,7 @@ export const Seo = ({
       <meta name="twitter:creator" content={siteMetadata.social.twitter} />
       <meta name="twitter:title" content={displayTitle} />
       <meta name="twitter:description" content={displayDescription} />
-      {image && (
-        <meta name="twitter:image" content={siteMetadata.siteUrl + image} />
-      )}
+      {image && <meta name="twitter:image" content={image} />}
     </Helmet>
   );
 };

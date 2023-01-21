@@ -8,6 +8,7 @@
     - jquery
     - beginner
   iconFile: '../assets/jquery.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311081/malcolm-kee/jquery_wagqka.png'
   underConstruction: true
   themeColor: '#0769ad'
 - name: 'State Management with Redux'
@@ -20,6 +21,7 @@
     - react redux
   themeColor: '#764abc'
   iconFile: '../assets/redux.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311131/malcolm-kee/redux_ardppz.png'
   underConstruction: true
 - name: 'Testing React Applications'
   id: react-testing
@@ -30,6 +32,7 @@
     - testing
   themeColor: '#F2C94C'
   iconFile: '../assets/react-test.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311128/malcolm-kee/react-test_g3guac.png'
   underConstruction: true
 - name: 'TypeScript for React Developer'
   id: typescript-for-react-developer
@@ -40,6 +43,7 @@
     - typescript
   themeColor: '#294E80'
   iconFile: '../assets/react-typescript.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311145/malcolm-kee/react-typescript_ielgk1.png'
 - name: Create a Fast Site with GatsbyJS
   id: fast-site-with-gatsby-js
   url: '/fast-site-with-gatsby-js/'
@@ -50,6 +54,7 @@
     - gatsbyjs
   themeColor: '#663399'
   iconFile: '../assets/gatsbyjs.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1622711092/malcolm-kee/gatsbyjs_qsfhia.png'
 - name: 'JavaScript: The React Parts'
   id: js-the-react-parts
   url: '/js-the-react-parts/'
@@ -61,6 +66,7 @@
     - es6
   themeColor: '#f7df1e'
   iconFile: '../assets/js-the-react-parts.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311160/malcolm-kee/js-the-react-parts_qihbu8.png'
 - name: Introduction to Web Development
   id: intro-to-web-dev
   url: 'https://intro-to-web-dev.netlify.com/'
@@ -72,6 +78,7 @@
     - javascript
   themeColor: '#e54c25'
   iconFile: '../assets/html5.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311238/malcolm-kee/html5_joa56a.png'
 - name: Creating Project React Component Library
   id: react-component-lib
   url: 'https://react-component-lib.netlify.com/'
@@ -82,6 +89,7 @@
     - best practices
   themeColor: '#D2CC4E'
   iconFile: '../assets/react-palettes.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311244/malcolm-kee/react-palettes_fkq9yu.png'
 - name: Web Developer Toolbox
   id: web-developer-toolbox
   url: '/web-developer-toolbox/'
@@ -94,6 +102,7 @@
     - developer productivity
   themeColor: '#b71c1c'
   iconFile: '../assets/toolbox.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311261/malcolm-kee/toolbox_ptngdy.png'
 - name: 'Introduction to React v2'
   id: intro-to-react-js-v2
   url: '/intro-to-react-js-v2/'
@@ -103,6 +112,7 @@
     - react hooks
   themeColor: '#61dafb'
   iconFile: '../assets/react-logo.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311270/malcolm-kee/react-logo_zwerwg.png'
 - name: Introduction to React
   id: intro-to-react-js
   url: '/intro-to-react-js/'
@@ -112,3 +122,4 @@
     - javascript tooling
   themeColor: '#61dafb'
   iconFile: '../assets/react-logo.png'
+  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311270/malcolm-kee/react-logo_zwerwg.png'
