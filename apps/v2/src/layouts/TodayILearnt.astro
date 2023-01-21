@@ -1,27 +1,57 @@
 ---
+import { MarkdownLayoutProps } from 'astro';
 import BaseHead from '../components/BaseHead.astro';
 import BlogPost from '../components/BlogPost.astro';
 import Container from '../components/Container';
 import Layout from '../components/Layout.astro';
 import './shiki.css';
 
-const { content } = Astro.props;
-const { title, description, pubDate, author, heroImage, permalink, alt } =
-  content;
+type Props = MarkdownLayoutProps<{
+  title: string;
+  description?: string;
+  pubDate: string;
+  updatedDate?: string;
+  heroImage?: string;
+  alt?: string;
+  lang?: string;
+}>;
+
+const { url, frontmatter } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  heroImage,
+  alt,
+  lang = 'en',
+} = frontmatter;
+
+const permalink = new URL(url!, Astro.site).toString();
 ---
 
-<html lang={content.lang || 'en'}>
+<html lang={lang}>
   <head>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-lucario.css"
     />
-    <BaseHead {title} {description} {permalink} date={pubDate} />
+    <BaseHead
+      title={title}
+      description={description}
+      permalink={permalink}
+      publishedDate={pubDate ? new Date(pubDate) : undefined}
+      articleType="til"
+    />
   </head>
   <body>
     <Layout>
       <Container>
-        <BlogPost {title} {author} {heroImage} publishDate={pubDate} {alt}>
+        <BlogPost
+          title={title}
+          heroImage={heroImage}
+          publishDate={pubDate}
+          alt={alt}
+        >
           <slot />
         </BlogPost>
       </Container>

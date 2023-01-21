@@ -6,6 +6,7 @@ export interface Props {
   contentType?: 'website' | 'article';
   publishedDate: Date | undefined;
   updatedDate?: Date | undefined;
+  articleType?: 'blog' | 'til' | undefined;
 }
 const {
   title = 'Malcolm Kee',
@@ -14,11 +15,28 @@ const {
   contentType = 'website',
   publishedDate,
   updatedDate,
+  articleType,
 } = Astro.props;
+
+const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
 
 const ogImage = `https://malcolm-kee-og.vercel.app/api/og?title=${encodeURIComponent(
   title
-)}`;
+)}${
+  publishedDate
+    ? `&date=${encodeURIComponent(dateFormatter.format(publishedDate))}`
+    : ''
+}${
+  articleType
+    ? `&type=${encodeURIComponent(
+        { blog: 'BLOG', til: 'Today I Learnt' }[articleType]
+      )}`
+    : ''
+}`;
 ---
 
 <!-- Global Metadata -->
