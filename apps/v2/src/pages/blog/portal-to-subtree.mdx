@@ -5,6 +5,7 @@ description: 'How to render into any subtree in React'
 layout: ~/layouts/BlogPost.astro
 ---
 
+import LiveEditor from '~/components/LiveEditor.astro';
 import layoutImg from './layout.png';
 
 ## Problem
@@ -79,7 +80,13 @@ That will solve our problem above to render into breadcrumb from the page!
 
 The solution will be this:
 
-```jsx live noInline
+<LiveEditor>
+
+```jsx
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+
 // custom hook to force React to rerender, hook version of `forceUpdate` of class component
 function useForceUpdate() {
   const [, dispatch] = React.useState(Object.create(null));
@@ -191,8 +198,10 @@ const App = () => {
   );
 };
 
-render(<App />);
+createRoot(document.getElementById('root')).render(<App />);
 ```
+
+</LiveEditor>
 
 [react-portal]: https://reactjs.org/docs/portals.html
 [react-context]: https://reactjs.org/docs/context.html

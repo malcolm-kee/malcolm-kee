@@ -1,0 +1,60 @@
+---
+import { LiveEditor } from './LiveEditor';
+---
+
+<div class="relative pt-3" data-live-editor>
+  <div
+    class="absolute top-0 inset-x-0 flex justify-between items-center px-2 py-1 rounded-t bg-gray-100"
+  >
+    <span class="text-sm" data-editor-mode></span>
+    <button
+      type="button"
+      class="w-20 text-sm px-4 py-1 bg-white text-primary-500 border border-primary-500 rounded"
+      data-edit-button>Edit</button
+    >
+  </div>
+  <div data-editor-code>
+    <slot />
+  </div>
+  <div class="hidden mt-6" data-editor>
+    <LiveEditor client:load>
+      <slot />
+    </LiveEditor>
+  </div>
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('[data-edit-button]');
+
+  buttons.forEach((button) => {
+    let isShowingEditor = false;
+
+    button.addEventListener('click', (ev) => {
+      const editorSection =
+        ev.target &&
+        (ev.target as HTMLButtonElement).closest('[data-live-editor]');
+
+      if (editorSection) {
+        const $code = editorSection.querySelector('[data-editor-code]');
+        const $editor = editorSection.querySelector('[data-editor]');
+        const $mode = editorSection.querySelector('[data-editor-mode]');
+
+        if ($code && $editor && $mode) {
+          isShowingEditor = !isShowingEditor;
+
+          if (isShowingEditor) {
+            button.textContent = 'Cancel';
+            $mode.textContent = 'Editing';
+            $code.classList.add('hidden');
+            $editor.classList.remove('hidden');
+          } else {
+            button.textContent = 'Edit';
+            $mode.textContent = null;
+            $editor.classList.add('hidden');
+            $code.classList.remove('hidden');
+          }
+        }
+      }
+    });
+  });
+</script>

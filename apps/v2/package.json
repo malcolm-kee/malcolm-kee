@@ -23,8 +23,8 @@
     "prettier": "^2.8.3",
     "prettier-plugin-astro": "^0.7.2",
     "react": "^18.0.0",
-    "react-redux": "^8.0.5",
     "react-dom": "^18.0.0",
+    "react-redux": "^8.0.5",
     "redux": "^4.2.0",
     "remark-shiki-twoslash": "^3.1.0",
     "sanitize-html": "^2.8.1",
@@ -32,6 +32,8 @@
   },
   "dependencies": {
     "@astrojs/rss": "^2.0.0",
+    "@codesandbox/sandpack-react": "^1.20.4",
+    "@codesandbox/sandpack-themes": "^1.19.0",
     "@headlessui/react": "^1.7.7",
     "clsx": "^1.2.1",
     "preact": "^10.11.3"
