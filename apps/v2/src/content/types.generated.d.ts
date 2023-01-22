@@ -241,6 +241,34 @@ declare module 'astro:content' {
   collection: "workshop",
   data: InferEntrySchema<"workshop">
 },
+"web-developer-toolbox/01-intro/introduction.mdx": {
+  id: "web-developer-toolbox/01-intro/introduction.mdx",
+  slug: "web-developer-toolbox/01-intro/introduction",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"web-developer-toolbox/02-vs-code/visual-studio-code.mdx": {
+  id: "web-developer-toolbox/02-vs-code/visual-studio-code.mdx",
+  slug: "web-developer-toolbox/02-vs-code/visual-studio-code",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"web-developer-toolbox/03-git/git.mdx": {
+  id: "web-developer-toolbox/03-git/git.mdx",
+  slug: "web-developer-toolbox/03-git/git",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"web-developer-toolbox/04-chrome-devtools/chrome-devtools.mdx": {
+  id: "web-developer-toolbox/04-chrome-devtools/chrome-devtools.mdx",
+  slug: "web-developer-toolbox/04-chrome-devtools/chrome-devtools",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
 },
 
 	};

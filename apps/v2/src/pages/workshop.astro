@@ -2,13 +2,11 @@
 import { getCollection } from 'astro:content';
 import BaseHead from '~/components/BaseHead.astro';
 import PageLayout from '~/components/PageLayout.astro';
-import { groupWorkshopLessons } from '~/data/workshop-helpers';
+import { getWorkshops } from '~/data/workshop-helpers';
 
 const description = `Free training materials that I've created`;
 
-const workshopMap = groupWorkshopLessons(await getCollection('workshop'));
-
-const workshops = Array.from(workshopMap.entries());
+const workshops = getWorkshops(await getCollection('workshop'));
 ---
 
 <html lang="en">
@@ -23,9 +21,9 @@ const workshops = Array.from(workshopMap.entries());
         class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
       >
         {
-          workshops.map(([, { entryUrl, workshop }]) => (
+          workshops.map(({ entryUrl, workshop }) => (
             <li>
-              <a href={`/${entryUrl}`} class="block">
+              <a href={entryUrl} class="block">
                 <div class="flex items-center justify-center rounded-full shadow-md ring-1 ring-zinc-900/5 h-12 w-12">
                   <img src={workshop.iconUrl} alt="" class="h-8 w-8" />
                 </div>

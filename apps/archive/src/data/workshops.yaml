@@ -67,39 +67,3 @@
   themeColor: '#f7df1e'
   iconFile: '../assets/js-the-react-parts.png'
   iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311160/malcolm-kee/js-the-react-parts_qihbu8.png'
-- name: Introduction to Web Development
-  id: intro-to-web-dev
-  url: 'https://intro-to-web-dev.netlify.com/'
-  description: 'A full-day workshop that teach you how to create website contents with HTML, style them with CSS, and make them interactive with Javascript. Its primary target students are beginner with zero experience in programming.'
-  keywords:
-    - web development for beginners
-    - html
-    - css
-    - javascript
-  themeColor: '#e54c25'
-  iconFile: '../assets/html5.png'
-  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311238/malcolm-kee/html5_joa56a.png'
-- name: Creating Project React Component Library
-  id: react-component-lib
-  url: 'https://react-component-lib.netlify.com/'
-  description: 'Learn the common practices of writing React components and React hooks.'
-  keywords:
-    - react components
-    - styleguidist
-    - best practices
-  themeColor: '#D2CC4E'
-  iconFile: '../assets/react-palettes.png'
-  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311244/malcolm-kee/react-palettes_fkq9yu.png'
-- name: Web Developer Toolbox
-  id: web-developer-toolbox
-  url: '/web-developer-toolbox/'
-  description: 'Learn the tools that will make you productive as a Web Developer'
-  keywords:
-    - emmet
-    - vs code
-    - chrome devtools
-    - git
-    - developer productivity
-  themeColor: '#b71c1c'
-  iconFile: '../assets/toolbox.png'
-  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311261/malcolm-kee/toolbox_ptngdy.png'

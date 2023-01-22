@@ -7,7 +7,7 @@ export interface ExerciseProps {
 
 export default function Exercise({ title, children }: ExerciseProps) {
   return (
-    <section className="my-3">
+    <section className="my-3 -mx-1 md:-mx-3">
       {title && (
         <div className="inline-flex relative not-prose px-7">
           <div className="absolute left-0 w-7 inset-y-0">
@@ -21,7 +21,7 @@ export default function Exercise({ title, children }: ExerciseProps) {
           </h3>
         </div>
       )}
-      <div className="bg-gray-100 py-1 rounded-b-lg rounded-tr-lg px-1">
+      <div className="bg-gray-100 py-1 rounded-b-lg rounded-tr-lg px-2 sm:px-4">
         {children}
       </div>
     </section>

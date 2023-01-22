@@ -3,7 +3,7 @@ title: 'Git'
 description: 'Understand Git and workflow when using GitHub'
 ---
 
-![Git Logo](git-logo.png)
+![Git Logo](https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1674396155/malcolm-kee/git-logo_pxdedt.png)
 
 ## Version Control System
 
@@ -79,7 +79,7 @@ Git has three main states that your files can reside in: _committed_, _modified_
 
 The diagram below illustrated the 3 states:
 
-![The three states of file in git](file-states-in-git.png)
+![The three states of file in git](https://res.cloudinary.com/djzsjzasg/image/upload/v1674396155/malcolm-kee/file-states-in-git_kmdj2z.png)
 
 The basic workflow goes something like this:
 
@@ -126,35 +126,35 @@ To create a new branch
 git branch testing
 ```
 
-![Two branches](two-branches.png)
+![Two branches](https://res.cloudinary.com/djzsjzasg/image/upload/v1674396159/malcolm-kee/two-branches_cqpnwi.png)
 
 However, we're still at `master` branch.
 
-![HEAD pointing to master](head-to-master.png)
+![HEAD pointing to master](https://res.cloudinary.com/djzsjzasg/image/upload/v1674396159/malcolm-kee/head-to-master_lhidew.png)
 
 To switch to the new branch
 
 ```bash
-git checkout testing
+git switch testing
 ```
 
-![HEAD pointing to testing](head-to-testing.png)
+![HEAD pointing to testing](https://res.cloudinary.com/djzsjzasg/image/upload/v1674396159/malcolm-kee/head-to-testing_cqikn6.png)
 
 Let's modify something and do another commit.
 
-![testing branch is now ahead of master branch](testing-branch-ahead.png)
+![testing branch is now ahead of master branch](https://res.cloudinary.com/djzsjzasg/image/upload/v1674396159/malcolm-kee/testing-branch-ahead_i5mbqj.png)
 
 Switch back to `master` branch
 
 ```bash
-git checkout master
+git switch master
 ```
 
-![switch back to master branch](checkout-master.png)
+![switch back to master branch](https://res.cloudinary.com/djzsjzasg/image/upload/v1674396155/malcolm-kee/checkout-master_bonpis.png)
 
 When you make another commit on master
 
-![master and testing branches diverge now](advance-master.png)
+![master and testing branches diverge now](https://res.cloudinary.com/djzsjzasg/image/upload/v1674396155/malcolm-kee/advance-master_nmtlmk.png)
 
 You can merge changes of `testing` branch into `master` with:
 
