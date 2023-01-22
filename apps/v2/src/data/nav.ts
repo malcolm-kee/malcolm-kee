@@ -19,4 +19,8 @@ export const navItems = [
     label: 'Notes',
     href: '/note',
   },
+  {
+    label: 'Workshops',
+    href: '/workshop',
+  },
 ] as const;

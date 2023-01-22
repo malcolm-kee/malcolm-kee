@@ -6,4 +6,11 @@ export const collections = {
       title: z.string(),
     },
   }),
+  workshop: defineCollection({
+    schema: {
+      title: z.string(),
+      description: z.string().optional(),
+      section: z.string().optional(),
+    },
+  }),
 };

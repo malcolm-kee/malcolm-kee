@@ -103,23 +103,3 @@
   themeColor: '#b71c1c'
   iconFile: '../assets/toolbox.png'
   iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311261/malcolm-kee/toolbox_ptngdy.png'
-- name: 'Introduction to React v2'
-  id: intro-to-react-js-v2
-  url: '/intro-to-react-js-v2/'
-  description: 'An introduction to React (version 2) - up and running with React by learning React core API (including Hooks!) and common how-to e.g. making ajax calls, writing tests, and code splitting.'
-  keywords:
-    - react for beginners
-    - react hooks
-  themeColor: '#61dafb'
-  iconFile: '../assets/react-logo.png'
-  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311270/malcolm-kee/react-logo_zwerwg.png'
-- name: Introduction to React
-  id: intro-to-react-js
-  url: '/intro-to-react-js/'
-  description: 'A complete introduction to React - up and running with React by learning tooling that improves your development workflow, React core API, and common how-to e.g. making ajax calls, writing tests, and code splitting.'
-  keywords:
-    - react for beginners
-    - javascript tooling
-  themeColor: '#61dafb'
-  iconFile: '../assets/react-logo.png'
-  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311270/malcolm-kee/react-logo_zwerwg.png'

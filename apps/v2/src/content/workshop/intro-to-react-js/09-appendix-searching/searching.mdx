@@ -1,0 +1,204 @@
+---
+title: Appendix - Searching
+description: 'Learn how to implements search function in React'
+---
+
+import Exercise from '~/components/Exercise';
+
+This section will only be covered if we have additional time during the workshop.
+
+## Implementing Search for Movie List
+
+Our current movie list will displays all movies. It would be nice if our user can filter the result by searching with key words. Let's implement that.
+
+### Prerequisite: API Service for Search
+
+First of all, filtering result is usually done via backend as frontend application usually doesn't have all the data (if it is, it would be very slow to use your application).
+
+Luckily, our current movies API supports search. Open a new browser tab with the following [URL](https://react-intro-movies.herokuapp.com/movies?q=aqua) and you would see only Aquaman is in the movie list:
+
+```
+https://react-intro-movies.herokuapp.com/movies?q=aqua
+```
+
+The end part of the URL (`q=aqua`) is how we search the list. Providing different value (e.g. `q=bumble`) would returns you different results.
+
+### Passing Extra Parameter in Ajax Call
+
+Update `loadMovies` function in `api.js` to accept a `searchKey` parameters:
+
+```js
+export const loadMovies = (searchKey) =>
+  axios('https://react-intro-movies.herokuapp.com/movies', {
+    params: { q: searchKey },
+  }).then((res) => res.data);
+```
+
+- axios accept a second parameter to customize the ajax call. `params` is an object that will be transformed to query string and append to the end of the ajax call.
+
+Update `app.js`:
+
+```jsx
+...
+const loadCodeAndMovies = searchKey =>
+  import(/* webpackChunkName: "api" */ './api').then(({ loadMovies }) =>
+    loadMovies(searchKey)
+  );
+
+class App extends React.Component {
+    ...
+    componentDidMount() {
+        this.updateMovieList();
+    }
+
+    updateMovieList = searchKey =>
+        loadCodeAndMovies(searchKey).then(movies =>
+            this.setState({
+                movies,
+                isLoading: false
+            }));
+
+    ...
+}
+```
+
+- `loadCodeAndMovies` accepts `searchKey` parameter now, which will be passed to `loadMovies` call.
+- the code to load the ajax call is refactored out from `componentDidMount` into separate method `updateMovieList`.
+
+### Add an Input to Capture Search Key
+
+Now we need to add an input to our App to capture searchKey.
+
+```jsx
+...
+class App extends React.Component {
+    state = {
+        showMovies: false,
+        isLoading: true,
+        movies: [],
+        searchTerm: ''
+    };
+    ...
+    handleSearchTermChange = ev =>
+        this.setState(
+            {
+                searchTerm: ev.target.value
+            },
+            () => {
+                this.setState({ isLoading: true });
+                this.updateMovieList(this.state.searchTerm);
+            }
+        );
+    ...
+    render() {
+        return (
+            <div>
+                ...
+                    {this.state.showMovies && (
+                        <React.Suspense fallback={<span>Loading Component...</span>}>
+                            <div className="field">
+                                <input
+                                    value={this.state.searchTerm}
+                                    onChange={this.handleSearchTermChange}
+                                    className="input"
+                                    placeholder="Search for movie..."
+                                />
+                            </div>
+                            <BusyContainer isLoading={this.state.isLoading}>
+                                {this.state.movies.map(movie => (
+                                    <Movie
+                                        name={movie.name}
+                                        releaseDate={movie.releaseDate}
+                                        key={movie.id}
+                                    />
+                                ))}
+                            </BusyContainer>
+                        </React.Suspense>
+                    )}
+                ...
+            </div>
+        );
+    }
+}
+```
+
+- `searchTerm` is added to the state with initial value of `''`.
+- `handleSearchTermChange` method is declared. It takes the input change event as its parameter, and set `searchTerm` value by extracting the input value via `ev.target.value`. Once the setState is called, `updateMovieList` method will be called with the latest `searchTerm`.
+- `input` is rendered with `value` and `onChange` set accordingly.
+
+Now we can filter our movie list by typing in the text input.
+
+<Exercise>
+
+1. Make the changes required to allow user to search movies.
+1. Verify that the movies is updated when you type to the input field.
+
+Commit: [`160-search-movie`](https://github.com/malcolm-kee/react-movie-app/tree/160-search-movie)
+
+</Exercise>
+
+### Debounce Ajax Call
+
+Our current code works, but it is unoptimal because we make an AJAX call for every keystroke. We need to "hold on" while user type, and only make the AJAX call after user stop typing.
+
+To do that, we need to use a common Javascript helper function, debounce. Let's add `debounce` function to our `lib.js`:
+
+```js title="src/lib.js"
+...
+export function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    const later = function() {
+      timeout = null;
+      func.apply(context, args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+```
+
+- In its essence, `debounce` allows you to wrap a function to limits the rate at which the function can be called. It achieve this by waiting for a buffer time before calling the function. If the function is invoke again before the buffer time finish, it will cancel the previous call and restart the buffer again.
+- `debounce` is available in most utility libraries such as [`lodash`][lodash] and [`underscore`][underscore]. However it is overkill to include a library just for a single function, and this simple implementation is sufficient for our use case.
+
+Let's use `debounce` in our `App`:
+
+```jsx
+...
+import { debounce } from './lib';
+...
+
+class App extends React.Component {
+    ...
+    handleSearchTermChange = ev => {
+        this.setState(
+        {
+            searchTerm: ev.target.value
+        },
+        () => {
+            this.setState({ isLoading: true });
+            this.debouncedUpdateMovieList(this.state.searchTerm);
+        }
+        );
+    };
+    ...
+    debouncedUpdateMovieList = debounce(this.updateMovieList, 200);
+    ...
+}
+```
+
+- we create a debounced version of `updateMovieList` by wrapping it with `debounce` with a wait time of 200ms.
+- in `handleSearchTermChange`, we use `debouncedUpdateMovieList` so that the AJAX call will not be invoked if user type again within 200ms. You can adjust the wait time depends on your preference, just be aware that this would impact user experience.
+
+<Exercise>
+
+1. Include `debounce` in your code and use it in your `App`.
+1. Verify that the API calls will only be called after you stop typing.
+
+Commit: [`170-debounce-search`](https://github.com/malcolm-kee/react-movie-app/tree/170-debounce-search)
+
+</Exercise>
+
+[lodash]: https://lodash.com/
+[underscore]: https://underscorejs.org/

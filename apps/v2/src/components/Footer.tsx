@@ -12,7 +12,7 @@ export default function Footer(): React.ReactElement {
         <div className="border-t border-zinc-100 pt-10 pb-16">
           <Container.Inner>
             <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
-              <div className="flex gap-6 text-sm font-medium text-zinc-800">
+              <div className="flex gap-6 text-sm font-medium text-zinc-800 flex-wrap">
                 {navItems.map((item) => (
                   <a
                     href={item.href}

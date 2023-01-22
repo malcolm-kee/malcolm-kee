@@ -8,6 +8,9 @@ module.exports = {
       colors: {
         primary: colors.teal,
       },
+      width: {
+        'square-diagonal': `${(Math.sqrt(2) * 100).toFixed(2)}%`,
+      },
       typography: {
         DEFAULT: {
           css: {

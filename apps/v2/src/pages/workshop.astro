@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '~/components/BaseHead.astro';
+import PageLayout from '~/components/PageLayout.astro';
+import { groupWorkshopLessons } from '~/data/workshop-helpers';
+
+const description = `Free training materials that I've created`;
+
+const workshopMap = groupWorkshopLessons(await getCollection('workshop'));
+
+const workshops = Array.from(workshopMap.entries());
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Workshops - Malcolm Kee" description={description} />
+  </head>
+  <body>
+    <PageLayout>
+      <span slot="title">Programming workshops</span>
+      <span slot="description">{description}</span>
+      <ul
+        class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {
+          workshops.map(([, { entryUrl, workshop }]) => (
+            <li>
+              <a href={`/${entryUrl}`} class="block">
+                <div class="flex items-center justify-center rounded-full shadow-md ring-1 ring-zinc-900/5 h-12 w-12">
+                  <img src={workshop.iconUrl} alt="" class="h-8 w-8" />
+                </div>
+                <h2 class="mt-6">{workshop.name}</h2>
+                <p class="mt-2 text-sm text-zinc-600">{workshop.description}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </PageLayout>
+  </body>
+</html>

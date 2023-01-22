@@ -1,0 +1,149 @@
+---
+title: React Tooling Part 1
+description: 'Getting to know NodeJS, npm, prettier, ESLint and their role in development with React.'
+---
+
+import Exercise from '~/components/Exercise';
+
+Now we will deep dive into tooling around tooling around React and modern frontend development in general.
+
+## [NodeJS]
+
+![Node JS logo](https://res.cloudinary.com/djzsjzasg/image/upload/v1674369782/malcolm-kee/node-js_geexnz.png)
+
+[Download Page](https://nodejs.org/en/download/)
+
+NodeJS is a Javascript runtime. It enables you to run javascript outside browser, in your laptop and server. NodeJS is the main reason that makes Javascript so popular today, as it makes Javascript the single programming language that can supports from the frontend UI to the backend services like web server and database.
+
+Technically, React does not need NodeJS (which I have demonstrated in previous section). However, NodeJS is important to React because it is the environment that enables the tooling that React depends heavily e.g. package management, bundling, transpiling, formating, and linting.
+
+## [npm]
+
+![npm logo](https://res.cloudinary.com/djzsjzasg/image/upload/v1674369782/malcolm-kee/npm_orfrpv.png)
+
+- npm is the package manager for NodeJS.
+- It hosts packages for NodeJS and all the packages for front-end. npm has a command-line tool, called `npm` as well. The command-line tool is prepackaged together with NodeJS so you usually download them together.
+- `npm` allows you to install code from npm registry which are the open-source projects that you can use in your project. When you run `npm install react`, it will download the latest version of React in npm registry to your project. (Don't do this yet)
+
+### Creating a project with npm
+
+In order to start an npm project, run `npm init` at the root of your project folder. It will ask you a few questions. If you don't know the answer or don't care, just hit Enter, you can always update it later by editing `package.json` file.
+
+<aside>
+
+Install NodeJS if you haven't. In your command line, run `node -v` and `npm -v` to ensure they are installed correctly.
+
+</aside>
+
+<Exercise title="Exercise">
+
+1. create a new folder and call it `react-movie-app`
+1. open the `react-movie-app` folder
+1. In your command line, enter `npm init` and answer the questions. A file with name `package.json` should be generated in the folder. You can open it with your editor - it is a JSON file that captures what you've answered, thus you can edit this file as you wish.
+1. move the `index.html` file into the `react-movie-app` folder
+1. create a file alongside the html file and call it `script.js`
+1. cut and paste our code within `script` tag into `script.js`
+1. remove the `script` tag in our html file and replace it with
+   ```html
+   <script src="script.js"></script>
+   ```
+1. open the `index.html` file with browser and ensure it still works.
+
+Commit: [`010-initial-project`](https://github.com/malcolm-kee/react-movie-app/tree/010-init-project)
+
+</Exercise>
+
+## [prettier]
+
+![prettier banner](https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1674369783/malcolm-kee/prettier-banner-dark_tph8dj.png)
+
+Prettier is an opinionated code formatter that removes worries about the style of your code. It will takes your code and reformat it based on predefined styles. Since you no longer has control of the style of your code, your code is always consistent, as is the code from the rest of your team.
+
+To use prettier to format your code, run the following command `npx prettier --write script.js`. Prettier will format code of `script.js`. Try to modify `script.js` and make it look ugly and run `npx prettier --write script.js` again - prettier will make the code back to its format.
+
+Prettier is great to use with VS code, download this [extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
+## npm scripts
+
+It can be painful to remember CLI commands to run for your project. npm allows you to define common commands that you run for your project and list it in `package.json`, so you don't need to remember it.
+
+Let's configure npm scripts for the prettier formatting above:
+
+1. Install prettier in your project by running `npm install -D prettier`. The `-D` flag implies prettier will be installed as `devDependencies`.
+1. Let's customize prettier by adding a `.prettierrc` file with the following content:
+   ```json
+   {
+     "singleQuote": true
+   }
+   ```
+1. Add the `format` script in your `package.json`:
+   ```json
+   {
+       "name": "react-movie-app",
+       ...
+       "scripts": {
+           "format": "prettier --write script.js"
+       }
+   }
+   ```
+
+Now you can invoke prettier by running `npm run format`.
+
+<Exercise title="Exercise">
+
+1. Install prettier and configure format script based on the instruction above.
+1. (Optional) Configure prettier plugin if you're using VS code.
+
+Commit: [`020-prettier`](https://github.com/malcolm-kee/react-movie-app/tree/020-prettier)
+
+</Exercise>
+
+## [ESLint]
+
+![ESLint logo](https://res.cloudinary.com/djzsjzasg/image/upload/v1674369782/malcolm-kee/eslint-logo_jihlfx.png)
+
+- ESLint is a linter that enforce some code styles that more to usage than to code styles, e.g. never use `with` or never has unused parameters in your function.
+- To use ESLint in your project:
+  1. install the packages as devDependencies:
+     ```bash
+       npm install -D eslint eslint-config-prettier
+     ```
+  1. create a file and call it `.eslintrc` with the following content:
+     ```json
+     {
+       "extends": ["eslint:recommended", "prettier", "prettier/react"],
+       "plugins": [],
+       "parserOptions": {
+         "ecmaVersion": 2016,
+         "sourceType": "module",
+         "ecmaFeatures": {
+           "jsx": true
+         }
+       },
+       "env": {
+         "es6": true,
+         "browser": true,
+         "node": true
+       }
+     }
+     ```
+  1. Add the following to npm scripts:
+  ```json
+  "lint": "eslint **/*.{js,jsx} --quiet"
+  ```
+- Now when you run `npm run lint`, eslint will output some error messages. For now just ignore the error, we will fix it later.
+- Similar to prettier, ESLint is great integration with VS Code as well. Download this [extensions](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
+
+<Exercise title="Exercise">
+
+1. Install ESLint and configure lint script based on the instruction above.
+1. (Optional) Configure ESLint plugin if you're using VS code.
+
+Commit: [`021-eslint`](https://github.com/malcolm-kee/react-movie-app/tree/021-eslint)
+
+</Exercise>
+
+[nodejs]: https://nodejs.org/en/
+[npm]: https://www.npmjs.com/
+[prettier]: https://prettier.io/
+[eslint]: https://eslint.org/

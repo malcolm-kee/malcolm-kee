@@ -1,4 +1,6 @@
 ---
+import { getOgImageUrl } from '~/lib/og-image';
+
 export interface Props {
   title?: string | undefined;
   description?: string | undefined;
@@ -7,6 +9,9 @@ export interface Props {
   publishedDate?: Date | undefined;
   updatedDate?: Date | undefined;
   articleType?: 'blog' | 'til' | 'note' | undefined;
+  ogHeading?: string | undefined;
+  ogBgImage?: string | undefined;
+  ogBorderColor?: string | undefined;
 }
 const {
   title = 'Malcolm Kee',
@@ -16,27 +21,20 @@ const {
   publishedDate,
   updatedDate,
   articleType,
+  ogHeading = articleType
+    ? { blog: 'BLOG', til: 'Today I Learnt', note: 'Note' }[articleType]
+    : undefined,
+  ogBgImage,
+  ogBorderColor,
 } = Astro.props;
 
-const dateFormatter = new Intl.DateTimeFormat('en-GB', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
+const ogImage = getOgImageUrl({
+  title,
+  publishedDate,
+  heading: ogHeading,
+  bgImage: ogBgImage,
+  borderColor: ogBorderColor,
 });
-
-const ogImage = `https://malcolm-kee-og.vercel.app/api/og?title=${encodeURIComponent(
-  title
-)}${
-  publishedDate
-    ? `&date=${encodeURIComponent(dateFormatter.format(publishedDate))}`
-    : ''
-}${
-  articleType
-    ? `&heading=${encodeURIComponent(
-        { blog: 'BLOG', til: 'Today I Learnt', note: 'Note' }[articleType]
-      )}`
-    : ''
-}`;
 ---
 
 <!-- Global Metadata -->

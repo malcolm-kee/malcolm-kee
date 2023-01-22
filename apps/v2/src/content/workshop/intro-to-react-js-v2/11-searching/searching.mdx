@@ -1,0 +1,208 @@
+---
+title: Searching
+description: 'Learn how to implements search function in React'
+section: 'extra'
+---
+
+import Exercise from '~/components/Exercise';
+
+This section will only be covered if we have additional time during the workshop.
+
+## Implementing Search for Movie List
+
+Our current movie list will displays all movies. It would be nice if our user can filter the result by searching with key words. Let's implement that.
+
+### Prerequisite: API Service for Search
+
+First of all, filtering result is usually done via backend as frontend application usually doesn't have all the data (if it is, it would be very slow to use your application).
+
+Luckily, our current movies API supports search. Open a new browser tab with the following [URL](https://react-intro-movies.herokuapp.com/movies?q=aqua) and you would see only Aquaman is in the movie list:
+
+```
+https://react-intro-movies.herokuapp.com/movies?q=aqua
+```
+
+The end part of the URL (`q=aqua`) is how we search the list. Providing different value (e.g. `q=bumble`) would returns you different results.
+
+### Passing Extra Parameter in Ajax Call
+
+Update `loadMovies` function in `api.js` to accept a `searchKey` parameters:
+
+```js {0,4}
+export const loadMovies = (searchKey) =>
+  getAxios()
+    .then((axios) =>
+      axios.default('https://react-intro-movies.herokuapp.com/movies', {
+        params: { q: searchKey },
+      })
+    )
+    .then((res) => res.data);
+```
+
+- axios accept a second parameter to customize the ajax call. `params` is an object that will be transformed to query string and append to the end of the ajax call.
+
+Update `useMovieData` hook in `app.js`:
+
+```js {3,5}
+...
+function useMovieData() {
+    ...
+    const loadMoviesData = searchKey => {
+        setIsLoading(true);
+        loadMovies(searchKey).then(movieData => {
+            setMovies(movieData);
+            setIsLoading(false);
+        });
+    };
+}
+```
+
+- `loadMoviesData` accepts `searchKey` parameter now, which will be passed to `loadMovies` call.
+
+### Add an Input to Capture Search Key
+
+Now we need to add an input to our App to capture searchKey.
+
+```jsx
+function App() {
+  const [moviesShown, toggleShowMovies] = useToggle(false);
+  const { movies, isLoading, loadMoviesData } = useMovieData();
+  const { setName, setReleaseDate, setId, values } = useMovieForm();
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [searchKey, setSearchKey] = React.useState(''); // highlight-line
+
+  ...
+
+  return (
+      ...
+        {moviesShown && (
+            <BusyContainer isLoading={isLoading}>
+              {/* highlight-start */}
+              <div className="field">
+                <input
+                  value={searchKey}
+                  onChange={ev => setSearchKey(ev.target.value)}
+                  className="input"
+                  placeholder="Search for movie..."
+                />
+              </div>
+              {/* highlight-end */}
+              <React.Suspense fallback={<span className="spinner" />}>
+                {movies.map(movie => (
+                  <Movie
+                    name={movie.name}
+                    releaseDate={movie.releaseDate}
+                    onClick={() => selectMovie(movie)}
+                    key={movie.id}
+                  />
+                ))}
+              </React.Suspense>
+            </BusyContainer>
+        )}
+      ...
+  );
+}
+```
+
+- A new state `searchKey` is declared with initial value of `''`.
+- An `input` is rendered with `value` and `onChange` set accordingly.
+
+### Make API call when searchKey change
+
+Currently we can type our search key in the input, but that doesn't update the movie list. To do that, let's move the ajax call effects from `useMovieData` hook into `App` component:
+
+```javascript
+...
+function useMovieData() {
+    const [movies, setMovies] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(true);
+    const loadMoviesData = searchKey => {
+        setIsLoading(true);
+        loadMovies(searchKey).then(movieData => {
+            setMovies(movieData);
+            setIsLoading(false);
+        });
+    };
+    // highlight-next-line
+    // React.useEffect(loadMoviesData, []);
+
+    return {
+       movies,
+       isLoading,
+       loadMoviesData
+    };
+}
+...
+function App() {
+  const [moviesShown, toggleShowMovies] = useToggle(false);
+  const { movies, isLoading, loadMoviesData } = useMovieData();
+  const { setName, setReleaseDate, setId, values } = useMovieForm();
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [searchKey, setSearchKey] = React.useState('');
+
+  // highlight-next-line
+  React.useEffect(() => loadMoviesData(searchKey), [searchKey]);
+
+  ...
+}
+```
+
+Now our movie list will be updated based on what we type! Done? Nope.
+
+### Debounce Effect
+
+Our current code works, but it is unoptimal because we make an AJAX call for every keystroke. We need to "hold on" while user type, and only make the AJAX call after user stop typing.
+
+To do that, let's create a file `use-debounced-effect.js` in `src/hooks` folder:
+
+```javascript
+import * as React from 'react';
+
+export const useDebouncedEffect = (effect, deps, timeout = 500) => {
+  React.useEffect(() => {
+    let cleanup;
+    const timerId = setTimeout(() => {
+      cleanup = effect();
+    }, timeout);
+    return () => {
+      clearTimeout(timerId);
+      if (typeof cleanup === 'function') cleanup();
+    };
+  }, deps);
+};
+```
+
+- In its essence, `useDebouncedEffect` hook works almost like `useEffect` hook, with the ability to limits the rate at which the effect can be called. It achieves this by waiting for a buffer time before calling the effect, and if the effect is invoked again before the buffer time finishes, it will cancel the previous call and restart the buffer again. It is conceptually similar to `debounce` of most utility libraries such as [`lodash`][lodash] and [`underscore`][underscore].
+
+In our `App` component, let's use `useDebouncedEffect` instead of `useEffect` hook:
+
+```javascript
+...
+import { useDebouncedEffect } from './hooks/use-debounced-effect';
+...
+
+function App() {
+  ...
+  useDebouncedEffect(() => loadMoviesData(searchKey), [searchKey]);
+  ...
+}
+```
+
+Now when you try to search, it will on hold for half a second before start firing the AJAX call. :sunglasses:
+
+<Exercise title="Do It: Implement Search Movies Functionalities with Debounce">
+
+1.  Make the changes required to allow user to search movies.
+1.  Verify that the movies is updated when you type to the input field.
+1.  Add `useDebouncedEffect` hook and use it in your `App`.
+
+</Exercise>
+
+<aside>
+
+Commit: [`search with debounce`](https://github.com/malcolm-kee/react-movie-app-v2/commit/fdf37cd3e9cc2b53e970908d4e7a5a694c66f9cf)
+
+</aside>
+
+[lodash]: https://lodash.com/
+[underscore]: https://underscorejs.org/
