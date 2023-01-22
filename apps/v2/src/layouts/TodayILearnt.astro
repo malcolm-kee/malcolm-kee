@@ -1,10 +1,9 @@
 ---
 import { MarkdownLayoutProps } from 'astro';
 import BaseHead from '../components/BaseHead.astro';
-import BlogPost from '../components/BlogPost.astro';
+import MdContent from '../components/MdContent.astro';
 import Container from '../components/Container';
 import Layout from '../components/Layout.astro';
-import './shiki.css';
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -46,14 +45,14 @@ const permalink = new URL(url!, Astro.site).toString();
   <body>
     <Layout>
       <Container>
-        <BlogPost
+        <MdContent
           title={title}
           heroImage={heroImage}
           publishDate={pubDate}
           alt={alt}
         >
           <slot />
-        </BlogPost>
+        </MdContent>
       </Container>
     </Layout>
   </body>

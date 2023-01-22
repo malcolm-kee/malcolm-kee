@@ -26,4 +26,7 @@ export default defineConfig({
     extendDefaultPlugins: true,
     syntaxHighlight: false,
   },
+  experimental: {
+    contentCollections: true,
+  },
 });

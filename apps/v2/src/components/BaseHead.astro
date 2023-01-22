@@ -4,9 +4,9 @@ export interface Props {
   description?: string | undefined;
   permalink?: string;
   contentType?: 'website' | 'article';
-  publishedDate: Date | undefined;
+  publishedDate?: Date | undefined;
   updatedDate?: Date | undefined;
-  articleType?: 'blog' | 'til' | undefined;
+  articleType?: 'blog' | 'til' | 'note' | undefined;
 }
 const {
   title = 'Malcolm Kee',
@@ -33,7 +33,7 @@ const ogImage = `https://malcolm-kee-og.vercel.app/api/og?title=${encodeURICompo
 }${
   articleType
     ? `&heading=${encodeURIComponent(
-        { blog: 'BLOG', til: 'Today I Learnt' }[articleType]
+        { blog: 'BLOG', til: 'Today I Learnt', note: 'Note' }[articleType]
       )}`
     : ''
 }`;

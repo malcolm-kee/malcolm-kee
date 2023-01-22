@@ -2,10 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/jpg" href="/icon.jpg" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Test Module</title>
   </head>
@@ -13,11 +11,11 @@
     <h1>Module Demo</h1>
     <p>Look at console for the result</p>
     <script type="module">
-      import { doA } from './a.js';
+      import { doA } from './module-demo/a.js';
 
       doA();
     </script>
-    <script type="module" src="./c.js"></script>
-    <script type="module" src="./subfolderA/b.js"></script>
+    <script type="module" src="./module-demo/c.js"></script>
+    <script type="module" src="./module-demo/subfolderA/b.js"></script>
   </body>
 </html>

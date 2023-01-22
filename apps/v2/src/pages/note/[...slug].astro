@@ -1,0 +1,51 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, CollectionEntry } from 'astro:content';
+import BaseHead from '~/components/BaseHead.astro';
+import MdContent from '~/components/MdContent.astro';
+import Container from '~/components/Container';
+import Layout from '~/components/Layout.astro';
+
+export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
+  const notes = await getCollection('note');
+
+  return notes.map((note) => ({
+    params: {
+      slug: note.slug,
+    },
+    props: {
+      entry: note,
+    },
+  }));
+};
+
+interface Props {
+  entry: CollectionEntry<'note'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-lucario.css"
+    />
+    <BaseHead
+      title={entry.data.title}
+      contentType="article"
+      articleType="note"
+    />
+  </head>
+  <body>
+    <Layout>
+      <Container>
+        <MdContent title={entry.data.title}>
+          <Content />
+        </MdContent>
+      </Container>
+    </Layout>
+  </body>
+</html>

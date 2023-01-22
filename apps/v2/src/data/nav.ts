@@ -15,4 +15,8 @@ export const navItems = [
     label: 'TIL',
     href: '/today-i-learnt',
   },
+  {
+    label: 'Notes',
+    href: '/note',
+  },
 ] as const;
