@@ -3,12 +3,6 @@ import { CodeIcon, PlayIcon } from './icons';
 import { LiveEditor } from './LiveEditor';
 ---
 
-<style>
-  [data-toggle-button][aria-active] svg {
-    @apply -rotate-180;
-  }
-</style>
-
 <div class="relative pt-4 border border-gray-100" data-live-editor>
   <div data-editor-code>
     <slot />
