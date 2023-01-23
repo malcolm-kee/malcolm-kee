@@ -39,7 +39,6 @@ const LessonTemplate = ({
         <Seo
           title={`${lesson.title} - ${lesson.workshop.name}`}
           description={lesson.description}
-          keywords={lesson.keywords}
           image={seoImageUrl}
           icon={lesson.workshop.iconFile.childImageSharp.resize.src}
           pathname={location.pathname}
@@ -161,7 +160,6 @@ export const pageQuery = graphql`
       title
       description
       section
-      keywords
       workshop {
         name
         iconUrl

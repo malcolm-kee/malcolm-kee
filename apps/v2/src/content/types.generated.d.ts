@@ -241,6 +241,111 @@ declare module 'astro:content' {
   collection: "workshop",
   data: InferEntrySchema<"workshop">
 },
+"js-the-react-parts/010-introduction/introduction.mdx": {
+  id: "js-the-react-parts/010-introduction/introduction.mdx",
+  slug: "js-the-react-parts/010-introduction/introduction",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/020-background/background.mdx": {
+  id: "js-the-react-parts/020-background/background.mdx",
+  slug: "js-the-react-parts/020-background/background",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/100-template-string/template-string.mdx": {
+  id: "js-the-react-parts/100-template-string/template-string.mdx",
+  slug: "js-the-react-parts/100-template-string/template-string",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/110-destructuring/destructuring.mdx": {
+  id: "js-the-react-parts/110-destructuring/destructuring.mdx",
+  slug: "js-the-react-parts/110-destructuring/destructuring",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/120-spread/spread.mdx": {
+  id: "js-the-react-parts/120-spread/spread.mdx",
+  slug: "js-the-react-parts/120-spread/spread",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/130-arrow-function/arrow-function.mdx": {
+  id: "js-the-react-parts/130-arrow-function/arrow-function.mdx",
+  slug: "js-the-react-parts/130-arrow-function/arrow-function",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/200-block-scope/block-scope.mdx": {
+  id: "js-the-react-parts/200-block-scope/block-scope.mdx",
+  slug: "js-the-react-parts/200-block-scope/block-scope",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/210-array-methods/array-methods.mdx": {
+  id: "js-the-react-parts/210-array-methods/array-methods.mdx",
+  slug: "js-the-react-parts/210-array-methods/array-methods",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/220-es-module/es-module.mdx": {
+  id: "js-the-react-parts/220-es-module/es-module.mdx",
+  slug: "js-the-react-parts/220-es-module/es-module",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/300-closure/closure.mdx": {
+  id: "js-the-react-parts/300-closure/closure.mdx",
+  slug: "js-the-react-parts/300-closure/closure",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/310-functional-programming/functional-programming.mdx": {
+  id: "js-the-react-parts/310-functional-programming/functional-programming.mdx",
+  slug: "js-the-react-parts/310-functional-programming/functional-programming",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/400-conclusion/conclusion.mdx": {
+  id: "js-the-react-parts/400-conclusion/conclusion.mdx",
+  slug: "js-the-react-parts/400-conclusion/conclusion",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/900-callback-function/callback-function.mdx": {
+  id: "js-the-react-parts/900-callback-function/callback-function.mdx",
+  slug: "js-the-react-parts/900-callback-function/callback-function",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/910-asynchronous-js/asynchronous-js.mdx": {
+  id: "js-the-react-parts/910-asynchronous-js/asynchronous-js.mdx",
+  slug: "js-the-react-parts/910-asynchronous-js/asynchronous-js",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"js-the-react-parts/920-object-methods/object-methods.mdx": {
+  id: "js-the-react-parts/920-object-methods/object-methods.mdx",
+  slug: "js-the-react-parts/920-object-methods/object-methods",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
 "web-developer-toolbox/01-intro/introduction.mdx": {
   id: "web-developer-toolbox/01-intro/introduction.mdx",
   slug: "web-developer-toolbox/01-intro/introduction",

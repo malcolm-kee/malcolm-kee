@@ -55,15 +55,3 @@
   themeColor: '#663399'
   iconFile: '../assets/gatsbyjs.png'
   iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1622711092/malcolm-kee/gatsbyjs_qsfhia.png'
-- name: 'JavaScript: The React Parts'
-  id: js-the-react-parts
-  url: '/js-the-react-parts/'
-  description: 'JavaScript fundamentals and concepts that are commonly used when developing in React.'
-  keywords:
-    - javascript fundamentals
-    - react for beginners
-    - prerequisites for react
-    - es6
-  themeColor: '#f7df1e'
-  iconFile: '../assets/js-the-react-parts.png'
-  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311160/malcolm-kee/js-the-react-parts_qihbu8.png'

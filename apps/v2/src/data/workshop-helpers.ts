@@ -16,6 +16,14 @@ export type WorkshopMetadata = {
 };
 
 const workshopMetadadata = {
+  'js-the-react-parts': {
+    name: 'JavaScript: The React Parts',
+    themeColor: 'f7df1e',
+    description:
+      'JavaScript fundamentals and concepts that are commonly used when developing in React.',
+    iconUrl:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311160/malcolm-kee/js-the-react-parts_qihbu8.png',
+  },
   'web-developer-toolbox': {
     name: 'Web Developer Toolbox',
     themeColor: 'b71c1c',
@@ -65,6 +73,7 @@ const workshopMetadadata = {
 type WorkshopSlug = keyof typeof workshopMetadadata;
 
 const workshopSlugs: Array<WorkshopSlug> = [
+  'js-the-react-parts',
   'intro-to-web-dev',
   'react-component-lib',
   'web-developer-toolbox',
