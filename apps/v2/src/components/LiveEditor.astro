@@ -2,7 +2,22 @@
 import { LiveEditor } from './LiveEditor';
 ---
 
-<div class="relative pt-3" data-live-editor>
+<style>
+  [data-editor-code] {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+</style>
+
+<div class="relative pt-3 border border-gray-100" data-live-editor>
+  <div data-editor-code>
+    <slot />
+  </div>
+  <div class="hidden mt-6" data-editor>
+    <LiveEditor client:load>
+      <slot />
+    </LiveEditor>
+  </div>
   <div
     class="absolute top-0 inset-x-0 flex justify-between items-center px-2 py-1 rounded-t bg-gray-100"
   >
@@ -12,14 +27,6 @@ import { LiveEditor } from './LiveEditor';
       class="w-20 text-sm px-4 py-1 bg-white text-primary-500 border border-primary-500 rounded"
       data-edit-button>Edit</button
     >
-  </div>
-  <div data-editor-code>
-    <slot />
-  </div>
-  <div class="hidden mt-6" data-editor>
-    <LiveEditor client:load>
-      <slot />
-    </LiveEditor>
   </div>
 </div>
 
@@ -45,8 +52,11 @@ import { LiveEditor } from './LiveEditor';
           if (isShowingEditor) {
             button.textContent = 'Cancel';
             $mode.textContent = 'Editing';
+            const codeStyle = window.getComputedStyle($code)
+            const codeHeight = codeStyle.getPropertyValue('height');
             $code.classList.add('hidden');
             $editor.classList.remove('hidden');
+            ($editor as HTMLElement).style.setProperty('--editor-height', codeHeight)
           } else {
             button.textContent = 'Edit';
             $mode.textContent = null;

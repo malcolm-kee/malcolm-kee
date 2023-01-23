@@ -28,10 +28,15 @@ export function LiveEditor(props: LiveEditorProps) {
 
         $code.childNodes.forEach((child) => {
           const content = child.textContent;
-          if (content) {
+          if (content != null) {
             codeLines.push(content);
           }
         });
+
+        // add a new line at end if not there
+        if (codeLines[codeLines.length - 1]) {
+          codeLines.push('')
+        }
 
         setState({
           mode: 'ready',
