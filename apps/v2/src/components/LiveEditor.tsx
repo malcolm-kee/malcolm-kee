@@ -26,16 +26,25 @@ export function LiveEditor(props: LiveEditorProps) {
       if ($code && language) {
         const codeLines: Array<string> = [];
 
+        let hasImportedReact = false;
+
         $code.childNodes.forEach((child) => {
           const content = child.textContent;
           if (content != null) {
             codeLines.push(content);
+            if (reactImportPattern.test(content)) {
+              hasImportedReact = true;
+            }
           }
         });
 
+        if ((language === 'jsx' || language === 'tsx') && !hasImportedReact) {
+          codeLines.unshift(`import * as React from 'react';`);
+        }
+
         // add a new line at end if not there
         if (codeLines[codeLines.length - 1]) {
-          codeLines.push('')
+          codeLines.push('');
         }
 
         setState({
@@ -87,3 +96,5 @@ type LiveEditorState =
   | {
       mode: 'error';
     };
+
+const reactImportPattern = /import (\* as)? React from 'react';/;

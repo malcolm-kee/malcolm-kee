@@ -56,7 +56,7 @@ pre.shiki .code-title {
 
 /* Visually differentiates twoslash code samples  */
 pre.twoslash {
-  --code-color: theme(colors.primary.700);
+  --code-color: theme(colors.zinc.300);
 }
 
 /** When you mouse over the pre, show the underlines */
