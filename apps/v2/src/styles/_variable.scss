@@ -1,0 +1,215 @@
+@use 'sass:math';
+
+$space: 8px;
+
+/* size */
+$size-0: math.div($space, 2);
+$size-1: $space;
+$size-2: $space * 1.5;
+$size-3: $space * 2;
+$size-4: $space * 3;
+$size-5: $space * 4;
+$size-6: $space * 6;
+$size-7: $space * 8;
+$size-8: $space * 12;
+$size-9: $space * 16;
+$size-10: $space * 24;
+$size-11: $space * 32;
+$size-12: $space * 48;
+$size-13: $space * 64;
+$size-14: $space * 80;
+$size-15: $space * 96;
+
+$font-family: 'Roboto', 'Helvetica', 'Arial', 'Microsoft Yahei', '微软雅黑',
+  STXihei, '华文细黑', sans-serif;
+$serif-font: Crimson, Georgia, serif;
+$appbar-height: 56px;
+$appbar-height-small: $size-6;
+$ios-bottom-offset: 44px;
+$read-width: $size-14;
+
+$react-color: #61dafb;
+$js-color: #f7df1e;
+
+$primary-100: #e6fffa;
+$primary-200: #b2f5ea;
+$primary-300: #81e6d9;
+$primary-400: #4fd1c5;
+$primary-color: #38b2ac;
+$primary-600: #319795;
+$primary-700: #2c7a7b;
+$primary-800: #285e61;
+$primary-900: #234e52;
+$primary-color-light: #ff7f52;
+$primary-color-dark: #aa1100;
+$secondary-100: hsl(162, 77%, 95%);
+$secondary-200: hsl(160, 79%, 85%);
+$secondary-300: hsl(161, 78%, 75%);
+$secondary-400: hsl(161, 78%, 65%);
+$secondary-color: hsl(161, 78%, 55%);
+$secondary-600: hsl(161, 78%, 45%);
+$secondary-700: hsl(161, 78%, 35%);
+$secondary-800: hsl(161, 78%, 25%);
+$secondary-900: hsl(161, 79%, 15%);
+$secondary-color-light: #70ffd9;
+$secondary-color-dark: #00b178;
+$grey-100: #f7fafc;
+$grey-200: #edf2f7;
+$grey-300: #e2e8f0;
+$grey-400: #cbd5e0;
+$grey-500: #a0aec0;
+$grey-600: #718096;
+$grey-700: #4a5568;
+$grey-800: #2d3748;
+$grey-900: #1a202c;
+$grey-light: $grey-200;
+$grey-dark: $grey-900;
+
+// light theme
+$bg-color-light: $grey-200;
+$bg-color-light-pale: rgba(228, 224, 205, 0.5);
+$text-light: rgba(0, 0, 0, 0.87);
+$text-light-pale: $grey-700;
+$link-light: $primary-800;
+$toc-light-selected: $primary-800;
+$toc-light-hover: $primary-900;
+$highlighted-code-bg-light: $grey-100;
+
+// dark theme
+$bg-color-dark: $grey-900;
+$bg-color-dark-pale: $grey-700;
+$text-dark: rgba(255, 255, 255, 0.88);
+$text-dark-pale: rgba(255, 255, 255, 0.6);
+$link-dark: $primary-color;
+$toc-dark-selected: $secondary-400;
+$toc-dark-hover: $secondary-300;
+$highlighted-code-bg-dark: hsla(207, 95%, 15%, 1);
+
+$timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+$timing-function-1: cubic-bezier(0.61, 0, 0.2, 1);
+$timing-function-overshoot: cubic-bezier(0.5, -0.5, 0.5, 1.5);
+
+/* media queries */
+$media-mobile: 576px;
+$media-tablet: 720px;
+$media-desktop: 960px;
+$media-xlarge: 1380px;
+
+// z-index
+$zindex-dialog: 6;
+$zindex-appbar: 3;
+$zindex-toc: 4;
+$zindex-toc-title: 5;
+$zindex-toc-toggle-btn: 5;
+
+/* shadows */
+$box-shadow-1: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+  0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+$box-shadow-2: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+  0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+$box-shadow-3: 0px 1px 8px 0px rgba(0, 0, 0, 0.2),
+  0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 3px 3px -2px rgba(0, 0, 0, 0.12);
+$box-shadow-3-inv: 0px -1px 8px 0px rgba(0, 0, 0, 0.2),
+  0px -3px 4px 0px rgba(0, 0, 0, 0.14), 0px -3px 3px -2px rgba(0, 0, 0, 0.12);
+$box-shadow-4: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+  0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+$box-shadow-5: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+  0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+$box-shadow-6: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+  0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+$box-shadow-7: 0px 4px 5px -2px rgba(0, 0, 0, 0.2),
+  0px 7px 10px 1px rgba(0, 0, 0, 0.14), 0px 2px 16px 1px rgba(0, 0, 0, 0.12);
+$box-shadow-8: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+$box-shadow-8-inv: 0px -5px 5px -3px rgba(0, 0, 0, 0.2),
+  0px -8px 10px 1px rgba(0, 0, 0, 0.14), 0px -3px 14px 2px rgba(0, 0, 0, 0.12);
+$box-shadow-9: 0px 5px 6px -3px rgba(0, 0, 0, 0.2),
+  0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+$box-shadow-10: 0px 6px 6px -3px rgba(0, 0, 0, 0.2),
+  0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+$box-shadow-11: 0px 6px 7px -4px rgba(0, 0, 0, 0.2),
+  0px 11px 15px 1px rgba(0, 0, 0, 0.14), 0px 4px 20px 3px rgba(0, 0, 0, 0.12);
+$box-shadow-12: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+  0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+$box-shadow-13: 0px 7px 8px -4px rgba(0, 0, 0, 0.2),
+  0px 13px 19px 2px rgba(0, 0, 0, 0.14), 0px 5px 24px 4px rgba(0, 0, 0, 0.12);
+$box-shadow-14: 0px 7px 9px -4px rgba(0, 0, 0, 0.2),
+  0px 14px 21px 2px rgba(0, 0, 0, 0.14), 0px 5px 26px 4px rgba(0, 0, 0, 0.12);
+$box-shadow-15: 0px 8px 9px -5px rgba(0, 0, 0, 0.2),
+  0px 15px 22px 2px rgba(0, 0, 0, 0.14), 0px 6px 28px 5px rgba(0, 0, 0, 0.12);
+$box-shadow-16: 0px 8px 10px -5px rgba(0, 0, 0, 0.2),
+  0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+$box-shadow-17: 0px 8px 11px -5px rgba(0, 0, 0, 0.2),
+  0px 17px 26px 2px rgba(0, 0, 0, 0.14), 0px 6px 32px 5px rgba(0, 0, 0, 0.12);
+$box-shadow-18: 0px 9px 11px -5px rgba(0, 0, 0, 0.2),
+  0px 18px 28px 2px rgba(0, 0, 0, 0.14), 0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+$box-shadow-19: 0px 9px 12px -6px rgba(0, 0, 0, 0.2),
+  0px 19px 29px 2px rgba(0, 0, 0, 0.14), 0px 7px 36px 6px rgba(0, 0, 0, 0.12);
+$box-shadow-20: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
+  0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+$box-shadow-21: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
+  0px 21px 33px 3px rgba(0, 0, 0, 0.14), 0px 8px 40px 7px rgba(0, 0, 0, 0.12);
+$box-shadow-22: 0px 10px 14px -6px rgba(0, 0, 0, 0.2),
+  0px 22px 35px 3px rgba(0, 0, 0, 0.14), 0px 8px 42px 7px rgba(0, 0, 0, 0.12);
+$box-shadow-23: 0px 11px 14px -7px rgba(0, 0, 0, 0.2),
+  0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12);
+$box-shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
+  0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+
+@mixin link($selector, $darkModeSelector: '.mode-dark') {
+  #{$selector} {
+    @apply text-primary-800;
+    #{$darkModeSelector} & {
+      @apply text-primary-400;
+    }
+    position: relative;
+    text-decoration: underline;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+    transition-property: border-bottom-color, color, transform, background-color;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      @apply bg-primary-800;
+      #{$darkModeSelector} & {
+        @apply text-primary-500;
+      }
+      transform-origin: center;
+      transform: translate(-50%, 0) scaleX(0);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+  #{$selector}:hover {
+    &::before {
+      transform: translate(-50%, 0) scaleX(1);
+    }
+  }
+}
+
+@mixin darkenImg() {
+  filter: brightness(0.8);
+}
+
+// utility to make animation to be non-animated based on user preference
+@mixin reducedMotion {
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
+
+@mixin focusedByMouse {
+  &:focus {
+    &:not(:focus-visible) {
+      @content;
+    }
+  }
+}

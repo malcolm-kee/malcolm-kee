@@ -13,12 +13,15 @@ const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
 export interface SandboxProps {
   lang: SupportedLang;
   code: string;
+  htmlEntry?: string | undefined;
 }
 
 export default function Sandbox(props: SandboxProps) {
   const entryFileName = entries[props.lang];
 
   const isReactProject = props.lang === 'jsx' || props.lang === 'tsx';
+
+  const hasUi = isReactProject || !!props.htmlEntry;
 
   return (
     <SandpackProvider
@@ -30,13 +33,23 @@ export default function Sandbox(props: SandboxProps) {
                 code: props.code,
                 active: true,
               },
-              '/public/index.html': indexHtml,
+              '/public/index.html': props.htmlEntry || indexHtml,
             }
           : {
               [entryFileName]: {
                 code: props.code,
                 active: true,
               },
+              ...(props.htmlEntry
+                ? {
+                    '/index.html': {
+                      code: getVanillaHtml(
+                        props.htmlEntry,
+                        entryFileName.replace(/^\//, '')
+                      ),
+                    },
+                  }
+                : {}),
             }
       }
       customSetup={{
@@ -44,7 +57,7 @@ export default function Sandbox(props: SandboxProps) {
       }}
       theme={theme}
     >
-      <div className={!isReactProject ? 'hidden' : ''}>
+      <div className={!hasUi ? 'hidden' : ''}>
         <SandpackPreview />
       </div>
       <SandBoxConsole />
@@ -75,6 +88,16 @@ const theme: SandpackTheme = {
 const indexHtml = /* html */ `<html>
   <body>
     <div id="root" />
+  </body>
+</html>`;
+
+const getVanillaHtml = (
+  htmlSnippet: string,
+  entryFilePath: string
+) => /* html */ `<html>
+  <body>
+    ${htmlSnippet}
+    <script src="${entryFilePath}"></script>
   </body>
 </html>`;
 

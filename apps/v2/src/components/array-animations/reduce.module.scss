@@ -1,0 +1,87 @@
+@use 'sass:math';
+
+@import '../../styles/variable';
+
+@mixin box-offset($index) {
+  top: $space + (($space + 25px) * $index);
+  left: $space * 2;
+}
+
+@mixin generate-animation($index) {
+  @keyframes zigzag-#{$index} {
+    @for $step from 0 through 7 {
+      #{math.div($step * 100%, 7)} {
+        @if (math.div($step, 2) <= $index) {
+          @include box-offset($index);
+          filter: hue-rotate(0deg);
+          opacity: 1;
+        } @else {
+          top: $space + (($space + 25px) * floor(math.div($step, 2)));
+          @if ($step % 2 == 0) {
+            left: $space * 2;
+          } @else {
+            left: 100% * ($step % 2);
+          }
+          filter: hue-rotate(90deg);
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+$indexes: 0, 1, 2, 3;
+
+@each $index in $indexes {
+  @include generate-animation($index);
+}
+
+.container {
+  position: relative;
+  height: 150px;
+  background: white;
+  background: var(--bg-absolute);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.innerContainer {
+  position: relative;
+  height: 100%;
+  width: calc(100% - 40px);
+
+  > * {
+    &:first-child {
+      background: yellowgreen;
+      @include box-offset(0);
+    }
+
+    &:nth-child(2) {
+      background: maroon;
+      transform: scale(0.8);
+      @include box-offset(1);
+    }
+
+    &:nth-child(3) {
+      transform: scale(0.6);
+      background: orchid;
+      @include box-offset(2);
+    }
+
+    &:nth-child(4) {
+      transform: scale(0.4);
+      background: orange;
+      @include box-offset(3);
+    }
+  }
+
+  &.activated {
+    > * {
+      @each $index in $indexes {
+        &:nth-child(#{$index + 1}) {
+          animation: zigzag-#{$index} 4s linear forwards;
+        }
+      }
+    }
+  }
+}

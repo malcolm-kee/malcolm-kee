@@ -19,42 +19,71 @@ export function LiveEditor(props: LiveEditorProps) {
 
   React.useEffect(() => {
     if (state.mode === 'mounted' && divRef.current) {
-      const $languageId = divRef.current.querySelector('.language-id');
-      const $code = divRef.current.querySelector('pre .code-container code');
-      const language = $languageId && getLang($languageId.textContent);
+      const preElements = divRef.current.querySelectorAll('pre');
 
-      if ($code && language) {
-        const codeLines: Array<string> = [];
+      const codeLines: Array<string> = [];
+      const htmlCodeLines: Array<string> = [];
 
-        let hasImportedReact = false;
+      let language: SupportedLang | undefined;
 
-        $code.childNodes.forEach((child) => {
-          if (child instanceof HTMLElement) {
-            if (child.classList.contains('line')) {
-              const content = child.textContent;
-              if (content != null) {
-                codeLines.push(whiteSpacePattern.test(content) ? '' : content);
-                if (reactImportPattern.test(content)) {
-                  hasImportedReact = true;
+      preElements.forEach((preEl) => {
+        const $languageId = preEl.querySelector('.language-id');
+        const $code = preEl.querySelector('.code-container code');
+        const currentLang = $languageId && getLang($languageId.textContent);
+
+        if ($code && currentLang) {
+          let hasImportedReact = false;
+
+          language = currentLang;
+
+          $code.childNodes.forEach((child) => {
+            if (child instanceof HTMLElement) {
+              if (child.classList.contains('line')) {
+                const content = child.textContent;
+                if (content != null) {
+                  codeLines.push(
+                    whiteSpacePattern.test(content) ? '' : content
+                  );
+                  if (reactImportPattern.test(content)) {
+                    hasImportedReact = true;
+                  }
                 }
               }
             }
+          });
+
+          if (
+            (currentLang === 'jsx' || currentLang === 'tsx') &&
+            !hasImportedReact
+          ) {
+            codeLines.unshift(`import * as React from 'react';`);
           }
-        });
 
-        if ((language === 'jsx' || language === 'tsx') && !hasImportedReact) {
-          codeLines.unshift(`import * as React from 'react';`);
+          // add a new line at end if not there
+          if (codeLines[codeLines.length - 1]) {
+            codeLines.push('');
+          }
         }
 
-        // add a new line at end if not there
-        if (codeLines[codeLines.length - 1]) {
-          codeLines.push('');
-        }
+        if ($code && $languageId && isHtml($languageId.textContent)) {
+          $code.childNodes.forEach((child) => {
+            const content = child.textContent;
 
+            if (content != null) {
+              htmlCodeLines.push(
+                whiteSpacePattern.test(content) ? '' : content
+              );
+            }
+          });
+        }
+      });
+
+      if (codeLines.length > 0 && language) {
         setState({
           mode: 'ready',
           code: codeLines.join('\r\n'),
           language,
+          htmlCode: htmlCodeLines.join('\r\n') || undefined,
         });
       } else {
         setState({ mode: 'error' });
@@ -64,7 +93,11 @@ export function LiveEditor(props: LiveEditorProps) {
 
   return state.mode === 'ready' ? (
     <React.Suspense fallback={null}>
-      <Sandbox lang={state.language} code={state.code} />
+      <Sandbox
+        lang={state.language}
+        code={state.code}
+        htmlEntry={state.htmlCode}
+      />
     </React.Suspense>
   ) : state.mode === 'mounted' ? (
     <div className="hidden" ref={divRef}>
@@ -85,6 +118,12 @@ const getLang = (langText: string | null) => {
     : undefined;
 };
 
+const isHtml = (langText: string | null) => {
+  const lowerText = langText && langText.toLowerCase();
+
+  return lowerText === 'html';
+};
+
 type LiveEditorState =
   | {
       mode: 'initializing';
@@ -96,6 +135,7 @@ type LiveEditorState =
       mode: 'ready';
       code: string;
       language: SupportedLang;
+      htmlCode: string | undefined;
     }
   | {
       mode: 'error';

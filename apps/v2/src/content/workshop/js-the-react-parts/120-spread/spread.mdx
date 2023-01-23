@@ -1,0 +1,325 @@
+---
+title: '...Spread'
+description: ''
+section: 'syntactic sugar'
+---
+
+import Exercise from '~/components/Exercise';
+import LiveEditor from '~/components/LiveEditor.astro';
+
+The third syntactic sugar that we will cover is _spread_ operator.
+
+You can see spread operator as opposite of [destructuring](/js-the-react-parts/destructuring); destructuring decomposes an array or object to its smaller item/ properties, while spread operator is used to merge smaller array/object into a bigger one.
+
+Similar to destructuring, we have array spread and object spread.
+
+## Array Spread
+
+How do you merge multiple array item a single array?
+
+<LiveEditor>
+
+```js
+var array1 = [1, 2, 3];
+var middle = 4;
+var array2 = [5, 6, 7];
+
+var result = array1.concat(middle).concat(array2);
+
+console.log(result); // [1, 2, 3, 4, 5, 6, 7];
+```
+
+</LiveEditor>
+
+Using the array spread:
+
+<LiveEditor>
+
+```js
+var array1 = [1, 2, 3];
+var middle = 4;
+var array2 = [5, 6, 7];
+
+var result = [...array1, middle, ...array2];
+
+console.log(result); // [1, 2, 3, 4, 5, 6, 7];
+```
+
+</LiveEditor>
+
+It may be confusing at first because both spread and rest use the same syntax (`...`). The difference is on the context that you're using them. `...` during destructuring means rest, while in other context it means spread.
+
+### Spreading Array to Function Invocation
+
+You can spread an array to an function invocation so the array item will be provided as the parameters of the function call.
+
+<LiveEditor>
+
+```js
+function add(x, y) {
+  return x + y;
+}
+
+var ages = [4, 6];
+
+var result = add(...ages);
+
+console.log(result);
+```
+
+</LiveEditor>
+
+A useful case is to spread an array to a function that accepts any numbers of parameters, e.g. `Math.max`.
+
+<LiveEditor>
+
+```js
+var maxNumber = Math.max(100, 0, 500, 10);
+
+console.log(maxNumber); // 500
+
+var numbers = [100, 0, 500, 10];
+
+var result = Math.max(...numbers);
+
+console.log(result); // 500
+```
+
+</LiveEditor>
+
+<Exercise title="Exercise">
+
+1. Given three variables below:
+
+   <LiveEditor>
+
+   ```js
+   var arr1 = ['a', 'b', 'c'];
+   var x = 'd';
+   var arr2 = ['e', 'f', 'g'];
+   ```
+
+   </LiveEditor>
+
+   write the expression to join them to produce:
+
+   - `['a', 'b', 'c', 'd', 'e', 'f', 'g']`
+   - `['d', 'e', 'f', 'g', 'a', 'b', 'c']`
+   - `['a', 'b', 'c', 'a', 'b', 'c']`
+
+   You may not need to use all three variables.
+
+1. Write a function `min` that accepts a parameter `numbers` which is an array of numbers and return the smallest number in the array. (Hint: use [`Math.min`][math-min])
+
+   <LiveEditor>
+
+   ```js
+   function min(numbers) {
+     // write your implementation.
+   }
+
+   console.log(min([0, 1, 2, 3])); // this should output 0
+   console.log(min([100, 2, -10, 50])); // this should output -10
+   ```
+
+   </LiveEditor>
+
+</Exercise>
+
+## Object Spread
+
+To merge multiple object into a single object:
+
+<LiveEditor>
+
+```js
+var base = {
+  currency: 'RM',
+  decimalPlaces: 2,
+  thousandSeparators: ',',
+  address: {
+    country: 'Malaysia',
+    city: 'KL',
+  },
+};
+
+var options = {
+  currency: 'USD',
+  roundOff: true,
+  address: {
+    country: 'United States',
+  },
+};
+
+var result = Object.assign({}, base, options);
+
+console.log(result);
+```
+
+</LiveEditor>
+
+- `Object.assign` is an utility function that will merge objects from right to left, i.e. properties of object on right will override properties of object of the left.
+- The properties are merged shallowly, e.g. it override the whole `address` property instead of merge recursively.
+
+Using object spread:
+
+<LiveEditor>
+
+```js
+var base = {
+  currency: 'RM',
+  decimalPlaces: 2,
+  thousandSeparators: ',',
+  address: {
+    country: 'Malaysia',
+    city: 'KL',
+  },
+};
+
+var options = {
+  currency: 'USD',
+  roundOff: true,
+  address: {
+    country: 'United States',
+  },
+};
+
+var result = { ...base, ...options };
+
+console.log(result);
+```
+
+</LiveEditor>
+
+The good thing about object spread is to express nested merge it's quite self-explanatory:
+
+<LiveEditor>
+
+```js {21-24}
+var base = {
+  currency: 'RM',
+  decimalPlaces: 2,
+  thousandSeparators: ',',
+  address: {
+    country: 'Malaysia',
+    city: 'KL',
+  },
+};
+
+var options = {
+  currency: 'USD',
+  roundOff: true,
+  address: {
+    country: 'United States',
+  },
+};
+
+var result = {
+  ...base,
+  ...options,
+  address: {
+    ...base.address,
+    ...options.address,
+  },
+};
+
+console.log(result);
+```
+
+</LiveEditor>
+
+### Override Function Default
+
+A use case of object spread is to wrap a third-party function which you like to override its default.
+
+For example, a `formatMoney` function that will format a number so it's in the common money format. Its signature could be:
+
+```js
+function formatMoney(value, options) {}
+```
+
+where options is an optional parameters, and is an object with following properties:
+
+```js
+{
+    prefix: '$',
+    thousandSeparator: ',',
+    decimalSeparator: '.',
+    decimalPlaces: 2
+}
+```
+
+Assume that for your application, the most common prefix is `'RM'` instead of `'$'`, so you would like to create a wrapper function that default `prefix` to `'RM'`, you can use spread and rest syntax to achieve that:
+
+```js
+function myFormatMoney(value, { prefix = 'RM', ...otherOptions } = {}) {
+  return formatMoney(value, { prefix, ...otherOptions });
+}
+```
+
+Now `myFormatMoney` works similar to `formatMoney`, just the default is customized for your convenience!
+
+<Exercise title="Exercise">
+
+1. Write the `merge` function that would merge `objA` and `objB` to produce the desired result:
+
+   <LiveEditor>
+
+   ```js
+   var objA = {
+     theme: 'light',
+     fontFamily: 'Tahoma',
+     mediaQuery: {
+       mobile: 560,
+       tablet: 720,
+       desktop: 1020,
+     },
+   };
+
+   var objB = {
+     theme: 'dark',
+     mediaQuery: {
+       mobile: 500,
+     },
+   };
+
+   function merge(defaultStyle, customized) {
+     // write your code
+   }
+
+   var result = merge(objA, objB);
+
+   console.log(result);
+   ```
+
+   </LiveEditor>
+
+   - Expected `result`:
+
+     ```js
+     {
+         theme: 'dark',
+         fontFamily: 'Tahoma',
+         mediaQuery: {
+            mobile: 500
+         }
+     }
+     ```
+
+   - Expected `result`:
+
+     ```js
+     {
+         theme: 'dark',
+         fontFamily: 'Tahoma',
+         mediaQuery: {
+             mobile: 500,
+             tablet: 720,
+             desktop: 1020
+         }
+     }
+     ```
+
+</Exercise>
+
+[math-min]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
