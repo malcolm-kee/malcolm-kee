@@ -34,13 +34,3 @@
   iconFile: '../assets/react-test.png'
   iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311128/malcolm-kee/react-test_g3guac.png'
   underConstruction: true
-- name: 'TypeScript for React Developer'
-  id: typescript-for-react-developer
-  url: '/typescript-for-react-developer/'
-  description: 'Learn the Typescript fundamentals to make your React codebase more maintainable'
-  keywords:
-    - react
-    - typescript
-  themeColor: '#294E80'
-  iconFile: '../assets/react-typescript.png'
-  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311145/malcolm-kee/react-typescript_ielgk1.png'
