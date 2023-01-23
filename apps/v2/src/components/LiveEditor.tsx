@@ -29,11 +29,15 @@ export function LiveEditor(props: LiveEditorProps) {
         let hasImportedReact = false;
 
         $code.childNodes.forEach((child) => {
-          const content = child.textContent;
-          if (content != null) {
-            codeLines.push(content);
-            if (reactImportPattern.test(content)) {
-              hasImportedReact = true;
+          if (child instanceof HTMLElement) {
+            if (child.classList.contains('line')) {
+              const content = child.textContent;
+              if (content != null) {
+                codeLines.push(whiteSpacePattern.test(content) ? '' : content);
+                if (reactImportPattern.test(content)) {
+                  hasImportedReact = true;
+                }
+              }
             }
           }
         });
@@ -98,3 +102,4 @@ type LiveEditorState =
     };
 
 const reactImportPattern = /import (\* as)? React from 'react';/;
+const whiteSpacePattern = /^\s+$/;

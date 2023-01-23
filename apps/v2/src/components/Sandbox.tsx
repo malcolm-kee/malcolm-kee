@@ -6,6 +6,9 @@ import {
 } from '@codesandbox/sandpack-react';
 import { githubLight } from '@codesandbox/sandpack-themes';
 import * as React from 'react';
+import { SandBoxConsole } from './SandboxConsole';
+
+const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
 
 export interface SandboxProps {
   lang: SupportedLang;
@@ -15,34 +18,50 @@ export interface SandboxProps {
 export default function Sandbox(props: SandboxProps) {
   const entryFileName = entries[props.lang];
 
+  const isReactProject = props.lang === 'jsx' || props.lang === 'tsx';
+
   return (
     <SandpackProvider
       template={templates[props.lang]}
-      files={{
-        [entryFileName]: {
-          code: props.code,
-          active: true,
-        },
-        '/public/index.html': indexHtml,
-      }}
+      files={
+        isReactProject
+          ? {
+              [entryFileName]: {
+                code: props.code,
+                active: true,
+              },
+              '/public/index.html': indexHtml,
+            }
+          : {
+              [entryFileName]: {
+                code: props.code,
+                active: true,
+              },
+            }
+      }
       customSetup={{
         entry: entryFileName,
       }}
       theme={theme}
     >
-      <SandpackPreview />
+      <div className={!isReactProject ? 'hidden' : ''}>
+        <SandpackPreview />
+      </div>
+      <SandBoxConsole />
       <div className="border-t border-gray-100">
-        <SandpackCodeEditor
-          style={{
-            height: 'var(--editor-height, 100%)',
-          }}
-          showTabs
-          showLineNumbers
-        />
+        {props.lang === 'ts' ? (
+          <MonacoEditor style={editorStyle} lang={props.lang} />
+        ) : (
+          <SandpackCodeEditor style={editorStyle} showTabs showLineNumbers />
+        )}
       </div>
     </SandpackProvider>
   );
 }
+
+const editorStyle: React.CSSProperties = {
+  height: 'var(--editor-height, 100%)',
+};
 
 const theme: SandpackTheme = {
   ...githubLight,
@@ -73,10 +92,10 @@ const templates = {
 };
 
 const entries = {
-  js: '/index.js',
-  jsx: '/index.jsx',
-  ts: '/index.ts',
-  tsx: '/index.tsx',
+  js: '/src/index.js',
+  jsx: '/src/index.jsx',
+  ts: '/src/index.ts',
+  tsx: '/src/index.tsx',
 } satisfies {
   [lang in SupportedLang]: string;
 };

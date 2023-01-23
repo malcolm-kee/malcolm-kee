@@ -1,19 +1,15 @@
 ---
-import { CodeIcon, ChevronDownIcon, PlayIcon } from './icons';
+import { CodeIcon, PlayIcon } from './icons';
 import { LiveEditor } from './LiveEditor';
 ---
 
 <style>
-  [data-editor-code] {
-    --code-max-height: 60vh;
-  }
-
   [data-toggle-button][aria-active] svg {
     @apply -rotate-180;
   }
 </style>
 
-<div class="relative pt-3 border border-gray-100" data-live-editor>
+<div class="relative pt-4 border border-gray-100" data-live-editor>
   <div data-editor-code>
     <slot />
   </div>
@@ -43,16 +39,6 @@ import { LiveEditor } from './LiveEditor';
       >
         <CodeIcon aria-hidden className="w-6 h-6 text-gray-500" />
       </button>
-      <button
-        type="button"
-        class="p-1 bg-white rounded-full"
-        aria-label="Toggle Code"
-        data-toggle-button
-      >
-        <ChevronDownIcon
-          className="w-6 h-6 text-gray-500 stroke-current transition rotate-0"
-        />
-      </button>
     </div>
   </div>
 </div>
@@ -66,20 +52,11 @@ import { LiveEditor } from './LiveEditor';
     const $code = $editorSection.querySelector('[data-editor-code]');
     const $editor = $editorSection.querySelector('[data-editor]');
     const $mode = $editorSection.querySelector('[data-editor-mode]');
-    const $toggleButton = $editorSection.querySelector('[data-toggle-button]');
 
-    if (
-      $code &&
-      $editButton &&
-      $cancelButton &&
-      $editor &&
-      $mode &&
-      $toggleButton
-    ) {
+    if ($code && $editButton && $cancelButton && $editor && $mode) {
       $editButton.addEventListener('click', () => {
         $editButton.classList.add('hidden');
         $cancelButton.classList.remove('hidden');
-        $toggleButton.classList.add('hidden');
         $mode.textContent = 'Editing';
         const codeStyle = window.getComputedStyle($code);
         const codeHeight = codeStyle.getPropertyValue('height');
@@ -94,23 +71,10 @@ import { LiveEditor } from './LiveEditor';
       $cancelButton.addEventListener('click', () => {
         $cancelButton.classList.add('hidden');
         $editButton.classList.remove('hidden');
-        $toggleButton.classList.remove('hidden');
         $mode.textContent = null;
 
         $editor.classList.add('hidden');
         $code.classList.remove('hidden');
-      });
-
-      let isExpanded = false;
-      $toggleButton.addEventListener('click', () => {
-        isExpanded = !isExpanded;
-        if (isExpanded) {
-          $toggleButton.setAttribute('aria-active', 'true');
-          ($code as HTMLElement).style.setProperty('--code-max-height', 'none');
-        } else {
-          $toggleButton.removeAttribute('aria-active');
-          ($code as HTMLElement).style.setProperty('--code-max-height', '60vh');
-        }
       });
     }
   });

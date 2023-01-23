@@ -5,6 +5,8 @@ description: 'You can have typesafe callAll utility in Typescript 3'
 layout: ~/layouts/BlogPost.astro
 ---
 
+import LiveEditor from '~/components/LiveEditor.astro';
+
 When writing React components, one of the utility functions that I find useful and commonly use is the `callAll` function, which I learnt from [Kent C. Dodds][kentcdodds] from one of his classes.
 
 The use of `callAll` is to wrap few functions together (some of them optional, thus could be `undefined`), and create another function that will call each of them with the parameters.
@@ -68,6 +70,8 @@ Recently I've do some googling (or you could say "researching"), and I find out 
 
 The implementation:
 
+<LiveEditor>
+
 ```ts twoslash
 // @errors: 2345
 interface CallBack<Params extends any[]> {
@@ -86,9 +90,11 @@ const resultCb = callAll(
   // ^?
 );
 
-resultCb(100); // ok
-resultCb(true); // error
+resultCb(100);
+resultCb(true);
 ```
+
+</LiveEditor>
 
 That's it!
 

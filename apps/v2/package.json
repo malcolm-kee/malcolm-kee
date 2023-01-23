@@ -36,7 +36,9 @@
     "@codesandbox/sandpack-react": "^1.20.4",
     "@codesandbox/sandpack-themes": "^1.19.0",
     "@headlessui/react": "^1.7.7",
+    "@monaco-editor/react": "^4.4.6",
     "clsx": "^1.2.1",
+    "monaco-themes": "^0.4.3",
     "preact": "^10.11.3"
   }
 }
