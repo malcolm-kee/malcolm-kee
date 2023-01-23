@@ -1,18 +1,9 @@
 ---
+import { CodeIcon, PlayIcon } from './icons';
 import { LiveEditor } from './LiveEditor';
 ---
 
-<div class="relative pt-3" data-live-editor>
-  <div
-    class="absolute top-0 inset-x-0 flex justify-between items-center px-2 py-1 rounded-t bg-gray-100"
-  >
-    <span class="text-sm" data-editor-mode></span>
-    <button
-      type="button"
-      class="w-20 text-sm px-4 py-1 bg-white text-primary-500 border border-primary-500 rounded"
-      data-edit-button>Edit</button
-    >
-  </div>
+<div class="relative pt-4 border border-gray-100" data-live-editor>
   <div data-editor-code>
     <slot />
   </div>
@@ -21,40 +12,64 @@ import { LiveEditor } from './LiveEditor';
       <slot />
     </LiveEditor>
   </div>
+  <div
+    class="absolute top-0 inset-x-0 flex justify-between items-center px-2 py-1 rounded-t bg-gray-100"
+  >
+    <span class="text-sm" data-editor-mode></span>
+    <div class="inline-flex gap-2">
+      <button
+        type="button"
+        class="p-1 bg-white rounded-full"
+        data-edit-button
+        aria-label="Edit"
+      >
+        <PlayIcon aria-hidden className="w-6 h-6 text-gray-500" />
+      </button>
+      <button
+        type="button"
+        data-cancel-button
+        aria-label="Cancel"
+        class="p-1 bg-white rounded-full hidden"
+      >
+        <CodeIcon aria-hidden className="w-6 h-6 text-gray-500" />
+      </button>
+    </div>
+  </div>
 </div>
 
 <script>
-  const buttons = document.querySelectorAll('[data-edit-button]');
+  const liveEditors = document.querySelectorAll('[data-live-editor]');
 
-  buttons.forEach((button) => {
-    let isShowingEditor = false;
+  liveEditors.forEach(($editorSection) => {
+    const $editButton = $editorSection.querySelector('[data-edit-button]');
+    const $cancelButton = $editorSection.querySelector('[data-cancel-button]');
+    const $code = $editorSection.querySelector('[data-editor-code]');
+    const $editor = $editorSection.querySelector('[data-editor]');
+    const $mode = $editorSection.querySelector('[data-editor-mode]');
 
-    button.addEventListener('click', (ev) => {
-      const editorSection =
-        ev.target &&
-        (ev.target as HTMLButtonElement).closest('[data-live-editor]');
+    if ($code && $editButton && $cancelButton && $editor && $mode) {
+      $editButton.addEventListener('click', () => {
+        $editButton.classList.add('hidden');
+        $cancelButton.classList.remove('hidden');
+        $mode.textContent = 'Editing';
+        const codeStyle = window.getComputedStyle($code);
+        const codeHeight = codeStyle.getPropertyValue('height');
+        $code.classList.add('hidden');
+        $editor.classList.remove('hidden');
+        ($editor as HTMLElement).style.setProperty(
+          '--editor-height',
+          codeHeight
+        );
+      });
 
-      if (editorSection) {
-        const $code = editorSection.querySelector('[data-editor-code]');
-        const $editor = editorSection.querySelector('[data-editor]');
-        const $mode = editorSection.querySelector('[data-editor-mode]');
+      $cancelButton.addEventListener('click', () => {
+        $cancelButton.classList.add('hidden');
+        $editButton.classList.remove('hidden');
+        $mode.textContent = null;
 
-        if ($code && $editor && $mode) {
-          isShowingEditor = !isShowingEditor;
-
-          if (isShowingEditor) {
-            button.textContent = 'Cancel';
-            $mode.textContent = 'Editing';
-            $code.classList.add('hidden');
-            $editor.classList.remove('hidden');
-          } else {
-            button.textContent = 'Edit';
-            $mode.textContent = null;
-            $editor.classList.add('hidden');
-            $code.classList.remove('hidden');
-          }
-        }
-      }
-    });
+        $editor.classList.add('hidden');
+        $code.classList.remove('hidden');
+      });
+    }
   });
 </script>

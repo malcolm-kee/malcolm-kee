@@ -5,11 +5,13 @@ description: 'A custom hooks to declare state that will restore to its steady-st
 layout: ~/layouts/BlogPost.astro
 ---
 
+import LiveEditor from '~/components/LiveEditor.astro';
+
 One of the common pattern in UI is to show something in a short period then hide it, e.g. using [Snackbars] for notification or popup for brief message.
 
 In good old jquery times where things are imperative, we usually do something like this:
 
-```javascript noWrapper
+```js
 $('#element').toast('show', { delay: 500 });
 ```
 
@@ -21,12 +23,20 @@ After searching for some library and see their API and I have an epiphany: what 
 
 And here I present to you the custom hook: `useTransientState`.
 
-```jsx live noInline
-const useTransientState = (steadyState, restorationTime = 2000) => {
+<LiveEditor>
+
+```tsx twoslash
+import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+
+const useTransientState = <StateValue extends unknown>(
+  steadyState: StateValue,
+  restorationTime = 2000
+) => {
   const [state, setState] = React.useState(steadyState);
 
   const setTemporaryState = React.useCallback(function setTemporaryState(
-    newValue
+    newValue: StateValue
   ) {
     setState(newValue);
   },
@@ -43,7 +53,7 @@ const useTransientState = (steadyState, restorationTime = 2000) => {
     }
   }, [state, steadyState, restorationTime]);
 
-  return [state, setTemporaryState];
+  return [state, setTemporaryState] as const;
 };
 
 const TemporaryMessage = () => {
@@ -51,14 +61,16 @@ const TemporaryMessage = () => {
 
   return (
     <div>
-      <Button onClick={() => setShow(true)}>Show Message</Button>
+      <button onClick={() => setShow(true)}>Show Message</button>
       {show && <p>I only appear a while!</p>}
     </div>
   );
 };
 
-render(<TemporaryMessage />);
+createRoot(document.getElementById('root')!).render(<TemporaryMessage />);
 ```
+
+</LiveEditor>
 
 - `useCallback` hook is used because I want to make the return stateSetter callback identity is always the same, just like `useState`. As everyone using React hooks know `useState`, I want to make this custom hook to be like `useState` as much as possible.
 - The effect hook will be run everytime the state is changed. It will set up a timeout which will set the state back to `steadState`.
@@ -73,16 +85,24 @@ This may or may not be what you want, but for me it's unintuitive. The more intu
 
 To have that reset timeout behavior, we can create another state to make sure the effect is run everytime `setTemporaryState` is invoked.
 
-```jsx live noInline
-const useTransientState = (steadyState, restorationTime = 2000) => {
+<LiveEditor>
+
+```tsx twoslash {9,15,28}
+import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+
+const useTransientState = <StateValue extends unknown>(
+  steadyState: StateValue,
+  restorationTime = 2000
+) => {
   const [state, setState] = React.useState(steadyState);
-  const [calledTimes, setCallTimes] = React.useState(0); // highlight-line
+  const [calledTimes, setCallTimes] = React.useState(0);
 
   const setTemporaryState = React.useCallback(function setTemporaryState(
-    newValue
+    newValue: StateValue
   ) {
     setState(newValue);
-    setCallTimes((t) => t + 1); // highlight-line
+    setCallTimes((t) => t + 1);
   },
   []);
 
@@ -95,9 +115,9 @@ const useTransientState = (steadyState, restorationTime = 2000) => {
 
       return () => clearTimeout(timeoutId);
     }
-  }, [state, steadyState, restorationTime, calledTimes]); // highlight-line
+  }, [state, steadyState, restorationTime, calledTimes]);
 
-  return [state, setTemporaryState];
+  return [state, setTemporaryState] as const;
 };
 
 const TemporaryMessage = () => {
@@ -105,14 +125,16 @@ const TemporaryMessage = () => {
 
   return (
     <div>
-      <Button onClick={() => setShow(true)}>Show Message</Button>
+      <button onClick={() => setShow(true)}>Show Message</button>
       {show && <p>I only appear a while!</p>}
     </div>
   );
 };
 
-render(<TemporaryMessage />);
+createRoot(document.getElementById('root')!).render(<TemporaryMessage />);
 ```
+
+</LiveEditor>
 
 [snackbars]: https://material.io/components/snackbars/
 [game]: https://xstate-game.netlify.com

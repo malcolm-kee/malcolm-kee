@@ -1,5 +1,14 @@
-import { Sandpack } from '@codesandbox/sandpack-react';
+import {
+  SandpackCodeEditor,
+  SandpackPreview,
+  SandpackProvider,
+  SandpackTheme,
+} from '@codesandbox/sandpack-react';
 import { githubLight } from '@codesandbox/sandpack-themes';
+import * as React from 'react';
+import { SandBoxConsole } from './SandboxConsole';
+
+const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
 
 export interface SandboxProps {
   lang: SupportedLang;
@@ -9,25 +18,65 @@ export interface SandboxProps {
 export default function Sandbox(props: SandboxProps) {
   const entryFileName = entries[props.lang];
 
+  const isReactProject = props.lang === 'jsx' || props.lang === 'tsx';
+
   return (
-    <Sandpack
+    <SandpackProvider
       template={templates[props.lang]}
-      files={{
-        [entryFileName]: {
-          code: props.code,
-          active: true,
-        },
-      }}
+      files={
+        isReactProject
+          ? {
+              [entryFileName]: {
+                code: props.code,
+                active: true,
+              },
+              '/public/index.html': indexHtml,
+            }
+          : {
+              [entryFileName]: {
+                code: props.code,
+                active: true,
+              },
+            }
+      }
       customSetup={{
         entry: entryFileName,
       }}
-      options={{
-        editorHeight: '100%',
-      }}
-      theme={githubLight}
-    />
+      theme={theme}
+    >
+      <div className={!isReactProject ? 'hidden' : ''}>
+        <SandpackPreview />
+      </div>
+      <SandBoxConsole />
+      <div className="border-t border-gray-100">
+        {props.lang === 'ts' ? (
+          <MonacoEditor style={editorStyle} lang={props.lang} />
+        ) : (
+          <SandpackCodeEditor style={editorStyle} showTabs showLineNumbers />
+        )}
+      </div>
+    </SandpackProvider>
   );
 }
+
+const editorStyle: React.CSSProperties = {
+  height: 'var(--editor-height, 100%)',
+};
+
+const theme: SandpackTheme = {
+  ...githubLight,
+  font: {
+    ...githubLight.font,
+    size: '0.875em',
+    lineHeight: '1.7142857',
+  },
+};
+
+const indexHtml = /* html */ `<html>
+  <body>
+    <div id="root" />
+  </body>
+</html>`;
 
 const supportedLangs = ['js', 'jsx', 'ts', 'tsx'] as const;
 
@@ -43,10 +92,10 @@ const templates = {
 };
 
 const entries = {
-  js: '/index.js',
-  jsx: '/index.jsx',
-  ts: '/index.ts',
-  tsx: '/index.tsx',
+  js: '/src/index.js',
+  jsx: '/src/index.jsx',
+  ts: '/src/index.ts',
+  tsx: '/src/index.tsx',
 } satisfies {
   [lang in SupportedLang]: string;
 };

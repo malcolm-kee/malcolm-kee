@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "importsNotUsedAsValues": "preserve",
+    "jsx": "react",
     "types": ["astro/client"],
     "baseUrl": ".",
     "paths": {

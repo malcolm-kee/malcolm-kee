@@ -3,15 +3,6 @@ pre {
   background-color: white;
   color: black;
 
-  /* Give it some space to breathe */
-  padding: 12px;
-
-  /* All code samples get a grey border, twoslash ones get a different color */
-  border-left: 1px solid #999;
-  border-bottom: 1px solid #999;
-
-  margin-bottom: 3rem;
-
   /* Important to allow the code to move horizontally; */
   overflow-x: auto;
   position: relative;
@@ -22,7 +13,7 @@ figure pre.shiki {
 }
 
 pre.shiki {
-  --code-color: theme(colors.gray.400);
+  --code-color: theme(colors.gray.100);
   border-color: var(--code-color);
   @apply relative overflow-x-auto border;
 }
@@ -47,7 +38,7 @@ pre.shiki div.line {
 
 pre.shiki .language-id {
   background-color: var(--code-color);
-  @apply absolute top-0 right-2 text-sm px-2 text-white rounded-b;
+  @apply absolute top-0 right-2 text-sm px-2 text-gray-800 rounded-b;
 }
 
 pre.shiki .code-title {
@@ -56,7 +47,7 @@ pre.shiki .code-title {
 
 /* Visually differentiates twoslash code samples  */
 pre.twoslash {
-  --code-color: theme(colors.primary.700);
+  --code-color: theme(colors.zinc.300);
 }
 
 /** When you mouse over the pre, show the underlines */
@@ -82,6 +73,7 @@ pre.twoslash data-lsp:hover::before {
 }
 
 pre .code-container {
+  max-height: var(--code-max-height, none);
   @apply p-2 overflow-auto;
 }
 /* The try button */

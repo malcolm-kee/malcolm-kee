@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import * as React from 'react';
 import { navItems } from '../data/nav';
 import { Container } from './Container';
-import { ChevronDownIcon, CloseIcon } from './icons';
+import { TinyChevronDownIcon, CloseIcon } from './icons';
 
 export default function Header({
   isHomePage,
@@ -179,7 +179,7 @@ export default function Header({
                   >
                     <span
                       className={clsx(
-                        'hidden lg:block text-2xl text-teal-700 opacity-0 group-hover/link:opacity-100 group-focus/link:opacity-100 transition',
+                        'hidden xl:block text-2xl text-teal-700 opacity-0 group-hover/link:opacity-100 group-focus/link:opacity-100 transition',
                         '-translate-x-1/2 group-hover/link:translate-x-0 group-focus/link:translate-x-0'
                       )}
                     >
@@ -215,10 +215,10 @@ const IconContainer = ({
   <div
     {...props}
     className={clsx(
-      'w-10 h-10 rounded-full p-0.5 backdrop-blur',
+      'w-10 h-10 rounded-full p-0.5 backdrop-blur flex-shrink-0',
       isHomePage
         ? 'bg-white/90 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5'
-        : 'lg:bg-teal-700/90 lg:shadow-lg lg:ring-1',
+        : 'xl:bg-teal-700/90 xl:shadow-lg xl:ring-1',
       props.className
     )}
   />
@@ -313,7 +313,7 @@ function MobileNavigation(props: { className?: string }) {
     <Popover {...props}>
       <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur">
         Menu
-        <ChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700" />
+        <TinyChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700" />
       </Popover.Button>
       <Transition.Root>
         <Transition.Child
