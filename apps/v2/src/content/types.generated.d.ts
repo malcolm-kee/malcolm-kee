@@ -87,6 +87,83 @@ declare module 'astro:content' {
 },
 },
 "workshop": {
+"fast-site-with-gatsby-js/01-introduction/introduction.mdx": {
+  id: "fast-site-with-gatsby-js/01-introduction/introduction.mdx",
+  slug: "fast-site-with-gatsby-js/01-introduction/introduction",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/02-key-concepts/key-concepts.mdx": {
+  id: "fast-site-with-gatsby-js/02-key-concepts/key-concepts.mdx",
+  slug: "fast-site-with-gatsby-js/02-key-concepts/key-concepts",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/03-create-pages/create-pages.mdx": {
+  id: "fast-site-with-gatsby-js/03-create-pages/create-pages.mdx",
+  slug: "fast-site-with-gatsby-js/03-create-pages/create-pages",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/04-use-plugin/use-plugin.mdx": {
+  id: "fast-site-with-gatsby-js/04-use-plugin/use-plugin.mdx",
+  slug: "fast-site-with-gatsby-js/04-use-plugin/use-plugin",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/05-pulling-data/pulling-data.mdx": {
+  id: "fast-site-with-gatsby-js/05-pulling-data/pulling-data.mdx",
+  slug: "fast-site-with-gatsby-js/05-pulling-data/pulling-data",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/06-source-plugin/source-plugin.mdx": {
+  id: "fast-site-with-gatsby-js/06-source-plugin/source-plugin.mdx",
+  slug: "fast-site-with-gatsby-js/06-source-plugin/source-plugin",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/07-transformer-plugin/transformer-plugin.mdx": {
+  id: "fast-site-with-gatsby-js/07-transformer-plugin/transformer-plugin.mdx",
+  slug: "fast-site-with-gatsby-js/07-transformer-plugin/transformer-plugin",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/08-dynamic-pages/dynamic-pages.mdx": {
+  id: "fast-site-with-gatsby-js/08-dynamic-pages/dynamic-pages.mdx",
+  slug: "fast-site-with-gatsby-js/08-dynamic-pages/dynamic-pages",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/09-image-optimization/image-optimization.mdx": {
+  id: "fast-site-with-gatsby-js/09-image-optimization/image-optimization.mdx",
+  slug: "fast-site-with-gatsby-js/09-image-optimization/image-optimization",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/10-more-source-plugin/more-source-plugin.mdx": {
+  id: "fast-site-with-gatsby-js/10-more-source-plugin/more-source-plugin.mdx",
+  slug: "fast-site-with-gatsby-js/10-more-source-plugin/more-source-plugin",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"fast-site-with-gatsby-js/11-create-source-plugin/create-source-plugin.mdx": {
+  id: "fast-site-with-gatsby-js/11-create-source-plugin/create-source-plugin.mdx",
+  slug: "fast-site-with-gatsby-js/11-create-source-plugin/create-source-plugin",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
 "intro-to-react-js-v2/01-introduction/introduction.mdx": {
   id: "intro-to-react-js-v2/01-introduction/introduction.mdx",
   slug: "intro-to-react-js-v2/01-introduction/introduction",

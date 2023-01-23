@@ -6,7 +6,7 @@ section: 'data in gatsby'
 
 ## Transformer Plugins
 
-![Transformer plugins are used to transform data provided by source plugins](gatsbyjs-overview-highlight-transformer-plugin.png)
+![Transformer plugins are used to transform data provided by source plugins](https://res.cloudinary.com/djzsjzasg/image/upload/v1674488867/malcolm-kee/gatsbyjs-overview-highlight-transformer-plugin_kjx5ne.png)
 
 ## Build a Page with Data from Transformer Plugin
 
@@ -14,7 +14,7 @@ section: 'data in gatsby'
 npm i gatsby-transformer-remark
 ```
 
-```javascript fileName=gatsby-config.js
+```js title="gatsby-config.js" {10-17}
 module.exports = {
   plugins: [
     'gatsby-plugin-sass',
@@ -25,7 +25,6 @@ module.exports = {
         path: `${__dirname}/src`,
       },
     },
-    // highlight-start
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -34,7 +33,6 @@ module.exports = {
       },
     },
     'gatsby-transformer-remark',
-    // highlight-end
   ],
 };
 ```
@@ -44,7 +42,7 @@ mkdir blogs
 touch blogs/my-first-blog.md blogs/second-blog.md
 ```
 
-```md fileName=blogs/my-first-blog.md
+```md title="blogs/my-first-blog.md"
 ---
 title: 'My First Blog'
 date: '2019-07-06'
@@ -53,7 +51,7 @@ date: '2019-07-06'
 I'm so happy to write my first blog in Gatsby!
 ```
 
-```md fileName=blogs/second-blog.md
+```md title="blogs/second-blog.md"
 ---
 title: 'My Second Blog'
 date: '2019-07-07'
@@ -89,7 +87,7 @@ Now we can add a page that display the title and date for our markdown files:
 touch src/pages/blogs.js
 ```
 
-```jsx fileName=src/pages/blogs.js
+```jsx title="src/pages/blogs.js"
 import { graphql } from 'gatsby';
 import * as React from 'react';
 import { Layout } from '../components/layout';

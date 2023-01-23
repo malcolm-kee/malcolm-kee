@@ -44,14 +44,3 @@
   themeColor: '#294E80'
   iconFile: '../assets/react-typescript.png'
   iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311145/malcolm-kee/react-typescript_ielgk1.png'
-- name: Create a Fast Site with GatsbyJS
-  id: fast-site-with-gatsby-js
-  url: '/fast-site-with-gatsby-js/'
-  description: 'Learn how to build blog with GatsbyJS, which automatically optimize your site to make it fast without sacrificing developer usability or accessibility.'
-  keywords:
-    - react
-    - static site
-    - gatsbyjs
-  themeColor: '#663399'
-  iconFile: '../assets/gatsbyjs.png'
-  iconUrl: 'https://res.cloudinary.com/djzsjzasg/image/upload/v1622711092/malcolm-kee/gatsbyjs_qsfhia.png'

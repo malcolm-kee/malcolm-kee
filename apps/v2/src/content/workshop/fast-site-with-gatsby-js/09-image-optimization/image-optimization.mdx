@@ -6,7 +6,7 @@ section: 'advanced'
 
 Image is easily the most heavy resources of many webpages.
 
-![Based on statistics, image is most heavy resources of webpage](page-weight.jpg)
+![Based on statistics, image is most heavy resources of webpage](https://res.cloudinary.com/djzsjzasg/image/upload/v1674489230/malcolm-kee/page-weight_lmryst.jpg)
 
 However, to optimize image for webpages is not an easy feat. Ideally you need to:
 
@@ -24,7 +24,7 @@ Fortunately, Gatsby has include plugins and component to make all these optimiza
 npm i gatsby-image gatsby-transformer-sharp gatsby-plugin-sharp
 ```
 
-```javascript fileName=gatsby-config.js
+```js title="gatsby-config.js" {18,19}
 module.exports = {
   plugins: [
     'gatsby-plugin-sass',
@@ -43,10 +43,8 @@ module.exports = {
       },
     },
     'gatsby-transformer-remark',
-    // highlight-start
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    // highlight-end
   ],
 };
 ```
@@ -72,50 +70,7 @@ There are two types of responsive images supported by Gatsby:
 
 Let's load your photo by setting a fixed width of 500px.
 
-```jsx fileName=src/pages/index.js
-import { graphql } from 'gatsby';
-import Image from 'gatsby-image'; // highlight-line
-import * as React from 'react';
-import { Layout } from '../components/layout';
-
-const HomePage = ({ data }) => {
-  const metadata = data.site.siteMetadata;
-  const imageData = data.file.childImageSharp; // highlight-line
-
-  return (
-    <Layout>
-      <h1>Welcome to {metadata.title}'s Website</h1>
-      <p>{metadata.description}</p>
-      {/* highlight-next-line */}
-      <Image fixed={imageData.fixed} alt="Photo of Me" />
-    </Layout>
-  );
-};
-
-export const query = graphql`
-  query HomePageQuery {
-    site {
-      siteMetadata {
-        title
-        description
-      }
-    }
-    ${/* highlight-start */ ''}
-    file(relativePath: { eq: "images/my-image.jpg" }) {
-        childImageSharp {
-            fixed(width: 500) {
-              ...GatsbyImageSharpFixed
-        }
-      }
-    }
-    ${/* highlight-end */ ''}
-  }
-`;
-```
-
-### Load a Fluid Size Image
-
-```jsx fileName=src/pages/index.js
+```jsx title="src/pages/index.js" {1,7,13,26-32}
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import * as React from 'react';
@@ -129,11 +84,49 @@ const HomePage = ({ data }) => {
     <Layout>
       <h1>Welcome to {metadata.title}'s Website</h1>
       <p>{metadata.description}</p>
-      {/* highlight-start */}
+      <Image fixed={imageData.fixed} alt="Photo of Me" />
+    </Layout>
+  );
+};
+
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
+    file(relativePath: { eq: "images/my-image.jpg" }) {
+      childImageSharp {
+        fixed(width: 500) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`;
+```
+
+### Load a Fluid Size Image
+
+```jsx title="src/pages/index.js" {13-15}
+import { graphql } from 'gatsby';
+import Image from 'gatsby-image';
+import * as React from 'react';
+import { Layout } from '../components/layout';
+
+const HomePage = ({ data }) => {
+  const metadata = data.site.siteMetadata;
+  const imageData = data.file.childImageSharp;
+
+  return (
+    <Layout>
+      <h1>Welcome to {metadata.title}'s Website</h1>
+      <p>{metadata.description}</p>
       <div style={{ maxWidth: 800, margin: '0 auto' }}>
         <Image fluid={imageData.fluid} alt="Photo of Me" />
       </div>
-      {/* highlight-end */}
     </Layout>
   );
 };
@@ -163,7 +156,7 @@ export const query = graphql`
 npm i gatsby-remark-images
 ```
 
-```javascript fileName=gatsby-config.js
+```js title="gatsby-config.js" {17-29}
 module.exports = {
   plugins: [
     'gatsby-plugin-sass',
@@ -181,7 +174,6 @@ module.exports = {
         path: `${__dirname}/blogs`,
       },
     },
-    // highlight-start
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -195,7 +187,6 @@ module.exports = {
         ],
       },
     },
-    // highlight-end
     'gatsby-plugin-sharp',
     'gatsby-transfomer-sharp',
   ],

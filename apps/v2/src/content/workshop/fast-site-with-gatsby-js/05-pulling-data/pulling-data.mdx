@@ -18,14 +18,12 @@ We will learn how to use GraphQL only in Gatsby context, which is specify data t
 
 Let's add some metadata for our website into `gatsby-config.js`.
 
-```javascript fileName=gatsby-config.js
+```js title="gatsby-config.js" {1-4}
 module.exports = {
-  // highlight-start
   siteMetadata: {
     title: 'Malcolm Kee',
     description: 'A site created with tears and love.',
   },
-  // highlight-end
   plugins: ['gatsby-plugin-sass'],
 };
 ```
@@ -34,7 +32,7 @@ module.exports = {
 
 You can access GraphiQL that allows you to make request to Gatsby in development mode at [localhost:8000/\_\_\_graphql](http://localhost:8000/___graphql)
 
-![GraphiQL for Gatsby](graphiql.png)
+![GraphiQL for Gatsby](https://res.cloudinary.com/djzsjzasg/image/upload/v1674488496/malcolm-kee/graphiql_efihmf.png)
 
 Add the following query into GraphiQL and run it.
 
@@ -62,26 +60,22 @@ In Gatsby, there are two ways of injecting data into your page/components:
 
 Export a constant that use `graphql` function from `gatsby` in your page.
 
-```jsx fileName=src/pages/index.js
-import { graphql } from 'gatsby'; // highlight-line
+```jsx title="src/pages/index.js" {0,4,5,9,10,15-24}
+import { graphql } from 'gatsby';
 import * as React from 'react';
 import { Layout } from '../components/layout';
 
-// highlight-next-line
 const HomePage = ({ data }) => {
-  const metadata = data.site.siteMetadata; // highlight-line
+  const metadata = data.site.siteMetadata;
 
   return (
     <Layout>
-      {/* highlight-start */}
       <h1>Welcome to {metadata.title}'s Website</h1>
       <p>{metadata.description}</p>
-      {/* highlight-end */}
     </Layout>
   );
 };
 
-// highlight-start
 export const query = graphql`
   query HomePageQuery {
     site {
@@ -92,20 +86,18 @@ export const query = graphql`
     }
   }
 `;
-// highlight-end
 ```
 
 ### With Static Query
 
 Using `useStaticQuery` custom hooks from `gatsby` in any React component.
 
-```jsx fileName=src/components/header.jsx
-import { graphql, useStaticQuery } from 'gatsby'; // highlight-line
+```jsx title="src/components/header.jsx" {0,5-13,17}
+import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import './header.scss';
 
 export const Header = () => {
-  // highlight-start
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -115,11 +107,9 @@ export const Header = () => {
       }
     }
   `);
-  // highlight-end
 
   return (
     <header className="header">
-      {/* highlight-next-line */}
       <div className="header-container">{data.site.siteMetadata.title}</div>
     </header>
   );
