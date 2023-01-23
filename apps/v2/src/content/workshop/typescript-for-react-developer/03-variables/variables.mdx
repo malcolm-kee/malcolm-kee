@@ -15,45 +15,64 @@ Before we learn to use TypeScript in our React projects, let's have an overview 
 
 ## Basic Variable and Type Declaration
 
-```ts live
+```ts twoslash
+// @errors: 2551
+
 /**
  * x is a string (inferred)
  */
-// let x = "hello js";
+let x = 'hello js';
+//  ^?
 
 /**
  * with type annotation, we know what we can do with the variable.
  */
-// console.log(x.toUpperCase()); // so this is fine
-// console.log(x.toFixed(2)); // this is not fine, because there is no `toFixed` method on string
+console.log(x.toUpperCase()); // so this is fine
+console.log(x.toFixed(2)); // this is not fine, because there is no `toFixed` method on string
 
 /**
  * reassignment is fine
  */
-// x = "hello ts";
+x = 'hello ts';
+```
+
+```ts twoslash
+// @errors: 2322
+
+declare var x: string;
+// ---cut---
 
 /**
  * but it will error if we try to change type
  */
-// x = 42; // Error
+x = 42; // Error
+```
 
+```ts twoslash
+// @errors: 2367
 /**
  * let's look at const. The type is literally 'hello'
  */
-// const y = "hello";
+const y = 'hello';
+//    ^?
 
 /**
  * This is called a 'literal type'. y can never be reassigned since it's a const,
  * so its value will only be literally the string 'hello world' and no other possible value
  */
-// if (y === 'whurt') {} // this check is unnecessary
+if (y === 'whurt') {
+} // this check is unnecessary
+```
+
+```ts twoslash
+// @errors: 2322
 
 /**
  * sometimes we need to declare a variable without initializing it
  */
-// let z;
-// z = 41;
-// z = "abc"; // oh no! TypeScript didn't error
+let z;
+z = 41;
+z = 'abc'; // oh no! TypeScript didn't error
 
 /**
  * If we look at the type of z, it's `any`. This is the most flexible type
@@ -64,9 +83,9 @@ in TypeScript
  * we could improve this situation by providing a type annotation
  * when we declare our variable
  */
-// let zz: number;
-// zz = 41;
-// zz = "abc"; // ERROR, yay!
+let zz: number;
+zz = 41;
+zz = 'abc'; // ERROR, yay!
 ```
 
 Takeaways:
@@ -88,43 +107,55 @@ What does _annotate_ means? Its meaning is like "declare", but for type.
 
 ## Array and Tuple
 
-```ts live
+```ts twoslash
+// @errors: 2345
 /**
  * simple array types can be expressed using []
  */
 let luckyNumbers: number[] = [];
 luckyNumbers.push(33);
-// luckyNumbers.push("abc"); // !ERROR
+luckyNumbers.push('abc'); // !ERROR
+```
 
+```ts twoslash
+// @errors: 2345
 /* array type will be inferred as well if you provide initial value */
 let luckyPersons = ['Steve', 'Bill'];
+//  ^?
 luckyPersons.push('Elon');
-// luckyPersons.push(66); // ERROR
+luckyPersons.push(66); // ERROR
+```
 
+```ts twoslash
+// @errors: 2345
 /**
  * Array<> works too
  */
 const frameworks: Array<string> = [];
 frameworks.push('react');
-// frameworks.push(true); // !ERROR
+frameworks.push(true); // !ERROR
+```
 
+```ts twoslash
+// @errors: 2322
 /**
  * we can even define a tuple, a fixed length and specific type for each item
  */
-// let address: [number, string, string, number] = [
-//   123,
-//   "Jalan Besar",
-//   "Kuala Lumpur",
-//   10110
-// ];
+let address: [number, string, string, number] = [
+  123,
+  'Jalan Besar',
+  'Kuala Lumpur',
+  10110,
+];
 
-// address = [1, 2, 3]; // !ERROR: Type 'number' is not assignable to type 'string'.
+address = [1, 2, 3]; // !ERROR
 
 /**
- * (Tuple values often require type annotations (  : [number, number] )
+ * Tuple values often require type annotations
  */
-// const xx = [32, 31]; // number[];
-// const yy: [number, number] = [32, 31];
+const xx = [32, 31]; // number[];
+//    ^?
+const yy: [number, number] = [32, 31];
 ```
 
 Takeaways:
@@ -134,19 +165,20 @@ Takeaways:
 
 ## Object
 
-```ts live
+```ts twoslash
+// @errors: 2741
 /**
  * object types can be expressed using {} and property names
  */
-// let address: { houseNumber: number; streetName: string };
-// address = {
-//   streetName: "Fake Street",
-//   houseNumber: 123
-// };
+let address: { houseNumber: number; streetName: string };
+address = {
+  streetName: 'Fake Street',
+  houseNumber: 123,
+};
 
-// address = {
-//   houseNumber: 33
-// }; // !Error: Property 'streetName' is missing
+address = {
+  houseNumber: 33,
+}; // !Error: Property 'streetName' is missing
 
 /**
  * You can use the optional operator (?) to indicate that something may or may not be there

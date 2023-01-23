@@ -423,6 +423,90 @@ declare module 'astro:content' {
   collection: "workshop",
   data: InferEntrySchema<"workshop">
 },
+"typescript-for-react-developer/01-introduction/introduction.mdx": {
+  id: "typescript-for-react-developer/01-introduction/introduction.mdx",
+  slug: "typescript-for-react-developer/01-introduction/introduction",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/02-typescript-vs-javascript/typescript-vs-javascript.mdx": {
+  id: "typescript-for-react-developer/02-typescript-vs-javascript/typescript-vs-javascript.mdx",
+  slug: "typescript-for-react-developer/02-typescript-vs-javascript/typescript-vs-javascript",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/03-variables/variables.mdx": {
+  id: "typescript-for-react-developer/03-variables/variables.mdx",
+  slug: "typescript-for-react-developer/03-variables/variables",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/04-type-operations/type-operations.mdx": {
+  id: "typescript-for-react-developer/04-type-operations/type-operations.mdx",
+  slug: "typescript-for-react-developer/04-type-operations/type-operations",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/05-function/function.md": {
+  id: "typescript-for-react-developer/05-function/function.md",
+  slug: "typescript-for-react-developer/05-function/function",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/06-react-styleguidist/react-styleguidist.mdx": {
+  id: "typescript-for-react-developer/06-react-styleguidist/react-styleguidist.mdx",
+  slug: "typescript-for-react-developer/06-react-styleguidist/react-styleguidist",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/07-generics/generics.mdx": {
+  id: "typescript-for-react-developer/07-generics/generics.mdx",
+  slug: "typescript-for-react-developer/07-generics/generics",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/08-convert-react-component/convert-react-component.mdx": {
+  id: "typescript-for-react-developer/08-convert-react-component/convert-react-component.mdx",
+  slug: "typescript-for-react-developer/08-convert-react-component/convert-react-component",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/09-convert-hook/convert-hooks.mdx": {
+  id: "typescript-for-react-developer/09-convert-hook/convert-hooks.mdx",
+  slug: "typescript-for-react-developer/09-convert-hook/convert-hooks",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/10-using-third-party-types/using-third-party-types.mdx": {
+  id: "typescript-for-react-developer/10-using-third-party-types/using-third-party-types.mdx",
+  slug: "typescript-for-react-developer/10-using-third-party-types/using-third-party-types",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/11-advanced-types/advanced-types.mdx": {
+  id: "typescript-for-react-developer/11-advanced-types/advanced-types.mdx",
+  slug: "typescript-for-react-developer/11-advanced-types/advanced-types",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"typescript-for-react-developer/12-next-step/next-step.mdx": {
+  id: "typescript-for-react-developer/12-next-step/next-step.mdx",
+  slug: "typescript-for-react-developer/12-next-step/next-step",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
 "web-developer-toolbox/01-intro/introduction.mdx": {
   id: "web-developer-toolbox/01-intro/introduction.mdx",
   slug: "web-developer-toolbox/01-intro/introduction",

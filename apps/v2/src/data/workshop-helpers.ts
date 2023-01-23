@@ -16,6 +16,14 @@ export type WorkshopMetadata = {
 };
 
 const workshopMetadadata = {
+  'typescript-for-react-developer': {
+    name: 'TypeScript for React Developer',
+    themeColor: '294E80',
+    description:
+      'Learn the Typescript fundamentals to make your React codebase more maintainable',
+    iconUrl:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311145/malcolm-kee/react-typescript_ielgk1.png',
+  },
   'fast-site-with-gatsby-js': {
     name: 'Create a Fast Site with GatsbyJS',
     themeColor: '663399',
@@ -81,6 +89,7 @@ const workshopMetadadata = {
 type WorkshopSlug = keyof typeof workshopMetadadata;
 
 const workshopSlugs: Array<WorkshopSlug> = [
+  'typescript-for-react-developer',
   'fast-site-with-gatsby-js',
   'js-the-react-parts',
   'intro-to-web-dev',

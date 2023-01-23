@@ -8,6 +8,9 @@ objectives:
   - understand how TypeScript reduces bug in your code
 ---
 
+import Exercise from '~/components/Exercise';
+import LiveEditor from '~/components/LiveEditor.astro';
+
 ## Why Use TypeScript in React Project
 
 TypeScript makes your code easier to maintain:
@@ -22,13 +25,13 @@ However, TypeScript has some downsides too:
 1. Slightly less references and helps compared to JavaScript.
 1. May take longer time to write, especially when you're still new.
 
-![David K.:Me: I think I'm done. JavaScript: Looks good to me. Me: Hope it works. JS: I believe in you. Me: ... JS: undefined is not a function. Me: I thi-- TypeScript: Nope. Me: What abou-- TS: Wrong. Me: ... TS: cannot invoke an expression whose type lacks a call signature](david-k-piano-typescript-frustration.png)
+![David K.:Me: I think I'm done. JavaScript: Looks good to me. Me: Hope it works. JS: I believe in you. Me: ... JS: undefined is not a function. Me: I thi-- TypeScript: Nope. Me: What abou-- TS: Wrong. Me: ... TS: cannot invoke an expression whose type lacks a call signature](https://res.cloudinary.com/djzsjzasg/image/upload/v1674490625/malcolm-kee/david-k-piano-typescript-frustration_laanzk.png)
 
 ## Why Learn TypeScript as React Developer
 
 1. Better job prospect
 
-   ![Ryan Florence:Side note. TypeScript is taking over. It has gained rapid adoption in 2018 and its embarrassing that I don't know it. If you're looking for a job, there's a 50/50 chance your next code base will be using it if my workshop attendees are any sort of decently random sample.](ryan-florence-typescript-comment.png)
+   ![Ryan Florence:Side note. TypeScript is taking over. It has gained rapid adoption in 2018 and its embarrassing that I don't know it. If you're looking for a job, there's a 50/50 chance your next code base will be using it if my workshop attendees are any sort of decently random sample.](https://res.cloudinary.com/djzsjzasg/image/upload/v1674490626/malcolm-kee/ryan-florence-typescript-comment_hxhpao.png)
 
 1. Improves your JavaScript skill
 
@@ -62,7 +65,9 @@ What are the invalid things? Here are two examples:
 
 Consider the following example:
 
-```js live
+<LiveEditor>
+
+```js
 const append = (array, item) => array.concat(item);
 const excludeUndefined = (array) =>
   array.filter((item) => typeof item !== 'undefined');
@@ -77,11 +82,15 @@ console.log(numbers);
 // console.log({ newName });
 ```
 
+</LiveEditor>
+
 When we write the function `append` and `excludeUndefined`, we assume the first parameter is an array. However because JavaScript is a weakly-typed language, you can pass a string to the functions, and JavaScript will still allows you to do so, which cause an error when the code runs.
 
 Using TypeScript, we can document our code explicitly, like below. (Don't worry about the syntax, which I will explain in details later)
 
-```ts live
+<LiveEditor>
+
+```ts
 const append = <T>(array: T[], item: T): T[] => array.concat(item);
 const excludeUndefined = <T>(array: Array<T | undefined>): T[] =>
   array.filter((item) => typeof item !== 'undefined');
@@ -95,6 +104,8 @@ console.log(numbers);
 // const newName = excludeUndefined(newList2);
 // console.log({ newName });
 ```
+
+</LiveEditor>
 
 Now that TypeScript will start yelling at us when we pass a string to the `append` function as it contradicts the assumption of the `append` function, so that we can identify problem in our code without running the code.
 
@@ -126,13 +137,13 @@ Let's setup the project locally before we go further:
 
 1. Clone the project and checkout `redux` branch:
 
-   ```bash noWrapper
+   ```bash
    git clone -b redux https://github.com/malcolm-kee/react-ecomm-site.git
    ```
 
 2. Install the dependencies:
 
-   ```bash noWrapper
+   ```bash
    cd react-ecomm-site
    yarn install
    ```

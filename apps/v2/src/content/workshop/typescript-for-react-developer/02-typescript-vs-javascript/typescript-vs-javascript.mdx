@@ -11,7 +11,7 @@ objectives:
 
 ## Any Valid JavaScript is Valid TypeScript
 
-![TypeScript is superset of JavaScript](ts-js-venn.png)
+![TypeScript is superset of JavaScript](https://res.cloudinary.com/djzsjzasg/image/upload/v1674490898/malcolm-kee/ts-js-venn_x2xsq3.png)
 
 TypeScript was designed to inter-operate with JavaScript seamlessly, therefore its language include JavaScript itself, with type annotation and a few JavaScript features that are yet to be standardized (e.g. decorator).
 
@@ -40,7 +40,7 @@ In fact, I use TypeScript for more than two years and I seldom need to do OOP un
 
 Evan You, the creator of Vue, shared [his thoughts](https://twitter.com/youyuxi/status/1175433025179529216) on how TypeScript actually avoid the use of `class` when Vue migrates to TypeScript.
 
-![Evan You: Ironically I think TypeScript has helped me more with avoiding classes than using them. Vue 3 is a 100% TS codebase with 0 usage of classes.When shapes of objects can be expressed and checked purely in type land with interfaces, the actual implementation can just be plain literal objects. Instead of class methods, I just pass the objects around to plain functions.This isn't even about FP vs OO as some may assume - there's still a lot of mutable state and imperative code - it's just that with a type system they can be cleanly managed without classes.](evan-you-comments-on-typescript.png)
+![Evan You: Ironically I think TypeScript has helped me more with avoiding classes than using them. Vue 3 is a 100% TS codebase with 0 usage of classes.When shapes of objects can be expressed and checked purely in type land with interfaces, the actual implementation can just be plain literal objects. Instead of class methods, I just pass the objects around to plain functions.This isn't even about FP vs OO as some may assume - there's still a lot of mutable state and imperative code - it's just that with a type system they can be cleanly managed without classes.](https://res.cloudinary.com/djzsjzasg/image/upload/v1674490898/malcolm-kee/evan-you-comments-on-typescript_bpigmy.png)
 
 </aside>
 
@@ -60,13 +60,13 @@ The process is like how our React code in JSX is being transpiled to JavaScript 
 
 A typical (non-TypeScript) React project compilation pipeline look like this:
 
-![Babel compile JSX by going through two process: parse and emit](babel-compilation.png)
+![Babel compile JSX by going through two process: parse and emit](https://res.cloudinary.com/djzsjzasg/image/upload/v1674490897/malcolm-kee/babel-compilation_p31vls.png)
 
 The parse step is to generate a data structure of your code, which is known as AST. With the generated AST, Babel will use it to "emit" (output) the final code. Usually, the compilation will succeed if your code doesn't have syntax error, causing error in the parsing process.
 
 TypeScript as a language, comes with its compiler. Conceptually, TypeScript compiler works almost similar to Babel, with an extra step of typechecking:
 
-![TypeScript compilations takes three steps: parse, typecheck, and emit](typescript-compilation.png)
+![TypeScript compilations takes three steps: parse, typecheck, and emit](https://res.cloudinary.com/djzsjzasg/image/upload/v1674490897/malcolm-kee/typescript-compilation_ob5u6h.png)
 
 In addition of generate the data structure, TypeScript compiler will do type-checking (make sure there is no invalid operation), before finally emit the final code.
 
@@ -80,7 +80,7 @@ Using this approach, we will able to convert our code to TypeScript with minimal
 
 This setup can be summarized as below:
 
-![Babel able to parse TypeScript code and emit code, while TypeScript compiler is used to parse and typecheck, without emit code](babel-compilation-with-typescript-typecheck.png)
+![Babel able to parse TypeScript code and emit code, while TypeScript compiler is used to parse and typecheck, without emit code](https://res.cloudinary.com/djzsjzasg/image/upload/v1674490896/malcolm-kee/babel-compilation-with-typescript-typecheck_qbub2w.png)
 
 <aside>
 
