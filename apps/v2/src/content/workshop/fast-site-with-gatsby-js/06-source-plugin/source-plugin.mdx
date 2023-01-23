@@ -6,17 +6,16 @@ section: 'data in gatsby'
 
 ## Source Plugins
 
-![Source plugins are used to pull data into Gatsby](gatsbyjs-overview-highlight-source-plugin.png)
+![Source plugins are used to pull data into Gatsby](https://res.cloudinary.com/djzsjzasg/image/upload/v1674488780/malcolm-kee/gatsbyjs-overview-highlight-source-plugin_bhakkg.png)
 
 ```bash
 npm i gatsby-source-filesystem
 ```
 
-```javascript fileName=gatsby-config.js
+```js title="gatsby-config.js" {3-9}
 module.exports = {
   plugins: [
     'gatsby-plugin-sass',
-    // highlight-start
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -24,14 +23,13 @@ module.exports = {
         path: `${__dirname}/src`,
       },
     },
-    // highlight-end
   ],
 };
 ```
 
 ## Build a Page with Data from Source Plugin
 
-```jsx fileName=src/pages/all-code.js
+```jsx title="src/pages/all-code.js"
 import { graphql } from 'gatsby';
 import * as React from 'react';
 import { Layout } from '../components/layout';

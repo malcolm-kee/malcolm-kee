@@ -16,22 +16,20 @@ Gatsby exposes some APIs for you to hook into different lifecycles:
 
 ### Add Path for Each Markdown Page
 
-```md fileName=blogs/my-first-blog.md
+```md title="blogs/my-first-blog.md" {3}
 ---
 title: 'My First Blog'
 date: '2019-07-06'
-<!-- highlight-next-line -->
 path: '/my-first-blog'
 ---
 
 I'm so happy to write my first blog in Gatsby!
 ```
 
-```md fileName=blogs/second-blog.md
+```md title="blogs/second-blog.md" {3}
 ---
 title: 'My Second Blog'
 date: '2019-07-07'
-<!-- highlight-next-line -->
 path: '/second-blog'
 ---
 
@@ -47,7 +45,7 @@ mkdir src/templates
 touch src/templates/blog-template.jsx
 ```
 
-```jsx fileName=src/templates/blog-template.jsx
+```jsx title="src/templates/blog-template.jsx"
 import * as React from 'react';
 import { Layout } from '../components/layout';
 
@@ -70,7 +68,7 @@ export default BlogTemplate;
 touch gatsby-node.js
 ```
 
-```javascript fileName=gatsby-node.js
+```javascript title="gatsby-node.js"
 const path = require('path');
 const blogTemplate = path.resolve(
   __dirname,
@@ -107,22 +105,18 @@ exports.createPages = async ({ actions, graphql }) => {
 
 ## Inject Data in Template
 
-```jsx fileName=src/templates/blog-template.jsx
-import { graphql } from 'gatsby'; // highlight-line
+```jsx title="src/templates/blog-template.jsx" {0,4,5,9,10,18-27}
+import { graphql } from 'gatsby';
 import * as React from 'react';
 import { Layout } from '../components/layout';
 
-// highlight-start
 const BlogTemplate = ({ data }) => {
   const post = data.markdownRemark;
-  // highlight-end
   return (
     <Layout>
       <article>
-        {/* highlight-start */}
         <h1>{post.frontmatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        {/* highlight-end */}
       </article>
     </Layout>
   );
@@ -130,7 +124,6 @@ const BlogTemplate = ({ data }) => {
 
 export default BlogTemplate;
 
-// highlight-start
 export const pageQuery = graphql`
   query BlogPostById($id: String!) {
     markdownRemark(id: { eq: $id }) {
@@ -141,10 +134,9 @@ export const pageQuery = graphql`
     }
   }
 `;
-// highlight-end
 ```
 
-```javascript fileName=gatsby-node.js
+```javascript title="gatsby-node.js" {10,24-26}
 ...
 
 exports.createPages = async ({ actions, graphql }) => {
@@ -155,7 +147,6 @@ exports.createPages = async ({ actions, graphql }) => {
       allMarkdownRemark {
         edges {
           node {
-            ${/* highlight-next-line */''}
             id
             frontmatter {
               path
@@ -170,11 +161,9 @@ exports.createPages = async ({ actions, graphql }) => {
     createPage({
       path: node.frontmatter.path,
       component: blogTemplate,
-      // highlight-start
       context: {
         id: node.id
       }
-      // highlight-end
     });
   });
 };

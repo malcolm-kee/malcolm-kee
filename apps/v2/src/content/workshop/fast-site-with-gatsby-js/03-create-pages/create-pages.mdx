@@ -18,7 +18,7 @@ npm init --y
 
 You should see a `package.json` created in learn-gatsby folder.
 
-```json fileName=package.json
+```json title="package.json"
 {
   "name": "learn-gatsby",
   "version": "1.0.0",
@@ -41,7 +41,7 @@ npm install react react-dom gatsby
 
 - `npm install` installs third-party libraries for your project. It will download the libraries and put them in `node_modules` folder and add the libraries' name and version in the `package.json` file.
 
-```json fileName=package.json highlightedLines=12,13,14,15,16
+```json title="package.json" {11-15}
 {
   "name": "learn-gatsby",
   "version": "1.0.0",
@@ -67,7 +67,7 @@ Next, let's setup our repository so we can properly record our changes and push 
 touch .gitignore
 ```
 
-```text fileName=.gitignore
+```text title=".gitignore"
 .cache
 node_modules
 /public
@@ -81,14 +81,14 @@ git commit -m "initial commit"
 
 ## Create First Page
 
-![Components are main building blocks of a Gatsby site](gatsbyjs-overview-highlight-component.png)
+![Components are main building blocks of a Gatsby site](https://res.cloudinary.com/djzsjzasg/image/upload/v1674487841/malcolm-kee/gatsbyjs-overview-highlight-component_yxo02t.png)
 
 ```bash
 mkdir -p src/pages
 touch src/pages/index.js
 ```
 
-```jsx fileName=src/pages/index.js
+```jsx title="src/pages/index.js"
 import * as React from 'react';
 
 const HomePage = () => {
@@ -103,7 +103,7 @@ const HomePage = () => {
 export default HomePage;
 ```
 
-```json fileName=package.json highlightedLines=7
+```json title="package.json" highlightedLines=7
 {
   "name": "learn-gatsby",
   "version": "1.0.0",
@@ -150,7 +150,7 @@ However, I highly recommend you setup locally afterwards because having it works
 touch src/pages/404.js
 ```
 
-```jsx fileName=src/pages/404.js
+```jsx title="src/pages/404.js"
 import * as React from 'react';
 
 const NotFoundPage = () => {
@@ -178,7 +178,7 @@ touch src/components/header.jsx
 touch src/components/layout.jsx
 ```
 
-```jsx fileName=src/components/header.jsx
+```jsx title="src/components/header.jsx"
 import * as React from 'react';
 
 export const Header = () => {
@@ -190,7 +190,7 @@ export const Header = () => {
 };
 ```
 
-```jsx fileName=src/components/layout.jsx
+```jsx title="src/components/layout.jsx"
 import * as React from 'react';
 import { Header } from './header';
 
@@ -206,17 +206,15 @@ export const Layout = ({ children }) => {
 
 Then use the `Layout` component in both our home page and not found page:
 
-```jsx fileName=src/pages/index.js
+```jsx title="src/pages/index.js" {1,5,8}
 import * as React from 'react';
-import { Layout } from '../components/layout'; // highlight-line
+import { Layout } from '../components/layout';
 
 const HomePage = () => {
   return (
-    //   highlight-next-line
     <Layout>
       <h1>Welcome to Malcolm Kee's Website</h1>
       <p>crafted with tears and love.</p>
-      {/* highlight-next-line */}
     </Layout>
   );
 };
@@ -224,17 +222,15 @@ const HomePage = () => {
 export default HomePage;
 ```
 
-```jsx fileName=src/pages/404.js
+```jsx title="src/pages/404.js" {1,5,8}
 import * as React from 'react';
-import { Layout } from '../components/layout'; // highlight-line
+import { Layout } from '../components/layout';
 
 const NotFoundPage = () => {
   return (
-    // highlight-next-line
     <Layout>
       <h1>Page Not Found</h1>
       <p>Man... I'm sorry for you</p>
-      {/* highlight-next-line */}
     </Layout>
   );
 };
@@ -249,7 +245,7 @@ touch src/components/header.css
 touch src/components/layout.css
 ```
 
-```css fileName=header.css
+```css title="header.css"
 .header {
   background-color: rgb(102, 51, 153);
   color: #fff;
@@ -263,9 +259,9 @@ touch src/components/layout.css
 }
 ```
 
-```jsx fileName=src/components/header.jsx
+```jsx title="src/components/header.jsx" {1}
 import * as React from 'react';
-import './header.css'; // highlight-line
+import './header.css';
 
 export const Header = () => {
   return (
@@ -276,17 +272,17 @@ export const Header = () => {
 };
 ```
 
-```css fileName=layout.css
+```css title="layout.css"
 .layout-container {
   margin: 0 auto;
   max-width: 1020px;
 }
 ```
 
-```jsx fileName=src/components/layout.jsx
+```jsx title="src/components/layout.jsx" {2}
 import * as React from 'react';
 import { Header } from './header';
-import './layout.css'; // highlight-line
+import './layout.css';
 
 export const Layout = ({ children }) => {
   return (
@@ -313,7 +309,7 @@ Let's add third page in our site
 touch src/pages/about-me.js
 ```
 
-```jsx fileName=src/pages/about-me.js
+```jsx title="src/pages/about-me.js"
 import * as React from 'react';
 import { Layout } from '../components/layout';
 
@@ -334,8 +330,8 @@ export default AboutMePage;
 
 Let's add the link to this new page from home page:
 
-```jsx fileName=src/pages/index.js
-import { Link } from 'gatsby'; // highlight-line
+```jsx title="src/pages/index.js" {0,9}
+import { Link } from 'gatsby';
 import * as React from 'react';
 import { Layout } from '../components/layout';
 
@@ -344,7 +340,6 @@ const HomePage = () => {
     <Layout>
       <h1>Welcome to Malcolm Kee's Website</h1>
       <p>crafted with tears and love.</p>
-      {/* highlight-next-line */}
       <Link to="/about-me">About</Link>
     </Layout>
   );
@@ -355,8 +350,8 @@ export default HomePage;
 
 Add the link to home page from Not Found page and About page:
 
-```jsx fileName=src/pages/404.js
-import { Link } from 'gatsby'; // highlight-line
+```jsx title="src/pages/404.js" {0,9}
+import { Link } from 'gatsby';
 import * as React from 'react';
 import { Layout } from '../components/layout';
 
@@ -365,7 +360,6 @@ const NotFoundPage = () => {
     <Layout>
       <h1>Page Not Found</h1>
       <p>Man... I'm sorry for you</p>
-      {/* highlight-next-line */}
       <Link to="/">Home</Link>
     </Layout>
   );
@@ -374,8 +368,8 @@ const NotFoundPage = () => {
 export default NotFoundPage;
 ```
 
-```jsx fileName=src/pages/about-me.js
-import { Link } from 'gatsby'; // highlight-line
+```jsx title="src/pages/about-me.js" {0,12}
+import { Link } from 'gatsby';
 import * as React from 'react';
 import { Layout } from '../components/layout';
 
@@ -387,7 +381,6 @@ const AboutMePage = () => {
         <li>Full-Snack Developer</li>
         <li>KL, Malaysia</li>
       </ul>
-      {/* highlight-next-line */}
       <Link to="/">Home</Link>
     </Layout>
   );
@@ -398,7 +391,7 @@ export default AboutMePage;
 
 ## Build and Deploy Your Gatsby Site
 
-```json fileName=package.json highlightedLines=8,9
+```json title="package.json" {7,8}
 {
   "name": "learn-gatsby",
   "version": "1.0.0",

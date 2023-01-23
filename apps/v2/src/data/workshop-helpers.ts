@@ -16,6 +16,14 @@ export type WorkshopMetadata = {
 };
 
 const workshopMetadadata = {
+  'fast-site-with-gatsby-js': {
+    name: 'Create a Fast Site with GatsbyJS',
+    themeColor: '663399',
+    description:
+      'Learn how to build blog with GatsbyJS, which automatically optimize your site to make it fast without sacrificing developer usability or accessibility.',
+    iconUrl:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/v1622711092/malcolm-kee/gatsbyjs_qsfhia.png',
+  },
   'js-the-react-parts': {
     name: 'JavaScript: The React Parts',
     themeColor: 'f7df1e',
@@ -73,6 +81,7 @@ const workshopMetadadata = {
 type WorkshopSlug = keyof typeof workshopMetadadata;
 
 const workshopSlugs: Array<WorkshopSlug> = [
+  'fast-site-with-gatsby-js',
   'js-the-react-parts',
   'intro-to-web-dev',
   'react-component-lib',

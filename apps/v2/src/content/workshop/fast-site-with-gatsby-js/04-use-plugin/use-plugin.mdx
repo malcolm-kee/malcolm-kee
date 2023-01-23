@@ -4,7 +4,7 @@ description: ''
 section: 'building blocks'
 ---
 
-![Plugins can be used to enhance build process of Gatsby](gatsbyjs-overview-highlight-build.png)
+![Plugins can be used to enhance build process of Gatsby](https://res.cloudinary.com/djzsjzasg/image/upload/v1674488309/malcolm-kee/gatsbyjs-overview-highlight-build_vjgala.png)
 
 Gatsby plugins are how we customize Gatsby site to fit our specific use case.
 
@@ -102,7 +102,7 @@ touch gatsby-config.js
 npm install node-sass gatsby-plugin-sass
 ```
 
-```javascript fileName=gatsby-config.js
+```js title="gatsby-config.js"
 module.exports = {
   plugins: ['gatsby-plugin-sass'],
 };
@@ -122,7 +122,7 @@ mv src/components/header.css src/components/header.scss
 mv src/components/layout.css src/components/layout.scss
 ```
 
-```scss fileName=src/_constants.scss
+```scss title="src/_constants.scss"
 $space: 8px;
 $primary-color: rgb(102, 51, 153);
 $max-width: 1020px;
@@ -131,26 +131,25 @@ $max-width: 1020px;
 - A Sass file starts with underscore is known as partial, which contains little snippets of CSS to be included in other Sass file with the `@import` statement. - Partial will not be generated to a CSS file because its purpose is to remove repetition between your SCSS files.
 - It is recommended that you create at least a partial file that contains all the constants that you will use in your project, so it is easy to change the design (primary color, font family etc.) by only modifying this constant file.
 
-```scss fileName=src/components/header.scss
-@import '../constants'; // highlight-line
+```scss title="src/components/header.scss" {0,3,6,8,10}
+@import '../constants';
 
 .header {
-  background-color: $primary-color; // highlight-line
+  background-color: $primary-color;
   color: #fff;
 
-  // highlight-next-line
   &-container {
     font-size: 3rem;
-    padding: $space; // highlight-line
+    padding: $space;
     margin: 0 auto;
-    max-width: $max-width; // highlight-line
+    max-width: $max-width;
   }
 }
 ```
 
-```jsx fileName=src/components/header.jsx
+```jsx title="src/components/header.jsx" {1}
 import * as React from 'react';
-import './header.scss'; // highlight-line
+import './header.scss';
 
 export const Header = () => {
   return (
@@ -161,8 +160,8 @@ export const Header = () => {
 };
 ```
 
-```scss fileName=src/components/layout.scss
-@import '../constants'; // highlight-line
+```scss title="src/components/layout.scss" {0}
+@import '../constants';
 
 .layout-container {
   margin: 0 auto;
@@ -170,10 +169,10 @@ export const Header = () => {
 }
 ```
 
-```jsx fileName=src/components/layout.jsx
+```jsx title="src/components/layout.jsx" {2}
 import * as React from 'react';
 import { Header } from './header';
-import './layout.scss'; // highlight-line
+import './layout.scss';
 
 export const Layout = ({ children }) => {
   return (

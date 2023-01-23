@@ -10,7 +10,7 @@ section: 'advanced'
 npm i gatsby-source-instagram
 ```
 
-```javascript fileName=gatsby-config.js
+```js title="gatsby-config.js" {32-37}
 module.exports = {
   plugins: [
     'gatsby-plugin-sass',
@@ -43,14 +43,12 @@ module.exports = {
     },
     'gatsby-plugin-sharp',
     'gatsby-transfomer-sharp',
-    // highlight-start
     {
       resolve: 'gatsby-source-instagram',
       options: {
         username: 'malcolm__kee',
       },
     },
-    // highlight-end
   ],
 };
 ```
@@ -83,7 +81,7 @@ touch src/components/instagram.jsx
 touch src/components/instagram.scss
 ```
 
-```jsx fileName=src/components/instagram.jsx
+```jsx title="src/components/instagram.jsx"
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import * as React from 'react';
@@ -134,7 +132,7 @@ export const Instagram = () => {
 };
 ```
 
-```scss fileName=src/components/instagram.scss
+```scss title="src/components/instagram.scss"
 @import '../constants';
 
 .instagram {
@@ -152,11 +150,11 @@ export const Instagram = () => {
 }
 ```
 
-```jsx fileName=src/pages/index.js
+```jsx title="src/pages/index.js" {3,15}
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import * as React from 'react';
-import { Instagram } from '../components/instagram'; // highlight-line
+import { Instagram } from '../components/instagram';
 import { Layout } from '../components/layout';
 
 const HomePage = ({ data }) => {
@@ -168,7 +166,6 @@ const HomePage = ({ data }) => {
       <h1>Welcome to {metadata.title}'s Website</h1>
       <p>{metadata.description}</p>
       <Image fluid={imageData.fluid} alt="Photo of Me" />
-      {/* highlight-next-line */}
       <Instagram />
     </Layout>
   );
