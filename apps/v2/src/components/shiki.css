@@ -82,6 +82,7 @@ pre.twoslash data-lsp:hover::before {
 }
 
 pre .code-container {
+  max-height: var(--code-max-height, none);
   @apply p-2 overflow-auto;
 }
 /* The try button */

@@ -1,6 +1,8 @@
+import * as React from 'react';
+
 export type IconProps = React.ComponentPropsWithoutRef<'svg'>;
 
-export function ChevronDownIcon(props: IconProps) {
+export function TinyChevronDownIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 8 6" aria-hidden="true" {...props}>
       <path
@@ -79,7 +81,6 @@ export function LinkIcon(props: IconProps) {
 export function RssIcon(props: IconProps) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
@@ -90,6 +91,60 @@ export function RssIcon(props: IconProps) {
         strokeLinecap="round"
         strokeLinejoin="round"
         d="M12.75 19.5v-.75a7.5 7.5 0 00-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+      />
+    </svg>
+  );
+}
+
+export function PlayIcon(props: IconProps) {
+  return (
+    <svg
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      {...props}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+      />
+    </svg>
+  );
+}
+
+export function CodeIcon(props: IconProps) {
+  return (
+    <svg
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      {...props}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+      />
+    </svg>
+  );
+}
+
+export function ChevronDownIcon(props: IconProps) {
+  return (
+    <svg
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      {...props}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
       />
     </svg>
   );

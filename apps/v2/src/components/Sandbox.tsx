@@ -31,14 +31,14 @@ export default function Sandbox(props: SandboxProps) {
       theme={theme}
     >
       <SandpackPreview />
-      <div className='border-t border-gray-100'>
+      <div className="border-t border-gray-100">
         <SandpackCodeEditor
           style={{
             height: 'var(--editor-height, 100%)',
           }}
           showTabs
           showLineNumbers
-          />
+        />
       </div>
     </SandpackProvider>
   );
