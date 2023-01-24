@@ -2,26 +2,13 @@
   "name": "malcolm-kee-workspace",
   "private": true,
   "engines": {
-    "node": "14.x",
-    "yarn": "1.x"
+    "node": "16.x"
   },
-  "workspaces": [
-    "apps/*",
-    "e2e"
-  ],
   "scripts": {
-    "build": "yarn run build:sites && yarn run merge:sites",
-    "build:sites": "yarn v2 run build",
-    "merge:sites": "tsx scripts/merge-output.ts",
-    "preview": "serve public",
-    "archive": "yarn workspace malcolm-kee-archive",
-    "v2": "yarn workspace v2"
+    "build": "pnpm -r run build",
+    "v2": "pnpm --filter v2"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.0",
-    "@types/node": "^14",
-    "fs-extra": "^11.1.0",
-    "serve": "^14.1.2",
-    "tsx": "^3.12.2"
+    "@types/node": "^16"
   }
 }

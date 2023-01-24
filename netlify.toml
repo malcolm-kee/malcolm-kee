@@ -2,11 +2,6 @@
   skip_processing = true
 
 [[redirects]]
-  from = "/react-testing/*"
-  to = "/archive/react-testing/:splat"
-  status = 200
-
-[[redirects]]
   from = "https://malcolmkee.netlify.app/*"
   to = "https://malcolmkee.com/:splat"
   status = 301

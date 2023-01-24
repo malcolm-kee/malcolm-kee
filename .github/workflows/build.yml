@@ -11,32 +11,23 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Begin CI...
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Use Node 14
-        uses: actions/setup-node@v1
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 14.x
+          version: 7
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - name: Use cached node_modules
-        uses: actions/cache@v2
+      - name: Use Node 16
+        uses: actions/setup-node@v3
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            nodeModules-
+          node-version: 16.x
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          CI: true
+        run: pnpm install
 
       - name: Build
-        run: yarn build
+        run: pnpm run build
         env:
           CI: true
           GATSBY_DISCUQ_NAME: malcolmkee
@@ -47,7 +38,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
         id: netlify-deploy
         with:
-          publish-dir: './public'
+          publish-dir: './apps/v2/dist'
           netlify-config-path: ./netlify.toml
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}

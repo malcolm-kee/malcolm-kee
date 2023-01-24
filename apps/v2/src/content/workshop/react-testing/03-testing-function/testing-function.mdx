@@ -241,23 +241,7 @@ yarn add -D @types/jest
 
 Once the installation completed, Intellisense will shows you the available assertion as shown below:
 
-```ts twoslash
-// @noErrors
-import { expect } from '@jest/globals';
-
-declare const actual: any;
-
-// ---cut---
-
-expect(actual).to;
-//               ^|
-
-/* 
-
-other unrelated code
-
-*/
-```
+![Intellisense in VS Code showing assertions](https://res.cloudinary.com/djzsjzasg/image/upload/v1674563121/malcolm-kee/jest-intellisense_s5hglw.png)
 
 Now you're be able to explore available assertions.
 
