@@ -1,7 +1,6 @@
 import { MDXProvider } from '@mdx-js/react';
 import * as React from 'react';
 import cx from 'classnames';
-import { CodeRenderer } from '../components/code-renderer';
 import { ErrorBoundary } from '../components/error-boundary';
 import { Helmet } from 'react-helmet';
 import { MdxLink } from '../components/mdx-link';
@@ -18,7 +17,6 @@ const Fragment = ({ children }) => <React.Fragment>{children}</React.Fragment>;
 const mdxComponents = {
   a: MdxLink,
   aside: Aside,
-  code: CodeRenderer,
   inlineCode: ({ children }) => (
     <code className="language-text">{children}</code>
   ),

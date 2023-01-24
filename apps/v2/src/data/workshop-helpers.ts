@@ -13,9 +13,19 @@ export type WorkshopMetadata = {
   themeColor: string;
   description: string;
   entryUrl?: string;
+  underConstruction?: boolean;
 };
 
 const workshopMetadadata = {
+  'react-testing': {
+    name: 'Testing React Applications',
+    themeColor: 'F2C94C',
+    description:
+      'Learn the principles of maintainable tests and how to write them',
+    iconUrl:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311128/malcolm-kee/react-test_g3guac.png',
+    underConstruction: true,
+  },
   'typescript-for-react-developer': {
     name: 'TypeScript for React Developer',
     themeColor: '294E80',
@@ -82,13 +92,14 @@ const workshopMetadadata = {
       'A full-day workshop that teach you how to create website contents with HTML, style them with CSS, and make them interactive with Javascript. Its primary target students are beginner with zero experience in programming.',
     entryUrl: 'https://intro-to-web-dev.netlify.com/',
   },
-} as const satisfies {
+} satisfies {
   [field: string]: WorkshopMetadata;
 };
 
 type WorkshopSlug = keyof typeof workshopMetadadata;
 
 const workshopSlugs: Array<WorkshopSlug> = [
+  'react-testing',
   'typescript-for-react-developer',
   'fast-site-with-gatsby-js',
   'js-the-react-parts',
@@ -185,7 +196,7 @@ export const getWorkshops = (
     });
 
   return Array.from(workshopMap.entries()).map(([workshopSlug, lesson]) => {
-    const workshop = workshopMetadadata[workshopSlug];
+    const workshop: WorkshopMetadata = workshopMetadadata[workshopSlug];
 
     return {
       entryUrl: lesson

@@ -29,6 +29,13 @@ const workshops = getWorkshops(await getCollection('workshop'));
                 </div>
                 <h2 class="mt-6">{workshop.name}</h2>
                 <p class="mt-2 text-sm text-zinc-600">{workshop.description}</p>
+                {workshop.underConstruction && (
+                  <p class="mt-2">
+                    <span class="inline-block text-xs leading-5 px-2 bg-rose-800 text-white rounded shadow">
+                      In Progress
+                    </span>
+                  </p>
+                )}
               </a>
             </li>
           ))
