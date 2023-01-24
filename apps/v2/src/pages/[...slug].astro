@@ -2,15 +2,15 @@
 import type { GetStaticPaths, GetStaticPathsItem } from 'astro';
 import { CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '~/components/BaseHead.astro';
-import Container from '~/components/Container';
-import Layout from '~/components/Layout.astro';
-import { ChevronLeftIcon, ChevronRightIcon } from '~/components/icons';
+import '~/components/shiki.css';
+import WorkshopContent from '~/components/workshop/WorkshopContent.astro';
+import WorkshopLayout from '~/components/workshop/WorkshopLayout.astro';
 import {
   groupWorkshopLessons,
+  WorkshopTocItem,
   type WorkshopMetadata,
   type WorkshopRenderData,
 } from '~/data/workshop-helpers';
-import '~/components/shiki.css';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const workshopLessons = await getCollection('workshop');
@@ -19,7 +19,7 @@ export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
 
   const result: Array<GetStaticPathsItem> = [];
 
-  workshopMap.forEach(({ lessons }) => {
+  workshopMap.forEach(({ lessons, tocItems }) => {
     lessons.forEach((lesson, index) => {
       result.push({
         params: {
@@ -30,6 +30,7 @@ export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
           workshop: lesson.workshop,
           prev: lessons[index - 1],
           next: lessons[index + 1],
+          tocItems,
         } satisfies Props,
       });
     });
@@ -41,17 +42,18 @@ export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
 interface Props {
   entry: CollectionEntry<'workshop'>;
   workshop: WorkshopMetadata;
+  tocItems: Array<WorkshopTocItem>;
   prev?: WorkshopRenderData | undefined;
   next?: WorkshopRenderData | undefined;
 }
 
-const { entry, workshop, prev, next } = Astro.props;
+const { entry, workshop, prev, next, tocItems } = Astro.props;
 
 const {
   data: { title, description },
 } = entry;
 
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 ---
 
 <html lang="en">
@@ -64,58 +66,15 @@ const { Content } = await entry.render();
       ogBgImage={workshop.iconUrl}
     />
   </head>
-  <body>
-    <Layout>
-      <Container>
-        <article>
-          <div class="max-w-3xl mx-auto prose">
-            <h1 class="text-4xl font-bold">{title}</h1>
-            <Content />
-          </div>
-        </article>
-        {
-          (prev || next) && (
-            <nav class="flex justify-between items-center gap-3 py-3">
-              {prev ? (
-                <a
-                  href={`/${prev.slug}`}
-                  class="max-w-[45%] px-2 overflow-hidden"
-                >
-                  <span class="flex items-center gap-2 md:text-lg">
-                    <ChevronLeftIcon
-                      className="w-6 h-6 text-gray-500"
-                      aria-hidden
-                    />
-                    Prev
-                  </span>
-                  <span class="text-sm truncate">{prev.data.data.title}</span>
-                </a>
-              ) : (
-                <span />
-              )}
-              {next ? (
-                <a
-                  href={`/${next.slug}`}
-                  class="max-w-[45%] px-2 overflow-hidden"
-                >
-                  <span class="flex justify-end items-center gap-2 md:text-lg">
-                    Next
-                    <ChevronRightIcon
-                      className="w-6 h-6 text-gray-500"
-                      aria-hidden
-                    />
-                  </span>
-                  <span class="block text-sm truncate">
-                    {next.data.data.title}
-                  </span>
-                </a>
-              ) : (
-                <span />
-              )}
-            </nav>
-          )
-        }
-      </Container>
-    </Layout>
-  </body>
+  <WorkshopLayout
+    workshop={workshop}
+    tocItems={tocItems}
+    prev={prev}
+    next={next}
+    headings={headings}
+  >
+    <WorkshopContent title={title}>
+      <Content />
+    </WorkshopContent>
+  </WorkshopLayout>
 </html>
