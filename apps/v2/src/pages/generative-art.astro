@@ -1,0 +1,23 @@
+---
+import { CircleLetter } from '~/components/art/circle-letters';
+import { RandomGrid } from '~/components/art/random-grid';
+import BaseHead from '~/components/BaseHead.astro';
+import PageLayout from '~/components/PageLayout.astro';
+
+const title = 'Generative Arts';
+const description = 'Random arts';
+---
+
+<html>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    <PageLayout>
+      <span slot="title">{title}</span>
+      <span slot="description">{description}</span>
+      <CircleLetter client:load />
+      <RandomGrid client:load />
+    </PageLayout>
+  </body>
+</html>

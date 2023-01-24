@@ -39,8 +39,10 @@
     "@codesandbox/sandpack-themes": "^1.19.0",
     "@headlessui/react": "^1.7.7",
     "@monaco-editor/react": "^4.4.6",
+    "canvas-sketch-util": "^1.10.0",
     "clsx": "^1.2.1",
     "monaco-themes": "^0.4.3",
+    "nice-color-palettes": "^3.0.0",
     "preact": "^10.11.3"
   }
 }
