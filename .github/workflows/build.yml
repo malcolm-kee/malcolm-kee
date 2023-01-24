@@ -38,7 +38,7 @@ jobs:
         uses: nwtgck/actions-netlify@v1.2
         id: netlify-deploy
         with:
-          publish-dir: './public'
+          publish-dir: './apps/v2/dist'
           netlify-config-path: ./netlify.toml
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
