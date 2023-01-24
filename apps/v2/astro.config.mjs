@@ -21,6 +21,9 @@ export default defineConfig({
     }),
     sitemap(),
   ],
+  server: {
+    port: 8989,
+  },
   markdown: {
     remarkPlugins: [[remarkShikiTwoSlash.default, { theme: 'github-light' }]],
     extendDefaultPlugins: true,

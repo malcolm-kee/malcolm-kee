@@ -1,18 +1,34 @@
 ---
 import Layout from './Layout.astro';
 import Container from './Container';
+
+export interface Props {
+  noHeader?: boolean;
+}
+
+const { noHeader } = Astro.props;
 ---
 
 <Layout>
   <Container className="mt-16 sm:mt-32">
-    <header class="max-w-2xl">
-      <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
-        <slot name="title" />
-      </h1>
-      <p class="mt-6 text-base text-zinc-600"><slot name="description" /></p>
-    </header>
-    <div class="mt-16 sm:mt-20">
-      <slot />
-    </div>
+    {
+      noHeader ? (
+        <slot />
+      ) : (
+        <>
+          <header class="max-w-2xl">
+            <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
+              <slot name="title" />
+            </h1>
+            <p class="mt-6 text-base text-zinc-600">
+              <slot name="description" />
+            </p>
+          </header>
+          <div class="mt-16 sm:mt-20">
+            <slot />
+          </div>
+        </>
+      )
+    }
   </Container>
 </Layout>
