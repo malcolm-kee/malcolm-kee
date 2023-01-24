@@ -27,7 +27,7 @@ Nonetheless, as discussed, there are valid scenarios for mocking, just beware of
 
 ## How to Mock Your Code
 
-```jsx fileName=auth.service.spec.js
+```jsx title="auth.service.spec.js"
 import { register } from './auth.service';
 
 test(`register a new customer`, async () => {
@@ -38,7 +38,7 @@ test(`register a new customer`, async () => {
 });
 ```
 
-```jsx fileName=auth.service.spec.js
+```jsx title="auth.service.spec.js"
 import { fetchJson as fetchJsonMock } from '../../lib/ajax'; // highlight-line
 import { register } from './auth.service';
 

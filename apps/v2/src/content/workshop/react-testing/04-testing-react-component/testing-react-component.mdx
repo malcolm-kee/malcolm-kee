@@ -8,13 +8,15 @@ objectives:
   - write tests to verify asynchronous behavior of React component
 ---
 
+import Exercise from '~/components/Exercise';
+
 ## Render a React Component to Verify Its Behavior
 
 Let's test `TextField` component (at `src/components/text-field.jsx`) by renders it and check its content.
 
 Add a file `text-field.spec.jsx` with following content:
 
-```jsx fileName=src/components/text-field.spec.jsx
+```jsx title="src/components/text-field.spec.jsx"
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { TextField } from './text-field';
@@ -33,7 +35,7 @@ test(`renders TextField`, () => {
 yarn add -D @testing-library/react
 ```
 
-```jsx fileName=src/components/text-field.spec.jsx
+```jsx title="src/components/text-field.spec.jsx"
 import { render } from '@testing-library/react';
 import * as React from 'react';
 import { TextField } from './text-field';
@@ -74,7 +76,7 @@ The behavior of component that is indicated here is how component responds to ev
 
 Let's add another test case for your TextField.
 
-```jsx fileName=src/components/text-field.spec.jsx
+```jsx title="src/components/text-field.spec.jsx"
 import { fireEvent, render } from '@testing-library/react'; // highlight-line
 import * as React from 'react';
 import { TextField } from './text-field';
@@ -109,7 +111,7 @@ Write tests to verify behaviors of `SelectField`.
 
 ## Test Asynchronous Behavior of React Component
 
-```jsx fileName=src/components/spinner.spec.jsx
+```jsx title="src/components/spinner.spec.jsx"
 import { render } from '@testing-library/react';
 import * as React from 'react';
 import { Spinner } from './spinner';
@@ -123,7 +125,7 @@ test(`renders without props will show instantly`, () => {
 
 Now let's add a test to verify that is `delayShow` is provided, nothing will be shown in the beginning.
 
-```jsx fileName=src/components/spinner.spec.jsx
+```jsx title="src/components/spinner.spec.jsx"
 ...
 
 test(`renders with delay will show after wait`, () => {
@@ -139,7 +141,7 @@ This is because all `getBy*` queries will throw error if not elements match it, 
 
 Luckily, there are another set of queries that will not fail if no elements match, which starts with `queryBy*`. Let's replace our `getByRole` accordingly:
 
-```jsx fileName=src/components/spinner.spec.jsx
+```jsx title="src/components/spinner.spec.jsx"
 ...
 
 test(`renders with delay will show after wait`, () => {
@@ -157,7 +159,7 @@ Fortunately (again!), there is (yet) another set of queries starts with `findBy*
 
 Let's use it in our test and change our test to an `async` function.
 
-```jsx fileName=src/components/spinner.spec.jsx
+```jsx title="src/components/spinner.spec.jsx"
 ...
 
 test(`renders with delay will show after wait`, async () => { // highlight-line

@@ -12,7 +12,7 @@ objectives:
 
 Let's try to test `PaymentForm` in `src/modules/cart/components/payment-form.jsx`:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 import { render } from '@testing-library/react';
 import * as React from 'react';
 import { PaymentForm } from './payment-form';
@@ -35,22 +35,20 @@ FAIL  src/modules/cart/components/payment-form.spec.jsx (5.568s)
 
 As explained in the error message, this is because we use `connect` function from `redux`, and it expects there is a `Provider` as ancestor of the component. Let's proceed to do that:
 
-```jsx fileName=payment-form.spec.jsx
-import { configureStore } from '@reduxjs/toolkit'; // highlight-line
+```jsx title="payment-form.spec.jsx" {0,3,4,8,11,13}
+import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import { Provider } from 'react-redux'; // highlight-line
-import { rootReducer } from '../../root-reducer'; // highlight-line
+import { Provider } from 'react-redux';
+import { rootReducer } from '../../root-reducer';
 import { PaymentForm } from './payment-form';
 
 test(`PaymentForm can be rendered`, () => {
-  const store = configureStore({ reducer: rootReducer }); // highlight-line
+  const store = configureStore({ reducer: rootReducer });
 
   render(
-    // highlight-next-line
     <Provider store={store}>
       <PaymentForm />
-      {/* highlight-next-line */}
     </Provider>
   );
 });
@@ -62,7 +60,7 @@ Before we proceed further, let's abstract the setup so we can use it everytime o
 
 Add a `src/lib/test-util.jsx` file with the following content:
 
-```jsx fileName=src/lib/test-util.jsx
+```jsx title="src/lib/test-util.jsx"
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
 import * as React from 'react';
@@ -88,7 +86,7 @@ export const renderWithStateMgmt = (ui) => {
 
 Then we can use it in our test like this:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util'; // highlight-line
 import { PaymentForm } from './payment-form';
@@ -102,7 +100,7 @@ And our test still passes!
 
 The next test will be filling up the form. Before we do that, let's check the rendered UI by using the `debug` helper:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 ...
 test(`PaymentForm can be filled`, () => {
   const { debug } = renderWithStateMgmt(<PaymentForm />);
@@ -117,7 +115,7 @@ This is because in actual scenario, customer need to add some product into cart 
 
 Let's modify `renderWithStateMgmt` to supports this use case:
 
-```jsx fileName=src/lib/test-util.jsx
+```jsx title="src/lib/test-util.jsx"
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
 import * as React from 'react';
@@ -143,7 +141,7 @@ export const renderWithStateMgmt = (ui, { actions = [] } = {}) => {
 
 Then in our test:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice'; // highlight-line
@@ -171,7 +169,7 @@ test(`PaymentForm can be filled`, () => {
 
 And the amount is displayed! Let's add an assertion:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice'; // highlight-line
@@ -198,7 +196,7 @@ test(`PaymentForm can be filled`, () => {
 
 Then simulate user filling up the form:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 import { fireEvent } from '@testing-library/react'; // highlight-line
 import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util';
@@ -253,7 +251,7 @@ test(`PaymentForm can be filled`, () => {
 
 Let's continue the last test by clicking the Pay button:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 ...
 
 test(`PaymentForm can be filled`, () => {
@@ -266,9 +264,9 @@ test(`PaymentForm can be filled`, () => {
 
 And it fails!
 
-<!-- TODO: show error message -->
+{/* <!-- TODO: show error message --> */}
 
-```jsx fileName=src/lib/test-util.jsx
+```jsx title="src/lib/test-util.jsx"
 import { configureStore } from '@reduxjs/toolkit';
 import { render } from '@testing-library/react';
 import { createMemoryHistory } from 'history'; // highlight-line
@@ -312,7 +310,7 @@ export const renderWithStateMgmtAndRouter = (
 
 Then we can test the behavior after click:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 ...
 import { renderWithStateMgmtAndRouter } from '../../../lib/test-util'; // highlight-line
 ...
@@ -344,7 +342,7 @@ test(`PaymentForm can be filled`, async () => {
 
 Let's change the code for `PaymentForm`:
 
-```jsx fileName=payment-form.jsx
+```jsx title="payment-form.jsx"
 ...
 
 const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
@@ -370,7 +368,7 @@ const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
 
 Then in the test:
 
-```jsx fileName=payment-form.spec.jsx
+```jsx title="payment-form.spec.jsx"
 ...
 import { renderWithStateMgmtAndRouter } from '../../../lib/test-util';
 ...

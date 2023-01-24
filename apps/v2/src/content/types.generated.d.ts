@@ -423,6 +423,76 @@ declare module 'astro:content' {
   collection: "workshop",
   data: InferEntrySchema<"workshop">
 },
+"react-testing/01-introduction/introduction.md": {
+  id: "react-testing/01-introduction/introduction.md",
+  slug: "react-testing/01-introduction/introduction",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/02-test-framework/test-framework.md": {
+  id: "react-testing/02-test-framework/test-framework.md",
+  slug: "react-testing/02-test-framework/test-framework",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/03-testing-function/testing-function.mdx": {
+  id: "react-testing/03-testing-function/testing-function.mdx",
+  slug: "react-testing/03-testing-function/testing-function",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/04-testing-react-component/testing-react-component.mdx": {
+  id: "react-testing/04-testing-react-component/testing-react-component.mdx",
+  slug: "react-testing/04-testing-react-component/testing-react-component",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/05-testing-redux-and-router/testing-redux-and-router.mdx": {
+  id: "react-testing/05-testing-redux-and-router/testing-redux-and-router.mdx",
+  slug: "react-testing/05-testing-redux-and-router/testing-redux-and-router",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/06-mocking/mocking.mdx": {
+  id: "react-testing/06-mocking/mocking.mdx",
+  slug: "react-testing/06-mocking/mocking",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/07-effective-react-testing/effective-react-testing.mdx": {
+  id: "react-testing/07-effective-react-testing/effective-react-testing.mdx",
+  slug: "react-testing/07-effective-react-testing/effective-react-testing",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/08-e2e-testing-with-cypress/e2e-testing-with-cypress.mdx": {
+  id: "react-testing/08-e2e-testing-with-cypress/e2e-testing-with-cypress.mdx",
+  slug: "react-testing/08-e2e-testing-with-cypress/e2e-testing-with-cypress",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/09-cypress-testing-techniques/cypress-testing-technique.mdx": {
+  id: "react-testing/09-cypress-testing-techniques/cypress-testing-technique.mdx",
+  slug: "react-testing/09-cypress-testing-techniques/cypress-testing-technique",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
+"react-testing/10-next-steps/next-steps.mdx": {
+  id: "react-testing/10-next-steps/next-steps.mdx",
+  slug: "react-testing/10-next-steps/next-steps",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+},
 "typescript-for-react-developer/01-introduction/introduction.mdx": {
   id: "typescript-for-react-developer/01-introduction/introduction.mdx",
   slug: "typescript-for-react-developer/01-introduction/introduction",

@@ -8,6 +8,8 @@ objectives:
   - use assertion provided by Jest
 ---
 
+import Exercise from '~/components/Exercise';
+
 In last section, we create our own wrapper to test function.
 
 In this section, we will learn to write tests using [Jest].
@@ -16,7 +18,7 @@ In this section, we will learn to write tests using [Jest].
 
 Create a file in `src` folder and name it `canary.spec.js` with the following content:
 
-```js fileName=src/canary.spec.js
+```js title="src/canary.spec.js"
 test(`canary test`, () => {
   expect(true).toBe(true);
 });
@@ -44,7 +46,7 @@ Let's walkthrough what we've just did:
 
 1. When we execute `yarn test` in the command line, it will runs the command being configured in `scripts.test` in `package.json`, which is `react-scripts test`.
 
-   ```json fileName=package.json highlightedLines=6
+   ```json title="package.json" {5}
    {
      ...
      "scripts": {
@@ -89,7 +91,7 @@ Let's test the `camelize` function in `src/lib/camelize.js`.
 
 Create a `camelize.spec.js` file next to `camelize.js` with the following contents:
 
-```js fileName=src/lib/camelize.spec.js
+```js title="src/lib/camelize.spec.js"
 import { camelize } from './camelize';
 
 test(`camelize`, () => {
@@ -107,17 +109,15 @@ However, this is a convention that has been used by many projects because it all
 
 Let's write a few more test cases:
 
-```js fileName=src/lib/camelize.spec.js
+```js title="src/lib/camelize.spec.js" {4-7}
 import { camelize } from './camelize';
 
 test(`camelize`, () => {
   expect(camelize('background-color')).toBe('backgroundColor');
-  // highlight-start
   expect(camelize('border-top-color')).toBe('borderTopColor');
   expect(camelize('margin')).toBe('margin');
   expect(camelize('marginLeft')).toBe('marginLeft');
   expect(camelize('')).toBe('');
-  // highlight-end
 });
 ```
 
@@ -125,7 +125,7 @@ And the test is still passing!
 
 If you're like me, you probably will start doubting yourself if everytime goes too well. Let's "pinch ourselves" by introducing bug to our code:
 
-```js fileName=src/lib/camelize.js
+```js title="src/lib/camelize.js" {8,9}
 const hyphenPattern = /-(.)/g;
 
 /**
@@ -134,10 +134,8 @@ const hyphenPattern = /-(.)/g;
  */
 export function camelize(stringWithHyphen) {
   return stringWithHyphen.replace(hyphenPattern, function (_, character) {
-    // highlight-start
     // return character.toUpperCase();
     return character;
-    // highlight-end
   });
 }
 ```
@@ -179,7 +177,7 @@ Let's revert back the changes and you should be seeing the test pass again.
 
 Let's write a test for `pick` function in `src/lib/object.js`:
 
-```js fileName=src/lib/object.spec.js
+```js title="src/lib/object.spec.js"
 import { pick } from './object';
 
 test(`pick`, () => {
@@ -243,7 +241,23 @@ yarn add -D @types/jest
 
 Once the installation completed, Intellisense will shows you the available assertion as shown below:
 
-![Intellisense showing available assertions in VS Code](jest-intellisense.png)
+```ts twoslash
+// @noErrors
+import { expect } from '@jest/globals';
+
+declare const actual: any;
+
+// ---cut---
+
+expect(actual).to;
+//               ^|
+
+/* 
+
+other unrelated code
+
+*/
+```
 
 Now you're be able to explore available assertions.
 

@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { OutboundLink } from 'gatsby-plugin-google-analytics';
 
-interface OutlinkProps
-  extends Omit<React.ComponentProps<typeof OutboundLink>, 'ref'> {
+interface OutlinkProps extends Omit<React.ComponentProps<'a'>, 'ref'> {
   to?: string;
 }
 
@@ -12,6 +10,4 @@ export const OutLink = ({
   to,
   href = to,
   ...linkProps
-}: OutlinkProps) => (
-  <OutboundLink target={target} rel={rel} href={href} {...linkProps} />
-);
+}: OutlinkProps) => <a target={target} rel={rel} href={href} {...linkProps} />;
