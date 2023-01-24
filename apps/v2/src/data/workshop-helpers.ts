@@ -125,6 +125,16 @@ export type WorkshopRenderData = {
   workshop: Readonly<WorkshopMetadata>;
 };
 
+export type WorkshopTocLink = {
+  text: string;
+  url: string;
+};
+
+export type WorkshopTocItem = {
+  label?: string;
+  items: Array<WorkshopTocLink>;
+};
+
 const comparator = new Intl.Collator('de', { numeric: true });
 
 export const groupWorkshopLessons = (
@@ -134,15 +144,23 @@ export const groupWorkshopLessons = (
     workshopSlugs.map((slug) => [slug, [] as Array<WorkshopRenderData>])
   );
 
+  const workshopTocMap = new Map(
+    workshopSlugs.map((slug) => [
+      slug,
+      new Map<string, Array<WorkshopTocLink>>(),
+    ])
+  );
+
   workshopLessonEntries
     .slice(0)
     .sort((a, b) => comparator.compare(a.slug, b.slug))
     .forEach((entry) => {
       const workshopSlug = getWorkshopSlug(entry);
+      const entrySlug = getRenderedSlug(entry);
 
       const data: WorkshopRenderData = {
         data: entry,
-        slug: getRenderedSlug(entry),
+        slug: entrySlug,
         workshop: workshopMetadadata[workshopSlug],
       };
 
@@ -153,18 +171,51 @@ export const groupWorkshopLessons = (
       } else {
         workshopMap.set(workshopSlug, [data]);
       }
+
+      const tocMap = workshopTocMap.get(workshopSlug);
+
+      if (tocMap) {
+        const section = entry.data.section || '';
+
+        const items = tocMap.get(section);
+
+        const entryLink = {
+          text: entry.data.title,
+          url: `/${entrySlug}`,
+        };
+
+        if (items) {
+          items.push(entryLink);
+        } else {
+          tocMap.set(section, [entryLink]);
+        }
+      }
     });
 
   return new Map(
     Array.from(workshopMap.entries())
       .filter(([, lessons]) => lessons.length > 0)
       .map(([workshopSlug, lessons]) => {
+        const tocItems: Array<WorkshopTocItem> = [];
+
+        const tocMap = workshopTocMap.get(workshopSlug);
+
+        if (tocMap) {
+          tocMap.forEach((items, section) =>
+            tocItems.push({
+              label: section,
+              items,
+            })
+          );
+        }
+
         return [
           workshopSlug,
           {
             lessons,
             entryUrl: lessons[0]!.slug,
             workshop: lessons[0]!.workshop,
+            tocItems,
           },
         ];
       })
@@ -186,11 +237,12 @@ export const getWorkshops = (
     .sort((a, b) => comparator.compare(a.slug, b.slug))
     .forEach((entry) => {
       const workshopSlug = getWorkshopSlug(entry);
-      const lesson = workshopMap.get(workshopSlug);
+      const entrySlug = getRenderedSlug(entry);
 
+      const lesson = workshopMap.get(workshopSlug);
       if (!lesson) {
         workshopMap.set(workshopSlug, {
-          slug: getRenderedSlug(entry),
+          slug: entrySlug,
         });
       }
     });
