@@ -156,7 +156,20 @@ For my use case I would think that they are worthwhile tradeoffs.
 
 <Aside heading="Progress tracking">
 
-Progress tracking of migration do not need to be fancy or requires library or tools, it can be a simple table [like this](https://github.com/malcolm-kee/malcolm-kee/blob/master/migration-progress.md) that get updated by a shell script as part of CI/CD.
+Progress tracking of migration do not need to be fancy or requires library or tools, it can be a simple table like below that get updated by a shell script as part of CI/CD.
+
+```md
+| Date       | Completion       |
+| ---------- | ---------------- |
+| 2023-01-09 | 0.00% (0/521)    |
+| 2023-01-10 | 13.82% (72/521)  |
+| 2023-01-14 | 22.26% (116/521) |
+| 2023-01-19 | 27.64% (144/521) |
+| 2023-01-20 | 27.64% (144/521) |
+| 2023-01-21 | 31.86% (166/521) |
+| 2023-01-23 | 61.23% (319/521) |
+| 2023-01-24 | 68.71% (358/521) |
+```
 
 </Aside>
 
