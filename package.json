@@ -11,12 +11,11 @@
   ],
   "scripts": {
     "build": "yarn run build:sites && yarn run merge:sites",
-    "build:sites": "yarn v2 run build && yarn archive run build",
+    "build:sites": "yarn v2 run build",
     "merge:sites": "tsx scripts/merge-output.ts",
     "preview": "serve public",
     "archive": "yarn workspace malcolm-kee-archive",
-    "v2": "yarn workspace v2",
-    "report": "tsx scripts/migration-progress.ts"
+    "v2": "yarn workspace v2"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.0",
