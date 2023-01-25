@@ -9,7 +9,7 @@ import remarkShikiTwoSlash from 'remark-shiki-twoslash';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://malcolmkee.com',
+  site: 'https://malcolmkee.com/',
   integrations: [
     react(),
     mdx(),
@@ -26,10 +26,6 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [[remarkShikiTwoSlash.default, { theme: 'github-light' }]],
-    extendDefaultPlugins: true,
     syntaxHighlight: false,
-  },
-  experimental: {
-    contentCollections: true,
   },
 });
