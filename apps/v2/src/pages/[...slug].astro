@@ -7,10 +7,10 @@ import WorkshopContent from '~/components/workshop/WorkshopContent.astro';
 import WorkshopLayout from '~/components/workshop/WorkshopLayout.astro';
 import {
   groupWorkshopLessons,
-  WorkshopTocItem,
-  type WorkshopMetadata,
+  type WorkshopTocItem,
   type WorkshopRenderData,
 } from '~/data/workshop-helpers';
+import type { WorkshopMetadata } from '~/data/workshop-data';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const workshopLessons = await getCollection('workshop');
@@ -59,11 +59,13 @@ const { Content, headings } = await entry.render();
 <html lang="en">
   <head>
     <BaseHead
-      title={title}
+      title={`${title} - ${workshop.name}`}
+      ogImageTitle={title}
       description={description}
       ogHeading={workshop.name}
       ogBorderColor={workshop.themeColor}
       ogBgImage={workshop.iconUrl}
+      iconHref={workshop.smallIconUrl}
     />
   </head>
   <WorkshopLayout

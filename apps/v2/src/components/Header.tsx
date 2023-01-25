@@ -298,7 +298,7 @@ function MobileNavigation(props: { className?: string }) {
                 aria-label="Close menu"
                 className="-m-1 p-1"
               >
-                <CloseIcon className="h-6 w-6 text-zinc-500" />
+                <CloseIcon className="h-6 w-6 stroke-zinc-500" />
               </button>
               <h2 className="text-sm font-medium text-zinc-600">Navigation</h2>
             </div>
