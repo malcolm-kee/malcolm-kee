@@ -67,6 +67,54 @@ const { Content, headings } = await entry.render();
       ogBgImage={workshop.iconUrl}
       iconHref={workshop.smallIconUrl}
     />
+    <script is:inline>
+      var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+      /**
+       * @param {'dark' | 'light' | 'system'} theme
+       */
+      function updateTheme(theme) {
+        theme = theme || window.localStorage.theme || 'system';
+
+        if (theme === 'dark' || (theme === 'system' && isDarkMode.matches)) {
+          document.documentElement.classList.add('dark');
+        } else if (
+          theme === 'light' ||
+          (theme === 'system' && !isDarkMode.matches)
+        ) {
+          document.documentElement.classList.remove('dark');
+        }
+
+        return theme;
+      }
+
+      function updateThemeWithoutTransitions(theme) {
+        updateTheme(theme);
+        document.documentElement.classList.add('[&_*]:!transition-none');
+        window.setTimeout(() => {
+          document.documentElement.classList.remove('[&_*]:!transition-none');
+        }, 0);
+      }
+
+      document.documentElement.setAttribute('data-theme', updateTheme());
+
+      new MutationObserver(([{ oldValue }]) => {
+        let newValue = document.documentElement.getAttribute('data-theme');
+        if (newValue !== oldValue) {
+          try {
+            window.localStorage.setItem('theme', newValue);
+          } catch {}
+          updateThemeWithoutTransitions(newValue);
+        }
+      }).observe(document.documentElement, {
+        attributeFilter: ['data-theme'],
+        attributeOldValue: true,
+      });
+
+      isDarkMode.addEventListener('change', () =>
+        updateThemeWithoutTransitions()
+      );
+    </script>
   </head>
   <WorkshopLayout
     workshop={workshop}
@@ -79,4 +127,6 @@ const { Content, headings } = await entry.render();
       <Content />
     </WorkshopContent>
   </WorkshopLayout>
+
+
 </html>
