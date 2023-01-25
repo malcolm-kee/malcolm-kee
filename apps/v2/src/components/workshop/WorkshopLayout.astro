@@ -1,13 +1,13 @@
 ---
 import type { MarkdownHeading } from 'astro';
+import type { WorkshopMetadata } from '~/data/workshop-data';
 import type {
-  WorkshopMetadata,
   WorkshopRenderData,
   WorkshopTocItem,
 } from '~/data/workshop-helpers';
 import { WorkshopHeader } from './workshop-header';
-import { WorkshopNavigation } from './workshop-navigation';
 import { WorkshopHeadings } from './workshop-headings';
+import { WorkshopNavigation } from './workshop-navigation';
 
 export interface Props {
   workshop: WorkshopMetadata;
@@ -18,10 +18,17 @@ export interface Props {
 }
 
 const { workshop, tocItems, prev, next, headings } = Astro.props;
+
+const currentPath = Astro.url.pathname;
 ---
 
 <body class="bg-white dark:bg-slate-900">
-  <WorkshopHeader workshop={workshop} client:load />
+  <WorkshopHeader
+    workshop={workshop}
+    navItems={tocItems}
+    currentPath={currentPath}
+    client:load
+  />
   <div
     class="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12"
   >
@@ -42,7 +49,7 @@ const { workshop, tocItems, prev, next, headings } = Astro.props;
         <WorkshopNavigation
           items={tocItems}
           className="w-64 pr-8 xl:w-72 xl:pr-16"
-          currentPath={Astro.url.pathname}
+          currentPath={currentPath}
         />
       </div>
     </div>

@@ -12,6 +12,8 @@ export interface Props {
   ogHeading?: string | undefined;
   ogBgImage?: string | undefined;
   ogBorderColor?: string | undefined;
+  iconHref?: string | undefined;
+  ogImageTitle?: string | undefined;
 }
 const {
   title = 'Malcolm Kee',
@@ -26,10 +28,12 @@ const {
     : undefined,
   ogBgImage,
   ogBorderColor,
+  iconHref = '/icon.jpg',
+  ogImageTitle = title,
 } = Astro.props;
 
 const ogImage = getOgImageUrl({
-  title,
+  title: ogImageTitle,
   publishedDate,
   heading: ogHeading,
   bgImage: ogBgImage,
@@ -40,7 +44,7 @@ const ogImage = getOgImageUrl({
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
-<link rel="icon" type="image/jpg" href="/icon.jpg" />
+<link rel="icon" type="image/jpg" href={iconHref} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
