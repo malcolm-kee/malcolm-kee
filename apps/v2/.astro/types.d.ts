@@ -62,7 +62,380 @@ declare module 'astro:content' {
 	};
 
 	const entryMap: {
-		"note": {
+		"blog": {
+"a-chapter-a-day.md": {
+  id: "a-chapter-a-day.md",
+  slug: "a-chapter-a-day",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"accessible-file-input.md": {
+  id: "accessible-file-input.md",
+  slug: "accessible-file-input",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"adding-types-for-npm-packages.md": {
+  id: "adding-types-for-npm-packages.md",
+  slug: "adding-types-for-npm-packages",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"attitude-to-competency.md": {
+  id: "attitude-to-competency.md",
+  slug: "attitude-to-competency",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"be-human-while-you-code.mdx": {
+  id: "be-human-while-you-code.mdx",
+  slug: "be-human-while-you-code",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"comfort-zone.mdx": {
+  id: "comfort-zone.mdx",
+  slug: "comfort-zone",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"empathize-with-backend.md": {
+  id: "empathize-with-backend.md",
+  slug: "empathize-with-backend",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"flutter-for-react-developers.mdx": {
+  id: "flutter-for-react-developers.mdx",
+  slug: "flutter-for-react-developers",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"gatsby-non-js-fallback.mdx": {
+  id: "gatsby-non-js-fallback.mdx",
+  slug: "gatsby-non-js-fallback",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"getting-things-done.mdx": {
+  id: "getting-things-done.mdx",
+  slug: "getting-things-done",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"hackathon.mdx": {
+  id: "hackathon.mdx",
+  slug: "hackathon",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"how-does-that-scale.mdx": {
+  id: "how-does-that-scale.mdx",
+  slug: "how-does-that-scale",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"how-to-bargain.md": {
+  id: "how-to-bargain.md",
+  slug: "how-to-bargain",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"how-to-become-a-racist.md": {
+  id: "how-to-become-a-racist.md",
+  slug: "how-to-become-a-racist",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"how-to-get-a-job-you-love.mdx": {
+  id: "how-to-get-a-job-you-love.mdx",
+  slug: "how-to-get-a-job-you-love",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"how-to-keep-creating.mdx": {
+  id: "how-to-keep-creating.mdx",
+  slug: "how-to-keep-creating",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"how-to-not-lend-money.md": {
+  id: "how-to-not-lend-money.md",
+  slug: "how-to-not-lend-money",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"improve-yourself.md": {
+  id: "improve-yourself.md",
+  slug: "improve-yourself",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"interview-as-a-learning-tool.md": {
+  id: "interview-as-a-learning-tool.md",
+  slug: "interview-as-a-learning-tool",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"live-streaming.mdx": {
+  id: "live-streaming.mdx",
+  slug: "live-streaming",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"migrating-large-angular-apps-to-react.mdx": {
+  id: "migrating-large-angular-apps-to-react.mdx",
+  slug: "migrating-large-angular-apps-to-react",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"msia-ssm-change-monitor.md": {
+  id: "msia-ssm-change-monitor.md",
+  slug: "msia-ssm-change-monitor",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"my-first-meetup.md": {
+  id: "my-first-meetup.md",
+  slug: "my-first-meetup",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"my-first-tech-talk.md": {
+  id: "my-first-tech-talk.md",
+  slug: "my-first-tech-talk",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"next-js-impression.md": {
+  id: "next-js-impression.md",
+  slug: "next-js-impression",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"no-perfect-time.mdx": {
+  id: "no-perfect-time.mdx",
+  slug: "no-perfect-time",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"notes-on-readings.mdx": {
+  id: "notes-on-readings.mdx",
+  slug: "notes-on-readings",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"on-expanding-purpose.mdx": {
+  id: "on-expanding-purpose.mdx",
+  slug: "on-expanding-purpose",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"on-giving.mdx": {
+  id: "on-giving.mdx",
+  slug: "on-giving",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"on-running.mdx": {
+  id: "on-running.mdx",
+  slug: "on-running",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"optimize-later.mdx": {
+  id: "optimize-later.mdx",
+  slug: "optimize-later",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"portal-to-subtree.mdx": {
+  id: "portal-to-subtree.mdx",
+  slug: "portal-to-subtree",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"react-container-presenter-pattern-revisited.mdx": {
+  id: "react-container-presenter-pattern-revisited.mdx",
+  slug: "react-container-presenter-pattern-revisited",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"react-container-presenter-pattern.md": {
+  id: "react-container-presenter-pattern.md",
+  slug: "react-container-presenter-pattern",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"react-typescript-introduction.md": {
+  id: "react-typescript-introduction.md",
+  slug: "react-typescript-introduction",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"redbean.md": {
+  id: "redbean.md",
+  slug: "redbean",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"reduce-redux-connect-typescript-boilerplate.md": {
+  id: "reduce-redux-connect-typescript-boilerplate.md",
+  slug: "reduce-redux-connect-typescript-boilerplate",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"sass-equivalent-for-react-children.md": {
+  id: "sass-equivalent-for-react-children.md",
+  slug: "sass-equivalent-for-react-children",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"self-doubt.mdx": {
+  id: "self-doubt.mdx",
+  slug: "self-doubt",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"simple-event-bus.md": {
+  id: "simple-event-bus.md",
+  slug: "simple-event-bus",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"starting-a-new-blog-again.mdx": {
+  id: "starting-a-new-blog-again.mdx",
+  slug: "starting-a-new-blog-again",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"superstition.md": {
+  id: "superstition.md",
+  slug: "superstition",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"the-coin.mdx": {
+  id: "the-coin.mdx",
+  slug: "the-coin",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"thoughts-on-testing.md": {
+  id: "thoughts-on-testing.md",
+  slug: "thoughts-on-testing",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"tips-for-newbie-programmer.mdx": {
+  id: "tips-for-newbie-programmer.mdx",
+  slug: "tips-for-newbie-programmer",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"trying-playwright.md": {
+  id: "trying-playwright.md",
+  slug: "trying-playwright",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"typesafe-call-all.mdx": {
+  id: "typesafe-call-all.mdx",
+  slug: "typesafe-call-all",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"typescript-type-guard.md": {
+  id: "typescript-type-guard.md",
+  slug: "typescript-type-guard",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"upstream.mdx": {
+  id: "upstream.mdx",
+  slug: "upstream",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"use-transient-state.mdx": {
+  id: "use-transient-state.mdx",
+  slug: "use-transient-state",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"using-typescript-with-module-federation.mdx": {
+  id: "using-typescript-with-module-federation.mdx",
+  slug: "using-typescript-with-module-federation",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"using-webcomponent-with-react.md": {
+  id: "using-webcomponent-with-react.md",
+  slug: "using-webcomponent-with-react",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"what-is-redux.md": {
+  id: "what-is-redux.md",
+  slug: "what-is-redux",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+},
+"note": {
 "bash-and-linux.md": {
   id: "bash-and-linux.md",
   slug: "bash-and-linux",

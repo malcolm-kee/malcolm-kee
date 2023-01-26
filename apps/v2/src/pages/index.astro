@@ -1,25 +1,17 @@
 ---
-// Component Imports
+import { getBlogs } from '~/data/blog-helpers';
 import BaseHead from '../components/BaseHead.astro';
-import Layout from '../components/Layout.astro';
-import Container from '../components/Container';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
+import Container from '../components/Container';
+import Layout from '../components/Layout.astro';
 import SocialIcons from '../components/SocialIcons';
 
-let title = 'Malcolm Kee - front end engineer that loves building tools';
-let description = 'A place to write my mind.';
+const title = 'Malcolm Kee - front end engineer that loves building tools';
+const description = 'A place to write my mind.';
 
-const allMdxPosts = await Astro.glob('./blog/*.mdx');
-const allMdPosts = await Astro.glob('./blog/*.md');
-const allPosts = allMdPosts
-  .concat(allMdxPosts)
-  .filter((post) => !post.frontmatter.preview)
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.pubDate).valueOf() -
-      new Date(a.frontmatter.pubDate).valueOf()
-  )
-  .slice(0, 10);
+const blogPosts = await getBlogs();
+
+const allPosts = blogPosts.slice(0, 10);
 ---
 
 <html lang="en">

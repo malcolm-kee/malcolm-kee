@@ -15,7 +15,7 @@ export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
     },
     props: {
       entry: note,
-    },
+    } satisfies Props,
   }));
 };
 

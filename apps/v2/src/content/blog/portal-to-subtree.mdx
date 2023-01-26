@@ -1,0 +1,205 @@
+---
+title: React Portal to Subtree
+pubDate: 29 Oct 2020
+description: 'How to render into any subtree in React'
+---
+
+import LiveEditor from '~/components/LiveEditor.astro';
+
+## Problem
+
+Below is a use case that I encounter recently. Imagine a standard sidebar shell UI design that look like below:
+
+![Sidebar Shell Layout](https://res.cloudinary.com/djzsjzasg/image/upload/v1674742617/malcolm-kee/_layout_kz5dlp.png)
+
+The sidebar + the breadcrumb is the "shell" of the application, while the content is rendered by individual page.
+
+The React component structure would look something like this:
+
+```jsx
+<AppShell>
+  <RouteOutlet />
+</AppShell>
+```
+
+where `<RouteOutlet />` is the React Router Switch/Route config that renders the children based on the URL.
+
+It may seems simple at first glance, but the tricky part is the breadcrumbs should be dynamic based on the page that is being rendered.
+
+One way to do it is to use [React Context][react-context].
+
+```jsx
+const BreadCrumbContext = React.createContext(function noop() {});
+
+const AppShell = ({ children }) => {
+  const [breadcrumbs, setBreadcrumbs] = React.useState([]);
+
+  return (
+    <BreadCrumbContext.Provider value={setBreadcrumbs}>
+      <Sidebar />
+      <div>
+        <Breadcrumbs values={breadcrumbs} />
+        {children}
+      </div>
+    </BreadCrumbContext.Provider>
+  );
+};
+
+// custom hook to be used by page that want to add breadcrumbs
+const useBreadcrumbs = (breadcrumbValues) => {
+  const setBreadcrumbs = React.useContext(BreadCrumbContext);
+
+  React.useEffect(() => {
+    setBreadcrumbs(breadcrumbValues);
+    return () => setBreadcrumbs([]);
+  }, [breadcrumbValues, setBreadcrumbs]);
+};
+
+const MyPage = ({ customer }) => {
+  useBreadcrumbs(['Customer', customer.name]);
+
+  return <div>...Other Content</div>;
+};
+```
+
+The solution works, but it is quite tedious to setup all these Provider and custom hooks.
+
+Can it be simpler?
+
+## Solution
+
+React has a relatively less-used feature, [Portal][react-portal] that allows you to render children into a DOM node that exists outside the DOM hierarchy.
+
+However, in the official docs (as well as most articles you can find online), the use case for Portal is appending your children into the root of `document.body`, which is useful for the use case like dialog/tooltip etc.
+
+But what if the target is not `document.body`, but another React subtree?
+
+That will solve our problem above to render into breadcrumb from the page!
+
+The solution will be this:
+
+<LiveEditor>
+
+```jsx
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+
+// custom hook to force React to rerender, hook version of `forceUpdate` of class component
+function useForceUpdate() {
+  const [, dispatch] = React.useState(Object.create(null));
+  return React.useCallback(() => {
+    dispatch(Object.create(null));
+  }, []);
+}
+
+// simple event emitter. Read https://malcolmkee.com/blog/simple-event-bus/ for a more detailed explanation.
+function createEventBus() {
+  const listeners = [];
+
+  return {
+    listen: (listener) => {
+      listeners.push(listener);
+      return () => {
+        listeners.splice(listeners.indexOf(listener), 1);
+      };
+    },
+    emit: () => listeners.forEach((l) => l()),
+  };
+}
+
+// this is where the magic is
+function createFillSlot() {
+  // create a ref to get a reference of the target that we want to render into
+  const ref = React.createRef();
+  // setup the event emitter
+  const eventBus = createEventBus();
+
+  // Slot is where we want to render. It is just an empty div.
+  function Slot() {
+    React.useEffect(() => {
+      if (ref.current) {
+        // ask the event emitter to tell the whole world the slot is ready to be used
+        eventBus.emit();
+      }
+    }, []);
+
+    return <div ref={ref} />;
+  }
+
+  // Fill is where we render the content we want to inject to the Slot
+  function Fill({ children }) {
+    const forceUpdate = useForceUpdate();
+
+    // when Slot is rendered, we will get notified by event bus, re-render
+    React.useEffect(() => eventBus.listen(forceUpdate), [forceUpdate]);
+
+    return ref.current ? ReactDOM.createPortal(children, ref.current) : null;
+  }
+
+  return {
+    Slot,
+    Fill,
+  };
+}
+
+const Breadcrumb = createFillSlot();
+
+// This is where we want to show the content
+const Header = () => {
+  return (
+    <div className="p-2 flex items-center bg-white text-black shadow-lg">
+      Header <Breadcrumb.Slot />
+    </div>
+  );
+};
+
+const Page1 = () => {
+  return (
+    <div>
+      <h2>Page 1</h2>
+      <Breadcrumb.Fill>
+        Hello > <a href="#">Page 1</a>
+      </Breadcrumb.Fill>
+    </div>
+  );
+};
+
+const Page2 = () => {
+  return (
+    <div>
+      <h2>Page 2</h2>
+      <Breadcrumb.Fill>
+        Hello > <a href="#">Page 2</a>
+      </Breadcrumb.Fill>
+    </div>
+  );
+};
+
+const App = () => {
+  const [page, setPage] = React.useState('');
+
+  return (
+    <div className="flex">
+      <div className="flex flex-col space-y-2 px-3 items-start">
+        <button onClick={() => setPage('1')}>Show Page 1</button>
+        <button onClick={() => setPage('2')}>Show Page 2</button>
+      </div>
+      <div className="flex-1">
+        <Header />
+        <div className="p-3 bg-gray-100 text-gray-600">
+          {page === '1' && <Page1 />}
+          {page === '2' && <Page2 />}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+createRoot(document.getElementById('root')).render(<App />);
+```
+
+</LiveEditor>
+
+[react-portal]: https://reactjs.org/docs/portals.html
+[react-context]: https://reactjs.org/docs/context.html
