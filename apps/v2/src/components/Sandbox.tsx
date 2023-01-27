@@ -73,7 +73,7 @@ export default function Sandbox(props: SandboxProps) {
 }
 
 const editorStyle: React.CSSProperties = {
-  height: 'var(--editor-height, 100%)',
+  height: 'calc(var(--editor-height, 100%) + 40px + 16px)', // toolbar (40px), editor y padding (16px)
 };
 
 const theme: SandpackTheme = {

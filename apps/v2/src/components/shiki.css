@@ -12,6 +12,10 @@ figure pre.shiki {
   margin: 0;
 }
 
+[data-editor-code] pre.shiki {
+  margin: 0;
+}
+
 pre.shiki {
   --code-color: theme(colors.gray.100);
   border-color: var(--code-color);

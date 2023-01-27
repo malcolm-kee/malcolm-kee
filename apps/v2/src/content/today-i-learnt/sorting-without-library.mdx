@@ -1,0 +1,66 @@
+---
+title: 'Sorting Without Library'
+pubDate: 27 Jan 2023
+topics: ['javascript']
+---
+
+import LiveEditor from '~/components/LiveEditor.astro';
+
+How do you sort an array in JavaScript without using a library?
+
+At first glance, it seems simple enough:
+
+<LiveEditor>
+
+```js
+const result = ['cat', 'axe', 'ball'].sort();
+console.log(result); // ['axe', 'ball', 'cat']
+```
+
+</LiveEditor>
+
+But things getting slightly unexpected when we do that with number:
+
+<LiveEditor>
+
+```js
+const result = [5, 10, 2, 100].sort();
+console.log(result); // [10, 100, 2, 5]
+```
+
+</LiveEditor>
+
+Many would solve this by providing a comparator function:
+
+<LiveEditor>
+
+```js
+const result = [5, 10, 2, 100].sort((a, b) => a - b);
+console.log(result); // [2, 5, 10, 100]
+```
+
+</LiveEditor>
+
+What about this?
+
+<LiveEditor>
+
+```js
+const result = ['Item 5', 'Item 10', 'Item 2'].sort();
+console.log(result); // ['Item 10', 'Item 2', 'Item 5']
+```
+
+</LiveEditor>
+
+Answer: [`Intl.Collator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator). A class designed for string comparison.
+
+<LiveEditor>
+
+```js
+const collator = new Intl.Collator('en', { numeric: true });
+
+const result = ['Item 5', 'Item 10', 'Item 2'].sort(collator.compare);
+console.log(result); // ['Item 2', 'Item 5', 'Item 10']
+```
+
+</LiveEditor>

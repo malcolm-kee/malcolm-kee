@@ -494,8 +494,8 @@ declare module 'astro:content' {
   collection: "today-i-learnt",
   data: InferEntrySchema<"today-i-learnt">
 },
-"eval-safely.md": {
-  id: "eval-safely.md",
+"eval-safely.mdx": {
+  id: "eval-safely.mdx",
   slug: "eval-safely",
   body: string,
   collection: "today-i-learnt",
@@ -532,6 +532,13 @@ declare module 'astro:content' {
 "script-vs-module.md": {
   id: "script-vs-module.md",
   slug: "script-vs-module",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"sorting-without-library.mdx": {
+  id: "sorting-without-library.mdx",
+  slug: "sorting-without-library",
   body: string,
   collection: "today-i-learnt",
   data: InferEntrySchema<"today-i-learnt">

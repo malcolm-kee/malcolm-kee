@@ -14,7 +14,9 @@ const { title, publishDate, heroImage, alt } = Astro.props;
 <div class="layout">
   <article class="content">
     <div>
-      <header>
+      <header
+        class="flex flex-col justify-center items-center text-center pb-8 mb-8 border-b border-gray-100"
+      >
         {
           heroImage && (
             <img
@@ -27,8 +29,8 @@ const { title, publishDate, heroImage, alt } = Astro.props;
             />
           )
         }
-        <p class="publish-date">{publishDate}</p>
-        <h1 class="title">{title}</h1>
+        <p class="my-3 text-zinc-600">{publishDate}</p>
+        <h1 class="text-4xl font-bold max-w-3xl mx-auto">{title}</h1>
       </header>
       <main class="max-w-3xl mx-auto prose">
         <slot />
@@ -65,32 +67,5 @@ const { title, publishDate, heroImage, alt } = Astro.props;
 
   .content :global(h2) {
     margin-top: 4rem;
-  }
-
-  header {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
-    border-bottom: 4px solid var(--theme-divider);
-  }
-
-  .title,
-  .author,
-  .publish-date {
-    margin: 0;
-  }
-
-  .publish-date {
-    color: var(--theme-text-lighter);
-  }
-
-  .title {
-    font-size: 2.25rem;
-    font-weight: 700;
   }
 </style>

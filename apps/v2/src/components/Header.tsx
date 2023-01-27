@@ -207,7 +207,7 @@ function NavItem({
   children: React.ReactNode;
   currentPath: string;
 }) {
-  let isActive = currentPath === href;
+  let isActive = currentPath && currentPath.startsWith(href);
 
   return (
     <li>

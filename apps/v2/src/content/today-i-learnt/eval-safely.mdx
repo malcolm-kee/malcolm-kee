@@ -4,11 +4,15 @@ pubDate: 15 Oct 2019
 topics: ['javascript']
 ---
 
+import LiveEditor from '~/components/LiveEditor.astro';
+
 How do you run arbitrary code provided as `string` in JavaScript when [you should not use `eval`][dont-use-eval]?
 
 Answer: [`Function` constructor][function-constructor]
 
-```js live
+<LiveEditor>
+
+```js
 const logFn = console.log;
 const minusFn = (a, b) => a - b;
 
@@ -27,6 +31,8 @@ const codeRunner = new Function(
 codeRunner(logFn, minusFn);
 // provide the `log` and `minus` parameter
 ```
+
+</LiveEditor>
 
 The difference of `Function` constructor and `eval` is that `eval` has access to local variable where you run it, while `Function` constructor only has access to the parameters provided and global variables only.
 

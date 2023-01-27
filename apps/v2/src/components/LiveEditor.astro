@@ -3,17 +3,9 @@ import { CodeIcon, PlayIcon } from './icons';
 import { LiveEditor } from './LiveEditor';
 ---
 
-<div class="relative pt-4 border border-gray-100" data-live-editor>
-  <div data-editor-code>
-    <slot />
-  </div>
-  <div class="hidden mt-6" data-editor>
-    <LiveEditor client:load>
-      <slot />
-    </LiveEditor>
-  </div>
+<div class="border border-gray-100" data-live-editor>
   <div
-    class="absolute top-0 inset-x-0 flex justify-between items-center px-2 py-1 rounded-t bg-gray-100"
+    class="flex justify-between items-center px-2 py-1 rounded-t bg-gray-100"
   >
     <span class="text-sm" data-editor-mode></span>
     <div class="inline-flex gap-2">
@@ -34,6 +26,14 @@ import { LiveEditor } from './LiveEditor';
         <CodeIcon aria-hidden className="w-6 h-6 text-gray-500" />
       </button>
     </div>
+  </div>
+  <div data-editor-code>
+    <slot />
+  </div>
+  <div class="hidden" data-editor>
+    <LiveEditor client:load>
+      <slot />
+    </LiveEditor>
   </div>
 </div>
 
