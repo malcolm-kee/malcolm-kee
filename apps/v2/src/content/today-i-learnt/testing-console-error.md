@@ -1,8 +1,7 @@
 ---
 title: 'Assert console.error call times when mocking it'
-date: 17 Dec 2019
+pubDate: 17 Dec 2019
 topics: ['javascript']
-layout: ../../layouts/TodayILearnt.astro
 ---
 
 Sometimes, when you testing edge cases of your code that cause error, the code/frameworks that you use may call `console.error`. A common case that I encounter is testing [error boundary](https://reactjs.org/docs/error-boundaries.html) in React.

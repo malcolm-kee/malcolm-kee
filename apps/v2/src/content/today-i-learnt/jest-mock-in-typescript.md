@@ -2,7 +2,6 @@
 title: 'Jest Mock in TypeScript'
 pubDate: 7 Feb 2020
 topics: ['typescript']
-layout: ../../layouts/TodayILearnt.astro
 ---
 
 Writing tests in TypeScript in quite painful, especially when using mock.

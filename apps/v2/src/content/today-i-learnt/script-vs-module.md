@@ -2,7 +2,6 @@
 title: 'Script versus Module in TypeScript'
 pubDate: 10 Oct 2019
 topics: ['typescript']
-layout: ../../layouts/TodayILearnt.astro
 ---
 
 One of the confusing part of TypeScript is a file behave differently depends if you use the `import`, `export` syntax in the file.

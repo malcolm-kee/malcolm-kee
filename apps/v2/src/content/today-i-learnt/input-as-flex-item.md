@@ -2,7 +2,6 @@
 title: 'Make Input as Flex Item'
 pubDate: 15 Jan 2020
 topics: ['css']
-layout: ../../layouts/TodayILearnt.astro
 ---
 
 By default, when you try to make `<input>` as flex item, it won't work.

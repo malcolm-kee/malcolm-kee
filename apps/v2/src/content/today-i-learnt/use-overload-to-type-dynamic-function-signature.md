@@ -2,7 +2,6 @@
 title: 'Use Overload to Type Dynamic Function Signature'
 pubDate: 8 Oct 2019
 topics: ['typescript']
-layout: ../../layouts/TodayILearnt.astro
 ---
 
 Sometimes, you want to make your function return different result depends on the parameter.

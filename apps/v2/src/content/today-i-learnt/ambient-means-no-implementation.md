@@ -2,7 +2,6 @@
 title: 'Ambient means No Implementation In TypeScript'
 pubDate: 8 Oct 2019
 topics: ['typescript']
-layout: ../../layouts/TodayILearnt.astro
 ---
 
 ## References

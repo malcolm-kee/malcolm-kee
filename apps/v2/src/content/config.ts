@@ -34,4 +34,17 @@ export const collections = {
       draft: z.boolean().optional(),
     }),
   }),
+  'today-i-learnt': defineCollection({
+    schema: z.object({
+      title: z.string(),
+      pubDate: z.string(),
+      updatedDate: z.string().optional(),
+      topics: z.array(z.string()),
+      /**
+       * when true, the til page will be created
+       * but it will not be listed
+       */
+      preview: z.boolean().optional(),
+    }),
+  }),
 };

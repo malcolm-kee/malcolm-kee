@@ -2,7 +2,6 @@
 title: 'Function constructor can be used as safe alternative to eval'
 pubDate: 15 Oct 2019
 topics: ['javascript']
-layout: ../../layouts/TodayILearnt.astro
 ---
 
 How do you run arbitrary code provided as `string` in JavaScript when [you should not use `eval`][dont-use-eval]?

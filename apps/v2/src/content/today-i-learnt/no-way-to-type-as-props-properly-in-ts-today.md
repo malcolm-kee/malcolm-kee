@@ -2,7 +2,6 @@
 title: 'There is no way to type "as" props properly in TypeScript currently'
 pubDate: 6 Oct 2019
 topics: ['typescript']
-layout: ../../layouts/TodayILearnt.astro
 ---
 
 Stumble upon the blog post ["Writing Type-Safe Polymorphic React Components (Without Crashing TypeScript)"][polymorphic-components] today and get the answer that I always trying to solve every few weeks and gave up after wasting few hours: how to properly type the `as` props in React component in TypeScript.

@@ -3,11 +3,7 @@ title: 'Extending Global or Third Party Library Typing'
 pubDate: 9 Oct 2019
 topics: ['typescript']
 updatedDate: 10 Oct 2019
-layout: ../../layouts/TodayILearnt.astro
 ---
-
-import extendArrayImg from './extend-array.png';
-import extendJestExpectImg from './extend-jest-expect.png';
 
 When you install TypeScript in your project, it comes with many declarations that is part of JavaScript standard, e.g. `Array.prototype.map`, and `Object.keys`, so Intellisense just works when you use those standard JavaScript object method.
 
@@ -27,7 +23,7 @@ declare global {
 }
 ```
 
-<img src={extendArrayImg} alt="Intellisense showing additional array methods" />
+![Intellisense showing additional array methods](https://res.cloudinary.com/djzsjzasg/image/upload/v1674800825/malcolm-kee/extend-array_cvckvi.png)
 
 <aside>
 
@@ -76,7 +72,7 @@ const MyComponent: React.FC = () => (
 
 Fun fact: the following also able to add custom tag to JSX
 
-```ts noWrapper
+```ts
 declare global {
   module JSX {
     interface IntrinsicElements {
@@ -108,7 +104,7 @@ declare global {
 }
 ```
 
-<img src={extendJestExpectImg} alt="Intellisense showing toBeAwesome" />
+![Intellisense showing toBeAwesome](https://res.cloudinary.com/djzsjzasg/image/upload/v1674800825/malcolm-kee/extend-jest-expect_ggqkkd.png)
 
 It is awesome, isn't it?
 

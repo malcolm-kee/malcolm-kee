@@ -479,6 +479,78 @@ declare module 'astro:content' {
   data: InferEntrySchema<"note">
 },
 },
+"today-i-learnt": {
+"ambient-means-no-implementation.md": {
+  id: "ambient-means-no-implementation.md",
+  slug: "ambient-means-no-implementation",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"bookmarklet.mdx": {
+  id: "bookmarklet.mdx",
+  slug: "bookmarklet",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"eval-safely.md": {
+  id: "eval-safely.md",
+  slug: "eval-safely",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"extending-global-or-third-party-type.mdx": {
+  id: "extending-global-or-third-party-type.mdx",
+  slug: "extending-global-or-third-party-type",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"input-as-flex-item.md": {
+  id: "input-as-flex-item.md",
+  slug: "input-as-flex-item",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"jest-mock-in-typescript.md": {
+  id: "jest-mock-in-typescript.md",
+  slug: "jest-mock-in-typescript",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"no-way-to-type-as-props-properly-in-ts-today.md": {
+  id: "no-way-to-type-as-props-properly-in-ts-today.md",
+  slug: "no-way-to-type-as-props-properly-in-ts-today",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"script-vs-module.md": {
+  id: "script-vs-module.md",
+  slug: "script-vs-module",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"testing-console-error.md": {
+  id: "testing-console-error.md",
+  slug: "testing-console-error",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+"use-overload-to-type-dynamic-function-signature.md": {
+  id: "use-overload-to-type-dynamic-function-signature.md",
+  slug: "use-overload-to-type-dynamic-function-signature",
+  body: string,
+  collection: "today-i-learnt",
+  data: InferEntrySchema<"today-i-learnt">
+},
+},
 "workshop": {
 "fast-site-with-gatsby-js/01-introduction/introduction.mdx": {
   id: "fast-site-with-gatsby-js/01-introduction/introduction.mdx",
