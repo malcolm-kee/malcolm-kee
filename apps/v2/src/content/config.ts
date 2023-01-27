@@ -45,6 +45,7 @@ export const collections = {
        * but it will not be listed
        */
       preview: z.boolean().optional(),
+      youtubeVideoId: z.string().optional(),
     }),
   }),
 };

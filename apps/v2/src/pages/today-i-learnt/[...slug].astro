@@ -26,7 +26,7 @@ interface Props {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-const { title, pubDate } = entry.data;
+const { title, pubDate, youtubeVideoId } = entry.data;
 
 const permalink = new URL(
   `today-i-learnt/${entry.slug}`,
@@ -51,6 +51,25 @@ const permalink = new URL(
     <Layout>
       <Container>
         <MdContent title={title} publishDate={pubDate}>
+          {
+            youtubeVideoId ? (
+              <figure class="border-b border-gray-200">
+                <figcaption class="mb-3">
+                  The content of this article is also available in video format.
+                </figcaption>
+                <div class="w-full aspect-[16/9] relative">
+                  <div class="bg-gradient-to-b from-gray-700 via-gray-900 to-black animate-pulse absolute inset-0" />
+                  <div class="relative w-full h-0 pb-[56.25%] overflow-hidden mb-[50px]">
+                    <iframe
+                      class="w-full h-full absolute top-0 left-0"
+                      sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
+                      src={`https://youtube.com/embed/${youtubeVideoId}?cc_load_policy=1`}
+                    />
+                  </div>
+                </div>
+              </figure>
+            ) : null
+          }
           <Content />
         </MdContent>
       </Container>
