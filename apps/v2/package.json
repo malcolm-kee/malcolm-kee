@@ -37,6 +37,7 @@
     "@astrojs/rss": "^2.1.0",
     "@codesandbox/sandpack-react": "^1.20.5",
     "@codesandbox/sandpack-themes": "^1.19.0",
+    "@floating-ui/dom": "^1.1.1",
     "@headlessui/react": "^1.7.7",
     "@monaco-editor/react": "^4.4.6",
     "canvas-sketch-util": "^1.10.0",

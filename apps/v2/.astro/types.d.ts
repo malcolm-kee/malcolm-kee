@@ -450,6 +450,13 @@ declare module 'astro:content' {
   collection: "note",
   data: InferEntrySchema<"note">
 },
+"fsm-and-statechart.mdx": {
+  id: "fsm-and-statechart.mdx",
+  slug: "fsm-and-statechart",
+  body: string,
+  collection: "note",
+  data: InferEntrySchema<"note">
+},
 "mongodb.md": {
   id: "mongodb.md",
   slug: "mongodb",

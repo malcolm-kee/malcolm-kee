@@ -32,7 +32,7 @@ const { title, publishDate, heroImage, alt } = Astro.props;
         <p class="my-3 text-zinc-600">{publishDate}</p>
         <h1 class="text-4xl font-bold max-w-3xl mx-auto">{title}</h1>
       </header>
-      <main class="max-w-3xl mx-auto prose">
+      <main class="max-w-3xl mx-auto prose" data-md-content>
         <slot />
       </main>
     </div>
@@ -69,3 +69,58 @@ const { title, publishDate, heroImage, alt } = Astro.props;
     margin-top: 4rem;
   }
 </style>
+
+<script>
+  import { createTooltip } from '~/lib/create-tooltip';
+
+  const mdContents = document.querySelectorAll('[data-md-content]');
+
+  mdContents.forEach((mdContent) => {
+    const footNoteRef = mdContent.querySelectorAll('a[data-footnote-ref]');
+
+    footNoteRef.forEach((el) => {
+      const parentSupEl = el.closest('sup');
+
+      if (!parentSupEl) {
+        return;
+      }
+
+      const href = el.getAttribute('href');
+      if (href) {
+        const target = document.querySelector(href);
+        if (target && target instanceof HTMLElement) {
+          const childs: Array<Node> = [];
+          target.childNodes.forEach((childNode) => {
+            if (childNode instanceof HTMLElement) {
+              const cloned = document.createElement('div');
+              cloned.innerHTML = childNode.innerHTML;
+              cloned.childNodes.forEach((grandChild) => {
+                if (
+                  grandChild instanceof HTMLElement &&
+                  grandChild.hasAttribute('data-footnote-backref')
+                ) {
+                  grandChild.remove();
+                }
+              });
+              childs.push(cloned);
+            }
+          });
+          if (childs.length > 0) {
+            const tooltipEl = document.createElement('div');
+            tooltipEl.role = 'tooltip';
+            childs.forEach((child) => tooltipEl.appendChild(child));
+            const arrowEl = document.createElement('div');
+            tooltipEl.appendChild(arrowEl);
+            parentSupEl.insertAdjacentElement('afterend', tooltipEl);
+
+            createTooltip({
+              anchor: el,
+              tooltip: tooltipEl,
+              arrow: arrowEl,
+            });
+          }
+        }
+      }
+    });
+  });
+</script>

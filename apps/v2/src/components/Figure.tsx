@@ -15,8 +15,8 @@ export default function Figure({
 }: FigureProps) {
   return (
     <figure {...props}>
-      <img src={src} alt={alt} />
-      {caption && <figcaption>{caption}</figcaption>}
+      <img src={src} alt={alt} className="mx-auto" />
+      {caption && <figcaption className="text-center">{caption}</figcaption>}
     </figure>
   );
 }
