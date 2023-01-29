@@ -12,11 +12,13 @@ const description = 'A place to write my mind.';
 const blogPosts = await getBlogs();
 
 const allPosts = blogPosts.slice(0, 10);
+
+const permalink = new URL('', Astro.site).toString();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} permalink={permalink} />
   </head>
 
   <body>

@@ -10,13 +10,14 @@ const description =
 
 const allPosts = await getBlogs();
 
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
+const { pathname } = Astro.url;
+
+const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} permalink={permalink} />
   </head>
 
   <body>

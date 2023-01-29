@@ -8,11 +8,19 @@ const description =
   `I've worked on many projects over the years but these are the ones that` +
   ` I'm most proud of. Many of them are open-source, so if you see something that interests you,` +
   ` check out the code and contribute if you have ideas for how it can be improved.`;
+
+const { pathname } = Astro.url;
+
+const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title="Projects - Malcolm Kee" description={description} />
+    <BaseHead
+      title="Projects - Malcolm Kee"
+      description={description}
+      permalink={permalink}
+    />
   </head>
 
   <body>

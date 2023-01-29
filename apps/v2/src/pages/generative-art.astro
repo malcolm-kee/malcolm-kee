@@ -6,11 +6,15 @@ import PageLayout from '~/components/PageLayout.astro';
 
 const title = 'Generative Arts';
 const description = 'Random arts';
+
+const { pathname } = Astro.url;
+
+const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html>
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} permalink={permalink} />
   </head>
   <body>
     <PageLayout>

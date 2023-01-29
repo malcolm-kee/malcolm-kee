@@ -4,7 +4,7 @@ import { getOgImageUrl } from '~/lib/og-image';
 export interface Props {
   title?: string | undefined;
   description?: string | undefined;
-  permalink?: string;
+  permalink: string;
   contentType?: 'website' | 'article';
   publishedDate?: Date | undefined;
   updatedDate?: Date | undefined;
@@ -18,7 +18,7 @@ export interface Props {
 const {
   title = 'Malcolm Kee',
   description,
-  permalink = 'https://malcolmkee.com/',
+  permalink,
   contentType = 'website',
   publishedDate,
   updatedDate,
@@ -50,6 +50,7 @@ const ogImage = getOgImageUrl({
 <title>{title}</title>
 <meta name="title" content={title} />
 {description && <meta name="description" content={description} />}
+<link rel="canonical" href={permalink} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={contentType} />

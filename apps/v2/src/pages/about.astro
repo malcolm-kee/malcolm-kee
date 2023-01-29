@@ -7,11 +7,15 @@ import SocialIcons from '../components/SocialIcons';
 
 const title = 'Malcolm Kee - Web developer, front end engineer';
 const description = `I'm Malcolm Kee. I live in Sydney, where I build web apps and websites.`;
+
+const { pathname } = Astro.url;
+
+const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} permalink={permalink} />
   </head>
 
   <body>

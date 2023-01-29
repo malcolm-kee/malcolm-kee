@@ -22,11 +22,13 @@ const links = [
     description: `Free training materials that I've created`,
   },
 ];
+
+const permalink = Astro.url.toString();
 ---
 
 <html>
   <head>
-    <BaseHead title="Page Not Found (404)" />
+    <BaseHead title="Page Not Found (404)" permalink={permalink} />
   </head>
   <body>
     <PageLayout noHeader>

@@ -7,11 +7,19 @@ import { getWorkshops } from '~/data/workshop-helpers';
 const description = `Free training materials that I've created`;
 
 const workshops = getWorkshops(await getCollection('workshop'));
+
+const { pathname } = Astro.url;
+
+const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title="Workshops - Malcolm Kee" description={description} />
+    <BaseHead
+      title="Workshops - Malcolm Kee"
+      description={description}
+      permalink={permalink}
+    />
   </head>
   <body>
     <PageLayout>

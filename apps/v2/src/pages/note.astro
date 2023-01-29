@@ -8,11 +8,15 @@ const notes = await getCollection('note');
 const title = 'Notes';
 const description =
   'Learning notes on topics, which will be updated over time.';
+
+const { pathname } = Astro.url;
+
+const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html>
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} permalink={permalink} />
   </head>
   <body>
     <PageLayout>

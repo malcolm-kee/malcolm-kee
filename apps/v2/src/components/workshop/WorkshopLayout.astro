@@ -19,7 +19,7 @@ export interface Props {
 
 const { workshop, tocItems, prev, next, headings } = Astro.props;
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
 ---
 
 <body class="bg-white dark:bg-slate-900">

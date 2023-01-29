@@ -25,6 +25,8 @@ interface Props {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+const permalink = new URL(`note/${entry.slug}`, Astro.site).toString();
 ---
 
 <html lang="en">
@@ -37,6 +39,7 @@ const { Content } = await entry.render();
       title={entry.data.title}
       contentType="article"
       articleType="note"
+      permalink={permalink}
     />
   </head>
   <body>
