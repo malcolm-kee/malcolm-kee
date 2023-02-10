@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import * as React from 'react';
 import type { WorkshopMetadata } from '~/data/workshop-data';
 import type { WorkshopTocItem } from '~/data/workshop-helpers';
-import { HomeIcon } from '../icons';
+import { HomeIcon, ChevronLeftIcon } from '../icons';
 import { ThemeSelector } from '../theme-selector';
 import { WorkshopMobileNavigation } from './workshop-mobile-navigation';
 
@@ -31,13 +31,20 @@ export const WorkshopHeader = ({
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 flex items-center justify-between bg-white px-4 py-5 sm:py-3 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none sm:px-6 lg:px-8',
+        'sticky top-0 z-50 flex items-center justify-between bg-white px-4 py-5 lg:py-3 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none sm:px-6 lg:px-8',
         isScrolled
           ? 'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
           : 'dark:bg-transparent'
       )}
     >
-      <div className="mr-6 flex md:hidden">
+      <a
+        href="/workshop"
+        aria-label="Back to workshops"
+        className="hidden lg:block lg:mr-3"
+      >
+        <ChevronLeftIcon className="w-6 h-6 stroke-slate-500" />
+      </a>
+      <div className="mr-6 flex lg:hidden">
         <WorkshopMobileNavigation
           items={navItems}
           currentPath={currentPath}

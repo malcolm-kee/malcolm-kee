@@ -1,4 +1,3 @@
-/* jsxImportSource: react */
 import * as React from 'react';
 
 export default function Aside(props: {
@@ -6,11 +5,18 @@ export default function Aside(props: {
   heading?: string;
 }) {
   return (
-    <aside className="p-6 bg-sky-50">
-      {props.heading && (
-        <p className="text-xl text-sky-900 mt-0">{props.heading}</p>
-      )}
-      <div className="prose">{props.children}</div>
-    </aside>
+    <div data-component="aside">
+      <aside>
+        <div className="relative p-6">
+          <div className="absolute inset-0 bg-sky-50 shadow" />
+          <div className="relative">
+            {props.heading && (
+              <p className="text-xl text-sky-900 mt-0">{props.heading}</p>
+            )}
+            <div className="prose">{props.children}</div>
+          </div>
+        </div>
+      </aside>
+    </div>
   );
 }

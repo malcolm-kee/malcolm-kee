@@ -25,7 +25,12 @@ export default defineConfig({
     port: 8989,
   },
   markdown: {
-    remarkPlugins: [[remarkShikiTwoSlash.default, { theme: 'github-light' }]],
+    remarkPlugins: [
+      [
+        remarkShikiTwoSlash.default,
+        { themes: ['github-light', 'github-dark'] },
+      ],
+    ],
     syntaxHighlight: false,
   },
 });

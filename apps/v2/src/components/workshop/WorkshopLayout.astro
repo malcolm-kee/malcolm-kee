@@ -50,6 +50,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
           items={tocItems}
           className="w-64 pr-8 xl:w-72 xl:pr-16"
           currentPath={currentPath}
+          headingClass="-top-16"
+          client:load
         />
       </div>
     </div>

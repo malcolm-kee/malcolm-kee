@@ -12,6 +12,18 @@ figure pre.shiki {
   margin: 0;
 }
 
+.shiki.github-dark {
+  display: none;
+}
+
+:root.dark .shiki.github-light {
+  display: none;
+}
+
+:root.dark .shiki.github-dark {
+  display: block;
+}
+
 [data-editor-code] pre.shiki {
   margin: 0;
 }
@@ -47,6 +59,18 @@ pre.shiki .language-id {
 
 pre.shiki .code-title {
   @apply font-sans tracking-wider px-2 border-b border-gray-200;
+}
+
+.shiki.github-dark {
+  --code-color: theme(colors.zinc.800);
+}
+
+.shiki.github-dark .language-id {
+  @apply text-zinc-100;
+}
+
+.shiki.github-dark .code-title {
+  @apply bg-zinc-700 border-zinc-700;
 }
 
 /* Visually differentiates twoslash code samples  */

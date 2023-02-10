@@ -293,13 +293,9 @@ function MobileNavigation(props: { className?: string }) {
             className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5"
           >
             <div className="flex flex-row-reverse items-center justify-between">
-              <button
-                type="button"
-                aria-label="Close menu"
-                className="-m-1 p-1"
-              >
+              <Popover.Button aria-label="Close menu" className="-m-1 p-1">
                 <CloseIcon className="h-6 w-6 stroke-zinc-500" />
-              </button>
+              </Popover.Button>
               <h2 className="text-sm font-medium text-zinc-600">Navigation</h2>
             </div>
             <nav className="mt-6">
