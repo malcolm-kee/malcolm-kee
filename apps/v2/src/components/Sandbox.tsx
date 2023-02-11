@@ -4,9 +4,10 @@ import {
   SandpackProvider,
   SandpackTheme,
 } from '@codesandbox/sandpack-react';
-import { githubLight } from '@codesandbox/sandpack-themes';
+import { githubLight, nightOwl } from '@codesandbox/sandpack-themes';
 import * as React from 'react';
 import { SandBoxConsole } from './SandboxConsole';
+import { useThemeValue } from '~/hooks/use-theme';
 
 const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
 
@@ -22,6 +23,21 @@ export default function Sandbox(props: SandboxProps) {
   const isReactProject = props.lang === 'jsx' || props.lang === 'tsx';
 
   const hasUi = isReactProject || !!props.htmlEntry;
+
+  const siteTheme = useThemeValue();
+
+  const codeTheme = React.useMemo<SandpackTheme>(() => {
+    const defaultTheme = siteTheme === 'dark' ? nightOwl : githubLight;
+
+    return {
+      ...defaultTheme,
+      font: {
+        ...defaultTheme.font,
+        size: '0.875em',
+        lineHeight: '1.7142857',
+      },
+    };
+  }, [siteTheme]);
 
   return (
     <SandpackProvider
@@ -55,34 +71,34 @@ export default function Sandbox(props: SandboxProps) {
       customSetup={{
         entry: entryFileName,
       }}
-      theme={theme}
+      theme={codeTheme}
     >
       <div className={!hasUi ? 'hidden' : ''}>
         <SandpackPreview />
       </div>
-      <SandBoxConsole />
-      <div className="border-t border-gray-100">
+      <div className="border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70">
         {props.lang === 'ts' ? (
-          <MonacoEditor style={editorStyle} lang={props.lang} />
+          <MonacoEditor
+            style={editorStyle}
+            theme={siteTheme === 'dark' ? 'dark' : 'light'}
+            lang={props.lang}
+            showTabs={hasUi}
+          />
         ) : (
-          <SandpackCodeEditor style={editorStyle} showTabs showLineNumbers />
+          <SandpackCodeEditor
+            style={editorStyle}
+            showTabs={hasUi}
+            showLineNumbers
+          />
         )}
       </div>
+      <SandBoxConsole />
     </SandpackProvider>
   );
 }
 
 const editorStyle: React.CSSProperties = {
   height: 'calc(var(--editor-height, 100%) + 40px + 16px)', // toolbar (40px), editor y padding (16px)
-};
-
-const theme: SandpackTheme = {
-  ...githubLight,
-  font: {
-    ...githubLight.font,
-    size: '0.875em',
-    lineHeight: '1.7142857',
-  },
 };
 
 const indexHtml = /* html */ `<html>

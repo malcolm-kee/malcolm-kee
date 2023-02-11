@@ -36,7 +36,7 @@ export const WorkshopMobileNavigation = (props: {
           className="fixed inset-0 z-50 flex items-start overflow-y-auto bg-slate-900/50 pr-10 lg:hidden"
           aria-label="Navigation"
         >
-          <Dialog.Panel className="flex flex-col h-full w-full overflow-hidden max-w-xs bg-white dark:bg-slate-900">
+          <Dialog.Panel className="flex flex-col h-full w-full overflow-hidden max-w-xs bg-slate-50 dark:bg-slate-900">
             <div className="flex items-center px-4 sm:px-6 py-5">
               <button
                 type="button"

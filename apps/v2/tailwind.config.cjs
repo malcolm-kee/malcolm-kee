@@ -17,6 +17,7 @@ module.exports = {
           css: {
             pre: {
               padding: 0,
+              borderRadius: 0,
             },
             '.footnotes': {
               paddingTop: theme('spacing.4'),

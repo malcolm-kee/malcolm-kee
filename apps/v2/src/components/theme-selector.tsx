@@ -1,8 +1,7 @@
 import { Listbox } from '@headlessui/react';
 import { clsx } from 'clsx';
 import * as React from 'react';
-
-type ThemeValue = 'light' | 'dark' | 'system';
+import { useThemeToggle } from '../hooks/use-theme';
 
 const themes = [
   { name: 'Light', value: 'light', icon: LightIcon },
@@ -49,35 +48,7 @@ function SystemIcon(props: IconProps) {
 }
 
 export function ThemeSelector(props: { className?: string }) {
-  const [selectedTheme, setSelectedTheme] = React.useState<
-    undefined | ThemeValue
-  >();
-
-  React.useEffect(() => {
-    if (selectedTheme) {
-      document.documentElement.setAttribute('data-theme', selectedTheme);
-    } else {
-      const currentTheme = themes.find(
-        (theme) =>
-          theme.value === document.documentElement.getAttribute('data-theme')
-      );
-
-      setSelectedTheme(currentTheme && currentTheme.value);
-    }
-  }, [selectedTheme]);
-
-  React.useEffect(() => {
-    let handler = () => {
-      const currentTheme = themes.find(
-        (theme) => theme.value === (window.localStorage.theme ?? 'system')
-      );
-      setSelectedTheme(currentTheme && currentTheme.value);
-    };
-
-    window.addEventListener('storage', handler);
-
-    return () => window.removeEventListener('storage', handler);
-  }, []);
+  const [selectedTheme, setSelectedTheme] = useThemeToggle();
 
   const selectedThemeData = React.useMemo(
     () => themes.find((t) => t.value === selectedTheme),

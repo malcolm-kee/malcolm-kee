@@ -1,4 +1,5 @@
 import { useSandpackConsole } from '@codesandbox/sandpack-react';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { isNotNil } from '~/lib/type-guard';
@@ -7,29 +8,46 @@ import { MiniNoSymbolIcon, MiniTerminalIcon } from './icons';
 export const SandBoxConsole = () => {
   const { logs, reset } = useSandpackConsole();
 
-  if (logs.length === 0) {
-    return null;
-  }
+  const rootRef = React.useRef<HTMLDivElement>(null); // we use root ref and then query as I not sure how to merge with auto-animate properly
+
+  React.useEffect(() => {
+    if (logs.length > 0 && rootRef.current) {
+      const listElement = rootRef.current.querySelector(
+        '[data-element="log-list"]'
+      );
+
+      if (listElement) {
+        listElement.scrollTop = listElement.scrollHeight;
+      }
+    }
+  }, [logs.length]);
+
+  const [parent] = useAutoAnimate<HTMLUListElement>();
 
   return (
-    <div className="not-prose">
-      <div className="flex justify-between items-center px-3 py-1">
-        <div className="inline-flex items-center gap-2">
-          <MiniTerminalIcon className="w-5 h-5 text-gray-400" />
-          <span className="text-xs">Console</span>
+    <div className="not-prose" ref={rootRef}>
+      {logs.length > 0 && (
+        <div className="flex justify-between items-center px-3 py-1 text-gray-700 dark:text-zinc-100">
+          <div className="inline-flex items-center gap-2">
+            <MiniTerminalIcon className="w-5 h-5 text-gray-400" />
+            <span className="text-xs">Console</span>
+          </div>
+          <button
+            onClick={() => reset()}
+            type="button"
+            className="text-gray-500 hover:text-gray-700 dark:text-zinc-400 dark:hover:text-zinc-500"
+            aria-label="Clear"
+            title="Clear"
+          >
+            <MiniNoSymbolIcon />
+          </button>
         </div>
-
-        <button
-          onClick={() => reset()}
-          type="button"
-          className="text-gray-500 hover:text-gray-700"
-          aria-label="Clear"
-          title="Clear"
-        >
-          <MiniNoSymbolIcon />
-        </button>
-      </div>
-      <ul className="flex flex-col bg-zinc-800 text-white">
+      )}
+      <ul
+        className="flex flex-col bg-zinc-800 text-white max-h-[40vh] overflow-y-auto"
+        ref={parent}
+        data-element="log-list"
+      >
         {logs.map((log) => (
           <SandboxConsoleLogItem log={log} key={log.id} />
         ))}

@@ -19,7 +19,8 @@ export function LiveEditor(props: LiveEditorProps) {
 
   React.useEffect(() => {
     if (state.mode === 'mounted' && divRef.current) {
-      const preElements = divRef.current.querySelectorAll('pre');
+      // only get light theme elements, as dark theme has similar content
+      const preElements = divRef.current.querySelectorAll('pre.github-light');
 
       const codeLines: Array<string> = [];
       const htmlCodeLines: Array<string> = [];

@@ -41,7 +41,7 @@ export const WorkshopNavigation = React.forwardRef<
             {section.label ? (
               <h2
                 className={clsx(
-                  'sticky z-10 px-0.5 bg-white dark:bg-slate-900',
+                  'sticky z-10 px-0.5 bg-slate-50 dark:bg-slate-900',
                   'font-display font-medium text-slate-900 dark:text-white uppercase',
                   props.headingClass
                 )}

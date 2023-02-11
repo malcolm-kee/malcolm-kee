@@ -30,6 +30,7 @@ figure pre.shiki {
 
 pre.shiki {
   --code-color: theme(colors.gray.100);
+  --code-text-color: theme(colors.gray.800);
   border-color: var(--code-color);
   @apply relative overflow-x-auto border;
 }
@@ -54,7 +55,8 @@ pre.shiki div.line {
 
 pre.shiki .language-id {
   background-color: var(--code-color);
-  @apply absolute top-0 right-2 text-sm px-2 text-gray-800 rounded-b;
+  color: var(--code-text-color, theme(colors.gray.700));
+  @apply absolute top-0 right-2 text-sm px-2 rounded-b;
 }
 
 pre.shiki .code-title {
@@ -62,11 +64,8 @@ pre.shiki .code-title {
 }
 
 .shiki.github-dark {
-  --code-color: theme(colors.zinc.800);
-}
-
-.shiki.github-dark .language-id {
-  @apply text-zinc-100;
+  --code-color: theme(colors.zinc.600);
+  --code-text-color: theme(colors.zinc.100);
 }
 
 .shiki.github-dark .code-title {
@@ -202,8 +201,8 @@ pre .arrow {
   width: 8px;
 }
 pre .popover {
+  @apply text-zinc-900 bg-zinc-100;
   margin-bottom: 10px;
-  background-color: #eee;
   display: inline-block;
   padding: 0 0.5rem 0.3rem;
   margin-top: 10px;

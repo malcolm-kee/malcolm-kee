@@ -21,6 +21,7 @@ importers:
       '@codesandbox/sandpack-react': ^1.20.9
       '@codesandbox/sandpack-themes': ^1.19.0
       '@floating-ui/dom': ^1.2.0
+      '@formkit/auto-animate': 1.0.0-beta.6
       '@headlessui/react': ^1.7.10
       '@monaco-editor/react': ^4.4.6
       '@tailwindcss/typography': ^0.5.9
@@ -30,6 +31,7 @@ importers:
       canvas-sketch-util: ^1.10.0
       clsx: ^1.2.1
       markdown-it: ^13.0.1
+      mitt: ^3.0.0
       monaco-themes: ^0.4.3
       nice-color-palettes: ^3.0.0
       preact: ^10.12.1
@@ -49,10 +51,12 @@ importers:
       '@codesandbox/sandpack-react': 1.20.9_biqbaboplfbrettd7655fr4n2y
       '@codesandbox/sandpack-themes': 1.19.0
       '@floating-ui/dom': 1.2.0
+      '@formkit/auto-animate': 1.0.0-beta.6
       '@headlessui/react': 1.7.10_biqbaboplfbrettd7655fr4n2y
       '@monaco-editor/react': 4.4.6_biqbaboplfbrettd7655fr4n2y
       canvas-sketch-util: 1.10.0
       clsx: 1.2.1
+      mitt: 3.0.0
       monaco-themes: 0.4.3
       nice-color-palettes: 3.0.0
       preact: 10.12.1
@@ -948,6 +952,10 @@ packages:
     resolution: {integrity: sha512-QXzg57o1cjLz3cGETzKXjI3kx1xyS49DW9l7kV2jw2c8Yftd434t2hllX0sVGn2Q8MtcW/4pNm8bfE1/4n6mng==}
     dependencies:
       '@floating-ui/core': 1.2.0
+    dev: false
+
+  /@formkit/auto-animate/1.0.0-beta.6:
+    resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
     dev: false
 
   /@headlessui/react/1.7.10_biqbaboplfbrettd7655fr4n2y:
@@ -4664,6 +4672,10 @@ packages:
 
   /minimist/1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+
+  /mitt/3.0.0:
+    resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
+    dev: false
 
   /monaco-themes/0.4.3:
     resolution: {integrity: sha512-Ajt8osGYtdxPLp5CeLljWijm6GZZukK9t8b2JuVKlSleiwrVDEd/n47uQdm/uxYKCsWvSFmngAOhqZvC/wcxQg==}
