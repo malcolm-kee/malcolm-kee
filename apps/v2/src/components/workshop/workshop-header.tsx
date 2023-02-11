@@ -42,7 +42,7 @@ export const WorkshopHeader = ({
         aria-label="Back to workshops"
         className="hidden lg:block lg:mr-3"
       >
-        <ChevronLeftIcon className="w-6 h-6 stroke-slate-500" />
+        <ChevronLeftIcon className="w-5 h-5 stroke-slate-500" />
       </a>
       <div className="mr-6 flex lg:hidden">
         <WorkshopMobileNavigation

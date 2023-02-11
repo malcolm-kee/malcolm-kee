@@ -2,6 +2,7 @@
 import { getBlogs } from '~/data/blog-helpers';
 import BaseHead from '../components/BaseHead.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
+import { BlogPostPreviewList } from '../components/BlogPostPreviewList';
 import Container from '../components/Container';
 import Layout from '../components/Layout.astro';
 import SocialIcons from '../components/SocialIcons';
@@ -38,9 +39,9 @@ const permalink = new URL('', Astro.site).toString();
         </div>
       </Container>
       <Container className="mt-24 md:mt-28">
-        <section class="flex flex-col gap-16">
+        <BlogPostPreviewList>
           {allPosts.map((p) => <BlogPostPreview post={p} />)}
-        </section>
+        </BlogPostPreviewList>
       </Container>
     </Layout>
   </body>

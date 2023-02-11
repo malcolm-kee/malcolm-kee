@@ -45,7 +45,7 @@ const permalink = new URL(`note/${entry.slug}`, Astro.site).toString();
   <body>
     <Layout>
       <Container>
-        <MdContent title={entry.data.title}>
+        <MdContent title={entry.data.title} backUrl="/note">
           <Content />
         </MdContent>
       </Container>

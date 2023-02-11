@@ -1,22 +1,30 @@
 ---
+import { BackButton } from '~/components/BackButton';
 import './shiki.css';
 
 export interface Props {
   title: string;
   publishDate?: string;
-  heroImage?: string | undefined;
-  alt?: string | undefined;
+  heroImage?: string;
+  alt?: string;
+  backUrl?: string;
 }
 
-const { title, publishDate, heroImage, alt } = Astro.props;
+const { title, publishDate, heroImage, alt, backUrl } = Astro.props;
 ---
 
-<div class="layout">
-  <article class="content">
-    <div>
-      <header
-        class="flex flex-col justify-center items-center text-center pb-8 mb-8 border-b border-gray-100"
-      >
+<div class="my-12">
+  <article>
+    <div class="xl:relative">
+      {
+        backUrl && (
+          <BackButton
+            href={backUrl}
+            className="lg:absolute lg:-left-5 lg:mb-0"
+          />
+        )
+      }
+      <header class="flex flex-col pb-8 mb-8 border-b border-gray-100">
         {
           heroImage && (
             <img
@@ -29,8 +37,12 @@ const { title, publishDate, heroImage, alt } = Astro.props;
             />
           )
         }
-        <p class="my-3 text-zinc-600">{publishDate}</p>
-        <h1 class="text-4xl font-bold max-w-3xl mx-auto">{title}</h1>
+        <div class="max-w-3xl mx-auto w-full">
+          <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
+            {publishDate}
+          </p>
+          <h1 class="text-4xl font-bold w-full">{title}</h1>
+        </div>
       </header>
       <main class="max-w-3xl mx-auto prose" data-md-content>
         <slot />
@@ -55,18 +67,6 @@ const { title, publishDate, heroImage, alt } = Astro.props;
       margin-top: 0;
       margin-bottom: 2rem;
     }
-  }
-
-  .content {
-    margin-bottom: 8rem;
-  }
-
-  .content :global(main > * + *) {
-    margin-top: 1rem;
-  }
-
-  .content :global(h2) {
-    margin-top: 4rem;
   }
 </style>
 

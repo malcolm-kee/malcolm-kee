@@ -3,10 +3,11 @@ import { getBlogs } from '~/data/blog-helpers';
 import BaseHead from '../components/BaseHead.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
 import PageLayout from '../components/PageLayout.astro';
+import { BlogPostPreviewList } from '../components/BlogPostPreviewList';
 
 const title = 'Blogs - Malcolm Kee';
 const description =
-  'My thoughts on technologies, books, or just any random stuffs.';
+  'My thoughts on technologies, books, or any other random topic.';
 
 const allPosts = await getBlogs();
 
@@ -24,9 +25,9 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
     <PageLayout>
       <span slot="title">Blogs</span>
       <span slot="description">{description}</span>
-      <section aria-label="Blog post list" class="flex flex-col gap-16">
+      <BlogPostPreviewList aria-label="Blog post list">
         {allPosts.map((p) => <BlogPostPreview post={p} />)}
-      </section>
+      </BlogPostPreviewList>
     </PageLayout>
   </body>
 </html>

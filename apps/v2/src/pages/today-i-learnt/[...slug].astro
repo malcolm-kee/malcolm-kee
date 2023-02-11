@@ -50,7 +50,11 @@ const permalink = new URL(
   <body>
     <Layout>
       <Container>
-        <MdContent title={title} publishDate={pubDate}>
+        <MdContent
+          title={title}
+          publishDate={pubDate}
+          backUrl="/today-i-learnt"
+        >
           {
             youtubeVideoId ? (
               <figure class="border-b border-gray-200">

@@ -64,6 +64,7 @@ const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
           heroImage={heroImage}
           publishDate={pubDate}
           alt={alt}
+          backUrl="/blog"
         >
           <Content />
         </MdContent>

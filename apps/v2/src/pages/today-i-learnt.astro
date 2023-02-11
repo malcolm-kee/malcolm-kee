@@ -27,17 +27,21 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
         >, these are the little facts I learnt in my daily life as a Frontend
         Engineer.
       </span>
-      <div class="grid grid-cols-[repeat(auto-fit,minmax(15em,1fr))] gap-8">
+      <div
+        class="grid grid-cols-[repeat(auto-fit,minmax(15em,1fr))] gap-8 items-start -mx-3"
+      >
         {
           [...tilMap].map(([topic, tils]) => (
-            <div>
-              <h2 class="text-sm px-3 font-medium text-zinc-400">{topic}</h2>
+            <div class="border-l border-transparent sm:hover:border-zinc-100 pb-2">
+              <h2 class="text-sm px-3 font-medium text-zinc-400 uppercase">
+                {topic}
+              </h2>
               <ul class="flex flex-col gap-6 mt-3">
                 {tils.map((til) => (
                   <li>
                     <a
                       href={`/today-i-learnt/${til.slug}`}
-                      class="block px-2 border-l-4 border-transparent hover:border-primary-700/40 transition-colors"
+                      class="block px-2 border-l-4 border-transparent hover:border-primary-700/60 transition-colors"
                     >
                       {til.data.title}
                     </a>

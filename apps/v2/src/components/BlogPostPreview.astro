@@ -8,23 +8,31 @@ export interface Props {
 const { post } = Astro.props;
 ---
 
-<article lang={post.data.lang}>
-  <header>
-    <time class="mb-3 text-sm text-zinc-400">{post.data.pubDate}</time>
-    <h2 class="text-base font-semibold tracking-tight text-zinc-800">
-      <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-    </h2>
-  </header>
-  {
-    post.data.description && (
-      <>
-        <p class="text-sm text-zinc-600 mt-2">{post.data.description}</p>
-        <div class="mt-4">
-          <a href={`/blog/${post.slug}`} class="text-primary-500 text-sm">
-            Read more
-          </a>
-        </div>
-      </>
-    )
-  }
+<article
+  lang={post.data.lang}
+  class="@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-2"
+>
+  <time
+    class="block pl-3 border-l-2 border-l-zinc-100 mb-2 text-sm text-zinc-400 @md/bloglist:border-l-0"
+    >{post.data.pubDate}</time
+  >
+  <div class="@md/bloglist:col-span-3">
+    <header>
+      <h2 class="text-base font-semibold tracking-tight text-zinc-800">
+        <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+      </h2>
+    </header>
+    {
+      post.data.description && (
+        <>
+          <p class="text-sm text-zinc-600 mt-2">{post.data.description}</p>
+          <div class="mt-4">
+            <a href={`/blog/${post.slug}`} class="text-primary-500 text-sm">
+              Read more
+            </a>
+          </div>
+        </>
+      )
+    }
+  </div>
 </article>
