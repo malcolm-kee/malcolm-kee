@@ -1,11 +1,14 @@
 ---
 import { getBlogs } from '~/data/blog-helpers';
+import { workExperiences } from '~/data/cv';
 import BaseHead from '../components/BaseHead.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
 import { BlogPostPreviewList } from '../components/BlogPostPreviewList';
 import Container from '../components/Container';
+import { BriefcaseIcon } from '../components/icons';
 import Layout from '../components/Layout.astro';
 import SocialIcons from '../components/SocialIcons';
+import { Button } from '~/components/Button';
 
 const title = 'Malcolm Kee - front end engineer that loves building tools';
 const description = 'A place to write my mind.';
@@ -39,9 +42,68 @@ const permalink = new URL('', Astro.site).toString();
         </div>
       </Container>
       <Container className="mt-24 md:mt-28">
-        <BlogPostPreviewList>
-          {allPosts.map((p) => <BlogPostPreview post={p} />)}
-        </BlogPostPreviewList>
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <BlogPostPreviewList>
+            {allPosts.map((p) => <BlogPostPreview post={p} />)}
+          </BlogPostPreviewList>
+          <div class="space-y-10 lg:pl-16 xl:pl-24">
+            <div class="rounded-2xl border border-zinc-100 p-6">
+              <h2
+                class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100"
+              >
+                <BriefcaseIcon className="h-6 w-6 flex-none" />
+                <span class="ml-3 leading-6">Work</span>
+              </h2>
+              <ol class="mt-6 space-y-4">
+                {
+                  workExperiences.map((role) => (
+                    <li class="flex gap-4">
+                      <div class="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+                        {role.logo ? (
+                          <img
+                            src={role.logo}
+                            alt=""
+                            class="h-8 w-8 rounded-full"
+                            width={32}
+                            height={32}
+                          />
+                        ) : (
+                          <div class="w-8 h-8 rounded-full bg-zinc-400" />
+                        )}
+                      </div>
+                      <dl class="flex flex-auto flex-wrap gap-x-2">
+                        <dt class="sr-only">Company</dt>
+                        <dd class="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                          {role.company}
+                        </dd>
+                        <dt class="sr-only">Role</dt>
+                        <dd class="text-xs text-zinc-500 dark:text-zinc-400">
+                          {role.title}
+                        </dd>
+                        <dt class="sr-only">Date</dt>
+                        <dd
+                          class="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
+                          aria-label={`${role.start} until ${role.end}`}
+                        >
+                          <time datetime={role.start}>{role.start}</time>{' '}
+                          <span aria-hidden="true">—</span>{' '}
+                          <time datetime={role.end}>{role.end}</time>
+                        </dd>
+                      </dl>
+                    </li>
+                  ))
+                }
+              </ol>
+              <Button
+                variant="secondary"
+                href="/cv"
+                className="group mt-6 w-full"
+              >
+                View CV
+              </Button>
+            </div>
+          </div>
+        </div>
       </Container>
     </Layout>
   </body>

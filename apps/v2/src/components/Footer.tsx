@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 
 export default function Footer(): React.ReactElement {
   return (
-    <footer className="mt-32">
+    <footer className="mt-32 print:hidden">
       <Container.Outer>
         <div className="border-t border-zinc-100 pt-10 pb-16">
           <Container.Inner>
