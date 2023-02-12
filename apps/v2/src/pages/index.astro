@@ -42,7 +42,7 @@ const permalink = new URL('', Astro.site).toString();
         </div>
       </Container>
       <Container className="mt-24 md:mt-28">
-        <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-20">
           <BlogPostPreviewList>
             {allPosts.map((p) => <BlogPostPreview post={p} />)}
           </BlogPostPreviewList>
