@@ -31,7 +31,7 @@ const permalink = new URL('', Astro.site).toString();
       }
     </script>
     <style>
-      [hideiframeprint] [data-button='download-cv'] {
+      :global([data-hideiframeprint]) [data-button='download-cv'] {
         display: none;
       }
     </style>
