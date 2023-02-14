@@ -23,6 +23,18 @@ const permalink = new URL('', Astro.site).toString();
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} permalink={permalink} />
+    <script>
+      import { isIFramePrintNotWorking } from '../lib/hacks/browser-bug-detection';
+
+      if (isIFramePrintNotWorking()) {
+        document.documentElement.dataset.hideiframeprint = 'true';
+      }
+    </script>
+    <style>
+      [hideiframeprint] [data-button='download-cv'] {
+        display: none;
+      }
+    </style>
   </head>
 
   <body>
