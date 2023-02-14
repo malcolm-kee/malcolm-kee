@@ -1,14 +1,14 @@
 ---
+import BaseHead from '~/components/BaseHead.astro';
+import BlogPostPreview from '~/components/BlogPostPreview.astro';
+import { BlogPostPreviewList } from '~/components/BlogPostPreviewList';
+import { Button } from '~/components/Button';
+import Container from '~/components/Container';
+import { BriefcaseIcon, CloudArrowDownIcon } from '~/components/icons';
+import Layout from '~/components/Layout.astro';
+import SocialIcons from '~/components/SocialIcons';
 import { getBlogs } from '~/data/blog-helpers';
 import { workExperiences } from '~/data/cv';
-import BaseHead from '../components/BaseHead.astro';
-import BlogPostPreview from '../components/BlogPostPreview.astro';
-import { BlogPostPreviewList } from '../components/BlogPostPreviewList';
-import Container from '../components/Container';
-import { BriefcaseIcon } from '../components/icons';
-import Layout from '../components/Layout.astro';
-import SocialIcons from '../components/SocialIcons';
-import { Button } from '~/components/Button';
 
 const title = 'Malcolm Kee - front end engineer that loves building tools';
 const description = 'A place to write my mind.';
@@ -94,17 +94,56 @@ const permalink = new URL('', Astro.site).toString();
                   ))
                 }
               </ol>
-              <Button
-                variant="secondary"
-                href="/cv"
-                className="group mt-6 w-full"
-              >
-                View CV
-              </Button>
+              <div class="flex mt-6 rounded-md shadow">
+                <Button
+                  variant="secondary"
+                  href="/cv"
+                  className="flex-1 rounded-r-none"
+                >
+                  View CV
+                </Button>
+                <Button
+                  className="rounded-l-none"
+                  data-button="download-cv"
+                  aria-label="Download"
+                >
+                  <CloudArrowDownIcon />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </Container>
     </Layout>
+    <script>
+      document
+        .querySelectorAll('[data-button="download-cv"]')
+        .forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const frame = document.createElement('iframe');
+            frame.style.position = 'fixed';
+            frame.style.right = '0';
+            frame.style.bottom = '0';
+            frame.style.top = '0';
+            frame.style.width = '0';
+            frame.style.height = '0';
+            frame.style.border = '0';
+            function closePrint() {
+              document.body.removeChild(frame);
+            }
+            frame.onload = function onFrameLoad() {
+              const frameWin = frame.contentWindow;
+
+              if (frameWin) {
+                frameWin.onbeforeunload = closePrint;
+                frameWin.onafterprint = closePrint;
+                frameWin.print();
+              }
+            };
+            frame.src = '/cv';
+            document.body.appendChild(frame);
+          });
+        });
+    </script>
   </body>
 </html>

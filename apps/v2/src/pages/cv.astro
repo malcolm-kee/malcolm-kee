@@ -1,13 +1,15 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
 import { Button } from '~/components/Button';
-import { PrinterIcon } from '~/components/icons';
+import { GlobeIcon, MailIcon, PrinterIcon } from '~/components/icons';
 import PageLayout from '~/components/PageLayout.astro';
 import { GitHubIcon, LinkedInIcon } from '~/components/SocialIcons';
 import { workExperiences } from '~/data/cv';
 import { socialMediaData } from '~/data/social-media';
 
 const permalink = Astro.url.toString();
+
+const shortenUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
 ---
 
 <html>
@@ -22,53 +24,62 @@ const permalink = Astro.url.toString();
     <PageLayout noHeader>
       <div class="flex justify-between items-center mb-3 print:hidden">
         <span class="text-2xl text-zinc-500">Printable CV</span>
-        <Button data-button="print">
+        <Button data-button="print" className="min-w-[10rem]">
           Print <PrinterIcon className="h-4 w-4 text-zinc-200" />
         </Button>
       </div>
       <!-- A4 dimension: 2480 x 3508 -->
       <div
-        class="relative -mx-4 sm:mx-auto max-w-[1240px] px-2 md:px-6 py-6 shadow print:p-0 print:shadow-none"
+        class="relative -mx-4 sm:-mx-8 lg:mx-auto max-w-[1240px] px-2 md:px-6 pt-6 pb-12 shadow print:p-0 print:shadow-none"
       >
         <div
-          class="absolute top-0 inset-x-0 grid grid-cols-3 items-end px-2 md:px-6 h-32 bg-primary-800 print:p-0 print:h-24 print:bg-white"
+          class="absolute top-0 inset-x-0 grid grid-cols-3 items-end px-2 md:px-6 h-32 bg-primary-800 print:grid-cols-4 print:p-0 print:h-16 print:bg-white"
         >
           <h1
-            class="hidden md:block print:block col-start-2 col-span-2 leading-none text-6xl xl:text-7xl font-bold text-zinc-100 print:text-zinc-600 print:pb-4"
+            class="hidden md:block print:block col-start-2 col-span-2 leading-none text-6xl xl:text-7xl font-extrabold text-zinc-100 print:text-5xl print:text-zinc-600 print:pb-4"
           >
             Malcolm Kee
           </h1>
         </div>
         <div
-          class="flex flex-col items-center gap-3 md:grid md:grid-cols-3 md:items-end md:gap-0 print:grid print:grid-cols-3 print:items-end print:gap-0"
+          class="flex flex-col items-center gap-3 md:grid md:grid-cols-3 md:items-end md:gap-0 print:grid print:grid-cols-4 print:items-end print:gap-0"
         >
           <div class="flex relative justify-center">
             <div
-              class="flex justify-center items-center w-40 sm:w-44 lg:w-52 aspect-square p-1 rounded-full bg-white"
+              class="flex justify-center items-center w-40 sm:w-44 lg:w-52 aspect-square p-1 rounded-full bg-white print:w-32 print:p-0"
             >
               <img
                 src="/assets/portrait.jpg"
                 alt=""
-                class="block w-full sm:w-40 lg:w-48 rounded-full bg-zinc-100 object-cover"
+                class="block w-full sm:w-40 lg:w-48 rounded-full bg-zinc-100 object-cover print:w-full"
                 width={433}
                 height={433}
               />
             </div>
           </div>
           <h1
-            class="text-4xl sm:text-6xl pl-2 text-center font-bold text-zinc-600 md:hidden print:hidden"
+            class="text-4xl sm:text-6xl sm:pl-2 text-center font-bold text-zinc-600 md:hidden print:hidden"
           >
             Malcolm Kee
           </h1>
-          <div class="md:col-span-2 md:pb-3">
-            <ul class="space-y-1 lg:space-y-2">
+          <div class="md:col-span-2 md:pb-3 print:col-span-3">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 print:grid-cols-2">
               <li>
                 <a
                   class="flex items-center gap-2"
-                  href={socialMediaData.linkedin}
+                  href="https://malcolmkee.com"
                 >
-                  <LinkedInIcon className="w-6 h-6 flex-none fill-zinc-500" />
-                  <span class="text-xs">{socialMediaData.linkedin}</span>
+                  <GlobeIcon className="w-6 h-6 flex-none text-zinc-500" />
+                  <span class="text-xs">malcolmkee.com</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="flex items-center gap-2"
+                  href="mailto:malcolm.keeweesiong@gmail.com"
+                >
+                  <MailIcon className="w-6 h-6 flex-none text-zinc-500" />
+                  <span class="text-xs">malcolm.keeweesiong@gmail.com</span>
                 </a>
               </li>
               <li>
@@ -77,7 +88,20 @@ const permalink = Astro.url.toString();
                   href={socialMediaData.github}
                 >
                   <GitHubIcon className="w-6 h-6 flex-none fill-zinc-500" />
-                  <span class="text-xs">{socialMediaData.github}</span>
+                  <span class="text-xs"
+                    >{shortenUrl(socialMediaData.github)}</span
+                  >
+                </a>
+              </li>
+              <li>
+                <a
+                  class="flex items-center gap-2"
+                  href={socialMediaData.linkedin}
+                >
+                  <LinkedInIcon className="w-6 h-6 flex-none fill-zinc-500" />
+                  <span class="text-xs"
+                    >{shortenUrl(socialMediaData.linkedin)}</span
+                  >
                 </a>
               </li>
             </ul>
@@ -92,7 +116,7 @@ const permalink = Astro.url.toString();
               workExperiences.map((role) => (
                 <li>
                   <div class="flex gap-4">
-                    <div class="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+                    <div class="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0 print:hidden">
                       {role.logo ? (
                         <img
                           src={role.logo}
@@ -126,11 +150,11 @@ const permalink = Astro.url.toString();
                     </dl>
                   </div>
                   {role.descriptions && (
-                    <div class="mt-1 lg:pl-14">
+                    <ul class="list-disc pl-5 mt-1 lg:pl-14">
                       {role.descriptions.map((desc) => (
-                        <p class="text-sm text-zinc-700">{desc}</p>
+                        <li class="text-sm text-zinc-700">{desc}</li>
                       ))}
-                    </div>
+                    </ul>
                   )}
                 </li>
               ))

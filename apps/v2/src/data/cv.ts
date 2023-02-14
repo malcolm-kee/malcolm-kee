@@ -40,6 +40,10 @@ export const workExperiences = [
     title: 'Frontend Engineer',
     start: '2018',
     end: '2020',
+    descriptions: [
+      'Designed and implemented a form builder used to migrate more than 50 forms.',
+      'Established a React component library used by all frontend projects.',
+    ],
   },
   {
     company: 'Kreloses',
