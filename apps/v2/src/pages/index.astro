@@ -137,6 +137,7 @@ const permalink = new URL('', Astro.site).toString();
               if (frameWin) {
                 frameWin.onbeforeunload = closePrint;
                 frameWin.onafterprint = closePrint;
+                frameWin.focus();
                 frameWin.print();
               }
             };
