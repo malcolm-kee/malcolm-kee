@@ -27,7 +27,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run build
+        run: pnpm run build && pnpm --filter=v2 run postbuild
         env:
           CI: true
           GATSBY_DISCUQ_NAME: malcolmkee

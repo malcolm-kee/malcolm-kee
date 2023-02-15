@@ -11,10 +11,12 @@ const variantStyles = {
 export function Button({
   variant = 'primary',
   href,
+  download,
   ...props
 }: React.ComponentPropsWithoutRef<'button'> & {
   variant?: 'primary' | 'secondary';
   href?: string;
+  download?: boolean;
 }) {
   const className = clsx(
     'inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
@@ -24,7 +26,7 @@ export function Button({
 
   if (href) {
     return (
-      <a href={href} className={className}>
+      <a href={href} className={className} download={download}>
         {props.children}
       </a>
     );
