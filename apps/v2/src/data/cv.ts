@@ -60,3 +60,5 @@ export const workExperiences = [
     end: '2017',
   },
 ];
+
+export const fileName = 'cv_malcolmkee.pdf';

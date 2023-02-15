@@ -1,10 +1,10 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
 import { Button } from '~/components/Button';
-import { GlobeIcon, MailIcon, PrinterIcon } from '~/components/icons';
+import { CloudArrowDownIcon, GlobeIcon, MailIcon } from '~/components/icons';
 import PageLayout from '~/components/PageLayout.astro';
 import { GitHubIcon, LinkedInIcon } from '~/components/SocialIcons';
-import { workExperiences } from '~/data/cv';
+import { fileName, workExperiences } from '~/data/cv';
 import { socialMediaData } from '~/data/social-media';
 
 const permalink = Astro.url.toString();
@@ -23,9 +23,14 @@ const shortenUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
   <body>
     <PageLayout noHeader>
       <div class="flex justify-between items-center mb-3 print:hidden">
-        <span class="text-2xl text-zinc-500">Printable CV</span>
-        <Button data-button="print" className="min-w-[10rem]">
-          Print <PrinterIcon className="h-4 w-4 text-zinc-200" />
+        <span class="text-2xl text-zinc-500">CV</span>
+        <Button
+          data-button="print"
+          className="min-w-[10rem]"
+          href={`/${fileName}`}
+          download
+        >
+          Download <CloudArrowDownIcon className="h-4 w-4 text-zinc-200" />
         </Button>
       </div>
       <!-- A4 dimension: 2480 x 3508 -->

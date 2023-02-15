@@ -8,7 +8,7 @@ import { BriefcaseIcon, CloudArrowDownIcon } from '~/components/icons';
 import Layout from '~/components/Layout.astro';
 import SocialIcons from '~/components/SocialIcons';
 import { getBlogs } from '~/data/blog-helpers';
-import { workExperiences } from '~/data/cv';
+import { fileName, workExperiences } from '~/data/cv';
 
 const title = 'Malcolm Kee - front end engineer that loves building tools';
 const description = 'A place to write my mind.';
@@ -23,18 +23,6 @@ const permalink = new URL('', Astro.site).toString();
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} permalink={permalink} />
-    <script>
-      import { isIFramePrintNotWorking } from '../lib/hacks/browser-bug-detection';
-
-      if (isIFramePrintNotWorking()) {
-        document.documentElement.dataset.hideiframeprint = 'true';
-      }
-    </script>
-    <style>
-      :global([data-hideiframeprint]) [data-button='download-cv'] {
-        display: none;
-      }
-    </style>
   </head>
 
   <body>
@@ -118,6 +106,8 @@ const permalink = new URL('', Astro.site).toString();
                   className="rounded-l-none"
                   data-button="download-cv"
                   aria-label="Download"
+                  href={`/${fileName}`}
+                  download
                 >
                   <CloudArrowDownIcon />
                 </Button>
@@ -127,36 +117,5 @@ const permalink = new URL('', Astro.site).toString();
         </div>
       </Container>
     </Layout>
-    <script>
-      document
-        .querySelectorAll('[data-button="download-cv"]')
-        .forEach((btn) => {
-          btn.addEventListener('click', () => {
-            const frame = document.createElement('iframe');
-            frame.style.position = 'fixed';
-            frame.style.right = '0';
-            frame.style.bottom = '0';
-            frame.style.top = '0';
-            frame.style.width = '0';
-            frame.style.height = '0';
-            frame.style.border = '0';
-            function closePrint() {
-              document.body.removeChild(frame);
-            }
-            frame.onload = function onFrameLoad() {
-              const frameWin = frame.contentWindow;
-
-              if (frameWin) {
-                frameWin.onbeforeunload = closePrint;
-                frameWin.onafterprint = closePrint;
-                frameWin.focus();
-                frameWin.print();
-              }
-            };
-            frame.src = '/cv';
-            document.body.appendChild(frame);
-          });
-        });
-    </script>
   </body>
 </html>
