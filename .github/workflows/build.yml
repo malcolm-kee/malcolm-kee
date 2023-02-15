@@ -26,8 +26,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Setup playwright
+        run: pnpm --filter=v2 exec playwright install-deps chromium
+
       - name: Build
-        run: pnpm run build
+        run: pnpm run build && pnpm --filter=v2 run postbuild
         env:
           CI: true
           GATSBY_DISCUQ_NAME: malcolmkee
