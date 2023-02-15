@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "format": "prettier --write \"src/**/*.{astro,js,jsx,ts,tsx,json,md,mdx}\"",
     "generate-cv": "tsx scripts/generate-cv.ts",
+    "postinstall": "playwright install-deps chromium",
     "postbuild": "start-server-and-test \"astro preview\" http://localhost:8989 \"tsx scripts/generate-cv.ts\""
   },
   "devDependencies": {
