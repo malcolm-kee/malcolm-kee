@@ -29,6 +29,7 @@ jobs:
       - name: Build
         run: pnpm run build
         env:
+          API_KEY: ${{ secrets.API_KEY }}
           CI: true
           GATSBY_DISCUQ_NAME: malcolmkee
           YOUTUBE_API_ID: ${{ secrets.YOUTUBE_API_ID }}
