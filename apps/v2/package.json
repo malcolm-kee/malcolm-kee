@@ -5,12 +5,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pnpm run generate-cv",
     "preview": "astro preview",
     "format": "prettier --write \"src/**/*.{astro,js,jsx,ts,tsx,json,md,mdx}\"",
-    "generate-cv": "tsx scripts/generate-cv.ts",
-    "postinstall": "playwright install",
-    "postbuild": "start-server-and-test \"astro preview\" http://localhost:8989 \"tsx scripts/generate-cv.ts\""
+    "generate-cv": "tsx scripts/generate-cv.ts"
   },
   "devDependencies": {
     "@astrojs/mdx": "^0.16.0",
@@ -26,8 +24,8 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.10",
     "astro": "2.0.11",
+    "dotenv": "^16.0.3",
     "markdown-it": "^13.0.1",
-    "playwright": "^1.30.0",
     "prettier": "^2.8.4",
     "prettier-plugin-astro": "^0.8.0",
     "react": "^18.0.0",
@@ -37,7 +35,6 @@
     "remark-shiki-twoslash": "^3.1.0",
     "sanitize-html": "^2.9.0",
     "sass": "^1.58.1",
-    "start-server-and-test": "^1.15.4",
     "tailwindcss": "^3.2.6",
     "tsx": "^3.12.3",
     "undici": "^5.19.1",
