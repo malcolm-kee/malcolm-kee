@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { stat } from 'node:fs/promises';
 import process from 'node:process';
 import { config } from 'dotenv';
 import { stream } from 'undici';
@@ -7,7 +8,9 @@ import { fileName } from '../src/data/cv';
 config();
 
 (async function generateCv() {
-  const writeStream = fs.createWriteStream(`dist/${fileName}`);
+  const filePath = `dist/${fileName}`;
+
+  const writeStream = fs.createWriteStream(filePath);
 
   await stream(
     'https://page-to-pdf.fly.dev/screenshot',
@@ -24,4 +27,8 @@ config();
     },
     ({ opaque }) => opaque as fs.WriteStream
   );
+
+  const fileStats = await stat(filePath);
+
+  console.info(`File ${filePath} generated with size ${fileStats.size}`);
 })();
