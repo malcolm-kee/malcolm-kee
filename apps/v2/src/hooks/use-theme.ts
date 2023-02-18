@@ -51,9 +51,15 @@ export const useThemeToggle = () => {
 };
 
 export const useThemeValue = () => {
+  const [systemIsDarkMode, setSystemIsDarkMode] = React.useState(false);
   const [themeValue, setThemeValue] = React.useState<undefined | ThemeValue>();
 
   React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+      setSystemIsDarkMode(isDarkMode.matches);
+    }
+
     const currentTheme = THEMES.find(
       (theme) => theme === document.documentElement.getAttribute('data-theme')
     );
@@ -65,5 +71,9 @@ export const useThemeValue = () => {
     return () => eventBus.off('themeChange', setThemeValue);
   }, []);
 
-  return themeValue;
+  return themeValue === 'system'
+    ? systemIsDarkMode
+      ? 'dark'
+      : 'light'
+    : themeValue;
 };
