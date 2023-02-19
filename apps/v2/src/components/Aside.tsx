@@ -3,9 +3,10 @@ import * as React from 'react';
 export default function Aside(props: {
   children: React.ReactNode;
   heading?: string;
+  className?: string;
 }) {
   return (
-    <div data-component="aside">
+    <div data-component="aside" className={props.className}>
       <aside>
         <div className="relative p-6">
           <div className="absolute inset-0 bg-sky-50 shadow" />

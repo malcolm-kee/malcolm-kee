@@ -22,7 +22,7 @@ export default function Sandbox(props: SandboxProps) {
 
   const isReactProject = props.lang === 'jsx' || props.lang === 'tsx';
 
-  const hasUi = isReactProject || !!props.htmlEntry;
+  const hasUi = props.lang === 'html' || isReactProject || !!props.htmlEntry;
 
   const siteTheme = useThemeValue();
 
@@ -117,7 +117,7 @@ const getVanillaHtml = (
   </body>
 </html>`;
 
-const supportedLangs = ['js', 'jsx', 'ts', 'tsx'] as const;
+const supportedLangs = ['js', 'jsx', 'ts', 'tsx', 'html'] as const;
 
 export type SupportedLang = (typeof supportedLangs)[number];
 
@@ -126,6 +126,7 @@ const templates = {
   jsx: 'react',
   ts: 'vanilla-ts',
   tsx: 'react-ts',
+  html: 'vanilla',
 } as const satisfies {
   [lang in SupportedLang]: string;
 };
@@ -135,6 +136,7 @@ const entries = {
   jsx: '/src/index.jsx',
   ts: '/src/index.ts',
   tsx: '/src/index.tsx',
+  html: '/index.html',
 } satisfies {
   [lang in SupportedLang]: string;
 };

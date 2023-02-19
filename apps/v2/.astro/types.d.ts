@@ -165,6 +165,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
+"how-to-create-cv-using-html.mdx": {
+  id: "how-to-create-cv-using-html.mdx",
+  slug: "how-to-create-cv-using-html",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
 "how-to-get-a-job-you-love.mdx": {
   id: "how-to-get-a-job-you-love.mdx",
   slug: "how-to-get-a-job-you-love",

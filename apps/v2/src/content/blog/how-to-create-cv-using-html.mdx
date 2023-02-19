@@ -1,0 +1,151 @@
+---
+title: 'How to Create CV using HTML'
+pubDate: 20 Feb 2023
+description: 'Creating CV using HTML with CSS is straightforward if you know them, but making it exportable as PDF is more involving'
+---
+
+import LiveEditor from '~/components/LiveEditor.astro';
+import Aside from '~/components/Aside.tsx';
+
+Based on my informal observation of my friends, it seems like most people create their CV in word processor software (e.g. Google Docs or MS Word) or if they're younger, in Canva. Having a job producing web pages, I always think that creating and maintaining them using web technologies would be a good exercise, but I have yet to do that as there is something else more fun to do.
+
+After seeing a frontend engineer embed a PDF in their website, I finally decided to do that, as it seems like perhaps it is not so straightforward to many. The following is my process, learning, and the final solution I settle with.
+
+## The Why: Problem Definition and Business Value
+
+I want to create and maintain my CV with HTML/CSS and downloadable as PDF.
+
+The benefits:
+
+1. I can include the CV directly in my webpage, which can be responsive and looks nice in all screen sizes
+1. I know all the tricks to bend the layout to my will, using a medium that I've been using in my job
+1. Some people prefer PDF, like recruiter so they can store it internally and keep the CV in consistent format, and I doesn't want to maintain multiple format of my CV.
+
+## The Basic Solution
+
+Creating the CV using HTML/CSS is simple once you know [CSS Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) and [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
+
+To make it downloadable as PDF, I relies on the "Save as PDF" options when printing a web page, which is supported by most Desktop browsers nowadays.
+
+But there is one problem, when exporting to CV, there are stuffs that I want to tweak, e.g. remove icon, adjust the spacing.
+
+[CSS print styles](https://www.smashingmagazine.com/2011/11/how-to-set-up-a-print-style-sheet/) allows us to style our web page for printing. It looks like this:
+
+```css {0}
+@media print {
+  .selector {
+    property: value;
+  }
+}
+```
+
+As you can see, it is just media queries that we know, but instead of providing a value like `(min-width: 500px)`, we provide the keyword `print`, and browser would use the CSS values nested inside when printing the page.
+
+See it in action below (click the Play button on the right).
+
+<LiveEditor>
+
+```html
+<style>
+  h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    color: #9d174d;
+    text-align: center;
+  }
+
+  @media print {
+    h1 {
+      color: #27272a;
+      text-align: left;
+    }
+
+    button {
+      display: none;
+    }
+  }
+</style>
+<div>
+  <div>
+    <button onclick="window.print()" type="button">Print</button>
+  </div>
+  <h1>My Name</h1>
+</div>
+```
+
+</LiveEditor>
+
+<Aside className="mt-6">
+
+The following sections would only make sense to those that familiar with modern JavaScript development tools like NodeJS and npm.
+
+</Aside>
+
+## The Enhancement
+
+While I can now export PDF a page created with HTML/CSS, using print with "Save as PDF" can only be used by me (the developer that create the page) instead of allow site visitors to download themselves with a Download/Print button like the example above, due to the following issues:
+
+1. it may surprise user when "Download" action prompt a print dialog, and it requires user to manually change the Print option.
+1. the option is not available in all mobile browsers
+
+In order to have the nice download button, I need to add a link `<a href="/cv.pdf" download>` and I need the page exported as PDF upfront and placed it at `/cv.pdf` on my website.
+
+But how do I export the page as PDF upfront?
+
+1. I can manually export the PDF and deploy it together with my website everything I deploy my website. - **not going to happen as too much manual work**
+1. Automatically export to PDF using library (which I did) as part of the deployment steps.
+
+I wrote a NodeJS script similar to below, which will be run after the website complete its build process.
+
+```js
+import { chromium } from 'playwright';
+
+(async function exportCvToPdf() {
+  const browser = await chromium.launch();
+  const ctx = await browser.newContext();
+  const page = await ctx.newPage();
+  await page.goto('http://localhost:3000/cv'); /* The website is served locally
+   at http://localhost:3000, and the CV page is served at /cv path. */
+  await page.pdf({ path: 'build/cv.pdf' }); // `build` is the output folder of my website
+  await browser.close();
+})();
+```
+
+## The Over-Engineering
+
+Now that I've achieved my initial plan to create a CV in HTML/CSS, while also allows site visitors to download them themselves.
+
+However with all these additions, it make it slower to build my website, as the build process requires download of Chromium to run the export script.
+
+To improve the build process, I decided to extract the exporting page to CV into a separate web service, [`page-to-pdf`](https://github.com/malcolm-kee/page-to-pdf), which will receives HTTP requests and returns a PDF file.
+
+With that, the export script in my website can be simplied to:
+
+```js
+import fs from 'node:fs';
+// undici is a library from NodeJS to replaces the `request` library
+import { stream } from 'undici';
+
+(async function exportCvToPdf() {
+  // we use nodejs stream, because that's the proper way to
+  // transfer file in nodejs instead of loading entire file
+  // into memory
+  const writeStream = fs.createWriteStream('build/cv.pdf');
+
+  await stream(
+    'https://page-to-pdf-service.com/screenshot',
+    {},
+    () => writeStream
+  );
+})();
+```
+
+The end result is available in [CV page](/cv) and [home page](/).
+
+## Conclusion
+
+Exporting HTML CV as PDF starts as a simple goal, becomes complex once I want to make it available to more users, which brings in the additional considerations of user experience and browser supports.
+
+With modern JavaScript tools, I managed to find an automated solution, but it comes with the tradeoff of slow build steps, which I now trade it off by creating another web service.
+
+Are all these works necessary? Probably not but it's a hell of fun.

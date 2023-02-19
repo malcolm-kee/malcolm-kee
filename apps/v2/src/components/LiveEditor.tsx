@@ -97,7 +97,7 @@ export function LiveEditor(props: LiveEditorProps) {
       <Sandbox
         lang={state.language}
         code={state.code}
-        htmlEntry={state.htmlCode}
+        htmlEntry={state.language === 'html' ? undefined : state.htmlCode}
       />
     </React.Suspense>
   ) : state.mode === 'mounted' ? (
@@ -114,7 +114,7 @@ export function LiveEditor(props: LiveEditorProps) {
 const getLang = (langText: string | null) => {
   const lowerText = langText && langText.toLowerCase();
 
-  return lowerText && /(j|t)sx?/.test(lowerText)
+  return lowerText && /(j|t)sx?|html/.test(lowerText)
     ? (lowerText as SupportedLang)
     : undefined;
 };
