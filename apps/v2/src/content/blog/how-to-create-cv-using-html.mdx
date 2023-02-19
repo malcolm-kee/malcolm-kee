@@ -11,7 +11,7 @@ Based on my informal observation of my friends, it seems like most people create
 
 After seeing a frontend engineer embed a PDF in their website, I finally decided to do that, as it seems like perhaps it is not so straightforward to many. The following is my process, learning, and the final solution I settle with.
 
-## The Why: Problem Definition and Business Value
+## The Why: Problem Definition and Benefits
 
 I want to create and maintain my CV with HTML/CSS and downloadable as PDF.
 
@@ -19,11 +19,11 @@ The benefits:
 
 1. I can include the CV directly in my webpage, which can be responsive and looks nice in all screen sizes
 1. I know all the tricks to bend the layout to my will, using a medium that I've been using in my job
-1. Some people prefer PDF, like recruiter so they can store it internally and keep the CV in consistent format, and I doesn't want to maintain multiple format of my CV.
+1. Some people (e.g. recruiters) prefer CV in PDF format so they can store it while keeping the CV layout, but I don't want to maintain multiple formats of my CV.
 
 ## The Basic Solution
 
-Creating the CV using HTML/CSS is simple once you know [CSS Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) and [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
+Creating the CV using HTML/CSS is straightforward once you are familiar with [CSS Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) and [CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
 To make it downloadable as PDF, I relies on the "Save as PDF" options when printing a web page, which is supported by most Desktop browsers nowadays.
 
@@ -39,7 +39,7 @@ But there is one problem, when exporting to CV, there are stuffs that I want to 
 }
 ```
 
-As you can see, it is just media queries that we know, but instead of providing a value like `(min-width: 500px)`, we provide the keyword `print`, and browser would use the CSS values nested inside when printing the page.
+It is media queries that many of us familiar with, but instead of providing a value like `(min-width: 500px)`, we provide the keyword `print`, and browser would use the CSS values nested inside when printing the page.
 
 See it in action below (click the Play button on the right).
 
@@ -83,19 +83,19 @@ The following sections would only make sense to those that familiar with modern 
 
 ## The Enhancement
 
-While I can now export PDF a page created with HTML/CSS, using print with "Save as PDF" can only be used by me (the developer that create the page) instead of allow site visitors to download themselves with a Download/Print button like the example above, due to the following issues:
+While I can now export PDF a page created with HTML/CSS, using print with "Save as PDF" can only be used by me (as the developer who created the page), and not by site visitors who might want to download it themselves with a Download/Print button, like the example above. This is due to the following issues:
 
-1. it may surprise user when "Download" action prompt a print dialog, and it requires user to manually change the Print option.
-1. the option is not available in all mobile browsers
+1. It may surprise user when "Download" action prompt a print dialog, and it requires them to manually change the Print option.
+1. The option is not available in all mobile browsers
 
-In order to have the nice download button, I need to add a link `<a href="/cv.pdf" download>` and I need the page exported as PDF upfront and placed it at `/cv.pdf` on my website.
+To add a nice download button for site visitors, I need to include a link `<a href="/cv.pdf" download>` and I also need to export the page as PDF upfront and place it at `/cv.pdf` on my website.
 
-But how do I export the page as PDF upfront?
+But how do I export the page as PDF upfront? There are two options:
 
-1. I can manually export the PDF and deploy it together with my website everything I deploy my website. - **not going to happen as too much manual work**
-1. Automatically export to PDF using library (which I did) as part of the deployment steps.
+1. Manually export the PDF and deploy it together with my website every time I deploy my website. However, this is not a practical solution as it requires a lot of manual work.
+1. Automatically export to PDF using library (which is what I did) as part of the deployment steps.
 
-I wrote a NodeJS script similar to below, which will be run after the website complete its build process.
+To do this, I wrote a NodeJS script that is similar to the one below, which runs after the website complete its build process. This script launches a Chromium browser, navigates to the CV page, and saves the page as a PDF.
 
 ```js
 import { chromium } from 'playwright';
@@ -113,23 +113,17 @@ import { chromium } from 'playwright';
 
 ## The Over-Engineering
 
-Now that I've achieved my initial plan to create a CV in HTML/CSS, while also allows site visitors to download them themselves.
+Now that I've achieved my initial plan of creating a CV in HTML/CSS that can also be downloaded by site visitors, I realized that the build process becomes slower due to the need to download Chromium to run the export script.
 
-However with all these additions, it make it slower to build my website, as the build process requires download of Chromium to run the export script.
+To address this, I decided to extract the CV export functionality into a separate web service, called [`page-to-pdf`](https://github.com/malcolm-kee/page-to-pdf), which receives HTTP requests and returns a PDF file.
 
-To improve the build process, I decided to extract the exporting page to CV into a separate web service, [`page-to-pdf`](https://github.com/malcolm-kee/page-to-pdf), which will receives HTTP requests and returns a PDF file.
-
-With that, the export script in my website can be simplied to:
+With this approach, I was able to simplify the export script on my website, as shown below:
 
 ```js
 import fs from 'node:fs';
-// undici is a library from NodeJS to replaces the `request` library
 import { stream } from 'undici';
 
 (async function exportCvToPdf() {
-  // we use nodejs stream, because that's the proper way to
-  // transfer file in nodejs instead of loading entire file
-  // into memory
   const writeStream = fs.createWriteStream('build/cv.pdf');
 
   await stream(
@@ -140,12 +134,18 @@ import { stream } from 'undici';
 })();
 ```
 
-The end result is available in [CV page](/cv) and [home page](/).
+This script uses the `undici` library to send an HTTP request to the page-to-pdf service, which returns the CV as a PDF file. The file is then written to a write stream and saved in the "build" output folder of my website.
 
 ## Conclusion
 
-Exporting HTML CV as PDF starts as a simple goal, becomes complex once I want to make it available to more users, which brings in the additional considerations of user experience and browser supports.
+Exporting HTML CV as PDF may seems like a simple goal, but it can quickly becomes complex as you consider making it available to more users.
 
-With modern JavaScript tools, I managed to find an automated solution, but it comes with the tradeoff of slow build steps, which I now trade it off by creating another web service.
+In my case, this meant taking into account of user experience and browser support. However, with modern JavaScript tools, I managed to create an automated solution. This solution comes with the tradeoffs, including slower build steps, which I've addressed by creating another web service.
 
-Are all these works necessary? Probably not but it's a hell of fun.
+At the end of the day, is all of these work really necessary? Probably not, but for me it's a hell of fun.
+
+<Aside>
+
+You can view the end result in [CV page](/cv) and [home page](/).
+
+</Aside>
