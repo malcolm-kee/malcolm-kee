@@ -117,14 +117,19 @@ export default function Header({
     };
   }, [isHomePage]);
 
+  const headerStyle = React.useMemo(
+    () => ({
+      height: `var(--header-height, ${isHomePage ? '196px' : 'auto'})`,
+      marginBottom: 'var(--header-mb)',
+    }),
+    [isHomePage]
+  );
+
   return (
     <>
       <header
         className="pointer-events-none relative z-50 flex flex-col print:hidden"
-        style={{
-          height: 'var(--header-height)',
-          marginBottom: 'var(--header-mb)',
-        }}
+        style={headerStyle}
         data-current={currentPath}
       >
         {isHomePage && (
