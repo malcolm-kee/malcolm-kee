@@ -1,20 +1,19 @@
-import type { Root, Element, Properties } from 'hast';
-import { request } from 'undici';
+import type { Element, Properties, Root } from 'hast';
 import type { Transformer } from 'unified';
 import { visit } from 'unist-util-visit';
+import {
+  getCloudinaryHelpers,
+  getCloudinaryImageInfo,
+} from '../src/lib/cloudinary';
 
 type ImageElement = Element & { properties: Properties };
 
 export const rehypeCloudinaryImageEnhance = (options: {
   cloudinaryUsername: string;
 }): Transformer<Root> => {
-  const regex = new RegExp(
-    /^https:\/\/res\.cloudinary\.com\/\w+\/image\/upload\/\w+\//.source +
-      options.cloudinaryUsername
-  );
-
-  const checkIsCloudinaryImage = (imageSrc: unknown): imageSrc is string =>
-    typeof imageSrc === 'string' && regex.test(imageSrc);
+  const { checkIsCloudinaryImage } = getCloudinaryHelpers({
+    cloudinaryUsername: options.cloudinaryUsername,
+  });
 
   return async function transformer(tree) {
     const imageElements: Array<ImageElement> = [];
@@ -44,24 +43,4 @@ export const rehypeCloudinaryImageEnhance = (options: {
       )
     );
   };
-};
-
-const getCloudinaryImageInfo = async (
-  imageSrc: string
-): Promise<
-  | {
-      output: { format: string; width: number; height: number };
-    }
-  | undefined
-> => {
-  const url = imageSrc.replace(/\/image\/upload/, '/image/upload/fl_getinfo');
-
-  try {
-    const { body } = await request(url);
-    const result = await body.json();
-
-    return result;
-  } catch (err) {
-    console.info(`Fail to get image info for ${url}`);
-  }
 };

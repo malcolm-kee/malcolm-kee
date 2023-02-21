@@ -424,6 +424,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
+"using-tailwindcss-with-module-federation.mdx": {
+  id: "using-tailwindcss-with-module-federation.mdx",
+  slug: "using-tailwindcss-with-module-federation",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
 "using-typescript-with-module-federation.mdx": {
   id: "using-typescript-with-module-federation.mdx",
   slug: "using-typescript-with-module-federation",

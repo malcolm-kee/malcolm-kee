@@ -1,0 +1,258 @@
+---
+title: Using TailwindCSS with Module Federation
+pubDate: 21 Feb 2023
+description: Solving CSS conflicts when using TailwindCSS with Module Federation
+heroImage: 'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_1300/v1676982927/malcolm-kee/tailwind-mf_miozty.png'
+---
+
+Microfrontend has become increasingly popular for building complex applications, and [module federation] is a webpack 5 feature that makes it a feasible option by sharing code efficiently. However, the dynamic nature of module federation can pose challenges when working with frontend tools that rely on static analysis at build time. For example, using TypeScript for type-checking can be tricky when the code you import may change at runtime.
+
+In [a previous article](/blog/using-typescript-with-module-federation), I explored how to use TypeScript effectively with module federation. In this article, we will look at the complications that arises when using another popular frontend tool, [TailwindCSS](https://tailwindcss.com/), with module federation, and explore possible solutions to these challenges.
+
+## The Problem of Using TailwindCSS in Module Federation
+
+TailwindCSS generates CSS classes based on the source code in your project at build time. This means that only the CSS classes that you use in your code are included in the final CSS file, making it an efficient tool for typical frontend projects.
+
+However, when using TailwindCSS with module federation, the dynamic nature of code sharing can cause unexpected issues. To illustrate the problem, let's consider an example where multiple remotes are using module federation to share components, and each remote generates its own TailwindCSS classes.
+
+For instance, consider an app, app 1, with the following code:
+
+```jsx title="app 1"
+<div className="block sm:hidden md:block">
+  <span></span>
+</div>
+```
+
+When built, it generates the following CSS:
+
+```css title="app 1 CSS (generated)"
+.block {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .sm\:hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:block {
+    display: block;
+  }
+}
+```
+
+On its own, the `div` in app 1 is visible in small screen, becomes hidden when the screen size increases to 640px, and visible again when the screen size increases to 768px.
+
+Now consider another remote, app 2, with the following code:
+
+```jsx title="app 2"
+<div className="sm:hidden">
+  <span></span>
+</div>
+```
+
+This code generates the following CSS:
+
+```css title="app 2 CSS (generated)"
+@media (min-width: 640px) {
+  .sm\:hidden {
+    display: none;
+  }
+}
+```
+
+At first glance, this code seems fine. However, when we include app 1 and app 2 together, the `div` in app 1 no longer appear when screen size increases to 768px. This is because CSS rules are global and can affect UI in other applications when loaded on the same page. In this case, both the `sm:hidden` and `md:block` classes have the same [specificity], which means that the one that comes later in the CSS file overwrites the other. As a result, `sm:hidden` class from app 2 overwrites `md:block` class from app 1, causing the issue.
+
+```css
+/* app 1 CSS */
+@media (min-width: 640px) {
+  .sm\:hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  /* this rule should override sm:hidden as it comes later */
+  .md\:block {
+    display: block;
+  }
+}
+
+/* app 2 CSS */
+@media (min-width: 640px) {
+  /* 💥 but this rule override md:block as it comes last */
+  .sm\:hidden {
+    display: none;
+  }
+}
+```
+
+To solve this problem, we need to avoid duplicate class names from multiple applications.
+
+## Possible Solutions
+
+Here we discuss three approaches to tackle the issue of using TailwindCSS with Module Federation.
+
+### Approach 1: Include All TailwindCSS Classes Once
+
+The root of the problem is the independent generation and inclusion of multiple CSS files, which leads to overwriting of classes. A solution would be to include all the TailwindCSS classes in a single file and include it once.
+
+However, this approach is not practical, as it would generate a massive file with few hundred MBs of CSS, which is unacceptable in most cases. Moreover, TailwindCSS has stopped supporting this functionality since version 3.
+
+### Approach 2: Use TailwindCSS prefix
+
+Another approach is to use the [`prefix` config options](https://tailwindcss.com/docs/configuration#prefix) in TailwindCSS. It allows us to add a different prefix for each app, which can help fix the issue.
+
+Adding `app1-` prefix to app 1:
+
+```js title="tailwind.config.cjs for app 1"
+module.exports = {
+  prefix: 'app1-',
+};
+```
+
+```jsx title="app 1"
+<div className="app1-block sm:app1-hidden md:app1-block">
+  <span></span>
+</div>
+```
+
+```css title="app 1 CSS (generated)"
+.app1-block {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .sm\:app1-hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:app1-block {
+    display: block;
+  }
+}
+```
+
+Adding `app2-` prefix to app 2:
+
+```js title="tailwind.config.cjs for app 2"
+module.exports = {
+  prefix: 'app2-',
+};
+```
+
+```jsx title="app 2"
+<div className="sm:app2-hidden">
+  <span></span>
+</div>
+```
+
+```css title="app 2 CSS (generated)"
+@media (min-width: 640px) {
+  .sm\:app2-hidden {
+    display: none;
+  }
+}
+```
+
+With that, CSS classes are unique to each app and there is no more conflict. However, this approach has some disadvantages:
+
+1. it reduces developer experience by making them to write longer class names.
+1. developers have to switch to different prefix when they switch project, which is counterproductive.
+1. it makes code sharing (copy and paste) across applications harder, which is one of the main appeals of TailwindCSS.
+
+### Approach 3: Use `twin.macro`
+
+[`twin.macro`](https://github.com/ben-rogerson/twin.macro) is a library that allows you to write TailwindCSS class names that generate to CSS-in-JS code. CSS-in-JS code generates unique class names at runtime, ensuring that there are no conflict across apps in module federation.
+
+However, this approach has runtime cost and can makes the page slower.
+
+This was also the solution that I opted for when I encountered this problem for the first time, as it maintain good developer experience, which is essential for the project.
+
+## A New Solution
+
+A new idea struck me this week as I am writing this, and I think it's better than all the previous solutions.
+
+The solution works as follows:
+
+1. Add a PostCSS plugin to prefix the class name **after** TailwindCSS processes it.
+1. Use a utility function to append the prefix the class name **at runtime**.
+
+```jsx
+const tw = (...classes) =>
+  classes
+    .map((cls) =>
+      cls
+        .split(' ')
+        .map((className) => `app1-${className}`)
+        .join(' ')
+    )
+    .join(' ');
+
+/* tw function will format the following className
+ to become `app1-sm:hidden app1-md:block` in runtime */
+<div className={tw('sm:hidden md:block')}>
+  <span></span>
+</div>;
+```
+
+<div class="md:grid md:grid-cols-2">
+
+```css title="CSS by Tailwind (not final output)"
+@media (min-width: 640px) {
+  .sm\:hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:block {
+    display: block;
+  }
+}
+```
+
+```css title="CSS (final output)" {1,7}
+@media (min-width: 640px) {
+  .app1-sm\:hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .app1-md\:block {
+    display: block;
+  }
+}
+```
+
+</div>
+
+And there is a PostCSS plugin that does exactly that!
+
+```js title="postcss.config.js" {4-6}
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+    'postcss-prefixer': {
+      prefix: 'app1-',
+    },
+  },
+};
+```
+
+I have implemented the solution in [this sample project](https://github.com/malcolm-kee/federation-career-app), and you can view it live [here](https://federation-career-app.vercel.app/).
+
+## Conclusion
+
+Modern frontend development has been benefited from many powerful tools like ESLint, TypeScript, and others. While these tools works well in most projects, they can be challenging to use with module federation due to the dynamic nature of the feature. In additon, many libraries have not yet fully considered the use case of module federation, which can make it difficult to integrate them.
+
+However, despite these challenges, exploring new solutions in uncharted territory can be an exciting opportunity to push the limits of what is possible. By leveraging existing tools and developing new approaches, we can continue to make progress in building robust, scalable, and maintainable applications with module federation.
+
+[module federation]: https://webpack.js.org/concepts/module-federation/
+[specificity]: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
