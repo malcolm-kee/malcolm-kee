@@ -32,11 +32,17 @@ const {
   ogImageTitle = title,
 } = Astro.props;
 
+const ogBgImageUrl =
+  ogBgImage &&
+  (ogBgImage.startsWith('/')
+    ? new URL(ogBgImage, Astro.site).toString()
+    : ogBgImage);
+
 const ogImage = getOgImageUrl({
   title: ogImageTitle,
   publishedDate,
   heading: ogHeading,
-  bgImage: ogBgImage,
+  bgImage: ogBgImageUrl,
   borderColor: ogBorderColor,
 });
 ---

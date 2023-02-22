@@ -52,6 +52,7 @@ const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
       updatedDate={updatedDate ? new Date(updatedDate) : undefined}
       contentType="article"
       permalink={permalink}
+      ogBgImage={heroImage}
       articleType="blog"
     />
   </head>
