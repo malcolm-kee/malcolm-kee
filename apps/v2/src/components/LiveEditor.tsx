@@ -33,31 +33,30 @@ export function LiveEditor(props: LiveEditorProps) {
         const currentLang = $languageId && getLang($languageId.textContent);
 
         if ($code && currentLang) {
-          let hasImportedReact = false;
-
           language = currentLang;
 
-          $code.childNodes.forEach((child) => {
-            if (child instanceof HTMLElement) {
-              if (child.classList.contains('line')) {
-                const content = child.textContent;
-                if (content != null) {
-                  codeLines.push(
-                    whiteSpacePattern.test(content) ? '' : content
-                  );
-                  if (reactImportPattern.test(content)) {
-                    hasImportedReact = true;
+          if (currentLang === 'jsx' || currentLang === 'tsx') {
+            let hasImportedReact = false;
+
+            $code.childNodes.forEach((child) => {
+              if (child instanceof HTMLElement) {
+                if (child.classList.contains('line')) {
+                  const content = child.textContent;
+                  if (content != null) {
+                    codeLines.push(
+                      whiteSpacePattern.test(content) ? '' : content
+                    );
+                    if (reactImportPattern.test(content)) {
+                      hasImportedReact = true;
+                    }
                   }
                 }
               }
-            }
-          });
+            });
 
-          if (
-            (currentLang === 'jsx' || currentLang === 'tsx') &&
-            !hasImportedReact
-          ) {
-            codeLines.unshift(`import * as React from 'react';`);
+            if (!hasImportedReact) {
+              codeLines.unshift(`import * as React from 'react';`);
+            }
           }
 
           // add a new line at end if not there

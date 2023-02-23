@@ -10,7 +10,7 @@ import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-e
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://malcolmkee.com/',
+  site: 'https://malcolmkee.com',
   integrations: [
     react(),
     mdx(),
