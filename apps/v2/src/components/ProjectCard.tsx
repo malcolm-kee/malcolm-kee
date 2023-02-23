@@ -1,3 +1,4 @@
+import * as React from 'react';
 import type { ProjectDef } from '../data/projects';
 import { LinkIcon } from './icons';
 

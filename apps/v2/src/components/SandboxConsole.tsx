@@ -6,7 +6,9 @@ import { isNotNil } from '~/lib/type-guard';
 import { MiniNoSymbolIcon, MiniTerminalIcon } from './icons';
 
 export const SandBoxConsole = () => {
-  const { logs, reset } = useSandpackConsole();
+  const { logs, reset } = useSandpackConsole({
+    resetOnPreviewRestart: true,
+  });
 
   const rootRef = React.useRef<HTMLDivElement>(null); // we use root ref and then query as I not sure how to merge with auto-animate properly
 

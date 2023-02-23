@@ -27,6 +27,7 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [
+      // @ts-expect-error
       [remarkShikiTwoSlash, { themes: ['github-light', 'github-dark'] }],
     ],
     rehypePlugins: [

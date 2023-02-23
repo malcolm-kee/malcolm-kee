@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && pnpm run generate-cv",
+    "build": "astro check && tsc --noEmit && astro build && pnpm run generate-cv",
     "preview": "astro preview",
     "format": "prettier --write \"src/**/*.{astro,js,jsx,ts,tsx,json,md,mdx}\"",
     "generate-cv": "tsx scripts/generate-cv.ts"
@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@astrojs/rss": "^2.1.1",
-    "@codesandbox/sandpack-react": "^2.0.9",
+    "@codesandbox/sandpack-react": "^2.0.16",
     "@codesandbox/sandpack-themes": "^2.0.1",
     "@floating-ui/dom": "^1.2.1",
     "@formkit/auto-animate": "1.0.0-beta.6",
