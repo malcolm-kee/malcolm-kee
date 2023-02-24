@@ -205,7 +205,7 @@ The concept of `slot` comes from web components and frontend frameworks like Vue
 
 ### `usePluginEventEmitter` and `usePluginEventListener`
 
-With components coming from multiple remotes co-exists in single screen, it becomes inevitable sometimes that they want to communicate with each other. `usePluginEventEmitter` and `usePluginEventListener` are custom hooks that allows them to emit events and listen for events.
+With components coming from multiple remotes coexisting on a single screen, it is inevitable that they want to communicate with each other. `usePluginEventEmitter` and `usePluginEventListener` are custom hooks that allows components to emit events and listen for events.
 
 Under the hood, those hooks can use event bus like [`mitt`](https://github.com/developit/mitt), or `window.dispatch(CustomEvent)`.
 

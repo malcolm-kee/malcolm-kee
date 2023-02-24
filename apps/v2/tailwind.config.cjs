@@ -2,7 +2,10 @@ const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: [
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './astro.config.ts',
+  ],
   darkMode: 'class',
   theme: {
     extend: {
@@ -18,6 +21,9 @@ module.exports = {
             pre: {
               padding: 0,
               borderRadius: 0,
+            },
+            'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]': {
+              position: 'relative',
             },
             '.footnotes': {
               paddingTop: theme('spacing.4'),

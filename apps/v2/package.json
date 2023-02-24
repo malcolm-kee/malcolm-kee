@@ -11,6 +11,7 @@
     "generate-cv": "tsx scripts/generate-cv.ts"
   },
   "devDependencies": {
+    "@astrojs/markdown-remark": "^2.0.1",
     "@astrojs/mdx": "^0.17.0",
     "@astrojs/netlify": "^2.1.2",
     "@astrojs/partytown": "^1.0.3",
@@ -25,6 +26,7 @@
     "@types/react-dom": "^18.0.11",
     "astro": "2.0.14",
     "dotenv": "^16.0.3",
+    "hastscript": "^7.2.0",
     "markdown-it": "^13.0.1",
     "prettier": "^2.8.4",
     "prettier-plugin-astro": "^0.8.0",
@@ -33,6 +35,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
     "redux": "^4.2.1",
+    "rehype-autolink-headings": "^6.1.1",
     "remark-shiki-twoslash": "^3.1.1",
     "sanitize-html": "^2.10.0",
     "sass": "^1.58.3",

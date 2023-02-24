@@ -1,10 +1,13 @@
 import { defineConfig } from 'astro/config';
 
+import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
+import { s } from 'hastscript';
 import remarkShikiTwoSlash from 'remark-shiki-twoslash';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 
@@ -32,7 +35,38 @@ export default defineConfig({
     ],
     rehypePlugins: [
       [rehypeCloudinaryImageEnhance, { cloudinaryUsername: 'malcolm-kee' }],
+      rehypeHeadingIds,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          content() {
+            return s(
+              'svg',
+              {
+                viewBox: '0 0 24 24',
+                strokeWidth: '1.5',
+                stroke: 'currentColor',
+                fill: 'none',
+                width: 24,
+                height: 24,
+                class:
+                  'inline-block ml-2 w-5 h-5 text-zinc-300 hover:text-primary-500',
+              },
+              s('path', {
+                strokeLinecap: 'round',
+                strokeLinejoin: 'round',
+                d: 'M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244',
+              })
+            );
+          },
+        } satisfies Options,
+      ],
     ],
     syntaxHighlight: false,
   },
 });
+
+// <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+//   <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+// </svg>
