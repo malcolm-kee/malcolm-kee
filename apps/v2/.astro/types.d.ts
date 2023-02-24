@@ -74,6 +74,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
+"a-plugin-with-module-federation.mdx": {
+  id: "a-plugin-with-module-federation.mdx",
+  slug: "a-plugin-with-module-federation",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
 "accessible-file-input.md": {
   id: "accessible-file-input.md",
   slug: "accessible-file-input",

@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '~/lib/date';
 
 export interface Props {
   post: CollectionEntry<'blog'>;
@@ -10,28 +11,45 @@ const { post } = Astro.props;
 
 <article
   lang={post.data.lang}
-  class="@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-2"
+  class="@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6"
 >
-  <time
-    class="block pl-3 border-l-2 border-l-zinc-100 mb-2 text-sm text-zinc-400 @md/bloglist:border-l-0"
-    >{post.data.pubDate}</time
+  <time class="hidden @md/bloglist:block pl-3 text-sm leading-6 text-zinc-400"
+    >{formatDate(post.data.pubDate)}</time
   >
-  <div class="@md/bloglist:col-span-3">
-    <header>
-      <h2 class="text-base font-semibold tracking-tight text-zinc-800">
-        <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-      </h2>
-    </header>
+  <div class="@md/bloglist:col-span-3 relative">
+    <a href={`/blog/${post.slug}`} class="block group/bloglink">
+      <div
+        class="absolute -inset-y-6 -inset-x-4 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover/bloglink:scale-100 group-hover/bloglink:opacity-100 @md/bloglist:-inset-x-6 @md/bloglist:rounded-2xl"
+      >
+      </div>
+      <div class="relative">
+        <time
+          class="text-sm block @md/bloglist:hidden mb-2 pl-3 border-l-2 border-l-zinc-100 text-zinc-400"
+          >{formatDate(post.data.pubDate)}</time
+        >
+        <header>
+          <h2 class="text-base font-semibold tracking-tight text-zinc-800">
+            {post.data.title}
+          </h2>
+        </header>
+        {
+          post.data.description && (
+            <p class="text-sm text-zinc-600 mt-2">{post.data.description}</p>
+          )
+        }
+      </div>
+    </a>
     {
-      post.data.description && (
-        <>
-          <p class="text-sm text-zinc-600 mt-2">{post.data.description}</p>
-          <div class="mt-4">
-            <a href={`/blog/${post.slug}`} class="text-primary-500 text-sm">
-              Read more
-            </a>
-          </div>
-        </>
+      post.data.topics && post.data.topics.length > 0 && (
+        <ul class="relative mt-2 flex items-center gap-2 text-xs">
+          {post.data.topics.map((topic) => (
+            <li>
+              <span class="block px-3 py-1.5 font-medium text-zinc-600 rounded-full bg-zinc-100">
+                {topic}
+              </span>
+            </li>
+          ))}
+        </ul>
       )
     }
   </div>

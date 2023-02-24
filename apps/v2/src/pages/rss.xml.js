@@ -31,9 +31,7 @@ export async function get(context) {
         customData: `<language>en-US</language>`,
       }))
     )
-    .sort(
-      (a, b) => new Date(b.pubDate).valueOf() - new Date(a.pubDate).valueOf()
-    );
+    .sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
 
   return rss({
     title: 'Malcolm Kee',

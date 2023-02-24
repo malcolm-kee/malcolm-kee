@@ -10,8 +10,5 @@ export const getBlogs = async ({
 
   return blogs
     .slice(0)
-    .sort(
-      (a, b) =>
-        new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
-    );
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 };

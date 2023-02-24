@@ -2,6 +2,8 @@
 title: 'Using Typescript Type Guard to Narrow Down Type'
 pubDate: 26 Nov 2018
 description: 'Using custom type guard allow us to create reusable checking that narrow down the type of a variable'
+topics:
+  - typescript
 ---
 
 Typescript is aware of usage of the Javascript `instanceof` and `typeof` operators, and will narrow down the type accordingly when you use those operators in conditional block.

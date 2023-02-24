@@ -1,3 +1,5 @@
+import { formatDate } from './date';
+
 export interface OgImageUrlOptions {
   title: string;
   publishedDate?: Date | undefined;
@@ -18,7 +20,7 @@ export const getOgImageUrl = ({
   });
 
   if (publishedDate) {
-    ogSearchParams.set('date', dateFormatter.format(publishedDate));
+    ogSearchParams.set('date', formatDate(publishedDate));
   }
 
   if (heading) {
@@ -35,9 +37,3 @@ export const getOgImageUrl = ({
 
   return `https://malcolm-kee-og.vercel.app/api/og?${ogSearchParams}`;
 };
-
-const dateFormatter = new Intl.DateTimeFormat('en-GB', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-});

@@ -2,6 +2,8 @@
 title: 'Adding Types for npm Packages'
 pubDate: 1 Apr 2019
 description: "How to add custom types for npm packages that doesn't have declaration nor DefinitelyTyped support."
+topics:
+  - typescript
 ---
 
 If you're using Typescript in your project, sooner or later you would encounter a problem: the npm packages that you've installed doesn't have declaration.

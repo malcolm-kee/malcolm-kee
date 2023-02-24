@@ -2,6 +2,8 @@
 title: 'Using Web Component With React'
 pubDate: 17 Mar 2019
 description: "Using web component in React requires some boilerplates to make it work, trying to abstract that boilerplate has a limitation. With React hooks, it's much less boiletplate and the abstraction is no longer needed."
+topics:
+  - react
 ---
 
 Recently I've created a simple wrapper for web components in my work, it looks like this:

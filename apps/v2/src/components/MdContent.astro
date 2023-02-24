@@ -5,10 +5,11 @@ import {
   getCloudinaryHelpers,
   getCloudinaryImageInfo,
 } from '../lib/cloudinary';
+import { formatDate } from '~/lib/date';
 
 export interface Props {
   title: string;
-  publishDate?: string;
+  publishDate?: Date;
   heroImage?: string;
   alt?: string;
   backUrl?: string;
@@ -53,9 +54,13 @@ const imageInfo =
           )
         }
         <div class="max-w-3xl mx-auto w-full">
-          <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
-            {publishDate}
-          </p>
+          {
+            publishDate && (
+              <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
+                {formatDate(publishDate)}
+              </p>
+            )
+          }
           <h1 class="text-4xl font-bold w-full">{title}</h1>
         </div>
       </header>

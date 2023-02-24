@@ -6,7 +6,7 @@ import Container from '../components/Container';
 import SocialIcons from '../components/SocialIcons';
 
 const title = 'Malcolm Kee - Web developer, front end engineer';
-const description = `I'm Malcolm Kee. I live in Sydney, where I build web apps and websites.`;
+const description = `Building Functional and Accessible Web Apps: Get to Know Malcolm Kee`;
 
 const { pathname } = Astro.url;
 
@@ -44,14 +44,34 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
             </h1>
             <div class="mt-6 space-y-7 text-base text-zinc-600">
               <p>
-                A software engineer making web applications functional and
-                accessible.
+                Hi! I'm Malcolm Kee, a software engineer based in Sydney. I have
+                experience working with a variety of programming languages and
+                tools, but my focus has been primarily on frontend technologies.
               </p>
               <p>
-                I conducted workshops to teach others on React and web
-                development in local meetup that I co-organize.
+                Outside of work, I love spending my free time building
+                side-projects for fun, which you can browse in the <a
+                  href="/projects"
+                  class="text-primary-600 hover:text-primary-500">Projects</a
+                > page.
               </p>
-              <p>Lifelong learner and programming craftman.</p>
+              <p>
+                I'm also passionate about teaching and sharing my expertise with
+                others. As a co-organizer of a tech meetup, I conducted
+                workshops on React and web development. You can check out some
+                of the workshop content on the <a
+                  href="/workshops"
+                  class="text-primary-600 hover:text-primary-500">Workshops</a
+                > page.
+              </p>
+              <p>
+                In addition to my hands-on work, I also enjoy sharing my
+                thoughts and insights in <a
+                  href="/blog"
+                  class="text-primary-600 hover:text-primary-500">my blog</a
+                >. I try to document what I learn and share my perspectives on
+                industry trends and best practices.
+              </p>
             </div>
           </div>
           <div class="lg:pl-20">

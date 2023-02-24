@@ -5,6 +5,7 @@
     "node": "16.x"
   },
   "scripts": {
+    "dev": "pnpm --filter v2 run dev",
     "build": "pnpm -r run build",
     "v2": "pnpm --filter v2"
   },

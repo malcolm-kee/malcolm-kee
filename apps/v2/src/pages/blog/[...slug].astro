@@ -48,8 +48,8 @@ const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
     <BaseHead
       title={title}
       description={description}
-      publishedDate={new Date(pubDate)}
-      updatedDate={updatedDate ? new Date(updatedDate) : undefined}
+      publishedDate={pubDate}
+      updatedDate={updatedDate}
       contentType="article"
       permalink={permalink}
       ogBgImage={heroImage}
