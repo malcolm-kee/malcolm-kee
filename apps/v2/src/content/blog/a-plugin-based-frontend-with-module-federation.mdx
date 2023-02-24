@@ -1,0 +1,215 @@
+---
+title: A Plugin-Based Frontend using Module Federation
+pubDate: 24 Feb 2023
+topics:
+  - module-federation
+heroImage: https://res.cloudinary.com/djzsjzasg/image/upload/v1677247200/malcolm-kee/mf_plugin_qzqhok.png
+---
+
+import Aside from '~/components/Aside';
+
+When discussing module federation and its characteristics of independent build and deployment (often referred to as _microfrontend_), a common question that arises is, "why is this better than using iframes?" While this is a valid question, especially since the benefits of using module federation may not be immediately apparent when only stitching together multiple UI blocks, the answer lies in its ability to seamlessly integrate multiple frontend applications, allowing for components and cuntion calls to work together. This is why module federation is the best technology currently available for building microfrontend applications.
+
+In this article, I will present a plugin architecture for frontend application that leverages module federation. The architecture allows developers to add, remove, or update features in an existing application without requiring any change on the application. The plugin architecture is made possible by the seamless integration that module federation enables.
+
+## What is a plugin architecture?
+
+A plugin architecture is a type of software architecture that allows **third-party developers** to extend the functionality of an existing software by writing plugins.
+
+In a plugin system, the "core" software provides **a defined set of interfaces, APIs, or hooks** that allows developers to add new features or modify the behavior of the application without having to modify the core software. This approach promotes modularity, as plugins can be developed independently of the core software and can be easily added or removed to customize the application.
+
+Plugin systems are common for system that requires extensive customizations. For example, popular software such as browsers, text editors, build tools, and content management systems (CMS) all use plugin systems to enable developers to add new functionlity to the software. VS Code, the popular code editor with its extension marketplace is an example of a plugin system. Similarly, WordPress, the popular CMS, uses a plugin system that enables users to add new features to their websites.
+
+## Plugin system with module federation
+
+A typical setup for module federation involes a single application, known as the host, importing code from multiple smaller applications, known as remotes. Both the host and the remotes can be built and deployed independently, and module federation can be used to stitch them together in runtime.
+
+![Module federation applications](https://res.cloudinary.com/djzsjzasg/image/upload/v1677242181/malcolm-kee/module_federation_wrqecg.png)
+
+Applying a plugin system to module federation allows host application, or the _core_, to remain unchanged as remotes, acting as plugins, are added, updated or removed. The only constraint is that all remotes must follow **a defined set of interfaces or hooks**.
+
+As an example, imagine all remote applications must export a single remote modules `/register` with the following convention:
+
+```twoslash include register
+import { RouteObject } from 'react-router-dom';
+
+export interface Plugin {
+  routes: Array<RouteObject>;
+}
+
+export const register = (plugin: Plugin) => plugin;
+```
+
+```tsx twoslash title="src/register.tsx"
+// @filename: node_modules/@company/core-plugin/index.ts
+// @include: register
+
+// @filename: src/register.tsx
+
+// ---cut---
+import { register } from '@company/core-plugin';
+import * as React from 'react';
+
+const OrdersPage = () => <h1>Orders</h1>;
+
+export default register({
+  routes: [
+    {
+      path: 'orders',
+      element: <OrdersPage />,
+    },
+  ],
+});
+```
+
+The `register` function from the `@company/core-plugin` package is an identity function to enforce type safety:
+
+```ts twoslash
+// @include: register
+```
+
+By knowing all remotes expose a `register` module with that interface, the host can render all routes that have registered across all remotes:
+
+```tsx twoslash title="app.tsx in host"
+// @filename: node_modules/@company/core-plugin/index.ts
+// @include: register
+
+// @filename: node_modules/microfrontend1/register/index.d.ts
+export default any;
+
+// @filename: node_modules/microfrontend2/register/index.d.ts
+export default any;
+
+// @filename: node_modules/microfrontend3/register/index.d.ts
+export default any;
+
+// @filename: src/app.tsx
+
+// ---cut---
+// @lib: es2020,dom
+import { Plugin } from '@company/core-plugin';
+import * as React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+
+const getAllRemotes = () =>
+  Promise.all([
+    import('microfrontend1/register'),
+    import('microfrontend2/register'),
+    import('microfrontend3/register'),
+  ]) as Promise<Array<{ default: Plugin }>>;
+
+getAllRemotes()
+  .then((mods) => mods.map((mod) => mod.default))
+  .then((remotes) => {
+    const router = createBrowserRouter(
+      remotes.map((remote) => remote.routes).flat()
+    );
+
+    createRoot(document.getElementById('app')!).render(
+      <RouterProvider router={router} />
+    );
+  });
+```
+
+If we add a new route in remote, like the example below, the new route will appear in the host next time it is loaded, without requiring a single code change in the host.
+
+```tsx twoslash title="src/register.tsx" {13-16}
+// @filename: node_modules/@company/core-plugin/index.ts
+// @include: register
+
+// @filename: src/register.tsx
+
+// ---cut---
+import { register } from '@company/core-plugin';
+import * as React from 'react';
+
+const OrdersPage = () => <h1>Orders</h1>;
+const OrdersDetailsPage = () => <h1>Orders Details</h1>;
+
+export default register({
+  routes: [
+    {
+      path: 'orders',
+      element: <OrdersPage />,
+    },
+    {
+      path: 'orders/:orderId',
+      element: <OrdersDetailsPage />,
+    },
+  ],
+});
+```
+
+## Possible Plugin API
+
+After getting a grasp of plugin architecture in module federation, you can expand the extensibility of your host by creating more APIs or hooks for remotes to use. Below are a few plugin APIs to support common use cases. Keep in mind that they are not exhaustive, nor are they required. You can include/exclude them depends on your use case or create your own API, in which case, please share with me!
+
+### `routes` options of `register`
+
+This option, discussed in previous section, is an array of route definition that you can typically extends from the router library that you use (in my case, I reuse `RouteObject` interface from `react-router-dom`). It can also includes sub-navigation, such as tabs, if that pattern is commonly used in your application. The host will merge the route definitions from all the remotes before constructing its routing.
+
+In theory, it is possible that multiple remotes routes conflict with each other, e.g. with excessively greedy path like `'*'`, which you should mitigate with linting or console error message when such scenario is detected.
+
+### `navItems` options of `register`
+
+A list of navigation items. Your host application probably comes with a navigation, this property allows remotes to add/remove item to it. A possible definition of the property is:
+
+```ts
+interface NavItem {
+  path: string;
+  label: string;
+  /** navigation section or group for nested navigation */
+  section: string;
+  /** to decides the order of items */
+  order: number;
+  /** if navigation link comes with icon */
+  icon: React.ReactNode;
+  /** if you have multiple navigation */
+  location: 'header' | 'footer' | 'sidebar';
+}
+```
+
+### `fills` options of `register` with `<Slot />` component
+
+If you need to inject a component from one remote to another, this is the two APIs to help you accomplish it.
+
+Consider a customer ticket screen that displays multiple sections such as customer personal information and past orders. Customer ticket screen is owned by one team while the customer personal information and orders are owned by another team, with each maintaining their own remote application.
+
+![Customer Ticket Screen](https://res.cloudinary.com/djzsjzasg/image/upload/v1677238502/malcolm-kee/customer_ticket_screen_tgpwpg.png)
+
+To inject the customer personal information and past orders into the customer ticket screen, we can use the following elements:
+
+1. In customer ticket screen (which is authored in Customer Support remote), render a `<Slot id="customerTicketScreen" />` component. By itself, it shows nothing.
+1. In Customer Personal Data remote and Orders app, provide a `fills` option to `register`
+
+   ```tsx title="src/register.tsx"
+   export default register({
+     fills: [
+       {
+         slotId: 'customerTicketScreen', // matches id provided to Slot in Customer Support
+         component: PersonalInfoSection,
+       },
+     ],
+   });
+   ```
+
+1. In the host, use a React context to inject all the fills grouped by `slotId`. In the `Slot` component, read the value of the context and renders all the fills whose `slotId` matches the `id` provided to it.
+
+<Aside heading="Slot and Fill? ">
+
+The concept of `slot` comes from web components and frontend frameworks like Vue, where `slot` are the "holes" in the component that component user can "fill in" any arbitrary content. If you can think of better name, let me know!
+
+</Aside>
+
+### `usePluginEventEmitter` and `usePluginEventListener`
+
+With components coming from multiple remotes co-exists in single screen, it becomes inevitable sometimes that they want to communicate with each other. `usePluginEventEmitter` and `usePluginEventListener` are custom hooks that allows them to emit events and listen for events.
+
+Under the hood, those hooks can use event bus like [`mitt`](https://github.com/developit/mitt), or `window.dispatch(CustomEvent)`.
+
+## Conclusion
+
+A plugin-based frontend architecture using Module Federation can be a powerful approach for creating complex applications that allow for seamless integration of UI components from multiple projects. By using a plugin system, developers can extend the functionality of host application without having to modify it.
+
+While this approach has many benefits, it is important to consider the potential trade-offs and challenges that may arise from it. For example, if you need to reuse utility functions or classes in multiple apps, plugin system may not well suited, and using an npm package may be a better option. Despite these potential limitations, with careful planning and implementation, a plugin-based frontend can provide a flexible and extensible platform for building complex applications.

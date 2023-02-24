@@ -74,9 +74,9 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
-"a-plugin-with-module-federation.mdx": {
-  id: "a-plugin-with-module-federation.mdx",
-  slug: "a-plugin-with-module-federation",
+"a-plugin-based-frontend-with-module-federation.mdx": {
+  id: "a-plugin-based-frontend-with-module-federation.mdx",
+  slug: "a-plugin-based-frontend-with-module-federation",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
