@@ -9,8 +9,8 @@
   "dependencies": {
     "@testing-library/cypress": "^9.0.0",
     "axe-core": "^4.6.2",
-    "cypress": "^12.6.0",
-    "cypress-axe": "^1.2.0"
+    "cypress": "^12.7.0",
+    "cypress-axe": "^1.4.0"
   },
   "devDependencies": {
     "typescript": "^4.9.5"

@@ -26,7 +26,11 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
       <span slot="title">Blogs</span>
       <span slot="description">{description}</span>
       <BlogPostPreviewList aria-label="Blog post list">
-        {allPosts.map((p) => <BlogPostPreview post={p} />)}
+        {
+          allPosts.map((p, index) => (
+            <BlogPostPreview post={p} isFeatured={index === 0} />
+          ))
+        }
       </BlogPostPreviewList>
     </PageLayout>
   </body>
