@@ -17,29 +17,25 @@ const { post, isFeatured } = Astro.props;
     'blog-article py-4',
     post.data.heroImage && 'relative',
     isFeatured
-      ? 'z-10 -mx-2 py-4 bg-white'
+      ? 'z-10 -mx-2 py-4 bg-white min-h-[20rem] flex items-center'
       : '@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6'
   )}
 >
   {
-    !isFeatured && (
-      <time class="hidden @md/bloglist:block pl-3 text-sm leading-6 text-zinc-400">
-        {formatDate(post.data.pubDate)}
-      </time>
-    )
-  }
-  {
     post.data.heroImage && (
       <div
         class={clsx(
-          'blog-hero-image-container absolute inset-0 w-full h-full opacity-10 overflow-hidden',
+          'blog-hero-image-container absolute inset-0 w-full h-full opacity-20 overflow-hidden',
           isFeatured ? 'block' : 'hidden'
         )}
         aria-hidden
       >
         <div class="blog-hero-image-wrapper">
           <img
-            class="blog-hero-image w-full object-cover"
+            class={clsx(
+              'blog-hero-image w-full object-cover -translate-y-1/3',
+              !isFeatured && 'delayed-appear'
+            )}
             src={post.data.heroImage}
             alt=""
             loading={isFeatured ? 'eager' : 'lazy'}
@@ -48,14 +44,39 @@ const { post, isFeatured } = Astro.props;
       </div>
     )
   }
+  {
+    post.data.heroImage && (
+      <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-white via-white/0 to-white/0" />
+    )
+  }
+  {
+    !isFeatured && (
+      <time class="hidden relative @md/bloglist:block pl-3 text-sm leading-6 text-zinc-400">
+        {formatDate(post.data.pubDate)}
+      </time>
+    )
+  }
   <div class="@md/bloglist:col-span-3 relative">
     <a href={`/blog/${post.slug}`} class="block group/bloglink blog-link">
       {
         !post.data.heroImage && (
-          <div class="absolute -inset-y-6 -inset-x-4 z-0 scale-95 bg-zinc-50 opacity-0 transition group-hover/bloglink:scale-100 group-hover/bloglink:opacity-100 @md/bloglist:-inset-x-6 @md/bloglist:rounded-2xl" />
+          <div
+            class={clsx(
+              'absolute -inset-y-6 -inset-x-4 z-0',
+              '@md/bloglist:-inset-x-6 @md/bloglist:rounded-2xl',
+              'scale-95 bg-zinc-50 opacity-0 transition',
+              'group-hover/bloglink:scale-100 group-hover/bloglink:opacity-100'
+            )}
+          />
         )
       }
-      <div class="relative">
+      <div
+        class={clsx(
+          'relative',
+          post.data.heroImage &&
+            (isFeatured ? 'drop-shadow-sm' : 'backdrop-blur-sm')
+        )}
+      >
         <time
           class={clsx(
             'text-sm block mb-2 pl-3 border-l-2 border-l-zinc-100 text-zinc-400',
@@ -103,16 +124,6 @@ const { post, isFeatured } = Astro.props;
 </article>
 
 <style>
-  @keyframes slideshow {
-    from {
-      transform: translateY(-33%);
-    }
-
-    to {
-      transform: translateY(-50%);
-    }
-  }
-
   @keyframes zoom {
     from {
       transform: scale(1);
@@ -123,26 +134,29 @@ const { post, isFeatured } = Astro.props;
     }
   }
 
-  .blog-hero-image,
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .delayed-appear {
+    opacity: 0;
+    animation: fade 100ms ease-in 200ms forwards;
+  }
+
   .blog-hero-image-wrapper {
-    animation-timing-function: linear;
-    animation-duration: 5000ms;
-    animation-direction: alternate;
-    animation-iteration-count: infinite;
+    transform-origin: left bottom;
+    animation: zoom 5000ms linear alternate infinite;
     animation-play-state: paused;
   }
 
-  .blog-hero-image {
-    animation-name: slideshow;
-  }
-
-  .blog-hero-image-wrapper {
-    animation-name: zoom;
-  }
-
-  .blog-article:has(.blog-link:hover) .blog-hero-image,
-  .blog-article:has(.blog-link:focus) .blog-hero-image,
-  .blog-article:has(.blog-link:hover) .blog-hero-image-wrapper {
+  .blog-article:has(.blog-link:hover) .blog-hero-image-wrapper,
+  .blog-article:has(.blog-link:focus) .blog-hero-image-wrapper {
     animation-play-state: running;
   }
 
