@@ -1,0 +1,92 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { CollectionEntry } from 'astro:content';
+import { clsx } from 'clsx';
+import BaseHead from '~/components/BaseHead.astro';
+import BlogPostPreview from '~/components/BlogPostPreview.astro';
+import { BlogPostPreviewList } from '~/components/BlogPostPreviewList';
+import PageLayout from '~/components/PageLayout.astro';
+import { getBlogs } from '~/data/blog-helpers';
+import { getTils } from '~/data/til-helpers';
+import { TopicLabel, TOPICS } from '~/data/topic-helpers';
+import { TodayILearnt } from '~/components/TodayILearnt';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return Promise.all(
+    TOPICS.map(async (topic) => {
+      const blogs = await getBlogs({
+        onlyTopic: topic,
+      });
+      const tils = await getTils({
+        onlyTopic: topic,
+      });
+
+      return {
+        params: {
+          slug: topic,
+        },
+        props: {
+          blogs,
+          tils,
+          label: TopicLabel[topic],
+        } satisfies Props,
+      };
+    })
+  );
+};
+
+interface Props {
+  blogs: Array<CollectionEntry<'blog'>>;
+  tils: Array<CollectionEntry<'today-i-learnt'>>;
+  label: string;
+}
+
+const { label, blogs, tils } = Astro.props;
+
+const title = `Topic: ${label}`;
+
+const { pathname } = Astro.url;
+
+const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
+
+const hasTwoColumns = blogs.length > 0 && tils.length > 0;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} permalink={permalink} />
+  </head>
+  <body>
+    <PageLayout>
+      <span slot="title">{title}</span>
+      <div
+        class={clsx('grid gap-12', hasTwoColumns && 'lg:grid-cols-2 lg:gap-4')}
+      >
+        <section>
+          <h2 class="text-2xl mb-5 font-extrabold text-zinc-300">Blogs</h2>
+          <BlogPostPreviewList>
+            {
+              blogs.map((blog) => (
+                <BlogPostPreview post={blog} TitleElement="h3" />
+              ))
+            }
+          </BlogPostPreviewList>
+        </section>
+        {
+          tils.length > 0 && (
+            <section>
+              <h2 class="text-2xl mb-5 font-extrabold text-zinc-300">
+                Today I Learnt
+              </h2>
+              <TodayILearnt className="border-l-2 border-l-zinc-100">
+                {tils.map((til) => (
+                  <TodayILearnt.Item til={til} />
+                ))}
+              </TodayILearnt>
+            </section>
+          )
+        }
+      </div>
+    </PageLayout>
+  </body>
+</html>

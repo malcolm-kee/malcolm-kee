@@ -1,12 +1,5 @@
-import { z, defineCollection } from 'astro:content';
-
-const topic = z.union([
-  z.literal('module-federation'),
-  z.literal('react'),
-  z.literal('css'),
-  z.literal('typescript'),
-  z.literal('javascript'),
-]);
+import { defineCollection, z } from 'astro:content';
+import { topic } from '../data/topic-helpers';
 
 export const collections = {
   note: defineCollection({

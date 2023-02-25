@@ -6,9 +6,10 @@ import { clsx } from 'clsx';
 export interface Props {
   post: CollectionEntry<'blog'>;
   isFeatured?: boolean;
+  TitleElement?: 'h1' | 'h2' | 'h3' | 'h4';
 }
 
-const { post, isFeatured } = Astro.props;
+const { post, isFeatured, TitleElement = 'h2' } = Astro.props;
 ---
 
 <article
@@ -84,14 +85,14 @@ const { post, isFeatured } = Astro.props;
           )}>{formatDate(post.data.pubDate)}</time
         >
         <header>
-          <h2
+          <TitleElement
             class={clsx(
               'font-semibold tracking-tight text-zinc-800',
               isFeatured ? 'text-3xl' : 'text-base'
             )}
           >
             {post.data.title}
-          </h2>
+          </TitleElement>
         </header>
         {
           post.data.description && (
@@ -112,9 +113,12 @@ const { post, isFeatured } = Astro.props;
         <ul class="relative mt-2 flex items-center gap-2 text-xs">
           {post.data.topics.map((topic) => (
             <li>
-              <span class="block px-3 py-1.5 font-medium text-zinc-600 rounded-full bg-zinc-100">
+              <a
+                href={`/topic/${topic}`}
+                class="block px-3 py-1.5 font-medium text-zinc-600 rounded-full bg-zinc-100 hover:bg-zinc-200"
+              >
                 {topic}
-              </span>
+              </a>
             </li>
           ))}
         </ul>
@@ -155,13 +159,13 @@ const { post, isFeatured } = Astro.props;
     animation-play-state: paused;
   }
 
-  .blog-article:has(.blog-link:hover) .blog-hero-image-wrapper,
-  .blog-article:has(.blog-link:focus) .blog-hero-image-wrapper {
+  .blog-article:hover .blog-hero-image-wrapper,
+  .blog-article:focus-within .blog-hero-image-wrapper {
     animation-play-state: running;
   }
 
-  .blog-article:has(.blog-link:hover) .blog-hero-image-container,
-  .blog-article:has(.blog-link:focus) .blog-hero-image-container {
+  .blog-article:hover .blog-hero-image-container,
+  .blog-article:focus-within .blog-hero-image-container {
     display: block;
   }
 </style>
