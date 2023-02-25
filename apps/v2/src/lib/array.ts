@@ -20,3 +20,6 @@ export const groupArrayBy = <T, KeyValue>(
 
   return result;
 };
+
+export const pickRandomItems = <T>(array: T[], numOfItems: number) =>
+  [...array].sort(() => 0.5 - Math.random()).slice(0, numOfItems);

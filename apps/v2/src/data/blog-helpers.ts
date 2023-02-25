@@ -1,20 +1,20 @@
 import { getCollection } from 'astro:content';
-import type { Topic } from './topic-helpers';
+import type { Topic } from './topic-types';
 
 export const getBlogs = async ({
   includePreview = false,
   includeDraft = false,
-  onlyTopic,
+  topics,
 }: {
   includePreview?: boolean;
   includeDraft?: boolean;
-  onlyTopic?: Topic;
+  topics?: Array<Topic>;
 } = {}) => {
   const blogs = await getCollection('blog', ({ data }) => {
     return (
       (includePreview || !data.preview) &&
       (includeDraft || !data.draft) &&
-      (!onlyTopic || data.topics?.includes(onlyTopic))
+      (!topics || topics.some((topic) => data.topics?.includes(topic)))
     );
   });
 

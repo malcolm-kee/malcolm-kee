@@ -6,19 +6,20 @@ import BaseHead from '~/components/BaseHead.astro';
 import BlogPostPreview from '~/components/BlogPostPreview.astro';
 import { BlogPostPreviewList } from '~/components/BlogPostPreviewList';
 import PageLayout from '~/components/PageLayout.astro';
+import { TodayILearnt } from '~/components/TodayILearnt';
 import { getBlogs } from '~/data/blog-helpers';
 import { getTils } from '~/data/til-helpers';
-import { TopicLabel, TOPICS } from '~/data/topic-helpers';
-import { TodayILearnt } from '~/components/TodayILearnt';
+import { TopicLabel } from '~/data/topic-helpers';
+import { TOPICS } from '~/data/topic-types';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return Promise.all(
     TOPICS.map(async (topic) => {
       const blogs = await getBlogs({
-        onlyTopic: topic,
+        topics: [topic],
       });
       const tils = await getTils({
-        onlyTopic: topic,
+        topics: [topic],
       });
 
       return {

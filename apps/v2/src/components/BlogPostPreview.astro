@@ -7,9 +7,10 @@ export interface Props {
   post: CollectionEntry<'blog'>;
   isFeatured?: boolean;
   TitleElement?: 'h1' | 'h2' | 'h3' | 'h4';
+  hideDate?: boolean;
 }
 
-const { post, isFeatured, TitleElement = 'h2' } = Astro.props;
+const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
 ---
 
 <article
@@ -51,7 +52,7 @@ const { post, isFeatured, TitleElement = 'h2' } = Astro.props;
     )
   }
   {
-    !isFeatured && (
+    !isFeatured && !hideDate && (
       <time class="hidden relative @md/bloglist:block pl-3 text-sm leading-6 text-zinc-400">
         {formatDate(post.data.pubDate)}
       </time>
@@ -78,12 +79,18 @@ const { post, isFeatured, TitleElement = 'h2' } = Astro.props;
             (isFeatured ? 'drop-shadow-sm' : 'backdrop-blur-sm')
         )}
       >
-        <time
-          class={clsx(
-            'text-sm block mb-2 pl-3 border-l-2 border-l-zinc-100 text-zinc-400',
-            !isFeatured && '@md/bloglist:hidden'
-          )}>{formatDate(post.data.pubDate)}</time
-        >
+        {
+          !hideDate && (
+            <time
+              class={clsx(
+                'text-sm block mb-2 pl-3 border-l-2 border-l-zinc-100 text-zinc-400',
+                !isFeatured && '@md/bloglist:hidden'
+              )}
+            >
+              {formatDate(post.data.pubDate)}
+            </time>
+          )
+        }
         <header>
           <TitleElement
             class={clsx(
@@ -154,7 +161,7 @@ const { post, isFeatured, TitleElement = 'h2' } = Astro.props;
   }
 
   .blog-hero-image-wrapper {
-    transform-origin: left bottom;
+    /* transform-origin: left bottom; */
     animation: zoom 5000ms linear alternate infinite;
     animation-play-state: paused;
   }

@@ -3,9 +3,11 @@ import type { GetStaticPaths } from 'astro';
 import { CollectionEntry } from 'astro:content';
 import BaseHead from '~/components/BaseHead.astro';
 import Container from '~/components/Container';
+import ContentSuggestions from '~/components/ContentSuggestions.astro';
 import Layout from '~/components/Layout.astro';
 import MdContent from '~/components/MdContent.astro';
 import { getBlogs } from '~/data/blog-helpers';
+import { getBlogRelatedContents } from '~/data/topic-helpers';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const blogs = await getBlogs({ includePreview: true });
@@ -37,6 +39,8 @@ const {
 } = entry.data;
 
 const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
+
+const related = await getBlogRelatedContents(entry);
 ---
 
 <html lang={lang}>
@@ -69,6 +73,9 @@ const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
         >
           <Content />
         </MdContent>
+        <div class="border-t border-gray-100 pt-8">
+          <ContentSuggestions blogs={related.blogs} tils={related.tils} />
+        </div>
       </Container>
     </Layout>
   </body>

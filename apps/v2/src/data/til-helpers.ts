@@ -1,16 +1,16 @@
 import { getCollection } from 'astro:content';
 import { groupArrayBy } from '~/lib/array';
-import type { Topic } from './topic-helpers';
+import type { Topic } from './topic-types';
 
 export const getTils = async ({
   includePreview = false,
-  onlyTopic,
-}: { includePreview?: boolean; onlyTopic?: Topic } = {}) => {
+  topics,
+}: { includePreview?: boolean; topics?: Array<Topic> } = {}) => {
   const tils = await getCollection(
     'today-i-learnt',
     ({ data }) =>
       (includePreview || !data.preview) &&
-      (!onlyTopic || data.topics.includes(onlyTopic))
+      (!topics || data.topics.some((topic) => topics.includes(topic)))
   );
 
   return tils

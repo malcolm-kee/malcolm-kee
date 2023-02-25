@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { topic } from '../data/topic-helpers';
+import { topic } from '../data/topic-types';
 
 export const collections = {
   note: defineCollection({
