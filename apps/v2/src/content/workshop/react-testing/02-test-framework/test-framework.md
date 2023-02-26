@@ -11,7 +11,7 @@ Before we dive into how to write a test, let's discuss what tools are required f
 
 ## Test Runner
 
-The first tool that we need is test runner. A test runner is a uility that allows you to declare your test, which will be executed and the result of the test will be displayed.
+The first tool that we need is test runner. A test runner is a utility that allows you to declare your test, which will be executed and the result of the test will be displayed.
 
 Consider the following code:
 

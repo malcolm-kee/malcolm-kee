@@ -29,7 +29,7 @@ Disclaimer: no testing had been done via screen reader. It would be great if you
     left: -1000px; /* putting the input off the screen so that
     it cannot be seen visually, but still be focusable by
     screen reader / keyboard tab
-    using display: none or visiblity:hidden or opacity: 0
+    using display: none or visibility:hidden or opacity: 0
     can cause some screen reader to ignore it */
     top: 0;
     cursor: pointer;

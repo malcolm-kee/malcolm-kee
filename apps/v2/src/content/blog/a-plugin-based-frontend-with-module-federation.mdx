@@ -9,7 +9,7 @@ heroImage: https://res.cloudinary.com/djzsjzasg/image/upload/v1677247200/malcolm
 
 import Aside from '~/components/Aside';
 
-When discussing module federation and its characteristics of independent build and deployment (often referred to as _microfrontend_), a common question that arises is, "why is this better than using iframes?" While this is a valid question, especially since the benefits of using module federation may not be immediately apparent when only stitching together multiple UI blocks, the answer lies in its ability to seamlessly integrate multiple frontend applications, allowing for components and funtion calls to work together. This is why module federation is the best technology currently available for building microfrontend applications.
+When discussing module federation and its characteristics of independent build and deployment (often referred to as _microfrontend_), a common question that arises is, "why is this better than using iframes?" While this is a valid question, especially since the benefits of using module federation may not be immediately apparent when only stitching together multiple UI blocks, the answer lies in its ability to seamlessly integrate multiple frontend applications, allowing for components and function calls to work together. This is why module federation is the best technology currently available for building microfrontend applications.
 
 In this article, I will present a plugin architecture for frontend application that leverages module federation. The architecture allows developers to add, remove, or update features in an existing application without requiring any change on the application. The plugin architecture is made possible by the seamless integration that module federation enables.
 
@@ -19,11 +19,11 @@ A plugin architecture is a type of software architecture that allows **third-par
 
 In a plugin system, the "core" software provides **a defined set of interfaces, APIs, or hooks** that allows developers to add new features or modify the behavior of the application without having to modify the core software. This approach promotes modularity, as plugins can be developed independently of the core software and can be easily added or removed to customize the application.
 
-Plugin systems are common for system that requires extensive customizations. For example, popular software such as browsers, text editors, build tools, and content management systems (CMS) all use plugin systems to enable developers to add new functionlity to the software. VS Code, the popular code editor with its extension marketplace is an example of a plugin system. Similarly, WordPress, the popular CMS, uses a plugin system that enables users to add new features to their websites.
+Plugin systems are common for system that requires extensive customizations. For example, popular software such as browsers, text editors, build tools, and content management systems (CMS) all use plugin systems to enable developers to add new functionality to the software. VS Code, the popular code editor with its extension marketplace is an example of a plugin system. Similarly, WordPress, the popular CMS, uses a plugin system that enables users to add new features to their websites.
 
 ## Plugin system with module federation
 
-A typical setup for module federation involes a single application, known as the host, importing code from multiple smaller applications, known as remotes. Both the host and the remotes can be built and deployed independently, and module federation can be used to stitch them together in runtime.
+A typical setup for module federation involves a single application, known as the host, importing code from multiple smaller applications, known as remotes. Both the host and the remotes can be built and deployed independently, and module federation can be used to stitch them together in runtime.
 
 ![Module federation applications](https://res.cloudinary.com/djzsjzasg/image/upload/v1677242181/malcolm-kee/module_federation_wrqecg.png)
 

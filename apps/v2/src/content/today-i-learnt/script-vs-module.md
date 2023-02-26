@@ -16,7 +16,7 @@ declare global {
 }
 ```
 
-If there is any `export`/`import` in the file, that snippet could correctly define a `fly` method on `Array.proptotype` correctly.
+If there is any `export`/`import` in the file, that snippet could correctly define a `fly` method on `Array.prototype` correctly.
 
 However, if you remove the `export` statement, suddenly it doesn't work.
 
@@ -46,8 +46,8 @@ What is a module?
 
 In some language a module means a package that consists of multiple classes and utilities.
 
-In JavaScript/TypeScript world, a module is just a file that manage its own dependencies and exported members. It specifies its dependencies using the `import` keyword while declare its exported members using the `export` keyword. Everytime when you write in any JavaScript/TypeScript file with `import React from 'react'`, you're writing a module.
+In JavaScript/TypeScript world, a module is just a file that manage its own dependencies and exported members. It specifies its dependencies using the `import` keyword while declare its exported members using the `export` keyword. Every time you write in any JavaScript/TypeScript file with `import React from 'react'`, you're writing a module.
 
-Since module interfacts with others using `export` and `import`, the variable declared in a module is local by default. (In you want to access global variables (e.g. variable in `window` object), you're encouraged to state it explicitly, e.g. `window.jQuery`.)
+Since module integrates with others using `export` and `import`, the variable declared in a module is local by default. (In you want to access global variables (e.g. variable in `window` object), you're encouraged to state it explicitly, e.g. `window.jQuery`.)
 
 This is why to overwrite global interface or namespace, you need to add `declare global`.

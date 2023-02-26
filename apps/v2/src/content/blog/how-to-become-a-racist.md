@@ -13,7 +13,7 @@ I used to think that it's because our country is still a developing country, the
 
 Nonetheless, some times ago, I heard a comment from an entrepreneur from a First-World country:
 
-> We tried to recruit a few candidates from XXX race, and all of them are irresponsible &mdash; left early, come late, MIA etc. We're not gonna consider condidate from that race anymore.
+> We tried to recruit a few candidates from XXX race, and all of them are irresponsible &mdash; left early, come late, MIA etc. We're not gonna consider candidate from that race anymore.
 
 It seems to me that, regardless of economic status, racism is just an easy trap to fall into.
 
