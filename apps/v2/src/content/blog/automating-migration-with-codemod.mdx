@@ -1,0 +1,41 @@
+---
+title: Automating Migration with Codemod
+pubDate: 27 Feb 2023
+description: Simple code changes, when applied to large-scale codebase requires huge amount of manual work. Fortunately, you can make them manageable by using codemod - code transformations that runs on the codebase.
+heroImage: https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,q_58,w_1200/v1677473747/malcolm-kee/codemod_gfhj1y.jpg
+---
+
+As more features are added into a product, the amount of code grows exponentially. By itself, this is not a problem when code are treated as a static artifacts that created once and able to run indefinitely. However, if we acknowledge the fact that software entropy is real and without ongoing maintenance software rots, then the huge amount of code will becomes a bottleneck of the maintenance effort, just by the sheer amount of code you need to change when introducing a change of pattern.
+
+Codemod is a solution created to solve this problem. Its working principle is fairly simple, write code that scan the codebase for coding patterns that you want to change and transform them. Although codemod is a common practice in large tech company, it is an underutilized tool in general, either due to lack of awareness, or the need of operate on Abstract Syntax Tree (AST) intimidates many developers.
+
+In this article, I would like to discuss how to use codemod and its implication on its benefits and limitations, and how to create one yourself.
+
+## How Codemod is Used
+
+Assuming a codemod has been created, using it is usually pretty straightforward:
+
+1. Referring to the instructions from the creator, you run a command in your project directory. As an example, instruction to run codemod to migrate React Query to v4 is documented [here](https://tanstack.com/query/v4/docs/react/guides/migrating-to-react-query-4). The command (which usually use `npx` as runner) will download or execute the codemod code on your codebase and perform the required transformation.
+1. Once the codemod complete running, you verify them by manually inspecting few examples, running your static-analysis tools like TypeScript or ESLint, or perform code formatting using prettier. This part is no different from typical workflow when you make code changes.
+1. If you found unexpected result, e.g. certain coding pattern is not transformed, or transformation cause bug, discuss with the codemod creator if they are expected or if they are bugs. Meanwhile, you can revert all the changes of the codemod, since no changes have been committed/merged!
+1. If everything looks alright and pass all the CI checks, proceed to merge the code follow your typical workflow.
+
+We can compare codemod with another JavaScript tool, transpilation (usually using Babel):
+
+1. Transpilation is run every time your code is built. Your source code remains the same but the runtime code that ships to user becomes different. In contrast, with codemod the source code is updated once. The result of codemod can be easily verified by any developers that can read the code, while the output of transpilation is usually minified and usually only verified by whoever that maintains the build tool and configuration.
+1. Transpilation should be exhaustive to handle the current and future use cases, as it remains as part of build pipeline until it is removed. Meanwhile, codemod needs to be only covering the current coding patterns, as it only change the code once when it is run.
+
+## The Benefits and Limitations of Codemod
+
+The benefits of codemod:
+
+- It saves efforts for refactoring of huge codebase, as time to manually refactor code, which is huge for large codebase is replaced with time to create the codemod, which is constant regardless of the size of codebase. This also means that codemod should only be used for coding patterns that are prevalent in the codebase instead of one-off usages.
+- It makes refactoring reproducible. Codemod enforces the refactoring are being done in the consistent way, avoiding human error.
+- It shifts the burden of introducing breaking change from consumer to creator. In companies where tools are created and used by different team, having codemod as part of toolkit forces tool creators to own the burden when introduces breaking change instead of requires all tool users to absorb the impact of the change. This is also principally similar to [Google's practice that team removing the old system are responsible for deprecate obsolete system](https://abseil.io/resources/swe-book/html/ch15.html#compulsory_deprecation).
+
+The limitations of codemod:
+
+- It takes time to create, especially when you're doing it for the first time because there are new concepts that you need to learn in the process.
+- It could not handle complex refactoring. Most codemod works by scanning the code pattern on per-file basis and perform transformation on that. Cross-file refactoring is usually not supported, and complicated migration like [migrating Angular to React](/blog/migrating-large-angular-apps-to-react) is impossible.
+
+## How to Create a Codemod
