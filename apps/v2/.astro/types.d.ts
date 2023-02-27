@@ -102,9 +102,9 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
-"automating-migration-with-codemod.mdx": {
-  id: "automating-migration-with-codemod.mdx",
-  slug: "automating-migration-with-codemod",
+"automating-refactoring-with-codemod.mdx": {
+  id: "automating-refactoring-with-codemod.mdx",
+  slug: "automating-refactoring-with-codemod",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">

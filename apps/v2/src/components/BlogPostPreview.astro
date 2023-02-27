@@ -58,7 +58,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
       </time>
     )
   }
-  <div class="@md/bloglist:col-span-3 relative">
+  <div class="@md/bloglist:col-span-3 h-full relative">
     <a href={`/blog/${post.slug}`} class="block group/bloglink blog-link">
       {
         !post.data.heroImage && (
