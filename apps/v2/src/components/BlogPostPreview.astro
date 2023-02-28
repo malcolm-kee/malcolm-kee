@@ -121,7 +121,12 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
     </a>
     {
       post.data.topics && post.data.topics.length > 0 && (
-        <ul class="relative mt-2 flex items-center gap-2 text-xs">
+        <ul
+          class={clsx(
+            'relative mt-2 flex items-center flex-wrap gap-2 text-xs',
+            isFeatured && 'px-3'
+          )}
+        >
           {post.data.topics.map((topic) => (
             <li>
               <a

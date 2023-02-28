@@ -6,6 +6,7 @@ export const TOPICS = [
   'css',
   'typescript',
   'javascript',
+  'frontend-tooling',
 ] as const;
 
 export const topic = z.enum(TOPICS);
