@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseHead from '~/components/BaseHead.astro';
 import PageLayout from '~/components/PageLayout.astro';
+import { getNotes } from '~/data/note-helpers';
 
-const notes = await getCollection('note');
+const notes = await getNotes();
 
 const title = 'Notes';
 const description =

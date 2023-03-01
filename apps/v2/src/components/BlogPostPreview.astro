@@ -27,7 +27,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
     post.data.heroImage && (
       <div
         class={clsx(
-          'blog-hero-image-container absolute inset-0 w-full h-full opacity-20 overflow-hidden',
+          'blog-hero-image-container absolute inset-0 w-full h-full opacity-20 overflow-hidden transition-opacity',
           isFeatured ? 'block' : 'hidden'
         )}
         aria-hidden
@@ -48,7 +48,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
   }
   {
     post.data.heroImage && (
-      <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-white via-white/0 to-white/0" />
+      <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-white" />
     )
   }
   {
@@ -74,7 +74,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
       }
       <div
         class={clsx(
-          'relative',
+          'blog-content-preview relative transition-all',
           post.data.heroImage &&
             (isFeatured ? 'drop-shadow-sm' : 'backdrop-blur-sm')
         )}
@@ -170,7 +170,6 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
   }
 
   .blog-hero-image-wrapper {
-    /* transform-origin: left bottom; */
     animation: zoom 5000ms linear alternate infinite;
     animation-play-state: paused;
   }
@@ -183,5 +182,13 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
   .blog-article:hover .blog-hero-image-container,
   .blog-article:focus-within .blog-hero-image-container {
     display: block;
+  }
+
+  .blog-article:has(.blog-link:hover) .blog-hero-image-container {
+    opacity: 0.4;
+  }
+
+  .blog-article:has(.blog-link:hover) .blog-content-preview {
+    @apply backdrop-blur;
   }
 </style>

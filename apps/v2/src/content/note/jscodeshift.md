@@ -1,6 +1,7 @@
 ---
 title: 'jscodeshift'
 topics: ['frontend-tooling']
+preview: true
 ---
 
 [`jscodeshift`](https://github.com/facebook/jscodeshift) is a toolkit for creating codemods (code transformations) and running them. However, its [README](https://github.com/facebook/jscodeshift#jscodeshift--) and [docs](https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation) are quite lacking for me; I have to scratch my head every time I am writing a new codemod. This is my documentation on it based on my understanding, use their docs as source of truth in case there is any deviation.
