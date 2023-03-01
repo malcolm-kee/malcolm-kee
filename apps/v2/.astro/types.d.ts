@@ -489,8 +489,8 @@ declare module 'astro:content' {
   collection: "note",
   data: InferEntrySchema<"note">
 },
-"jscodeshift.md": {
-  id: "jscodeshift.md",
+"jscodeshift.mdx": {
+  id: "jscodeshift.mdx",
   slug: "jscodeshift",
   body: string,
   collection: "note",

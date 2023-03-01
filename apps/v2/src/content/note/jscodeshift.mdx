@@ -1,0 +1,202 @@
+---
+title: 'jscodeshift'
+topics: ['frontend-tooling']
+---
+
+[`jscodeshift`](https://github.com/facebook/jscodeshift) is a toolkit for creating codemods (code transformations) and running them. However, its [README](https://github.com/facebook/jscodeshift#jscodeshift--) and [docs](https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation) can be quite challenging to understand. This is my documentation on it based on my understanding, use their docs as source of truth in case there is any deviation.
+
+There are two parts of `jscodeshift`, as a command (you use it by typing command into your terminal) and as a library (you use it in your js code). This note will focus on the second part, using it as a library to write code that transform your code.
+
+## Creating a Transform Module
+
+The first step of using `jscodeshift` is to create a transform module, which is a js file that exports a transformer function. For example:
+
+```js
+module.exports = function transformer(fileInfo, api, options) {
+  const source = fileInfo.source;
+
+  // change source code here
+
+  return source; // return changed code
+};
+```
+
+The transformer function is called once for each file that will be transformed. It receives three parameters:
+
+1. `fileInfo`: Info about file being transformed, contains two properties: `path` (file path) and `source` (file content). Most of the time we only use the `source` property because code transformation is usually based on coding pattern instead of where the code is, however `path` is there just in case you need it.
+1. `api`: An object that exposes 4 properties:
+
+   - `jscodeshift`: This is the `jscodeshift` library that provides utility for you to navigate and change the source code. We will go through them in details slightly later.
+   - `j`: This is an alias of `jscodeshift`. There is no difference with `jscodeshift` property except that you only need to type one character instead of eleven.
+   - `stats`: A function to collect statistics. I don't have use case for it so refer to their docs.
+   - `report`: call this if you want to log something. Its purpose is like `console.log` for us, since `console.log` doesn't work in transform module. This behavior is because transform module does not run on main NodeJS thread, but as a separate worker thread.
+
+1. `options`: all the options that are passed to jscodeshift command. I have no use of this so please refer to [official docs](https://github.com/facebook/jscodeshift#options) instead.
+
+### Optional: Define Parser
+
+Because there are few flavors of JavaScript with syntax difference between them, `jscodeshift` allows us to specify which parser should be used when parsing our source code by exporting a `parser` property.
+
+```js twoslash {9}
+module.exports = function transformer(fileInfo, api, options) {
+  const source = fileInfo.source;
+
+  // change source code here
+
+  return source; // return changed code
+};
+
+module.exports.parser = 'ts';
+```
+
+The value of `parser` could be `babel`, `babylon`, `flow`, `ts`, or `tsx`.
+
+## Using `jscodeshift` library
+
+When using `jscodeshift`, the main data structure that we you interact with mostly is `Collection`, which exposes methods to navigate and modify the AST (Abstract Syntax Tree) of your code.
+
+### `Collection`
+
+`Collection` is a custom data structure in `jscodeshift` to represent a list of code elements, which you can used for further filtering (like searching for certain code syntax) or manipulation (like replace them with something else). We can get a `Collection` object by calling `jscodeshift` (or `j`).
+
+In the snippet below, we get a collection object that represent the source code, and return them.
+
+```js {1,5}
+module.exports = function transformer(fileInfo, { j }, options) {
+  const collection = j(fileInfo.source);
+
+  // change source code here
+
+  return collection.toSource(); // return changed code
+};
+```
+
+Following are the methods in `Collection` object:
+
+#### `.find(selector: AstTypes.Type): Collection`
+
+Returns a new `Collection` object containing all the descendant nodes that match the given selector. The selector is one of the types provided by the package [`ast-types`](https://github.com/benjamn/ast-types/tree/master) that are exposed in the `jscodeshift` object, e.g. `j.FunctionExpression`.
+
+Example:
+
+```js
+module.exports = function transformer(fileInfo, { j }, options) {
+  const collection = j(fileInfo.source);
+
+  const allFunctionExpressions = collection.filter(j.FunctionExpression);
+
+  return collection.toSource(); // return changed code
+};
+```
+
+The full list of the available types are listed in [this file](https://github.com/benjamn/ast-types/blob/master/src/gen/namedTypes.ts).
+
+#### `.filter(predicateFn): Collection`
+
+Returns a new `Collection` object containing all the nodes in the collection that when provided to the `predicateFn`, returns `true` as result. This is equivalent to the `.filter` method on `Array`.
+
+`predicateFn` will be called with `Node` as its first parameter.
+
+Example:
+
+```js {5-11}
+module.exports = function transformer(fileInfo, { j }, options) {
+  const collection = j(fileInfo.source);
+
+  const allFunctionDeclarations = collection.filter(j.FunctionDeclaration);
+
+  // exclude function declaration with name specialFunction
+  const filteredFunctionDeclarations = allFunctionDeclarations.filter(
+    (path) => {
+      const { node } = path;
+      return node.id.name !== 'specialFunction';
+    }
+  );
+
+  return collection.toSource();
+};
+```
+
+#### `.forEach(callback): Collection`
+
+Invokes the given callback function for each node in the current collection.
+
+Example:
+
+```js {4-8}
+module.exports = function transformer(fileInfo, { j }, options) {
+  const collection = j(fileInfo.source);
+
+  const allVariableDeclarations = collection.filter(j.VariableDeclaration);
+  // Log the name of each variable declaration in a file
+  allVariableDeclarations.forEach((path) => {
+    const { node } = path;
+    console.log(node.id.name);
+  });
+
+  return collection.toSource();
+};
+```
+
+#### `.replaceWith(callback): Collection`
+
+Replaces each node in the current collection with the result of calling the given callback function.
+
+The callback function will be called with a Path object as its first parameter. The Path object is a reference to the current node being processed, and provides additional information and methods for working with the node.
+
+Example:
+
+```js {5-14}
+module.exports = function transformer(fileInfo, { j }, options) {
+  const collection = j(fileInfo.source);
+
+  const allFunctionDeclarations = collection.filter(j.FunctionDeclaration);
+
+  // Replace all function declarations with arrow function expressions
+  allFunctionDeclarations.replaceWith((path) => {
+    const { node } = path;
+    return j.variableDeclaration('const', [
+      j.variableDeclarator(
+        node.id,
+        j.arrowFunctionExpression(node.params, node.body)
+      ),
+    ]);
+  });
+
+  return collection.toSource();
+};
+```
+
+The returned value is an AST, which can be constructed with builder. They looks mostly similar to the types used for `.filter`, but in lowercase. We can find the full list of them [here](https://github.com/benjamn/ast-types/blob/master/src/gen/builders.ts#L3747).
+
+#### `.insertBefore(content: string | AST | Collection): Collection`
+
+Inserts the given content before each node in the current collection.
+
+The content parameter can be a string, an AST node, or another Collection object.
+
+```js
+// Add a new import statement to the top of the file
+collection.insertBefore(
+  j.importDeclaration(
+    [j.importSpecifier(j.identifier('foo'), j.identifier('foo'))],
+    j.literal('foo')
+  )
+);
+```
+
+Similar to `.replaceWith` method, use builders to create the code you want.
+
+#### `.insertAfter(content: string | AST | Collection): Collection`
+
+Inserts the given content after each node in the current collection.
+
+The content parameter can be a string, an AST node, or another Collection object.
+
+#### `.remove(): Collection`
+
+Removes all nodes in the current collection.
+
+#### `.toSource(): string`
+
+Returns the modified code as string.
