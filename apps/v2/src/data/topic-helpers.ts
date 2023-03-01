@@ -10,6 +10,7 @@ export const TopicLabel: Record<Topic, string> = {
   css: 'CSS',
   typescript: 'TypeScript',
   javascript: 'JavaScript',
+  'frontend-tooling': 'Frontend Tooling',
 };
 
 export interface RelatedContents {

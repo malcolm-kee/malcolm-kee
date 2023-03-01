@@ -136,7 +136,7 @@ const operations = findDiff(element, newElement);
 
 Let's try to think how UI development is without React.
 
-Instead of deriving a UI from the state, let's try to update it our selve by updating it manually.
+Instead of deriving a UI from the state, let's try to update it ourselves by updating it manually.
 
 ```jsx
 const element =  document.getElementById('some-id');

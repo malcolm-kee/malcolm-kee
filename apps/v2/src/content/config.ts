@@ -5,6 +5,12 @@ export const collections = {
   note: defineCollection({
     schema: z.object({
       title: z.string(),
+      topics: z.array(topic).optional(),
+      /**
+       * when true, the note page will be created
+       * but it will not be listed
+       */
+      preview: z.boolean().optional(),
     }),
   }),
   workshop: defineCollection({

@@ -102,6 +102,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
+"automating-refactoring-with-codemod.mdx": {
+  id: "automating-refactoring-with-codemod.mdx",
+  slug: "automating-refactoring-with-codemod",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
 "be-human-while-you-code.mdx": {
   id: "be-human-while-you-code.mdx",
   slug: "be-human-while-you-code",
@@ -478,6 +485,13 @@ declare module 'astro:content' {
 "fsm-and-statechart.mdx": {
   id: "fsm-and-statechart.mdx",
   slug: "fsm-and-statechart",
+  body: string,
+  collection: "note",
+  data: InferEntrySchema<"note">
+},
+"jscodeshift.md": {
+  id: "jscodeshift.md",
+  slug: "jscodeshift",
   body: string,
   collection: "note",
   data: InferEntrySchema<"note">

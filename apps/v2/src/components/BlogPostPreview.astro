@@ -27,7 +27,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
     post.data.heroImage && (
       <div
         class={clsx(
-          'blog-hero-image-container absolute inset-0 w-full h-full opacity-20 overflow-hidden',
+          'blog-hero-image-container absolute inset-0 w-full h-full opacity-20 overflow-hidden transition-opacity',
           isFeatured ? 'block' : 'hidden'
         )}
         aria-hidden
@@ -48,7 +48,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
   }
   {
     post.data.heroImage && (
-      <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-white via-white/0 to-white/0" />
+      <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-white" />
     )
   }
   {
@@ -58,7 +58,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
       </time>
     )
   }
-  <div class="@md/bloglist:col-span-3 relative">
+  <div class="@md/bloglist:col-span-3 h-full relative">
     <a href={`/blog/${post.slug}`} class="block group/bloglink blog-link">
       {
         !post.data.heroImage && (
@@ -74,7 +74,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
       }
       <div
         class={clsx(
-          'relative',
+          'blog-content-preview relative transition-all',
           post.data.heroImage &&
             (isFeatured ? 'drop-shadow-sm' : 'backdrop-blur-sm')
         )}
@@ -95,7 +95,9 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
           <TitleElement
             class={clsx(
               'font-semibold tracking-tight text-zinc-800',
-              isFeatured ? 'text-3xl' : 'text-base'
+              isFeatured
+                ? 'text-3xl px-3 border-l-2 border-transparent'
+                : 'text-base'
             )}
           >
             {post.data.title}
@@ -106,7 +108,9 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
             <p
               class={clsx(
                 'text-zinc-600 mt-2',
-                isFeatured ? 'text-lg' : 'text-sm'
+                isFeatured
+                  ? 'text-lg px-3 border-l-2 border-transparent'
+                  : 'text-sm'
               )}
             >
               {post.data.description}
@@ -117,7 +121,12 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
     </a>
     {
       post.data.topics && post.data.topics.length > 0 && (
-        <ul class="relative mt-2 flex items-center gap-2 text-xs">
+        <ul
+          class={clsx(
+            'relative mt-2 flex items-center flex-wrap gap-2 text-xs',
+            isFeatured && 'px-3'
+          )}
+        >
           {post.data.topics.map((topic) => (
             <li>
               <a
@@ -161,7 +170,6 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
   }
 
   .blog-hero-image-wrapper {
-    /* transform-origin: left bottom; */
     animation: zoom 5000ms linear alternate infinite;
     animation-play-state: paused;
   }
@@ -174,5 +182,13 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
   .blog-article:hover .blog-hero-image-container,
   .blog-article:focus-within .blog-hero-image-container {
     display: block;
+  }
+
+  .blog-article:has(.blog-link:hover) .blog-hero-image-container {
+    opacity: 0.4;
+  }
+
+  .blog-article:has(.blog-link:hover) .blog-content-preview {
+    @apply backdrop-blur;
   }
 </style>
