@@ -24,12 +24,7 @@ const shortenUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
     <PageLayout noHeader>
       <div class="flex justify-between items-center mb-3 print:hidden">
         <span class="text-2xl text-zinc-500">CV</span>
-        <Button
-          data-button="print"
-          className="min-w-[10rem]"
-          href={`/${fileName}`}
-          download
-        >
+        <Button className="min-w-[10rem]" href={`/${fileName}`} download>
           Download <CloudArrowDownIcon className="h-4 w-4 text-zinc-200" />
         </Button>
       </div>
@@ -168,11 +163,5 @@ const shortenUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
         </section>
       </div>
     </PageLayout>
-    <script>
-      const printBtn = document.querySelector('[data-button="print"]');
-      if (printBtn) {
-        printBtn.addEventListener('click', () => window.print());
-      }
-    </script>
   </body>
 </html>

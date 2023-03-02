@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { clsx } from 'clsx';
+import * as React from 'react';
 
-export const HomeIconLink = () => (
+export const HomeIconLink = (props: { iconClass?: string }) => (
   <a
     href="/"
     className="inline-flex flex-row-reverse items-center gap-3 px-3 rounded group/link"
@@ -15,7 +15,7 @@ export const HomeIconLink = () => (
       Malcolm Kee
     </span>
     <IconContainer className="group-focus-visible/link:bg-transparent group-focus-visible/link:ring-0 group-hover/link:bg-transparent group-hover/link:ring-0">
-      <Icon />
+      <Icon className={props.iconClass} />
     </IconContainer>
   </a>
 );
@@ -28,9 +28,8 @@ export const IconContainer = ({
     {...props}
     className={clsx(
       'w-10 h-10 rounded-full p-0.5 backdrop-blur flex-shrink-0',
-      isHomePage
-        ? 'bg-white/90 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5'
-        : 'xl:bg-teal-700/90 xl:shadow-lg xl:ring-1',
+      isHomePage &&
+        'bg-white/90 shadow-lg ring-1 shadow-zinc-800/5 ring-zinc-900/5',
       props.className
     )}
   />

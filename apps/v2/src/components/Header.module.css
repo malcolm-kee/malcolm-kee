@@ -1,0 +1,11 @@
+.avatar {
+  view-transition-name: header-avatar;
+}
+
+.desktopNav {
+  view-transition-name: header-desktop-nav;
+}
+
+.mobileNav {
+  view-transition-name: header-mobile-nav;
+}

@@ -33,6 +33,14 @@ const imageInfo =
     margin-top: calc(0px - var(--header-height, 72px));
   }
 
+  .heroImg {
+    view-transition-name: hero-image;
+  }
+
+  .content-title {
+    view-transition-name: content-title;
+  }
+
   .heroImg,
   .heroImgPlaceholder {
     max-height: 45vh;
@@ -90,7 +98,9 @@ const imageInfo =
             </p>
           )
         }
-        <h1 class="text-3xl sm:text-4xl font-bold w-full">{title}</h1>
+        <h1 class="content-title text-3xl sm:text-4xl font-bold w-full">
+          {title}
+        </h1>
       </div>
     </header>
     <main class="max-w-3xl mx-auto prose" data-md-content>

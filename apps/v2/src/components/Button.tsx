@@ -26,7 +26,12 @@ export function Button({
 
   if (href) {
     return (
-      <a href={href} className={className} download={download}>
+      <a
+        href={href}
+        className={className}
+        download={download}
+        aria-label={props['aria-label']}
+      >
         {props.children}
       </a>
     );

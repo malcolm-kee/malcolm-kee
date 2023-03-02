@@ -6,6 +6,7 @@ import { navItems } from '../data/nav';
 import { Container } from './Container';
 import { HomeIconLink, Icon, IconContainer } from './HomeIconLink';
 import { CloseIcon, TinyChevronDownIcon } from './icons';
+import styles from './Header.module.css';
 
 export default function Header({
   isHomePage,
@@ -159,7 +160,7 @@ export default function Header({
                     className="block h-16 w-16 origin-left"
                     style={{ transform: 'var(--avatar-image-transform)' }}
                   >
-                    <Icon large />
+                    <Icon large className={styles.avatar} />
                   </div>
                 </div>
               </div>
@@ -178,13 +179,21 @@ export default function Header({
           <Container>
             <div className="relative flex gap-4">
               <div className="flex flex-1 pointer-events-auto">
-                {!isHomePage && <HomeIconLink />}
+                {!isHomePage && <HomeIconLink iconClass={styles.avatar} />}
               </div>
               <div className="flex flex-1 justify-end md:justify-center">
-                <MobileNavigation className="pointer-events-auto md:hidden" />
+                <MobileNavigation
+                  className={clsx(
+                    'pointer-events-auto md:hidden',
+                    styles.mobileNav
+                  )}
+                />
                 <DesktopNavigation
                   currentPath={currentPath}
-                  className="pointer-events-auto hidden md:block"
+                  className={clsx(
+                    'pointer-events-auto hidden md:block',
+                    styles.desktopNav
+                  )}
                 />
               </div>
               <div className="flex justify-end md:flex-1"></div>

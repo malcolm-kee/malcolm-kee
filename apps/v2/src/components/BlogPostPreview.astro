@@ -35,7 +35,10 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
         <div class="blog-hero-image-wrapper h-full">
           <img
             class={clsx(
-              'blog-hero-image w-full min-h-full object-cover @md/bloglist:-translate-y-1/3',
+              'blog-hero-image w-full min-h-full object-cover',
+              isFeatured
+                ? 'lg:-translate-y-1/3'
+                : '@md/bloglist:-translate-y-1/3',
               !isFeatured && 'delayed-appear'
             )}
             src={post.data.heroImage}
@@ -74,7 +77,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
       }
       <div
         class={clsx(
-          'blog-content-preview relative transition-all',
+          'blog-content-preview relative transition-all pr-2',
           post.data.heroImage &&
             (isFeatured ? 'drop-shadow-sm' : 'backdrop-blur-sm')
         )}
@@ -94,7 +97,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
         <header>
           <TitleElement
             class={clsx(
-              'font-semibold tracking-tight text-zinc-800',
+              'blog-title font-semibold tracking-tight text-zinc-800',
               isFeatured
                 ? 'text-3xl px-3 border-l-2 border-transparent'
                 : 'text-base'
@@ -131,7 +134,7 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
             <li>
               <a
                 href={`/topic/${topic}`}
-                class="block px-3 py-1.5 font-medium text-zinc-600 rounded-full bg-zinc-100 hover:bg-zinc-200"
+                class="topic-link block px-3 py-1.5 font-medium text-zinc-600 rounded-full bg-zinc-100 hover:bg-zinc-200"
               >
                 {topic}
               </a>
@@ -143,14 +146,48 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
   </div>
 </article>
 
+<script>
+  document.querySelectorAll('.blog-link').forEach((blogLink) => {
+    if (blogLink instanceof HTMLElement) {
+      blogLink.addEventListener(
+        'click',
+        () => {
+          try {
+            (blogLink.style as any).viewTransitionName = 'hero-image';
+          } catch (err) {
+            console.error(err);
+          }
+        },
+        { capture: true }
+      );
+    }
+  });
+
+  document.querySelectorAll('.topic-link').forEach((topicLink) => {
+    if (topicLink instanceof HTMLElement) {
+      topicLink.addEventListener(
+        'click',
+        () => {
+          try {
+            (topicLink.style as any).viewTransitionName = 'topic-title';
+          } catch (err) {
+            console.error(err);
+          }
+        },
+        { capture: true }
+      );
+    }
+  });
+</script>
+
 <style>
   @keyframes zoom {
     from {
-      transform: scale(1);
+      transform: scale(1.2);
     }
 
     to {
-      transform: scale(1.3);
+      transform: scale(1.8);
     }
   }
 
@@ -184,11 +221,12 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
     display: block;
   }
 
-  .blog-article:has(.blog-link:hover) .blog-hero-image-container {
+  .blog-article:has(.blog-link:hover, .blog-link:focus)
+    .blog-hero-image-container {
     opacity: 0.4;
   }
 
-  .blog-article:has(.blog-link:hover) .blog-content-preview {
+  .blog-article:has(.blog-link:hover, .blog-link:focus) .blog-content-preview {
     @apply backdrop-blur;
   }
 </style>
