@@ -1,47 +1,149 @@
 ---
 title: Automating Refactoring with Codemod
-pubDate: 27 Feb 2023
+pubDate: 2 Mar 2023
 description: Simple refactoring, when applied to large-scale codebase requires huge amount of manual work. Fortunately, you can make them manageable by using codemod - code transformations that runs on the codebase.
 topics: ['frontend-tooling']
 heroImage: https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,q_58,w_1200/v1677473747/malcolm-kee/codemod_gfhj1y.jpg
-preview: true
 ---
 
-As more features are added into a product, the amount of code grows exponentially. By itself, this is not a problem when code are treated as a static artifacts that created once and run indefinitely. However, if we accept software entropy is inevitable and software rots without ongoing maintenance, then the huge amount of code will becomes a bottleneck of maintenance effort, just by the sheer amount of code you need to change when introducing a change of pattern.
+Software development is an ever-evolving process, and as more features are added to a product, the codebase can quickly become overwhelming. As code accumulates, so does the effort required to maintain it, making even simple refactoring tasks a daunting challenge. Fortunately, there is a solution: codemod.
 
-Codemod is a solution created to solve this problem. Its working principle is fairly simple, write code that scan the codebase for coding patterns that you want to change and transform them. Although codemod is a common practice in large tech company, it is an underutilized tool in general, either due to lack of awareness, or the need of operate on Abstract Syntax Tree (AST) intimidates many developers.
-
-In this article, I would like to discuss how to use codemod and its implication on its benefits and limitations, and how to create one yourself.
+Codemod is a tool that scans a codebase for coding patterns that you want to change and automates the process of transforming them. Although it is a common practice in large tech companies, it is still an underutilized tool in general, either due to lack of awareness or because the need to operate on an Abstract Syntax Tree (AST) can be intimidating for many developers. In this article, we'll explore how to use codemod, its benefits, and limitations, so you can start using it to automate refactoring and make your codebase more manageable.
 
 ## How Codemod is Used
 
-Assuming a codemod has been created, using it is usually pretty straightforward:
+Using codemod is a fairly straightforward process, assuming a codemod has already been created:
 
-1. Referring to the instructions from the creator, you run a command in your project directory. As an example, instruction to run codemod to migrate React Query to v4 is documented [here](https://tanstack.com/query/v4/docs/react/guides/migrating-to-react-query-4). The command (which usually use `npx` as runner) will download or execute the codemod code on your codebase and perform the required transformation.
-1. Once the codemod complete running, you verify them by manually inspecting few examples, running your static-analysis tools like TypeScript or ESLint, or perform code formatting using prettier. This part is no different from typical workflow when you make code changes.
-1. If you found unexpected result, e.g. certain coding pattern is not transformed, or transformation cause bug, discuss with the codemod creator if they are expected or if they are bugs. Meanwhile, you can revert all the changes of the codemod, since no changes have been committed/merged!
-1. If everything looks alright and pass all the CI checks, proceed to merge the code follow your typical workflow.
+1. First, refer to the instructions provided by the creator and run a command in your project directory. For example, instruction to run codemod to migrate React Query to v4 can be found [here](https://tanstack.com/query/v4/docs/react/guides/migrating-to-react-query-4). The command, usually executed using `npx`, downloads or executes the codemod code on your codebase and perform the necessary transformation.
+1. Once the codemod has completed running, verify the results by manually inspecting a few examples, running static-analysis tools like TypeScript or ESLint, or perform code formatting using tools like prettier. This part of the process is no different from typical workflow when making code changes.
+1. If unexpected results are found, such as certain coding patterns not being transformed or transformation causing bugs, discuss the issue with the codemod creator to determine if they are expected or if they are bugs. In the meantime, all changes made by the codemod can be reverted, as no changes have been committed/merged!
+1. If everything looks good and passes all CI checks, proceed to merge the code follow your typical workflow.
 
-We can compare codemod with another JavaScript tool, transpilation (usually using Babel):
+To better understand codemod, it's helpful to compare it with another JavaScript tool, transpilation (usually using Babel):
 
-1. Transpilation is run every time your code is built. Your source code remains the same but the runtime code that ships to user becomes different. In contrast, with codemod the source code is updated once. The result of codemod can be easily verified by any developers that can read the code, while the output of transpilation is usually minified and usually only verified by whoever that maintains the build tool and configuration.
-1. Transpilation should be exhaustive to handle the current and future use cases, as it remains as part of build pipeline until it is removed. Meanwhile, codemod needs to be only covering the current coding patterns, as it only change the code once when it is run.
+1. Transpilation is run every time your code is built, with the source code remains the same but the runtime code that ships to user being different. In contrast, with codemod, the source code is updated once. The result of codemod can be easily verified by any developer who can read the code, while the output of transpilation is usually minified and typically only verified by those who maintain the build tool and configuration.
+1. Transpilation must be exhaustive to handle the current and future use cases, as it remains as a part of build pipeline until it is removed. Meanwhile, codemod only needs to cover the current coding patterns, as it only changes the code once when it is run.
 
 ## The Benefits and Limitations of Codemod
 
-The benefits of codemod:
+Codemod offers few benefits, including:
 
-- It saves efforts for refactoring of huge codebase, as time to manually refactor code, which is huge for large codebase is replaced with time to create the codemod, which is constant regardless of the size of codebase. This also means that codemod should only be used for coding patterns that are prevalent in the codebase instead of one-off usages.
-- It makes refactoring reproducible. Codemod enforces the refactoring are being done in the consistent way, avoiding human error.
-- It shifts the burden of introducing breaking change from consumer to creator. In companies where tools are created and used by different team, having codemod as part of toolkit forces tool creators to own the burden when introduces breaking change instead of requires all tool users to absorb the impact of the change. This is also principally similar to [Google's practice that team removing the old system are responsible for deprecating usage of the obsolete system](https://abseil.io/resources/swe-book/html/ch15.html#compulsory_deprecation).
+- It saves efforts in refactoring large codebase, as it replaces the time required for manual refactoring with the time required to create the codemod, which is constant regardless of the size of codebase.
+- It makes refactoring reproducible. Codemod enforces consistency in refactoring, avoiding human error.
+- It shifts the burden of introducing breaking changes from the consumer to the creator. In companies where different teams create and use tools, codemod as part of toolkit forces tool creators to take responsibility for introducing breaking changes rather than requiring all tool users to absorb the impact of the change. This is similar to [Google's practice of having the team removing an old system responsible for deprecating its usages across other systems](https://abseil.io/resources/swe-book/html/ch15.html#compulsory_deprecation).
 
-The limitations of codemod:
+However, codemod also has some limitations:
 
-- It takes time to create, especially when you're doing it for the first time because there are new concepts that you need to learn in the process.
-- It could not handle complex refactoring. Most codemod works by scanning the code pattern on per-file basis and perform transformation on that. Cross-file refactoring is usually not supported, and complicated migration like [migrating Angular to React](/blog/migrating-large-angular-apps-to-react) is impossible.
+- It takes time to create, especially when doing it for the first time because new concepts, such as Abstract Syntax Tree (AST) must be learned in the process.
+- It cannot handle complex refactoring. Most codemods scan the code patterns on a per-file basis and perform transformation accordingly. Cross-file refactoring is usually not supported, and complicated migration such as [migrating Angular to React](/blog/migrating-large-angular-apps-to-react) are impossible with codemod alone.
 
-## How to Create a Codemod
+## See It in Action
 
-Let's look at the actual steps to create a codemod for JavaScript.
+To see a codemod in action, let's use [the previous article on TailwindCSS in Module Federation](/blog/using-tailwindcss-with-module-federation) as an example, where we will transform the usage of `twin.macro` to a new `tw` utility function call.
 
-Using [the previous article on TailwindCSS in Module Federation](/blog/using-tailwindcss-with-module-federation) as example, we want to transform usage of `twin.macro` to the new `tw` function call.
+1. open this [Stackblitz link](https://stackblitz.com/fork/github/malcolm-kee/codemod-example-twin-macro?title=Codemod%20example&file=src/components/Button.tsx), which will open a new window. You should see a Button component by default, which is similar to the snippet below. The parts that we are interested in and would like to transform are highlighted.
+
+   ```tsx {1, 16-34}
+   import * as React from 'react';
+   import tw from 'twin.macro';
+
+   interface ButtonProps {
+     variant?: 'primary' | 'secondary';
+     isSmall?: boolean;
+   }
+
+   const Button = React.forwardRef<
+     HTMLButtonElement,
+     ButtonProps & React.ComponentPropsWithoutRef<'button'>
+   >(function Button({ variant, isSmall, className, ...props }, forwardedRef) {
+     return (
+       <button
+         type="button"
+         {...props}
+         css={[
+           // The common button styles
+           tw`px-8 py-2 rounded transform duration-75`,
+
+           // Use the variant grouping feature to add variants to multiple classes
+           tw`hocus:(scale-105 text-yellow-400)`,
+
+           // Use props to conditionally style your components
+           variant === 'primary' && tw`bg-black text-white border-black`,
+
+           // Combine regular css with tailwind classes within backticks
+           variant === 'secondary' && tw`border-2 border-yellow-600`,
+
+           // Conditional props can be added
+           isSmall ? tw`text-sm` : tw`text-lg`,
+
+           tw`text-white`,
+           className,
+         ]}
+         ref={forwardedRef}
+       />
+     );
+   });
+
+   export default Button;
+   ```
+
+1. Open a new terminal tab by clicking the "+" button
+
+   ![The + button is near the bottom of the editor](https://res.cloudinary.com/djzsjzasg/image/upload/v1677724591/malcolm-kee/run_codemod_dyguuu.png)
+
+   In there, run the command
+
+   ```bash
+   npm run codemod
+   ```
+
+The button component will be transformed to:
+
+```tsx {1,16-27}
+import * as React from 'react';
+import { tw } from '~/lib/tw';
+
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  isSmall?: boolean;
+}
+
+const Button = React.forwardRef<
+  HTMLButtonElement,
+  ButtonProps & React.ComponentPropsWithoutRef<'button'>
+>(function Button({ variant, isSmall, className, ...props }, forwardedRef) {
+  return (
+    <button
+      type="button"
+      {...props}
+      className={tw(
+        `px-8 py-2 rounded transform duration-75`,
+        `hocus:(scale-105 text-yellow-400)`,
+        // Use props to conditionally style your components
+        variant === 'primary' && `bg-black text-white border-black`,
+        // Combine regular css with tailwind classes within backticks
+        variant === 'secondary' && `border-2 border-yellow-600`,
+        // Conditional props can be added
+        isSmall ? `text-sm` : `text-lg`,
+        `text-white`,
+        className
+      )}
+      ref={forwardedRef}
+    />
+  );
+});
+
+export default Button;
+```
+
+## How to Create a Codemod Yourself
+
+If you would like to create a codemod yourself to automate refactoring, following are some resources that can help you get started:
+
+- [`jscodeshift`](https://github.com/facebook/jscodeshift) is a popular library created by Facebook for creating codemod for JavaScript and TypeScript. The example shown above uses it.
+- The [official `jscodeshift` documentation](https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation) can be a bit dense and missing a lot details, but it is maintained by the library maintainer, so you should take a look as well.
+- [My own notes on `jscodeshift`](/note/jscodeshift) are a personal reference I created while learning to use the library. I found that the official documentation assumed a lot of knowledge and didn't always provide clear examples, so I created my own guide to fill in some of the gaps.
+- The [AST Explorer](https://astexplorer.net/) is a powerful tool for exploring the abstract syntax tree (AST) of your code and understanding how to navigate and manipulate it. This can be helpful when you're trying to figure out how to write code that scans or transforms specific parts of your codebase.
+- If you're looking for inspiration or examples of how to create codemods, there are many open-source codemods available on GitHub. Search for "codemod" and the programming language you're interested in (e.g. "codemod javascript") to find examples that might be helpful.
+
+With these resources and some persistence, you can learn to create your own codemods and start automating repetitive coding tasks in your own projects.
