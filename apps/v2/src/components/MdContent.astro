@@ -47,19 +47,6 @@ const imageInfo =
 
 <div class={clsx(heroImage ? 'mb-12' : 'my-12')}>
   <article>
-    <div class="xl:relative">
-      {
-        backUrl && (
-          <BackButton
-            href={backUrl}
-            className={clsx(
-              heroImage ? 'absolute z-10 top-6' : 'lg:absolute',
-              'lg:-left-5 lg:mb-0'
-            )}
-          />
-        )
-      }
-    </div>
     <header class="flex flex-col mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
       {
         heroImage && (
@@ -77,6 +64,20 @@ const imageInfo =
               loading="eager"
               src={heroImage}
               alt={alt || ''}
+            />
+          </div>
+        )
+      }
+      {
+        backUrl && (
+          <div class={clsx('hidden sm:block relative lg:-left-5 lg:mb-0')}>
+            <BackButton
+              className={clsx(
+                'left-0 md:-left-12',
+                heroImage ? 'absolute -top-12 lg:top-1' : 'md:absolute -top-4'
+              )}
+              href={backUrl}
+              aria-label="Back to all blogs"
             />
           </div>
         )
