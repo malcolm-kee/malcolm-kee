@@ -47,18 +47,13 @@ const ogImage = getOgImageUrl({
 });
 ---
 
-<!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <link rel="icon" type="image/jpg" href={iconHref} />
-
-<!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
 {description && <meta name="description" content={description} />}
 <link rel="canonical" href={permalink} />
-
-<!-- Open Graph / Facebook -->
 <meta property="og:type" content={contentType} />
 <meta property="og:url" content={permalink} />
 <meta property="og:title" content={title} />
@@ -70,6 +65,11 @@ const ogImage = getOgImageUrl({
       property="article:published_time"
       content={publishedDate.toISOString()}
     />
+  )
+}
+{
+  publishedDate && (
+    <meta property="og:published_date" content={publishedDate.toISOString()} />
   )
 }
 {
