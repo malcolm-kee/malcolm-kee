@@ -6,6 +6,7 @@ import {
   getCloudinaryImageInfo,
 } from '../lib/cloudinary';
 import { formatDate } from '~/lib/date';
+import { clsx } from 'clsx';
 
 export interface Props {
   title: string;
@@ -27,47 +28,73 @@ const imageInfo =
     : undefined;
 ---
 
-<div class="my-12">
+<style>
+  .heroImgContainer {
+    margin-top: calc(0px - var(--header-height, 72px));
+  }
+
+  .heroImg,
+  .heroImgPlaceholder {
+    max-height: 45vh;
+  }
+
+  @media screen(lg) {
+    .heroImg {
+      top: calc(0px - var(--header-height, 72px));
+    }
+  }
+</style>
+
+<div class={clsx(heroImage ? 'mb-12' : 'my-12')}>
   <article>
     <div class="xl:relative">
       {
         backUrl && (
           <BackButton
             href={backUrl}
-            className="lg:absolute lg:-left-5 lg:mb-0 xl:-top-3"
+            className={clsx(
+              heroImage ? 'absolute z-10 top-6' : 'lg:absolute',
+              'lg:-left-5 lg:mb-0'
+            )}
           />
         )
       }
-      <header class="flex flex-col pb-8 mb-8 border-b border-gray-100">
-        {
-          heroImage && (
-            <div class="-mx-4 sm:-mx-8 lg:-mx-12">
-              <img
-                width={imageInfo && imageInfo.output.width}
-                height={imageInfo && imageInfo.output.height}
-                class="max-w-full max-h-96 object-cover"
-                loading="lazy"
-                src={heroImage}
-                alt={alt}
+    </div>
+    <header class="flex flex-col mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
+      {
+        heroImage && (
+          <div class="heroImgContainer -mx-4 sm:-mx-8 lg:-mx-12">
+            {imageInfo && (
+              <div
+                style={`aspect-ratio: ${imageInfo.output.width} / ${imageInfo.output.height};`}
+                class="heroImgPlaceholder hidden lg:block"
               />
-            </div>
+            )}
+            <img
+              width={imageInfo && imageInfo.output.width}
+              height={imageInfo && imageInfo.output.height}
+              class="heroImg max-w-full object-cover lg:absolute lg:left-1/2 lg:-translate-x-1/2"
+              loading="lazy"
+              src={heroImage}
+              alt={alt}
+            />
+          </div>
+        )
+      }
+      <div class="max-w-3xl mx-auto w-full">
+        {
+          publishDate && (
+            <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
+              {formatDate(publishDate)}
+            </p>
           )
         }
-        <div class="max-w-3xl mx-auto w-full">
-          {
-            publishDate && (
-              <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
-                {formatDate(publishDate)}
-              </p>
-            )
-          }
-          <h1 class="text-4xl font-bold w-full">{title}</h1>
-        </div>
-      </header>
-      <main class="max-w-3xl mx-auto prose" data-md-content>
-        <slot />
-      </main>
-    </div>
+        <h1 class="text-3xl sm:text-4xl font-bold w-full">{title}</h1>
+      </div>
+    </header>
+    <main class="max-w-3xl mx-auto prose" data-md-content>
+      <slot />
+    </main>
   </article>
 </div>
 

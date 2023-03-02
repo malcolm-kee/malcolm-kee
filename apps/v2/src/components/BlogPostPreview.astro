@@ -32,10 +32,10 @@ const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
         )}
         aria-hidden
       >
-        <div class="blog-hero-image-wrapper">
+        <div class="blog-hero-image-wrapper h-full">
           <img
             class={clsx(
-              'blog-hero-image w-full object-cover -translate-y-1/3',
+              'blog-hero-image w-full min-h-full object-cover @md/bloglist:-translate-y-1/3',
               !isFeatured && 'delayed-appear'
             )}
             src={post.data.heroImage}

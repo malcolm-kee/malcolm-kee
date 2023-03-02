@@ -25,5 +25,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": ["jscodeshift"]
+  "cSpell.words": ["clsx", "jscodeshift"]
 }
