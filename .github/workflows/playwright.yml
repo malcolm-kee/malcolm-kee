@@ -1,0 +1,41 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Use Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          CI: true
+
+      - name: Install Playwright Browsers
+        run: pnpm --filter=e2e exec playwright install --with-deps
+      - name: Run Playwright tests
+        run: pnpm run e2e
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: e2e/playwright-report/
+          retention-days: 30

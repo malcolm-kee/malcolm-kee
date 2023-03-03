@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "scripts": {
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "test": "playwright test",
+    "test-report": "playwright show-report"
   },
   "dependencies": {
     "@testing-library/cypress": "^9.0.0",
@@ -13,6 +15,8 @@
     "cypress-axe": "^1.4.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.6.0",
+    "@playwright/test": "^1.31.2",
     "typescript": "^4.9.5"
   }
 }

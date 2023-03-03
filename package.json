@@ -7,9 +7,13 @@
   "scripts": {
     "dev": "pnpm --filter v2 run dev",
     "build": "pnpm -r run build",
-    "v2": "pnpm --filter v2"
+    "v2": "pnpm --filter v2",
+    "preview": "pnpm  --no-bail --filter=v2 run preview",
+    "test": "pnpm --filter=e2e run test",
+    "e2e": "start-server-and-test preview http://localhost:8989 test"
   },
   "devDependencies": {
-    "@types/node": "^16"
+    "@types/node": "^16",
+    "start-server-and-test": "^2.0.0"
   }
 }
