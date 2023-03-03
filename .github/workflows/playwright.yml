@@ -22,8 +22,13 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
       - name: Build
         run: pnpm run build
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          CI: true
+
       - name: Install Playwright Browsers
         run: pnpm --filter=e2e exec playwright install --with-deps
       - name: Run Playwright tests
