@@ -1,6 +1,8 @@
 ---
+import { clsx } from 'clsx';
 import BaseHead from '~/components/BaseHead.astro';
 import { Button } from '~/components/Button';
+import headerStyles from '~/components/Header.module.css';
 import { CloudArrowDownIcon, GlobeIcon, MailIcon } from '~/components/icons';
 import PageLayout from '~/components/PageLayout.astro';
 import { GitHubIcon, LinkedInIcon } from '~/components/SocialIcons';
@@ -21,7 +23,7 @@ const shortenUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
     />
   </head>
   <body>
-    <PageLayout noHeader>
+    <PageLayout noHeader hideAvatar>
       <div class="flex justify-between items-center mb-3 print:hidden">
         <span class="text-2xl text-zinc-500">CV</span>
         <Button className="min-w-[10rem]" href={`/${fileName}`} download>
@@ -51,7 +53,10 @@ const shortenUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
               <img
                 src="/assets/portrait.jpg"
                 alt=""
-                class="block w-full sm:w-40 lg:w-48 rounded-full bg-zinc-100 object-cover print:w-full"
+                class={clsx(
+                  'block w-full sm:w-40 lg:w-48 rounded-full bg-zinc-100 object-cover print:w-full',
+                  headerStyles.avatar
+                )}
                 width={433}
                 height={433}
               />

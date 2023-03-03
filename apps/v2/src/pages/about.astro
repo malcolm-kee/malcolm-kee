@@ -1,9 +1,10 @@
 ---
-// Component Imports
+import { clsx } from 'clsx';
 import BaseHead from '../components/BaseHead.astro';
 import Layout from '../components/Layout.astro';
 import Container from '../components/Container';
 import SocialIcons from '../components/SocialIcons';
+import headerStyles from '../components/Header.module.css';
 
 const title = 'Malcolm Kee - Web developer, front end engineer';
 const description = `Building Functional and Accessible Web Apps: Get to Know Malcolm Kee`;
@@ -19,7 +20,7 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
   </head>
 
   <body>
-    <Layout>
+    <Layout hideAvatar>
       <Container className="mt-16 sm:mt-32">
         <div
           class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12"
@@ -30,7 +31,10 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
                 src="/assets/portrait.jpg"
                 alt=""
                 sizes="(min-width: 1024px) 32rem, 20rem"
-                class="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover"
+                class={clsx(
+                  'aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover',
+                  headerStyles.avatar
+                )}
                 width={433}
                 height={433}
               />

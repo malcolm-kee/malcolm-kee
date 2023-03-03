@@ -31,14 +31,20 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
         {
           workshops.map(({ entryUrl, workshop }) => (
             <li>
-              <a href={entryUrl} class="block">
+              <a href={entryUrl} class="workshop-link block">
                 <div class="flex items-center justify-center rounded-full shadow-md ring-1 ring-zinc-900/5 h-12 w-12">
-                  <img src={workshop.iconUrl} alt="" class="h-8 w-8" />
+                  <img
+                    src={workshop.iconUrl}
+                    alt=""
+                    class="workshop-icon h-8 w-8"
+                  />
                 </div>
-                <h2 class="mt-6">{workshop.name}</h2>
-                <p class="mt-2 text-sm text-zinc-600">{workshop.description}</p>
+                <h2 class="workshop-text mt-6">{workshop.name}</h2>
+                <p class="workshop-text mt-2 text-sm text-zinc-600">
+                  {workshop.description}
+                </p>
                 {workshop.underConstruction && (
-                  <p class="mt-2">
+                  <p class="workshop-text mt-2">
                     <span class="inline-block text-xs leading-5 px-2 bg-rose-800 text-white rounded shadow">
                       In Progress
                     </span>
@@ -50,5 +56,39 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
         }
       </ul>
     </PageLayout>
+
+    <script>
+      const allWorkshopLinks = document.querySelectorAll('.workshop-link');
+
+      allWorkshopLinks.forEach((workshopLink) => {
+        if (workshopLink instanceof HTMLElement) {
+          workshopLink.addEventListener(
+            'click',
+            () => {
+              const workshopIcon = workshopLink.querySelector('.workshop-icon');
+              if (workshopIcon && workshopIcon instanceof HTMLElement) {
+                (workshopIcon.style as any).viewTransitionName =
+                  'workshop-icon';
+              }
+
+              workshopLink
+                .querySelectorAll('.workshop-text')
+                .forEach((text) => {
+                  if (text instanceof HTMLElement) {
+                    text.classList.add('invisible');
+                  }
+                });
+
+              allWorkshopLinks.forEach((link) => {
+                if (link !== workshopLink && link instanceof HTMLElement) {
+                  link.classList.add('invisible');
+                }
+              });
+            },
+            { capture: true }
+          );
+        }
+      });
+    </script>
   </body>
 </html>

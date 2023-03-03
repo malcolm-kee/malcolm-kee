@@ -72,6 +72,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
                 <a
                   href={`/${prev.slug}`}
                   class="text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                  data-prev-link
                 >
                   <span aria-hidden="true">&larr;</span> {prev.data.data.title}
                 </a>
@@ -89,6 +90,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
                 <a
                   href={`/${next.slug}`}
                   class="text-base font-semibold text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
+                  data-next-link
                 >
                   {next.data.data.title} <span aria-hidden="true">&rarr;</span>
                 </a>

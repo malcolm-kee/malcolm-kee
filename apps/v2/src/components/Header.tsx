@@ -11,9 +11,11 @@ import styles from './Header.module.css';
 export default function Header({
   isHomePage,
   currentPath,
+  hideAvatar,
 }: {
-  isHomePage?: boolean;
   currentPath: string;
+  isHomePage?: boolean;
+  hideAvatar?: boolean;
 }): React.ReactElement {
   const headerRef = React.useRef<HTMLDivElement>(null);
   const avatarRef = React.useRef<HTMLDivElement>(null);
@@ -179,7 +181,12 @@ export default function Header({
           <Container>
             <div className="relative flex gap-4">
               <div className="flex flex-1 pointer-events-auto">
-                {!isHomePage && <HomeIconLink iconClass={styles.avatar} />}
+                {!isHomePage && (
+                  <HomeIconLink
+                    iconClass={styles.avatar}
+                    hideAvatar={hideAvatar}
+                  />
+                )}
               </div>
               <div className="flex flex-1 justify-end md:justify-center">
                 <MobileNavigation
@@ -234,7 +241,12 @@ function NavItem({
       >
         {children}
         {isActive && (
-          <span className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0" />
+          <span
+            className={clsx(
+              'absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0',
+              styles.desktopNavActiveIndicator
+            )}
+          />
         )}
       </a>
     </li>

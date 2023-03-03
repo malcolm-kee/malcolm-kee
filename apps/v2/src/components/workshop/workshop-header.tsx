@@ -5,6 +5,7 @@ import type { WorkshopTocItem } from '~/data/workshop-helpers';
 import { HomeIcon, ChevronLeftIcon } from '../icons';
 import { ThemeSelector } from '../theme-selector';
 import { WorkshopMobileNavigation } from './workshop-mobile-navigation';
+import styles from './workshop-styles.module.css';
 
 export const WorkshopHeader = ({
   workshop,
@@ -52,7 +53,10 @@ export const WorkshopHeader = ({
         />
       </div>
       <div className="flex shrink-0 flex-grow sm:basis-0 items-center">
-        <img src={workshop.iconUrl} className="h-9 w-auto" />
+        <img
+          src={workshop.iconUrl}
+          className={clsx('h-9 w-auto', styles.icon)}
+        />
       </div>
       <div className="hidden sm:block relative px-3 overflow-hidden">
         <span className="block w-full text-slate-700 dark:text-sky-100 truncate sm:text-center">

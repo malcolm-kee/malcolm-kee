@@ -4,9 +4,10 @@ import Footer from './Footer';
 
 export interface Props {
   isHomePage?: boolean;
+  hideAvatar?: boolean;
 }
 
-const { isHomePage } = Astro.props;
+const { isHomePage, hideAvatar } = Astro.props;
 const currentPath = new URL(Astro.request.url).pathname;
 ---
 
@@ -19,6 +20,7 @@ const currentPath = new URL(Astro.request.url).pathname;
   <Header
     isHomePage={isHomePage || false}
     currentPath={currentPath}
+    hideAvatar={hideAvatar}
     client:load
   />
   <main><slot /></main>

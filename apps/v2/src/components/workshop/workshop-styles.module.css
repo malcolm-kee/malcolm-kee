@@ -1,0 +1,7 @@
+.icon {
+  view-transition-name: workshop-icon;
+}
+
+.sidebarHighlighted::before {
+  view-transition-name: workshop-sidebar-highlighted;
+}

@@ -6,6 +6,10 @@
   view-transition-name: header-desktop-nav;
 }
 
+.desktopNavActiveIndicator {
+  view-transition-name: header-desktop-nav-active-indicator;
+}
+
 .mobileNav {
   view-transition-name: header-mobile-nav;
 }

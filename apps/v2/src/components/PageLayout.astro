@@ -4,12 +4,13 @@ import Container from './Container';
 
 export interface Props {
   noHeader?: boolean;
+  hideAvatar?: boolean;
 }
 
-const { noHeader } = Astro.props;
+const { noHeader, hideAvatar } = Astro.props;
 ---
 
-<Layout>
+<Layout hideAvatar={hideAvatar}>
   <Container className="mt-16 sm:mt-32 print:m-0">
     {
       noHeader ? (

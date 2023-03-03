@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import * as React from 'react';
 import type { WorkshopTocItem } from '~/data/workshop-helpers';
+import styles from './workshop-styles.module.css';
 
 export interface WorkshopNavigationProps {
   items: Array<WorkshopTocItem>;
@@ -61,7 +62,10 @@ export const WorkshopNavigation = React.forwardRef<
                         className={clsx(
                           'block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full',
                           isActive
-                            ? 'font-semibold text-sky-500 before:bg-sky-500'
+                            ? [
+                                'font-semibold text-sky-500 before:bg-sky-500',
+                                styles.sidebarHighlighted,
+                              ]
                             : 'text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300'
                         )}
                         aria-current={isActive ? 'page' : undefined}
