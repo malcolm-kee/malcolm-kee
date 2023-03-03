@@ -19,9 +19,9 @@ importers:
       '@astrojs/rss': ^2.1.1
       '@astrojs/sitemap': ^1.1.0
       '@astrojs/tailwind': ^3.0.1
-      '@codesandbox/sandpack-react': ^2.0.22
+      '@codesandbox/sandpack-react': ^2.0.27
       '@codesandbox/sandpack-themes': ^2.0.21
-      '@floating-ui/dom': ^1.2.1
+      '@floating-ui/dom': ^1.2.3
       '@formkit/auto-animate': 1.0.0-beta.6
       '@headlessui/react': ^1.7.12
       '@monaco-editor/react': ^4.4.6
@@ -30,7 +30,7 @@ importers:
       '@types/hast': ^2.3.4
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
-      astro: 2.0.16
+      astro: 2.0.17
       canvas-sketch-util: ^1.10.0
       clsx: ^1.2.1
       dotenv: ^16.0.3
@@ -55,14 +55,15 @@ importers:
       scroll-into-view-if-needed: ^3.0.6
       tailwindcss: ^3.2.7
       tsx: ^3.12.3
+      typescript: ^4.9.5
       undici: ^5.20.0
       unified: ^10.1.2
       unist-util-visit: ^4.1.2
     dependencies:
       '@astrojs/rss': 2.1.1
-      '@codesandbox/sandpack-react': 2.0.22_biqbaboplfbrettd7655fr4n2y
+      '@codesandbox/sandpack-react': 2.0.27_biqbaboplfbrettd7655fr4n2y
       '@codesandbox/sandpack-themes': 2.0.21
-      '@floating-ui/dom': 1.2.1
+      '@floating-ui/dom': 1.2.3
       '@formkit/auto-animate': 1.0.0-beta.6
       '@headlessui/react': 1.7.12_biqbaboplfbrettd7655fr4n2y
       '@monaco-editor/react': 4.4.6_biqbaboplfbrettd7655fr4n2y
@@ -74,20 +75,20 @@ importers:
       preact: 10.13.0
       scroll-into-view-if-needed: 3.0.6
     devDependencies:
-      '@astrojs/markdown-remark': 2.0.1_astro@2.0.16
-      '@astrojs/mdx': 0.17.2_astro@2.0.16
-      '@astrojs/netlify': 2.1.3_astro@2.0.16
+      '@astrojs/markdown-remark': 2.0.1_astro@2.0.17
+      '@astrojs/mdx': 0.17.2_astro@2.0.17
+      '@astrojs/netlify': 2.1.3_astro@2.0.17
       '@astrojs/partytown': 1.0.3
       '@astrojs/preact': 2.0.3_preact@10.13.0
       '@astrojs/react': 2.0.2_3xleytyzprlgycb2ded54tx72i
       '@astrojs/sitemap': 1.1.0
-      '@astrojs/tailwind': 3.0.1_dcffs6vszochbmkyu5n7efg4ri
+      '@astrojs/tailwind': 3.0.1_o7rlocdsudmdrstqcqbafrcodq
       '@tailwindcss/container-queries': 0.1.0_tailwindcss@3.2.7
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
       '@types/hast': 2.3.4
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
-      astro: 2.0.16_sass@1.58.3
+      astro: 2.0.17_sass@1.58.3
       dotenv: 16.0.3
       hastscript: 7.2.0
       markdown-it: 13.0.1
@@ -100,11 +101,12 @@ importers:
       redux: 4.2.1
       rehype-autolink-headings: 6.1.1
       rehype-external-links: 2.0.1
-      remark-shiki-twoslash: 3.1.1
+      remark-shiki-twoslash: 3.1.1_typescript@4.9.5
       sanitize-html: 2.10.0
       sass: 1.58.3
       tailwindcss: 3.2.7
       tsx: 3.12.3
+      typescript: 4.9.5
       undici: 5.20.0
       unified: 10.1.2
       unist-util-visit: 4.1.2
@@ -142,8 +144,8 @@ packages:
     resolution: {integrity: sha512-77aacobLKcL98NmhK3OBS5EHIrX9gs1ckB/vGSIdkVZuB7u51V4jh05I6W0tSvG7/86tALv6QtHTRZ8rLhFTbQ==}
     dev: true
 
-  /@astrojs/compiler/1.1.2:
-    resolution: {integrity: sha512-L3/JrdNwBFKcoDeStmRgJWvI2t/5nNJm7HnGjDy4e8BH3qKv8iQYdpvuQjeYRA00k6I1lxZGBm/0wU+Lg7HPiQ==}
+  /@astrojs/compiler/1.2.0:
+    resolution: {integrity: sha512-O8yPCyuq+PU9Fjht2tIW6WzSWiq8qDF1e8uAX2x+SOGFzKqOznp52UlDG2mSf+ekf0Z3R34sb64O7SgX+asTxg==}
     dev: true
 
   /@astrojs/language-server/0.28.3:
@@ -164,13 +166,13 @@ packages:
       vscode-uri: 3.0.7
     dev: true
 
-  /@astrojs/markdown-remark/2.0.1_astro@2.0.16:
+  /@astrojs/markdown-remark/2.0.1_astro@2.0.17:
     resolution: {integrity: sha512-xQF1rXGJN18m+zZucwRRtmNehuhPMMhZhi6HWKrtpEAKnHSPk8lqf1GXgKH7/Sypglu8ivdECZ+EGs6kOYVasQ==}
     peerDependencies:
       astro: ^2.0.2
     dependencies:
       '@astrojs/prism': 2.0.0
-      astro: 2.0.16_sass@1.58.3
+      astro: 2.0.17_sass@1.58.3
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.1
       rehype-raw: 6.1.1
@@ -187,11 +189,11 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/mdx/0.17.2_astro@2.0.16:
+  /@astrojs/mdx/0.17.2_astro@2.0.17:
     resolution: {integrity: sha512-mol57cw1jJMcQgKMRGn7p6cewajq6JTNtqj5aAZgROWam/phVDSOCbXj/WU3O9+3qFnyKtpczoufQKwJTQltAw==}
     engines: {node: '>=16.12.0'}
     dependencies:
-      '@astrojs/markdown-remark': 2.0.1_astro@2.0.16
+      '@astrojs/markdown-remark': 2.0.1_astro@2.0.17
       '@astrojs/prism': 2.0.0
       '@mdx-js/mdx': 2.3.0
       '@mdx-js/rollup': 2.3.0
@@ -214,14 +216,14 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/netlify/2.1.3_astro@2.0.16:
+  /@astrojs/netlify/2.1.3_astro@2.0.17:
     resolution: {integrity: sha512-DILtrApsMayUSO+9HM6lxawiB8zSjpL4QIhuaye81lha41fJUvfyM7gACJgKFplKvhce1cNCCd0g8Emv1BFnNw==}
     peerDependencies:
       astro: ^2.0.15
     dependencies:
       '@astrojs/webapi': 2.0.1
       '@netlify/functions': 1.4.0
-      astro: 2.0.16_sass@1.58.3
+      astro: 2.0.17_sass@1.58.3
       esbuild: 0.15.18
     dev: true
 
@@ -288,14 +290,14 @@ packages:
       zod: 3.20.6
     dev: true
 
-  /@astrojs/tailwind/3.0.1_dcffs6vszochbmkyu5n7efg4ri:
+  /@astrojs/tailwind/3.0.1_o7rlocdsudmdrstqcqbafrcodq:
     resolution: {integrity: sha512-QSYh/xmz454j1yZU9rjw2J24PpH7j3h2ClesqMaAniOtcuL8RfP7KYCnCrk01xvjwqqO+QBpZNDD/SUhHNtFFg==}
     peerDependencies:
       astro: ^2.0.4
       tailwindcss: ^3.0.24
     dependencies:
       '@proload/core': 0.3.3
-      astro: 2.0.16_sass@1.58.3
+      astro: 2.0.17_sass@1.58.3
       autoprefixer: 10.4.13_postcss@8.4.21
       postcss: 8.4.21
       postcss-load-config: 4.0.1_postcss@8.4.21
@@ -803,24 +805,24 @@ packages:
       w3c-keyname: 2.2.6
     dev: false
 
-  /@codesandbox/nodebox/0.1.0:
-    resolution: {integrity: sha512-gcpoFoLY0M34l67rXJCA8ysdRBN9aj++ebXpfLn2KCl7H2XongKkvYi/uQiKGoQ8iH5EhKe8+x40y/NrCS9J9Q==}
+  /@codesandbox/nodebox/0.1.4:
+    resolution: {integrity: sha512-+MR7JibjGjTRDmyQbL8Mliej6wakQP7q99+wGL/nOzd0Q3s+YWGQfv0QpYKbdMClKUTFJGvwzwOeqHVTkpWNCQ==}
     dependencies:
       outvariant: 1.3.0
       strict-event-emitter: 0.4.6
     dev: false
 
-  /@codesandbox/sandpack-client/2.0.21:
-    resolution: {integrity: sha512-jzVzBxNKVf5TLO9BzkNPtfrUtl1QYiE4OIByk+vkcmGuWrpBAnBZIQ71Teh/57ZP3frNYvEuhKtBwMTMxXOMwQ==}
+  /@codesandbox/sandpack-client/2.0.26:
+    resolution: {integrity: sha512-fVVGWfq72tV0Hu5jKo0rUnKP6tPnuDNtPM+HhvOpm12eeXAr7eImecdfSNZbnEcvR6onjXAyszoygI4xjFUJKg==}
     dependencies:
-      '@codesandbox/nodebox': 0.1.0
+      '@codesandbox/nodebox': 0.1.4
       buffer: 6.0.3
       dequal: 2.0.3
       outvariant: 1.3.0
     dev: false
 
-  /@codesandbox/sandpack-react/2.0.22_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-P0MtG9x3PwXEp/jtF04rWibNCia3Rq1CEugDUw3/Q9Od/FtePNAlXmtUO1PghEu4sWXkMPXq3028CC+hwpTOyQ==}
+  /@codesandbox/sandpack-react/2.0.27_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-MpAA1B9eTLcFVivGTYtrojQSDE4gZjUefGoEbynY6q4Bunc8eXsEJJiqW8RVTHoMROGXK1j8kiZ8NZwUml+qfQ==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
@@ -834,7 +836,7 @@ packages:
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
       '@codemirror/view': 6.9.1
-      '@codesandbox/sandpack-client': 2.0.21
+      '@codesandbox/sandpack-client': 2.0.26
       '@lezer/highlight': 1.1.3
       '@react-hook/intersection-observer': 3.1.1_react@18.2.0
       '@stitches/core': 1.2.8
@@ -1344,14 +1346,14 @@ packages:
     dev: true
     optional: true
 
-  /@floating-ui/core/1.2.1:
-    resolution: {integrity: sha512-LSqwPZkK3rYfD7GKoIeExXOyYx6Q1O4iqZWwIehDNuv3Dv425FIAE8PRwtAx1imEolFTHgBEcoFHm9MDnYgPCg==}
+  /@floating-ui/core/1.2.2:
+    resolution: {integrity: sha512-FaO9KVLFnxknZaGWGmNtjD2CVFuc0u4yeGEofoyXO2wgRA7fLtkngT6UB0vtWQWuhH3iMTZZ/Y89CMeyGfn8pA==}
     dev: false
 
-  /@floating-ui/dom/1.2.1:
-    resolution: {integrity: sha512-Rt45SmRiV8eU+xXSB9t0uMYiQ/ZWGE/jumse2o3i5RGlyvcbqOF4q+1qBnzLE2kZ5JGhq0iMkcGXUKbFe7MpTA==}
+  /@floating-ui/dom/1.2.3:
+    resolution: {integrity: sha512-lK9cZUrHSJLMVAdCvDqs6Ug8gr0wmqksYiaoj/bxj2gweRQkSuhg2/V6Jswz2KiQ0RAULbqw1oQDJIMpQ5GfGA==}
     dependencies:
-      '@floating-ui/core': 1.2.1
+      '@floating-ui/core': 1.2.2
     dev: false
 
   /@formkit/auto-animate/1.0.0-beta.6:
@@ -2080,14 +2082,14 @@ packages:
     hasBin: true
     dev: true
 
-  /astro/2.0.16_sass@1.58.3:
-    resolution: {integrity: sha512-noQL+bbBZaCLbh7wmpVON+e4kDxymDsIQkEUzzuMKLQodYynxr/Sp7RBA/JnEqXz4CRyd7IrgeQBN0cKOuBtzQ==}
+  /astro/2.0.17_sass@1.58.3:
+    resolution: {integrity: sha512-K/SAoe4Tfhg4XhOu1mFOp9qiC/m8YuBmL3//WAA+mcPTlg9A21nlXH/jmsfbizQdZn/AyoPrkTWQm1pnU05OsQ==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
-      '@astrojs/compiler': 1.1.2
+      '@astrojs/compiler': 1.2.0
       '@astrojs/language-server': 0.28.3
-      '@astrojs/markdown-remark': 2.0.1_astro@2.0.16
+      '@astrojs/markdown-remark': 2.0.1_astro@2.0.17
       '@astrojs/telemetry': 2.0.1
       '@astrojs/webapi': 2.0.2
       '@babel/core': 7.21.0
@@ -5963,7 +5965,7 @@ packages:
       unified: 10.1.2
     dev: true
 
-  /remark-shiki-twoslash/3.1.1:
+  /remark-shiki-twoslash/3.1.1_typescript@4.9.5:
     resolution: {integrity: sha512-9TKX1mlXT/TGASQVk6+Xt0puKiyWZvYQ5LKcpSAocxhKMbJ19M0a6VCrDYw0IK9w1tiqofDihMXQ6wETnA7awQ==}
     peerDependencies:
       typescript: '>3'
@@ -5974,8 +5976,9 @@ packages:
       fenceparser: 1.1.1
       regenerator-runtime: 0.13.11
       shiki: 0.10.1
-      shiki-twoslash: 3.1.1
+      shiki-twoslash: 3.1.1_typescript@4.9.5
       tslib: 2.1.0
+      typescript: 4.9.5
       unist-util-visit: 2.0.3
     transitivePeerDependencies:
       - supports-color
@@ -6082,8 +6085,8 @@ packages:
       glob: 7.2.3
     dev: false
 
-  /rollup/3.17.3:
-    resolution: {integrity: sha512-p5LaCXiiOL/wrOkj8djsIDFmyU9ysUxcyW+EKRLHb6TKldJzXpImjcRSR+vgo09DBdofGcOoLOsRyxxG2n5/qQ==}
+  /rollup/3.18.0:
+    resolution: {integrity: sha512-J8C6VfEBjkvYPESMQYxKHxNOh4A5a3FlP+0BETGo34HEcE4eTlgCrO2+eWzlu2a/sHs2QUkZco+wscH7jhhgWg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -6206,7 +6209,7 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  /shiki-twoslash/3.1.1:
+  /shiki-twoslash/3.1.1_typescript@4.9.5:
     resolution: {integrity: sha512-b2j/2yjEjnj0Yav7purKB7uuSbYBf/EQWmu2f7d4G96NiM+Qmr3Tb3UeHY7faN/IEaLW6ip7aQa7MpZNlU5xkQ==}
     peerDependencies:
       typescript: '>3'
@@ -6215,6 +6218,7 @@ packages:
       '@typescript/vfs': 1.3.4
       fenceparser: 1.1.1
       shiki: 0.10.1
+      typescript: 4.9.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6882,7 +6886,7 @@ packages:
       esbuild: 0.16.17
       postcss: 8.4.21
       resolve: 1.22.1
-      rollup: 3.17.3
+      rollup: 3.18.0
       sass: 1.58.3
     optionalDependencies:
       fsevents: 2.3.2
