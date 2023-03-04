@@ -9,10 +9,7 @@
     "test-report": "playwright show-report"
   },
   "dependencies": {
-    "@testing-library/cypress": "^9.0.0",
-    "axe-core": "^4.6.2",
-    "cypress": "^12.7.0",
-    "cypress-axe": "^1.4.0"
+    "axe-core": "^4.6.2"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.6.0",
