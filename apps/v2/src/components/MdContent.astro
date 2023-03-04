@@ -1,130 +1,18 @@
 ---
-import { BackButton } from '~/components/BackButton';
-import './shiki.css';
-import {
-  getCloudinaryHelpers,
-  getCloudinaryImageInfo,
-  getTransformedImage,
-} from '../lib/cloudinary';
 import { formatDate } from '~/lib/date';
-import { clsx } from 'clsx';
+import './shiki.css';
 
 export interface Props {
   title: string;
   publishDate?: Date;
-  heroImage?: string;
-  heroImagePublicId?: string;
-  alt?: string;
-  backUrl?: string;
 }
 
-const { title, publishDate, heroImage, alt, backUrl, heroImagePublicId } =
-  Astro.props;
-
-const { checkIsCloudinaryImage } = getCloudinaryHelpers({
-  cloudinaryUsername: 'malcolm-kee',
-});
-
-const images = heroImagePublicId
-  ? await getTransformedImage(heroImagePublicId)
-  : undefined;
-
-const imageInfo =
-  !images && heroImage && checkIsCloudinaryImage(heroImage)
-    ? await getCloudinaryImageInfo(heroImage)
-    : undefined;
+const { title, publishDate } = Astro.props;
 ---
 
-<style>
-  .heroImgContainer {
-    margin-top: calc(0px - var(--header-height, 72px));
-    view-transition-name: hero-image;
-  }
-
-  .content-title {
-    view-transition-name: content-title;
-  }
-
-  .heroImg,
-  .heroImgPlaceholder {
-    max-height: 45vh;
-  }
-
-  @media screen(lg) {
-    .heroImg {
-      top: calc(0px - var(--header-height, 72px));
-    }
-  }
-</style>
-
-<div class={clsx(heroImage ? 'mb-12' : 'my-12')}>
+<div class="mb-12">
   <article>
     <header class="flex flex-col mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
-      {
-        heroImage && !images && (
-          <div class="heroImgContainer -mx-4 sm:-mx-8 lg:-mx-12">
-            {imageInfo && (
-              <div
-                style={`aspect-ratio: ${imageInfo.output.width} / ${imageInfo.output.height};`}
-                class="heroImgPlaceholder hidden lg:block"
-              />
-            )}
-            <img
-              width={imageInfo && imageInfo.output.width}
-              height={imageInfo && imageInfo.output.height}
-              class="heroImg max-w-full object-cover lg:absolute lg:left-1/2 lg:-translate-x-1/2"
-              loading="eager"
-              src={heroImage}
-              alt={alt || ''}
-            />
-          </div>
-        )
-      }
-      {
-        images && (
-          <div class="heroImgContainer -mx-4 sm:-mx-8 lg:-mx-12">
-            <div
-              style={`aspect-ratio: ${images.info.width} / ${images.info.height};`}
-              class="heroImgPlaceholder hidden lg:block"
-            />
-            <picture>
-              <source
-                type="image/webp"
-                media="(max-width: 400px)"
-                srcset={images.smallWebpUrl}
-              />
-              <source type="image/webp" srcset={images.webpUrl} />
-              <source
-                type="image/jpg"
-                media="(max-width: 400px)"
-                srcset={images.smallJpgUrl}
-              />
-              <img
-                src={images.jpgUrl}
-                alt={alt || ''}
-                width={images.info.width}
-                height={images.info.height}
-                loading="eager"
-                class="heroImg max-w-full object-cover lg:absolute lg:left-1/2 lg:-translate-x-1/2"
-              />
-            </picture>
-          </div>
-        )
-      }
-      {
-        backUrl && (
-          <div class={clsx('hidden sm:block relative lg:-left-5 lg:mb-0')}>
-            <BackButton
-              className={clsx(
-                'left-0 md:-left-12',
-                heroImage ? 'absolute -top-12 lg:top-1' : 'md:absolute -top-4'
-              )}
-              href={backUrl}
-              aria-label="Back to all blogs"
-            />
-          </div>
-        )
-      }
       <div class="max-w-3xl mx-auto w-full">
         {
           publishDate && (
