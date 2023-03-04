@@ -2,20 +2,16 @@
 import type { GetStaticPaths } from 'astro';
 import { CollectionEntry } from 'astro:content';
 import { clsx } from 'clsx';
+import { BackButton } from '~/components/BackButton';
 import BaseHead from '~/components/BaseHead.astro';
+import { CloudinaryImage } from '~/components/CloudinaryImage';
 import Container from '~/components/Container';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
 import Layout from '~/components/Layout.astro';
 import MdContent from '~/components/MdContent.astro';
 import { getBlogs } from '~/data/blog-helpers';
 import { getBlogRelatedContents } from '~/data/topic-helpers';
-import {
-  getCloudinaryHelpers,
-  getCloudinaryImageInfo,
-  getTransformedImage,
-} from '~/lib/cloudinary';
-
-import { BackButton } from '~/components/BackButton';
+import { getTransformedImage } from '~/lib/cloudinary';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const blogs = await getBlogs({ includePreview: true });
@@ -41,7 +37,6 @@ const {
   description,
   pubDate,
   updatedDate,
-  heroImage,
   heroImagePublicId,
   alt,
   lang = 'en',
@@ -51,20 +46,9 @@ const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
 
 const related = await getBlogRelatedContents(entry);
 
-const { checkIsCloudinaryImage } = getCloudinaryHelpers({
-  cloudinaryUsername: 'malcolm-kee',
-});
-
-const images = heroImagePublicId
+const imageData = heroImagePublicId
   ? await getTransformedImage(heroImagePublicId)
   : undefined;
-
-const imageInfo =
-  !images && heroImage && checkIsCloudinaryImage(heroImage)
-    ? await getCloudinaryImageInfo(heroImage)
-    : undefined;
-
-const hasImage = !!(heroImage || images);
 ---
 
 <html lang={lang}>
@@ -76,8 +60,9 @@ const hasImage = !!(heroImage || images);
       updatedDate={updatedDate}
       contentType="article"
       permalink={permalink}
-      ogBgImage={heroImage}
+      ogBgImage={imageData && imageData.baseSrc}
       articleType="blog"
+      themeColor={imageData && imageData.primaryColor}
     />
     <style>
       .heroImgContainer {
@@ -94,52 +79,25 @@ const hasImage = !!(heroImage || images);
   <body>
     <Layout>
       {
-        heroImage && !images && (
-          <div class="heroImgContainer mt-[-72px] max-w-7xl mx-auto sm:px-8 lg:px-16">
-            <img
-              width={imageInfo && imageInfo.output.width}
-              height={imageInfo && imageInfo.output.height}
-              class="heroImg max-w-full object-cover"
-              loading="eager"
-              src={heroImage}
-              alt={alt || ''}
-            />
-          </div>
-        )
-      }
-      {
-        images && (
-          <div class="heroImgContainer mt-[-72px] max-w-7xl mx-auto sm:px-8 lg:px-16">
-            <picture>
-              <source
-                type="image/webp"
-                media="(max-width: 400px)"
-                srcset={images.smallWebpUrl}
-              />
-              <source type="image/webp" srcset={images.webpUrl} />
-              <source
-                type="image/jpg"
-                media="(max-width: 400px)"
-                srcset={images.smallJpgUrl}
-              />
-              <img
-                src={images.jpgUrl}
+        imageData && (
+          <div class="sm:px-8">
+            <div class="heroImgContainer mt-[-72px] max-w-7xl mx-auto lg:px-8">
+              <CloudinaryImage
+                data={imageData}
                 alt={alt || ''}
-                width={images.info.width}
-                height={images.info.height}
                 loading="eager"
-                class="heroImg max-w-full object-cover"
+                className="heroImg max-w-full object-cover"
               />
-            </picture>
+            </div>
           </div>
         )
       }
       <Container>
-        <div class={clsx('relative lg:-left-5', !hasImage && 'mt-12')}>
+        <div class={clsx('relative lg:-left-5', !imageData && 'mt-12')}>
           <BackButton
             className={clsx(
               'hidden sm:flex left-0 md:-left-12',
-              hasImage ? 'absolute -top-12 lg:top-1' : 'md:absolute -top-4'
+              imageData ? 'absolute -top-12 lg:top-1' : 'md:absolute -top-4'
             )}
             href="/blog"
             aria-label="Back to all blogs"

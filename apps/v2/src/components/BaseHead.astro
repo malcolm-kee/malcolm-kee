@@ -5,6 +5,7 @@ export interface Props {
   title?: string | undefined;
   description?: string | undefined;
   permalink: string;
+  themeColor?: string;
   contentType?: 'website' | 'article';
   publishedDate?: Date | undefined;
   updatedDate?: Date | undefined;
@@ -20,6 +21,7 @@ const {
   description,
   permalink,
   contentType = 'website',
+  themeColor,
   publishedDate,
   updatedDate,
   articleType,
@@ -27,7 +29,7 @@ const {
     ? { blog: 'BLOG', til: 'Today I Learnt', note: 'Note' }[articleType]
     : undefined,
   ogBgImage,
-  ogBorderColor,
+  ogBorderColor = themeColor,
   iconHref = '/icon.jpg',
   ogImageTitle = title,
 } = Astro.props;
@@ -52,6 +54,7 @@ const ogImage = getOgImageUrl({
 <link rel="icon" type="image/jpg" href={iconHref} />
 <title>{title}</title>
 <meta name="title" content={title} />
+{themeColor && <meta name="theme-color" content={themeColor} />}
 {description && <meta name="description" content={description} />}
 <link rel="canonical" href={permalink} />
 <meta property="og:type" content={contentType} />

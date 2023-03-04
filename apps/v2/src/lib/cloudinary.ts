@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { request } from 'undici';
+import { getDominantColor } from './get-dominant-color';
 
 cloudinary.config({
   api_key: import.meta.env.CLOUDINARY_API_KEY,
@@ -46,7 +47,53 @@ export const getCloudinaryImageInfo = async (
 
 type ColorPercentage = [string, number];
 
-export const getTransformedImage = async (imagePublicId: string) => {
+export interface ImageData {
+  dimensions: {
+    width: number;
+    height: number;
+  };
+  enhancements: Array<{
+    type: 'image/webp' | 'image/jpg';
+    media?: string;
+    srcSet: string;
+  }>;
+  baseSrc: string;
+  primaryColor: string;
+}
+
+const imageDataMap = new Map<
+  string,
+  {
+    width: number;
+    height: number;
+    colors: Array<ColorPercentage>;
+  }
+>();
+
+async function getImageData(imagePublicId: string) {
+  const cached = imageDataMap.get(imagePublicId);
+
+  if (cached) {
+    return cached;
+  }
+
+  const info: {
+    width: number;
+    height: number;
+    colors: Array<ColorPercentage>;
+  } = await cloudinary.api.resource(imagePublicId, {
+    resource_type: 'image',
+    colors: true,
+  });
+
+  imageDataMap.set(imagePublicId, info);
+
+  return info;
+}
+
+export const getTransformedImage = async (
+  imagePublicId: string
+): Promise<ImageData> => {
   const jpgUrl = cloudinary.url(imagePublicId, {
     resource_type: 'image',
     format: 'jpg',
@@ -71,20 +118,30 @@ export const getTransformedImage = async (imagePublicId: string) => {
     width: 500,
   });
 
-  const info: {
-    width: number;
-    height: number;
-    colors: Array<ColorPercentage>;
-  } = await cloudinary.api.resource(imagePublicId, {
-    resource_type: 'image',
-    colors: true,
-  });
+  const info = await getImageData(imagePublicId);
 
   return {
-    jpgUrl,
-    smallJpgUrl,
-    webpUrl,
-    smallWebpUrl,
-    info,
+    baseSrc: jpgUrl,
+    dimensions: {
+      width: info.width,
+      height: info.height,
+    },
+    enhancements: [
+      {
+        type: 'image/webp',
+        media: '(max-width: 400px)',
+        srcSet: smallWebpUrl,
+      },
+      {
+        type: 'image/webp',
+        srcSet: webpUrl,
+      },
+      {
+        type: 'image/jpg',
+        media: '(max-width: 400px)',
+        srcSet: smallJpgUrl,
+      },
+    ],
+    primaryColor: getDominantColor(info.colors),
   };
 };

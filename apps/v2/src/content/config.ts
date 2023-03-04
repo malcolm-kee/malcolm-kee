@@ -30,7 +30,7 @@ export const collections = {
         .optional(),
       description: z.string().optional(),
       lang: z.union([z.literal('zh-Hans'), z.literal('en')]).optional(),
-      heroImage: z.string().optional(),
+      /** cloudinary public id for the hero image */
       heroImagePublicId: z.string().optional(),
       alt: z.string().optional(),
       /**

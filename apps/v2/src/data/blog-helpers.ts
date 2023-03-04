@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { getTransformedImage } from '~/lib/cloudinary';
 import type { Topic } from './topic-types';
 
 export const getBlogs = async ({
@@ -18,7 +19,20 @@ export const getBlogs = async ({
     );
   });
 
-  return blogs
-    .slice(0)
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const allBlogData = await Promise.all(
+    blogs.map(async (blog) =>
+      blog.data.heroImagePublicId
+        ? {
+            ...blog,
+            heroImageInfo: await getTransformedImage(
+              blog.data.heroImagePublicId
+            ),
+          }
+        : blog
+    )
+  );
+
+  return allBlogData.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
 };

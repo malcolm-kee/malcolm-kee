@@ -70,20 +70,6 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
                 (workshopIcon.style as any).viewTransitionName =
                   'workshop-icon';
               }
-
-              workshopLink
-                .querySelectorAll('.workshop-text')
-                .forEach((text) => {
-                  if (text instanceof HTMLElement) {
-                    text.classList.add('invisible');
-                  }
-                });
-
-              allWorkshopLinks.forEach((link) => {
-                if (link !== workshopLink && link instanceof HTMLElement) {
-                  link.classList.add('invisible');
-                }
-              });
             },
             { capture: true }
           );
