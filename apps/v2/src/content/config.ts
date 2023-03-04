@@ -31,6 +31,7 @@ export const collections = {
       description: z.string().optional(),
       lang: z.union([z.literal('zh-Hans'), z.literal('en')]).optional(),
       heroImage: z.string().optional(),
+      heroImagePublicId: z.string().optional(),
       alt: z.string().optional(),
       /**
        * when true, the blog page will be created

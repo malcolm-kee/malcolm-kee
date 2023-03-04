@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { CollectionEntry } from 'astro:content';
+import { clsx } from 'clsx';
 import BaseHead from '~/components/BaseHead.astro';
 import Container from '~/components/Container';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
@@ -8,6 +9,13 @@ import Layout from '~/components/Layout.astro';
 import MdContent from '~/components/MdContent.astro';
 import { getBlogs } from '~/data/blog-helpers';
 import { getBlogRelatedContents } from '~/data/topic-helpers';
+import {
+  getCloudinaryHelpers,
+  getCloudinaryImageInfo,
+  getTransformedImage,
+} from '~/lib/cloudinary';
+
+import { BackButton } from '~/components/BackButton';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const blogs = await getBlogs({ includePreview: true });
@@ -34,6 +42,7 @@ const {
   pubDate,
   updatedDate,
   heroImage,
+  heroImagePublicId,
   alt,
   lang = 'en',
 } = entry.data;
@@ -41,6 +50,21 @@ const {
 const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
 
 const related = await getBlogRelatedContents(entry);
+
+const { checkIsCloudinaryImage } = getCloudinaryHelpers({
+  cloudinaryUsername: 'malcolm-kee',
+});
+
+const images = heroImagePublicId
+  ? await getTransformedImage(heroImagePublicId)
+  : undefined;
+
+const imageInfo =
+  !images && heroImage && checkIsCloudinaryImage(heroImage)
+    ? await getCloudinaryImageInfo(heroImage)
+    : undefined;
+
+const hasImage = !!(heroImage || images);
 ---
 
 <html lang={lang}>
@@ -55,18 +79,73 @@ const related = await getBlogRelatedContents(entry);
       ogBgImage={heroImage}
       articleType="blog"
     />
+    <style>
+      .heroImgContainer {
+        view-transition-name: hero-image;
+      }
+
+      .heroImg,
+      .heroImgPlaceholder {
+        max-height: 45vh;
+      }
+    </style>
   </head>
 
   <body>
     <Layout>
+      {
+        heroImage && !images && (
+          <div class="heroImgContainer mt-[-72px] max-w-7xl mx-auto sm:px-8 lg:px-16">
+            <img
+              width={imageInfo && imageInfo.output.width}
+              height={imageInfo && imageInfo.output.height}
+              class="heroImg max-w-full object-cover"
+              loading="eager"
+              src={heroImage}
+              alt={alt || ''}
+            />
+          </div>
+        )
+      }
+      {
+        images && (
+          <div class="heroImgContainer mt-[-72px] max-w-7xl mx-auto sm:px-8 lg:px-16">
+            <picture>
+              <source
+                type="image/webp"
+                media="(max-width: 400px)"
+                srcset={images.smallWebpUrl}
+              />
+              <source type="image/webp" srcset={images.webpUrl} />
+              <source
+                type="image/jpg"
+                media="(max-width: 400px)"
+                srcset={images.smallJpgUrl}
+              />
+              <img
+                src={images.jpgUrl}
+                alt={alt || ''}
+                width={images.info.width}
+                height={images.info.height}
+                loading="eager"
+                class="heroImg max-w-full object-cover"
+              />
+            </picture>
+          </div>
+        )
+      }
       <Container>
-        <MdContent
-          title={title}
-          heroImage={heroImage}
-          publishDate={pubDate}
-          alt={alt}
-          backUrl="/blog"
-        >
+        <div class={clsx('relative lg:-left-5', !hasImage && 'mt-12')}>
+          <BackButton
+            className={clsx(
+              'hidden sm:flex left-0 md:-left-12',
+              hasImage ? 'absolute -top-12 lg:top-1' : 'md:absolute -top-4'
+            )}
+            href="/blog"
+            aria-label="Back to all blogs"
+          />
+        </div>
+        <MdContent title={title} publishDate={pubDate}>
           <Content />
         </MdContent>
         <div class="border-t border-gray-100 pt-8">

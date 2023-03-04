@@ -1,95 +1,18 @@
 ---
-import { BackButton } from '~/components/BackButton';
-import './shiki.css';
-import {
-  getCloudinaryHelpers,
-  getCloudinaryImageInfo,
-} from '../lib/cloudinary';
 import { formatDate } from '~/lib/date';
-import { clsx } from 'clsx';
+import './shiki.css';
 
 export interface Props {
   title: string;
   publishDate?: Date;
-  heroImage?: string;
-  alt?: string;
-  backUrl?: string;
 }
 
-const { title, publishDate, heroImage, alt, backUrl } = Astro.props;
-
-const { checkIsCloudinaryImage } = getCloudinaryHelpers({
-  cloudinaryUsername: 'malcolm-kee',
-});
-
-const imageInfo =
-  heroImage && checkIsCloudinaryImage(heroImage)
-    ? await getCloudinaryImageInfo(heroImage)
-    : undefined;
+const { title, publishDate } = Astro.props;
 ---
 
-<style>
-  .heroImgContainer {
-    margin-top: calc(0px - var(--header-height, 72px));
-  }
-
-  .heroImg {
-    view-transition-name: hero-image;
-  }
-
-  .content-title {
-    view-transition-name: content-title;
-  }
-
-  .heroImg,
-  .heroImgPlaceholder {
-    max-height: 45vh;
-  }
-
-  @media screen(lg) {
-    .heroImg {
-      top: calc(0px - var(--header-height, 72px));
-    }
-  }
-</style>
-
-<div class={clsx(heroImage ? 'mb-12' : 'my-12')}>
+<div class="mb-12">
   <article>
     <header class="flex flex-col mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
-      {
-        heroImage && (
-          <div class="heroImgContainer -mx-4 sm:-mx-8 lg:-mx-12">
-            {imageInfo && (
-              <div
-                style={`aspect-ratio: ${imageInfo.output.width} / ${imageInfo.output.height};`}
-                class="heroImgPlaceholder hidden lg:block"
-              />
-            )}
-            <img
-              width={imageInfo && imageInfo.output.width}
-              height={imageInfo && imageInfo.output.height}
-              class="heroImg max-w-full object-cover lg:absolute lg:left-1/2 lg:-translate-x-1/2"
-              loading="eager"
-              src={heroImage}
-              alt={alt || ''}
-            />
-          </div>
-        )
-      }
-      {
-        backUrl && (
-          <div class={clsx('hidden sm:block relative lg:-left-5 lg:mb-0')}>
-            <BackButton
-              className={clsx(
-                'left-0 md:-left-12',
-                heroImage ? 'absolute -top-12 lg:top-1' : 'md:absolute -top-4'
-              )}
-              href={backUrl}
-              aria-label="Back to all blogs"
-            />
-          </div>
-        )
-      }
       <div class="max-w-3xl mx-auto w-full">
         {
           publishDate && (

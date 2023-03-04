@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { CollectionEntry } from 'astro:content';
+import { BackButton } from '~/components/BackButton';
 import BaseHead from '~/components/BaseHead.astro';
 import Container from '~/components/Container';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
@@ -50,11 +51,14 @@ const related = await getTilRelatedContents(entry);
   <body>
     <Layout>
       <Container>
-        <MdContent
-          title={title}
-          publishDate={pubDate}
-          backUrl="/today-i-learnt"
-        >
+        <div class="relative lg:-left-5 mt-12 mb-6">
+          <BackButton
+            className="hidden sm:flex left-0 md:-left-12 md:absolute -top-4"
+            href="/today-i-learnt"
+            aria-label="Back to all TILs"
+          />
+        </div>
+        <MdContent title={title} publishDate={pubDate}>
           {
             youtubeVideoId ? (
               <figure class="border-b border-gray-200">
