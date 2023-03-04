@@ -34,6 +34,7 @@ const {
   pubDate,
   updatedDate,
   heroImage,
+  heroImagePublicId,
   alt,
   lang = 'en',
 } = entry.data;
@@ -63,6 +64,7 @@ const related = await getBlogRelatedContents(entry);
         <MdContent
           title={title}
           heroImage={heroImage}
+          heroImagePublicId={heroImagePublicId}
           publishDate={pubDate}
           alt={alt}
           backUrl="/blog"
