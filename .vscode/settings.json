@@ -25,5 +25,11 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": ["Cloudinary", "clsx", "jscodeshift"]
+  "cSpell.words": ["Cloudinary", "clsx", "jscodeshift"],
+  "files.associations": {
+    "*.excalidraw": "json",
+    "*.excalidrawlib": "json",
+    "*.css": "css",
+    "greet.h": "c"
+  }
 }
