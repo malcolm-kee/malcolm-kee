@@ -1,13 +1,12 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import type { Product } from '../services/product-service';
-import { Link } from './link';
 
 export const ProductLink = ({ data }: { data: Product }) => {
   return (
     <Link
       to={`/product/${data._id}`}
       className="flex items-center gap-2 p-1 hover:bg-gray-50"
-      animateNavigation
     >
       {data.images ? (
         <img

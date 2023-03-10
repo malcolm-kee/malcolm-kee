@@ -4,12 +4,13 @@ import { Helmet } from 'react-helmet';
 import {
   createBrowserRouter,
   RouterProvider,
-  useParams,
+  useLoaderData,
+  Link,
 } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from '~/components/icons';
-import { Link } from './components/link';
 import { ProductDetails } from './components/product-details';
 import { ProductList } from './components/product-list';
+import * as productService from './services/product-service';
 import './react-app.css';
 
 const queryClient = new QueryClient({
@@ -25,43 +26,40 @@ const NavBar = (props: { children: React.ReactNode }) => (
 );
 
 const ProductsPage = () => {
+  const products = useLoaderData() as Array<productService.Product>;
+
   return (
     <div>
       <Helmet>
         <title>Products</title>
       </Helmet>
       <NavBar>
-        <Link
-          to="/"
-          animateNavigation
-          className="inline-flex items-center gap-2 text-gray-500"
-        >
+        <Link to="/" className="inline-flex items-center gap-2 text-gray-500">
           <ChevronLeftIcon className="w-5 h-5" /> Home
         </Link>
       </NavBar>
       <h1 className="text-4xl font-bold mb-6 w-fit [view-transition-name:product-page-title]">
         Products
       </h1>
-      <ProductList />
+      <ProductList products={products} />
     </div>
   );
 };
 
 const ProductDetailsPage = () => {
-  const { productId } = useParams<{ productId: string }>();
+  const data = useLoaderData() as productService.Product;
 
   return (
     <div>
       <NavBar>
         <Link
           to="/product"
-          animateNavigation
           className="inline-flex items-center gap-2 text-gray-500"
         >
           <ChevronLeftIcon className="w-5 h-5" /> Products
         </Link>
       </NavBar>
-      <ProductDetails productId={productId!} />
+      <ProductDetails data={data} />
     </div>
   );
 };
@@ -81,7 +79,6 @@ export const ReactApp = (props: { basename: string }) => {
                   <Link
                     to="/product"
                     className="inline-flex items-center gap-1 text-gray-500 hover:text-gray-700"
-                    animateNavigation
                   >
                     <ChevronRightIcon className="w-5 h-5" />
                     <span className="text-lg [view-transition-name:product-page-title]">
@@ -96,10 +93,14 @@ export const ReactApp = (props: { basename: string }) => {
         {
           path: '/product',
           element: <ProductsPage />,
+          loader: ({ request }) =>
+            productService.getProducts({ signal: request.signal }),
         },
         {
           path: `/product/:productId`,
           element: <ProductDetailsPage />,
+          loader: ({ params }) =>
+            productService.getOneProduct(params.productId!),
         },
         {
           path: '*',

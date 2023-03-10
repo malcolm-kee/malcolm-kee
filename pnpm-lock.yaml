@@ -51,7 +51,7 @@ importers:
       react-dom: ^18.0.0
       react-helmet: ^6.1.0
       react-redux: ^8.0.5
-      react-router-dom: ^6.8.2
+      react-router-dom: 0.0.0-experimental-91f2bf54
       redux: ^4.2.1
       rehype-autolink-headings: ^6.1.1
       rehype-external-links: ^2.0.1
@@ -108,7 +108,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-redux: 8.0.5_ctrls2ti7t7iutxbwkm5ipogyy
-      react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y
+      react-router-dom: 0.0.0-experimental-91f2bf54_biqbaboplfbrettd7655fr4n2y
       redux: 4.2.1
       rehype-autolink-headings: 6.1.1
       rehype-external-links: 2.0.1
@@ -1417,8 +1417,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@remix-run/router/1.3.3:
-    resolution: {integrity: sha512-YRHie1yQEj0kqqCTCJEfHqYSSNlZQ696QJG+MMiW4mxSl9I0ojz/eRhJS4fs88Z5i6D1SmoF9d3K99/QOhI8/w==}
+  /@remix-run/router/0.0.0-experimental-91f2bf54:
+    resolution: {integrity: sha512-7nxagS6fPe04mOALRACmoJs95y5/7l6UxsdU2KIrJupAuW98vIifJaJo2sQr6FfEoPNc/ttnaJ5EQOIuqpxhIA==}
     engines: {node: '>=14'}
     dev: true
 
@@ -5204,26 +5204,26 @@ packages:
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: true
 
-  /react-router-dom/6.8.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-N/oAF1Shd7g4tWy+75IIufCGsHBqT74tnzHQhbiUTYILYF0Blk65cg+HPZqwC+6SqEyx033nKqU7by38v3lBZg==}
+  /react-router-dom/0.0.0-experimental-91f2bf54_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-//lOM8D+9fsxhsa+UGjI8Crz2m6Zz42NDR+Zp66BtiTTiH6xi/8waVwc/NK3+yKmtriZnVsjHAfJrk4iso8+XQ==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
     dependencies:
-      '@remix-run/router': 1.3.3
+      '@remix-run/router': 0.0.0-experimental-91f2bf54
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-router: 6.8.2_react@18.2.0
+      react-router: 0.0.0-experimental-91f2bf54_react@18.2.0
     dev: true
 
-  /react-router/6.8.2_react@18.2.0:
-    resolution: {integrity: sha512-lF7S0UmXI5Pd8bmHvMdPKI4u4S5McxmHnzJhrYi9ZQ6wE+DA8JN5BzVC5EEBuduWWDaiJ8u6YhVOCmThBli+rw==}
+  /react-router/0.0.0-experimental-91f2bf54_react@18.2.0:
+    resolution: {integrity: sha512-nboQrvpiwR/564TaRdhT0uTT9KxTL3SHNEzTLaSVbcDEsWAwGkhXhIFBw17YesDWQDxmH0sVWGOCrVZ9pN93BQ==}
     engines: {node: '>=14'}
     peerDependencies:
       react: '>=16.8'
     dependencies:
-      '@remix-run/router': 1.3.3
+      '@remix-run/router': 0.0.0-experimental-91f2bf54
       react: 18.2.0
     dev: true
 
