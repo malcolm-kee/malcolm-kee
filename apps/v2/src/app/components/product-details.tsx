@@ -2,6 +2,12 @@ import * as React from 'react';
 import { useProduct } from '../queries/product-queries';
 import { ProductLink } from './product-link';
 
+const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+  year: 'numeric',
+  day: 'numeric',
+  month: 'short',
+});
+
 export const ProductDetails = ({ productId }: { productId: string }) => {
   const { data, isLoading } = useProduct(productId);
 
@@ -76,6 +82,29 @@ export const ProductDetails = ({ productId }: { productId: string }) => {
               </dl>
             </div>
           </div>
+          {data.comments && data.comments.length > 0 && (
+            <div className="px-2 [view-transition-name:comments]">
+              <h2 className="mt-12 mb-6 text-gray-500">Comments</h2>
+              <div className="flex flex-wrap gap-6">
+                {data.comments.map((comment) => (
+                  <article key={comment._id} className="p-3 shadow rounded">
+                    <p className="text-xs text-gray-500">
+                      {comment.userName} commented:
+                    </p>
+                    <p>{comment.content}</p>
+                    <div className="text-right">
+                      <small>
+                        on{' '}
+                        <time dateTime={comment.createdAt}>
+                          {dateFormatter.format(new Date(comment.createdAt))}
+                        </time>
+                      </small>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          )}
         </>
       )}
     </>

@@ -2,6 +2,15 @@ import { fetchJson } from '../lib/fetch-json';
 
 const baseUrl = 'https://ecomm-service.fly.dev/product';
 
+export type ProductComment = {
+  _id: string;
+  userName: string;
+  content: string;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type Product = {
   _id: string;
   name: string;
@@ -16,6 +25,7 @@ export type Product = {
     blur: string;
     thumbBlur: string;
   };
+  comments: Array<ProductComment>;
 };
 
 export const getProducts = (options?: RequestInit) =>

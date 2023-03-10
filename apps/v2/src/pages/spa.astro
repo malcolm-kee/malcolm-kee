@@ -12,7 +12,11 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 
 <html lang="en">
   <head>
-    <BaseHead permalink={permalink} />
+    <BaseHead
+      title="SPA demo"
+      description="Demo of a Single Page App"
+      permalink={permalink}
+    />
   </head>
   <body>
     <PageLayout noHeader>

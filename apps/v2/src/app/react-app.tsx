@@ -8,6 +8,7 @@ import {
 import { Link } from './components/link';
 import { ProductDetails } from './components/product-details';
 import { ProductList } from './components/product-list';
+import './react-app.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,7 +34,7 @@ const ProductDetailsPage = () => {
     <div>
       <div className="mb-3">
         <Link to="/" animateNavigation className="text-gray-500">
-          {'<'} All products
+          {'<'} Products
         </Link>
       </div>
       <ProductDetails productId={productId!} />
