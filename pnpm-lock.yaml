@@ -27,7 +27,9 @@ importers:
       '@headlessui/react': ^1.7.13
       '@monaco-editor/react': ^4.4.6
       '@tailwindcss/container-queries': ^0.1.0
+      '@tailwindcss/line-clamp': ^0.4.2
       '@tailwindcss/typography': ^0.5.9
+      '@tanstack/react-query': ^4.26.1
       '@types/hast': ^2.3.4
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
@@ -70,6 +72,7 @@ importers:
       '@formkit/auto-animate': 1.0.0-beta.6
       '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
       '@monaco-editor/react': 4.4.6_biqbaboplfbrettd7655fr4n2y
+      '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
       canvas-sketch-util: 1.10.0
       clsx: 1.2.1
       mitt: 3.0.0
@@ -85,6 +88,7 @@ importers:
       '@astrojs/sitemap': 1.2.0
       '@astrojs/tailwind': 3.1.0_5fkwwuzubt6borit3q7k7y2k74
       '@tailwindcss/container-queries': 0.1.0_tailwindcss@3.2.7
+      '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.7
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
       '@types/hast': 2.3.4
       '@types/react': 18.0.28
@@ -1466,6 +1470,14 @@ packages:
       tailwindcss: 3.2.7
     dev: true
 
+  /@tailwindcss/line-clamp/0.4.2_tailwindcss@3.2.7:
+    resolution: {integrity: sha512-HFzAQuqYCjyy/SX9sLGB1lroPzmcnWv1FHkIpmypte10hptf4oPUfucryMKovZh2u0uiS9U5Ty3GghWfEJGwVw==}
+    peerDependencies:
+      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
+    dependencies:
+      tailwindcss: 3.2.7
+    dev: true
+
   /@tailwindcss/typography/0.5.9_tailwindcss@3.2.7:
     resolution: {integrity: sha512-t8Sg3DyynFysV9f4JDOVISGsjazNb48AeIYQwcL+Bsq5uf4RYL75C1giZ43KISjeDGBaTN3Kxh7Xj/vRSMJUUg==}
     peerDependencies:
@@ -1477,6 +1489,28 @@ packages:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.2.7
     dev: true
+
+  /@tanstack/query-core/4.26.1:
+    resolution: {integrity: sha512-Zrx2pVQUP4ndnsu6+K/m8zerXSVY8QM+YSbxA1/jbBY21GeCd5oKfYl92oXPK0hPEUtoNuunIdiq0ZMqLos+Zg==}
+    dev: false
+
+  /@tanstack/react-query/4.26.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-i3dnz4TOARGIXrXQ5P7S25Zfi4noii/bxhcwPurh2nrf5EUCcAt/95TB2HSmMweUBx206yIMWUMEQ7ptd6zwDg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.26.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
 
   /@tootallnate/once/1.1.2:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
@@ -6142,7 +6176,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: true
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}

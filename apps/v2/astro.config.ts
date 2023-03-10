@@ -6,9 +6,9 @@ import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import { s } from 'hastscript';
 import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
-import { s } from 'hastscript';
 import remarkShikiTwoSlash from 'remark-shiki-twoslash';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 
@@ -71,4 +71,5 @@ export default defineConfig({
     ],
     syntaxHighlight: false,
   },
+  vite: {},
 });
