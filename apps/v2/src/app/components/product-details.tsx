@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useProduct } from '../queries/product-queries';
 import { ProductLink } from './product-link';
+import { Helmet } from 'react-helmet';
 
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   year: 'numeric',
@@ -16,6 +17,9 @@ export const ProductDetails = ({ productId }: { productId: string }) => {
       {isLoading && <p>Loading...</p>}
       {data && (
         <>
+          <Helmet>
+            <title>{data.name}</title>
+          </Helmet>
           <h1 className="text-4xl font-bold mb-2">{data.name}</h1>
           <div className="flex flex-col md:flex-row gap-6">
             {data.images ? (
