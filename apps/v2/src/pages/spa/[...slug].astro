@@ -1,0 +1,51 @@
+---
+import { dehydrate } from '@tanstack/react-query';
+import type { GetStaticPaths } from 'astro';
+import { getStaticRouteData, queryClient, ReactApp } from '~/app/react-app';
+import BaseHead from '~/components/BaseHead.astro';
+import PageLayout from '~/components/PageLayout.astro';
+
+export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
+  const data = await getStaticRouteData();
+
+  return data.map((d) => ({
+    params: {
+      slug: d.path,
+    },
+    props: d.props satisfies Props,
+  }));
+};
+
+interface Props {
+  title: string;
+  queryOptions: {
+    queryKey: string[];
+    queryFn: (helpers: { signal?: AbortSignal }) => Promise<object>;
+  };
+}
+
+const { title, queryOptions } = Astro.props;
+const { pathname } = Astro.url;
+const currentPath = pathname.replace(/\/(index.html)?$/, '');
+const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
+
+await queryClient.prefetchQuery(queryOptions);
+
+const dehydratedState = dehydrate(queryClient);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={`${title} - SPA Demo`} permalink={permalink} />
+  </head>
+  <body>
+    <PageLayout noHeader>
+      <ReactApp
+        currentPath={currentPath}
+        basename="/spa"
+        dehydratedState={dehydratedState}
+        client:load
+      />
+    </PageLayout>
+  </body>
+</html>

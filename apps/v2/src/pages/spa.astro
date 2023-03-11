@@ -1,11 +1,9 @@
 ---
+import { ReactApp } from '~/app/react-app';
 import BaseHead from '~/components/BaseHead.astro';
 import PageLayout from '~/components/PageLayout.astro';
-import { ReactApp } from '~/app/react-app';
 
 const { pathname } = Astro.url;
-
-const basename = pathname.replace(/\/(index.html)?$/, '');
 
 const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
@@ -13,14 +11,14 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 <html lang="en">
   <head>
     <BaseHead
-      title="SPA demo"
+      title="SPA Demo"
       description="Demo of a Single Page App"
       permalink={permalink}
     />
   </head>
   <body>
     <PageLayout noHeader>
-      <ReactApp basename={basename} client:only />
+      <ReactApp currentPath="/spa" basename="/spa" client:load />
     </PageLayout>
   </body>
 </html>

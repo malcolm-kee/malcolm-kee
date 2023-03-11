@@ -6,12 +6,6 @@
   to = "https://malcolmkee.com/:splat"
   status = 301
 
-[[redirects]]
-  from = "/spa/*"
-  to = "/spa/index.html"
-  status = 200
-  force = true
-
 [dev]
   command = "pnpm run dev"
   targetPort = 8989
