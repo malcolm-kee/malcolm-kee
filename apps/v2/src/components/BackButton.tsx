@@ -12,7 +12,7 @@ export const BackButton = React.forwardRef<HTMLAnchorElement, BackButtonProps>(
       <a
         {...props}
         className={clsx(
-          'group flex justify-center items-center h-10 w-10 rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5',
+          '[view-transition-name:back-button] group flex justify-center items-center h-10 w-10 rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5',
           props.className
         )}
         ref={forwardedRef}

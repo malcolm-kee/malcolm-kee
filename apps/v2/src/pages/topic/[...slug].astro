@@ -59,7 +59,10 @@ const hasTwoColumns = blogs.length > 0 && tils.length > 0;
   </head>
   <body>
     <PageLayout>
-      <span slot="title">{title}</span>
+      <span slot="title"
+        >Topic: <span class="[view-transition-name:topic-title]">{label}</span
+        ></span
+      >
       <div
         class={clsx('grid gap-12', hasTwoColumns && 'lg:grid-cols-2 lg:gap-4')}
       >

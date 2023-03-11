@@ -111,5 +111,13 @@ const imageData = heroImagePublicId
         </div>
       </Container>
     </Layout>
+    <script>
+      document.addEventListener(
+        'crossdocumentviewtransitionoldcapture',
+        (event) => {
+          console.log({ event });
+        }
+      );
+    </script>
   </body>
 </html>
