@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { ChevronRightIcon } from '~/components/icons';
 import { Link } from '../components/link';
+import type { GetStaticData } from '../types';
+
+export const getStaticData = async function getStaticData() {
+  return {
+    title: 'Home',
+  };
+} satisfies GetStaticData;
 
 export default function IndexPage() {
   return (

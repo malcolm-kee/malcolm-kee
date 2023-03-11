@@ -2,41 +2,67 @@
 import { dehydrate } from '@tanstack/react-query';
 import type { GetStaticPaths } from 'astro';
 import { getStaticRouteData, queryClient, ReactApp } from '~/app/react-app';
+import type { QueryOptions, StaticData } from '~/app/types';
 import BaseHead from '~/components/BaseHead.astro';
 import PageLayout from '~/components/PageLayout.astro';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const data = await getStaticRouteData();
 
+  const titleByPath: Record<string, string> = {};
+
+  data.forEach(({ path, props }) => {
+    if (props.title) {
+      titleByPath[`/${path || ''}`] = props.title;
+    }
+  });
+
   return data.map((d) => ({
     params: {
       slug: d.path,
     },
-    props: d.props satisfies Props,
+    props: {
+      ...d.props,
+      titleByPath,
+    } satisfies Props,
   }));
 };
 
-interface Props {
-  title: string;
-  queryOptions: {
-    queryKey: string[];
-    queryFn: (helpers: { signal?: AbortSignal }) => Promise<object>;
-  };
+interface Props extends StaticData {
+  titleByPath: Record<string, string | undefined>;
 }
 
-const { title, queryOptions } = Astro.props;
+const { title, prefetchQueries, titleByPath } = Astro.props;
 const { pathname } = Astro.url;
 const currentPath = pathname.replace(/\/(index.html)?$/, '');
 const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 
-await queryClient.prefetchQuery(queryOptions);
+async function prefetchData(queries: Array<QueryOptions>) {
+  for (const { getDependentQueries, ...queryOptions } of queries) {
+    await queryClient.prefetchQuery(queryOptions);
+    if (getDependentQueries) {
+      const result = queryClient.getQueryData(queryOptions.queryKey);
+      if (result) {
+        const dependents = getDependentQueries(result);
+
+        if (dependents && dependents.length > 0) {
+          prefetchData(dependents);
+        }
+      }
+    }
+  }
+}
+
+if (prefetchQueries) {
+  await prefetchData(prefetchQueries);
+}
 
 const dehydratedState = dehydrate(queryClient);
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={`${title} - SPA Demo`} permalink={permalink} />
+    <BaseHead title={title && `${title} - SPA Demo`} permalink={permalink} />
   </head>
   <body>
     <PageLayout noHeader>
@@ -44,6 +70,7 @@ const dehydratedState = dehydrate(queryClient);
         currentPath={currentPath}
         basename="/spa"
         dehydratedState={dehydratedState}
+        titleByPath={titleByPath}
         client:load
       />
     </PageLayout>

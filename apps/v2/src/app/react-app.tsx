@@ -10,10 +10,8 @@ import {
   createMemoryRouter,
   RouterProvider,
 } from 'react-router-dom';
-import { getRoutes } from './framework';
-import { productQueryOptions } from './queries/product-queries';
+import { getAllStaticData, getRoutes } from './framework';
 import './react-app.css';
-import { getProducts } from './services/product-service';
 import type { PageExports } from './types';
 
 export const queryClient = new QueryClient({
@@ -32,24 +30,9 @@ const pages: Record<string, PageExports> = import.meta.glob(
 );
 
 export async function getStaticRouteData() {
-  const products = await getProducts();
+  const allStaticData = await getAllStaticData(pages);
 
-  return [
-    {
-      path: 'product',
-      props: {
-        title: 'Products',
-        queryOptions: productQueryOptions.products(),
-      },
-    },
-    ...products.map((product) => ({
-      path: `product/${product._id}`,
-      props: {
-        title: product.name,
-        queryOptions: productQueryOptions.productDetails(product._id),
-      },
-    })),
-  ];
+  return allStaticData;
 }
 
 const isSsr = import.meta.env.SSR;
@@ -57,12 +40,13 @@ const isSsr = import.meta.env.SSR;
 export interface ReactAppProps {
   basename: string;
   currentPath: string;
+  titleByPath: Record<string, string | undefined>;
   dehydratedState?: unknown;
 }
 
 export const ReactApp = (props: ReactAppProps) => {
   const [router] = React.useState(() => {
-    const allRoutes = getRoutes(pages);
+    const allRoutes = getRoutes(pages, props.titleByPath);
 
     return isSsr
       ? createMemoryRouter(allRoutes, {

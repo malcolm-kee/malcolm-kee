@@ -1,5 +1,6 @@
 import * as React from 'react';
-import type { RouteObject } from 'react-router-dom';
+import { RouteObject, useLocation, Outlet } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import type * as types from './types';
 
 /** './pages/something/else.tsx' -> 'something/else' */
@@ -32,7 +33,32 @@ const replaceDynamicSegments = (
   return result;
 };
 
-export const getRoutes = (pagesMetadata: Record<string, types.PageExports>) => {
+const AutoTitle = (props: {
+  titleByPath: Record<string, string | undefined>;
+}) => {
+  const location = useLocation();
+  const title = props.titleByPath[location.pathname];
+
+  return title ? (
+    <Helmet>
+      <title>{title}</title>
+    </Helmet>
+  ) : null;
+};
+
+const Layout = (props: { titleByPath: Record<string, string | undefined> }) => {
+  return (
+    <>
+      <AutoTitle {...props} />
+      <Outlet />
+    </>
+  );
+};
+
+export const getRoutes = (
+  pagesMetadata: Record<string, types.PageExports>,
+  titleByPath: Record<string, string | undefined>
+): RouteObject[] => {
   const routes: RouteObject[] = [];
 
   Object.entries(pagesMetadata).forEach(
@@ -62,5 +88,68 @@ export const getRoutes = (pagesMetadata: Record<string, types.PageExports>) => {
     }
   );
 
-  return routes;
+  return [
+    {
+      path: '/',
+      element: <Layout titleByPath={titleByPath} />,
+      children: routes,
+    },
+  ];
+};
+
+export const getAllStaticData = async (
+  pagesMetadata: Record<string, types.PageExports>
+): Promise<Array<types.StaticDataResult>> => {
+  const result: Array<types.StaticDataResult> = [];
+
+  const pageEntries = Object.entries(pagesMetadata);
+
+  for (const [
+    filePath,
+    { default: PageComponent, getStaticData },
+  ] of pageEntries) {
+    if (!PageComponent) {
+      continue;
+    }
+
+    const path = removePrefixAndExtension(filePath);
+
+    const staticData = getStaticData ? await getStaticData() : {};
+
+    if (hasDynamicPath(path)) {
+      if (Array.isArray(staticData)) {
+        staticData.forEach(({ params, title, prefetchQueries }) => {
+          result.push({
+            path: replaceDynamicSegments(
+              path,
+              (paramName) => params[paramName]
+            ),
+            props: {
+              title,
+              prefetchQueries,
+            },
+          });
+        });
+
+        continue;
+      } else {
+        console.error(
+          `getStaticData should returns an array with params property for dynamic page.`
+        );
+      }
+    }
+
+    if (!Array.isArray(staticData)) {
+      result.push({
+        path: path === '' ? undefined : path,
+        props: staticData,
+      });
+    } else {
+      console.error(
+        `getStaticData should returns an object for page without dynamic path`
+      );
+    }
+  }
+
+  return result;
 };

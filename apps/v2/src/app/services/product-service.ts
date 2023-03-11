@@ -29,7 +29,7 @@ export type Product = {
 };
 
 export const getProducts = (options?: RequestInit) =>
-  fetchJson<Product[]>(baseUrl, options);
+  fetchJson<Product[]>(`${baseUrl}?limit=12`, options);
 
 export const getOneProduct = (productId: string, options?: RequestInit) =>
   fetchJson<Product>(`${baseUrl}/${productId}`, options);
