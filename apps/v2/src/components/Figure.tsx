@@ -1,4 +1,3 @@
-/* jsxImportSource: react */
 import * as React from 'react';
 
 export interface FigureProps extends React.ComponentPropsWithoutRef<'figure'> {

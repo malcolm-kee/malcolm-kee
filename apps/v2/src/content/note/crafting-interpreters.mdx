@@ -2,4 +2,59 @@
 title: 'Crafting Interpreters: Reading Note'
 ---
 
+import Figure from '~/components/Figure.tsx';
+import mountainMetaphor from './_crafting_interpreters/language-mountain.excalidraw.png';
+
+My reading note of the book [Crafting Interpreters](https://craftinginterpreters.com/).
+
 The book will use Java and C, so need to setup them and brush up a bit.
+
+## Chapter 2: A Map of the Territory
+
+Language implementation can use a metaphor like climbing mountain:
+
+1. From low level source code, we analyze the program and transform it to higher-level representation where the semantics become more apparent.
+2. Reaching the highest level, where we can see what the code _means_, we start descent down the mountain by transforming this highest-level representation down to lower-level form to get closer to something we know how to make the CPU actually execute.
+
+<Figure
+  caption="Language implementation can be seen as mountain climbing"
+  src={mountainMetaphor}
+/>
+
+### Scanning
+
+Scanning, also known as lexing and lexical analysis, is the process of transforming characters and chunks them into a series of something like "words". In programming languages, each of these words are known as a **token**.
+
+### Parsing
+
+This is where our syntax gets a **grammar** - the ability to compose larger expressions and statements out of smaller parts. This is like in English grammar class where English teacher explains about Subject, Predicate, Verb, Object etc.
+
+A parser takes the flat sequence of tokens and build a tree structure that mirror the nested nature of the grammar. These trees have different names - **parse tree**, **abstract syntax tree**, **syntax trees**, **ASTs**, or often just **trees**.
+
+Parser's job also includes letting us know when we make grammar mistakes by reporting **syntax errors**.
+
+### Static Analysis
+
+This stage is where implementation starts getting very different for each programming language.
+
+For example, in an expression of `a + b`, we know we are adding `a` and `b`, but we don't know what those names refer to. Are they local variables? Global? Where are they defined?
+
+The first bit of analysis that most languages do is called **binding** or **resolution**. For each **identifier**, we find out where the name is defined and wire the two together. This is where **scope** comes into play.
+
+If the language is statically typed, this is when we type check. Once we know where `a` and `b` are defined, we also figure out their types and check if the `a + b` operation is supported for their types. If not, we report a **type error**.
+
+The result of static analysis can be stored in a few formats:
+
+1. stored back to the syntax tree itself as **attributes**.
+2. stored in a separate lookup table, usually known as **symbol table**.
+3. transform the tree into a new data structure.
+
+### Intermediate Representations (IR)
+
+We can think of the compiler as a pipeline where each stage's job is to organize the data representing the user's code in a way that makes the next stage simpler to implement. The "frontend" of this pipeline is the source language the user writes, the "backend" is the final architecture where the program will run, and in the middle, **intermediate representations**.
+
+### Optimization
+
+Once we understand what the user's program means, we are free to swap it out with a different program that has the _same semantics_ but implements them more efficiently - we _optimize_ it.
+
+<p className="text-4xl font-extrabold text-center">TO BE CONTINUED...</p>
