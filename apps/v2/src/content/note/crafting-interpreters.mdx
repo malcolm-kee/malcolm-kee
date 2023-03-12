@@ -2,6 +2,7 @@
 title: 'Crafting Interpreters: Reading Note'
 ---
 
+import { Image } from 'astro:assets';
 import Figure from '~/components/Figure.tsx';
 import mountainMetaphor from './_crafting_interpreters/language-mountain.excalidraw.png';
 
@@ -16,10 +17,12 @@ Language implementation can use a metaphor like climbing mountain:
 1. From low level source code, we analyze the program and transform it to higher-level representation where the semantics become more apparent.
 2. Reaching the highest level, where we can see what the code _means_, we start descent down the mountain by transforming this highest-level representation down to lower-level form to get closer to something we know how to make the CPU actually execute.
 
-<Figure
-  caption="Language implementation can be seen as mountain climbing"
-  src={mountainMetaphor}
-/>
+<Figure caption="Language implementation can be seen as mountain climbing">
+  <Image
+    src={mountainMetaphor}
+    alt="Language implementation can be seen as mountain climbing"
+  />
+</Figure>
 
 ### Scanning
 

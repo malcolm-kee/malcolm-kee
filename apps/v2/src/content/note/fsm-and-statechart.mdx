@@ -2,6 +2,7 @@
 title: 'Finite State Machine and Statechart'
 ---
 
+import { Image } from 'astro:assets';
 import Aside from '~/components/Aside';
 import Figure from '~/components/Figure.tsx';
 import reactModel from './_fsm-and-statechart/react-model.excalidraw.png';
@@ -15,7 +16,9 @@ React allow us to model UI as data flows:
 1. rendering that transform data into UI
 1. responding to UI event by updating data [^1]
 
-<Figure caption="React Model" src={reactModel} />
+<Figure caption="React Model">
+  <Image src={reactModel} alt="React Model" />
+</Figure>
 
 ## UCM Structure
 
@@ -25,14 +28,18 @@ User interface-control-model is a way to organize UI code by separating them int
 2. Control object
 3. Model (shared state)
 
-<Figure caption="UCM Model" src={ucmModel} />
+<Figure caption="UCM Model">
+  <Image src={ucmModel} alt="UCM Model" />
+</Figure>
 
 Applying UCM model to React, it leads us to separating two entities:
 
 - components whose main responsibility is to translate data (props) into JSX
 - classes/components whose main responsibility is to coordinate the components, updating states and integrate with services.
 
-<Figure caption="Applying UCM Model to React" src={ucmModelInReact} />
+<Figure caption="Applying UCM Model to React">
+  <Image src={ucmModelInReact} alt="Applying UCM Model to React" />
+</Figure>
 
 <Aside>
 
