@@ -4,7 +4,12 @@ import { useHref, useLinkClickHandler, useNavigate } from 'react-router-dom';
 export interface LinkProps
   extends Omit<React.ComponentPropsWithoutRef<'a'>, 'href'> {
   to: string;
-  animateNavigation?: boolean;
+  animateNavigation?:
+    | boolean
+    | {
+        before: () => void;
+        afterSnapshot: () => void;
+      };
 }
 
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
@@ -31,7 +36,21 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
               animateNavigation
             ) {
               ev.preventDefault();
-              document.startViewTransition(() => navigate(to));
+              if (
+                typeof animateNavigation === 'object' &&
+                typeof animateNavigation.before === 'function'
+              ) {
+                animateNavigation.before();
+              }
+              document.startViewTransition(() => {
+                if (
+                  typeof animateNavigation === 'object' &&
+                  typeof animateNavigation.afterSnapshot === 'function'
+                ) {
+                  animateNavigation.afterSnapshot();
+                }
+                navigate(to);
+              });
             } else {
               handleClick(ev);
             }

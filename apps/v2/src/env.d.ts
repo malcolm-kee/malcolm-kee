@@ -1,6 +1,10 @@
-/// <reference types="astro/client-image" />
+/// <reference types="astro/client" />
 /// <reference path="../.astro/types.d.ts" />
 
 interface Document {
   startViewTransition?: (cb: () => void) => {};
+}
+
+interface CSSStyleDeclaration {
+  viewTransitionName?: string;
 }
