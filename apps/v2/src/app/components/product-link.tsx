@@ -14,11 +14,13 @@ export const ProductLink = ({ data }: { data: Product }) => {
       animateNavigation={{
         before: () => {
           if (imageRef.current) {
+            // @ts-expect-error
             imageRef.current.style.viewTransitionName = `product-${data._id}`;
           }
         },
         afterSnapshot: () => {
           if (imageRef.current) {
+            // @ts-expect-error
             imageRef.current.style.viewTransitionName = '';
           }
         },
