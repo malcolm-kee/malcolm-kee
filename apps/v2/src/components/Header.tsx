@@ -12,10 +12,12 @@ export default function Header({
   isHomePage,
   currentPath,
   hideAvatar,
+  hideNav,
 }: {
   currentPath: string;
   isHomePage?: boolean;
   hideAvatar?: boolean;
+  hideNav?: boolean;
 }): React.ReactElement {
   const headerRef = React.useRef<HTMLDivElement>(null);
   const avatarRef = React.useRef<HTMLDivElement>(null);
@@ -188,21 +190,23 @@ export default function Header({
                   />
                 )}
               </div>
-              <div className="flex flex-1 justify-end md:justify-center">
-                <MobileNavigation
-                  className={clsx(
-                    'pointer-events-auto md:hidden',
-                    styles.mobileNav
-                  )}
-                />
-                <DesktopNavigation
-                  currentPath={currentPath}
-                  className={clsx(
-                    'pointer-events-auto hidden md:block',
-                    styles.desktopNav
-                  )}
-                />
-              </div>
+              {!hideNav && (
+                <div className="flex flex-1 justify-end md:justify-center">
+                  <MobileNavigation
+                    className={clsx(
+                      'pointer-events-auto md:hidden',
+                      styles.mobileNav
+                    )}
+                  />
+                  <DesktopNavigation
+                    currentPath={currentPath}
+                    className={clsx(
+                      'pointer-events-auto hidden md:block',
+                      styles.desktopNav
+                    )}
+                  />
+                </div>
+              )}
               <div className="flex justify-end md:flex-1"></div>
             </div>
           </Container>

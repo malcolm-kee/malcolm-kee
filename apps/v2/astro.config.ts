@@ -71,7 +71,6 @@ export default defineConfig({
     ],
     syntaxHighlight: false,
   },
-  vite: {},
   experimental: {
     assets: true,
   },

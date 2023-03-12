@@ -73,6 +73,10 @@ const imageData = heroImagePublicId
       .heroImgPlaceholder {
         max-height: 45vh;
       }
+
+      :global(.signupFormWrapper > *) {
+        margin-inline: auto;
+      }
     </style>
   </head>
 
@@ -106,18 +110,17 @@ const imageData = heroImagePublicId
         <MdContent title={title} publishDate={pubDate}>
           <Content />
         </MdContent>
+        <div class="signupFormWrapper mb-12 max-w-3xl mx-auto">
+          <script
+            async
+            data-uid="4689c70a6b"
+            src="https://malcolm-kee.ck.page/4689c70a6b/index.js"
+          ></script>
+        </div>
         <div class="border-t border-gray-100 pt-8">
           <ContentSuggestions blogs={related.blogs} tils={related.tils} />
         </div>
       </Container>
     </Layout>
-    <script>
-      document.addEventListener(
-        'crossdocumentviewtransitionoldcapture',
-        (event) => {
-          console.log({ event });
-        }
-      );
-    </script>
   </body>
 </html>

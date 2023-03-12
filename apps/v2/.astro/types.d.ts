@@ -508,6 +508,13 @@ declare module 'astro:content' {
   collection: "note",
   data: InferEntrySchema<"note">
 } & { render(): Render[".md"] },
+"freelancing.md": {
+  id: "freelancing.md",
+  slug: "freelancing",
+  body: string,
+  collection: "note",
+  data: InferEntrySchema<"note">
+} & { render(): Render[".md"] },
 "fsm-and-statechart.mdx": {
   id: "fsm-and-statechart.mdx",
   slug: "fsm-and-statechart",
