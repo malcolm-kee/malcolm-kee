@@ -4,6 +4,7 @@ import BlogPostPreview from '~/components/BlogPostPreview.astro';
 import { BlogPostPreviewList } from '~/components/BlogPostPreviewList';
 import { Button } from '~/components/Button';
 import Container from '~/components/Container';
+import GenericSignupForm from '~/components/GenericSignupForm.astro';
 import { BriefcaseIcon, CloudArrowDownIcon } from '~/components/icons';
 import Layout from '~/components/Layout.astro';
 import SocialIcons from '~/components/SocialIcons';
@@ -47,6 +48,7 @@ const permalink = new URL('', Astro.site).toString();
             {allPosts.map((p) => <BlogPostPreview post={p} />)}
           </BlogPostPreviewList>
           <div class="space-y-10 lg:pl-16 xl:pl-24">
+            <GenericSignupForm />
             <div class="rounded-2xl border border-zinc-100 p-6">
               <h2
                 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100"
