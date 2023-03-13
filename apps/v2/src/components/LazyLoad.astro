@@ -1,4 +1,9 @@
 ---
+interface Props {
+  threshold?: number;
+}
+
+const { threshold = 0.5 } = Astro.props;
 ---
 
 <style>
@@ -18,38 +23,52 @@
     animation-play-state: paused !important;
   }
 </style>
-<div class="lazy-load-el lazy-load opacity-100 transition translate-y-0">
+<div
+  class="lazy-load-el lazy-load opacity-100 transition translate-y-0"
+  data-threshold={threshold}
+>
   <slot />
 </div>
 <script>
-  const lazyLoadElements = document.querySelectorAll('.lazy-load');
+  const lazyLoadElements = document.querySelectorAll(
+    '.lazy-load'
+  ) as NodeListOf<HTMLElement>;
 
-  // Intersection Observer options
-  const options = {
-    rootMargin: '0px',
-    threshold: 0.7,
-  };
+  if (lazyLoadElements.length > 0) {
+    const firstThresholdValue = Number(lazyLoadElements[0].dataset.threshold);
 
-  // Intersection Observer callback function
-  const callback = (
-    entries: IntersectionObserverEntry[],
-    observer: IntersectionObserver
-  ) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // Add class to element when it appears in viewport
-        entry.target.classList.remove('lazy-load');
-        // Unobserve the element to stop observing it
-        observer.unobserve(entry.target);
-      }
+    const threshold =
+      firstThresholdValue && !isNaN(firstThresholdValue)
+        ? firstThresholdValue
+        : 0.5;
+
+    // Intersection Observer options
+    const options = {
+      rootMargin: '0px',
+      threshold,
+    };
+
+    // Intersection Observer callback function
+    const callback = (
+      entries: IntersectionObserverEntry[],
+      observer: IntersectionObserver
+    ) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add class to element when it appears in viewport
+          entry.target.classList.remove('lazy-load');
+          // Unobserve the element to stop observing it
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    // Create Intersection Observer instance
+    const observer = new IntersectionObserver(callback, options);
+
+    // Observe all lazy-load elements
+    lazyLoadElements.forEach((element) => {
+      observer.observe(element);
     });
-  };
-
-  // Create Intersection Observer instance
-  const observer = new IntersectionObserver(callback, options);
-
-  // Observe all lazy-load elements
-  lazyLoadElements.forEach((element) => {
-    observer.observe(element);
-  });
+  }
 </script>
