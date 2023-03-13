@@ -9,6 +9,7 @@ import Container from '~/components/Container';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
 import Layout from '~/components/Layout.astro';
 import MdContent from '~/components/MdContent.astro';
+import SignupForm from '~/components/SignupForm.astro';
 import { getBlogs } from '~/data/blog-helpers';
 import { getBlogRelatedContents } from '~/data/topic-helpers';
 import { getTransformedImage } from '~/lib/cloudinary';
@@ -73,10 +74,6 @@ const imageData = heroImagePublicId
       .heroImgPlaceholder {
         max-height: 45vh;
       }
-
-      :global(.signupFormWrapper > *) {
-        margin-inline: auto;
-      }
     </style>
   </head>
 
@@ -110,13 +107,13 @@ const imageData = heroImagePublicId
         <MdContent title={title} publishDate={pubDate}>
           <Content />
         </MdContent>
-        <div class="signupFormWrapper mb-12 max-w-3xl mx-auto">
+        <SignupForm class="mb-12">
           <script
             async
             data-uid="4689c70a6b"
             src="https://malcolm-kee.ck.page/4689c70a6b/index.js"
           ></script>
-        </div>
+        </SignupForm>
         <div class="border-t border-gray-100 pt-8">
           <ContentSuggestions blogs={related.blogs} tils={related.tils} />
         </div>

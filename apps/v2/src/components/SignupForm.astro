@@ -1,0 +1,63 @@
+---
+import LazyLoad from './LazyLoad.astro';
+import { clsx } from 'clsx';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<style is:global>
+  .signupFormWrapper {
+    --input-duration: 300ms;
+  }
+
+  .signupFormWrapper > * {
+    margin-inline: auto;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .formkit-field {
+    z-index: 1;
+  }
+
+  .formkit-input {
+    animation: fade-in both;
+    animation-delay: var(--load-duration, 0s);
+    animation-duration: var(--input-duration);
+  }
+
+  @keyframes slide-from-left {
+    0% {
+      transform: translateX(calc(-100% - 10px));
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateX(0px);
+      opacity: 1;
+    }
+  }
+
+  .formkit-submit {
+    z-index: 0;
+    animation: slide-from-left 300ms both;
+    animation-delay: calc(var(--load-duration, 0s) + var(--input-duration, 0s));
+  }
+</style>
+<LazyLoad>
+  <div class={clsx('signupFormWrapper max-w-3xl mx-auto', className)}>
+    <slot />
+  </div>
+</LazyLoad>

@@ -1,0 +1,55 @@
+---
+---
+
+<style>
+  .lazy-load-el {
+    --load-delay: 300ms;
+    --load-duration: 500ms;
+    transition-delay: var(--load-delay);
+    transition-duration: var(--load-duration);
+  }
+
+  .lazy-load {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+
+  .lazy-load :global(*) {
+    animation-play-state: paused !important;
+  }
+</style>
+<div class="lazy-load-el lazy-load opacity-100 transition translate-y-0">
+  <slot />
+</div>
+<script>
+  const lazyLoadElements = document.querySelectorAll('.lazy-load');
+
+  // Intersection Observer options
+  const options = {
+    rootMargin: '0px',
+    threshold: 0.7,
+  };
+
+  // Intersection Observer callback function
+  const callback = (
+    entries: IntersectionObserverEntry[],
+    observer: IntersectionObserver
+  ) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Add class to element when it appears in viewport
+        entry.target.classList.remove('lazy-load');
+        // Unobserve the element to stop observing it
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
+  // Create Intersection Observer instance
+  const observer = new IntersectionObserver(callback, options);
+
+  // Observe all lazy-load elements
+  lazyLoadElements.forEach((element) => {
+    observer.observe(element);
+  });
+</script>
