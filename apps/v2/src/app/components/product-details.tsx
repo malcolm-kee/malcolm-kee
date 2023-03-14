@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useProduct } from '../queries/product-queries';
 import { ProductLink } from './product-link';
-import { Helmet } from 'react-helmet';
+import { isProductNavigated } from './product-navigation';
 
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   year: 'numeric',
@@ -17,9 +17,6 @@ export const ProductDetails = ({ productId }: { productId: string }) => {
       {isLoading && <p>Loading...</p>}
       {data && (
         <>
-          <Helmet>
-            <title>{data.name}</title>
-          </Helmet>
           <h1 className="text-4xl font-bold mb-2">{data.name}</h1>
           <div className="flex flex-col md:flex-row gap-6">
             {data.images ? (
@@ -29,18 +26,22 @@ export const ProductDetails = ({ productId }: { productId: string }) => {
                 height={600}
                 className="w-80 h-80"
                 style={
-                  {
-                    viewTransitionName: `product-${data._id}`,
-                  } as any
+                  isProductNavigated(productId)
+                    ? ({
+                        viewTransitionName: `product-${data._id}`,
+                      } as any)
+                    : undefined
                 }
               />
             ) : (
               <div
                 className="flex justify-center items-center w-80 h-80 bg-gray-100"
                 style={
-                  {
-                    viewTransitionName: `product-${data._id}`,
-                  } as any
+                  isProductNavigated(productId)
+                    ? ({
+                        viewTransitionName: `product-${data._id}`,
+                      } as any)
+                    : undefined
                 }
               >
                 <p className="text-gray-800">No preview</p>
@@ -92,9 +93,7 @@ export const ProductDetails = ({ productId }: { productId: string }) => {
               <div className="flex flex-wrap gap-6">
                 {data.comments.map((comment) => (
                   <article key={comment._id} className="p-3 shadow rounded">
-                    <p className="text-xs text-gray-500">
-                      {comment.userName} commented:
-                    </p>
+                    <p className="text-xs text-gray-500">{comment.userName} commented:</p>
                     <p>{comment.content}</p>
                     <div className="text-right">
                       <small>
