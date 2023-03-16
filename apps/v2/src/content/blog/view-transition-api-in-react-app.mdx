@@ -1,0 +1,472 @@
+---
+title: Using View Transition API in React App
+pubDate: 17 Mar 2023
+description: Discover how to use the View Transition API in your React applications to create engaging and fluid navigational experiences. This API simplifies the process of animating shared elements and can be used in various practical scenarios, such as showcasing product images, animating modals, and more. Learn how to integrate the API with React and React Router, as well as how to handle browser compatibility with progressive enhancement techniques.
+topics:
+  - react
+  - css
+heroImagePublicId: malcolm-kee/view_transition_api_react_o1tdys
+---
+
+import LiveEditor from '~/components/LiveEditor.astro';
+
+The View Transition API is a new feature on web that simplifies the process of creating animated transitions for shared element. Previously, achieving smooth transitions for shared element on the web was a complex task. However, with the introduction of this API, we can now easily animate shared element, allows us to create engaging and fluid navigational experiences, similar to those found in mobile applications.
+
+In this article, I will provide a brief overview of how to start using View Transition API in your React applications. For a more comprehensive guide, please refer to [this article](https://developer.chrome.com/docs/web-platform/view-transitions/) authored by Jake Archibald, who championed this feature.
+
+## A simple example
+
+In the example below, when the Move button is clicked, the cat image will switch from top right to bottom left (or vice versa) abruptly, as they are technically two separate elements.
+
+Use the play button on the right to run the example.
+
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem">
+
+```js
+document.getElementById('moveBtn').addEventListener('click', () => {
+  document
+    .querySelectorAll('.thumbnail, .cat-details')
+    .forEach((target) => target.classList.toggle('hidden'));
+});
+```
+
+```html {3,5-11,14-20}
+<div class="top-bar">
+  <div class="top-bar-content">
+    <h1>Move Cat</h1>
+    <button id="moveBtn">Move</button>
+  </div>
+  <img
+    src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
+    alt="cat"
+    width="300"
+    height="300"
+    class="cat-img thumbnail"
+  />
+</div>
+<div class="cat-details hidden">
+  <img
+    src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
+    alt="cat"
+    width="500"
+    height="500"
+    class="cat-img detailed-img"
+  />
+  <div class="cat-desc">
+    <h2>Cat Details</h2>
+  </div>
+</div>
+<style>
+  .cat-details {
+    display: flex;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cat-desc {
+    flex: 1;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+
+  .detailed-img {
+    width: 50vw;
+    height: auto;
+  }
+</style>
+```
+
+</LiveEditor>
+
+## Using View Transition API
+
+Using View Transition API, we can animate that movement with the following changes:
+
+1. wrap the code that update the DOM element with `document.startViewTransition`.
+1. add `view-transition-name` CSS property with the same value to the two cat images that we want to animate.
+
+If you're using latest version of Chrome, you'll see the following changes when the Move button is clicked:
+
+1. The cat image will transition between two positions with smooth animation.
+2. There is a subtle fade animation for the "Cat Details" text.
+
+If you're not using latest version of Chrome, the example is broken now, I'll discuss how to handle that [later](#using-progressive-enhancement-technique-with-view-transition).
+
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="10rem">
+
+```js {1,5}
+document.getElementById('moveBtn').addEventListener('click', () => {
+  document.startViewTransition(() => {
+    document
+      .querySelectorAll('.thumbnail, .cat-details')
+      .forEach((target) => target.classList.toggle('hidden'));
+  });
+});
+```
+
+```html {26-28}
+<div class="top-bar">
+  <div class="top-bar-content">
+    <h1>Move Cat</h1>
+    <button id="moveBtn">Move</button>
+  </div>
+  <img
+    src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
+    alt="cat"
+    width="300"
+    height="300"
+    class="cat-img thumbnail"
+  />
+</div>
+<div class="cat-details hidden">
+  <img
+    src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
+    alt="cat"
+    width="500"
+    height="500"
+    class="cat-img detailed-img"
+  />
+  <div class="cat-desc">
+    <h2>Cat Details</h2>
+  </div>
+</div>
+<style>
+  .cat-img {
+    view-transition-name: meow-image;
+  }
+
+  .cat-details {
+    display: flex;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cat-desc {
+    flex: 1;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+
+  .detailed-img {
+    width: 50vw;
+    height: auto;
+  }
+</style>
+```
+
+</LiveEditor>
+
+## How it works
+
+You can understand how the API works in this way:
+
+1. When `document.startViewTransition` is called, it
+
+   - takes a screenshot of the entire page
+   - finds all the elements with `view-transition-name` CSS property declared, and take a screenshot of it
+
+   In the example above, it takes a screenshot of the entire page, and then a screenshot of the cat image.
+
+2. Once the screenshots are done, it will invoke the callback that you passed to it. In the example above, the callback will hide the cat image on top right and display the cat image on bottom left.
+
+3. Once the callback is done, it then take another round of screenshots like step 1, then figures out the difference and perform the animation accordingly.
+   - by default, the animation is fading effect, which is why the "Cat Details" has the fade animation. (To be more precise, entire page has the fade animation, but for parts that did not change, we can't observe the fade animation)
+   - for elements with `view-transition-name` property defined, it will figure out the difference of the position, and animate accordingly.
+
+If you want to understand it in a more accurate and detailed way, refer to [this section of Jake Archibald's article](https://developer.chrome.com/docs/web-platform/view-transitions/#how-these-transitions-work).
+
+## Usage View Transition API with React
+
+Because React renders state changes asynchronously, we need to wrap the state-setter function with [`flushSync`](https://beta.reactjs.org/reference/react-dom/flushSync) to force the state changes to be applied synchronously.
+
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem">
+
+```jsx {1, 9-11}
+import * as React from 'react';
+import { flushSync } from 'react-dom';
+import { createRoot } from 'react-dom/client';
+
+const App = () => {
+  const [isThumbnail, setIsThumbnail] = React.useState(true);
+
+  const handleMove = () => {
+    document.startViewTransition(() => {
+      flushSync(() => {
+        setIsThumbnail((prev) => !prev);
+      });
+    });
+  };
+
+  return (
+    <div>
+      <div className="top-bar">
+        <div className="top-bar-content">
+          <h1>Move Cat</h1>
+          <button onClick={handleMove}>Move</button>
+        </div>
+        {isThumbnail && (
+          <img
+            src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
+            alt="cat"
+            className="cat-img thumbnail"
+          />
+        )}
+      </div>
+      {!isThumbnail && (
+        <div className="cat-details">
+          <img
+            src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
+            alt="cat"
+            className="cat-img detailed-img"
+          />
+          <div className="cat-desc">
+            <h2>Cat Details</h2>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+createRoot(document.getElementById('root')).render(<App />);
+```
+
+```html hidden
+<div id="root"></div>
+<style>
+  .cat-img {
+    view-transition-name: meow-image;
+  }
+
+  .cat-details {
+    display: flex;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cat-desc {
+    flex: 1;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+
+  .detailed-img {
+    width: 50vw;
+    height: auto;
+  }
+</style>
+```
+
+</LiveEditor>
+
+## Using View Transition API with React Router
+
+Using View Transition API with [React Router](https://reactrouter.com/), however, doesn't require the `flushSync` call if you don't use its [Data APIs](https://reactrouter.com/en/main/routers/picking-a-router#using-v64-data-apis).
+
+The reason that it doesn't require the `flushSync` hook because React Router's current implementation use the [`useSyncExternalStore`](https://beta.reactjs.org/reference/react/useSyncExternalStore) API, which perform rerendering synchronously.
+
+On the other hand, using the Data APIs switches the rendering during route change to become asynchronous, which would need React Router to introduce additional hooks or options to work with View Transition API correctly.
+
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem">
+
+```jsx
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
+import { useNavigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+const AnimatedLink = ({ to, children }) => {
+  const navigate = useNavigate();
+
+  return (
+    <a
+      href={to}
+      onClick={(ev) => {
+        ev.preventDefault();
+        document.startViewTransition(() => {
+          navigate(to);
+        });
+      }}
+    >
+      {children}
+    </a>
+  );
+};
+
+const TopBar = ({ link, rightContent }) => (
+  <div className="top-bar">
+    <div className="top-bar-content">
+      <h1>Move Cat</h1>
+      {link}
+    </div>
+    {rightContent}
+  </div>
+);
+
+const router = createBrowserRouter([
+  {
+    index: true,
+    element: (
+      <div>
+        <TopBar
+          link={<AnimatedLink to="/details">Details</AnimatedLink>}
+          rightContent={
+            <img
+              src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
+              alt="cat"
+              className="cat-img thumbnail"
+            />
+          }
+        />
+      </div>
+    ),
+  },
+  {
+    path: '/details',
+    element: (
+      <div>
+        <TopBar link={<AnimatedLink to="/">Home</AnimatedLink>} />
+        <div className="cat-details">
+          <img
+            src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
+            alt="cat"
+            className="cat-img detailed-img"
+          />
+          <div className="cat-desc">
+            <h2>Cat Details</h2>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+]);
+
+createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
+```
+
+```html hidden
+<div id="root"></div>
+<style>
+  .cat-img {
+    view-transition-name: meow-image;
+  }
+
+  .cat-details {
+    display: flex;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cat-desc {
+    flex: 1;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+
+  .detailed-img {
+    width: 50vw;
+    height: auto;
+  }
+</style>
+```
+
+</LiveEditor>
+
+## Practical Use Cases
+
+Other than transitioning between pages, some practical use cases of the View Transition API are:
+
+1. Showcasing product images or gallery items: When a user clicks on a thumbnail, the View Transition API can be used to smoothly transition to the full-size image or gallery view.
+1. Animating an element when open modal: When a user opens/closes a modal, transition the button to the entire modal to produce an expansion effect.
+1. Animating focus ring for onboarding overlay: When navigating between steps, the focus ring and the popup modal can be moved with animation.
+1. Tab active indicator animation: When switching tab, animating the active indicator used to requiring manual computation of the position of the previous active tab versus the new active tab. With View Transition API we can delegates to browser to perform the computation.
+
+## Using Progressive Enhancement Technique with View Transition
+
+To ensure that your application still functions properly on browsers that do not support the View Transition API, you can use the progressive enhancement technique. This involves checking whether `document.startViewTransition` is available before using it. If it's not available, then no animation will be applied.
+
+```js
+// create a wrapper to be used everywhere in your application
+const transitionViewIfSupported = (updateCb) => {
+  if (document.startViewTransition) {
+    document.startViewTransition(updateCb);
+  } else {
+    updateCb();
+  }
+};
+```
+
+## Conclusion
+
+In conclusion, the View Transition API offers a straightforward way to create smooth animations for web applications. By implementing it in your React projects and using progressive enhancement, you can cover a wider range of browsers while enhancing user experience. Give it a try and see the difference it makes!
+
+## Acknowledgements
+
+Thanks [Jake Archibald](https://jakearchibald.com/) for his works on designing and championing this API, and also being extremely patient for all my questions about the API.

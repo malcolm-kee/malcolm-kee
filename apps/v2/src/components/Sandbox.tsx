@@ -6,8 +6,8 @@ import {
 } from '@codesandbox/sandpack-react';
 import { githubLight, nightOwl } from '@codesandbox/sandpack-themes';
 import * as React from 'react';
-import { SandBoxConsole } from './SandboxConsole';
 import { useThemeValue } from '~/hooks/use-theme';
+import { SandBoxConsole } from './SandboxConsole';
 
 const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
 
@@ -15,6 +15,7 @@ export interface SandboxProps {
   lang: SupportedLang;
   code: string;
   htmlEntry?: string | undefined;
+  dependencies?: Record<string, string>;
 }
 
 export default function Sandbox(props: SandboxProps) {
@@ -59,10 +60,7 @@ export default function Sandbox(props: SandboxProps) {
               ...(props.htmlEntry
                 ? {
                     '/index.html': {
-                      code: getVanillaHtml(
-                        props.htmlEntry,
-                        entryFileName.replace(/^\//, '')
-                      ),
+                      code: getVanillaHtml(props.htmlEntry, entryFileName.replace(/^\//, '')),
                     },
                   }
                 : {}),
@@ -70,11 +68,12 @@ export default function Sandbox(props: SandboxProps) {
       }
       customSetup={{
         entry: entryFileName,
+        dependencies: props.dependencies,
       }}
       theme={codeTheme}
     >
       <div className={!hasUi ? 'hidden' : ''}>
-        <SandpackPreview />
+        <SandpackPreview style={previewStyle} />
       </div>
       <div className="border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70">
         {props.lang === 'ts' ? (
@@ -85,11 +84,7 @@ export default function Sandbox(props: SandboxProps) {
             showTabs={hasUi}
           />
         ) : (
-          <SandpackCodeEditor
-            style={editorStyle}
-            showTabs={hasUi}
-            showLineNumbers
-          />
+          <SandpackCodeEditor style={editorStyle} showTabs={hasUi} showLineNumbers />
         )}
       </div>
       <SandBoxConsole />
@@ -101,16 +96,17 @@ const editorStyle: React.CSSProperties = {
   height: 'calc(var(--editor-height, 100%) + 40px + 16px)', // toolbar (40px), editor y padding (16px)
 };
 
+const previewStyle: React.CSSProperties = {
+  minHeight: 'var(--preview-min-height, auto)',
+};
+
 const indexHtml = /* html */ `<html>
   <body>
     <div id="root" />
   </body>
 </html>`;
 
-const getVanillaHtml = (
-  htmlSnippet: string,
-  entryFilePath: string
-) => /* html */ `<html>
+const getVanillaHtml = (htmlSnippet: string, entryFilePath: string) => /* html */ `<html>
   <body>
     ${htmlSnippet}
     <script src="${entryFilePath}"></script>

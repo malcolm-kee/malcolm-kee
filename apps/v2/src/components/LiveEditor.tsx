@@ -24,6 +24,7 @@ export function LiveEditor(props: LiveEditorProps) {
 
       const codeLines: Array<string> = [];
       const htmlCodeLines: Array<string> = [];
+      const dependencies: Record<string, string> = {};
 
       let language: SupportedLang | undefined;
 
@@ -33,9 +34,14 @@ export function LiveEditor(props: LiveEditorProps) {
         const currentLang = $languageId && getLang($languageId.textContent);
 
         if ($code && currentLang) {
-          language = currentLang;
+          language = reduceLang(language, currentLang);
 
-          if (currentLang === 'jsx' || currentLang === 'tsx') {
+          if (
+            currentLang === 'js' ||
+            currentLang === 'jsx' ||
+            currentLang === 'ts' ||
+            currentLang === 'tsx'
+          ) {
             let hasImportedReact = false;
 
             $code.childNodes.forEach((child) => {
@@ -43,18 +49,21 @@ export function LiveEditor(props: LiveEditorProps) {
                 if (child.classList.contains('line')) {
                   const content = child.textContent;
                   if (content != null) {
-                    codeLines.push(
-                      whiteSpacePattern.test(content) ? '' : content
-                    );
+                    codeLines.push(whiteSpacePattern.test(content) ? '' : content);
                     if (reactImportPattern.test(content)) {
                       hasImportedReact = true;
+                    }
+                    const importStatementMatch = content.match(importStatementPattern);
+
+                    if (importStatementMatch) {
+                      dependencies[importStatementMatch[3]] = 'latest';
                     }
                   }
                 }
               }
             });
 
-            if (!hasImportedReact) {
+            if ((currentLang === 'jsx' || currentLang === 'tsx') && !hasImportedReact) {
               codeLines.unshift(`import * as React from 'react';`);
             }
           }
@@ -70,13 +79,15 @@ export function LiveEditor(props: LiveEditorProps) {
             const content = child.textContent;
 
             if (content != null) {
-              htmlCodeLines.push(
-                whiteSpacePattern.test(content) ? '' : content
-              );
+              htmlCodeLines.push(whiteSpacePattern.test(content) ? '' : content);
             }
           });
         }
       });
+
+      if (language === 'html' && codeLines.length === 0) {
+        codeLines.push(...htmlCodeLines);
+      }
 
       if (codeLines.length > 0 && language) {
         setState({
@@ -84,6 +95,7 @@ export function LiveEditor(props: LiveEditorProps) {
           code: codeLines.join('\r\n'),
           language,
           htmlCode: htmlCodeLines.join('\r\n') || undefined,
+          dependencies,
         });
       } else {
         setState({ mode: 'error' });
@@ -97,6 +109,7 @@ export function LiveEditor(props: LiveEditorProps) {
         lang={state.language}
         code={state.code}
         htmlEntry={state.language === 'html' ? undefined : state.htmlCode}
+        dependencies={state.dependencies}
       />
     </React.Suspense>
   ) : state.mode === 'mounted' ? (
@@ -110,12 +123,33 @@ export function LiveEditor(props: LiveEditorProps) {
   ) : null;
 }
 
+const reduceLang = (
+  currentLang: SupportedLang | undefined,
+  newLang: SupportedLang
+): SupportedLang => {
+  if (currentLang == null || currentLang === 'html') {
+    return newLang;
+  }
+
+  if (currentLang === 'tsx' || newLang === 'tsx') {
+    return 'tsx';
+  }
+
+  if (currentLang === 'ts') {
+    return newLang === 'jsx' ? 'tsx' : 'ts';
+  }
+
+  if (currentLang === 'jsx') {
+    return newLang === 'ts' ? 'tsx' : 'jsx';
+  }
+
+  return newLang === 'html' ? currentLang : newLang;
+};
+
 const getLang = (langText: string | null) => {
   const lowerText = langText && langText.toLowerCase();
 
-  return lowerText && /(j|t)sx?|html/.test(lowerText)
-    ? (lowerText as SupportedLang)
-    : undefined;
+  return lowerText && /(j|t)sx?|html/.test(lowerText) ? (lowerText as SupportedLang) : undefined;
 };
 
 const isHtml = (langText: string | null) => {
@@ -136,10 +170,12 @@ type LiveEditorState =
       code: string;
       language: SupportedLang;
       htmlCode: string | undefined;
+      dependencies: Record<string, string>;
     }
   | {
       mode: 'error';
     };
 
 const reactImportPattern = /import (\* as)? React from 'react';/;
+const importStatementPattern = /import((.*)? from)? '(([a-z-])+)';/;
 const whiteSpacePattern = /^\s+$/;

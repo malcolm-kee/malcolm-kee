@@ -478,6 +478,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] },
+"view-transition-api-in-react-app.mdx": {
+  id: "view-transition-api-in-react-app.mdx",
+  slug: "view-transition-api-in-react-app",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] },
 "what-is-redux.md": {
   id: "what-is-redux.md",
   slug: "what-is-redux",
