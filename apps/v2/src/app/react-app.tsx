@@ -1,18 +1,10 @@
-import {
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import {
-  createBrowserRouter,
-  createMemoryRouter,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { getAllStaticData, getRoutes } from './framework';
 import './react-app.css';
-import type { PageExports } from './types';
+import type { PageExports, StaticDataResult } from './types';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,15 +14,18 @@ export const queryClient = new QueryClient({
   },
 });
 
-const pages: Record<string, PageExports> = import.meta.glob(
-  './pages/**/*.tsx',
-  {
-    eager: true,
-  }
-);
+const pages: Record<string, PageExports> = import.meta.glob('./pages/**/*.tsx', {
+  eager: true,
+});
+
+let allStaticData: StaticDataResult[];
 
 export async function getStaticRouteData() {
-  const allStaticData = await getAllStaticData(pages);
+  if (allStaticData) {
+    return allStaticData;
+  }
+
+  allStaticData = await getAllStaticData(pages);
 
   return allStaticData;
 }

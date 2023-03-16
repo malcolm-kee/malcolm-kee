@@ -5,20 +5,13 @@ import { Link } from '../../components/link';
 import { NavBar } from '../../components/nav-bar';
 import { ProductDetails } from '../../components/product-details';
 import { productQueryOptions } from '../../queries/product-queries';
-import {
-  getOneProduct,
-  getProducts,
-  Product,
-} from '../../services/product-service';
+import { getOneProduct, getProducts, Product } from '../../services/product-service';
 import { GetStaticData, StaticData } from '../../types';
 
 export const getStaticData = async function getStaticData() {
   const products = await getProducts();
 
-  const staticDataMap = new Map<
-    string,
-    StaticData & { params: { productId: string } }
-  >();
+  const staticDataMap = new Map<string, StaticData & { params: { productId: string } }>();
 
   async function collectStaticData(productList: Product[]) {
     for (const product of productList) {
@@ -32,23 +25,17 @@ export const getStaticData = async function getStaticData() {
             ...productQueryOptions.productDetails(product._id),
             getDependentQueries: (productData: Product) =>
               productData.related
-                ? product.related.map((id) =>
-                    productQueryOptions.productDetails(id)
-                  )
+                ? product.related.map((id) => productQueryOptions.productDetails(id))
                 : [],
           },
         ],
       });
 
       if (product.related) {
-        const unseenProducts = product.related.filter(
-          (id) => !staticDataMap.has(id)
-        );
+        const unseenProducts = product.related.filter((id) => !staticDataMap.has(id));
 
         if (unseenProducts.length > 0) {
-          const relatedProducts = await Promise.all(
-            unseenProducts.map((id) => getOneProduct(id))
-          );
+          const relatedProducts = await Promise.all(unseenProducts.map((id) => getOneProduct(id)));
 
           await collectStaticData(relatedProducts);
         }
@@ -75,7 +62,7 @@ export default function ProductDetailsPage() {
           <ChevronLeftIcon className="w-5 h-5" /> Products
         </Link>
       </NavBar>
-      <ProductDetails productId={productId!} />
+      <ProductDetails productId={productId!} key={productId} />
     </div>
   );
 }
