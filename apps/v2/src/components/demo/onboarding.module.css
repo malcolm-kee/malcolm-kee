@@ -1,0 +1,11 @@
+.tooltip {
+  @apply absolute w-max top-0 left-0 p-3 bg-white rounded shadow-lg;
+
+  view-transition-name: onboarding-tooltip;
+}
+
+.ring {
+  @apply absolute top-0 left-0 border border-2 border-rose-500/30 rounded;
+
+  view-transition-name: onboarding-ring;
+}

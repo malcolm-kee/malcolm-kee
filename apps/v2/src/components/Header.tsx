@@ -40,11 +40,7 @@ export default function Header({
         return;
       }
       let { top, height } = headerRef.current.getBoundingClientRect();
-      let scrollY = clamp(
-        window.scrollY,
-        0,
-        document.body.scrollHeight - window.innerHeight
-      );
+      let scrollY = clamp(window.scrollY, 0, document.body.scrollHeight - window.innerHeight);
 
       if (isInitial.current) {
         setProperty('--header-position', 'sticky');
@@ -93,10 +89,7 @@ export default function Header({
       let x = (scrollY * (fromX - toX)) / downDelay + toX;
       x = clamp(x, fromX, toX);
 
-      setProperty(
-        '--avatar-image-transform',
-        `translate3d(${x}rem, 0, 0) scale(${scale})`
-      );
+      setProperty('--avatar-image-transform', `translate3d(${x}rem, 0, 0) scale(${scale})`);
 
       let borderScale = 1 / (toScale / scale);
       let borderX = (-toX + x) * borderScale;
@@ -183,27 +176,16 @@ export default function Header({
           <Container>
             <div className="relative flex gap-4">
               <div className="flex flex-1 pointer-events-auto">
-                {!isHomePage && (
-                  <HomeIconLink
-                    iconClass={styles.avatar}
-                    hideAvatar={hideAvatar}
-                  />
-                )}
+                {!isHomePage && <HomeIconLink iconClass={styles.avatar} hideAvatar={hideAvatar} />}
               </div>
               {!hideNav && (
                 <div className="flex flex-1 justify-end md:justify-center">
                   <MobileNavigation
-                    className={clsx(
-                      'pointer-events-auto md:hidden',
-                      styles.mobileNav
-                    )}
+                    className={clsx('pointer-events-auto md:hidden', styles.mobileNav)}
                   />
                   <DesktopNavigation
                     currentPath={currentPath}
-                    className={clsx(
-                      'pointer-events-auto hidden md:block',
-                      styles.desktopNav
-                    )}
+                    className={clsx('pointer-events-auto hidden md:block', styles.desktopNav)}
                   />
                 </div>
               )}
@@ -274,13 +256,7 @@ function DesktopNavigation({
   );
 }
 
-function MobileNavItem({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
+function MobileNavItem({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
       <a href={href} className="block py-2">

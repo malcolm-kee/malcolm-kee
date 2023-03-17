@@ -1,0 +1,13 @@
+.button {
+  @apply px-3 py-1 relative;
+}
+
+.button[data-active='true']::after {
+  @apply absolute left-0 bottom-0 right-0 h-0.5 bg-primary-500;
+  content: ' ';
+  view-transition-name: tab-active-indicator;
+}
+
+.tab {
+  view-transition-name: tab-panel;
+}

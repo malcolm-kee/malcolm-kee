@@ -1,0 +1,18 @@
+.focus {
+  view-transition-name: animated-dialog-focus;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.backdrop {
+  animation: fade 200ms ease;
+  view-transition-name: animated-dialog-backdrop;
+}
