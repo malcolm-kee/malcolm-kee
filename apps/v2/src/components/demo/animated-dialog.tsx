@@ -7,11 +7,30 @@ import styles from './animated-dialog.module.css';
 
 export const AnimatedDialog = () => {
   const [shown, setShown] = React.useState(false);
+  const buttonBgRef = React.useRef<HTMLSpanElement>(null);
 
   const toggle = () => {
-    viewTransition(() => {
-      flushSync(() => setShown((s) => !s));
+    if (buttonBgRef.current) {
+      if (!shown) {
+        buttonBgRef.current.classList.add(styles.focus);
+      }
+    }
+    const transition = viewTransition(() => {
+      if (buttonBgRef.current) {
+        if (shown) {
+          buttonBgRef.current.classList.add(styles.focus);
+        } else {
+          buttonBgRef.current.classList.remove(styles.focus);
+        }
+      }
+      flushSync(() => setShown(!shown));
     });
+
+    if (shown && buttonBgRef.current) {
+      transition.finished.then(() => {
+        buttonBgRef.current?.classList.remove(styles.focus);
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -35,7 +54,7 @@ export const AnimatedDialog = () => {
         onClick={toggle}
         className={clsx('relative inline-flex items-center px-3 py-1 rounded overflow-hidden')}
       >
-        <span className={clsx('absolute inset-0 bg-pink-600', !shown && styles.focus)}></span>
+        <span className="absolute inset-0 bg-pink-600 rounded" ref={buttonBgRef}></span>
         <span className="relative text-white">Demo</span>
       </button>
       {shown &&

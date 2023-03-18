@@ -3,5 +3,12 @@ export const viewTransition = (callback: () => void) => {
     return document.startViewTransition(callback);
   } else {
     callback();
+
+    const resolved = Promise.resolve();
+
+    return {
+      ready: resolved,
+      finished: resolved,
+    };
   }
 };

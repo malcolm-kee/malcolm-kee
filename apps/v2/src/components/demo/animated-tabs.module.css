@@ -1,5 +1,5 @@
 .button {
-  @apply px-3 py-1 relative;
+  @apply flex-shrink-0 px-3 py-1 relative;
 }
 
 .button[data-active='true']::after {

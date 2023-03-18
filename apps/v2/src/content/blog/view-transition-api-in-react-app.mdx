@@ -197,10 +197,10 @@ document.getElementById('moveBtn').addEventListener('click', () => {
 
 You can understand how the API works in this way:
 
-1. When `document.startViewTransition` is called, it
+1. When `document.startViewTransition` is called, browser
 
    - takes a screenshot of the entire page
-   - finds all the elements with `view-transition-name` CSS property declared, and take a screenshot of it
+   - finds all the elements with `view-transition-name` CSS property declared, and takes a screenshot of them
 
    In the example above, it takes a screenshot of the entire page, and then a screenshot of the cat image.
 
@@ -214,7 +214,7 @@ If you want to understand it in a more accurate and detailed way, refer to [this
 
 ## Usage View Transition API with React
 
-Because React renders state changes asynchronously, we need to wrap the state-setter function with [`flushSync`](https://beta.reactjs.org/reference/react-dom/flushSync) to force the state changes to be applied synchronously.
+Because React renders state changes asynchronously, we need to wrap the state-setter function with [`flushSync`](https://react.dev/reference/react-dom/flushSync) to force the state changes to be applied synchronously.
 
 <LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem">
 
@@ -456,7 +456,7 @@ Other than transitioning between pages, some practical use cases of the View Tra
 
    <ViewTransitionBlogOnboardingButton client:load />
 
-1. Tab active indicator animation: When switching tab, animating the active indicator used to requiring manual computation of the position of the previous active tab versus the new active tab. With View Transition API we can delegates to browser to perform the computation.
+1. Tab active indicator animation: When switching tab, animating the active indicator used to require manual computation by considering the position of the previous active tab and the new active tab. With View Transition API we can delegates to browser to perform the computation.
 
    <TabsDemo client:load />
 
