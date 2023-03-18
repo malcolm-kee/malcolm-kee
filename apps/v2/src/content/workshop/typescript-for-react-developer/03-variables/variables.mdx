@@ -141,12 +141,7 @@ frameworks.push(true); // !ERROR
 /**
  * we can even define a tuple, a fixed length and specific type for each item
  */
-let address: [number, string, string, number] = [
-  123,
-  'Jalan Besar',
-  'Kuala Lumpur',
-  10110,
-];
+let address: [number, string, string, number] = [123, 'Jalan Besar', 'Kuala Lumpur', 10110];
 
 address = [1, 2, 3]; // !ERROR
 
@@ -240,7 +235,7 @@ Consider the example below:
 ```js
 const pokemonCache = {};
 
-const getPokemon = (id: number) => {
+const getPokemon = (id) => {
   if (pokemonCache[id]) {
     // if pokemon is already available in the cache, return it.
     return Promise.resolve(pokemonCache[id]);

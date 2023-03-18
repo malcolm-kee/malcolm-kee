@@ -42,7 +42,13 @@ export function LiveEditor(props: LiveEditorProps) {
             currentLang === 'ts' ||
             currentLang === 'tsx'
           ) {
-            let hasImportedReact = false;
+            const importString = preEl.getAttribute('data-code-imports');
+
+            if (importString) {
+              importString.split(',').forEach((pkgName) => {
+                dependencies[pkgName] = 'latest';
+              });
+            }
 
             $code.childNodes.forEach((child) => {
               if (child instanceof HTMLElement) {
@@ -50,20 +56,12 @@ export function LiveEditor(props: LiveEditorProps) {
                   const content = child.textContent;
                   if (content != null) {
                     codeLines.push(whiteSpacePattern.test(content) ? '' : content);
-                    if (reactImportPattern.test(content)) {
-                      hasImportedReact = true;
-                    }
-                    const importStatementMatch = content.match(importStatementPattern);
-
-                    if (importStatementMatch) {
-                      dependencies[importStatementMatch[3]] = 'latest';
-                    }
                   }
                 }
               }
             });
 
-            if ((currentLang === 'jsx' || currentLang === 'tsx') && !hasImportedReact) {
+            if ((currentLang === 'jsx' || currentLang === 'tsx') && !dependencies.react) {
               codeLines.unshift(`import * as React from 'react';`);
             }
           }
@@ -176,6 +174,4 @@ type LiveEditorState =
       mode: 'error';
     };
 
-const reactImportPattern = /import (\* as)? React from 'react';/;
-const importStatementPattern = /import((.*)? from)? '(([a-z-])+)';/;
 const whiteSpacePattern = /^\s+$/;

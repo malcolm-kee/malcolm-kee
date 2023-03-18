@@ -24,7 +24,6 @@
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "typescript.tsdk": "node_modules\\typescript\\lib",
   "cSpell.words": ["astro", "Cloudinary", "clsx", "excalidraw", "jscodeshift"],
   "files.associations": {
     "*.excalidraw": "json",

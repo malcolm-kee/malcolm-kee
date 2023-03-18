@@ -48,24 +48,17 @@ Let's configure it with the following steps.
 
 2. Configure React Styleguidist to use `react-docgen-typescript` by editing `styleguide.config.js`.
 
-   ```js title="styleguide.config.js"
-   const path = require('path'); // highlight-line
+   ```js title="styleguide.config.js" {0,4-9}
+   const path = require('path');
 
    module.exports = {
      components: 'src/components/**/*.{jsx,tsx}',
-     // highlight-start
      propsParser: (filePath, source, resolver, handlers) => {
        const { ext } = path.parse(filePath);
        return ext === '.tsx'
-         ? require('react-docgen-typescript').parse(
-             filePath,
-             source,
-             resolver,
-             handlers
-           )
+         ? require('react-docgen-typescript').parse(filePath, source, resolver, handlers)
          : require('react-docgen').parse(source, resolver, handlers);
      },
-     // highlight-end
      template: {
        head: {
          links: [

@@ -10,6 +10,7 @@ import { s } from 'hastscript';
 import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import remarkShikiTwoSlash from 'remark-shiki-twoslash';
+import { rehypeCodeImportPlugin, remarkCodeImportPlugin } from './plugin/code-import-plugins';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 
 // https://astro.build/config
@@ -32,10 +33,12 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [
+      remarkCodeImportPlugin,
       // @ts-expect-error
       [remarkShikiTwoSlash, { themes: ['github-light', 'github-dark'] }],
     ],
     rehypePlugins: [
+      rehypeCodeImportPlugin,
       [rehypeCloudinaryImageEnhance, { cloudinaryUsername: 'malcolm-kee' }],
       [rehypeExternalLinks, { target: '_blank' }],
       rehypeHeadingIds,
