@@ -81,10 +81,7 @@ const permalink = new URL(entry.slug, Astro.site).toString();
 
         if (theme === 'dark' || (theme === 'system' && isDarkMode.matches)) {
           document.documentElement.classList.add('dark');
-        } else if (
-          theme === 'light' ||
-          (theme === 'system' && !isDarkMode.matches)
-        ) {
+        } else if (theme === 'light' || (theme === 'system' && !isDarkMode.matches)) {
           document.documentElement.classList.remove('dark');
         }
 
@@ -114,9 +111,7 @@ const permalink = new URL(entry.slug, Astro.site).toString();
         attributeOldValue: true,
       });
 
-      isDarkMode.addEventListener('change', () =>
-        updateThemeWithoutTransitions()
-      );
+      isDarkMode.addEventListener('change', () => updateThemeWithoutTransitions());
     </script>
   </head>
   <WorkshopLayout
@@ -126,9 +121,11 @@ const permalink = new URL(entry.slug, Astro.site).toString();
     next={next}
     headings={headings}
   >
-    <WorkshopContent title={title}>
-      <Content />
-    </WorkshopContent>
+    <main>
+      <WorkshopContent title={title}>
+        <Content />
+      </WorkshopContent>
+    </main>
   </WorkshopLayout>
 
 

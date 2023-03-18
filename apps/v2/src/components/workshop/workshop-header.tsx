@@ -38,11 +38,7 @@ export const WorkshopHeader = ({
           : 'dark:bg-transparent'
       )}
     >
-      <a
-        href="/workshop"
-        aria-label="Back to workshops"
-        className="hidden lg:block lg:mr-3"
-      >
+      <a href="/workshop" aria-label="Back to workshops" className="hidden lg:block lg:mr-3">
         <ChevronLeftIcon className="w-5 h-5 stroke-slate-500" />
       </a>
       <div className="mr-6 flex lg:hidden">
@@ -53,10 +49,7 @@ export const WorkshopHeader = ({
         />
       </div>
       <div className="flex shrink-0 flex-grow sm:basis-0 items-center">
-        <img
-          src={workshop.iconUrl}
-          className={clsx('h-9 w-auto', styles.icon)}
-        />
+        <img src={workshop.iconUrl} className={clsx('h-9 w-auto', styles.icon)} alt="" />
       </div>
       <div className="hidden sm:block relative px-3 overflow-hidden">
         <span className="block w-full text-slate-700 dark:text-sky-100 truncate sm:text-center">

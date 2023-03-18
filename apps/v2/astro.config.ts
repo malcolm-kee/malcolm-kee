@@ -68,6 +68,8 @@ export default defineConfig({
           properties: {
             class:
               'inline-flex items-center ml-2 text-zinc-300 hover:text-primary-500 focus:text-primary-500 transition',
+            tabindex: '-1',
+            'aria-hidden': 'true',
           },
         } satisfies Options,
       ],

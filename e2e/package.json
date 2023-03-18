@@ -3,8 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
     "test": "playwright test",
     "test-report": "playwright show-report"
   },

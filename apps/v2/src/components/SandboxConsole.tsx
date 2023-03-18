@@ -14,9 +14,7 @@ export const SandBoxConsole = () => {
 
   React.useEffect(() => {
     if (logs.length > 0 && rootRef.current) {
-      const listElement = rootRef.current.querySelector(
-        '[data-element="log-list"]'
-      );
+      const listElement = rootRef.current.querySelector('[data-element="log-list"]');
 
       if (listElement) {
         listElement.scrollTop = listElement.scrollHeight;
@@ -45,15 +43,17 @@ export const SandBoxConsole = () => {
           </button>
         </div>
       )}
-      <ul
-        className="flex flex-col bg-zinc-800 text-white max-h-[40vh] overflow-y-auto"
-        ref={parent}
-        data-element="log-list"
-      >
-        {logs.map((log) => (
-          <SandboxConsoleLogItem log={log} key={log.id} />
-        ))}
-      </ul>
+      <div role="log">
+        <ul
+          className="flex flex-col bg-zinc-800 text-white max-h-[40vh] overflow-y-auto"
+          ref={parent}
+          data-element="log-list"
+        >
+          {logs.map((log) => (
+            <SandboxConsoleLogItem log={log} key={log.id} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
@@ -73,10 +73,9 @@ const SandboxConsoleLogItem = React.memo(function SandboxConsoleLogItem({
         'flex items-start gap-3 px-3 py-1.5 border-b border-b-zinc-700 last:border-b-0 border-l-4',
         logLeftBorder[log.method] || 'border-l-transparent'
       )}
+      data-element="log-item"
     >
-      <span className={clsx('block w-16 font-mono', logColor[log.method])}>
-        [{log.method}]
-      </span>
+      <span className={clsx('block w-16 font-mono', logColor[log.method])}>[{log.method}]</span>
       {items.map((item, index) => (
         <LogNode item={item} key={index} />
       ))}
@@ -122,8 +121,7 @@ const LogNode = ({ item }: { item: LogNodeData }) => {
         <div className="pl-4">
           {item.fields.map((field) => (
             <div className="flex items-start gap-0.5" key={field.prop}>
-              <span className="font-mono">{field.prop}:</span>{' '}
-              <LogNode item={field.value} />
+              <span className="font-mono">{field.prop}:</span> <LogNode item={field.value} />
             </div>
           ))}
         </div>
@@ -279,11 +277,7 @@ function formatLog(data: ConsoleData): LogNodeData {
           };
         }
 
-        if (
-          data['@t'] === '[[Map]]' &&
-          'data' in data &&
-          Array.isArray(data.data)
-        ) {
+        if (data['@t'] === '[[Map]]' && 'data' in data && Array.isArray(data.data)) {
           const items: Array<{
             key: LogNodeData;
             value: LogNodeData;
@@ -309,11 +303,7 @@ function formatLog(data: ConsoleData): LogNodeData {
           };
         }
 
-        if (
-          data['@t'] === '[[Set]]' &&
-          'data' in data &&
-          Array.isArray(data.data)
-        ) {
+        if (data['@t'] === '[[Set]]' && 'data' in data && Array.isArray(data.data)) {
           return {
             type: 'set',
             items: data.data.map(formatLog),
