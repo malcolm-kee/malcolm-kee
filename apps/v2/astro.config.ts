@@ -18,7 +18,6 @@ export default defineConfig({
   site: 'https://malcolmkee.com',
   integrations: [
     react(),
-    // @ts-expect-error
     mdx(),
     tailwind(),
     partytown({

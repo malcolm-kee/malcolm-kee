@@ -1,8 +1,9 @@
 ---
+import type * as React from 'react';
 import BaseHead from '../components/BaseHead.astro';
 import PageLayout from '../components/PageLayout.astro';
-import { projects } from '../data/projects';
 import ProjectCard from '../components/ProjectCard';
+import { projects } from '../data/projects';
 
 const description =
   `I've worked on many projects over the years but these are the ones that` +
@@ -16,22 +17,41 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 
 <html lang="en">
   <head>
-    <BaseHead
-      title="Projects - Malcolm Kee"
-      description={description}
-      permalink={permalink}
-    />
+    <BaseHead title="Projects - Malcolm Kee" description={description} permalink={permalink} />
+    <style>
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(15%);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .item {
+        --delay: calc(var(--i) * 150ms);
+        animation: fade 300ms ease-in var(--delay) both;
+      }
+    </style>
   </head>
 
   <body>
     <PageLayout>
       <span slot="title">Things I've made</span>
       <span slot="description">{description}</span>
-      <ul
-        role="list"
-        class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
-      >
-        {projects.map((project) => <ProjectCard project={project} />)}
+      <ul role="list" class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          projects.map((project, index) => (
+            <ProjectCard
+              project={project}
+              className="item"
+              style={{ '--i': index } as React.CSSProperties}
+            />
+          ))
+        }
       </ul>
     </PageLayout>
   </body>

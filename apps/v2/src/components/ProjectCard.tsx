@@ -2,18 +2,16 @@ import * as React from 'react';
 import type { ProjectDef } from '../data/projects';
 import { LinkIcon } from './icons';
 
-export interface ProjectCardProps {
+export interface ProjectCardProps extends React.ComponentPropsWithoutRef<'div'> {
   project: ProjectDef;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, ...props }: ProjectCardProps) {
   const firstLink = project.links[0];
 
   return (
-    <div>
-      <h2>
-        {firstLink ? <a href={firstLink.href}>{project.name}</a> : project.name}
-      </h2>
+    <div {...props}>
+      <h2>{firstLink ? <a href={firstLink.href}>{project.name}</a> : project.name}</h2>
       <p className="mt-2 text-sm text-zinc-600">{project.description}</p>
       <ul className="flex gap-3 mt-6">
         {project.links.map((link) => (
