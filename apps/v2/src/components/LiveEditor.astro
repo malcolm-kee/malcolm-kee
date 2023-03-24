@@ -6,9 +6,10 @@ interface Props {
   previewMinHeight?: string;
   codeMaxHeight?: string;
   autoPlay?: boolean;
+  readOnly?: boolean;
 }
 
-const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay } = Astro.props;
+const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } = Astro.props;
 ---
 
 <style define:vars={{ previewMinHeight, codeMaxHeight }}>
@@ -21,6 +22,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay } = Astro.pr
   class="bg-gray-100 text-zinc-900 dark:bg-zinc-600 dark:text-zinc-200 rounded-xl"
   data-live-editor
   data-autoplay={autoPlay && 'true'}
+  data-readonly={readOnly && 'true'}
 >
   <div class="flex justify-between items-center px-2 py-1">
     <span class="text-sm" data-editor-mode></span>
@@ -47,7 +49,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay } = Astro.pr
     <slot />
   </div>
   <div class="hidden border border-gray-100 dark:border-zinc-600" data-editor>
-    <LiveEditor client:load>
+    <LiveEditor readOnly={readOnly} client:load>
       <slot />
     </LiveEditor>
   </div>
@@ -110,7 +112,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay } = Astro.pr
       const showLiveEditor = () => {
         editButtonElement.classList.add('hidden');
         cancelButtonElement.classList.remove('hidden');
-        modeElement.textContent = 'Editing';
+        modeElement.textContent = editorSectionElement.dataset.readonly ? 'Running' : 'Editing';
         const codeStyle = window.getComputedStyle(codeElement);
         const codeHeight = codeStyle.getPropertyValue('height');
         codeElement.classList.add('hidden');

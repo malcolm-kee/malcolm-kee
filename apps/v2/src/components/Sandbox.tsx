@@ -11,14 +11,20 @@ import { useThemeValue } from '~/hooks/use-theme';
 import { editorLoadedEvent } from './editor-event';
 import styles from './Sandbox.module.css';
 import { SandBoxConsole } from './SandboxConsole';
+import { SandboxCodeViewer } from './SandboxCodeViewer';
 
 const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
 
 export interface SandboxProps {
   lang: SupportedLang;
   code: string;
-  htmlEntry?: string | undefined;
+  highlightedLines: Array<number>;
+  htmlEntry?: {
+    content: string;
+    highlightedLines: Array<number>;
+  };
   dependencies?: Record<string, string>;
+  readOnly?: boolean;
 }
 
 export default function Sandbox(props: SandboxProps) {
@@ -91,7 +97,7 @@ export default function Sandbox(props: SandboxProps) {
                 code: props.code,
                 active: true,
               },
-              '/public/index.html': props.htmlEntry || indexHtml,
+              '/public/index.html': (props.htmlEntry && props.htmlEntry.content) || indexHtml,
             }
           : {
               [entryFileName]: {
@@ -101,7 +107,10 @@ export default function Sandbox(props: SandboxProps) {
               ...(props.htmlEntry
                 ? {
                     '/index.html': {
-                      code: getVanillaHtml(props.htmlEntry, entryFileName.replace(/^\//, '')),
+                      code: getVanillaHtml(
+                        props.htmlEntry.content,
+                        entryFileName.replace(/^\//, '')
+                      ),
                     },
                   }
                 : {}),
@@ -118,13 +127,31 @@ export default function Sandbox(props: SandboxProps) {
       </div>
       <div
         className={clsx(
-          'border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70',
+          'border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70 not-prose',
           styles.editorWrapper
         )}
         data-editorloaded={editorLoaded}
         ref={editorContainerRef}
       >
-        {props.lang === 'ts' ? (
+        {props.readOnly ? (
+          <SandboxCodeViewer
+            showTabs={hasUi}
+            showLineNumbers
+            highlightedLines={{
+              [entryFileName]: props.highlightedLines,
+              ...(props.htmlEntry
+                ? isReactProject
+                  ? {
+                      '/public/index.html': props.htmlEntry.highlightedLines,
+                    }
+                  : {
+                      '/index.html': props.htmlEntry.highlightedLines.map(plusTwo),
+                      // because we inject additional lines with getVanillaHtml
+                    }
+                : {}),
+            }}
+          />
+        ) : props.lang === 'ts' ? (
           <MonacoEditor
             style={editorStyle}
             theme={siteTheme === 'dark' ? 'dark' : 'light'}
@@ -139,6 +166,8 @@ export default function Sandbox(props: SandboxProps) {
     </SandpackProvider>
   );
 }
+
+const plusTwo = (n: number) => n + 2;
 
 const editorStyle: React.CSSProperties = {
   height: 'calc(var(--editor-height, 100%) + 40px + 16px)', // toolbar (40px), editor y padding (16px)

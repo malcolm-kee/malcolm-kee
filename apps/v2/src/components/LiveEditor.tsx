@@ -5,6 +5,7 @@ const Sandbox = React.lazy(() => import('./Sandbox'));
 
 export type LiveEditorProps = {
   children: React.ReactNode;
+  readOnly?: boolean;
 };
 
 export function LiveEditor(props: LiveEditorProps) {
@@ -23,7 +24,9 @@ export function LiveEditor(props: LiveEditorProps) {
       const preElements = divRef.current.querySelectorAll('pre.github-light');
 
       const codeLines: Array<string> = [];
+      const highlightedLines: Array<number> = [];
       const htmlCodeLines: Array<string> = [];
+      const highlightedHtmlLines: Array<number> = [];
       const dependencies: Record<string, string> = {};
 
       let language: SupportedLang | undefined;
@@ -50,12 +53,15 @@ export function LiveEditor(props: LiveEditorProps) {
               });
             }
 
-            $code.childNodes.forEach((child) => {
+            $code.childNodes.forEach((child, childIndex) => {
               if (child instanceof HTMLElement) {
                 if (child.classList.contains('line')) {
                   const content = child.textContent;
                   if (content != null) {
                     codeLines.push(whiteSpacePattern.test(content) ? '' : content);
+                    if (child.classList.contains('highlight')) {
+                      highlightedLines.push(childIndex);
+                    }
                   }
                 }
               }
@@ -73,11 +79,15 @@ export function LiveEditor(props: LiveEditorProps) {
         }
 
         if ($code && $languageId && isHtml($languageId.textContent)) {
-          $code.childNodes.forEach((child) => {
+          $code.childNodes.forEach((child, childIndex) => {
             const content = child.textContent;
 
             if (content != null) {
               htmlCodeLines.push(whiteSpacePattern.test(content) ? '' : content);
+
+              if (child instanceof HTMLElement && child.classList.contains('highlight')) {
+                highlightedHtmlLines.push(childIndex);
+              }
             }
           });
         }
@@ -85,14 +95,19 @@ export function LiveEditor(props: LiveEditorProps) {
 
       if (language === 'html' && codeLines.length === 0) {
         codeLines.push(...htmlCodeLines);
+        highlightedLines.push(...highlightedHtmlLines);
       }
 
       if (codeLines.length > 0 && language) {
         setState({
           mode: 'ready',
           code: codeLines.join('\r\n'),
+          highlightedLines,
           language,
-          htmlCode: htmlCodeLines.join('\r\n') || undefined,
+          html:
+            htmlCodeLines.length > 0
+              ? { content: htmlCodeLines.join('\r\n'), highlightedLines: highlightedHtmlLines }
+              : undefined,
           dependencies,
         });
       } else {
@@ -106,8 +121,10 @@ export function LiveEditor(props: LiveEditorProps) {
       <Sandbox
         lang={state.language}
         code={state.code}
-        htmlEntry={state.language === 'html' ? undefined : state.htmlCode}
+        highlightedLines={state.highlightedLines}
+        htmlEntry={state.language === 'html' ? undefined : state.html}
         dependencies={state.dependencies}
+        readOnly={props.readOnly}
       />
     </React.Suspense>
   ) : state.mode === 'mounted' ? (
@@ -167,7 +184,13 @@ type LiveEditorState =
       mode: 'ready';
       code: string;
       language: SupportedLang;
-      htmlCode: string | undefined;
+      highlightedLines: Array<number>;
+      html:
+        | {
+            content: string;
+            highlightedLines: Array<number>;
+          }
+        | undefined;
       dependencies: Record<string, string>;
     }
   | {

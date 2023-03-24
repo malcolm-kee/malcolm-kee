@@ -325,3 +325,6 @@ pre .logger.log-log svg {
   margin-left: 6px;
   margin-right: 9px;
 }
+.cm-line.highlight {
+  background-color: #f1f8ff;
+}

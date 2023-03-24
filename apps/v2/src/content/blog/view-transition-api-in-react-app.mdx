@@ -23,7 +23,7 @@ In the example below, when the Move button is clicked, the cat image will switch
 
 Use the play button on the right to run the example.
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem">
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem" readOnly>
 
 ```js
 document.getElementById('moveBtn').addEventListener('click', () => {
@@ -112,7 +112,7 @@ If you're using latest version of Chrome, you'll see the following changes when 
 
 If you're not using latest version of Chrome, the example is broken now, I'll discuss how to handle that [later](#using-progressive-enhancement-technique-with-view-transition).
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="10rem">
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="10rem" readOnly>
 
 ```js {1,5}
 document.getElementById('moveBtn').addEventListener('click', () => {
@@ -216,7 +216,7 @@ If you want to understand it in a more accurate and detailed way, refer to [this
 
 Because React renders state changes asynchronously, we need to wrap the state-setter function with [`flushSync`](https://react.dev/reference/react-dom/flushSync) to force the state changes to be applied synchronously.
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem">
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
 
 ```jsx {1, 9-11}
 import * as React from 'react';
@@ -321,7 +321,7 @@ The reason that it doesn't require the `flushSync` hook because React Router's c
 
 On the other hand, using the Data APIs switches the rendering during route change to become asynchronous, which would need React Router to introduce additional hooks or options to work with View Transition API correctly.
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem">
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
 
 ```jsx
 import * as React from 'react';

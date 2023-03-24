@@ -17,8 +17,10 @@ export const WorkshopHeader = ({
   currentPath: string;
 }) => {
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setIsMounted(true);
     function onScroll() {
       setIsScrolled(window.scrollY > 0);
     }
@@ -32,7 +34,8 @@ export const WorkshopHeader = ({
   return (
     <header
       className={clsx(
-        '[view-transition-name:workshop-header] sticky top-0 z-50 flex items-center justify-between bg-white px-4 py-5 lg:py-3 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none sm:px-6 lg:px-8',
+        'sticky top-0 z-50 flex items-center justify-between bg-white px-4 py-5 lg:py-3 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none sm:px-6 lg:px-8',
+        !isMounted && '[view-transition-name:workshop-header]',
         isScrolled
           ? 'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
           : 'dark:bg-transparent'
@@ -49,7 +52,11 @@ export const WorkshopHeader = ({
         />
       </div>
       <div className="flex shrink-0 flex-grow sm:basis-0 items-center">
-        <img src={workshop.iconUrl} className={clsx('h-9 w-auto', styles.icon)} alt="" />
+        <img
+          src={workshop.iconUrl}
+          className={clsx('h-9 w-auto', !isMounted && styles.icon)}
+          alt=""
+        />
       </div>
       <div className="hidden sm:block relative px-3 overflow-hidden">
         <span className="block w-full text-slate-700 dark:text-sky-100 truncate sm:text-center">
