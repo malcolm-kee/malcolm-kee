@@ -1,0 +1,14 @@
+.editorWrapper :global(.cm-editor),
+.editorWrapper :global(.editor-scrollable) {
+  view-transition-name: var(--editor-view-transition-name);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.editorPreview {
+  animation: fade-in 300ms cubic-bezier(0, 0, 0.2, 1);
+}

@@ -23,52 +23,27 @@ const { threshold = 0.5 } = Astro.props;
     animation-play-state: paused !important;
   }
 </style>
-<div
-  class="lazy-load-el lazy-load opacity-100 transition translate-y-0"
-  data-threshold={threshold}
->
+<div class="lazy-load-el lazy-load opacity-100 transition translate-y-0" data-threshold={threshold}>
   <slot />
 </div>
 <script>
-  const lazyLoadElements = document.querySelectorAll(
-    '.lazy-load'
-  ) as NodeListOf<HTMLElement>;
+  import { onIntersectOnce } from '~/lib/intersection-observer';
+
+  const lazyLoadElements = document.querySelectorAll('.lazy-load') as NodeListOf<HTMLElement>;
 
   if (lazyLoadElements.length > 0) {
     const firstThresholdValue = Number(lazyLoadElements[0].dataset.threshold);
 
     const threshold =
-      firstThresholdValue && !isNaN(firstThresholdValue)
-        ? firstThresholdValue
-        : 0.5;
+      firstThresholdValue && !isNaN(firstThresholdValue) ? firstThresholdValue : 0.5;
 
-    // Intersection Observer options
-    const options = {
-      rootMargin: '0px',
-      threshold,
-    };
-
-    // Intersection Observer callback function
-    const callback = (
-      entries: IntersectionObserverEntry[],
-      observer: IntersectionObserver
-    ) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Add class to element when it appears in viewport
-          entry.target.classList.remove('lazy-load');
-          // Unobserve the element to stop observing it
-          observer.unobserve(entry.target);
-        }
-      });
-    };
-
-    // Create Intersection Observer instance
-    const observer = new IntersectionObserver(callback, options);
-
-    // Observe all lazy-load elements
-    lazyLoadElements.forEach((element) => {
-      observer.observe(element);
+    onIntersectOnce({
+      elements: lazyLoadElements,
+      callback: (el) => el.classList.remove('lazy-load'),
+      observeOptions: {
+        rootMargin: '0px',
+        threshold,
+      },
     });
   }
 </script>

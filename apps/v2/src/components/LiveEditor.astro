@@ -5,9 +5,10 @@ import { LiveEditor } from './LiveEditor';
 interface Props {
   previewMinHeight?: string;
   codeMaxHeight?: string;
+  autoPlay?: boolean;
 }
 
-const { previewMinHeight = 'auto', codeMaxHeight = 'auto' } = Astro.props;
+const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay } = Astro.props;
 ---
 
 <style define:vars={{ previewMinHeight, codeMaxHeight }}>
@@ -19,6 +20,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto' } = Astro.props;
 <div
   class="bg-gray-100 text-zinc-900 dark:bg-zinc-600 dark:text-zinc-200 rounded-xl"
   data-live-editor
+  data-autoplay={autoPlay && 'true'}
 >
   <div class="flex justify-between items-center px-2 py-1">
     <span class="text-sm" data-editor-mode></span>
@@ -53,36 +55,147 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto' } = Astro.props;
 
 <script>
   import scrollIntoView from 'scroll-into-view-if-needed';
+  import { editorLoadedEvent } from '~/components/editor-event';
   import { isVisible } from '~/lib/dom-helpers';
+  import { viewTransition } from '~/lib/view-transition';
 
-  const liveEditors = document.querySelectorAll('[data-live-editor]');
+  const languagePriority: Record<string, number> = {
+    tsx: 4,
+    ts: 4,
+    js: 3,
+    jsx: 3,
+    html: 2,
+    css: 1,
+  };
 
-  liveEditors.forEach(($editorSection) => {
-    const $editButton = $editorSection.querySelector('[data-edit-button]');
-    const $cancelButton = $editorSection.querySelector('[data-cancel-button]');
-    const $code = $editorSection.querySelector('[data-editor-code]');
-    const $editor = $editorSection.querySelector('[data-editor]');
-    const $mode = $editorSection.querySelector('[data-editor-mode]');
+  const liveEditors: NodeListOf<HTMLDivElement> = document.querySelectorAll('[data-live-editor]');
 
-    if ($code && $editButton && $cancelButton && $editor && $mode) {
-      $editButton.addEventListener('click', () => {
-        $editButton.classList.add('hidden');
-        $cancelButton.classList.remove('hidden');
-        $mode.textContent = 'Editing';
-        const codeStyle = window.getComputedStyle($code);
+  liveEditors.forEach((editorSectionElement) => {
+    const editButtonElement = editorSectionElement.querySelector('[data-edit-button]');
+    const cancelButtonElement = editorSectionElement.querySelector('[data-cancel-button]');
+    const codeElement = editorSectionElement.querySelector('[data-editor-code]');
+    const editorElement = editorSectionElement.querySelector('[data-editor]');
+    const modeElement = editorSectionElement.querySelector('[data-editor-mode]');
+    const allCodeSnippetElements = editorSectionElement.querySelectorAll('pre');
+
+    const langBySnippet = new WeakMap<HTMLPreElement, string>();
+
+    allCodeSnippetElements.forEach((codeSnippetElement) => {
+      const languageIdElement = codeSnippetElement.querySelector('.language-id');
+      const language = languageIdElement && languageIdElement.textContent;
+      if (language) {
+        langBySnippet.set(codeSnippetElement, language);
+      }
+    });
+
+    const getElementToTransition = () => {
+      const visibleCodeSnippets = Array.from(allCodeSnippetElements)
+        .filter(isVisible)
+        .sort((a, b) => {
+          const aLanguage = langBySnippet.get(a);
+          const bLanguage = langBySnippet.get(b);
+
+          const aPriority = (aLanguage && languagePriority[aLanguage]) || 0;
+          const bPriority = (bLanguage && languagePriority[bLanguage]) || 0;
+
+          return bPriority - aPriority;
+        });
+
+      return visibleCodeSnippets[0];
+    };
+
+    if (codeElement && editButtonElement && cancelButtonElement && editorElement && modeElement) {
+      const currentEditorElement = editorElement as HTMLElement;
+
+      const showLiveEditor = () => {
+        editButtonElement.classList.add('hidden');
+        cancelButtonElement.classList.remove('hidden');
+        modeElement.textContent = 'Editing';
+        const codeStyle = window.getComputedStyle(codeElement);
         const codeHeight = codeStyle.getPropertyValue('height');
-        $code.classList.add('hidden');
-        $editor.classList.remove('hidden');
-        ($editor as HTMLElement).style.setProperty('--editor-height', codeHeight);
+        codeElement.classList.add('hidden');
+        currentEditorElement.classList.remove('hidden');
+        currentEditorElement.style.setProperty('--editor-height', codeHeight);
+      };
+
+      const hideLiveEditor = () => {
+        cancelButtonElement.classList.add('hidden');
+        editButtonElement.classList.remove('hidden');
+        modeElement.textContent = null;
+
+        currentEditorElement.classList.add('hidden');
+        codeElement.classList.remove('hidden');
+      };
+
+      const transitionName = 'live-code-transition';
+      const editorViewTransitionNameProperty = '--editor-view-transition-name';
+
+      let prevElement: HTMLPreElement | null = null;
+
+      const showLiveEditorWithTransition = (elementToTransition: HTMLElement) => {
+        elementToTransition.style.setProperty('view-transition-name', transitionName);
+        const transition = viewTransition(() => {
+          elementToTransition.style.removeProperty('view-transition-name');
+          showLiveEditor();
+          currentEditorElement.style.setProperty(editorViewTransitionNameProperty, transitionName);
+        });
+
+        transition.finished.then(() => {
+          currentEditorElement.style.removeProperty(editorViewTransitionNameProperty);
+        });
+      };
+
+      editButtonElement.addEventListener('click', () => {
+        const elementToTransition = getElementToTransition();
+
+        if (elementToTransition) {
+          prevElement = elementToTransition;
+
+          const lazyEditor = currentEditorElement.querySelector('[data-editorloaded]');
+
+          if (
+            lazyEditor &&
+            lazyEditor instanceof HTMLElement &&
+            lazyEditor.dataset.editorloaded === 'false'
+          ) {
+            // the editor is initialized inserted, so we will force it to initialize
+            // by showing it, but to reduce UI jank we set it a low opacity while
+            // it is initializing
+            currentEditorElement.style.setProperty('opacity', '0.01');
+            showLiveEditor();
+
+            function onEditorLoaded() {
+              currentEditorElement.style.removeProperty('opacity');
+              hideLiveEditor();
+              showLiveEditorWithTransition(elementToTransition);
+              lazyEditor && lazyEditor.removeEventListener(editorLoadedEvent, onEditorLoaded);
+            }
+            lazyEditor.addEventListener(editorLoadedEvent, onEditorLoaded);
+          } else {
+            showLiveEditorWithTransition(elementToTransition);
+          }
+        } else {
+          prevElement = null;
+          showLiveEditor();
+        }
       });
 
-      $cancelButton.addEventListener('click', () => {
-        $cancelButton.classList.add('hidden');
-        $editButton.classList.remove('hidden');
-        $mode.textContent = null;
+      cancelButtonElement.addEventListener('click', () => {
+        if (prevElement) {
+          const elementToTransition = prevElement;
+          currentEditorElement.style.setProperty(editorViewTransitionNameProperty, transitionName);
+          const transition = viewTransition(() => {
+            currentEditorElement.style.removeProperty(editorViewTransitionNameProperty);
+            hideLiveEditor();
+            elementToTransition.style.setProperty('view-transition-name', transitionName);
+          });
 
-        $editor.classList.add('hidden');
-        $code.classList.remove('hidden');
+          transition.finished.then(() => {
+            elementToTransition.style.removeProperty('view-transition-name');
+          });
+        } else {
+          hideLiveEditor();
+        }
       });
     }
   });
@@ -101,4 +214,38 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto' } = Astro.props;
       }
     });
   });
+
+  const autoPlayEditors: Array<HTMLDivElement> = [];
+
+  liveEditors.forEach((editorSectionElement) => {
+    if (editorSectionElement.dataset.autoplay) {
+      autoPlayEditors.push(editorSectionElement);
+    }
+  });
+
+  if (autoPlayEditors.length) {
+    import('~/lib/intersection-observer').then(({ onIntersectOnce }) => {
+      onIntersectOnce({
+        elements: autoPlayEditors,
+        callback: (editorSectionElement) => {
+          if (editorSectionElement instanceof HTMLElement) {
+            const editBtn = editorSectionElement.querySelector('[data-edit-button]');
+            if (
+              editBtn &&
+              isVisible(editBtn as HTMLElement) &&
+              'click' in editBtn &&
+              typeof editBtn.click === 'function'
+            ) {
+              editBtn.click();
+              // hack to simulate showEditor
+            }
+          }
+        },
+        observeOptions: {
+          rootMargin: '0px',
+          threshold: 0.5,
+        },
+      });
+    });
+  }
 </script>

@@ -24,7 +24,7 @@
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["astro", "Cloudinary", "clsx", "excalidraw", "jscodeshift"],
+  "cSpell.words": ["astro", "Cloudinary", "clsx", "excalidraw", "jscodeshift", "Sandpack"],
   "files.associations": {
     "*.excalidraw": "json",
     "*.excalidrawlib": "json",

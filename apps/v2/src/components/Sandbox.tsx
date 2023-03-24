@@ -5,8 +5,11 @@ import {
   SandpackTheme,
 } from '@codesandbox/sandpack-react';
 import { githubLight, nightOwl } from '@codesandbox/sandpack-themes';
+import { clsx } from 'clsx';
 import * as React from 'react';
 import { useThemeValue } from '~/hooks/use-theme';
+import { editorLoadedEvent } from './editor-event';
+import styles from './Sandbox.module.css';
 import { SandBoxConsole } from './SandboxConsole';
 
 const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
@@ -40,6 +43,44 @@ export default function Sandbox(props: SandboxProps) {
     };
   }, [siteTheme]);
 
+  const [editorLoaded, setEditorLoaded] = React.useState(() =>
+    props.lang === 'ts' || !window.MutationObserver ? true : false
+  );
+
+  const editorContainerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (editorContainerRef.current && !editorLoaded) {
+      const observer = new MutationObserver((mutationList) => {
+        for (const mutation of mutationList) {
+          if (mutation.type === 'childList') {
+            if (mutation.addedNodes.length > 0) {
+              for (const node of mutation.addedNodes) {
+                if (node instanceof HTMLElement && node.classList.contains('cm-editor')) {
+                  if (editorContainerRef.current) {
+                    editorContainerRef.current.dispatchEvent(new CustomEvent(editorLoadedEvent));
+                  }
+                  setEditorLoaded(true);
+
+                  observer.disconnect();
+
+                  return;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      observer.observe(editorContainerRef.current, {
+        childList: true,
+        subtree: true,
+      });
+
+      return () => observer.disconnect();
+    }
+  }, []);
+
   return (
     <SandpackProvider
       template={templates[props.lang]}
@@ -72,10 +113,17 @@ export default function Sandbox(props: SandboxProps) {
       }}
       theme={codeTheme}
     >
-      <div className={!hasUi ? 'hidden' : ''}>
+      <div className={!hasUi ? 'hidden' : styles.editorPreview}>
         <SandpackPreview style={previewStyle} />
       </div>
-      <div className="border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70">
+      <div
+        className={clsx(
+          'border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70',
+          styles.editorWrapper
+        )}
+        data-editorloaded={editorLoaded}
+        ref={editorContainerRef}
+      >
         {props.lang === 'ts' ? (
           <MonacoEditor
             style={editorStyle}

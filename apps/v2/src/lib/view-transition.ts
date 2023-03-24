@@ -1,4 +1,4 @@
-export const viewTransition = (callback: () => void) => {
+export const viewTransition = (callback: () => void | Promise<unknown>) => {
   if (document.startViewTransition) {
     return document.startViewTransition(callback);
   } else {

@@ -7,5 +7,5 @@ interface ViewTransition {
 }
 
 interface Document {
-  startViewTransition?: (cb: () => void) => ViewTransition;
+  startViewTransition?: (cb: () => void | Promise<unknown>) => ViewTransition;
 }
