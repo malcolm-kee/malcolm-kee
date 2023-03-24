@@ -18,10 +18,7 @@ Language implementation can use a metaphor like climbing mountain:
 2. Reaching the highest level, where we can see what the code _means_, we start descent down the mountain by transforming this highest-level representation down to lower-level form to get closer to something we know how to make the CPU actually execute.
 
 <Figure caption="Language implementation can be seen as mountain climbing">
-  <Image
-    src={mountainMetaphor}
-    alt="Language implementation can be seen as mountain climbing"
-  />
+  <Image src={mountainMetaphor} alt="Language implementation can be seen as mountain climbing" />
 </Figure>
 
 ### Scanning
@@ -52,12 +49,26 @@ The result of static analysis can be stored in a few formats:
 2. stored in a separate lookup table, usually known as **symbol table**.
 3. transform the tree into a new data structure.
 
-### Intermediate Representations (IR)
+### Intermediate representations (IR)
 
 We can think of the compiler as a pipeline where each stage's job is to organize the data representing the user's code in a way that makes the next stage simpler to implement. The "frontend" of this pipeline is the source language the user writes, the "backend" is the final architecture where the program will run, and in the middle, **intermediate representations**.
 
 ### Optimization
 
 Once we understand what the user's program means, we are free to swap it out with a different program that has the _same semantics_ but implements them more efficiently - we _optimize_ it.
+
+### Code generation
+
+The last step is convert the program to a form that machine can actually run. This process is known as code generation or (code gen), where "code" here refers to the primitive assembly-like instructions a CPU runs.
+
+We can choose to generates instructions for a real CPU (native) or to a hypothetical, idealized machine (virtual). Native code is lightning fast, but generating it takes a lot processing and it is not portable. Meanwhile, generating code that works for virtual machine is usually faster and much more portable, but it requires running a virtual machine. This type of code intended to be run with virtual machine is known as bytecode.
+
+### Virtual machine
+
+With bytecode, there are additional steps required, with two approaches:
+
+- pass through bytecode to another compiler for each target architecture that converts bytecode to native code for that machine. In other words, the bytecode is functionally a intermediate representation.
+
+- write a virtual machine (VM), a program that emulates a hypothetical chip supporting the virtual architecture at runtime. Running bytecode in a VM is slower than translating it to native code ahead of time, but we get simplicity and portability.
 
 <p className="text-4xl font-extrabold text-center">TO BE CONTINUED...</p>
