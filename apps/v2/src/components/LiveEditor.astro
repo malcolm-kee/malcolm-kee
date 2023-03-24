@@ -78,7 +78,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
     const codeElement = editorSectionElement.querySelector('[data-editor-code]');
     const editorElement = editorSectionElement.querySelector('[data-editor]');
     const modeElement = editorSectionElement.querySelector('[data-editor-mode]');
-    const allCodeSnippetElements = editorSectionElement.querySelectorAll('pre');
+    const allCodeSnippetElements = Array.from(editorSectionElement.querySelectorAll('pre'));
 
     const langBySnippet = new WeakMap<HTMLPreElement, string>();
 
@@ -104,6 +104,19 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         });
 
       return visibleCodeSnippets[0];
+    };
+
+    const getEditorActiveLanguageSnippet = (): HTMLElement | undefined => {
+      const activeFileTab =
+        editorElement && editorElement.querySelector('.sp-tab-button[data-active="true"]');
+
+      const activeFileLanguage = activeFileTab?.textContent?.split('.').pop();
+
+      if (activeFileLanguage) {
+        return allCodeSnippetElements.find(
+          (snippet) => langBySnippet.get(snippet) === activeFileLanguage && isVisible(snippet)
+        );
+      }
     };
 
     if (codeElement && editButtonElement && cancelButtonElement && editorElement && modeElement) {
@@ -132,9 +145,13 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
       const transitionName = 'live-code-transition';
       const editorViewTransitionNameProperty = '--editor-view-transition-name';
 
-      let prevElement: HTMLPreElement | null = null;
+      let prevElement: HTMLElement | null = null;
 
-      const showLiveEditorWithTransition = (elementToTransition: HTMLElement) => {
+      const showLiveEditorWithTransition = (fallbackElementToTransition: HTMLElement) => {
+        const elementToTransition = getEditorActiveLanguageSnippet() || fallbackElementToTransition;
+
+        prevElement = elementToTransition;
+
         elementToTransition.style.setProperty('view-transition-name', transitionName);
         const transition = viewTransition(() => {
           elementToTransition.style.removeProperty('view-transition-name');
@@ -151,8 +168,6 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         const elementToTransition = getElementToTransition();
 
         if (elementToTransition) {
-          prevElement = elementToTransition;
-
           const lazyEditor = currentEditorElement.querySelector('[data-editorloaded]');
 
           if (
@@ -160,17 +175,19 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
             lazyEditor instanceof HTMLElement &&
             lazyEditor.dataset.editorloaded === 'false'
           ) {
-            // the editor is initialized inserted, so we will force it to initialize
-            // by showing it, but to reduce UI jank we set it a low opacity while
-            // it is initializing
+            // the editor is initialized lazily, so we force it to initialize by
+            // showing it then hide again, and to reduce UI jank we set it a low
+            // opacity during this process
             currentEditorElement.style.setProperty('opacity', '0.01');
             showLiveEditor();
 
             function onEditorLoaded() {
               currentEditorElement.style.removeProperty('opacity');
               hideLiveEditor();
-              showLiveEditorWithTransition(elementToTransition);
               lazyEditor && lazyEditor.removeEventListener(editorLoadedEvent, onEditorLoaded);
+              requestAnimationFrame(() => {
+                showLiveEditorWithTransition(elementToTransition);
+              });
             }
             lazyEditor.addEventListener(editorLoadedEvent, onEditorLoaded);
           } else {
@@ -184,7 +201,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
 
       cancelButtonElement.addEventListener('click', () => {
         if (prevElement) {
-          const elementToTransition = prevElement;
+          const elementToTransition = getEditorActiveLanguageSnippet() || prevElement;
           currentEditorElement.style.setProperty(editorViewTransitionNameProperty, transitionName);
           const transition = viewTransition(() => {
             currentEditorElement.style.removeProperty(editorViewTransitionNameProperty);

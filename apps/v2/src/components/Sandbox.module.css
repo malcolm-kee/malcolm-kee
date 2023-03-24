@@ -1,3 +1,11 @@
+.editorWrapper :global(.cm-editor) {
+  max-height: var(--code-max-height, none);
+}
+
+.editorWrapper :global(.cm-scroller) {
+  padding-block: 0.5rem;
+}
+
 .editorWrapper :global(.cm-editor),
 .editorWrapper :global(.editor-scrollable) {
   view-transition-name: var(--editor-view-transition-name);
