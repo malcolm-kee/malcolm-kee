@@ -575,6 +575,13 @@ declare module 'astro:content' {
   collection: "note",
   data: InferEntrySchema<"note">
 } & { render(): Render[".md"] },
+"webpack.mdx": {
+  id: "webpack.mdx",
+  slug: "webpack",
+  body: string,
+  collection: "note",
+  data: InferEntrySchema<"note">
+} & { render(): Render[".mdx"] },
 },
 "today-i-learnt": {
 "ambient-means-no-implementation.md": {

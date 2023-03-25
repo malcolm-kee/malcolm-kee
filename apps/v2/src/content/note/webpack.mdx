@@ -1,0 +1,26 @@
+---
+title: Webpack
+---
+
+import basicWebpackBootstrap from './_webpack/bootstrap-walkthrough.ts?raw';
+
+<link href="https://www.unpkg.com/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+<style>{`pre[class*=language-] {font-size: 0.875em; max-height: 60vh; overflow-y: auto;}`}</style>
+
+## Basic webpack bootstrap
+
+Only two modules:
+
+- `src/index.js`
+- `src/my-code.js`
+
+All using ES modules.
+
+<pre>
+  <code class="language-typescript">{basicWebpackBootstrap}</code>
+</pre>
+
+<script src="https://www.unpkg.com/prismjs@v1.x/components/prism-core.min.js"></script>
+
+<script src="https://www.unpkg.com/prismjs@v1.x/plugins/autoloader/prism-autoloader.min.js"></script>
