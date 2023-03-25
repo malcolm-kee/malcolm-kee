@@ -20,6 +20,7 @@ importers:
       '@astrojs/rss': ^2.3.0
       '@astrojs/sitemap': ^1.2.1
       '@astrojs/tailwind': ^3.1.1
+      '@codemirror/state': ^6.2.0
       '@codesandbox/sandpack-react': ^2.1.9
       '@codesandbox/sandpack-themes': ^2.0.21
       '@floating-ui/dom': ^1.2.4
@@ -93,6 +94,7 @@ importers:
       '@astrojs/react': 2.1.0_dgjuf3aqqre24bd27wvsbnxpoe
       '@astrojs/sitemap': 1.2.1
       '@astrojs/tailwind': 3.1.1_xwlinsvcxfu6nyuevlo4g7jv7y
+      '@codemirror/state': 6.2.0
       '@tailwindcss/container-queries': 0.1.0_tailwindcss@3.2.7
       '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.7
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
@@ -693,8 +695,10 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@codemirror/autocomplete/6.4.2:
+  /@codemirror/autocomplete/6.4.2_@codemirror+state@6.2.0:
     resolution: {integrity: sha512-8WE2xp+D0MpWEv5lZ6zPW1/tf4AGb358T5GWYiKEuCP8MvFfT3tH2mIF9Y2yr2e3KbHuSvsVhosiEyqCpiJhZQ==}
+    peerDependencies:
+      '@codemirror/state': ^6.0.0
     dependencies:
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
@@ -714,7 +718,7 @@ packages:
   /@codemirror/lang-css/6.1.1:
     resolution: {integrity: sha512-P6jdNEHyRcqqDgbvHYyC9Wxkek0rnG3a9aVSRi4a7WrjPbQtBTaOmvYpXmm13zZMAatO4Oqpac+0QZs7sy+LnQ==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.2
+      '@codemirror/autocomplete': 6.4.2_@codemirror+state@6.2.0
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
       '@lezer/css': 1.1.1
@@ -723,7 +727,7 @@ packages:
   /@codemirror/lang-html/6.4.2:
     resolution: {integrity: sha512-bqCBASkteKySwtIbiV/WCtGnn/khLRbbiV5TE+d9S9eQJD7BA4c5dTRm2b3bVmSpilff5EYxvB4PQaZzM/7cNw==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.2
+      '@codemirror/autocomplete': 6.4.2_@codemirror+state@6.2.0
       '@codemirror/lang-css': 6.1.1
       '@codemirror/lang-javascript': 6.1.4
       '@codemirror/language': 6.6.0
@@ -737,7 +741,7 @@ packages:
   /@codemirror/lang-javascript/6.1.4:
     resolution: {integrity: sha512-OxLf7OfOZBTMRMi6BO/F72MNGmgOd9B0vetOLvHsDACFXayBzW8fm8aWnDM0yuy68wTK03MBf4HbjSBNRG5q7A==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.2
+      '@codemirror/autocomplete': 6.4.2_@codemirror+state@6.2.0
       '@codemirror/language': 6.6.0
       '@codemirror/lint': 6.2.0
       '@codemirror/state': 6.2.0
@@ -767,7 +771,6 @@ packages:
 
   /@codemirror/state/6.2.0:
     resolution: {integrity: sha512-69QXtcrsc3RYtOtd+GsvczJ319udtBf1PTrr2KbLWM/e2CXUPnh0Nz9AUo8WfhSQ7GeL8dPVNUmhQVgpmuaNGA==}
-    dev: false
 
   /@codemirror/view/6.9.3:
     resolution: {integrity: sha512-BJ5mvEIhFM+SrNwc5X8pLIvMM9ffjkviVbxpg84Xk2OE8ZyKaEbId8kX+nAYEEso7+qnbwsXe1bkAHsasebMow==}
@@ -800,7 +803,7 @@ packages:
       react-dom: ^16.8.0 || ^17 || ^18
     dependencies:
       '@code-hike/classer': 0.0.0-e48fa74_react@18.2.0
-      '@codemirror/autocomplete': 6.4.2
+      '@codemirror/autocomplete': 6.4.2_@codemirror+state@6.2.0
       '@codemirror/commands': 6.2.2
       '@codemirror/lang-css': 6.1.1
       '@codemirror/lang-html': 6.4.2
@@ -3638,7 +3641,7 @@ packages:
   /jsonfile/4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
     optionalDependencies:
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
     dev: true
     optional: true
 

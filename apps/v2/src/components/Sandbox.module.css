@@ -2,7 +2,7 @@
   max-height: var(--code-max-height, none);
 }
 
-.editorWrapper :global(.cm-scroller) {
+.editorWrapper :global(.cm-editor .cm-scroller) {
   padding-block: 0.5rem;
 }
 

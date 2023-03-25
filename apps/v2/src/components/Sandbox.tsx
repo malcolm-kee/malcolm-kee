@@ -136,7 +136,6 @@ export default function Sandbox(props: SandboxProps) {
         {props.readOnly ? (
           <SandboxCodeViewer
             showTabs={hasUi}
-            showLineNumbers
             highlightedLines={{
               [entryFileName]: props.highlightedLines,
               ...(props.htmlEntry
