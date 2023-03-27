@@ -1,5 +1,5 @@
 ---
-import { formatDate } from '~/lib/date';
+import { formatDate, isFuture } from '~/lib/date';
 import './shiki.css';
 
 export interface Props {
@@ -8,6 +8,8 @@ export interface Props {
 }
 
 const { title, publishDate } = Astro.props;
+
+const isFutureContent = publishDate && isFuture(publishDate);
 ---
 
 <div class="mb-12">
@@ -17,6 +19,7 @@ const { title, publishDate } = Astro.props;
         {
           publishDate && (
             <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
+              {isFutureContent ? `To be published on ` : null}
               {formatDate(publishDate)}
             </p>
           )

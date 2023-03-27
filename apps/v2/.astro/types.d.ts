@@ -328,6 +328,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] },
+"open-api.md": {
+  id: "open-api.md",
+  slug: "open-api",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] },
 "optimize-later.mdx": {
   id: "optimize-later.mdx",
   slug: "optimize-later",
