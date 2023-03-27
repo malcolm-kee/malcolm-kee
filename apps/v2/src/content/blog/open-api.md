@@ -62,15 +62,15 @@ As authorization requirements and request body schema could be described in Open
 
 ### Breaking change detection
 
-When an API is used by many clients, such as in a large company or the API is released to partners, it is crucial to avoid breaking changes without proper planning and announcement. As it is easy to parse OpenAPI spec, there are libraries (such as this [`openapi-diff`](https://bitbucket.org/atlassian/openapi-diff/src/master/) package to detect breaking changes such as:
+When an API is used by many clients, such as in a large company or the API is released to partners, it is crucial to avoid breaking changes without proper planning and announcement. As it is easy to parse OpenAPI spec, there are libraries (such as this [`openapi-diff`](https://bitbucket.org/atlassian/openapi-diff/src/master/) package) to detect breaking changes such as:
 
-- addition of required fields in request payload
-- removal of fields is response
 - removal of path
 - removal of method
+- addition of required fields in request payload
+- removal of fields is response
 
 To make this automation easier, it is one of the [best practices](https://oai.github.io/Documentation/best-practices.html#add-openapi-documents-to-source-control) to commit the OpenAPI doc into your source control.
 
 ## Conclusion
 
-OpenAPI is a great tool if your application involves a REST API server. For the developers that maintain the API server, it allows integration with many tools to help with their developments and communications with other stackholders. For frontend developers, it allow us to generate code that we prefer not to write manually. It may not sounds like as cool as GraphQL or gRPC, but because it integrates well with many programming languages and frameworks, it may be the only feasible solution for those of us working in companies sticking with REST or using multiple programming languages.
+OpenAPI is a great tool if your application involves a REST API server. For the developers that maintain the API server, it allows integration with many tools to help with their developments and communications with other stakeholders. For frontend developers, it allows us to generate code that we prefer not to write manually. It may not sounds like as cool as GraphQL or gRPC, but because it integrates well with many programming languages and frameworks, it may be the only feasible solution for those of us working in companies sticking with REST or using multiple programming languages.
