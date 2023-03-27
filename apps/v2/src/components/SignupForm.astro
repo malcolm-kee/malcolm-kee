@@ -73,7 +73,7 @@ const { class: className } = Astro.props;
 <form
   action="https://app.convertkit.com/forms/4940243/subscriptions"
   class={clsx(
-    'seva-form formkit-form SignupForm max-w-2xl mx-auto shadow rounded-lg sm:p-10',
+    'seva-form formkit-form SignupForm max-w-2xl mx-auto shadow rounded-lg sm:px-10 sm:pt-10',
     className
   )}
   method="post"
@@ -127,10 +127,42 @@ const { class: className } = Astro.props;
         <div class="formkit-guarantee text-sm text-center text-gray-400" data-element="guarantee">
           <p>I won't send you spam or use it for other purposes.</p>
           <p>Unsubscribe at any time.</p>
+          <div class="mt-6">
+            <button type="button" class="is-subscribed-btn text-primary-500 hover:text-primary-700"
+              >I've already subscribed</button
+            >
+          </div>
         </div>
       </div>
     </LazyLoad>
   </div>
+
+  <script>
+    const isSubscribedKey = 'isSubscriber';
+
+    const isSubscriber = window.localStorage.getItem(isSubscribedKey);
+
+    const signupForms = document.querySelectorAll('.SignupForm');
+
+    if (isSubscriber) {
+      signupForms.forEach((form) => {
+        form.classList.add('hidden');
+      });
+    } else {
+      signupForms.forEach((form) => {
+        const button = form.querySelector('.is-subscribed-btn');
+        button &&
+          button.addEventListener('click', () => {
+            const parent = button.parentNode;
+            if (parent) {
+              window.localStorage.setItem(isSubscribedKey, 'true');
+              parent.removeChild(button);
+              parent.innerHTML = '<p>Thank you! I will stop bothering you.</p>';
+            }
+          });
+      });
+    }
+  </script>
 
   <style is:global>
     .formkit-form[data-uid='4689c70a6b'] .ordered-list,

@@ -11,13 +11,13 @@ For frontend development, TypeScript is good. If you accept human inevitably mak
 
 However, there is an apparent limitation of TypeScript once you start using it in your application: it can't type-check beyond your TypeScript codebase. A `fetch` call will always be `any` (or `unknown`) because there is no way for TypeScript to know what could be the response. We can, of course, play pretend by manually declare the type of the response, but it is an ongoing manual work because we have to update it as the API we call changes. And being a programmer, we hate manual works because we accept we make mistake ~~and we’re lazy~~.
 
-There are few ways to solve this, such as using GraphQL (with [GraphQL codegen](https://the-guild.dev/graphql/codegen)) or GRPC (with [tRPC](https://trpc.io/)). Those tools are powerful and easy to setup, but in practice they are hard to adopt because they require a change of the API server tech stack, a privilege many of us do not have.
+There are few ways to solve this, such as using GraphQL (with [GraphQL codegen](https://the-guild.dev/graphql/codegen)) or gRPC (with [tRPC](https://trpc.io/)). Those tools are powerful and easy to setup, but in practice they are hard to adopt because they require a change of the API server tech stack, a privilege many of us do not have.
 
 But if you’re willing to spend some time to do some digging around and assembling few libraries together to fit your use case, there is a tool that could solve this problem without changing backend tech stack: OpenAPI.
 
 ## What is OpenAPI
 
-OpenAPI is a specification that aims to standardize how all REST APIs are described, regardless of programming language that powers the API. The specification should be a JSON object, which may be written either in JSON or YAML format. OpenAPI is sometimes also referred to as “Swagger”, as the spec was based on another specification, Swagger Specification by SmartBear Software.
+[OpenAPI](https://www.openapis.org/) is a specification that aims to standardize how all REST APIs are described, regardless of programming language that powers the API. The specification should be a JSON object, which may be written either in JSON or YAML format. OpenAPI is sometimes also referred to as “Swagger”, as the spec was based on another specification, Swagger Specification by SmartBear Software.
 
 OpenAPI doc is usually created in two ways:
 
@@ -73,4 +73,4 @@ To make this automation easier, it is one of the [best practices](https://oai.gi
 
 ## Conclusion
 
-OpenAPI is a great tool if your application involves a REST API server. For the developers that maintain the API server, it allows integration with many tools to help with their developments and communications with other stackholders. For frontend developers, it allow us to generate code that we prefer not to write manually.
+OpenAPI is a great tool if your application involves a REST API server. For the developers that maintain the API server, it allows integration with many tools to help with their developments and communications with other stackholders. For frontend developers, it allow us to generate code that we prefer not to write manually. It may not sounds like as cool as GraphQL or gRPC, but because it integrates well with many programming languages and frameworks, it may be the only feasible solution for those of us working in companies sticking with REST or using multiple programming languages.
