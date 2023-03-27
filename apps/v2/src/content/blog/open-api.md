@@ -7,9 +7,9 @@ topics:
 preview: true
 ---
 
-For frontend development, TypeScript is good. If you accept human inevitably makes mistake, introducing static type checking to reduce the chance of error, is hard to deny.
+For frontend development, TypeScript is good. If you accept human inevitably makes mistake, the benefits of introducing static type checking to reduce the chance of error, is hard to deny.
 
-However, there is an apparent limitation of TypeScript once you start using it in your application: it can't type-check beyond your TypeScript codebase. A `fetch` call will always be `any` (or `unknown`) because there is no way for TypeScript to know what could be response. We can, of course, play pretend by manually declare the type of the response, but it is an ongoing manual work because we have to update it as the API we call changes. And being a programmer, we hate manual works because we accept we make mistake ~~and we’re lazy~~.
+However, there is an apparent limitation of TypeScript once you start using it in your application: it can't type-check beyond your TypeScript codebase. A `fetch` call will always be `any` (or `unknown`) because there is no way for TypeScript to know what could be the response. We can, of course, play pretend by manually declare the type of the response, but it is an ongoing manual work because we have to update it as the API we call changes. And being a programmer, we hate manual works because we accept we make mistake ~~and we’re lazy~~.
 
 There are few ways to solve this, such as using GraphQL (with [GraphQL codegen](https://the-guild.dev/graphql/codegen)) or GRPC (with [tRPC](https://trpc.io/)). Those tools are powerful and easy to setup, but in practice they are hard to adopt because they require a change of the API server tech stack, a privilege many of us do not have.
 
