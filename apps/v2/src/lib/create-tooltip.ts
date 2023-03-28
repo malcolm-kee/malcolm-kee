@@ -44,7 +44,7 @@ export const createTooltip = ({
         size({
           apply({ availableHeight, availableWidth, elements }) {
             Object.assign(elements.floating.style, {
-              maxWidth: `${availableWidth}px`,
+              maxWidth: `min(50vw, ${availableWidth}px)`,
               maxHeight: `${availableHeight}px`,
             });
           },

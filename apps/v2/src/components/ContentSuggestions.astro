@@ -13,23 +13,19 @@ const { blogs, tils } = Astro.props;
 
 <section class="@container/suggestions py-6">
   <h2 class="text-xl text-zinc-500 mb-8">You may also like:</h2>
-  <div
-    class="flex flex-col gap-4 @3xl/suggestions:grid @3xl/suggestions:grid-cols-3 @3xl/suggestions:gap-8"
-  >
+  <div class="flex flex-col gap-4 -mx-2 @3xl/suggestions:grid @3xl/suggestions:grid-cols-3">
     {
       blogs.map((post, index) => (
         <>
           {index !== 0 && <hr class="@3xl/suggestions:hidden" />}
-          <BlogPostPreview post={post} hideDate TitleElement="h3" />
+          <BlogPostPreview post={post} hideDate TitleElement="h3" class="px-2" />
         </>
       ))
     }
     {
       tils.map((til, index) => (
         <>
-          {(index !== 0 || blogs.length > 0) && (
-            <hr class="@3xl/suggestions:hidden" />
-          )}
+          {(index !== 0 || blogs.length > 0) && <hr class="@3xl/suggestions:hidden" />}
           <div class="py-4">
             <div class="relative flex justify-between items-center gap-4 @3xl/suggestions:flex-col @3xl/suggestions:items-start">
               <a href={`/today-i-learnt/${til.slug}`} class="group/til">
@@ -41,9 +37,7 @@ const { blogs, tils } = Astro.props;
                   )}
                 />
                 <div class="relative">
-                  <h3 class="font-semibold tracking-tight text-zinc-800">
-                    {til.data.title}
-                  </h3>
+                  <h3 class="font-semibold tracking-tight text-zinc-800">{til.data.title}</h3>
                 </div>
               </a>
               <a

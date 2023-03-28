@@ -10,6 +10,7 @@ export interface Props {
   isFeatured?: boolean;
   TitleElement?: 'h1' | 'h2' | 'h3' | 'h4';
   hideDate?: boolean;
+  class?: string;
 }
 
 const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
@@ -24,7 +25,8 @@ const hasImage = post.heroImageInfo;
     hasImage && 'relative',
     isFeatured
       ? 'z-10 -mx-2 py-4 bg-white min-h-[20rem] flex items-center'
-      : '@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6'
+      : '@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6',
+    Astro.props.class
   )}
 >
   {
