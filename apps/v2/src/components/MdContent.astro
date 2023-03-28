@@ -52,7 +52,13 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
     </header>
     {
       hasHeadings && (
-        <nav class="mb-8 max-w-3xl mx-auto xl:float-right xl:sticky xl:top-14 xl:flex xl:justify-end xl:-mr-12">
+        <nav
+          aria-labelledby="toc-label"
+          class="mb-8 max-w-3xl mx-auto xl:float-right xl:sticky xl:top-14 xl:flex xl:justify-end xl:-mr-12"
+        >
+          <div class="sr-only" id="toc-label">
+            Table of content
+          </div>
           <ol class="toc flex flex-col gap-2 xl:gap-4">
             {levelTwoHeadings!.map((h) => (
               <li class="toc-item">
