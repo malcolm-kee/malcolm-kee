@@ -35,10 +35,7 @@ const {
 } = Astro.props;
 
 const ogBgImageUrl =
-  ogBgImage &&
-  (ogBgImage.startsWith('/')
-    ? new URL(ogBgImage, Astro.site).toString()
-    : ogBgImage);
+  ogBgImage && (ogBgImage.startsWith('/') ? new URL(ogBgImage, Astro.site).toString() : ogBgImage);
 
 const ogImage = getOgImageUrl({
   title: ogImageTitle,
@@ -62,27 +59,9 @@ const ogImage = getOgImageUrl({
 <meta property="og:title" content={title} />
 {description && <meta property="og:description" content={description} />}
 <meta property="og:image" content={ogImage} />
-{
-  publishedDate && (
-    <meta
-      property="article:published_time"
-      content={publishedDate.toISOString()}
-    />
-  )
-}
-{
-  publishedDate && (
-    <meta property="og:published_date" content={publishedDate.toISOString()} />
-  )
-}
-{
-  updatedDate && (
-    <meta
-      property="article:modified_time"
-      content={updatedDate.toISOString()}
-    />
-  )
-}
+{publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
+{publishedDate && <meta property="og:published_date" content={publishedDate.toISOString()} />}
+{updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -99,9 +78,30 @@ const ogImage = getOgImageUrl({
   href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap"
 />
 
-<script
-  type="text/partytown"
-  src="https://www.googletagmanager.com/gtag/js?id=G-BYCSKZQJNC"
+<script is:inline>
+  const isSubscribedKey = 'isSubscriber';
+
+  if (typeof URL !== 'undefined' && history.pushState) {
+    const url = new URL(window.location);
+    const subscriberIdKey = 'ck_subscriber_id';
+    const isSubscriberLink = !!url.searchParams.get(subscriberIdKey);
+
+    if (isSubscriberLink) {
+      // remove ugly query params
+      url.searchParams.delete(subscriberIdKey);
+      history.pushState(null, '', url.toString());
+
+      window.localStorage.setItem(isSubscribedKey, 'true');
+    }
+  }
+
+  const isSubscriber = window.localStorage.getItem(isSubscribedKey);
+
+  if (isSubscriber) {
+    document.documentElement.dataset.subscriber = 'true';
+  }
+</script>
+<script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-BYCSKZQJNC"
 ></script>
 <script type="text/partytown">
   window.dataLayer = window.dataLayer || [];

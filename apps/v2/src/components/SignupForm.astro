@@ -68,7 +68,6 @@ const { class: className } = Astro.props;
     @apply bg-zinc-400 cursor-default;
   }
 </style>
-
 <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
 <form
   action="https://app.convertkit.com/forms/4940243/subscriptions"
@@ -144,11 +143,7 @@ const { class: className } = Astro.props;
 
     const signupForms = document.querySelectorAll('.SignupForm');
 
-    if (isSubscriber) {
-      signupForms.forEach((form) => {
-        form.classList.add('hidden');
-      });
-    } else {
+    if (!isSubscriber) {
       signupForms.forEach((form) => {
         const button = form.querySelector('.is-subscribed-btn');
         button &&
@@ -165,6 +160,10 @@ const { class: className } = Astro.props;
   </script>
 
   <style is:global>
+    [data-subscriber='true'] .SignupForm {
+      display: none;
+    }
+
     .formkit-form[data-uid='4689c70a6b'] .ordered-list,
     .formkit-form[data-uid='4689c70a6b'] .unordered-list {
       list-style-position: outside !important;

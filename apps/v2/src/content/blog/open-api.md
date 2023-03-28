@@ -4,6 +4,7 @@ pubDate: 31 Mar 2023
 description: Learn about OpenAPI, a tool that is popular for API development, and can be used to help with frontend development.
 topics:
   - frontend-tooling
+heroImagePublicId: malcolm-kee/OpenAPI_rl2rzm
 ---
 
 TypeScript is good. If you accept human inevitably makes mistake, the benefits of introducing static type checking to reduce the chance of error, is hard to deny.
