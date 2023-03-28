@@ -6,8 +6,7 @@ import { getNotes } from '~/data/note-helpers';
 const notes = await getNotes();
 
 const title = 'Notes';
-const description =
-  'Learning notes on topics, which will be updated over time.';
+const description = 'Learning notes on topics, which will be updated over time.';
 
 const { pathname } = Astro.url;
 
@@ -28,7 +27,7 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
             <li>
               <a
                 href={`/note/${note.slug}`}
-                class="block px-2 border-l-4 border-transparent hover:border-primary-700/60 transition-colors"
+                class="block px-2 border-l-4 border-transparent hover:border-primary-500 transition-colors"
               >
                 {note.data.title}
               </a>

@@ -49,7 +49,7 @@ const SocialLink = ({
 }) => {
   return (
     <a className="group -m-1 p-1" {...props}>
-      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600" />
+      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-primary-500" />
     </a>
   );
 };
@@ -104,11 +104,7 @@ export default function SocialIcons({
         href={socialMediaData.twitter}
         aria-label="Follow on Twitter"
       />
-      <SocialLink
-        Icon={GitHubIcon}
-        href={socialMediaData.github}
-        aria-label="Follow on GitHub"
-      />
+      <SocialLink Icon={GitHubIcon} href={socialMediaData.github} aria-label="Follow on GitHub" />
       <SocialLink
         Icon={LinkedInIcon}
         href={socialMediaData.linkedin}

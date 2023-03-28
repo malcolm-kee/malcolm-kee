@@ -11,7 +11,15 @@ export default function ProjectCard({ project, ...props }: ProjectCardProps) {
 
   return (
     <div {...props}>
-      <h2>{firstLink ? <a href={firstLink.href}>{project.name}</a> : project.name}</h2>
+      <h2>
+        {firstLink ? (
+          <a href={firstLink.href} className="transition-colors hover:text-primary-500">
+            {project.name}
+          </a>
+        ) : (
+          project.name
+        )}
+      </h2>
       <p className="mt-2 text-sm text-zinc-600">{project.description}</p>
       <ul className="flex gap-3 mt-6">
         {project.links.map((link) => (

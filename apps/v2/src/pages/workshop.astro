@@ -15,34 +15,42 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 
 <html lang="en">
   <head>
-    <BaseHead
-      title="Workshops - Malcolm Kee"
-      description={description}
-      permalink={permalink}
-    />
+    <BaseHead title="Workshops - Malcolm Kee" description={description} permalink={permalink} />
+    <style>
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(15%);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .workshop-link {
+        --delay: calc(var(--i) * 150ms);
+        animation: fade 300ms ease-in var(--delay) both;
+      }
+    </style>
   </head>
   <body>
     <PageLayout>
       <span slot="title">Programming workshops</span>
       <span slot="description">{description}</span>
-      <ul
-        class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <ul class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
         {
-          workshops.map(({ entryUrl, workshop }) => (
-            <li>
-              <a href={entryUrl} class="workshop-link block">
-                <div class="flex items-center justify-center rounded-full shadow-md ring-1 ring-zinc-900/5 h-12 w-12">
-                  <img
-                    src={workshop.iconUrl}
-                    alt=""
-                    class="workshop-icon h-8 w-8"
-                  />
+          workshops.map(({ entryUrl, workshop }, index) => (
+            <li style={`--i: ${index}`}>
+              <a href={entryUrl} class="workshop-link block group/link">
+                <div class="flex items-center justify-center rounded-full shadow-md ring-1 ring-zinc-900/5 h-12 w-12 group-hover/link:shadow-primary-100">
+                  <img src={workshop.iconUrl} alt="" class="workshop-icon h-8 w-8" />
                 </div>
-                <h2 class="workshop-text mt-6">{workshop.name}</h2>
-                <p class="workshop-text mt-2 text-sm text-zinc-600">
-                  {workshop.description}
-                </p>
+                <h2 class="workshop-text mt-6 group-hover/link:text-primary-500">
+                  {workshop.name}
+                </h2>
+                <p class="workshop-text mt-2 text-sm text-zinc-600">{workshop.description}</p>
                 {workshop.underConstruction && (
                   <p class="workshop-text mt-2">
                     <span class="inline-block text-xs leading-5 px-2 bg-rose-800 text-white rounded shadow">
@@ -67,8 +75,7 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
             () => {
               const workshopIcon = workshopLink.querySelector('.workshop-icon');
               if (workshopIcon && workshopIcon instanceof HTMLElement) {
-                (workshopIcon.style as any).viewTransitionName =
-                  'workshop-icon';
+                (workshopIcon.style as any).viewTransitionName = 'workshop-icon';
               }
             },
             { capture: true }

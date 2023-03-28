@@ -24,9 +24,7 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
   <body>
     <Layout hideAvatar>
       <Container className="mt-16 sm:mt-32">
-        <div
-          class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12"
-        >
+        <div class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
           <div class="lg:pl-20">
             <div class="max-w-xs px-2.5 lg:max-w-none">
               <Image
@@ -34,47 +32,44 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
                 alt=""
                 sizes="(min-width: 1024px) 32rem, 20rem"
                 class={clsx(
-                  'aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover',
+                  'PortraitImage aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover',
                   headerStyles.avatar
                 )}
+                loading="eager"
               />
             </div>
           </div>
           <div class="lg:order-first lg:row-span-2">
-            <h1
-              class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl"
-            >
+            <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
               {description}
             </h1>
             <div class="mt-6 space-y-7 text-base text-zinc-600">
               <p>
-                Hi! I'm Malcolm Kee, a software engineer based in Sydney. I have
-                experience working with a variety of programming languages and
-                tools, but my focus has been primarily on frontend technologies.
+                Hi! I'm Malcolm Kee, a software engineer based in Sydney. I have experience working
+                with a variety of programming languages and tools, but my focus has been primarily
+                on frontend technologies.
               </p>
               <p>
-                Outside of work, I love spending my free time building
-                side-projects for fun, which you can browse in the <a
+                Outside of work, I love spending my free time building side-projects for fun, which
+                you can browse in the <a
                   href="/projects"
                   class="text-primary-600 hover:text-primary-500">Projects</a
                 > page.
               </p>
               <p>
-                I'm also passionate about teaching and sharing my expertise with
-                others. As a co-organizer of a tech meetup, I conducted
-                workshops on React and web development. You can check out some
-                of the workshop content on the <a
+                I'm also passionate about teaching and sharing my expertise with others. As a
+                co-organizer of a tech meetup, I conducted workshops on React and web development.
+                You can check out some of the workshop content on the <a
                   href="/workshops"
                   class="text-primary-600 hover:text-primary-500">Workshops</a
                 > page.
               </p>
               <p>
-                In addition to my hands-on work, I also enjoy sharing my
-                thoughts and insights in <a
+                In addition to my hands-on work, I also enjoy sharing my thoughts and insights in <a
                   href="/blog"
                   class="text-primary-600 hover:text-primary-500">my blog</a
-                >. I try to document what I learn and share my perspectives on
-                industry trends and best practices.
+                >. I try to document what I learn and share my perspectives on industry trends and
+                best practices.
               </p>
             </div>
           </div>
@@ -84,5 +79,24 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
         </div>
       </Container>
     </Layout>
+    <script>
+      const image: HTMLImageElement | null = document.querySelector('.PortraitImage');
+
+      if (image) {
+        if (!image.complete) {
+          console.log('image not complete');
+          image.classList.remove('rotate-3');
+          image.classList.add('transition');
+          image.classList.add('duration-700');
+          image.classList.add('-rotate-3');
+
+          image.addEventListener('load', () => {
+            console.log('image loaded');
+            image.classList.remove('-rotate-3');
+            image.classList.add('rotate-3');
+          });
+        }
+      }
+    </script>
   </body>
 </html>

@@ -96,7 +96,7 @@ const hasImage = post.heroImageInfo;
         <header>
           <TitleElement
             class={clsx(
-              'blog-title font-semibold tracking-tight text-zinc-800',
+              'blog-title font-semibold tracking-tight text-zinc-800 group-hover/bloglink:text-primary-500',
               isFeatured ? 'text-3xl px-3 border-l-2 border-transparent' : 'text-base'
             )}
           >
@@ -129,7 +129,10 @@ const hasImage = post.heroImageInfo;
             <li>
               <a
                 href={`/topic/${topic}`}
-                class="topic-link block px-3 py-1.5 font-medium text-zinc-600 rounded-full bg-zinc-100 hover:bg-zinc-200"
+                class={clsx(
+                  'topic-link block px-3 py-1.5 font-medium rounded-full transition-colors',
+                  'text-zinc-600 bg-zinc-50 hover:text-primary-500 focus:text-primary-500 shadow-sm hover:shadow-primary-100'
+                )}
               >
                 {topic}
               </a>

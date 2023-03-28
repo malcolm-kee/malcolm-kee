@@ -2,12 +2,8 @@ import * as React from 'react';
 import { clsx } from 'clsx';
 import type { CollectionEntry } from 'astro:content';
 
-const TodayILearntImpl = function TodayILearnt(
-  props: React.ComponentPropsWithoutRef<'ul'>
-) {
-  return (
-    <ul {...props} className={clsx('flex flex-col gap-6', props.className)} />
-  );
+const TodayILearntImpl = function TodayILearnt(props: React.ComponentPropsWithoutRef<'ul'>) {
+  return <ul {...props} className={clsx('flex flex-col gap-6', props.className)} />;
 };
 
 const TodayILearntItem = ({
@@ -21,7 +17,7 @@ const TodayILearntItem = ({
       {...props}
       href={`/today-i-learnt/${til.slug}`}
       className={clsx(
-        'block px-2 border-l-4 border-transparent hover:border-primary-700/60 transition-colors',
+        'block px-2 border-l-4 border-transparent hover:border-primary-500 transition-colors',
         props.className
       )}
     >
