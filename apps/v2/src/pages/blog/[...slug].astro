@@ -32,7 +32,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 const {
   title,
   description,
@@ -47,9 +47,7 @@ const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
 
 const related = await getBlogRelatedContents(entry);
 
-const imageData = heroImagePublicId
-  ? await getTransformedImage(heroImagePublicId)
-  : undefined;
+const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicId) : undefined;
 ---
 
 <html lang={lang}>
@@ -104,7 +102,7 @@ const imageData = heroImagePublicId
             aria-label="Back to all blogs"
           />
         </div>
-        <MdContent title={title} publishDate={pubDate}>
+        <MdContent title={title} publishDate={pubDate} headings={headings}>
           <Content />
         </MdContent>
         <SignupForm class="mb-12" />

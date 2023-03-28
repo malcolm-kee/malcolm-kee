@@ -1,21 +1,42 @@
 ---
 import { formatDate, isFuture } from '~/lib/date';
+import type { MarkdownHeading } from 'astro';
 import './shiki.css';
+import { clsx } from 'clsx';
 
 export interface Props {
   title: string;
+  headings?: Array<MarkdownHeading>;
   publishDate?: Date;
 }
 
-const { title, publishDate } = Astro.props;
+const { title, publishDate, headings } = Astro.props;
 
 const isFutureContent = publishDate && isFuture(publishDate);
+
+const levelTwoHeadings =
+  headings && headings.filter((h) => h.depth === 2 && h.slug !== 'footnote-label');
+
+const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
 ---
+
+<style>
+  @screen xl {
+    .toc {
+      width: calc(1072px - 768px - 16px);
+    }
+  }
+
+  .toc-item,
+  .content-title {
+    text-wrap: balance;
+  }
+</style>
 
 <div class="mb-12">
   <article>
     <header class="flex flex-col mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
-      <div class="max-w-3xl mx-auto w-full">
+      <div class={clsx('relative max-w-3xl w-full', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}>
         {
           publishDate && (
             <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
@@ -29,7 +50,28 @@ const isFutureContent = publishDate && isFuture(publishDate);
         </h1>
       </div>
     </header>
-    <div class="max-w-3xl mx-auto prose" data-md-content>
+    {
+      hasHeadings && (
+        <nav class="mb-8 max-w-3xl mx-auto xl:float-right xl:sticky xl:top-14 xl:flex xl:justify-end xl:-mr-12">
+          <ol class="toc flex flex-col gap-2 xl:gap-4">
+            {levelTwoHeadings!.map((h) => (
+              <li class="toc-item">
+                <a
+                  href={`#${h.slug}`}
+                  class="text-zinc-500 underline xl:text-sm xl:no-underline transition hover:text-primary-600"
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )
+    }
+    <div
+      class={clsx('max-w-3xl prose', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}
+      data-md-content
+    >
       <slot />
     </div>
   </article>
