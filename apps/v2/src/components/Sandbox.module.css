@@ -6,11 +6,6 @@
   padding-block: 0.5rem;
 }
 
-.editorWrapper :global(.cm-editor),
-.editorWrapper :global(.editor-scrollable) {
-  view-transition-name: var(--editor-view-transition-name);
-}
-
 @keyframes fade-in {
   from {
     opacity: 0;
