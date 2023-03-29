@@ -50,7 +50,7 @@
     "tailwindcss": "^3.3.0",
     "tinycolor2": "^1.6.0",
     "tsx": "^3.12.5",
-    "typescript": "^4.9.5",
+    "typescript": "^5.0.2",
     "undici": "^5.21.0",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.2"
