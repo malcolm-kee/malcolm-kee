@@ -7,13 +7,21 @@ topics:
 heroImagePublicId: malcolm-kee/OpenAPI_rl2rzm
 ---
 
-TypeScript is good. If you accept human inevitably makes mistake, the benefits of introducing static type checking to reduce the chance of error, is hard to deny.
+import { Image } from 'astro:assets';
+import Figure from '~/components/Figure.tsx';
+import apiGateway from './_open-api/api-gateway.excalidraw.png';
+import breakingChange from './_open-api/breaking-change.excalidraw.png';
+import clientSdk from './_open-api/client-sdk.excalidraw.png';
+import edgeFunction from './_open-api/edge-fn.excalidraw.png';
+import mockServer from './_open-api/mock-server.excalidraw.png';
 
-However, there is an apparent limitation of TypeScript once you start using it in your application: it can't type-check beyond your TypeScript codebase. A `fetch` call will always be `any` (or `unknown`) because there is no way for TypeScript to know what could be the response. We can, of course, play pretend by manually declare the type of the response, but it is an ongoing manual work because we have to update it as the API we call changes. And being a programmer, we hate manual works because we accept we make mistake ~~and we’re lazy~~.
+TypeScript is good enough for me, and probably for you too. It prevents bugs by recognizing inconsistent assumptions in your code and highlighting them, a process known as type-checking.
 
-There are few ways to solve this, such as using GraphQL (with [GraphQL codegen](https://the-guild.dev/graphql/codegen)) or gRPC (with [tRPC](https://trpc.io/)). Those tools are powerful and easy to setup, but in practice they are hard to adopt because they require a change of the API server tech stack, a privilege many of us do not have.
+But, TypeScript can't type-check beyond the codebase that it runs during compile time. A `fetch` call will always be `any` (or `unknown`) because there is no way for TypeScript to know what could be the response in runtime. Of course, we can play pretend by manually declare the type of the response, but it is an ongoing manual work because we have to update it as the API we call changes. And being a programmer, we hate manual works because we eventually make mistake ~~and we’re lazy~~.
 
-But, if you’re willing to spend some time to do some digging around and assembling few libraries together to fit your use case, there is a tool that could solve this problem without changing backend tech stack: OpenAPI.
+There are few ways to overcome this TypeScript's limitation, such as using GraphQL (with [GraphQL codegen](https://the-guild.dev/graphql/codegen)) or gRPC (with [tRPC](https://trpc.io/)). Those tools are powerful and easy to setup, but in practice they are hard to adopt because they require a change of the API server tech stack, a privilege many of us do not have.
+
+However, if you’re willing to study and assemble multiple libraries together, there is a tool that could solve this problem without changing backend tech stack: OpenAPI.
 
 ## What is OpenAPI
 
@@ -30,7 +38,9 @@ The most common usage of OpenAPI doc is to generate a live HTML page using swagg
 
 The page allows user to make actual requests to the server, which makes it a cheap way for power users like technical supports to invoke API requests, instead of requiring additional engineering effort to build a UI.
 
-Many teams also use OpenAPI doc with their development and testing tools like [Postman], which then be used for API testing. If the quality of the OpenAPI doc is good (with good description of what each endpoint does), API testing could be done fully in a “self-service” manner, without manual communication between the tester and the API developer.
+As OpenAPI doc describes the expected request and response of each endpoint, it is used as a design document to align expectation and understanding between developers before any coding.
+
+Many teams also use OpenAPI doc with their development and testing tools like [Postman], which then be used for API testing. If the quality of the OpenAPI doc includes good description of what each endpoint does, API testing could be done fully in a self-service manner, without manual communication between the tester and the API developer.
 
 ## Less common uses of OpenAPI doc
 
@@ -38,27 +48,47 @@ There are more opportunities to use OpenAPI docs that are lesser used, but still
 
 ### Client SDK generation
 
+<Figure caption="OpenAPI doc from API generates client SDK">
+  <Image src={clientSdk} alt="OpenAPI doc from API generates client SDK" />
+</Figure>
+
 SDK (software development kit) is a set of tools that is provided by a service that you uses. For example, AWS provides AWS SDK to provides developers a convenient way to access AWS functionalities in different programming languages. A SDK of an API is usually referred to a class or package that calls the API under the hood, but implemented in the client programming language to improve the developer experience, as it would supports the features of the language such as type checking.
 
 There are many [open-source tools](https://openapi.tools/#sdk) to convert OpenAPI doc to generate client SDK of different programming languages, including Typescript. For example, you can use [openapi-typescript-codegen] [^1] to generate Typescript interfaces and API request function calls, so you can properly type check your code related to the network requests. This process can be automated so that every time the API that you’re calling update its OpenAPI doc, the code generation will be rerun and the code will be updated automatically. Breaking changes that affect your usage, such as removing a field that your frontend code is using, will resulted in a type error.
 
 ### Mock server generation
 
-Similar to sdk generation, mock server generation is another types of code generation from OpenAPI spec, but for different purposes. Mock server code generated from OpenAPI spec is usually used for testing, where you start a server in your test so your frontend call can call it, instead of mocking the network requests. In practice, how useful of this would hugely depends on the quality of the OpenAPI spec, e.g. the examples included in the spec, as the response returned by the mock server would relies on that.
+<Figure caption="OpenAPI doc from API generates mock server for testing">
+  <Image src={mockServer} alt="OpenAPI doc from API generates mock server for testing" />
+</Figure>
+
+Similar to SDK generation, mock server generation is another types of code generation from OpenAPI spec, but for different purpose. Mock server code generated from OpenAPI spec is usually used for testing, where developer can start a server to simulate API behavior when running test for frontend application that call the API. In practice, how useful of this would hugely depends on the quality of the OpenAPI spec, e.g. the examples included in the spec, because the response returned by the mock server relies on that.
 
 ### API Gateway configuration
 
+<Figure caption="OpenAPI doc from API configures API gateway">
+  <Image src={apiGateway} alt="OpenAPI doc from API configures API gateway" />
+</Figure>
+
 API gateway is a common component in microservice architectures, where it sits between the client and all the backend services.
 
-With OpenAPI doc, we can include certain requirements of our API operation that can be used to configure the API gateway. For example, we can specify the rate limits for a operation, and as part of deployment, automatically configures the API gateway rate-limiting rules based on the OpenAPI doc.
+With OpenAPI doc, we can include certain requirements of our API operation, which can then be used to configure the API gateway. For example, we can specify the rate limits for a operation in our API. When the OpenAPI doc change, an automatic program can detects it and configures the API gateway rate-limiting rules accordingly.
 
 ### Edge function generation
+
+<Figure caption="OpenAPI doc from API generates edge function">
+  <Image src={edgeFunction} alt="OpenAPI doc from API generates edge function" />
+</Figure>
 
 Edge functions are lambda functions that run at the “edge”, somewhere near to your users. If you’re not familiar with edge functions, one way to think about it is that it is like CDN, but for lambda functions. Edge functions allows us to run code closer to our users, provide faster response.
 
 As authorization requirements and request body schema could be described in OpenAPI doc, we can technically use Open API doc to generate edge functions that validate the request payload at the edge, before the request reaches our server.
 
 ### Breaking change detection
+
+<Figure caption="OpenAPI doc used to detect breaking change">
+  <Image src={breakingChange} alt="OpenAPI doc used to detect breaking change" />
+</Figure>
 
 When an API is used by many clients, such as in a large company or the API is released to partners, it is crucial to avoid breaking changes without proper planning and announcement. As it is easy to parse OpenAPI spec, there are libraries (such as this [`openapi-diff`](https://bitbucket.org/atlassian/openapi-diff/src/master/) package) to detect breaking changes such as:
 
@@ -71,7 +101,7 @@ To make this automation easier, it is one of the [best practices](https://oai.gi
 
 ## Conclusion
 
-OpenAPI is a great tool if your application involves a REST API server. For the developers that maintain the API server, it allows integration with many tools to help with their developments and communications with other stakeholders. For frontend developers, it allows us to generate code that we prefer not to write manually. It may not sounds like as cool as GraphQL or gRPC, but because it integrates well with many programming languages and frameworks, it may be the only feasible solution for those of us working in companies sticking with REST or using multiple programming languages.
+For backend developers that maintain REST API server, OpenAPI integrates with many tools to help with their developments and communications with other stakeholders. For frontend developers, it allows us to generate code that we prefer not to write manually. OpenAPI may not sounds as cool as GraphQL or gRPC, but because it integrates well with many programming languages and frameworks, it may be the only feasible solution in companies that use REST APIs or multiple backend languages.
 
 [redoc]: https://redocly.com/redoc/
 [postman]: https://www.postman.com/
