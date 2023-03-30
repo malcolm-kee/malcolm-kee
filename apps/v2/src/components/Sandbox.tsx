@@ -132,6 +132,7 @@ export default function Sandbox(props: SandboxProps) {
         )}
         data-editorloaded={editorLoaded}
         ref={editorContainerRef}
+        style={codeViewerStyle}
       >
         {props.readOnly ? (
           <SandboxCodeViewer
@@ -174,6 +175,10 @@ const editorStyle: React.CSSProperties = {
 
 const previewStyle: React.CSSProperties = {
   minHeight: 'var(--preview-min-height, auto)',
+};
+
+const codeViewerStyle: React.CSSProperties = {
+  WebkitTextSizeAdjust: 'none',
 };
 
 const indexHtml = /* html */ `<html>

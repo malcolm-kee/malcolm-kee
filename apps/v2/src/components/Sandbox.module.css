@@ -6,6 +6,10 @@
   padding-block: 0.5rem;
 }
 
+.editorWrapper :global(.cm-content) {
+  font-size: 14px;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
