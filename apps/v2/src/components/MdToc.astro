@@ -1,0 +1,195 @@
+---
+import { clsx } from 'clsx';
+import type { MarkdownHeading } from 'astro';
+import { CloseIcon } from '~/components/icons';
+
+export interface Props {
+  headings: Array<MarkdownHeading>;
+}
+
+const { headings } = Astro.props;
+---
+
+<nav
+  aria-labelledby="toc-label"
+  class={clsx(
+    'MdToc flex flex-col gap-3 transition-colors',
+    'mb-8 px-6 py-3 max-w-3xl mx-auto rounded-md',
+    'xl:p-0 xl:float-right xl:sticky xl:top-14 xl:flex-row xl:justify-end xl:-mr-12'
+  )}
+>
+  <div class="flex flex-row-reverse justify-between items-center xl:sr-only">
+    <button
+      aria-controls="toc-items"
+      aria-expanded="false"
+      type="button"
+      class="flex-1 inline-flex justify-end xl:hidden group/toggle peer"
+    >
+      <CloseIcon
+        aria-hidden
+        className={clsx(
+          'w-5 h-5 stroke-zinc-500 transition -rotate-[135deg] scale-75',
+          'group-aria-expanded/toggle:rotate-0 group-aria-expanded/toggle:scale-100'
+        )}
+      />
+    </button>
+    <div
+      class={clsx(
+        'text-zinc-500 text-xl -translate-x-6 transition-transform',
+        'peer-aria-expanded:text-zinc-900 peer-aria-expanded:translate-x-0'
+      )}
+      id="toc-label"
+    >
+      Contents
+    </div>
+  </div>
+  <ol class="toc flex flex-col gap-2 pb-3 xl:gap-4" id="toc-items">
+    {
+      headings.map((h) => (
+        <li class="toc-item">
+          <a
+            href={`#${h.slug}`}
+            class="text-zinc-500 underline xl:text-sm xl:no-underline transition hover:text-primary-600"
+            data-target={h.slug}
+          >
+            {h.text}
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  [aria-expanded] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (max-width: theme(screens.xl)) {
+    .MdToc {
+      @apply border-y border-zinc-50;
+    }
+
+    .MdToc:has([aria-expanded='true']) {
+      @apply bg-zinc-50 border-transparent shadow-sm;
+    }
+
+    .MdToc:has([aria-expanded='false']) .toc {
+      display: none;
+    }
+
+    .MdToc:has([aria-expanded='true']) .toc {
+      animation: fade-in 150ms;
+    }
+  }
+</style>
+
+<script>
+  import { listen } from '~/lib/event-helper';
+
+  document.querySelectorAll('[aria-labelledby="toc-label"]').forEach((tocSection) => {
+    setupCollapsible(tocSection);
+    highlightCurrentActiveHeading(tocSection);
+  });
+
+  function setupCollapsible(tocSection: Element) {
+    const toggleButton = tocSection.querySelector('[aria-controls]');
+
+    if (toggleButton) {
+      toggleButton.addEventListener('click', () => {
+        const currentExpanded = toggleButton.getAttribute('aria-expanded');
+        toggleButton.setAttribute('aria-expanded', currentExpanded === 'false' ? 'true' : 'false');
+      });
+    }
+  }
+
+  function highlightCurrentActiveHeading(tocSection: Element) {
+    const links = tocSection.querySelectorAll<HTMLElement>('.toc-item > a');
+
+    const headings: Array<{
+      element: HTMLElement;
+      top: number;
+    }> = [];
+
+    links.forEach((element) => {
+      const target = element.dataset.target;
+
+      const targetElement = target && document.getElementById(target);
+
+      if (targetElement) {
+        const scrollMt = parseFloat(window.getComputedStyle(targetElement).scrollMarginTop);
+
+        const top =
+          window.scrollY +
+          targetElement.getBoundingClientRect().top -
+          scrollMt -
+          window.innerHeight / 2;
+
+        headings.push({
+          top,
+          element,
+        });
+      }
+    });
+
+    if (headings.length === 0) {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia('(min-width: 1280px)');
+
+    let cleanup: () => void | undefined;
+
+    function syncLinks() {
+      let top = window.scrollY;
+      let current = headings[0];
+      for (let heading of headings) {
+        if (top >= heading.top) {
+          current = heading;
+        } else {
+          break;
+        }
+      }
+      if (current) {
+        links.forEach((link) => {
+          if (link === current.element) {
+            link.classList.add('text-primary-500');
+            link.classList.remove('text-zinc-500');
+          } else {
+            link.classList.add('text-zinc-500');
+            link.classList.remove('text-primary-500');
+          }
+        });
+      }
+    }
+
+    function setupScrollListener() {
+      if (mediaQuery.matches) {
+        if (cleanup) cleanup();
+
+        syncLinks();
+        cleanup = listen(window, 'scroll', syncLinks, { passive: true });
+      } else {
+        if (cleanup) cleanup();
+        links.forEach((link) => {
+          link.classList.add('text-zinc-500');
+          link.classList.remove('text-primary-500');
+        });
+      }
+    }
+
+    setupScrollListener();
+
+    listen(mediaQuery, 'change', setupScrollListener);
+  }
+</script>

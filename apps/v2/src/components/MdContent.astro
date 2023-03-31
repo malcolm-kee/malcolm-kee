@@ -1,8 +1,9 @@
 ---
-import { formatDate, isFuture } from '~/lib/date';
 import type { MarkdownHeading } from 'astro';
-import './shiki.css';
 import { clsx } from 'clsx';
+import { formatDate, isFuture } from '~/lib/date';
+import MdToc from './MdToc.astro';
+import './shiki.css';
 
 export interface Props {
   title: string;
@@ -50,31 +51,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
         </h1>
       </div>
     </header>
-    {
-      hasHeadings && (
-        <nav
-          aria-labelledby="toc-label"
-          class="mb-8 max-w-3xl mx-auto xl:float-right xl:sticky xl:top-14 xl:flex xl:justify-end xl:-mr-12"
-        >
-          <div class="sr-only" id="toc-label">
-            Table of content
-          </div>
-          <ol class="toc flex flex-col gap-2 xl:gap-4">
-            {levelTwoHeadings!.map((h) => (
-              <li class="toc-item">
-                <a
-                  href={`#${h.slug}`}
-                  class="text-zinc-500 underline xl:text-sm xl:no-underline transition hover:text-primary-600"
-                  data-target={h.slug}
-                >
-                  {h.text}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )
-    }
+    {hasHeadings && <MdToc headings={levelTwoHeadings} />}
     <div
       class={clsx('max-w-3xl prose', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}
       data-md-content
@@ -83,90 +60,6 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
     </div>
   </article>
 </div>
-
-<script>
-  import { listen } from '~/lib/event-helper';
-
-  document.querySelectorAll('[aria-labelledby="toc-label"]').forEach((toc) => {
-    const links = toc.querySelectorAll<HTMLElement>('.toc-item > a');
-
-    const headings: Array<{
-      element: HTMLElement;
-      top: number;
-    }> = [];
-
-    links.forEach((element) => {
-      const target = element.dataset.target;
-
-      const targetElement = target && document.getElementById(target);
-
-      if (targetElement) {
-        const scrollMt = parseFloat(window.getComputedStyle(targetElement).scrollMarginTop);
-
-        const top =
-          window.scrollY +
-          targetElement.getBoundingClientRect().top -
-          scrollMt -
-          window.innerHeight / 2;
-
-        headings.push({
-          top,
-          element,
-        });
-      }
-    });
-
-    if (headings.length === 0) {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia('(min-width: 1280px)');
-
-    let cleanup: () => void | undefined;
-
-    function syncLinks() {
-      let top = window.scrollY;
-      let current = headings[0];
-      for (let heading of headings) {
-        if (top >= heading.top) {
-          current = heading;
-        } else {
-          break;
-        }
-      }
-      if (current) {
-        links.forEach((link) => {
-          if (link === current.element) {
-            link.classList.add('text-primary-500');
-            link.classList.remove('text-zinc-500');
-          } else {
-            link.classList.add('text-zinc-500');
-            link.classList.remove('text-primary-500');
-          }
-        });
-      }
-    }
-
-    function setupScrollListener() {
-      if (mediaQuery.matches) {
-        if (cleanup) cleanup();
-
-        syncLinks();
-        cleanup = listen(window, 'scroll', syncLinks, { passive: true });
-      } else {
-        if (cleanup) cleanup();
-        links.forEach((link) => {
-          link.classList.add('text-zinc-500');
-          link.classList.remove('text-primary-500');
-        });
-      }
-    }
-
-    setupScrollListener();
-
-    listen(mediaQuery, 'change', setupScrollListener);
-  });
-</script>
 
 <script>
   import { createTooltip } from '~/lib/create-tooltip';
