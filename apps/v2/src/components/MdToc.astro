@@ -13,40 +13,78 @@ const { headings } = Astro.props;
 <nav
   aria-labelledby="toc-label"
   class={clsx(
-    'MdToc flex flex-col gap-3 transition-colors',
-    'mb-8 px-6 py-3 max-w-3xl mx-auto rounded-md',
+    'MdToc group/mdtoc flex flex-col gap-3 transition-colors',
+    'mb-8 py-3 max-w-3xl mx-auto data-[expanded=true]:rounded-md',
     'xl:p-0 xl:float-right xl:sticky xl:top-14 xl:flex-row xl:justify-end xl:-mr-12'
   )}
+  data-expanded="false"
 >
-  <div class="flex flex-row-reverse justify-between items-center xl:sr-only">
-    <button
-      aria-controls="toc-items"
-      aria-expanded="false"
-      type="button"
-      class="flex-1 inline-flex justify-end xl:hidden group/toggle peer"
-    >
-      <CloseIcon
-        aria-hidden
-        className={clsx(
-          'w-5 h-5 stroke-zinc-500 transition -rotate-[135deg] scale-75',
-          'group-aria-expanded/toggle:rotate-0 group-aria-expanded/toggle:scale-100'
-        )}
-      />
-    </button>
+  <div class="relative xl:sr-only">
     <div
       class={clsx(
-        'text-zinc-500 text-xl -translate-x-6 transition-transform',
-        'peer-aria-expanded:text-zinc-900 peer-aria-expanded:translate-x-0'
+        'MdTocLabel px-6',
+        'text-xl transition-transform duration-300 delay-300',
+        'group-data-[expanded=true]/mdtoc:delay-0'
       )}
       id="toc-label"
     >
       Contents
     </div>
+    <button
+      aria-controls="toc-items"
+      aria-expanded="false"
+      aria-label="Show"
+      type="button"
+      class={clsx(
+        'flex items-center',
+        'absolute top-0 right-0 bottom-0 left-0 w-full xl:hidden px-4',
+        'group/toggle'
+      )}
+    >
+      <span
+        class={clsx(
+          'transition-all duration-200 text-start',
+          'group-aria-expanded/toggle:flex-1 group-aria-expanded/toggle:duration-500'
+        )}
+      >
+        <span
+          aria-hidden
+          class={clsx(
+            'block -ml-4 pl-2 text-zinc-500 text-xl bg-zinc-50 duration-300 delay-100 rounded-l-md shadow',
+            'group-aria-expanded/toggle:ml-0 group-aria-expanded/toggle:text-zinc-900 group-aria-expanded/toggle:shadow-none',
+            'group-hover/toggle:bg-zinc-100 group-hover/toggle:delay-0',
+            'group-aria-expanded/toggle:delay-0 group-aria-expanded/toggle:group-hover/toggle:bg-zinc-50'
+          )}
+        >
+          <span
+            class={clsx(
+              'block text-start origin-left scale-[0.8] font-light duration-300 delay-100',
+              'group-aria-expanded/toggle:scale-100 group-aria-expanded/toggle:font-normal group-aria-expanded/toggle:delay-0'
+            )}>Contents</span
+          >
+        </span>
+      </span>
+      <span
+        class={clsx(
+          'IconWrapper block pr-2 py-1 bg-zinc-50 shadow rounded-r-md duration-300 group-aria-expanded/toggle:shadow-none',
+          'group-hover/toggle:bg-zinc-100 group-aria-expanded/toggle:group-hover/toggle:bg-zinc-50'
+        )}
+      >
+        <CloseIcon
+          aria-hidden
+          className={clsx(
+            'w-5 h-5 stroke-zinc-500 transition',
+            '-rotate-[135deg] scale-[0.6]',
+            'group-aria-expanded/toggle:rotate-0 group-aria-expanded/toggle:scale-100 group-aria-expanded/toggle:duration-500'
+          )}
+        />
+      </span>
+    </button>
   </div>
-  <ol class="toc flex flex-col gap-2 pb-3 xl:gap-4" id="toc-items">
+  <ol class="toc flex flex-col gap-2 pb-3 xl:gap-4 px-6 xl:px-0" id="toc-items">
     {
-      headings.map((h) => (
-        <li class="toc-item">
+      headings.map((h, index) => (
+        <li class="toc-item" style={`--index: ${index}`}>
           <a
             href={`#${h.slug}`}
             class="text-zinc-500 underline xl:text-sm xl:no-underline transition hover:text-primary-600"
@@ -61,13 +99,15 @@ const { headings } = Astro.props;
 </nav>
 
 <style>
-  @keyframes fade-in {
+  @keyframes slideDown {
     0% {
       opacity: 0;
+      transform: translateX(-8px);
     }
 
     100% {
       opacity: 1;
+      transform: translateX(0px);
     }
   }
 
@@ -76,20 +116,21 @@ const { headings } = Astro.props;
   }
 
   @media (max-width: theme(screens.xl)) {
-    .MdToc {
-      @apply border-y border-zinc-50;
-    }
-
-    .MdToc:has([aria-expanded='true']) {
+    .MdToc[data-expanded='true'] {
       @apply bg-zinc-50 border-transparent shadow-sm;
     }
 
-    .MdToc:has([aria-expanded='false']) .toc {
+    .MdToc[data-expanded='false'] .toc {
       display: none;
     }
 
-    .MdToc:has([aria-expanded='true']) .toc {
-      animation: fade-in 150ms;
+    .MdToc[data-expanded='true'] .toc-item {
+      animation: slideDown 300ms both;
+      animation-delay: calc(calc(var(--index) * 100ms) + 100ms);
+    }
+
+    .IconWrapper {
+      clip-path: inset(-3px -3px -3px 0);
     }
   }
 </style>
@@ -103,12 +144,17 @@ const { headings } = Astro.props;
   });
 
   function setupCollapsible(tocSection: Element) {
+    const section = tocSection as HTMLElement;
     const toggleButton = tocSection.querySelector('[aria-controls]');
 
     if (toggleButton) {
       toggleButton.addEventListener('click', () => {
         const currentExpanded = toggleButton.getAttribute('aria-expanded');
-        toggleButton.setAttribute('aria-expanded', currentExpanded === 'false' ? 'true' : 'false');
+        const isNextExpanded = currentExpanded === 'false';
+        toggleButton.setAttribute('aria-expanded', String(isNextExpanded));
+        toggleButton.setAttribute('aria-label', isNextExpanded ? 'Hide' : 'Show');
+
+        section.dataset.expanded = String(isNextExpanded);
       });
     }
   }

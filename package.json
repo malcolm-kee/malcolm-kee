@@ -13,7 +13,7 @@
     "e2e": "start-server-and-test preview http://localhost:8989 test"
   },
   "devDependencies": {
-    "@types/node": "^16",
+    "@types/node": "^18.15.11",
     "start-server-and-test": "^2.0.0"
   }
 }
