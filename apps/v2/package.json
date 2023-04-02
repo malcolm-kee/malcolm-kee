@@ -32,7 +32,7 @@
     "cloudinary": "^1.35.0",
     "dotenv": "^16.0.3",
     "es-module-lexer": "^1.2.1",
-    "esbuild": "^0.17.14",
+    "esbuild": "^0.17.15",
     "hastscript": "^7.2.0",
     "markdown-it": "^13.0.1",
     "prettier": "^2.8.7",
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@astrojs/rss": "^2.3.2",
-    "@codesandbox/sandpack-react": "^2.2.0",
+    "@codesandbox/sandpack-react": "^2.2.4",
     "@codesandbox/sandpack-themes": "^2.0.21",
     "@floating-ui/dom": "^1.2.4",
     "@formkit/auto-animate": "1.0.0-beta.6",
