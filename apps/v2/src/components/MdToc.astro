@@ -14,12 +14,12 @@ const { headings } = Astro.props;
   aria-labelledby="toc-label"
   class={clsx(
     'MdToc group/mdtoc flex flex-col gap-3 transition-colors',
-    'mb-8 py-3 max-w-3xl mx-auto data-[expanded=true]:rounded-md',
-    'xl:p-0 xl:float-right xl:sticky xl:top-14 xl:flex-row xl:justify-end xl:-mr-12'
+    'mb-8 py-3 max-w-3xl mx-auto data-[expanded=true]:rounded-md data-[expanded=true]:shadow',
+    'xl:hidden'
   )}
   data-expanded="false"
 >
-  <div class="relative xl:sr-only">
+  <div class="relative">
     <div
       class={clsx(
         'MdTocLabel px-6',
@@ -37,7 +37,7 @@ const { headings } = Astro.props;
       type="button"
       class={clsx(
         'flex items-center',
-        'absolute top-0 right-0 bottom-0 left-0 w-full xl:hidden px-4',
+        'absolute top-0 right-0 bottom-0 left-0 w-full px-4',
         'group/toggle'
       )}
     >
@@ -81,25 +81,31 @@ const { headings } = Astro.props;
       </span>
     </button>
   </div>
-  <ol class="toc flex flex-col gap-2 pb-3 xl:gap-4 px-6 xl:px-0" id="toc-items">
+  <ol class="toc flex flex-col gap-4 pb-3 px-6" id="toc-items">
     {
-      headings.map((h, index) => (
-        <li class="toc-item" style={`--index: ${index}`}>
-          <a
-            href={`#${h.slug}`}
-            class="text-zinc-500 underline xl:text-sm xl:no-underline transition hover:text-primary-600"
-            data-target={h.slug}
-          >
-            {h.text}
-          </a>
-        </li>
-      ))
+      headings.map((h, index) => {
+        const indent = Math.max(0, h.depth - 2);
+
+        return (
+          <li class="toc-item" style={`--index: ${index}; --indent: ${indent}`}>
+            <a
+              href={`#${h.slug}`}
+              class={clsx(
+                'text-zinc-500 underline md:no-underline transition hover:text-primary-600',
+                indent > 0 && 'text-sm'
+              )}
+              data-target={h.slug}
+            >
+              {h.text}
+            </a>
+          </li>
+        );
+      })
     }
   </ol>
 </nav>
-
 <style>
-  @keyframes slideDown {
+  @keyframes slideFromLeft {
     0% {
       opacity: 0;
       transform: translateX(-8px);
@@ -115,32 +121,36 @@ const { headings } = Astro.props;
     -webkit-tap-highlight-color: transparent;
   }
 
-  @media (max-width: theme(screens.xl)) {
-    .MdToc[data-expanded='true'] {
-      @apply bg-zinc-50 border-transparent shadow-sm;
-    }
+  .MdToc[data-expanded='true'] {
+    @apply bg-zinc-50 border-transparent shadow-sm;
+  }
 
-    .MdToc[data-expanded='false'] .toc {
-      display: none;
-    }
+  .MdToc[data-expanded='false'] .toc {
+    display: none;
+  }
 
-    .MdToc[data-expanded='true'] .toc-item {
-      animation: slideDown 300ms both;
-      animation-delay: calc(calc(var(--index) * 100ms) + 100ms);
-    }
+  .toc-item {
+    padding-left: calc(var(--indent) * 1rem);
+  }
 
-    .IconWrapper {
-      clip-path: inset(-3px -3px -3px 0);
+  @screen md {
+    .toc-item {
+      padding-left: calc(var(--indent) * 2rem);
     }
   }
+
+  .MdToc[data-expanded='true'] .toc-item {
+    animation: slideFromLeft 300ms both;
+    animation-delay: calc(calc(var(--index) * 100ms) + 100ms);
+  }
+
+  .IconWrapper {
+    clip-path: inset(-3px -3px -3px 0);
+  }
 </style>
-
 <script>
-  import { listen } from '~/lib/event-helper';
-
   document.querySelectorAll('[aria-labelledby="toc-label"]').forEach((tocSection) => {
     setupCollapsible(tocSection);
-    highlightCurrentActiveHeading(tocSection);
   });
 
   function setupCollapsible(tocSection: Element) {
@@ -158,9 +168,53 @@ const { headings } = Astro.props;
       });
     }
   }
+</script>
+
+<nav
+  class="StickyMdToc hidden xl:flex gap-3 float-right sticky top-14 -mr-12"
+  aria-labelledby="mdtoc-label"
+>
+  <div class="sr-only" id="mdtoc-label">Contents</div>
+  <ol class="flex flex-col gap-4">
+    {
+      headings.map((h) => {
+        const indent = Math.max(0, h.depth - 2);
+
+        return (
+          <li style={`--indent: ${indent}`}>
+            <a
+              href={`#${h.slug}`}
+              class="StickyLink text-sm text-zinc-500 transition hover:text-primary-600"
+              data-target={h.slug}
+            >
+              {h.text}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+
+<style>
+  .StickyMdToc {
+    width: calc(1072px - 768px - 16px);
+  }
+
+  .StickyLink {
+    padding-left: calc(var(--indent) * 1rem);
+  }
+</style>
+
+<script>
+  import { listen } from '~/lib/event-helper';
+
+  document.querySelectorAll('.StickyMdToc').forEach((tocSection) => {
+    highlightCurrentActiveHeading(tocSection);
+  });
 
   function highlightCurrentActiveHeading(tocSection: Element) {
-    const links = tocSection.querySelectorAll<HTMLElement>('.toc-item > a');
+    const links = tocSection.querySelectorAll<HTMLElement>('li > a');
 
     const headings: Array<{
       element: HTMLElement;

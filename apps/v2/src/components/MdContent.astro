@@ -15,24 +15,10 @@ const { title, publishDate, headings } = Astro.props;
 
 const isFutureContent = publishDate && isFuture(publishDate);
 
-const levelTwoHeadings =
-  headings && headings.filter((h) => h.depth === 2 && h.slug !== 'footnote-label');
+const levelTwoHeadings = headings && headings.filter((h) => h.slug !== 'footnote-label');
 
 const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
 ---
-
-<style>
-  @screen xl {
-    .toc {
-      width: calc(1072px - 768px - 16px);
-    }
-  }
-
-  .toc-item,
-  .content-title {
-    text-wrap: balance;
-  }
-</style>
 
 <div class="mb-12">
   <article>
