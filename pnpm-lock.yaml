@@ -17,8 +17,8 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2
       '@codesandbox/sandpack-react':
-        specifier: ^2.2.4
-        version: 2.2.4(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^2.2.5
+        version: 2.2.5(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
       '@codesandbox/sandpack-themes':
         specifier: ^2.0.21
         version: 2.0.21
@@ -759,8 +759,8 @@ packages:
       static-browser-server: 1.0.3
     dev: false
 
-  /@codesandbox/sandpack-react@2.2.4(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-LEh4EsLIJJdATuxW0ZaL2kSap+2ppTn5g+DAOWIwBT/ct78G694vAeywMwtWbFhBvCKL5U6wQrSQWty2bg/PUg==}
+  /@codesandbox/sandpack-react@2.2.5(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-/o51mDKmbPhzy2AZTtpOBcBN0EAmYO72/lMhGKYqNoioBLTCtqCddoG02do9yk6GKSOxX9ZmP8cRAV6xwBKg8g==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18

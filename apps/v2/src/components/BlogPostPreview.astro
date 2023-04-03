@@ -28,6 +28,7 @@ const hasImage = post.heroImageInfo;
       : '@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6',
     Astro.props.class
   )}
+  data-shiny={!hasImage}
 >
   {
     post.heroImageInfo && (
@@ -67,7 +68,7 @@ const hasImage = post.heroImageInfo;
         !hasImage && (
           <div
             class={clsx(
-              'absolute -inset-y-6 -inset-x-4 z-0',
+              'blog-content-bg absolute -inset-y-6 -inset-x-4 z-0',
               '@md/bloglist:-inset-x-6 @md/bloglist:rounded-2xl',
               'scale-95 bg-zinc-50 opacity-0 transition',
               'group-hover/bloglink:scale-100 group-hover/bloglink:opacity-100'
@@ -143,8 +144,47 @@ const hasImage = post.heroImageInfo;
     }
   </div>
 </article>
+<style>
+  @supports (pointer-events: none) {
+    .blog-content-bg {
+      overflow: hidden;
+    }
 
+    .blog-content-bg::after {
+      --_w: 100px;
+      --_h: 100px;
+
+      pointer-events: none;
+      content: '';
+      width: var(--_w);
+      height: var(--_h);
+      position: absolute;
+      top: calc(var(--pointer-y) * 1px - var(--_h) / 2);
+      left: calc(var(--pointer-x) * 1px - var(--_w) / 2);
+      background: radial-gradient(theme(colors.primary.100), #3984ff00 80%);
+      opacity: 0;
+    }
+
+    .blog-link:hover .blog-content-bg::after {
+      opacity: 1;
+    }
+  }
+</style>
 <script>
+  document.querySelectorAll('.blog-article[data-shiny]').forEach((previewElement) => {
+    const link = previewElement.querySelector('.blog-link');
+    const coverElement = previewElement.querySelector('.blog-content-bg');
+
+    if (link && link instanceof HTMLElement && coverElement) {
+      link.addEventListener('pointermove', (ev) => {
+        console.log('pointermove');
+        const rect = coverElement.getBoundingClientRect();
+        link.style.setProperty('--pointer-x', String(ev.clientX - rect.left));
+        link.style.setProperty('--pointer-y', String(ev.clientY - rect.top));
+      });
+    }
+  });
+
   document.querySelectorAll('.blog-link').forEach((blogLink) => {
     if (blogLink instanceof HTMLElement) {
       blogLink.addEventListener(
@@ -221,9 +261,5 @@ const hasImage = post.heroImageInfo;
 
   .blog-article:has(.blog-link:hover, .blog-link:focus) .blog-hero-image-container {
     opacity: 0.4;
-  }
-
-  .blog-article:has(.blog-link:hover, .blog-link:focus) .blog-content-preview {
-    @apply backdrop-blur;
   }
 </style>

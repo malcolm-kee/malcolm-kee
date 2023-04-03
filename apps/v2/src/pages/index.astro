@@ -30,14 +30,12 @@ const permalink = new URL('', Astro.site).toString();
     <Layout isHomePage>
       <Container className="mt-9">
         <div class="max-w-2xl">
-          <h1
-            class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl"
-          >
+          <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
             Front end engineer that loves building tools
           </h1>
           <p class="mt-6 text-zinc-600">
-            I'm Malcolm, a front end engineer based in Sydney. I loves creating
-            libraries and tools with TypeScript, React, and webpack.
+            I'm Malcolm, a front end engineer based in Sydney. I loves creating libraries and tools
+            with TypeScript, React, and webpack.
           </p>
           <SocialIcons className="mt-6" variant="iconOnly" />
         </div>
@@ -50,9 +48,7 @@ const permalink = new URL('', Astro.site).toString();
           <div class="space-y-10 lg:pl-16 xl:pl-24">
             <GenericSignupForm />
             <div class="rounded-2xl border border-zinc-100 p-6">
-              <h2
-                class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100"
-              >
+              <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                 <BriefcaseIcon className="h-6 w-6 flex-none" />
                 <span class="ml-3 leading-6">Work</span>
               </h2>
@@ -79,9 +75,7 @@ const permalink = new URL('', Astro.site).toString();
                           {role.company}
                         </dd>
                         <dt class="sr-only">Role</dt>
-                        <dd class="text-xs text-zinc-500 dark:text-zinc-400">
-                          {role.title}
-                        </dd>
+                        <dd class="text-xs text-zinc-500 dark:text-zinc-400">{role.title}</dd>
                         <dt class="sr-only">Date</dt>
                         <dd
                           class="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
@@ -97,11 +91,7 @@ const permalink = new URL('', Astro.site).toString();
                 }
               </ol>
               <div class="flex mt-6 rounded-md shadow">
-                <Button
-                  variant="secondary"
-                  href="/cv"
-                  className="flex-1 rounded-r-none"
-                >
+                <Button variant="secondary" href="/cv" className="flex-1 rounded-r-none">
                   View CV
                 </Button>
                 <Button
