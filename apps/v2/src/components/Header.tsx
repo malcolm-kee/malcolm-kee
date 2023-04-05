@@ -181,6 +181,7 @@ export default function Header({
               {!hideNav && (
                 <div className="flex flex-1 justify-end md:justify-center">
                   <MobileNavigation
+                    currentPath={currentPath}
                     className={clsx('pointer-events-auto md:hidden', styles.mobileNav)}
                   />
                   <DesktopNavigation
@@ -256,17 +257,34 @@ function DesktopNavigation({
   );
 }
 
-function MobileNavItem({ href, children }: { href: string; children: React.ReactNode }) {
+function MobileNavItem({
+  href,
+  children,
+  isActive,
+}: {
+  href: string;
+  children: React.ReactNode;
+  isActive: boolean;
+}) {
   return (
-    <li>
-      <a href={href} className="block py-2">
-        {children}
-      </a>
+    <li className={clsx('group/navItem px-2 transition-colors', styles.mobileNavItem)}>
+      {isActive ? (
+        <div className="py-2 text-primary-500 border-b border-zinc-100 group-last/navItem:border-none">
+          {children}
+        </div>
+      ) : (
+        <a
+          href={href}
+          className="block py-2 border-b border-zinc-100 group-last/navItem:border-none"
+        >
+          {children}
+        </a>
+      )}
     </li>
   );
 }
 
-function MobileNavigation(props: { className?: string }) {
+function MobileNavigation({ currentPath, ...props }: { className?: string; currentPath: string }) {
   return (
     <Popover {...props}>
       <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur">
@@ -296,18 +314,24 @@ function MobileNavigation(props: { className?: string }) {
         >
           <Popover.Panel
             focus
-            className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5"
+            className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white px-6 py-8 ring-1 ring-zinc-900/5"
           >
-            <div className="flex flex-row-reverse items-center justify-between">
+            <div className="float-right pr-4">
               <Popover.Button aria-label="Close menu" className="-m-1 p-1">
                 <CloseIcon className="h-6 w-6 stroke-zinc-500" />
               </Popover.Button>
-              <h2 className="text-sm font-medium text-zinc-600">Navigation</h2>
+              <h2 className="sr-only" id="mobile-nav-label">
+                Navigation
+              </h2>
             </div>
-            <nav className="mt-6">
-              <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800">
+            <nav aria-describedby="mobile-nav-label">
+              <ul className="-my-2 text-base text-zinc-800">
                 {navItems.map((item) => (
-                  <MobileNavItem href={item.href} key={item.href}>
+                  <MobileNavItem
+                    href={item.href}
+                    isActive={!!currentPath && currentPath.startsWith(item.href)}
+                    key={item.href}
+                  >
                     {item.label}
                   </MobileNavItem>
                 ))}

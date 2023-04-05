@@ -15,7 +15,7 @@ import clientSdk from './_open-api/client-sdk.excalidraw.png';
 import edgeFunction from './_open-api/edge-fn.excalidraw.png';
 import mockServer from './_open-api/mock-server.excalidraw.png';
 
-TypeScript is good enough for me, and probably for you too. It prevents bugs by recognizing inconsistent assumptions in your code and highlighting them, a process known as type-checking.
+I find TypeScript valuable for my development workflow. It prevents bugs by recognizing inconsistent assumptions in my code and highlighting them, giving me more confidence of my code.
 
 But, TypeScript can't type-check beyond the codebase that it runs at compile time. A `fetch` call will always be `any` (or `unknown`) because there is no way for TypeScript to know what could be the response in runtime. Of course, we can play pretend by manually declare the type of the response, but it is an ongoing manual work because the API we call may change. And being a programmer, we hate manual works because we eventually make mistake ~~and we're lazy~~.
 

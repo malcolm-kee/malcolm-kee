@@ -17,8 +17,8 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2
       '@codesandbox/sandpack-react':
-        specifier: ^2.2.5
-        version: 2.2.5(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^2.2.9
+        version: 2.2.9(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
       '@codesandbox/sandpack-themes':
         specifier: ^2.0.21
         version: 2.0.21
@@ -33,7 +33,7 @@ importers:
         version: 1.7.13(react-dom@18.2.0)(react@18.2.0)
       '@monaco-editor/react':
         specifier: ^4.4.6
-        version: 4.4.6(monaco-editor@0.36.1)(react-dom@18.2.0)(react@18.2.0)
+        version: 4.4.6(monaco-editor@0.37.0)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^4.27.0
         version: 4.28.0(react-dom@18.2.0)(react@18.2.0)
@@ -73,7 +73,7 @@ importers:
         version: 1.2.0
       '@astrojs/react':
         specifier: ^2.1.1
-        version: 2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.32)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.33)(react-dom@18.2.0)(react@18.2.0)
       '@astrojs/sitemap':
         specifier: ^1.2.1
         version: 1.2.1
@@ -99,8 +99,8 @@ importers:
         specifier: ^3.0.10
         version: 3.0.11
       '@types/react':
-        specifier: ^18.0.32
-        version: 18.0.32
+        specifier: ^18.0.33
+        version: 18.0.33
       '@types/react-dom':
         specifier: ^18.0.11
         version: 18.0.11
@@ -145,7 +145,7 @@ importers:
         version: 18.2.0(react@18.2.0)
       react-redux:
         specifier: ^8.0.5
-        version: 8.0.5(@types/react-dom@18.0.11)(@types/react@18.0.32)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
+        version: 8.0.5(@types/react-dom@18.0.11)(@types/react@18.0.33)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
       react-router-dom:
         specifier: ^6.10.0
         version: 6.10.0(react-dom@18.2.0)(react@18.2.0)
@@ -197,10 +197,10 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.6.1
-        version: 4.6.1(playwright@1.32.1)
+        version: 4.6.1(playwright@1.32.2)
       '@playwright/test':
-        specifier: ^1.32.1
-        version: 1.32.1
+        specifier: ^1.32.2
+        version: 1.32.2
       typescript:
         specifier: ^5.0.3
         version: 5.0.3
@@ -320,7 +320,7 @@ packages:
       prismjs: 1.29.0
     dev: true
 
-  /@astrojs/react@2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.32)(react-dom@18.2.0)(react@18.2.0):
+  /@astrojs/react@2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.33)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-nIcDFnn5H4FKGoSBYXZr95RIQvpcTNRcVV1hvUQifO0F5hQsgb0PVyk6TG4JWxiPGY4Jt4MVQb5JaaDQHlHu4w==}
     engines: {node: '>=16.12.0'}
     peerDependencies:
@@ -331,7 +331,7 @@ packages:
     dependencies:
       '@babel/core': 7.21.4
       '@babel/plugin-transform-react-jsx': 7.21.0(@babel/core@7.21.4)
-      '@types/react': 18.0.32
+      '@types/react': 18.0.33
       '@types/react-dom': 18.0.11
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -391,13 +391,13 @@ packages:
       undici: 5.20.0
     dev: true
 
-  /@axe-core/playwright@4.6.1(playwright@1.32.1):
+  /@axe-core/playwright@4.6.1(playwright@1.32.2):
     resolution: {integrity: sha512-XMKP2OzGfGIYpU9G9FgI2ulyjEXQDP6qtZerOwdQ7YC1w4SFgofK3ogSk0qVoy0QI+q6XWLUJMfMMkUwdTR2dA==}
     peerDependencies:
       playwright: '>= 1.0.0'
     dependencies:
       axe-core: 4.6.3
-      playwright: 1.32.1
+      playwright: 1.32.2
     dev: true
 
   /@babel/code-frame@7.21.4:
@@ -691,7 +691,7 @@ packages:
     dependencies:
       '@codemirror/autocomplete': 6.4.2(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
       '@codemirror/lang-css': 6.1.1(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
-      '@codemirror/lang-javascript': 6.1.4
+      '@codemirror/lang-javascript': 6.1.5
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
       '@codemirror/view': 6.9.3
@@ -700,8 +700,8 @@ packages:
       '@lezer/html': 1.3.4
     dev: false
 
-  /@codemirror/lang-javascript@6.1.4:
-    resolution: {integrity: sha512-OxLf7OfOZBTMRMi6BO/F72MNGmgOd9B0vetOLvHsDACFXayBzW8fm8aWnDM0yuy68wTK03MBf4HbjSBNRG5q7A==}
+  /@codemirror/lang-javascript@6.1.5:
+    resolution: {integrity: sha512-BS2SmI1IXxWqMPhbJ0DC3eAHAK9V9XvdHMSqwvTBnmh5xFALt+cVDg7XE/A1dxdxzXYXyeqGddgqx1rQv7AYaw==}
     dependencies:
       '@codemirror/autocomplete': 6.4.2(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
       '@codemirror/language': 6.6.0
@@ -749,8 +749,8 @@ packages:
       strict-event-emitter: 0.4.6
     dev: false
 
-  /@codesandbox/sandpack-client@2.2.4:
-    resolution: {integrity: sha512-MYEHaD9qeXTtJVQ/NpEGz2dMRPHqJJNK1757PdNneurk3LprmpNrExZNlUgPH27xHrmKIqjVR8m32e2YlDjAbg==}
+  /@codesandbox/sandpack-client@2.2.9:
+    resolution: {integrity: sha512-Vea9dSBazKFNVhzUyvSU3/EZFyegPN4mY1WrqjjbNK2Eui1A2iZdwC3pjCs1yhi9r6/mJgl+9DJFO3koIR1N5A==}
     dependencies:
       '@codesandbox/nodebox': 0.1.4
       buffer: 6.0.3
@@ -759,8 +759,8 @@ packages:
       static-browser-server: 1.0.3
     dev: false
 
-  /@codesandbox/sandpack-react@2.2.5(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-/o51mDKmbPhzy2AZTtpOBcBN0EAmYO72/lMhGKYqNoioBLTCtqCddoG02do9yk6GKSOxX9ZmP8cRAV6xwBKg8g==}
+  /@codesandbox/sandpack-react@2.2.9(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-NEVJ8zCQhjxgaX7yxyIn6ZS5dUC6sQVUuUqkneahXxSIdj7f1BuBqROf9JWsh6mkL2k0Uj9nXm5zheC+GJkneA==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
@@ -770,11 +770,11 @@ packages:
       '@codemirror/commands': 6.2.2
       '@codemirror/lang-css': 6.1.1(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
       '@codemirror/lang-html': 6.4.3
-      '@codemirror/lang-javascript': 6.1.4
+      '@codemirror/lang-javascript': 6.1.5
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
       '@codemirror/view': 6.9.3
-      '@codesandbox/sandpack-client': 2.2.4
+      '@codesandbox/sandpack-client': 2.2.9
       '@lezer/highlight': 1.1.4
       '@react-hook/intersection-observer': 3.1.1(react@18.2.0)
       '@stitches/core': 1.2.8
@@ -1202,24 +1202,24 @@ packages:
       - supports-color
     dev: true
 
-  /@monaco-editor/loader@1.3.2(monaco-editor@0.36.1):
+  /@monaco-editor/loader@1.3.2(monaco-editor@0.37.0):
     resolution: {integrity: sha512-BTDbpHl3e47r3AAtpfVFTlAi7WXv4UQ/xZmz8atKl4q7epQV5e7+JbigFDViWF71VBi4IIBdcWP57Hj+OWuc9g==}
     peerDependencies:
       monaco-editor: '>= 0.21.0 < 1'
     dependencies:
-      monaco-editor: 0.36.1
+      monaco-editor: 0.37.0
       state-local: 1.0.7
     dev: false
 
-  /@monaco-editor/react@4.4.6(monaco-editor@0.36.1)(react-dom@18.2.0)(react@18.2.0):
+  /@monaco-editor/react@4.4.6(monaco-editor@0.37.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Gr3uz3LYf33wlFE3eRnta4RxP5FSNxiIV9ENn2D2/rN8KgGAD8ecvcITRtsbbyuOuNkwbuHYxfeaz2Vr+CtyFA==}
     peerDependencies:
       monaco-editor: '>= 0.25.0 < 1'
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@monaco-editor/loader': 1.3.2(monaco-editor@0.36.1)
-      monaco-editor: 0.36.1
+      '@monaco-editor/loader': 1.3.2(monaco-editor@0.37.0)
+      monaco-editor: 0.37.0
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -1269,13 +1269,13 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@playwright/test@1.32.1:
-    resolution: {integrity: sha512-FTwjCuhlm1qHUGf4hWjfr64UMJD/z0hXYbk+O387Ioe6WdyZQ+0TBDAc6P+pHjx2xCv1VYNgrKbYrNixFWy4Dg==}
+  /@playwright/test@1.32.2:
+    resolution: {integrity: sha512-nhaTSDpEdTTttdkDE8Z6K3icuG1DVRxrl98Qq0Lfc63SS9a2sjc9+x8ezysh7MzCKz6Y+nArml3/mmt+gqRmQQ==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
       '@types/node': 18.15.11
-      playwright-core: 1.32.1
+      playwright-core: 1.32.2
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -1471,7 +1471,7 @@ packages:
   /@types/hoist-non-react-statics@3.3.1:
     resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
     dependencies:
-      '@types/react': 18.0.32
+      '@types/react': 18.0.33
       hoist-non-react-statics: 3.3.2
     dev: true
 
@@ -1523,17 +1523,17 @@ packages:
   /@types/react-dom@18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
-      '@types/react': 18.0.32
+      '@types/react': 18.0.33
     dev: true
 
   /@types/react-helmet@6.1.6:
     resolution: {integrity: sha512-ZKcoOdW/Tg+kiUbkFCBtvDw0k3nD4HJ/h/B9yWxN4uDO8OkRksWTO+EL+z/Qu3aHTeTll3Ro0Cc/8UhwBCMG5A==}
     dependencies:
-      '@types/react': 18.0.32
+      '@types/react': 18.0.33
     dev: true
 
-  /@types/react@18.0.32:
-    resolution: {integrity: sha512-gYGXdtPQ9Cj0w2Fwqg5/ak6BcK3Z15YgjSqtyDizWUfx7mQ8drs0NBUzRRsAdoFVTO8kJ8L2TL8Skm7OFPnLUw==}
+  /@types/react@18.0.33:
+    resolution: {integrity: sha512-sHxzVxeanvQyQ1lr8NSHaj0kDzcNiGpILEVt69g9S31/7PfMvNCKLKcsHw4lYKjs3cGNJjXSP4mYzX43QlnjNA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -4412,8 +4412,8 @@ packages:
     resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
     dev: false
 
-  /monaco-editor@0.36.1:
-    resolution: {integrity: sha512-/CaclMHKQ3A6rnzBzOADfwdSJ25BFoFT0Emxsc4zYVyav5SkK9iA6lEtIeuN/oRYbwPgviJT+t3l+sjFa28jYg==}
+  /monaco-editor@0.37.0:
+    resolution: {integrity: sha512-PrvIsrbD/uLQlzYqNnzrZ0yDCK+X3YoLgNx+fFZKvmgkDZxo9kJRvb5YNtCUesG4xjv44jEEKaHKE0demcEleg==}
     dev: false
 
   /monaco-themes@0.4.4:
@@ -4776,19 +4776,19 @@ packages:
       find-up: 4.1.0
     dev: true
 
-  /playwright-core@1.32.1:
-    resolution: {integrity: sha512-KZYUQC10mXD2Am1rGlidaalNGYk3LU1vZqqNk0gT4XPty1jOqgup8KDP8l2CUlqoNKhXM5IfGjWgW37xvGllBA==}
+  /playwright-core@1.32.2:
+    resolution: {integrity: sha512-zD7aonO+07kOTthsrCR3YCVnDcqSHIJpdFUtZEMOb6//1Rc7/6mZDRdw+nlzcQiQltOOsiqI3rrSyn/SlyjnJQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
 
-  /playwright@1.32.1:
-    resolution: {integrity: sha512-GnEizysWMvoqHC3I9l8+4/ZxeLwLNdJJG76xdKGxzOcIZDcw5RSk/FKrFb5CuA+zcLpjIM2p9eR9Z4CuUDkWXg==}
+  /playwright@1.32.2:
+    resolution: {integrity: sha512-jHVnXJke0PXpuPszKtk9y1zZSlzO5+2a+aockT/AND0oeXx46FiJEFrafthurglLygVZA+1gEbtUM1C7qtTV+Q==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      playwright-core: 1.32.1
+      playwright-core: 1.32.2
     dev: true
 
   /postcss-import@14.1.0(postcss@8.4.21):
@@ -5067,7 +5067,7 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: true
 
-  /react-redux@8.0.5(@types/react-dom@18.0.11)(@types/react@18.0.32)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
+  /react-redux@8.0.5(@types/react-dom@18.0.11)(@types/react@18.0.33)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
     resolution: {integrity: sha512-Q2f6fCKxPFpkXt1qNRZdEDLlScsDWyrgSj0mliK59qU6W5gvBiKkdMEG2lJzhd1rCctf0hb6EtePPLZ2e0m1uw==}
     peerDependencies:
       '@types/react': ^16.8 || ^17.0 || ^18.0
@@ -5090,7 +5090,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.20.13
       '@types/hoist-non-react-statics': 3.3.1
-      '@types/react': 18.0.32
+      '@types/react': 18.0.33
       '@types/react-dom': 18.0.11
       '@types/use-sync-external-store': 0.0.3
       hoist-non-react-statics: 3.3.2

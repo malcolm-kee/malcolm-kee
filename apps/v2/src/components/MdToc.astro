@@ -210,6 +210,7 @@ const { headings } = Astro.props;
   import { listen } from '~/lib/event-helper';
 
   document.querySelectorAll('.StickyMdToc').forEach((tocSection) => {
+    // TODO: handle window height too long for sticky nav
     highlightCurrentActiveHeading(tocSection);
   });
 
@@ -253,6 +254,7 @@ const { headings } = Astro.props;
     function syncLinks() {
       let top = window.scrollY;
       let current = headings[0];
+
       for (let heading of headings) {
         if (top >= heading.top) {
           current = heading;
@@ -278,7 +280,12 @@ const { headings } = Astro.props;
         if (cleanup) cleanup();
 
         syncLinks();
-        cleanup = listen(window, 'scroll', syncLinks, { passive: true });
+
+        if ('onscrollend' in window) {
+          cleanup = listen(window, 'scrollend', syncLinks);
+        } else {
+          cleanup = listen(window, 'scroll', syncLinks, { passive: true });
+        }
       } else {
         if (cleanup) cleanup();
         links.forEach((link) => {

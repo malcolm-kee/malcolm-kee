@@ -24,7 +24,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "@types/hast": "^2.3.4",
     "@types/mdast": "^3.0.10",
-    "@types/react": "^18.0.32",
+    "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "@types/react-helmet": "^6.1.6",
     "@types/tinycolor2": "^1.4.3",
@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@astrojs/rss": "^2.3.2",
-    "@codesandbox/sandpack-react": "^2.2.5",
+    "@codesandbox/sandpack-react": "^2.2.9",
     "@codesandbox/sandpack-themes": "^2.0.21",
     "@floating-ui/dom": "^1.2.4",
     "@formkit/auto-animate": "1.0.0-beta.6",

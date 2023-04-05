@@ -13,3 +13,7 @@
 .mobileNav {
   view-transition-name: header-mobile-nav;
 }
+
+.mobileNavItem:has(a:hover) {
+  @apply bg-zinc-50;
+}
