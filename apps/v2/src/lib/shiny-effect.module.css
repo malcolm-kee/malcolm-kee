@@ -1,0 +1,33 @@
+@supports (pointer-events: none) {
+  .element {
+    overflow: hidden;
+  }
+
+  .element::after {
+    --_w: 100px;
+    --_h: 100px;
+    --_shiny-color: var(--shiny-color, theme(colors.primary.100));
+
+    pointer-events: none;
+    content: '';
+    width: var(--_w);
+    height: var(--_h);
+    position: absolute;
+    top: calc(var(--pointer-y) * 1px - var(--_h) / 2);
+    left: calc(var(--pointer-x) * 1px - var(--_w) / 2);
+    background: radial-gradient(var(--_shiny-color), #3984ff00 80%);
+    opacity: 0;
+  }
+
+  .element:hover::after {
+    opacity: 1;
+  }
+
+  .container .element::after {
+    opacity: 0;
+  }
+
+  .container:hover .element::after {
+    opacity: 1;
+  }
+}

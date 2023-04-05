@@ -18,41 +18,36 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 <html lang="en">
   <head>
     <BaseHead title="Projects - Malcolm Kee" description={description} permalink={permalink} />
-    <style>
-      @keyframes fade {
-        from {
-          opacity: 0;
-          transform: translateY(15%);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .item {
-        --delay: calc(var(--i) * 150ms);
-        animation: fade 300ms ease-in var(--delay) both;
-      }
-    </style>
   </head>
 
   <body>
     <PageLayout>
       <span slot="title">Things I've made</span>
       <span slot="description">{description}</span>
-      <ul role="list" class="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+      <ul role="list" class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {
           projects.map((project, index) => (
-            <ProjectCard
-              project={project}
-              className="item"
+            <li
               style={{ '--i': index } as React.CSSProperties}
-            />
+              class="item relative px-5 py-3 border border-zinc-100 rounded-2xl transition-colors hover:bg-zinc-50"
+            >
+              <div class="hover-target absolute top-0 left-0 right-0 bottom-0 rounded-2xl" />
+              <ProjectCard project={project} className="relative h-full" />
+            </li>
           ))
         }
       </ul>
     </PageLayout>
+    <script>
+      import { setupShinyEffect } from '~/lib/shiny-effect';
+
+      document.querySelectorAll('.item').forEach((container) => {
+        const item = container.querySelector('.hover-target');
+
+        if (container instanceof HTMLElement && item && item instanceof HTMLElement) {
+          setupShinyEffect(item, container);
+        }
+      });
+    </script>
   </body>
 </html>

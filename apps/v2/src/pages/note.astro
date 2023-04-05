@@ -21,7 +21,7 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
     <PageLayout>
       <span slot="title">{title}</span>
       <span slot="description">{description}</span>
-      <ul class="flex flex-col gap-6">
+      <ul class="flex flex-col gap-6 xl:grid xl:grid-cols-2">
         {
           notes.map((note) => (
             <li>
