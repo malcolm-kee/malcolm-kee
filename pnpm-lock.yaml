@@ -107,12 +107,15 @@ importers:
       '@types/react-helmet':
         specifier: ^6.1.6
         version: 6.1.6
+      '@types/serviceworker':
+        specifier: ^0.0.67
+        version: 0.0.67
       '@types/tinycolor2':
         specifier: ^1.4.3
         version: 1.4.3
       astro:
         specifier: 2.2.0
-        version: 2.2.0(sass@1.60.0)
+        version: 2.2.0(@types/node@18.15.11)(sass@1.60.0)
       cloudinary:
         specifier: ^1.35.0
         version: 1.35.0
@@ -251,7 +254,7 @@ packages:
       astro: ^2.2.0
     dependencies:
       '@astrojs/prism': 2.1.1
-      astro: 2.2.0(sass@1.60.0)
+      astro: 2.2.0(@types/node@18.15.11)(sass@1.60.0)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -302,7 +305,7 @@ packages:
     dependencies:
       '@astrojs/webapi': 2.1.0
       '@netlify/functions': 1.4.0
-      astro: 2.2.0(sass@1.60.0)
+      astro: 2.2.0(@types/node@18.15.11)(sass@1.60.0)
       esbuild: 0.15.18
     dev: true
 
@@ -360,7 +363,7 @@ packages:
       tailwindcss: ^3.0.24
     dependencies:
       '@proload/core': 0.3.3
-      astro: 2.2.0(sass@1.60.0)
+      astro: 2.2.0(@types/node@18.15.11)(sass@1.60.0)
       autoprefixer: 10.4.14(postcss@8.4.21)
       postcss: 8.4.21
       postcss-load-config: 4.0.1(postcss@8.4.21)
@@ -1560,6 +1563,10 @@ packages:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
     dev: true
 
+  /@types/serviceworker@0.0.67:
+    resolution: {integrity: sha512-7TCH7iNsCSNb+aUD9M/36TekrWFSLCjNK8zw/3n5kOtRjbLtDfGYMXTrDnGhSfqXNwpqmt9Vd90w5C/ad1tX6Q==}
+    dev: true
+
   /@types/tinycolor2@1.4.3:
     resolution: {integrity: sha512-Kf1w9NE5HEgGxCRyIcRXR/ZYtDv0V8FVPtYHwLxl0O+maGX0erE77pQlD0gpP+/KByMZ87mOA79SjifhSB3PjQ==}
     dev: true
@@ -1767,7 +1774,7 @@ packages:
     hasBin: true
     dev: true
 
-  /astro@2.2.0(sass@1.60.0):
+  /astro@2.2.0(@types/node@18.15.11)(sass@1.60.0):
     resolution: {integrity: sha512-7ggQHIyWadnjRY+Jo7nZmYF5xspeAWCjQV+fPkad7u86hj0qjhU+8WvCZI1q7cvJo9o0DMzaI+3vH1voIK7Czg==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
@@ -1826,7 +1833,7 @@ packages:
       typescript: 5.0.3
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.2.1(sass@1.60.0)
+      vite: 4.2.1(@types/node@18.15.11)(sass@1.60.0)
       vitefu: 0.2.4(vite@4.2.1)
       yargs-parser: 21.1.1
       zod: 3.21.4
@@ -3627,7 +3634,7 @@ packages:
   /jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
     optionalDependencies:
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
     dev: true
     optional: true
 
@@ -6215,7 +6222,7 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite@4.2.1(sass@1.60.0):
+  /vite@4.2.1(@types/node@18.15.11)(sass@1.60.0):
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6240,6 +6247,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 18.15.11
       esbuild: 0.17.15
       postcss: 8.4.21
       resolve: 1.22.2
@@ -6257,7 +6265,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.2.1(sass@1.60.0)
+      vite: 4.2.1(@types/node@18.15.11)(sass@1.60.0)
     dev: true
 
   /vm2@3.9.14:

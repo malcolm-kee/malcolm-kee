@@ -6,6 +6,16 @@
   to = "https://malcolmkee.com/:splat"
   status = 301
 
+[[headers]]
+  # technically not required for chrome, see https://developer.chrome.com/blog/fresher-sw/
+  # but no harm settings
+  for = "/sw.js"
+  [headers.values]
+    cache-control = '''
+    max-age=0,
+    no-cache
+    '''
+
 [dev]
   command = "pnpm run dev"
   targetPort = 8989
