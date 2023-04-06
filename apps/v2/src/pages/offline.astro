@@ -1,0 +1,27 @@
+---
+import BaseHead from '~/components/BaseHead.astro';
+import PageLayout from '~/components/PageLayout.astro';
+
+const permalink = Astro.url.toString();
+---
+
+<html>
+  <head>
+    <BaseHead title="No connection" permalink={permalink} />
+  </head>
+  <body>
+    <PageLayout noHeader>
+      <div class="mx-auto max-w-xl">
+        <div class="text-center">
+          <p class="text-base font-semibold text-primary-600">Offline</p>
+          <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            No connection
+          </h1>
+          <p class="mt-2 text-lg text-gray-500">
+            It seems like there is no internet connection at the moment.
+          </p>
+        </div>
+      </div>
+    </PageLayout>
+  </body>
+</html>

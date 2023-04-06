@@ -8,7 +8,8 @@
     "build": "astro check && tsc --noEmit && astro build && pnpm run generate-cv",
     "preview": "astro preview",
     "format": "prettier --write \"src/**/*.{astro,js,jsx,ts,tsx,json,md,mdx}\"",
-    "generate-cv": "tsx scripts/generate-cv.ts"
+    "generate-cv": "tsx scripts/generate-cv.ts",
+    "extract-deps": "tsx plugin/deps-extraction.ts"
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^2.1.3",
@@ -19,6 +20,7 @@
     "@astrojs/sitemap": "^1.2.2",
     "@astrojs/tailwind": "^3.1.1",
     "@codemirror/state": "^6.2.0",
+    "@mkee/extract-html-resources": "workspace:*",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.9",
