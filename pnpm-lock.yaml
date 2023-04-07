@@ -17,8 +17,8 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2
       '@codesandbox/sandpack-react':
-        specifier: ^2.2.9
-        version: 2.2.9(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^2.4.2
+        version: 2.4.2(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
       '@codesandbox/sandpack-themes':
         specifier: ^2.0.21
         version: 2.0.21
@@ -33,7 +33,7 @@ importers:
         version: 1.7.13(react-dom@18.2.0)(react@18.2.0)
       '@monaco-editor/react':
         specifier: ^4.4.6
-        version: 4.4.6(monaco-editor@0.37.0)(react-dom@18.2.0)(react@18.2.0)
+        version: 4.4.6(monaco-editor@0.37.1)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^4.27.0
         version: 4.28.0(react-dom@18.2.0)(react@18.2.0)
@@ -56,8 +56,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(react@18.2.0)
       scroll-into-view-if-needed:
-        specifier: ^3.0.6
-        version: 3.0.6
+        specifier: ^3.0.7
+        version: 3.0.7
     devDependencies:
       '@astrojs/markdown-remark':
         specifier: ^2.1.3
@@ -115,7 +115,7 @@ importers:
         version: 1.4.3
       astro:
         specifier: 2.2.0
-        version: 2.2.0(@types/node@18.15.11)(sass@1.60.0)
+        version: 2.2.0(sass@1.61.0)
       cloudinary:
         specifier: ^1.35.0
         version: 1.35.0
@@ -168,8 +168,8 @@ importers:
         specifier: ^2.10.0
         version: 2.10.0
       sass:
-        specifier: ^1.60.0
-        version: 1.60.0
+        specifier: ^1.61.0
+        version: 1.61.0
       tailwindcss:
         specifier: ^3.3.1
         version: 3.3.1(postcss@8.4.21)
@@ -254,7 +254,7 @@ packages:
       astro: ^2.2.0
     dependencies:
       '@astrojs/prism': 2.1.1
-      astro: 2.2.0(@types/node@18.15.11)(sass@1.60.0)
+      astro: 2.2.0(sass@1.61.0)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -305,7 +305,7 @@ packages:
     dependencies:
       '@astrojs/webapi': 2.1.0
       '@netlify/functions': 1.4.0
-      astro: 2.2.0(@types/node@18.15.11)(sass@1.60.0)
+      astro: 2.2.0(sass@1.61.0)
       esbuild: 0.15.18
     dev: true
 
@@ -363,7 +363,7 @@ packages:
       tailwindcss: ^3.0.24
     dependencies:
       '@proload/core': 0.3.3
-      astro: 2.2.0(@types/node@18.15.11)(sass@1.60.0)
+      astro: 2.2.0(sass@1.61.0)
       autoprefixer: 10.4.14(postcss@8.4.21)
       postcss: 8.4.21
       postcss-load-config: 4.0.1(postcss@8.4.21)
@@ -752,8 +752,8 @@ packages:
       strict-event-emitter: 0.4.6
     dev: false
 
-  /@codesandbox/sandpack-client@2.2.9:
-    resolution: {integrity: sha512-Vea9dSBazKFNVhzUyvSU3/EZFyegPN4mY1WrqjjbNK2Eui1A2iZdwC3pjCs1yhi9r6/mJgl+9DJFO3koIR1N5A==}
+  /@codesandbox/sandpack-client@2.4.0:
+    resolution: {integrity: sha512-6eg2tfnETSQVm5+7PS+nVTuis76SsP30R4qZfCbBjcUTJxuukJFHSOyne/ij0qddwkyF8HmpV2zWmVgTsi/QFg==}
     dependencies:
       '@codesandbox/nodebox': 0.1.4
       buffer: 6.0.3
@@ -762,8 +762,8 @@ packages:
       static-browser-server: 1.0.3
     dev: false
 
-  /@codesandbox/sandpack-react@2.2.9(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-NEVJ8zCQhjxgaX7yxyIn6ZS5dUC6sQVUuUqkneahXxSIdj7f1BuBqROf9JWsh6mkL2k0Uj9nXm5zheC+GJkneA==}
+  /@codesandbox/sandpack-react@2.4.2(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-JkqAhEWI4aIsH0WC1YNARELBGu/Y66u6OvSSqCC1iUMqaJs/rrwYum2J+amrCtvgZ014eni1Azpg1yRvo7HUDA==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
@@ -777,14 +777,15 @@ packages:
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
       '@codemirror/view': 6.9.3
-      '@codesandbox/sandpack-client': 2.2.9
+      '@codesandbox/sandpack-client': 2.4.0
       '@lezer/highlight': 1.1.4
       '@react-hook/intersection-observer': 3.1.1(react@18.2.0)
       '@stitches/core': 1.2.8
-      ansi-to-react: 6.1.6(react-dom@18.2.0)(react@18.2.0)
+      anser: 2.1.1
       clean-set: 1.1.2
       codesandbox-import-util-types: 2.2.3
       dequal: 2.0.3
+      escape-carriage: 1.3.1
       lz-string: 1.5.0
       react: 18.2.0
       react-devtools-inline: 4.4.0
@@ -1205,24 +1206,24 @@ packages:
       - supports-color
     dev: true
 
-  /@monaco-editor/loader@1.3.2(monaco-editor@0.37.0):
+  /@monaco-editor/loader@1.3.2(monaco-editor@0.37.1):
     resolution: {integrity: sha512-BTDbpHl3e47r3AAtpfVFTlAi7WXv4UQ/xZmz8atKl4q7epQV5e7+JbigFDViWF71VBi4IIBdcWP57Hj+OWuc9g==}
     peerDependencies:
       monaco-editor: '>= 0.21.0 < 1'
     dependencies:
-      monaco-editor: 0.37.0
+      monaco-editor: 0.37.1
       state-local: 1.0.7
     dev: false
 
-  /@monaco-editor/react@4.4.6(monaco-editor@0.37.0)(react-dom@18.2.0)(react@18.2.0):
+  /@monaco-editor/react@4.4.6(monaco-editor@0.37.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Gr3uz3LYf33wlFE3eRnta4RxP5FSNxiIV9ENn2D2/rN8KgGAD8ecvcITRtsbbyuOuNkwbuHYxfeaz2Vr+CtyFA==}
     peerDependencies:
       monaco-editor: '>= 0.25.0 < 1'
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@monaco-editor/loader': 1.3.2(monaco-editor@0.37.0)
-      monaco-editor: 0.37.0
+      '@monaco-editor/loader': 1.3.2(monaco-editor@0.37.1)
+      monaco-editor: 0.37.1
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -1673,8 +1674,8 @@ packages:
     resolution: {integrity: sha512-M175GYI7RmsYu24Ok383yZQa3eveDfNnmhTe3OQ3bm70bEovz2gWenH+ST/n32M8lrwLWk74hcPds5CDRPe2wg==}
     dev: false
 
-  /anser@1.4.10:
-    resolution: {integrity: sha512-hCv9AqTQ8ycjpSd3upOJd7vFwW1JaoYQ7tpham03GJ1ca8/65rqn0RpaWpItOAd6ylW9wAw6luXYPJIyPFVOww==}
+  /anser@2.1.1:
+    resolution: {integrity: sha512-nqLm4HxOTpeLOxcmB3QWmV5TcDFhW9y/fyQ+hivtDFcK4OQ+pQ5fzPnXHM1Mfcm0VkLtvVi1TCPr++Qy0Q/3EQ==}
     dev: false
 
   /ansi-align@3.0.1:
@@ -1711,18 +1712,6 @@ packages:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
     engines: {node: '>=12'}
     dev: true
-
-  /ansi-to-react@6.1.6(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-+HWn72GKydtupxX9TORBedqOMsJRiKTqaLUKW8txSBZw9iBpzPKLI8KOu4WzwD4R7hSv1zEspobY6LwlWvwZ6Q==}
-    peerDependencies:
-      react: ^16.3.2 || ^17.0.0
-      react-dom: ^16.3.2 || ^17.0.0
-    dependencies:
-      anser: 1.4.10
-      escape-carriage: 1.3.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
 
   /any-promise@1.3.0:
     resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
@@ -1774,7 +1763,7 @@ packages:
     hasBin: true
     dev: true
 
-  /astro@2.2.0(@types/node@18.15.11)(sass@1.60.0):
+  /astro@2.2.0(sass@1.61.0):
     resolution: {integrity: sha512-7ggQHIyWadnjRY+Jo7nZmYF5xspeAWCjQV+fPkad7u86hj0qjhU+8WvCZI1q7cvJo9o0DMzaI+3vH1voIK7Czg==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
@@ -1833,7 +1822,7 @@ packages:
       typescript: 5.0.3
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.2.1(@types/node@18.15.11)(sass@1.60.0)
+      vite: 4.2.1(sass@1.61.0)
       vitefu: 0.2.4(vite@4.2.1)
       yargs-parser: 21.1.1
       zod: 3.21.4
@@ -3634,7 +3623,7 @@ packages:
   /jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
     optionalDependencies:
-      graceful-fs: 4.2.11
+      graceful-fs: 4.2.10
     dev: true
     optional: true
 
@@ -4419,8 +4408,8 @@ packages:
     resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
     dev: false
 
-  /monaco-editor@0.37.0:
-    resolution: {integrity: sha512-PrvIsrbD/uLQlzYqNnzrZ0yDCK+X3YoLgNx+fFZKvmgkDZxo9kJRvb5YNtCUesG4xjv44jEEKaHKE0demcEleg==}
+  /monaco-editor@0.37.1:
+    resolution: {integrity: sha512-jLXEEYSbqMkT/FuJLBZAVWGuhIb4JNwHE9kPTorAVmsdZ4UzHAfgWxLsVtD7pLRFaOwYPhNG9nUCpmFL1t/dIg==}
     dev: false
 
   /monaco-themes@0.4.4:
@@ -5459,9 +5448,9 @@ packages:
       suf-log: 2.5.3
     dev: true
 
-  /sass@1.60.0:
-    resolution: {integrity: sha512-updbwW6fNb5gGm8qMXzVO7V4sWf7LMXnMly/JEyfbfERbVH46Fn6q02BX7/eHTdKpE7d+oTkMMQpFWNUMfFbgQ==}
-    engines: {node: '>=12.0.0'}
+  /sass@1.61.0:
+    resolution: {integrity: sha512-PDsN7BrVkNZK2+dj/dpKQAWZavbAQ87IXqVvw2+oEYI+GwlTWkvbQtL7F2cCNbMqJEYKPh1EcjSxsnqIb/kyaQ==}
+    engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
@@ -5478,8 +5467,8 @@ packages:
     dependencies:
       loose-envify: 1.4.0
 
-  /scroll-into-view-if-needed@3.0.6:
-    resolution: {integrity: sha512-x+CW0kOzlFNOnseF0DBr0AJ5m+TgGmSOdEZwyiZW0gV87XBvxQKw5A8DvFFgabznA68XqLgVX+PwPX8OzsFvRA==}
+  /scroll-into-view-if-needed@3.0.7:
+    resolution: {integrity: sha512-Hr094AIeUq/Du9QWTo+EQA2ygzasu13KltO4TuVqAMf1ioIAIOdf/cDzK4+URe7A81IzdXf5rxMXBpz4k2IdxQ==}
     dependencies:
       compute-scroll-into-view: 3.0.0
     dev: false
@@ -6222,7 +6211,7 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite@4.2.1(@types/node@18.15.11)(sass@1.60.0):
+  /vite@4.2.1(sass@1.61.0):
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6247,12 +6236,11 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 18.15.11
       esbuild: 0.17.15
       postcss: 8.4.21
       resolve: 1.22.2
       rollup: 3.20.2
-      sass: 1.60.0
+      sass: 1.61.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -6265,7 +6253,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.2.1(@types/node@18.15.11)(sass@1.60.0)
+      vite: 4.2.1(sass@1.61.0)
     dev: true
 
   /vm2@3.9.14:
