@@ -6,12 +6,13 @@ export interface Props {
   noHeader?: boolean;
   hideAvatar?: boolean;
   hideHeaderNav?: boolean;
+  hideFooterNav?: boolean;
 }
 
-const { noHeader, hideAvatar, hideHeaderNav } = Astro.props;
+const { noHeader, hideAvatar, hideHeaderNav, hideFooterNav } = Astro.props;
 ---
 
-<Layout hideAvatar={hideAvatar} hideHeaderNav={hideHeaderNav}>
+<Layout hideAvatar={hideAvatar} hideHeaderNav={hideHeaderNav} hideFooterNav={hideFooterNav}>
   <Container className="mt-16 sm:mt-32 print:m-0">
     {
       noHeader ? (

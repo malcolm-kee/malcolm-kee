@@ -27,7 +27,10 @@ export default defineConfig({
       },
     }),
     sitemap(),
-    depsExtraction(),
+    depsExtraction({
+      routes: ['/offline'],
+      excludes: [/^https:\/\/www.googletagmanager.com/],
+    }),
   ],
   server: {
     port: 8989,
