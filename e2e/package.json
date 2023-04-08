@@ -12,6 +12,6 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.6.1",
     "@playwright/test": "^1.32.2",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.4"
   }
 }

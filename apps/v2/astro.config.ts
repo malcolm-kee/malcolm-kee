@@ -28,7 +28,7 @@ export default defineConfig({
     }),
     sitemap(),
     depsExtraction({
-      routes: ['/offline'],
+      routes: ['offline/', /^blog\/[\w|-]+/],
       excludes: [/^https:\/\/www.googletagmanager.com/],
     }),
   ],

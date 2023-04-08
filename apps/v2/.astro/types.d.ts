@@ -43,7 +43,7 @@ declare module 'astro:content' {
 	export const image: never;
 
 	// This needs to be in sync with ImageMetadata
-	type ImageFunction = () => import('astro/zod').ZodObject<{
+	export type ImageFunction = () => import('astro/zod').ZodObject<{
 		src: import('astro/zod').ZodString;
 		width: import('astro/zod').ZodNumber;
 		height: import('astro/zod').ZodNumber;
@@ -73,15 +73,10 @@ declare module 'astro:content' {
 		| BaseSchemaWithoutEffects
 		| import('astro/zod').ZodEffects<BaseSchemaWithoutEffects>;
 
+	export type SchemaContext = { image: ImageFunction };
+
 	type BaseCollectionConfig<S extends BaseSchema> = {
-		schema?: S | (({ image }: { image: ImageFunction }) => S);
-		slug?: (entry: {
-			id: CollectionEntry<keyof typeof entryMap>['id'];
-			defaultSlug: string;
-			collection: string;
-			body: string;
-			data: import('astro/zod').infer<S>;
-		}) => string | Promise<string>;
+		schema?: S | ((context: SchemaContext) => S);
 	};
 	export function defineCollection<S extends BaseSchema>(
 		input: BaseCollectionConfig<S>

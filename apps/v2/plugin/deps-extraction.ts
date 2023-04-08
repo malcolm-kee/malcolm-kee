@@ -1,48 +1,42 @@
-import { existsSync as dirExists } from 'node:fs';
-import * as fs from 'node:fs/promises';
-import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { extractDependencies } from '@mkee/extract-html-resources';
 import type { AstroIntegration } from 'astro';
+import fs from 'fs-extra';
 
 export const depsExtraction = (options: {
-  routes: Array<string>;
+  routes: Array<string | RegExp>;
   excludes: Array<RegExp>;
 }): AstroIntegration => {
   return {
     name: 'mkee:deps-extraction',
     hooks: {
-      'astro:build:done': async ({ routes, dir }) => {
-        const routesToCheck = routes.filter((r) => options.routes.includes(r.route));
+      'astro:build:done': async ({ dir, pages }) => {
+        const pagesToCheck = pages.filter((p) =>
+          options.routes.some((r) =>
+            typeof r === 'string' ? r === p.pathname : r.test(p.pathname)
+          )
+        );
 
-        const outputDir = path.resolve(fileURLToPath(dir), '_page-deps');
+        for (const { pathname } of pagesToCheck) {
+          const pagePath = pathname.replace(/\/$/, '');
 
-        if (!dirExists(outputDir)) {
-          await fs.mkdir(outputDir);
-        }
+          const result = await extractDependencies(new URL(`${pagePath}/index.html`, dir), {
+            excludes: options.excludes,
+            root: dir,
+          });
 
-        for (const route of routesToCheck) {
-          if (route.distURL) {
-            const result = await extractDependencies(route.distURL, {
-              excludes: options.excludes,
-              root: dir,
-            });
+          const serializedResult = {
+            css: Array.from(result.css),
+            images: Array.from(result.images),
+            js: Array.from(result.js),
+          };
 
-            if (result.css.size > 0 || result.images.size > 0 || result.js.size > 0) {
-              const serializedResult = {
-                css: Array.from(result.css),
-                images: Array.from(result.images),
-                js: Array.from(result.js),
-              };
-
-              await fs.writeFile(
-                path.resolve(outputDir, `.${route.route}.json`),
-                JSON.stringify(serializedResult),
-                'utf-8'
-              );
-            }
-          }
+          await fs.outputFile(
+            fileURLToPath(new URL(`_page-deps/${pagePath}.json`, dir)),
+            JSON.stringify(serializedResult),
+            'utf-8'
+          );
         }
       },
     },
