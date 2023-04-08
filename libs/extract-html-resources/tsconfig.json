@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "target": "ES2020",
+    "allowJs": true,
+    "module": "CommonJS"
+  },
+  "include": ["src"]
+}

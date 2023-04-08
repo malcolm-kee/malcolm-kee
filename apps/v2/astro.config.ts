@@ -11,6 +11,7 @@ import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import remarkShikiTwoSlash from 'remark-shiki-twoslash';
 import { rehypeCodeImportPlugin, remarkCodeImportPlugin } from './plugin/code-import-plugins';
+import { depsExtraction } from './plugin/deps-extraction';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 
 // https://astro.build/config
@@ -26,6 +27,10 @@ export default defineConfig({
       },
     }),
     sitemap(),
+    depsExtraction({
+      routes: ['/offline'],
+      excludes: [/^https:\/\/www.googletagmanager.com/],
+    }),
   ],
   server: {
     port: 8989,

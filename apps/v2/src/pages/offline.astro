@@ -1,0 +1,65 @@
+---
+import BaseHead from '~/components/BaseHead.astro';
+import PageLayout from '~/components/PageLayout.astro';
+import { Button } from '~/components/Button';
+
+const permalink = Astro.url.toString();
+---
+
+<html>
+  <head>
+    <BaseHead title="No connection" permalink={permalink} excludeServiceWorker />
+  </head>
+  <body>
+    <PageLayout noHeader hideHeaderNav hideFooterNav hideAvatar>
+      <div class="mx-auto max-w-xl">
+        <div class="text-center">
+          <p class="StatusText text-base font-semibold text-primary-600">Offline</p>
+          <h1 class="PageTitle mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            No connection
+          </h1>
+          <p class="OfflineMessage mt-2 text-lg text-gray-500">
+            It seems like there is no internet connection at the moment.
+          </p>
+          <div class="OnlineMessage hidden">
+            <p class="my-2 text-lg text-gray-500">Seems like you're back to online!</p>
+            <Button className="ReloadButton">Reload</Button>
+          </div>
+        </div>
+      </div>
+      <script>
+        import { checkOnlineStatus } from '~/lib/check-online-status';
+
+        const reloadButton = document.querySelector<HTMLButtonElement>('.ReloadButton');
+
+        if (reloadButton) {
+          reloadButton.addEventListener('click', () => window.location.reload());
+        }
+
+        checkOnlineStatus({
+          onStatusChange: (isOnline) => {
+            const statusText = document.querySelector<HTMLElement>('.StatusText');
+            const pageTitle = document.querySelector<HTMLElement>('.PageTitle');
+            const onlineMessage = document.querySelector<HTMLElement>('.OnlineMessage');
+            const offlineMessage = document.querySelector<HTMLElement>('.OfflineMessage');
+
+            if (statusText && pageTitle && onlineMessage && offlineMessage) {
+              if (isOnline) {
+                statusText.textContent = 'Online';
+                pageTitle.textContent = 'Reconnected';
+                onlineMessage.classList.remove('hidden');
+                offlineMessage.classList.add('hidden');
+              } else {
+                statusText.textContent = 'Offline';
+                pageTitle.textContent = 'No connection';
+                offlineMessage.classList.remove('hidden');
+                onlineMessage.classList.add('hidden');
+              }
+            }
+          },
+          initialOnline: false,
+        });
+      </script>
+    </PageLayout>
+  </body>
+</html>

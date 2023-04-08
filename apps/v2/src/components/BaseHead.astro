@@ -1,5 +1,6 @@
 ---
 import { getOgImageUrl } from '~/lib/og-image';
+import ServiceWorkerRegister from './ServiceWorkerRegister.astro';
 
 export interface Props {
   title?: string | undefined;
@@ -15,6 +16,7 @@ export interface Props {
   ogBorderColor?: string | undefined;
   iconHref?: string | undefined;
   ogImageTitle?: string | undefined;
+  excludeServiceWorker?: boolean;
 }
 const {
   title = 'Malcolm Kee',
@@ -32,6 +34,7 @@ const {
   ogBorderColor = themeColor,
   iconHref = '/icon.jpg',
   ogImageTitle = title,
+  excludeServiceWorker,
 } = Astro.props;
 
 const ogBgImageUrl =
@@ -164,8 +167,4 @@ const ogImage = getOgImageUrl({
       300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
   }
 </style>
-<script>
-  import { register } from '~/lib/sw-bridge';
-
-  register();
-</script>
+{!excludeServiceWorker && <ServiceWorkerRegister />}

@@ -6,9 +6,10 @@ export interface Props {
   isHomePage?: boolean;
   hideAvatar?: boolean;
   hideHeaderNav?: boolean;
+  hideFooterNav?: boolean;
 }
 
-const { isHomePage, hideAvatar, hideHeaderNav } = Astro.props;
+const { isHomePage, hideAvatar, hideHeaderNav, hideFooterNav } = Astro.props;
 const currentPath = new URL(Astro.request.url).pathname;
 ---
 
@@ -26,5 +27,5 @@ const currentPath = new URL(Astro.request.url).pathname;
     client:load
   />
   <main><slot /></main>
-  <Footer />
+  <Footer hideNav={hideFooterNav} />
 </div>
