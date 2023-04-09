@@ -5,10 +5,10 @@
  * @param {ServiceWorkerGlobalScope} worker
  */
 function initWorker(worker) {
-  const cacheName = 'offline-contents';
-  const offlinePagePath = '/offline/';
+  var cacheName = 'offline-contents';
+  var offlinePagePath = '/offline/';
 
-  const offlineDepsResponse = fetch('/_page-deps/offline.json').then((res) => res.json());
+  var offlineDepsResponse = fetch('/_page-deps/offline.json').then((res) => res.json());
 
   worker.addEventListener('install', (installEvent) => {
     async function cacheOfflinePage() {

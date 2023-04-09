@@ -12,9 +12,10 @@ export interface Props {
   publishDate?: Date;
   /** key used for offline saving. Required for supporting save for offline */
   saveKey?: string;
+  description?: string;
 }
 
-const { title, publishDate, headings, saveKey } = Astro.props;
+const { title, publishDate, headings, saveKey, description } = Astro.props;
 
 const isFutureContent = publishDate && isFuture(publishDate);
 
@@ -44,7 +45,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       {
         saveKey && (
           <div class="hidden xl:block xl:offline:hidden">
-            <SavePageButton saveKey={saveKey} pageTitle={title} />
+            <SavePageButton saveKey={saveKey} pageTitle={title} pageDescription={description} />
           </div>
         )
       }
@@ -62,7 +63,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       {
         saveKey && (
           <div class="py-2 xl:hidden offline:hidden">
-            <SavePageButton saveKey={saveKey} pageTitle={title} />
+            <SavePageButton saveKey={saveKey} pageTitle={title} pageDescription={description} />
           </div>
         )
       }

@@ -102,7 +102,13 @@ const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicI
             aria-label="Back to all blogs"
           />
         </div>
-        <MdContent title={title} publishDate={pubDate} headings={headings} saveKey={relativePath}>
+        <MdContent
+          title={title}
+          publishDate={pubDate}
+          headings={headings}
+          saveKey={relativePath}
+          description={description}
+        >
           <Content />
         </MdContent>
         <SignupForm class="mb-12 offline:hidden" />

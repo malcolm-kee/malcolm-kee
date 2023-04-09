@@ -2,7 +2,7 @@ import Dexie, { type Table } from 'dexie';
 
 export interface BlogData {
   path: string;
-  info: Record<string, string>;
+  info: object;
   resources: Array<string>;
 }
 

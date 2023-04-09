@@ -127,7 +127,7 @@ importers:
         version: 1.4.3
       astro:
         specifier: 2.2.1
-        version: 2.2.1(@types/node@18.15.11)(sass@1.61.0)
+        version: 2.2.1(sass@1.61.0)
       cloudinary:
         specifier: ^1.35.0
         version: 1.35.0
@@ -198,8 +198,8 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4
       undici:
-        specifier: ^5.21.1
-        version: 5.21.1
+        specifier: ^5.21.2
+        version: 5.21.2
       unified:
         specifier: ^10.1.2
         version: 10.1.2
@@ -232,8 +232,8 @@ importers:
         specifier: ^8.0.2
         version: 8.0.2
       undici:
-        specifier: ^5.21.1
-        version: 5.21.1
+        specifier: ^5.21.2
+        version: 5.21.2
     devDependencies:
       tsup:
         specifier: ^6.7.0
@@ -291,7 +291,7 @@ packages:
       astro: ^2.2.0
     dependencies:
       '@astrojs/prism': 2.1.1
-      astro: 2.2.1(@types/node@18.15.11)(sass@1.61.0)
+      astro: 2.2.1(sass@1.61.0)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -342,7 +342,7 @@ packages:
     dependencies:
       '@astrojs/webapi': 2.1.0
       '@netlify/functions': 1.4.0
-      astro: 2.2.1(@types/node@18.15.11)(sass@1.61.0)
+      astro: 2.2.1(sass@1.61.0)
       esbuild: 0.15.18
     dev: true
 
@@ -400,7 +400,7 @@ packages:
       tailwindcss: ^3.0.24
     dependencies:
       '@proload/core': 0.3.3
-      astro: 2.2.1(@types/node@18.15.11)(sass@1.61.0)
+      astro: 2.2.1(sass@1.61.0)
       autoprefixer: 10.4.14(postcss@8.4.21)
       postcss: 8.4.21
       postcss-load-config: 4.0.1(postcss@8.4.21)
@@ -419,7 +419,7 @@ packages:
       dset: 3.1.2
       is-docker: 3.0.0
       is-wsl: 2.2.0
-      undici: 5.21.1
+      undici: 5.21.2
       which-pm-runs: 1.1.0
     transitivePeerDependencies:
       - supports-color
@@ -1809,7 +1809,7 @@ packages:
     hasBin: true
     dev: true
 
-  /astro@2.2.1(@types/node@18.15.11)(sass@1.61.0):
+  /astro@2.2.1(sass@1.61.0):
     resolution: {integrity: sha512-yYPRzh3su38bi3VBCKmYAUBkQSaFQMKFsu8JAVDzFRoGLbskJ/6JkDX2abSB9/iRug8GAKaH/FWxXOTzIsSQ7Q==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
@@ -1868,7 +1868,7 @@ packages:
       typescript: 5.0.4
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.2.1(@types/node@18.15.11)(sass@1.61.0)
+      vite: 4.2.1(sass@1.61.0)
       vitefu: 0.2.4(vite@4.2.1)
       yargs-parser: 21.1.1
       zod: 3.21.4
@@ -6225,8 +6225,8 @@ packages:
       busboy: 1.6.0
     dev: true
 
-  /undici@5.21.1:
-    resolution: {integrity: sha512-JptL7wJkvuuZfevy0imEcM6P/Q40uI5msocbfrE6KguU6kz/pFk4L0A6//XbMIOq+FSIXxgDMAOgfeH+S/WFaA==}
+  /undici@5.21.2:
+    resolution: {integrity: sha512-f6pTQ9RF4DQtwoWSaC42P/NKlUjvezVvd9r155ohqkwFNRyBKM3f3pcty3ouusefNRyM25XhIQEbeQ46sZDJfQ==}
     engines: {node: '>=12.18'}
     dependencies:
       busboy: 1.6.0
@@ -6417,7 +6417,7 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite@4.2.1(@types/node@18.15.11)(sass@1.61.0):
+  /vite@4.2.1(sass@1.61.0):
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6442,7 +6442,6 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 18.15.11
       esbuild: 0.17.15
       postcss: 8.4.21
       resolve: 1.22.2
@@ -6460,7 +6459,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.2.1(@types/node@18.15.11)(sass@1.61.0)
+      vite: 4.2.1(sass@1.61.0)
     dev: true
 
   /vm2@3.9.14:

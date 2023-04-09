@@ -30,7 +30,17 @@ export const getSavedPage = async (pagePath: string) => {
   return await db.blogs.where('path').equals(pagePath).first();
 };
 
-export const savePageDependencies = async (pagePath: string, dependencies: PageDependencies) => {
+export interface PageInfo {
+  title: string;
+  path: string;
+  description?: string;
+}
+
+export const savePageDependencies = async (
+  pagePath: string,
+  info: PageInfo,
+  dependencies: PageDependencies
+) => {
   const offlinePagesCache = await caches.open(cacheName);
 
   const resources = [
@@ -47,7 +57,7 @@ export const savePageDependencies = async (pagePath: string, dependencies: PageD
   await db.blogs.put({
     path: pagePath,
     resources,
-    info: {},
+    info,
   });
 };
 
@@ -89,7 +99,10 @@ export type PageSaveCapability =
       dependencies: PageDependencies;
     };
 
-export const loadPageSaveCapability = async (pagePath: string): Promise<PageSaveCapability> => {
+export const loadPageSaveCapability = async (
+  pagePath: string,
+  pageInfo: PageInfo
+): Promise<PageSaveCapability> => {
   const dependencies = await getPageDependencies(pagePath);
 
   if (dependencies) {
@@ -97,7 +110,7 @@ export const loadPageSaveCapability = async (pagePath: string): Promise<PageSave
 
     if (current) {
       // refresh cache and remove staled resources
-      await savePageDependencies(pagePath, dependencies);
+      await savePageDependencies(pagePath, pageInfo, dependencies);
       const currentResources = [...dependencies.css, ...dependencies.images, ...dependencies.js];
       const resourceThatMaybeStaled = current.resources.filter(
         (r) => !currentResources.includes(r)
@@ -142,3 +155,5 @@ export const loadPageSaveCapability = async (pagePath: string): Promise<PageSave
     allowed: false,
   };
 };
+
+export const loadSavedPages = () => db.blogs.toArray();
