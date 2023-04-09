@@ -105,7 +105,7 @@ const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicI
         <MdContent title={title} publishDate={pubDate} headings={headings}>
           <Content />
         </MdContent>
-        <SignupForm class="mb-12" />
+        <SignupForm class="mb-12 offline:hidden" />
         <div class="border-t border-gray-100 pt-8">
           <ContentSuggestions blogs={related.blogs} tils={related.tils} />
         </div>

@@ -29,7 +29,7 @@ export default defineConfig({
     sitemap(),
     depsExtraction({
       routes: ['offline/', /^blog\/[\w|-]+/],
-      excludes: [/^https:\/\/www.googletagmanager.com/],
+      excludes: [/^https:\/\/www.googletagmanager.com/, /^https:\/\/f\.convertkit\.com/],
     }),
   ],
   server: {

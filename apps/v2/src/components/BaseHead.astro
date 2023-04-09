@@ -168,3 +168,11 @@ const ogImage = getOgImageUrl({
   }
 </style>
 {!excludeServiceWorker && <ServiceWorkerRegister />}
+<script>
+  import { checkOnlineStatus } from '~/lib/check-online-status';
+
+  checkOnlineStatus({
+    onStatusChange: (isOnline) => (document.documentElement.dataset.online = String(isOnline)),
+    initialOnline: undefined,
+  });
+</script>

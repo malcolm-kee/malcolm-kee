@@ -1,6 +1,6 @@
 export interface CheckOnlineStatusOptions {
   onStatusChange: (isOnline: boolean) => void;
-  initialOnline: boolean;
+  initialOnline: boolean | undefined;
   checkIntervalMs?: number;
   timeoutMs?: number;
 }
@@ -21,12 +21,8 @@ export const checkOnlineStatus = ({
   function getOnlineStatus() {
     Promise.race([
       fetch(`/online.json?${Date.now()}`) // add a random id to avoid cached response
-        .then(() => {
-          return true;
-        })
-        .catch(() => {
-          return false;
-        }),
+        .then(() => true)
+        .catch(() => false),
       new Promise<boolean>((fulfill) => setTimeout(() => fulfill(false), timeoutMs)),
       // considered as offline when no response after timeout
     ]).then((isOnline) => {
@@ -38,7 +34,7 @@ export const checkOnlineStatus = ({
     });
   }
 
-  timerId = setTimeout(getOnlineStatus, checkIntervalMs);
+  timerId = setTimeout(getOnlineStatus, 0);
 
   function onOnlineEvent() {
     clearTimeout(timerId);

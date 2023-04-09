@@ -1,11 +1,9 @@
 const colors = require('tailwindcss/colors');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-    './astro.config.ts',
-  ],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}', './astro.config.ts'],
   darkMode: 'class',
   theme: {
     extend: {
@@ -48,5 +46,9 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/line-clamp'),
+    plugin(function ({ addVariant }) {
+      addVariant('online', ':root[data-online="true"] &');
+      addVariant('offline', ':root[data-online="false"] &');
+    }),
   ],
 };

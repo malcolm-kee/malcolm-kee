@@ -11,9 +11,10 @@ export interface Props {
   TitleElement?: 'h1' | 'h2' | 'h3' | 'h4';
   hideDate?: boolean;
   class?: string;
+  roundedBg?: boolean;
 }
 
-const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
+const { post, isFeatured, TitleElement = 'h2', hideDate, roundedBg } = Astro.props;
 
 const hasImage = post.heroImageInfo;
 ---
@@ -71,7 +72,8 @@ const hasImage = post.heroImageInfo;
               'blog-content-bg absolute -inset-y-6 -inset-x-4 z-0',
               '@md/bloglist:-inset-x-6 @md/bloglist:rounded-2xl',
               'scale-95 bg-zinc-50 opacity-0 transition',
-              'group-hover/bloglink:scale-100 group-hover/bloglink:opacity-100'
+              'group-hover/bloglink:scale-100 group-hover/bloglink:opacity-100',
+              roundedBg && 'rounded-2xl'
             )}
           />
         )
