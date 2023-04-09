@@ -10,10 +10,7 @@ export interface ExtractDependenciesOptions {
   root: URL;
 }
 
-export const extractDependencies = async (
-  filePath: URL,
-  { excludes, root }: ExtractDependenciesOptions
-) => {
+export const extractDependencies = async (filePath: URL, options: ExtractDependenciesOptions) => {
   const content = await fs.readFile(filePath, {
     encoding: 'utf-8',
   });
@@ -31,7 +28,7 @@ export const extractDependencies = async (
       switch (name) {
         case 'script':
           if (attributes.src) {
-            if (!excludes.some((pattern) => pattern.test(attributes.src))) {
+            if (!options.excludes.some((pattern) => pattern.test(attributes.src))) {
               resources.js.add(attributes.src);
             }
           }
@@ -39,7 +36,7 @@ export const extractDependencies = async (
 
         case 'link':
           if (attributes.rel === 'stylesheet' && attributes.href) {
-            if (!excludes.some((pattern) => pattern.test(attributes.href))) {
+            if (!options.excludes.some((pattern) => pattern.test(attributes.href))) {
               resources.css.add(attributes.href);
             }
           }
@@ -47,7 +44,7 @@ export const extractDependencies = async (
 
         case 'img':
           if (attributes.src) {
-            if (!excludes.some((pattern) => pattern.test(attributes.src))) {
+            if (!options.excludes.some((pattern) => pattern.test(attributes.src))) {
               resources.images.add(attributes.src);
             }
           }
@@ -74,9 +71,7 @@ export const extractDependencies = async (
   await init;
 
   for (const jsFileUrl of resources.js) {
-    const additionalDeps = await getJsDependencies(jsFileUrl, {
-      root,
-    });
+    const additionalDeps = await getJsDependencies(jsFileUrl, options);
     additionalDeps.forEach((d) => resources.js.add(d));
   }
 
@@ -85,7 +80,7 @@ export const extractDependencies = async (
 
 async function getJsDependencies(
   jsResourceUrl: string,
-  options: { root: URL },
+  options: { root: URL; excludes: Array<RegExp> },
   output: Array<string> = []
 ) {
   const jsSource = await getResourceContent(jsResourceUrl, options.root);
@@ -109,7 +104,10 @@ async function getJsDependencies(
               )
             : importedFilePath.toString();
 
-        if (!output.includes(resourceUrl)) {
+        if (
+          !output.includes(resourceUrl) &&
+          !options.excludes.some((pattern) => pattern.test(resourceUrl))
+        ) {
           output.push(resourceUrl);
 
           await getJsDependencies(resourceUrl, options, output);
