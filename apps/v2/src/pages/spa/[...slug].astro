@@ -35,7 +35,6 @@ interface Props extends StaticData {
 const { title, prefetchQueries, titleByPath } = Astro.props;
 const { pathname } = Astro.url;
 const currentPath = pathname.replace(/\/(index.html)?$/, '');
-const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 
 async function prefetchData(queries: Array<QueryOptions>) {
   for (const { getDependentQueries, ...queryOptions } of queries) {
@@ -62,7 +61,7 @@ const dehydratedState = dehydrate(queryClient);
 
 <html lang="en">
   <head>
-    <BaseHead title={title && `${title} - SPA Demo`} permalink={permalink} />
+    <BaseHead title={title && `${title} - SPA Demo`} permalink={Astro.url.toString()} />
   </head>
   <body>
     <PageLayout noHeader>

@@ -1,26 +1,26 @@
 export const navItems = [
   {
     label: 'About',
-    href: '/about',
+    href: '/about/',
   },
   {
     label: 'Blogs',
-    href: '/blog',
+    href: '/blog/',
   },
   {
     label: 'Projects',
-    href: '/projects',
+    href: '/projects/',
   },
   {
     label: 'TIL',
-    href: '/today-i-learnt',
+    href: '/today-i-learnt/',
   },
   {
     label: 'Notes',
-    href: '/note',
+    href: '/note/',
   },
   {
     label: 'Workshops',
-    href: '/workshop',
+    href: '/workshop/',
   },
 ] as const;

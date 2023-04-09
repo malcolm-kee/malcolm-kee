@@ -18,36 +18,16 @@ export function TinyChevronDownIcon(props: IconProps) {
 
 export function ChevronRightIcon(props: IconProps) {
   return (
-    <svg
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M8.25 4.5l7.5 7.5-7.5 7.5"
-      />
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
     </svg>
   );
 }
 
 export function ChevronLeftIcon(props: IconProps) {
   return (
-    <svg
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15.75 19.5L8.25 12l7.5-7.5"
-      />
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
     </svg>
   );
 }
@@ -80,13 +60,7 @@ export function LinkIcon(props: IconProps) {
 
 export function RssIcon(props: IconProps) {
   return (
-    <svg
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      {...props}
-    >
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -98,13 +72,7 @@ export function RssIcon(props: IconProps) {
 
 export function PlayIcon(props: IconProps) {
   return (
-    <svg
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      {...props}
-    >
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -116,13 +84,7 @@ export function PlayIcon(props: IconProps) {
 
 export function CodeIcon(props: IconProps) {
   return (
-    <svg
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      {...props}
-    >
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -134,31 +96,15 @@ export function CodeIcon(props: IconProps) {
 
 export function ChevronDownIcon(props: IconProps) {
   return (
-    <svg
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-      />
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
     </svg>
   );
 }
 
 export function MiniTerminalIcon(props: IconProps) {
   return (
-    <svg
-      viewBox="0 0 20 20"
-      width={20}
-      height={20}
-      fill="currentColor"
-      {...props}
-    >
+    <svg viewBox="0 0 20 20" width={20} height={20} fill="currentColor" {...props}>
       <path
         fillRule="evenodd"
         d="M3.25 3A2.25 2.25 0 001 5.25v9.5A2.25 2.25 0 003.25 17h13.5A2.25 2.25 0 0019 14.75v-9.5A2.25 2.25 0 0016.75 3H3.25zm.943 8.752a.75.75 0 01.055-1.06L6.128 9l-1.88-1.693a.75.75 0 111.004-1.114l2.5 2.25a.75.75 0 010 1.114l-2.5 2.25a.75.75 0 01-1.06-.055zM9.75 10.25a.75.75 0 000 1.5h2.5a.75.75 0 000-1.5h-2.5z"
@@ -170,13 +116,7 @@ export function MiniTerminalIcon(props: IconProps) {
 
 export function MiniNoSymbolIcon(props: IconProps) {
   return (
-    <svg
-      viewBox="0 0 20 20"
-      width={20}
-      height={20}
-      fill="currentColor"
-      {...props}
-    >
+    <svg viewBox="0 0 20 20" width={20} height={20} fill="currentColor" {...props}>
       <path
         fillRule="evenodd"
         d="M5.965 4.904l9.131 9.131a6.5 6.5 0 00-9.131-9.131zm8.07 10.192L4.904 5.965a6.5 6.5 0 009.131 9.131zM4.343 4.343a8 8 0 1111.314 11.314A8 8 0 014.343 4.343z"
@@ -385,6 +325,29 @@ export function CheckCircleIcon(props: IconProps) {
         strokeLinejoin="round"
         d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       />
+    </svg>
+  );
+}
+
+export function BookmarkIcon({
+  checkMarkClass,
+  ...props
+}: IconProps & { checkMarkClass?: string }) {
+  return (
+    <svg
+      stroke="currentColor"
+      fill="currentColor"
+      viewBox="0 0 16 16"
+      height={16}
+      width={16}
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+        className={checkMarkClass}
+      ></path>
+      <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
     </svg>
   );
 }

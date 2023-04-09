@@ -10,15 +10,11 @@ import { Image } from 'astro:assets';
 
 const title = 'Malcolm Kee - Web developer, front end engineer';
 const description = `UI Builder and Tool Creator`;
-
-const { pathname } = Astro.url;
-
-const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} permalink={permalink} />
+    <BaseHead title={title} description={description} permalink={Astro.url.toString()} />
   </head>
 
   <body>
@@ -49,20 +45,20 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
                 programming languages and tools, but my focus is frontend technologies.
               </p>
               <p>
-                I love building <a href="/projects" class="text-primary-600 hover:text-primary-500"
+                I love building <a href="/projects/" class="text-primary-600 hover:text-primary-500"
                   >side projects</a
                 > for fun.
               </p>
               <p>
                 I'm also passionate about sharing my expertise with others. As a co-organizer of a
                 tech meetup, I designed and conducted <a
-                  href="/workshops"
+                  href="/workshops/"
                   class="text-primary-600 hover:text-primary-500">workshops</a
                 > on topics such as React and web development.
               </p>
               <p>
                 In addition to my hands-on work, I also enjoy sharing my experience and opinions in <a
-                  href="/blog"
+                  href="/blog/"
                   class="text-primary-600 hover:text-primary-500">my blog</a
                 >.
               </p>

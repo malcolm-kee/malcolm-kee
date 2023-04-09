@@ -1,20 +1,15 @@
 import type { CollectionEntry } from 'astro:content';
-import {
-  getWorkshopData,
-  WorkshopMetadata,
-  WorkshopSlug,
-  workshopSlugs,
-} from './workshop-data';
+import { getWorkshopData, WorkshopMetadata, WorkshopSlug, workshopSlugs } from './workshop-data';
 
 type WorkshopData = CollectionEntry<'workshop'>;
 
-type ExtractFirstPart<Pattern extends string> =
-  Pattern extends `${infer FirstPart}/${string}` ? FirstPart : Pattern;
+type ExtractFirstPart<Pattern extends string> = Pattern extends `${infer FirstPart}/${string}`
+  ? FirstPart
+  : Pattern;
 
 type WorkshopInferredSlug = ExtractFirstPart<WorkshopData['slug']>;
 
-const getWorkshopSlug = (entry: WorkshopData) =>
-  entry.slug.split('/')[0] as WorkshopInferredSlug;
+const getWorkshopSlug = (entry: WorkshopData) => entry.slug.split('/')[0] as WorkshopInferredSlug;
 
 const getRenderedSlug = (entry: WorkshopData) => {
   const workshopSlug = getWorkshopSlug(entry);
@@ -40,19 +35,13 @@ export type WorkshopTocItem = {
 
 const comparator = new Intl.Collator('de', { numeric: true });
 
-export const groupWorkshopLessons = (
-  workshopLessonEntries: ReadonlyArray<WorkshopData>
-) => {
-  const workshopRenderDataMap = new Map<
-    WorkshopSlug,
-    Array<WorkshopRenderData>
-  >(workshopSlugs.map((slug) => [slug, []]));
+export const groupWorkshopLessons = (workshopLessonEntries: ReadonlyArray<WorkshopData>) => {
+  const workshopRenderDataMap = new Map<WorkshopSlug, Array<WorkshopRenderData>>(
+    workshopSlugs.map((slug) => [slug, []])
+  );
 
   const workshopTocMap = new Map(
-    workshopSlugs.map((slug) => [
-      slug,
-      new Map<string, Array<WorkshopTocLink>>(),
-    ])
+    workshopSlugs.map((slug) => [slug, new Map<string, Array<WorkshopTocLink>>()])
   );
 
   workshopLessonEntries
@@ -85,7 +74,7 @@ export const groupWorkshopLessons = (
 
         const entryLink = {
           text: entry.data.title,
-          url: `/${entrySlug}`,
+          url: `/${entrySlug}/`,
         };
 
         if (items) {
@@ -126,13 +115,10 @@ export const groupWorkshopLessons = (
   );
 };
 
-export const getWorkshops = (
-  workshopLessonEntries: ReadonlyArray<WorkshopData>
-) => {
-  const workshopLessonsMap = new Map<
-    WorkshopSlug,
-    { slug: string } | undefined
-  >(workshopSlugs.map((slug) => [slug, undefined]));
+export const getWorkshops = (workshopLessonEntries: ReadonlyArray<WorkshopData>) => {
+  const workshopLessonsMap = new Map<WorkshopSlug, { slug: string } | undefined>(
+    workshopSlugs.map((slug) => [slug, undefined])
+  );
 
   workshopLessonEntries
     .slice(0)
@@ -149,18 +135,16 @@ export const getWorkshops = (
       }
     });
 
-  return Array.from(workshopLessonsMap.entries()).map(
-    ([workshopSlug, lesson]) => {
-      const workshop = getWorkshopData(workshopSlug);
+  return Array.from(workshopLessonsMap.entries()).map(([workshopSlug, lesson]) => {
+    const workshop = getWorkshopData(workshopSlug);
 
-      return {
-        entryUrl: lesson
-          ? `/${lesson.slug}`
-          : 'entryUrl' in workshop
-          ? (workshop.entryUrl as string)
-          : '/',
-        workshop,
-      };
-    }
-  );
+    return {
+      entryUrl: lesson
+        ? `/${lesson.slug}/`
+        : 'entryUrl' in workshop
+        ? (workshop.entryUrl as string)
+        : '/',
+      workshop,
+    };
+  });
 };

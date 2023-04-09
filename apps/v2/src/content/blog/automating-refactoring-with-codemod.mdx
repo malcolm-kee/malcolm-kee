@@ -35,11 +35,11 @@ Codemod offers few benefits, including:
 However, codemod also has some limitations:
 
 - It takes time to create, especially when doing it for the first time because new concepts, such as Abstract Syntax Tree (AST) must be learned in the process.
-- It cannot handle complex refactoring. Most codemods scan the code patterns on a per-file basis and perform transformation accordingly. Cross-file refactoring is usually not supported, and complicated migration such as [migrating Angular to React](/blog/migrating-large-angular-apps-to-react) are impossible with codemod alone.
+- It cannot handle complex refactoring. Most codemods scan the code patterns on a per-file basis and perform transformation accordingly. Cross-file refactoring is usually not supported, and complicated migration such as [migrating Angular to React](/blog/migrating-large-angular-apps-to-react/) are impossible with codemod alone.
 
 ## See It in Action
 
-To see a codemod in action, let's use [the previous article on TailwindCSS in Module Federation](/blog/using-tailwindcss-with-module-federation) as an example, where we will transform the usage of `twin.macro` to a new `tw` utility function call.
+To see a codemod in action, let's use [the previous article on TailwindCSS in Module Federation](/blog/using-tailwindcss-with-module-federation/) as an example, where we will transform the usage of `twin.macro` to a new `tw` utility function call.
 
 1. open this [Stackblitz link](https://stackblitz.com/fork/github/malcolm-kee/codemod-example-twin-macro?title=Codemod%20example&file=src/components/Button.tsx), which will open a new window. You should see a Button component by default, which is similar to the snippet below. The parts that we are interested in and would like to transform are highlighted.
 

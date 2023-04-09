@@ -3,15 +3,18 @@ import type { MarkdownHeading } from 'astro';
 import { clsx } from 'clsx';
 import { formatDate, isFuture } from '~/lib/date';
 import MdToc from './MdToc.astro';
+import SavePageButton from './SavePageButton.astro';
 import './shiki.css';
 
 export interface Props {
   title: string;
   headings?: Array<MarkdownHeading>;
   publishDate?: Date;
+  /** key used for offline saving. Required for supporting save for offline */
+  saveKey?: string;
 }
 
-const { title, publishDate, headings } = Astro.props;
+const { title, publishDate, headings, saveKey } = Astro.props;
 
 const isFutureContent = publishDate && isFuture(publishDate);
 
@@ -22,8 +25,10 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
 
 <div class="mb-12">
   <article>
-    <header class="flex flex-col mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
-      <div class={clsx('relative max-w-3xl w-full', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}>
+    <div class="flex items-end mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
+      <header
+        class={clsx('relative max-w-3xl w-full', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}
+      >
         {
           publishDate && (
             <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
@@ -35,9 +40,33 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
         <h1 class="content-title text-3xl sm:text-4xl font-bold w-full">
           {title}
         </h1>
-      </div>
-    </header>
-    {hasHeadings && <MdToc headings={levelTwoHeadings} />}
+      </header>
+      {
+        saveKey && (
+          <div class="hidden xl:block xl:offline:hidden">
+            <SavePageButton saveKey={saveKey} pageTitle={title} />
+          </div>
+        )
+      }
+    </div>
+    <div
+      class="flex flex-col mb-3 sm:flex-row justify-between sm:items-start sm:gap-3 sm:mb-6 xl:contents max-w-3xl mx-auto xl:max-w-none xl:mb-0"
+    >
+      {
+        hasHeadings && (
+          <div class="flex-1 xl:contents">
+            <MdToc headings={levelTwoHeadings} />
+          </div>
+        )
+      }
+      {
+        saveKey && (
+          <div class="py-2 xl:hidden offline:hidden">
+            <SavePageButton saveKey={saveKey} pageTitle={title} />
+          </div>
+        )
+      }
+    </div>
     <div
       class={clsx('max-w-3xl prose', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}
       data-md-content

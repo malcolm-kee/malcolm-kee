@@ -46,16 +46,12 @@ const { label, blogs, tils } = Astro.props;
 
 const title = `Topic: ${label}`;
 
-const { pathname } = Astro.url;
-
-const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
-
 const hasTwoColumns = blogs.length > 0 && tils.length > 0;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} permalink={permalink} />
+    <BaseHead title={title} permalink={Astro.url.toString()} />
   </head>
   <body>
     <PageLayout>
@@ -63,12 +59,18 @@ const hasTwoColumns = blogs.length > 0 && tils.length > 0;
         >Topic: <span class="[view-transition-name:topic-title]">{label}</span></span
       >
       <div class={clsx('grid gap-12', hasTwoColumns && 'lg:grid-cols-2 lg:gap-4')}>
-        <section>
-          <h2 class="text-2xl mb-5 font-bold text-zinc-400">Blogs</h2>
-          <BlogPostPreviewList>
-            {blogs.map((blog) => <BlogPostPreview post={blog} TitleElement="h3" />)}
-          </BlogPostPreviewList>
-        </section>
+        {
+          blogs.length > 0 && (
+            <section>
+              <h2 class="text-2xl mb-5 font-bold text-zinc-400">Blogs</h2>
+              <BlogPostPreviewList>
+                {blogs.map((blog) => (
+                  <BlogPostPreview post={blog} TitleElement="h3" />
+                ))}
+              </BlogPostPreviewList>
+            </section>
+          )
+        }
         {
           tils.length > 0 && (
             <section>

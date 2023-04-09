@@ -54,8 +54,6 @@ const {
 } = entry;
 
 const { Content, headings } = await entry.render();
-
-const permalink = new URL(entry.slug, Astro.site).toString();
 ---
 
 <html lang="en">
@@ -68,7 +66,7 @@ const permalink = new URL(entry.slug, Astro.site).toString();
       ogBorderColor={workshop.themeColor}
       ogBgImage={workshop.iconUrl}
       iconHref={workshop.smallIconUrl}
-      permalink={permalink}
+      permalink={Astro.url.toString()}
     />
     <script is:inline>
       var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)');

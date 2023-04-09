@@ -126,23 +126,21 @@ async function getJsDependencies(
 }
 
 async function getResourceContent(contentUrl: string, root: URL): Promise<string | undefined> {
-  if (typeof contentUrl === 'string') {
-    if (contentUrl.startsWith('/')) {
-      const jsFilePath = path.resolve(fileURLToPath(root), `.${contentUrl}`);
-      return await fs.readFile(jsFilePath, 'utf-8');
-    }
-    if (/^https?:\/\//.test(contentUrl)) {
-      const response = await request(contentUrl);
+  if (contentUrl.startsWith('/')) {
+    const jsFilePath = path.resolve(fileURLToPath(root), `.${contentUrl}`);
+    return await fs.readFile(jsFilePath, 'utf-8');
+  }
+  if (/^https?:\/\//.test(contentUrl)) {
+    const response = await request(contentUrl);
 
-      if (
-        response.headers &&
-        response.headers['content-type'] &&
-        !response.headers['content-type'].includes('text/html')
-      ) {
-        const content = await response.body.text();
+    if (
+      response.headers &&
+      response.headers['content-type'] &&
+      !response.headers['content-type'].includes('text/html')
+    ) {
+      const content = await response.body.text();
 
-        return content;
-      }
+      return content;
     }
   }
 }

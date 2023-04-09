@@ -21,17 +21,13 @@ export function Button({
   const className = clsx(
     'inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
     variantStyles[variant],
+    'data-[success]:bg-emerald-600 data-[success]:text-zinc-100 data-[success]:hover:bg-emerald-500 data-[success]:active:bg-emerald-600',
     props.className
   );
 
   if (href) {
     return (
-      <a
-        href={href}
-        className={className}
-        download={download}
-        aria-label={props['aria-label']}
-      >
+      <a href={href} className={className} download={download} aria-label={props['aria-label']}>
         {props.children}
       </a>
     );

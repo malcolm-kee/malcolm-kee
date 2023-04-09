@@ -43,7 +43,7 @@ const {
   lang = 'en',
 } = entry.data;
 
-const permalink = new URL(`blog/${entry.slug}`, Astro.site).toString();
+const relativePath = `blog/${entry.slug}`;
 
 const related = await getBlogRelatedContents(entry);
 
@@ -58,7 +58,7 @@ const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicI
       publishedDate={pubDate}
       updatedDate={updatedDate}
       contentType="article"
-      permalink={permalink}
+      permalink={Astro.url.toString()}
       ogBgImage={imageData && imageData.baseSrc}
       articleType="blog"
       themeColor={imageData && imageData.primaryColor}
@@ -98,11 +98,11 @@ const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicI
               'hidden sm:flex left-0 md:-left-12',
               imageData ? 'absolute -top-12 lg:top-1' : 'md:absolute -top-4'
             )}
-            href="/blog"
+            href="/blog/"
             aria-label="Back to all blogs"
           />
         </div>
-        <MdContent title={title} publishDate={pubDate} headings={headings}>
+        <MdContent title={title} publishDate={pubDate} headings={headings} saveKey={relativePath}>
           <Content />
         </MdContent>
         <SignupForm class="mb-12 offline:hidden" />

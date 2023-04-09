@@ -3,15 +3,11 @@ import BaseHead from '../components/BaseHead.astro';
 
 const { content } = Astro.props;
 const { title } = content;
-
-const { pathname } = Astro.url;
-
-const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} permalink={permalink} />
+    <BaseHead title={title} permalink={Astro.url.toString()} />
   </head>
 
   <body>

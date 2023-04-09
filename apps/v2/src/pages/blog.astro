@@ -2,23 +2,18 @@
 import { getBlogs } from '~/data/blog-helpers';
 import BaseHead from '../components/BaseHead.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
-import PageLayout from '../components/PageLayout.astro';
 import { BlogPostPreviewList } from '../components/BlogPostPreviewList';
+import PageLayout from '../components/PageLayout.astro';
 
 const title = 'Blogs - Malcolm Kee';
-const description =
-  'My thoughts on technologies, books, or any other random topic.';
+const description = 'My thoughts on technologies, books, or any other random topic.';
 
 const allPosts = await getBlogs();
-
-const { pathname } = Astro.url;
-
-const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} permalink={permalink} />
+    <BaseHead title={title} description={description} permalink={Astro.url.toString()} />
   </head>
 
   <body>
@@ -26,11 +21,7 @@ const permalink = new URL(pathname.replace(/\/$/, ''), Astro.site).toString();
       <span slot="title">Blogs</span>
       <span slot="description">{description}</span>
       <BlogPostPreviewList aria-label="Blog post list">
-        {
-          allPosts.map((p, index) => (
-            <BlogPostPreview post={p} isFeatured={index === 0} />
-          ))
-        }
+        {allPosts.map((p, index) => <BlogPostPreview post={p} isFeatured={index === 0} />)}
       </BlogPostPreviewList>
     </PageLayout>
   </body>

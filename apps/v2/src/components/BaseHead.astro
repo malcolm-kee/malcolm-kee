@@ -167,12 +167,14 @@ const ogImage = getOgImageUrl({
       300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
   }
 </style>
-{!excludeServiceWorker && <ServiceWorkerRegister />}
 <script>
   import { checkOnlineStatus } from '~/lib/check-online-status';
 
   checkOnlineStatus({
-    onStatusChange: (isOnline) => (document.documentElement.dataset.online = String(isOnline)),
+    onStatusChange: (isOnline) => {
+      document.documentElement.dataset.online = String(isOnline);
+    },
     initialOnline: undefined,
   });
 </script>
+{!excludeServiceWorker && <ServiceWorkerRegister />}

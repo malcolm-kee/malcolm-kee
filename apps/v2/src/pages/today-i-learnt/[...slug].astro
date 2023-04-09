@@ -31,11 +31,6 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 const { title, pubDate, youtubeVideoId } = entry.data;
 
-const permalink = new URL(
-  `today-i-learnt/${entry.slug}`,
-  Astro.site
-).toString();
-
 const related = await getTilRelatedContents(entry);
 ---
 
@@ -43,7 +38,7 @@ const related = await getTilRelatedContents(entry);
   <head>
     <BaseHead
       title={title}
-      permalink={permalink}
+      permalink={Astro.url.toString()}
       publishedDate={pubDate}
       articleType="til"
     />
@@ -54,7 +49,7 @@ const related = await getTilRelatedContents(entry);
         <div class="relative lg:-left-5 mt-12 mb-6">
           <BackButton
             className="hidden sm:flex left-0 md:-left-12 md:absolute -top-4"
-            href="/today-i-learnt"
+            href="/today-i-learnt/"
             aria-label="Back to all TILs"
           />
         </div>

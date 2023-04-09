@@ -1,0 +1,90 @@
+---
+import { clsx } from 'clsx';
+import { Button } from './Button';
+import { BookmarkIcon } from './icons';
+
+export interface Props {
+  saveKey: string;
+  pageTitle: string;
+  className?: string;
+}
+
+const { className, saveKey } = Astro.props;
+---
+
+<Button data-savekey={saveKey} className={clsx('SavePageButton hidden', className)}>
+  <BookmarkIcon checkMarkClass="SavePageButtonCheckmark transition opacity-0" />
+  <span class="SavePageButtonLabel">Save</span>
+</Button>
+
+<script>
+  import {
+    loadPageSaveCapability,
+    removePage,
+    requestPersistentStorage,
+    savePageDependencies,
+  } from '~/data/offline-helpers';
+
+  const saveStateByPage = new Map<string, boolean>();
+
+  document.querySelectorAll('.SavePageButton').forEach((button) => {
+    if (button instanceof HTMLButtonElement && button.dataset.savekey) {
+      const pagePath = button.dataset.savekey;
+
+      loadPageSaveCapability(pagePath).then((capability) => {
+        if (capability.allowed) {
+          button.classList.remove('hidden');
+
+          const checkMark = button.querySelector('.SavePageButtonCheckmark');
+          const label = button.querySelector('.SavePageButtonLabel');
+
+          if (capability.saved) {
+            checkMark && checkMark.classList.remove('opacity-0');
+            if (label) label.textContent = 'Saved';
+            button.dataset.success = 'true';
+          }
+
+          saveStateByPage.set(pagePath, capability.saved);
+
+          button.addEventListener('click', () => {
+            const sameKeyButtons = document.querySelectorAll<HTMLButtonElement>(
+              `.SavePageButton[data-savekey="${pagePath}"]`
+            );
+
+            const isSaving = !saveStateByPage.get(pagePath);
+
+            sameKeyButtons.forEach((sameKeyButton) => {
+              sameKeyButton.disabled = true;
+
+              const checkIcon = sameKeyButton.querySelector('.SavePageButtonCheckmark');
+              const buttonLabel = sameKeyButton.querySelector('.SavePageButtonLabel');
+
+              const operation = isSaving
+                ? requestPersistentStorage().then(() =>
+                    savePageDependencies(pagePath, capability.dependencies)
+                  )
+                : removePage(pagePath);
+
+              operation.then(() => {
+                sameKeyButton.disabled = false;
+                saveStateByPage.set(pagePath, isSaving);
+
+                if (checkIcon) {
+                  checkIcon.classList.toggle('opacity-0');
+                }
+                if (buttonLabel) {
+                  buttonLabel.textContent = isSaving ? 'Saved' : 'Save';
+                }
+                if (isSaving) {
+                  sameKeyButton.dataset.success = 'true';
+                } else {
+                  delete sameKeyButton.dataset.success;
+                }
+              });
+            });
+          });
+        }
+      });
+    }
+  });
+</script>
