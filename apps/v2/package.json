@@ -56,13 +56,13 @@
     "tinycolor2": "^1.6.0",
     "tsx": "^3.12.5",
     "typescript": "^5.0.4",
-    "undici": "^5.21.0",
+    "undici": "^5.21.1",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.2"
   },
   "dependencies": {
     "@astrojs/rss": "^2.3.2",
-    "@codesandbox/sandpack-react": "^2.4.5",
+    "@codesandbox/sandpack-react": "^2.4.7",
     "@codesandbox/sandpack-themes": "^2.0.21",
     "@floating-ui/dom": "^1.2.6",
     "@formkit/auto-animate": "1.0.0-beta.6",
@@ -75,6 +75,6 @@
     "monaco-themes": "^0.4.3",
     "nice-color-palettes": "^3.0.0",
     "react-helmet": "^6.1.0",
-    "scroll-into-view-if-needed": "^3.0.7"
+    "scroll-into-view-if-needed": "^3.0.8"
   }
 }
