@@ -9,3 +9,10 @@ interface ViewTransition {
 interface Document {
   startViewTransition?: (cb: () => void | Promise<unknown>) => ViewTransition;
 }
+
+declare var promptInstall:
+  | {
+      prompt: () => void;
+      userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+    }
+  | undefined;

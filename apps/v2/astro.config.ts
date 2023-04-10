@@ -52,7 +52,7 @@ export default defineConfig({
       icon: 'src/assets/app-icon.png',
       start_url: '/',
       description: 'Personal website of Malcolm Kee',
-      display: 'minimal-ui',
+      display: 'standalone',
       theme_color: '#ffffff',
       background_color: '#27272a',
       config: {

@@ -181,5 +181,9 @@ const ogImage = getOgImageUrl({
 <script is:inline>
   window.addEventListener('beforeinstallprompt', (installPromptEvent) => {
     installPromptEvent.preventDefault(); // prevent prompt for now
+
+    promptInstall = installPromptEvent;
+
+    document.documentElement.dataset.installable = 'true';
   });
 </script>
