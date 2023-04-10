@@ -32,7 +32,7 @@ const {
     : undefined,
   ogBgImage,
   ogBorderColor = themeColor,
-  iconHref = '/icon.jpg',
+  iconHref,
   ogImageTitle = title,
   excludeServiceWorker,
 } = Astro.props;
@@ -51,7 +51,7 @@ const ogImage = getOgImageUrl({
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
-<link rel="icon" type="image/jpg" href={iconHref} />
+{iconHref && <link rel="icon" type="image/jpg" href={iconHref} />}
 <title>{title}</title>
 <meta name="title" content={title} />
 {themeColor && <meta name="theme-color" content={themeColor} />}
@@ -178,3 +178,8 @@ const ogImage = getOgImageUrl({
   });
 </script>
 {!excludeServiceWorker && <ServiceWorkerRegister />}
+<script is:inline>
+  window.addEventListener('beforeinstallprompt', (installPromptEvent) => {
+    installPromptEvent.preventDefault(); // prevent prompt for now
+  });
+</script>

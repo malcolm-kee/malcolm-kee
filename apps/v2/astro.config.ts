@@ -5,6 +5,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import robotsTxt from 'astro-robots-txt';
+import webmanifest from 'astro-webmanifest';
 import { defineConfig } from 'astro/config';
 import { s } from 'hastscript';
 import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
@@ -44,6 +45,20 @@ export default defineConfig({
           disallow: '/offline/',
         },
       ],
+    }),
+    webmanifest({
+      name: 'Malcolm Kee',
+      short_name: 'Malcolm',
+      icon: 'src/assets/app-icon.png',
+      start_url: '/',
+      description: 'Personal website of Malcolm Kee',
+      display: 'minimal-ui',
+      background_color: '#ffffff',
+      theme_color: '#27272a',
+      config: {
+        insertAppleTouchLinks: true,
+        iconPurpose: ['any', 'maskable'],
+      },
     }),
   ],
   server: {
