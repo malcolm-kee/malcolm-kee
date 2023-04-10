@@ -53,8 +53,8 @@ export default defineConfig({
       start_url: '/',
       description: 'Personal website of Malcolm Kee',
       display: 'minimal-ui',
-      background_color: '#ffffff',
-      theme_color: '#27272a',
+      theme_color: '#ffffff',
+      background_color: '#27272a',
       config: {
         insertAppleTouchLinks: true,
         iconPurpose: ['any', 'maskable'],
