@@ -20,10 +20,10 @@ const { pathname } = Astro.url;
   data-pagetitle={pageTitle}
   data-pagedescription={pageDescription}
   data-path={pathname}
-  className={clsx('SavePageButton hidden', className)}
+  className={clsx('SavePageButton', className)}
 >
   <BookmarkIcon checkMarkClass="SavePageButtonCheckmark transition opacity-0" />
-  <span class="SavePageButtonLabel">Save</span>
+  <span class="SavePageButtonLabel text-base sm:text-sm">Save</span>
 </Button>
 
 <script>

@@ -17,8 +17,8 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2
       '@codesandbox/sandpack-react':
-        specifier: ^2.4.7
-        version: 2.4.7(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^2.4.8
+        version: 2.4.8(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
       '@codesandbox/sandpack-themes':
         specifier: ^2.0.21
         version: 2.0.21
@@ -62,8 +62,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(react@18.2.0)
       scroll-into-view-if-needed:
-        specifier: ^3.0.8
-        version: 3.0.8
+        specifier: ^3.0.9
+        version: 3.0.9
     devDependencies:
       '@astrojs/markdown-remark':
         specifier: ^2.1.3
@@ -791,8 +791,8 @@ packages:
       static-browser-server: 1.0.3
     dev: false
 
-  /@codesandbox/sandpack-react@2.4.7(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-JiQq49/IAEoGARbzZqmAO5UGAb2FTe2tIBdnc8frhrsjW0HYhla6PDllbVYC+fHG7olavu21hWyoKV/gOP8uhQ==}
+  /@codesandbox/sandpack-react@2.4.8(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Vk1LHGGl136+Y+QaD8qzeLR9/+z2QTHsd6tEnKvJft3Yt1J0FnDHTCQhiwHM01HuiYyneweilP+W/t9lh4ngRA==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
@@ -2262,8 +2262,8 @@ packages:
     resolution: {integrity: sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==}
     dev: true
 
-  /compute-scroll-into-view@3.0.1:
-    resolution: {integrity: sha512-Kx5SbIZf1QMCFctNydxTdhIO2lv9h1DJy6ZSuY8ngArCRMh3rfJVb86KsdslWo/FTPgBmnbtfz80CJDEyfIxzA==}
+  /compute-scroll-into-view@3.0.2:
+    resolution: {integrity: sha512-UCXenIpZspASrI2Jsk/eUoa7zpFaD20xIqnC85c1rRIBVS3mOzPKF72QPZYmtcw24ZGqtyiFceBN/JKKVV4ALg==}
     dev: false
 
   /concat-map@0.0.1:
@@ -5611,10 +5611,10 @@ packages:
     dependencies:
       loose-envify: 1.4.0
 
-  /scroll-into-view-if-needed@3.0.8:
-    resolution: {integrity: sha512-gHw7Dia3koOUlJvOJnxL9VCqGEmh5kf449FrvhnG9K28D9UXqdkQtw9nUnkauPcdadM3GuPD1J8XgdiPpFtHyg==}
+  /scroll-into-view-if-needed@3.0.9:
+    resolution: {integrity: sha512-El9s4RTy0DVX4sBHSt2BnyXVw40zQ7V7jG3NDWoLdTWlrEnc7RCjajwQy+ufd/ptGmY2zxh2l7Y1o8nq0CAovQ==}
     dependencies:
-      compute-scroll-into-view: 3.0.1
+      compute-scroll-into-view: 3.0.2
     dev: false
 
   /section-matter@1.0.0:

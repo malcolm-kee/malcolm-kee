@@ -50,7 +50,7 @@ const { headings } = Astro.props;
         <span
           aria-hidden
           class={clsx(
-            'block -ml-4 pl-2 text-zinc-500 text-xl bg-zinc-50 duration-300 delay-100 rounded-l-md shadow',
+            'block -ml-4 px-2 py-1 sm:pr-0 sm:py-0 text-zinc-500 text-xl bg-zinc-50 duration-300 delay-100 rounded-l-md shadow',
             'group-aria-expanded/toggle:ml-0 group-aria-expanded/toggle:text-zinc-900 group-aria-expanded/toggle:shadow-none',
             'group-hover/toggle:bg-zinc-100 group-hover/toggle:delay-0',
             'group-aria-expanded/toggle:delay-0 group-aria-expanded/toggle:group-hover/toggle:bg-zinc-50'
@@ -58,7 +58,7 @@ const { headings } = Astro.props;
         >
           <span
             class={clsx(
-              'block text-start origin-left scale-[0.8] font-light duration-300 delay-100',
+              'block text-start origin-left sm:scale-[0.8] font-light duration-300 delay-100',
               'group-aria-expanded/toggle:scale-100 group-aria-expanded/toggle:font-normal group-aria-expanded/toggle:delay-0'
             )}>Contents</span
           >
@@ -66,7 +66,7 @@ const { headings } = Astro.props;
       </span>
       <span
         class={clsx(
-          'IconWrapper block pr-2 py-1 bg-zinc-50 shadow rounded-r-md duration-300 group-aria-expanded/toggle:shadow-none',
+          'IconWrapper block pr-2 py-2 sm:py-1 bg-zinc-50 shadow rounded-r-md duration-300 group-aria-expanded/toggle:shadow-none',
           'group-hover/toggle:bg-zinc-100 group-aria-expanded/toggle:group-hover/toggle:bg-zinc-50'
         )}
       >
