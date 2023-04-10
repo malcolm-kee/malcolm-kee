@@ -33,3 +33,16 @@ test('blog live editor accessibility', async ({ page, axe }) => {
 
   expect(result.violations).toEqual([]);
 });
+
+test('blog save functionality', async ({ page, context }) => {
+  const serviceWorkerPromise = context.waitForEvent('serviceworker');
+  await page.goto('/blog/');
+  await serviceWorkerPromise;
+  await page.getByText(/OpenAPI: A backend/).click();
+  await page.getByText('Save').locator('visible=true').click();
+  await expect(page.getByText('Saved').locator('visible=true')).toBeVisible();
+
+  await context.setOffline(true);
+
+  await page.goto('/about/');
+});

@@ -63,7 +63,12 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       {
         saveKey && (
           <div class="py-2 xl:hidden offline:hidden">
-            <SavePageButton saveKey={saveKey} pageTitle={title} pageDescription={description} />
+            <SavePageButton
+              saveKey={saveKey}
+              pageTitle={title}
+              pageDescription={description}
+              className="w-full sm:w-auto"
+            />
           </div>
         )
       }

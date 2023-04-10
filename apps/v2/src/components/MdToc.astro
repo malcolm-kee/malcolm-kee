@@ -43,14 +43,14 @@ const { headings } = Astro.props;
     >
       <span
         class={clsx(
-          'transition-all duration-200 text-start',
+          'transition-all duration-200 text-start flex-1 sm:flex-initial',
           'group-aria-expanded/toggle:flex-1 group-aria-expanded/toggle:duration-500'
         )}
       >
         <span
           aria-hidden
           class={clsx(
-            'block -ml-4 px-2 py-1 sm:pr-0 sm:py-0 text-zinc-500 text-xl bg-zinc-50 duration-300 delay-100 rounded-l-md shadow',
+            'block -ml-4 px-3 py-2 sm:pl-2 sm:pr-0 sm:py-0 text-zinc-500 text-xl bg-zinc-50 duration-300 delay-100 rounded-l-md shadow',
             'group-aria-expanded/toggle:ml-0 group-aria-expanded/toggle:text-zinc-900 group-aria-expanded/toggle:shadow-none',
             'group-hover/toggle:bg-zinc-100 group-hover/toggle:delay-0',
             'group-aria-expanded/toggle:delay-0 group-aria-expanded/toggle:group-hover/toggle:bg-zinc-50'
@@ -66,7 +66,8 @@ const { headings } = Astro.props;
       </span>
       <span
         class={clsx(
-          'IconWrapper block pr-2 py-2 sm:py-1 bg-zinc-50 shadow rounded-r-md duration-300 group-aria-expanded/toggle:shadow-none',
+          'IconWrapper block pr-2 py-3 sm:py-1 bg-zinc-50 shadow rounded-r-md duration-300 group-aria-expanded/toggle:shadow-none',
+          '-mr-4 group-aria-expanded/toggle:mr-0 sm:mr-0',
           'group-hover/toggle:bg-zinc-100 group-aria-expanded/toggle:group-hover/toggle:bg-zinc-50'
         )}
       >
@@ -81,7 +82,7 @@ const { headings } = Astro.props;
       </span>
     </button>
   </div>
-  <ol class="toc flex flex-col gap-4 pb-3 px-6" id="toc-items">
+  <ol class="toc flex flex-col gap-4 pb-3 px-7" id="toc-items">
     {
       headings.map((h, index) => {
         const indent = Math.max(0, h.depth - 2);
