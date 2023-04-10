@@ -34,15 +34,23 @@ test('blog live editor accessibility', async ({ page, axe }) => {
   expect(result.violations).toEqual([]);
 });
 
-test('blog save functionality', async ({ page, context }) => {
+test('save blog and view offline', async ({ page, context }) => {
   const serviceWorkerPromise = context.waitForEvent('serviceworker');
   await page.goto('/blog/');
   await serviceWorkerPromise;
   await page.getByText(/OpenAPI: A backend/).click();
+  await expect(page.getByLabel('Contents').locator('visible=true')).toBeVisible();
   await page.getByText('Save').locator('visible=true').click();
   await expect(page.getByText('Saved').locator('visible=true')).toBeVisible();
 
+  await context.route(/online/, (route) => route.abort());
   await context.setOffline(true);
 
   await page.goto('/about/');
+
+  await expect(page.getByText('No connection')).toBeVisible();
+
+  await page.getByText(/OpenAPI: A backend/).click();
+
+  await expect(page.getByLabel('Contents').locator('visible=true')).toBeVisible();
 });
