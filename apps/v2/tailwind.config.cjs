@@ -46,9 +46,18 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/line-clamp'),
-    plugin(function ({ addVariant }) {
+    plugin(function ({ addVariant, matchVariant }) {
       addVariant('online', ':root[data-online="true"] &');
       addVariant('offline', ':root[data-online="false"] &');
+      addVariant('installable', ':root[data-installable="true"] &');
+      matchVariant('mode', (value) => `@media (display-mode: ${value})`, {
+        values: {
+          fullscreen: 'fullscreen',
+          standalone: 'standalone',
+          minimal: 'minimal',
+          browser: 'browser',
+        },
+      });
     }),
   ],
 };

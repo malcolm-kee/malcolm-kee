@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { CollectionEntry } from 'astro:content';
 import { clsx } from 'clsx';
 import { BackButton } from '~/components/BackButton';
+import { Button } from '~/components/Button';
 import BaseHead from '~/components/BaseHead.astro';
 import { CloudinaryImage } from '~/components/CloudinaryImage';
 import Container from '~/components/Container';
@@ -112,10 +113,38 @@ const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicI
           <Content />
         </MdContent>
         <SignupForm class="mb-12 offline:hidden" />
+        <div
+          class="hidden installable:mode-browser:block max-w-2xl mx-auto mb-12 p-4 sm:p-10 rounded shadow text-center"
+        >
+          <p class="text-2xl font-medium text-zinc-600 mb-3">
+            Prefer to get updates in your phone?
+          </p>
+          <p class="text-zinc-600 mb-3">
+            Install this website locally and get notified when a new blog is published <span
+              class="line-through">after I figure out how to do web push</span
+            >.
+          </p>
+          <div>
+            <Button className="installBtn w-full" data-success>
+              <span class="text-lg px-3">Install</span>
+            </Button>
+          </div>
+        </div>
         <div class="border-t border-gray-100 pt-8">
           <ContentSuggestions blogs={related.blogs} tils={related.tils} />
         </div>
       </Container>
     </Layout>
+    <script>
+      document.querySelectorAll('.installBtn').forEach((installBtn) => {
+        installBtn.addEventListener('click', () => {
+          if (promptInstall && typeof promptInstall.prompt === 'function') {
+            promptInstall.prompt();
+            promptInstall = undefined;
+            delete document.documentElement.dataset.installable;
+          }
+        });
+      });
+    </script>
   </body>
 </html>
