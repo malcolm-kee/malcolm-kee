@@ -1,11 +1,11 @@
-import { defineConfig } from 'astro/config';
-
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import robotsTxt from 'astro-robots-txt';
+import { defineConfig } from 'astro/config';
 import { s } from 'hastscript';
 import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -28,8 +28,22 @@ export default defineConfig({
     }),
     sitemap(),
     depsExtraction({
-      routes: ['offline/', /^blog\/[\w|-]+/],
+      routes: [/^blog\/[\w|-]+/],
       excludes: [/^https:\/\/www.googletagmanager.com/, /^https:\/\/f\.convertkit\.com/],
+      serviceWorker: {
+        templateUrl: new URL('src/templates/sw.js', import.meta.url),
+        offlinePagePath: 'offline',
+        outputFileName: 'sw.js',
+      },
+    }),
+    robotsTxt({
+      policy: [
+        {
+          userAgent: '*',
+          allow: '/',
+          disallow: '/offline/',
+        },
+      ],
     }),
   ],
   server: {
@@ -38,13 +52,28 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [
       remarkCodeImportPlugin,
-      // @ts-expect-error
-      [remarkShikiTwoSlash, { themes: ['github-light', 'github-dark'] }],
+      [
+        // @ts-expect-error
+        remarkShikiTwoSlash,
+        {
+          themes: ['github-light', 'github-dark'],
+        },
+      ],
     ],
     rehypePlugins: [
       rehypeCodeImportPlugin,
-      [rehypeCloudinaryImageEnhance, { cloudinaryUsername: 'malcolm-kee' }],
-      [rehypeExternalLinks, { target: '_blank' }],
+      [
+        rehypeCloudinaryImageEnhance,
+        {
+          cloudinaryUsername: 'malcolm-kee',
+        },
+      ],
+      [
+        rehypeExternalLinks,
+        {
+          target: '_blank',
+        },
+      ],
       rehypeHeadingIds,
       [
         rehypeAutolinkHeadings,

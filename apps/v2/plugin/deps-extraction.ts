@@ -7,6 +7,11 @@ import fs from 'fs-extra';
 export const depsExtraction = (options: {
   routes: Array<string | RegExp>;
   excludes: Array<RegExp>;
+  serviceWorker?: {
+    templateUrl: URL;
+    offlinePagePath: string;
+    outputFileName: string;
+  };
 }): AstroIntegration => {
   return {
     name: 'mkee:deps-extraction',
@@ -19,7 +24,7 @@ export const depsExtraction = (options: {
         );
 
         for (const { pathname } of pagesToCheck) {
-          const pagePath = pathname.replace(/\/$/, '');
+          const pagePath = trimSlash(pathname);
 
           const result = await extractDependencies(new URL(`${pagePath}/index.html`, dir), {
             excludes: options.excludes,
@@ -38,7 +43,40 @@ export const depsExtraction = (options: {
             'utf-8'
           );
         }
+
+        if (options.serviceWorker) {
+          const { templateUrl, offlinePagePath, outputFileName } = options.serviceWorker;
+
+          const pagePath = trimSlash(offlinePagePath);
+
+          const dependencies = await extractDependencies(new URL(`${pagePath}/index.html`, dir), {
+            excludes: options.excludes,
+            root: dir,
+          });
+
+          const templateContent = await fs.readFile(templateUrl, {
+            encoding: 'utf-8',
+          });
+
+          const runtimeOfflinePagePath = `/${pagePath}/`;
+
+          const output = templateContent
+            .replace('__OFFLINE_PAGE_PATH__', `'${runtimeOfflinePagePath}'`)
+            .replace(
+              '__PRECACHED_ASSETS__',
+              JSON.stringify([
+                runtimeOfflinePagePath,
+                ...dependencies.css,
+                ...dependencies.images,
+                ...dependencies.js,
+              ])
+            );
+
+          await fs.outputFile(fileURLToPath(new URL(outputFileName, dir)), output, 'utf-8');
+        }
       },
     },
   };
 };
+
+const trimSlash = (text: string) => text.replace(/^\/|\/$/g, '');

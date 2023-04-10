@@ -6,22 +6,13 @@
  */
 function initWorker(worker) {
   var cacheName = 'offline-contents';
-  var offlinePagePath = '/offline/';
 
-  var offlineDepsResponse = fetch('/_page-deps/offline.json').then((res) => res.json());
+  var offlinePagePath = __OFFLINE_PAGE_PATH__;
+  var files = __PRECACHED_ASSETS__;
 
   worker.addEventListener('install', (installEvent) => {
     async function cacheOfflinePage() {
       try {
-        const offlineDeps = await offlineDepsResponse;
-
-        const files = [
-          offlinePagePath,
-          ...offlineDeps.css,
-          ...offlineDeps.images,
-          ...offlineDeps.js,
-        ];
-
         return caches.open(cacheName).then((cache) => cache.addAll(files));
       } catch (err) {
         console.error(err);
@@ -34,15 +25,6 @@ function initWorker(worker) {
   worker.addEventListener('activate', (activateEvent) => {
     activateEvent.waitUntil(
       caches.open(cacheName).then(async (cache) => {
-        const offlineDeps = await offlineDepsResponse;
-
-        const files = [
-          offlinePagePath,
-          ...offlineDeps.css,
-          ...offlineDeps.images,
-          ...offlineDeps.js,
-        ];
-
         const allKeys = await cache.keys();
         const staledKeys = allKeys.filter(
           (requestInit) => !files.includes(new URL(requestInit.url).pathname)
