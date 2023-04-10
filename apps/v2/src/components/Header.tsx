@@ -268,18 +268,15 @@ function MobileNavItem({
 }) {
   return (
     <li className={clsx('group/navItem px-2 transition-colors', styles.mobileNavItem)}>
-      {isActive ? (
-        <div className="py-2 text-primary-500 border-b border-zinc-100 group-last/navItem:border-none">
-          {children}
-        </div>
-      ) : (
-        <a
-          href={href}
-          className="block py-2 border-b border-zinc-100 group-last/navItem:border-none"
-        >
-          {children}
-        </a>
-      )}
+      <a
+        href={href}
+        className={clsx(
+          'block py-2 border-b border-zinc-100 group-last/navItem:border-none [-webkit-tap-highlight-color:transparent]',
+          isActive && 'text-primary-500'
+        )}
+      >
+        {children}
+      </a>
     </li>
   );
 }
