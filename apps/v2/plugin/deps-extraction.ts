@@ -35,6 +35,7 @@ export const depsExtraction = (options: {
             css: Array.from(result.css),
             images: Array.from(result.images),
             js: Array.from(result.js),
+            fonts: Array.from(result.fonts),
           };
 
           await fs.outputFile(
@@ -70,7 +71,8 @@ export const depsExtraction = (options: {
                 ...dependencies.images,
                 ...dependencies.js,
               ])
-            );
+            )
+            .replace('__OFFLINE_FIRST_ASSETS__', JSON.stringify([...dependencies.fonts]));
 
           await fs.outputFile(fileURLToPath(new URL(outputFileName, dir)), output, 'utf-8');
         }

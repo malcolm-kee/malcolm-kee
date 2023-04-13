@@ -1,24 +1,46 @@
-import path from 'node:path';
 import fs from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import { URL, fileURLToPath } from 'node:url';
 
 import { init, parse as parseEsModule } from 'es-module-lexer';
+import type { Plugin as PostcssPlugin, PluginCreator as PostcssPluginCreator } from 'postcss';
 import { request } from 'undici';
+
+const require = createRequire(import.meta.url);
+
+const postcss = require('postcss');
 
 export interface ExtractDependenciesOptions {
   excludes: Array<RegExp>;
   root: URL;
 }
 
-export const extractDependencies = async (filePath: URL, options: ExtractDependenciesOptions) => {
+export interface Resources {
+  css: Set<string>;
+  js: Set<string>;
+  images: Set<string>;
+  fonts: Set<string>;
+}
+
+export const extractDependencies = async (
+  filePath: URL,
+  options: ExtractDependenciesOptions
+): Promise<{
+  css: ReadonlySet<string>;
+  js: ReadonlySet<string>;
+  images: ReadonlySet<string>;
+  fonts: ReadonlySet<string>;
+}> => {
   const content = await fs.readFile(filePath, {
     encoding: 'utf-8',
   });
 
-  const resources = {
-    css: new Set<string>(),
-    js: new Set<string>(),
-    images: new Set<string>(),
+  const resources: Resources = {
+    css: new Set(),
+    js: new Set(),
+    images: new Set(),
+    fonts: new Set(),
   };
 
   const { Parser } = await import('htmlparser2');
@@ -68,6 +90,10 @@ export const extractDependencies = async (filePath: URL, options: ExtractDepende
   parser.write(content);
   parser.end();
 
+  for (const cssFileUrl of resources.css) {
+    await getCssDependencies(cssFileUrl, options, resources);
+  }
+
   await init;
 
   for (const jsFileUrl of resources.js) {
@@ -77,6 +103,50 @@ export const extractDependencies = async (filePath: URL, options: ExtractDepende
 
   return resources;
 };
+
+const urlRegex = /url\(["']?(.*?)["']?\)/gi;
+
+async function getCssDependencies(
+  cssResourceUrl: string,
+  options: { root: URL; excludes: Array<RegExp> },
+  resources: Resources
+): Promise<void> {
+  const cssSource = await getResourceContent(cssResourceUrl, options.root);
+
+  if (!cssSource) {
+    return;
+  }
+
+  const postcssExtractUrlPlugin: PostcssPluginCreator<{}> = Object.assign(
+    function postcssExtractUrlPlugin(): PostcssPlugin {
+      return {
+        postcssPlugin: 'extract-url',
+        AtRule: {
+          'font-face': (fontFaceAtRule) => {
+            fontFaceAtRule.walkDecls('src', (declaration) => {
+              if (urlRegex.test(declaration.value)) {
+                const regex = new RegExp(urlRegex.source, urlRegex.flags);
+
+                let match;
+
+                while ((match = regex.exec(declaration.value)) !== null) {
+                  if (match[1]) {
+                    resources.fonts.add(match[1]);
+                  }
+                }
+              }
+            });
+          },
+        },
+      };
+    },
+    { postcss: true as const }
+  );
+
+  const processer = postcss([postcssExtractUrlPlugin]);
+
+  await processer.process(cssSource, { from: undefined });
+}
 
 async function getJsDependencies(
   jsResourceUrl: string,
