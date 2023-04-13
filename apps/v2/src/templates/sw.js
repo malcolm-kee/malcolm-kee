@@ -6,14 +6,22 @@
  */
 function initWorker(worker) {
   var cacheName = 'offline-contents';
+  var offlineFirstCacheName = 'offline-first-contents';
 
   var offlinePagePath = __OFFLINE_PAGE_PATH__;
   var files = __PRECACHED_ASSETS__;
+  /** @type {string[]} */
+  var offlineFirstAssets = __OFFLINE_FIRST_ASSETS__;
 
   worker.addEventListener('install', (installEvent) => {
     async function cacheOfflinePage() {
       try {
-        return caches.open(cacheName).then((cache) => cache.addAll(files));
+        const [cache, preferredCache] = await Promise.all([
+          caches.open(cacheName),
+          caches.open(offlineFirstCacheName),
+        ]);
+
+        await Promise.all([cache.addAll(files), preferredCache.addAll(offlineFirstAssets)]);
       } catch (err) {
         console.error(err);
       }
@@ -38,6 +46,15 @@ function initWorker(worker) {
   worker.addEventListener('fetch', (fetchEvent) => {
     async function networkFirstAndFallbackOffline() {
       try {
+        const offlineFirstCache = await caches.open(offlineFirstCacheName);
+
+        const offlineFirstResource = await offlineFirstCache.match(fetchEvent.request);
+
+        if (offlineFirstResource) {
+          console.log('use offline resource');
+          return offlineFirstResource;
+        }
+
         const preloadResponse = await fetchEvent.preloadResponse;
         if (preloadResponse) {
           console.log('use preloadResponse', preloadResponse);

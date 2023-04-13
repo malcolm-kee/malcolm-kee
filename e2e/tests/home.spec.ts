@@ -4,7 +4,7 @@ import { test } from './base';
 test('home page', async ({ page }) => {
   await page.goto('/');
 
-  await expect(page.getByText('Front end engineer and tool creator')).toBeVisible();
+  await expect(page.getByText('Frontend engineer and tool creator')).toBeVisible();
 });
 
 test('home page accessibility', async ({ page, axe }) => {

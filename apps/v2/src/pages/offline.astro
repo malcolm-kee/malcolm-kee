@@ -17,7 +17,9 @@ const permalink = Astro.url.toString();
         <div class="text-center">
           <div class="online:hidden">
             <p class="text-base font-semibold text-primary-600">Offline</p>
-            <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1
+              class="font-handwrite mt-2 text-5xl sm:text-6xl font-bold tracking-tight text-gray-900"
+            >
               No connection
             </h1>
             <p class="mt-2 text-lg text-gray-500">
@@ -29,7 +31,9 @@ const permalink = Astro.url.toString();
           </div>
           <div class="hidden online:block">
             <p class="text-base font-semibold text-primary-600">Online</p>
-            <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <h1
+              class="font-handwrite mt-2 text-5xl sm:text-6xl font-bold tracking-tight text-gray-900"
+            >
               Reconnected
             </h1>
             <p class="my-2 text-lg text-gray-500">Seems like you're back to online!</p>
