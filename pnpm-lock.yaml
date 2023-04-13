@@ -17,8 +17,8 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2
       '@codesandbox/sandpack-react':
-        specifier: ^2.4.8
-        version: 2.4.8(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^2.6.0
+        version: 2.6.0(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0)
       '@codesandbox/sandpack-themes':
         specifier: ^2.0.21
         version: 2.0.21
@@ -29,8 +29,8 @@ importers:
         specifier: 1.0.0-beta.6
         version: 1.0.0-beta.6
       '@headlessui/react':
-        specifier: ^1.7.13
-        version: 1.7.13(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^1.7.14
+        version: 1.7.14(react-dom@18.2.0)(react@18.2.0)
       '@monaco-editor/react':
         specifier: ^4.5.0
         version: 4.5.0(monaco-editor@0.37.1)(react-dom@18.2.0)(react@18.2.0)
@@ -54,7 +54,7 @@ importers:
         version: 3.2.3
       dexie-react-hooks:
         specifier: ^1.1.3
-        version: 1.1.3(@types/react@18.0.34)(dexie@3.2.3)(react@18.2.0)
+        version: 1.1.3(@types/react@18.0.35)(dexie@3.2.3)(react@18.2.0)
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
@@ -68,30 +68,30 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(react@18.2.0)
       scroll-into-view-if-needed:
-        specifier: ^3.0.9
-        version: 3.0.9
+        specifier: ^3.0.10
+        version: 3.0.10
     devDependencies:
       '@astrojs/markdown-remark':
         specifier: ^2.1.3
-        version: 2.1.3(astro@2.2.1)
+        version: 2.1.3(astro@2.2.3)
       '@astrojs/mdx':
-        specifier: ^0.18.3
-        version: 0.18.3(astro@2.2.1)(rollup@3.20.2)
+        specifier: ^0.18.4
+        version: 0.18.4(astro@2.2.3)(rollup@3.20.2)
       '@astrojs/netlify':
         specifier: ^2.2.2
-        version: 2.2.2(astro@2.2.1)
+        version: 2.2.2(astro@2.2.3)
       '@astrojs/partytown':
         specifier: ^1.2.0
         version: 1.2.0
       '@astrojs/react':
         specifier: ^2.1.1
-        version: 2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.34)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
       '@astrojs/sitemap':
         specifier: ^1.2.2
         version: 1.2.2
       '@astrojs/tailwind':
         specifier: ^3.1.1
-        version: 3.1.1(astro@2.2.1)(tailwindcss@3.3.1)
+        version: 3.1.1(astro@2.2.3)(tailwindcss@3.3.1)
       '@codemirror/state':
         specifier: ^6.2.0
         version: 6.2.0
@@ -117,8 +117,8 @@ importers:
         specifier: ^3.0.10
         version: 3.0.11
       '@types/react':
-        specifier: ^18.0.34
-        version: 18.0.34
+        specifier: ^18.0.35
+        version: 18.0.35
       '@types/react-dom':
         specifier: ^18.0.11
         version: 18.0.11
@@ -132,8 +132,8 @@ importers:
         specifier: ^1.4.3
         version: 1.4.3
       astro:
-        specifier: 2.2.1
-        version: 2.2.1(sass@1.61.0)
+        specifier: 2.2.3
+        version: 2.2.3(sass@1.62.0)
       cloudinary:
         specifier: ^1.35.0
         version: 1.35.0
@@ -169,7 +169,7 @@ importers:
         version: 18.2.0(react@18.2.0)
       react-redux:
         specifier: ^8.0.5
-        version: 8.0.5(@types/react-dom@18.0.11)(@types/react@18.0.34)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
+        version: 8.0.5(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
       react-router-dom:
         specifier: ^6.10.0
         version: 6.10.0(react-dom@18.2.0)(react@18.2.0)
@@ -189,8 +189,8 @@ importers:
         specifier: ^2.10.0
         version: 2.10.0
       sass:
-        specifier: ^1.61.0
-        version: 1.61.0
+        specifier: ^1.62.0
+        version: 1.62.0
       tailwindcss:
         specifier: ^3.3.1
         version: 3.3.1(postcss@8.4.21)
@@ -221,10 +221,10 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.6.1
-        version: 4.6.1(playwright@1.32.2)
+        version: 4.6.1(playwright@1.32.3)
       '@playwright/test':
-        specifier: ^1.32.2
-        version: 1.32.2
+        specifier: ^1.32.3
+        version: 1.32.3
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -294,13 +294,13 @@ packages:
       vscode-uri: 3.0.7
     dev: true
 
-  /@astrojs/markdown-remark@2.1.3(astro@2.2.1):
+  /@astrojs/markdown-remark@2.1.3(astro@2.2.3):
     resolution: {integrity: sha512-Di8Qbit9p7L7eqKklAJmiW9nVD+XMsNHpaNzCLduWjOonDu9fVgEzdjeDrTVCDtgrvkfhpAekuNXrp5+w4F91g==}
     peerDependencies:
       astro: ^2.2.0
     dependencies:
       '@astrojs/prism': 2.1.1
-      astro: 2.2.1(sass@1.61.0)
+      astro: 2.2.3(sass@1.62.0)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -317,11 +317,11 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/mdx@0.18.3(astro@2.2.1)(rollup@3.20.2):
-    resolution: {integrity: sha512-fFkzYthnFqxmdp6IesvzU6FDHdAGo9bf4dbMOPCREcBfEhATqSpT9gjK/HdJ5s1MfZI8jjYeSC3yzhmNlq62qA==}
+  /@astrojs/mdx@0.18.4(astro@2.2.3)(rollup@3.20.2):
+    resolution: {integrity: sha512-yLlHF74oBtCCPnCY4LBios3OrXc97IXIBVOWuyXxmNwAYMA4xIfClN2YP9cFQJITDI/d80qrANzQLQInUNKlHA==}
     engines: {node: '>=16.12.0'}
     dependencies:
-      '@astrojs/markdown-remark': 2.1.3(astro@2.2.1)
+      '@astrojs/markdown-remark': 2.1.3(astro@2.2.3)
       '@astrojs/prism': 2.1.1
       '@mdx-js/mdx': 2.3.0
       '@mdx-js/rollup': 2.3.0(rollup@3.20.2)
@@ -336,6 +336,7 @@ packages:
       remark-gfm: 3.0.1
       remark-smartypants: 2.0.0
       shiki: 0.11.1
+      source-map: 0.7.4
       unist-util-visit: 4.1.2
       vfile: 5.3.7
     transitivePeerDependencies:
@@ -344,14 +345,14 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/netlify@2.2.2(astro@2.2.1):
+  /@astrojs/netlify@2.2.2(astro@2.2.3):
     resolution: {integrity: sha512-/G7jfG1WK27MxLN0whYCDyaAIw4VE54R7ifC+OSphyIGhc1AwxJh7KqkUbJPYMHhWYsxqQ6zkiG5b7mUJe4gtw==}
     peerDependencies:
       astro: ^2.2.1
     dependencies:
       '@astrojs/webapi': 2.1.0
       '@netlify/functions': 1.4.0
-      astro: 2.2.1(sass@1.61.0)
+      astro: 2.2.3(sass@1.62.0)
       esbuild: 0.15.18
     dev: true
 
@@ -369,7 +370,7 @@ packages:
       prismjs: 1.29.0
     dev: true
 
-  /@astrojs/react@2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.34)(react-dom@18.2.0)(react@18.2.0):
+  /@astrojs/react@2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-nIcDFnn5H4FKGoSBYXZr95RIQvpcTNRcVV1hvUQifO0F5hQsgb0PVyk6TG4JWxiPGY4Jt4MVQb5JaaDQHlHu4w==}
     engines: {node: '>=16.12.0'}
     peerDependencies:
@@ -380,7 +381,7 @@ packages:
     dependencies:
       '@babel/core': 7.21.4
       '@babel/plugin-transform-react-jsx': 7.21.0(@babel/core@7.21.4)
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
       '@types/react-dom': 18.0.11
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -402,14 +403,14 @@ packages:
       zod: 3.21.4
     dev: true
 
-  /@astrojs/tailwind@3.1.1(astro@2.2.1)(tailwindcss@3.3.1):
+  /@astrojs/tailwind@3.1.1(astro@2.2.3)(tailwindcss@3.3.1):
     resolution: {integrity: sha512-Wx/ZtVnmtfqHWGVzvUEYZm8rufVKVgDIef0q6fzwUxoT1EpTTwBkTbpnzooogewMLOh2eTscasGe3Ih2HC1wVA==}
     peerDependencies:
       astro: ^2.1.3
       tailwindcss: ^3.0.24
     dependencies:
       '@proload/core': 0.3.3
-      astro: 2.2.1(sass@1.61.0)
+      astro: 2.2.3(sass@1.62.0)
       autoprefixer: 10.4.14(postcss@8.4.21)
       postcss: 8.4.21
       postcss-load-config: 4.0.1(postcss@8.4.21)
@@ -440,13 +441,13 @@ packages:
       undici: 5.20.0
     dev: true
 
-  /@axe-core/playwright@4.6.1(playwright@1.32.2):
+  /@axe-core/playwright@4.6.1(playwright@1.32.3):
     resolution: {integrity: sha512-XMKP2OzGfGIYpU9G9FgI2ulyjEXQDP6qtZerOwdQ7YC1w4SFgofK3ogSk0qVoy0QI+q6XWLUJMfMMkUwdTR2dA==}
     peerDependencies:
       playwright: '>= 1.0.0'
     dependencies:
       axe-core: 4.6.3
-      playwright: 1.32.2
+      playwright: 1.32.3
     dev: true
 
   /@babel/code-frame@7.21.4:
@@ -692,8 +693,8 @@ packages:
     hasBin: true
     dev: true
 
-  /@codemirror/autocomplete@6.4.2(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.3)(@lezer/common@1.0.2):
-    resolution: {integrity: sha512-8WE2xp+D0MpWEv5lZ6zPW1/tf4AGb358T5GWYiKEuCP8MvFfT3tH2mIF9Y2yr2e3KbHuSvsVhosiEyqCpiJhZQ==}
+  /@codemirror/autocomplete@6.5.0(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.4)(@lezer/common@1.0.2):
+    resolution: {integrity: sha512-GNS3bK/BcFRt8G6xFB2eP4TONBEyAwGTbBQFZZpaUJjJzBe80ZdPEyGJMYNUG3RsYaVOmwI7Ka/sQ4gqJU6TdQ==}
     peerDependencies:
       '@codemirror/language': ^6.0.0
       '@codemirror/state': ^6.0.0
@@ -702,7 +703,7 @@ packages:
     dependencies:
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
-      '@codemirror/view': 6.9.3
+      '@codemirror/view': 6.9.4
       '@lezer/common': 1.0.2
     dev: false
 
@@ -711,14 +712,14 @@ packages:
     dependencies:
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
-      '@codemirror/view': 6.9.3
+      '@codemirror/view': 6.9.4
       '@lezer/common': 1.0.2
     dev: false
 
-  /@codemirror/lang-css@6.1.1(@codemirror/view@6.9.3)(@lezer/common@1.0.2):
+  /@codemirror/lang-css@6.1.1(@codemirror/view@6.9.4)(@lezer/common@1.0.2):
     resolution: {integrity: sha512-P6jdNEHyRcqqDgbvHYyC9Wxkek0rnG3a9aVSRi4a7WrjPbQtBTaOmvYpXmm13zZMAatO4Oqpac+0QZs7sy+LnQ==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.2(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
+      '@codemirror/autocomplete': 6.5.0(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.4)(@lezer/common@1.0.2)
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
       '@lezer/css': 1.1.1
@@ -730,25 +731,25 @@ packages:
   /@codemirror/lang-html@6.4.3:
     resolution: {integrity: sha512-VKzQXEC8nL69Jg2hvAFPBwOdZNvL8tMFOrdFwWpU+wc6a6KEkndJ/19R5xSaglNX6v2bttm8uIEFYxdQDcIZVQ==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.2(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
-      '@codemirror/lang-css': 6.1.1(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
-      '@codemirror/lang-javascript': 6.1.5
+      '@codemirror/autocomplete': 6.5.0(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.4)(@lezer/common@1.0.2)
+      '@codemirror/lang-css': 6.1.1(@codemirror/view@6.9.4)(@lezer/common@1.0.2)
+      '@codemirror/lang-javascript': 6.1.6
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
-      '@codemirror/view': 6.9.3
+      '@codemirror/view': 6.9.4
       '@lezer/common': 1.0.2
       '@lezer/css': 1.1.1
       '@lezer/html': 1.3.4
     dev: false
 
-  /@codemirror/lang-javascript@6.1.5:
-    resolution: {integrity: sha512-BS2SmI1IXxWqMPhbJ0DC3eAHAK9V9XvdHMSqwvTBnmh5xFALt+cVDg7XE/A1dxdxzXYXyeqGddgqx1rQv7AYaw==}
+  /@codemirror/lang-javascript@6.1.6:
+    resolution: {integrity: sha512-TTK28z+vJQY9GAefLTDDptI2LMqMfAiuTpt8s9SsNwocjVQ1v9yTzfReMf1hYhspQCdhfa7fdKnQJ78mKe/bHQ==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.2(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
+      '@codemirror/autocomplete': 6.5.0(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.4)(@lezer/common@1.0.2)
       '@codemirror/language': 6.6.0
-      '@codemirror/lint': 6.2.0
+      '@codemirror/lint': 6.2.1
       '@codemirror/state': 6.2.0
-      '@codemirror/view': 6.9.3
+      '@codemirror/view': 6.9.4
       '@lezer/common': 1.0.2
       '@lezer/javascript': 1.4.2
     dev: false
@@ -757,26 +758,26 @@ packages:
     resolution: {integrity: sha512-cwUd6lzt3MfNYOobdjf14ZkLbJcnv4WtndYaoBkbor/vF+rCNguMPK0IRtvZJG4dsWiaWPcK8x1VijhvSxnstg==}
     dependencies:
       '@codemirror/state': 6.2.0
-      '@codemirror/view': 6.9.3
+      '@codemirror/view': 6.9.4
       '@lezer/common': 1.0.2
       '@lezer/highlight': 1.1.4
       '@lezer/lr': 1.3.3
       style-mod: 4.0.2
     dev: false
 
-  /@codemirror/lint@6.2.0:
-    resolution: {integrity: sha512-KVCECmR2fFeYBr1ZXDVue7x3q5PMI0PzcIbA+zKufnkniMBo1325t0h1jM85AKp8l3tj67LRxVpZfgDxEXlQkg==}
+  /@codemirror/lint@6.2.1:
+    resolution: {integrity: sha512-y1muai5U/uUPAGRyHMx9mHuHLypPcHWxzlZGknp/U5Mdb5Ol8Q5ZLp67UqyTbNFJJ3unVxZ8iX3g1fMN79S1JQ==}
     dependencies:
       '@codemirror/state': 6.2.0
-      '@codemirror/view': 6.9.3
+      '@codemirror/view': 6.9.4
       crelt: 1.0.5
     dev: false
 
   /@codemirror/state@6.2.0:
     resolution: {integrity: sha512-69QXtcrsc3RYtOtd+GsvczJ319udtBf1PTrr2KbLWM/e2CXUPnh0Nz9AUo8WfhSQ7GeL8dPVNUmhQVgpmuaNGA==}
 
-  /@codemirror/view@6.9.3:
-    resolution: {integrity: sha512-BJ5mvEIhFM+SrNwc5X8pLIvMM9ffjkviVbxpg84Xk2OE8ZyKaEbId8kX+nAYEEso7+qnbwsXe1bkAHsasebMow==}
+  /@codemirror/view@6.9.4:
+    resolution: {integrity: sha512-Ov2H9gwlGUxiH94zWxlLtTlyogSFaQDIYjtSEcfzgh7MkKmKVchkmr4JbtR5zBev3jY5DVtKvUC8yjd1bKW55A==}
     dependencies:
       '@codemirror/state': 6.2.0
       style-mod: 4.0.2
@@ -790,8 +791,8 @@ packages:
       strict-event-emitter: 0.4.6
     dev: false
 
-  /@codesandbox/sandpack-client@2.4.7:
-    resolution: {integrity: sha512-jULIbBBujShDCEXGKKjtcp5MHxuYi5uJpAwbVdOR7NKyDn6j7jCzDyeb1PywMiXuBXkzBHc9thWzan7n76cZNA==}
+  /@codesandbox/sandpack-client@2.6.0:
+    resolution: {integrity: sha512-JFCe+MU+5E+nXazrNK1uS/zLV5l4UNkYQx7AjF9sJ5ZmUlshz1HRDiK/Tdp6W+3ahcSERF3dcYPCf46LJF8Yvw==}
     dependencies:
       '@codesandbox/nodebox': 0.1.4
       buffer: 6.0.3
@@ -800,21 +801,21 @@ packages:
       static-browser-server: 1.0.3
     dev: false
 
-  /@codesandbox/sandpack-react@2.4.8(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Vk1LHGGl136+Y+QaD8qzeLR9/+z2QTHsd6tEnKvJft3Yt1J0FnDHTCQhiwHM01HuiYyneweilP+W/t9lh4ngRA==}
+  /@codesandbox/sandpack-react@2.6.0(@lezer/common@1.0.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-zSeJXzaVt96aIFfkyr+bMKBjV2k3hVcX+j1+aBRIOCpHhTrbszPesUmcE3yNTzGqqQfX/JnIJNRmeqFKmSLjTQ==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
     dependencies:
-      '@codemirror/autocomplete': 6.4.2(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
+      '@codemirror/autocomplete': 6.5.0(@codemirror/language@6.6.0)(@codemirror/state@6.2.0)(@codemirror/view@6.9.4)(@lezer/common@1.0.2)
       '@codemirror/commands': 6.2.2
-      '@codemirror/lang-css': 6.1.1(@codemirror/view@6.9.3)(@lezer/common@1.0.2)
+      '@codemirror/lang-css': 6.1.1(@codemirror/view@6.9.4)(@lezer/common@1.0.2)
       '@codemirror/lang-html': 6.4.3
-      '@codemirror/lang-javascript': 6.1.5
+      '@codemirror/lang-javascript': 6.1.6
       '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
-      '@codemirror/view': 6.9.3
-      '@codesandbox/sandpack-client': 2.4.7
+      '@codemirror/view': 6.9.4
+      '@codesandbox/sandpack-client': 2.6.0
       '@lezer/highlight': 1.1.4
       '@react-hook/intersection-observer': 3.1.1(react@18.2.0)
       '@stitches/core': 1.2.8
@@ -1309,8 +1310,8 @@ packages:
       '@hapi/hoek': 9.3.0
     dev: true
 
-  /@headlessui/react@1.7.13(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-9n+EQKRtD9266xIHXdY5MfiXPDfYwl7zBM7KOx2Ae3Gdgxy8QML1FkCMjq6AsOf0l6N9uvI4HcFtuFlenaldKg==}
+  /@headlessui/react@1.7.14(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-znzdq9PG8rkwcu9oQ2FwIy0ZFtP9Z7ycS+BAqJ3R5EIqC/0bJGvhT7193rFf+45i9nnPsYvCQVW4V/bB9Xc+gA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
@@ -1509,13 +1510,13 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@playwright/test@1.32.2:
-    resolution: {integrity: sha512-nhaTSDpEdTTttdkDE8Z6K3icuG1DVRxrl98Qq0Lfc63SS9a2sjc9+x8ezysh7MzCKz6Y+nArml3/mmt+gqRmQQ==}
+  /@playwright/test@1.32.3:
+    resolution: {integrity: sha512-BvWNvK0RfBriindxhLVabi8BRe3X0J9EVjKlcmhxjg4giWBD/xleLcg2dz7Tx0agu28rczjNIPQWznwzDwVsZQ==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
       '@types/node': 18.15.11
-      playwright-core: 1.32.2
+      playwright-core: 1.32.3
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -1726,7 +1727,7 @@ packages:
   /@types/hoist-non-react-statics@3.3.1:
     resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
     dependencies:
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
       hoist-non-react-statics: 3.3.2
     dev: true
 
@@ -1783,17 +1784,17 @@ packages:
   /@types/react-dom@18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
     dev: true
 
   /@types/react-helmet@6.1.6:
     resolution: {integrity: sha512-ZKcoOdW/Tg+kiUbkFCBtvDw0k3nD4HJ/h/B9yWxN4uDO8OkRksWTO+EL+z/Qu3aHTeTll3Ro0Cc/8UhwBCMG5A==}
     dependencies:
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
     dev: true
 
-  /@types/react@18.0.34:
-    resolution: {integrity: sha512-NO1UO8941541CJl1BeOXi8a9dNKFK09Gnru5ZJqkm4Q3/WoQJtHvmwt0VX0SB9YCEwe7TfSSxDuaNmx6H2BAIQ==}
+  /@types/react@18.0.35:
+    resolution: {integrity: sha512-6Laome31HpetaIUGFWl1VQ3mdSImwxtFZ39rh059a1MNnKGqBpC88J6NJ8n/Is3Qx7CefDGLgf/KhN/sYCf7ag==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -2043,8 +2044,8 @@ packages:
       zod: 3.21.4
     dev: false
 
-  /astro@2.2.1(sass@1.61.0):
-    resolution: {integrity: sha512-yYPRzh3su38bi3VBCKmYAUBkQSaFQMKFsu8JAVDzFRoGLbskJ/6JkDX2abSB9/iRug8GAKaH/FWxXOTzIsSQ7Q==}
+  /astro@2.2.3(sass@1.62.0):
+    resolution: {integrity: sha512-Pd67ZBoYxqeyHCZ0UpdmDZYNgcs7JTwc0NMzUScrH4y2hjSY4S8iwmNUtd9pf65gkxMpEbqfvQj06kLzgi4HZg==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
     peerDependencies:
@@ -2055,7 +2056,7 @@ packages:
     dependencies:
       '@astrojs/compiler': 1.3.1
       '@astrojs/language-server': 0.28.3
-      '@astrojs/markdown-remark': 2.1.3(astro@2.2.1)
+      '@astrojs/markdown-remark': 2.1.3(astro@2.2.3)
       '@astrojs/telemetry': 2.1.0
       '@astrojs/webapi': 2.1.0
       '@babel/core': 7.21.4
@@ -2091,7 +2092,7 @@ packages:
       preferred-pm: 3.0.3
       prompts: 2.4.2
       rehype: 12.0.1
-      semver: 7.3.8
+      semver: 7.4.0
       server-destroy: 1.0.1
       shiki: 0.11.1
       slash: 4.0.0
@@ -2102,7 +2103,7 @@ packages:
       typescript: 5.0.4
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.2.1(sass@1.61.0)
+      vite: 4.2.1(sass@1.62.0)
       vitefu: 0.2.4(vite@4.2.1)
       yargs-parser: 21.1.1
       zod: 3.21.4
@@ -2528,8 +2529,8 @@ packages:
     resolution: {integrity: sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==}
     dev: true
 
-  /compute-scroll-into-view@3.0.2:
-    resolution: {integrity: sha512-UCXenIpZspASrI2Jsk/eUoa7zpFaD20xIqnC85c1rRIBVS3mOzPKF72QPZYmtcw24ZGqtyiFceBN/JKKVV4ALg==}
+  /compute-scroll-into-view@3.0.3:
+    resolution: {integrity: sha512-nadqwNxghAGTamwIqQSG433W6OADZx2vCo3UXHNrzTRHK/htu+7+L0zhjEoaeaQVNAi3YgqWDv8+tzf0hRfR+A==}
     dev: false
 
   /concat-map@0.0.1:
@@ -2718,14 +2719,14 @@ packages:
     resolution: {integrity: sha512-n94yQo4LI3w7erwf84mhRUkUJfhLoCZiLyoOZ/QFsDbcWNZePrLwbQpvZBUG2TNxwV3VjCKPxkiiQA6pe3TrTA==}
     dev: true
 
-  /dexie-react-hooks@1.1.3(@types/react@18.0.34)(dexie@3.2.3)(react@18.2.0):
+  /dexie-react-hooks@1.1.3(@types/react@18.0.35)(dexie@3.2.3)(react@18.2.0):
     resolution: {integrity: sha512-bXXE1gfYtfuVYTNiOlyam+YVaO8KaqacgRuxFuP37YtpS6o/jxT6KOl5h+hhqY36s0UavlHWbL+HWJFMcQumIg==}
     peerDependencies:
       '@types/react': '>=16'
       dexie: '>=3.1.0-alpha.1 <5.0.0'
       react: '>=16'
     dependencies:
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
       dexie: 3.2.3
       react: 18.2.0
     dev: false
@@ -3898,6 +3899,12 @@ packages:
 
   /is-core-module@2.11.0:
     resolution: {integrity: sha512-RRjxlvLDkD1YJwDbroBHMb+cukurkDWNyHx7D3oNB5x9rb5ogcksMC5wHCadcXoo67gVr/+3GFySh3134zi6rw==}
+    dependencies:
+      has: 1.0.3
+    dev: true
+
+  /is-core-module@2.12.0:
+    resolution: {integrity: sha512-RECHCBCd/viahWmwj6enj19sKbHfJrddi/6cBDsNTKbNq0f7VeaUkBo60BqzvPqo/W54ChS62Z5qyun7cfOMqQ==}
     dependencies:
       has: 1.0.3
     dev: true
@@ -5256,19 +5263,19 @@ packages:
       find-up: 4.1.0
     dev: true
 
-  /playwright-core@1.32.2:
-    resolution: {integrity: sha512-zD7aonO+07kOTthsrCR3YCVnDcqSHIJpdFUtZEMOb6//1Rc7/6mZDRdw+nlzcQiQltOOsiqI3rrSyn/SlyjnJQ==}
+  /playwright-core@1.32.3:
+    resolution: {integrity: sha512-SB+cdrnu74ZIn5Ogh/8278ngEh9NEEV0vR4sJFmK04h2iZpybfbqBY0bX6+BLYWVdV12JLLI+JEFtSnYgR+mWg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
 
-  /playwright@1.32.2:
-    resolution: {integrity: sha512-jHVnXJke0PXpuPszKtk9y1zZSlzO5+2a+aockT/AND0oeXx46FiJEFrafthurglLygVZA+1gEbtUM1C7qtTV+Q==}
+  /playwright@1.32.3:
+    resolution: {integrity: sha512-h/ylpgoj6l/EjkfUDyx8cdOlfzC96itPpPe8BXacFkqpw/YsuxkpPyVbzEq4jw+bAJh5FLgh31Ljg2cR6HV3uw==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      playwright-core: 1.32.2
+      playwright-core: 1.32.3
     dev: true
 
   /postcss-import@14.1.0(postcss@8.4.21):
@@ -5581,7 +5588,7 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: true
 
-  /react-redux@8.0.5(@types/react-dom@18.0.11)(@types/react@18.0.34)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
+  /react-redux@8.0.5(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1):
     resolution: {integrity: sha512-Q2f6fCKxPFpkXt1qNRZdEDLlScsDWyrgSj0mliK59qU6W5gvBiKkdMEG2lJzhd1rCctf0hb6EtePPLZ2e0m1uw==}
     peerDependencies:
       '@types/react': ^16.8 || ^17.0 || ^18.0
@@ -5604,7 +5611,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.20.13
       '@types/hoist-non-react-statics': 3.3.1
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
       '@types/react-dom': 18.0.11
       '@types/use-sync-external-store': 0.0.3
       hoist-non-react-statics: 3.3.2
@@ -5848,7 +5855,7 @@ packages:
     resolution: {integrity: sha512-Sb+mjNHOULsBv818T40qSPeRiuWLyaGMa5ewydRLFimneixmVy2zdivRl+AF6jaYPC8ERxGDmFSiqui6SfPd+g==}
     hasBin: true
     dependencies:
-      is-core-module: 2.11.0
+      is-core-module: 2.12.0
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
     dev: true
@@ -5969,8 +5976,8 @@ packages:
       suf-log: 2.5.3
     dev: true
 
-  /sass@1.61.0:
-    resolution: {integrity: sha512-PDsN7BrVkNZK2+dj/dpKQAWZavbAQ87IXqVvw2+oEYI+GwlTWkvbQtL7F2cCNbMqJEYKPh1EcjSxsnqIb/kyaQ==}
+  /sass@1.62.0:
+    resolution: {integrity: sha512-Q4USplo4pLYgCi+XlipZCWUQz5pkg/ruSSgJ0WRDSb/+3z9tXUOkQ7QPYn4XrhZKYAK4HlpaQecRwKLJX6+DBg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -5988,10 +5995,10 @@ packages:
     dependencies:
       loose-envify: 1.4.0
 
-  /scroll-into-view-if-needed@3.0.9:
-    resolution: {integrity: sha512-El9s4RTy0DVX4sBHSt2BnyXVw40zQ7V7jG3NDWoLdTWlrEnc7RCjajwQy+ufd/ptGmY2zxh2l7Y1o8nq0CAovQ==}
+  /scroll-into-view-if-needed@3.0.10:
+    resolution: {integrity: sha512-t44QCeDKAPf1mtQH3fYpWz8IM/DyvHLjs8wUvvwMYxk5moOqCzrMSxK6HQVD0QVmVjXFavoFIPRVrMuJPKAvtg==}
     dependencies:
-      compute-scroll-into-view: 3.0.2
+      compute-scroll-into-view: 3.0.3
     dev: false
 
   /section-matter@1.0.0:
@@ -6017,6 +6024,15 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
+    dev: false
+
+  /semver@7.4.0:
+    resolution: {integrity: sha512-RgOxM8Mw+7Zus0+zcLEUn8+JfoLpj/huFTItQy2hsM4khuC1HYRDp0cU482Ewn/Fcy6bCjufD8vAj7voC66KQw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
 
   /server-destroy@1.0.1:
     resolution: {integrity: sha512-rb+9B5YBIEzYcD6x2VKidaa+cqYBJQKnU4oe4E3ANwRRN56yk/ua1YCJT1n21NTS8w6CcOclAKNP3PhdCXKYtQ==}
@@ -6870,7 +6886,7 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite@4.2.1(sass@1.61.0):
+  /vite@4.2.1(sass@1.62.0):
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6899,7 +6915,7 @@ packages:
       postcss: 8.4.21
       resolve: 1.22.2
       rollup: 3.20.2
-      sass: 1.61.0
+      sass: 1.62.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -6912,7 +6928,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.2.1(sass@1.61.0)
+      vite: 4.2.1(sass@1.62.0)
     dev: true
 
   /vm2@3.9.14:
