@@ -13,6 +13,9 @@ module.exports = {
       width: {
         'square-diagonal': `${(Math.sqrt(2) * 100).toFixed(2)}%`,
       },
+      fontFamily: {
+        handwrite: ['"EduNSWACTFoundation"', '"Brush Script MT"', 'cursive'],
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {

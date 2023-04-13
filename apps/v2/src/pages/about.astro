@@ -9,12 +9,15 @@ import portraitImage from '../assets/portrait.jpg';
 import { Image } from 'astro:assets';
 
 const title = 'Malcolm Kee - Web developer, front end engineer';
-const description = `UI Builder and Tool Creator`;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} permalink={Astro.url.toString()} />
+    <BaseHead
+      title={title}
+      description="UI Builder and Tool Creator"
+      permalink={Astro.url.toString()}
+    />
   </head>
 
   <body>
@@ -36,8 +39,8 @@ const description = `UI Builder and Tool Creator`;
             </div>
           </div>
           <div class="lg:order-first lg:row-span-2">
-            <h1 class="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl">
-              {description}
+            <h1 class="font-handwrite text-5xl sm:text-6xl font-bold tracking-tight text-zinc-800">
+              UI builder and <br />tool creator
             </h1>
             <div class="mt-6 space-y-7 text-base text-zinc-600">
               <p>
