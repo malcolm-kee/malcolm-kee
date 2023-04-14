@@ -9,11 +9,12 @@
     "preview": "astro preview",
     "format": "prettier --write \"src/**/*.{astro,js,jsx,ts,tsx,json,md,mdx}\"",
     "generate-cv": "tsx scripts/generate-cv.ts",
-    "extract-deps": "tsx plugin/deps-extraction.ts"
+    "extract-deps": "tsx plugin/deps-extraction.ts",
+    "test": "vitest"
   },
   "devDependencies": {
-    "@astrojs/markdown-remark": "^2.1.3",
-    "@astrojs/mdx": "^0.18.4",
+    "@astrojs/markdown-remark": "^2.1.4",
+    "@astrojs/mdx": "^0.19.0",
     "@astrojs/netlify": "^2.2.2",
     "@astrojs/partytown": "^1.2.0",
     "@astrojs/react": "^2.1.1",
@@ -32,8 +33,8 @@
     "@types/react-helmet": "^6.1.6",
     "@types/serviceworker": "^0.0.67",
     "@types/tinycolor2": "^1.4.3",
-    "astro": "2.2.3",
-    "cloudinary": "^1.35.0",
+    "astro": "2.3.0",
+    "cloudinary": "^1.36.1",
     "dotenv": "^16.0.3",
     "es-module-lexer": "^1.2.1",
     "esbuild": "^0.17.16",
@@ -58,7 +59,8 @@
     "typescript": "^5.0.4",
     "undici": "^5.21.2",
     "unified": "^10.1.2",
-    "unist-util-visit": "^4.1.2"
+    "unist-util-visit": "^4.1.2",
+    "vitest": "^0.30.1"
   },
   "dependencies": {
     "@astrojs/rss": "^2.3.2",
