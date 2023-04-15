@@ -4,7 +4,9 @@ import { init as initLexer, parse } from 'es-module-lexer';
 
 import { ExerciseBox } from './ExerciseBox';
 
-const modules = import.meta.glob('../exercise/**/*.js', { as: 'raw' });
+const modules = import.meta.glob('../exercise/**/*.js', {
+  as: 'raw',
+}) as Record<string, () => Promise<string>>;
 
 interface Props {
   moduleName: string;
