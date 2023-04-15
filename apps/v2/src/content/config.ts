@@ -21,6 +21,11 @@ export const collections = {
       section: z.string().optional(),
     }),
   }),
+  practice: defineCollection({
+    schema: z.object({
+      title: z.string(),
+    }),
+  }),
   blog: defineCollection({
     schema: z
       .object({

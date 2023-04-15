@@ -1,0 +1,102 @@
+---
+import path from 'node:path';
+import { init as initLexer, parse } from 'es-module-lexer';
+
+import { ExerciseBox } from './ExerciseBox';
+
+const modules = import.meta.glob('../exercise/**/*.js', { as: 'raw' });
+
+interface Props {
+  moduleName: string;
+  group: string;
+}
+
+const { moduleName, group } = Astro.props;
+
+const applicableModules = new Map<string, () => Promise<string>>();
+for (const [modulePath, getModuleContent] of Object.entries(modules)) {
+  const relativePath = path.relative(path.resolve('../exercise', moduleName, group), modulePath);
+  if (!relativePath.startsWith('..')) {
+    applicableModules.set(relativePath, getModuleContent);
+  }
+}
+
+async function groupModules(modules: Map<string, () => Promise<string>>) {
+  const questionModule = new Map<string, [() => Promise<string>, string]>();
+  const solutionModule = new Map<string, () => Promise<string>>();
+  const testModule = new Map<string, () => Promise<string>>();
+
+  modules.forEach((getModule, key) => {
+    const solutionMatch = key.match(/(.+)\.solution\.([j|t]sx?)$/);
+
+    if (solutionMatch) {
+      solutionModule.set(`${solutionMatch[1]}.${solutionMatch[2]}`, getModule);
+      return;
+    }
+    const testMatch = key.match(/(.+)\.(?:spec|test)\.([j|t]sx?)$/);
+
+    if (testMatch) {
+      testModule.set(`${testMatch[1]}.${testMatch[2]}`, getModule);
+      return;
+    }
+
+    const questionMatch = key.match(/(.+)\.([j|t]sx?)$/);
+
+    if (questionMatch) {
+      questionModule.set(`${questionMatch[1]}.${questionMatch[2]}`, [getModule, questionMatch[2]]);
+    }
+  });
+
+  const result = new Map<
+    string,
+    {
+      question: string;
+      test: string;
+      solution: string;
+      extension: string;
+    }
+  >();
+
+  await initLexer;
+
+  for (const [key, [getQuestion, extension]] of questionModule) {
+    const getTest = testModule.get(key);
+    const getSolution = solutionModule.get(key);
+
+    if (getSolution && getTest) {
+      let [question, test, solution] = await Promise.all([getQuestion(), getTest(), getSolution()]);
+
+      const [imports] = parse(test);
+
+      imports.forEach((importSpecifier) => {
+        if (importSpecifier.n && importSpecifier.n.includes('.solution')) {
+          test = `${test.slice(0, importSpecifier.s)}${'./index'}${test.slice(importSpecifier.e)}`;
+        }
+      });
+
+      result.set(key, {
+        question,
+        test,
+        solution,
+        extension,
+      });
+    }
+  }
+
+  return result;
+}
+
+const questionGroup = await groupModules(applicableModules);
+
+const exercises = [...questionGroup];
+---
+
+<section>
+  <div class="flex flex-col gap-10">
+    {
+      exercises.map(([, exercise], index) => (
+        <ExerciseBox exercise={exercise} heading={`Exercise ${index + 1}`} client:visible />
+      ))
+    }
+  </div>
+</section>

@@ -605,6 +605,22 @@ declare module 'astro:content' {
   data: InferEntrySchema<"note">
 } & { render(): Render[".mdx"] },
 },
+"practice": {
+"becoming-js-data-wrangler/for-loop-filtering.mdx": {
+  id: "becoming-js-data-wrangler/for-loop-filtering.mdx",
+  slug: "becoming-js-data-wrangler/for-loop-filtering",
+  body: string,
+  collection: "practice",
+  data: InferEntrySchema<"practice">
+} & { render(): Render[".mdx"] },
+"becoming-js-data-wrangler/for-loop-transforming.mdx": {
+  id: "becoming-js-data-wrangler/for-loop-transforming.mdx",
+  slug: "becoming-js-data-wrangler/for-loop-transforming",
+  body: string,
+  collection: "practice",
+  data: InferEntrySchema<"practice">
+} & { render(): Render[".mdx"] },
+},
 "today-i-learnt": {
 "ambient-means-no-implementation.md": {
   id: "ambient-means-no-implementation.md",
