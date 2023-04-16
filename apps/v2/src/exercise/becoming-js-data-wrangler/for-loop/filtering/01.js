@@ -1,12 +1,12 @@
 /**
- * Given an array of number (data parameter), and a number (num parameter),
- * returns all the indexes of the num in the data.
+ * Given an array of number,
+ * returns all the positive numbers
  *
  * Examples:
- * - data: [2,3,2,6], num: 2 -> [0,2]
- * - data: [5,3,1], num: 6 -> []
- * - data: [7,7,7], num: 7 -> [0,1,2]
+ * - data: [2,-3,4,-6] -> [2,4]
+ * - data: [-2,0,-20,-300] -> []
+ * - data: [12,4,3] -> [12,4,3]
  */
-export default function getPositions(data, num) {
+export default function positiveOnly(data) {
   // TODO
 }

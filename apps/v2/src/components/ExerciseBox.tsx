@@ -1,11 +1,7 @@
-import {
-  SandpackCodeEditor,
-  SandpackLayout,
-  SandpackProvider,
-  SandpackTests,
-} from '@codesandbox/sandpack-react';
-import * as React from 'react';
+import { SandpackCodeEditor, SandpackProvider, SandpackTests } from '@codesandbox/sandpack-react';
+import { nightOwl } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';
+import * as React from 'react';
 import { ChevronLeftIcon, LightBulbIcon } from './icons';
 
 export interface ExerciseBoxProps {
@@ -52,27 +48,32 @@ export const ExerciseBox = ({ exercise, heading }: ExerciseBoxProps) => {
     return (
       <div>
         {headingNode}
-        <SandpackProvider
-          template={templateByLanguage[extension]}
-          files={{
-            [files.entry]: showAnswer
-              ? { code: exercise.solution, readOnly: true }
-              : exercise.question,
-            [files.test]: { code: exercise.test, readOnly: true },
-          }}
-        >
-          <SandpackLayout>
+        <div className="overflow-hidden rounded-xl border border-gray-100 dark:border-zinc-600">
+          <SandpackProvider
+            template={templateByLanguage[extension]}
+            files={{
+              [files.entry]: showAnswer
+                ? { code: exercise.solution, readOnly: true }
+                : exercise.question,
+              [files.test]: { code: exercise.test, readOnly: true },
+            }}
+            {...(showAnswer ? { theme: nightOwl } : {})}
+          >
             <SandpackCodeEditor showLineNumbers showTabs={!showAnswer} />
-            <div className={clsx('flex-1 h-[--sp-layout-height]', showAnswer && 'hidden')}>
+            <div
+              className={clsx(
+                'border-t border-gray-100 dark:border-zinc-600',
+                showAnswer && 'hidden'
+              )}
+            >
               <SandpackTests
                 hideTestsAndSupressLogs
                 showVerboseButton={false}
                 showWatchButton={false}
-                className="h-full"
               />
             </div>
-          </SandpackLayout>
-        </SandpackProvider>
+          </SandpackProvider>
+        </div>
       </div>
     );
   }

@@ -1,15 +1,13 @@
-import excludeUndefined from './04.solution';
+import getPositions from './04.solution';
 
-test(`excludeUndefined([1,3,undefined,0,12] -> [1,3,0,12]`, () => {
-  expect(excludeUndefined([1, 3, undefined, 0, 12])).toStrictEqual([1, 3, 0, 12]);
+test('getPositions([2,3,2,6], 2) -> [0,2]', () => {
+  expect(getPositions([2, 3, 2, 6], 2)).toStrictEqual([0, 2]);
 });
-test(`excludeUndefined([undefined, 'Pika', 'Charm', undefined, ''] -> ['Pika', 'Charm', '']`, () => {
-  expect(excludeUndefined([undefined, 'Pika', 'Charm', undefined, ''])).toStrictEqual([
-    'Pika',
-    'Charm',
-    '',
-  ]);
+
+test('getPositions([5,3,1], 6) -> []', () => {
+  expect(getPositions([5, 3, 1], 6)).toStrictEqual([]);
 });
-test(`excludeUndefined([undefined, undefined] -> []`, () => {
-  expect(excludeUndefined([undefined, undefined])).toStrictEqual([]);
+
+test('getPositions([7,7,7], 7) -> [0,1,2]', () => {
+  expect(getPositions([7, 7, 7], 7)).toStrictEqual([0, 1, 2]);
 });

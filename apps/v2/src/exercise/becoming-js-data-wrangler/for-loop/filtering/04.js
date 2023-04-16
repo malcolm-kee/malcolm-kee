@@ -1,12 +1,12 @@
 /**
- * Given an array,
- * returns a new array with all the undefined item removed.
+ * Given an array of number (data parameter), and a number (num parameter),
+ * returns all the indexes of the num in the data.
  *
  * Examples:
- * - data: [1,3,undefined,0,12] -> [1,3,0,12]
- * - data: [undefined, 'Pika', 'Charm', undefined, ''] -> ['Pika', 'Charm', '']
- * - data: [undefined, undefined] -> []
+ * - data: [2,3,2,6], num: 2 -> [0,2]
+ * - data: [5,3,1], num: 6 -> []
+ * - data: [7,7,7], num: 7 -> [0,1,2]
  */
-export default function excludeUndefined(data) {
+export default function getPositions(data, num) {
   // TODO
 }

@@ -1,13 +1,15 @@
-import positiveOnly from './02.solution';
+import excludeUndefined from './02.solution';
 
-test('positiveOnly([2,-3,4,-6]) -> [2,4]', () => {
-  expect(positiveOnly([2, -3, 4, -6])).toStrictEqual([2, 4]);
+test(`excludeUndefined([1,3,undefined,0,12] -> [1,3,0,12]`, () => {
+  expect(excludeUndefined([1, 3, undefined, 0, 12])).toStrictEqual([1, 3, 0, 12]);
 });
-
-test('positiveOnly([-2,0,-20,-300]) -> []', () => {
-  expect(positiveOnly([-2, 0, -20, -300])).toStrictEqual([]);
+test(`excludeUndefined([undefined, 'Pika', 'Charm', undefined, ''] -> ['Pika', 'Charm', '']`, () => {
+  expect(excludeUndefined([undefined, 'Pika', 'Charm', undefined, ''])).toStrictEqual([
+    'Pika',
+    'Charm',
+    '',
+  ]);
 });
-
-test('positiveOnly([12,4,3]) -> [12,4,3]', () => {
-  expect(positiveOnly([12, 4, 3])).toStrictEqual([12, 4, 3]);
+test(`excludeUndefined([undefined, undefined] -> []`, () => {
+  expect(excludeUndefined([undefined, undefined])).toStrictEqual([]);
 });

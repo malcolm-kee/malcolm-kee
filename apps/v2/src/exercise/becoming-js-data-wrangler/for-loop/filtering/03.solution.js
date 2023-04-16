@@ -17,15 +17,6 @@ const dataset = [
   },
 ];
 
-/**
- * Given a number,
- * returns persons whose age larger than the number
- *
- * Examples:
- * - minAge: 40 -> [{ name: 'Richie', age: 50 }]
- * - minAge: 51 -> []
- * - minAge: 30 -> [{ name: 'Malcolm', age: 32 }, { name: 'Richie', age: 50 }]
- */
 export default function findOlderThan(minAge) {
   const result = [];
 

@@ -1,12 +1,12 @@
 /**
- * Given an array of number,
- * returns all the positive numbers
+ * Given an array,
+ * returns a new array with all the undefined item removed.
  *
  * Examples:
- * - data: [2,-3,4,-6] -> [2,4]
- * - data: [-2,0,-20,-300] -> []
- * - data: [12,4,3] -> [12,4,3]
+ * - data: [1,3,undefined,0,12] -> [1,3,0,12]
+ * - data: [undefined, 'Pika', 'Charm', undefined, ''] -> ['Pika', 'Charm', '']
+ * - data: [undefined, undefined] -> []
  */
-export default function positiveOnly(data) {
+export default function excludeUndefined(data) {
   // TODO
 }
