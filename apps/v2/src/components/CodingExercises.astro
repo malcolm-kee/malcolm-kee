@@ -90,14 +90,15 @@ async function groupModules(modules: Map<string, () => Promise<string>>) {
 
 const questionGroup = await groupModules(applicableModules);
 
-const exercises = [...questionGroup];
+const [firstExercise, ...exercises] = [...questionGroup];
 ---
 
 <section>
   <div class="flex flex-col gap-10">
+    {firstExercise && <ExerciseBox exercise={firstExercise[1]} heading="Exercise 1" client:load />}
     {
       exercises.map(([, exercise], index) => (
-        <ExerciseBox exercise={exercise} heading={`Exercise ${index + 1}`} client:visible />
+        <ExerciseBox exercise={exercise} heading={`Exercise ${index + 2}`} client:visible />
       ))
     }
   </div>

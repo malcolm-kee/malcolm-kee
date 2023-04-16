@@ -32,6 +32,6 @@ test('getPersonsSummary(newExamples)', () => {
   ).toStrictEqual(['Audrey']);
 });
 
-test('getPersonsSummary([])', () => {
+test('getPersonsSummary should handle empty array', () => {
   expect(getPersonsSummary([])).toStrictEqual([]);
 });
