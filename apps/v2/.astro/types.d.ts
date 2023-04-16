@@ -605,22 +605,6 @@ declare module 'astro:content' {
   data: InferEntrySchema<"note">
 } & { render(): Render[".mdx"] },
 },
-"practice": {
-"becoming-js-data-wrangler/for-loop-filtering.mdx": {
-  id: "becoming-js-data-wrangler/for-loop-filtering.mdx",
-  slug: "becoming-js-data-wrangler/for-loop-filtering",
-  body: string,
-  collection: "practice",
-  data: InferEntrySchema<"practice">
-} & { render(): Render[".mdx"] },
-"becoming-js-data-wrangler/for-loop-transforming.mdx": {
-  id: "becoming-js-data-wrangler/for-loop-transforming.mdx",
-  slug: "becoming-js-data-wrangler/for-loop-transforming",
-  body: string,
-  collection: "practice",
-  data: InferEntrySchema<"practice">
-} & { render(): Render[".mdx"] },
-},
 "today-i-learnt": {
 "ambient-means-no-implementation.md": {
   id: "ambient-means-no-implementation.md",
@@ -701,6 +685,27 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] },
 },
 "workshop": {
+"becoming-js-data-wrangler/01-introduction/introduction.mdx": {
+  id: "becoming-js-data-wrangler/01-introduction/introduction.mdx",
+  slug: "becoming-js-data-wrangler/01-introduction/introduction",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+} & { render(): Render[".mdx"] },
+"becoming-js-data-wrangler/02-for-loop/for-loop-filtering.mdx": {
+  id: "becoming-js-data-wrangler/02-for-loop/for-loop-filtering.mdx",
+  slug: "becoming-js-data-wrangler/02-for-loop/for-loop-filtering",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+} & { render(): Render[".mdx"] },
+"becoming-js-data-wrangler/02-for-loop/for-loop-transforming.mdx": {
+  id: "becoming-js-data-wrangler/02-for-loop/for-loop-transforming.mdx",
+  slug: "becoming-js-data-wrangler/02-for-loop/for-loop-transforming",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+} & { render(): Render[".mdx"] },
 "fast-site-with-gatsby-js/01-introduction/introduction.mdx": {
   id: "fast-site-with-gatsby-js/01-introduction/introduction.mdx",
   slug: "fast-site-with-gatsby-js/01-introduction/introduction",

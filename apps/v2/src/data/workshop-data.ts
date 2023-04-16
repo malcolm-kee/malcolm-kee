@@ -9,11 +9,18 @@ export type WorkshopMetadata = {
 };
 
 const workshopMetadadata = {
+  'becoming-js-data-wrangler': {
+    name: 'Becoming a JavaScript Data Wrangler',
+    themeColor: 'F2C94C',
+    description: 'Learn how to wrangler raw data so you can use them effectively',
+    iconUrl:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/v1681627277/malcolm-kee/becoming-js-data-wrangler_uhuwnc.png',
+    underConstruction: true,
+  },
   'react-testing': {
     name: 'Testing React Applications',
     themeColor: 'F2C94C',
-    description:
-      'Learn the principles of maintainable tests and how to write them',
+    description: 'Learn the principles of maintainable tests and how to write them',
     iconUrl:
       'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311128/malcolm-kee/react-test_g3guac.png',
     underConstruction: true,
@@ -21,8 +28,7 @@ const workshopMetadadata = {
   'typescript-for-react-developer': {
     name: 'TypeScript for React Developer',
     themeColor: '294E80',
-    description:
-      'Learn the Typescript fundamentals to make your React codebase more maintainable',
+    description: 'Learn the Typescript fundamentals to make your React codebase more maintainable',
     iconUrl:
       'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311145/malcolm-kee/react-typescript_ielgk1.png',
   },
@@ -47,8 +53,7 @@ const workshopMetadadata = {
     themeColor: 'b71c1c',
     iconUrl:
       'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311261/malcolm-kee/toolbox_ptngdy.png',
-    description:
-      'Learn the tools that will make you productive as a Web Developer',
+    description: 'Learn the tools that will make you productive as a Web Developer',
   },
   'intro-to-react-js-v2': {
     name: 'Introduction to React v2',
@@ -71,8 +76,7 @@ const workshopMetadadata = {
     themeColor: 'D2CC4E',
     iconUrl:
       'https://res.cloudinary.com/djzsjzasg/image/upload/v1674311244/malcolm-kee/react-palettes_fkq9yu.png',
-    description:
-      'Learn the common practices of writing React components and React hooks.',
+    description: 'Learn the common practices of writing React components and React hooks.',
     entryUrl: 'https://react-component-lib.netlify.com/',
   },
   'intro-to-web-dev': {
@@ -91,6 +95,7 @@ const workshopMetadadata = {
 export type WorkshopSlug = keyof typeof workshopMetadadata;
 
 export const workshopSlugs: ReadonlyArray<WorkshopSlug> = [
+  'becoming-js-data-wrangler',
   'react-testing',
   'typescript-for-react-developer',
   'fast-site-with-gatsby-js',
@@ -109,10 +114,7 @@ const workshopMap = new Map<WorkshopSlug, WorkshopMetadata>(
       slug,
       {
         ...data,
-        smallIconUrl: data.iconUrl.replace(
-          /\/image\/upload\//g,
-          '$&h_16,w_16/'
-        ),
+        smallIconUrl: data.iconUrl.replace(/\/image\/upload\//g, '$&h_16,w_16/'),
       },
     ];
   })
