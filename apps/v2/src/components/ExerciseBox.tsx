@@ -1,8 +1,9 @@
 import { SandpackCodeEditor, SandpackProvider, SandpackTests } from '@codesandbox/sandpack-react';
-import { nightOwl } from '@codesandbox/sandpack-themes';
+import { githubLight, nightOwl } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { ChevronLeftIcon, LightBulbIcon } from './icons';
+import { useThemeValue } from '~/hooks/use-theme';
 
 export interface ExerciseBoxProps {
   exercise: {
@@ -18,6 +19,22 @@ export const ExerciseBox = ({ exercise, heading }: ExerciseBoxProps) => {
   const { extension } = exercise;
 
   const [showAnswer, toggleShowAnswer] = React.useReducer((x) => !x, false);
+
+  const siteTheme = useThemeValue();
+
+  const codeThemes = React.useMemo(() => {
+    if (siteTheme === 'dark') {
+      return {
+        primary: nightOwl,
+        secondary: githubLight,
+      };
+    }
+
+    return {
+      primary: githubLight,
+      secondary: nightOwl,
+    };
+  }, [siteTheme]);
 
   const headingNode = (
     <div className="flex justify-between items-center py-1">
@@ -57,9 +74,10 @@ export const ExerciseBox = ({ exercise, heading }: ExerciseBoxProps) => {
                 : exercise.question,
               [files.test]: { code: exercise.test, readOnly: true },
             }}
-            {...(showAnswer ? { theme: nightOwl } : {})}
+            theme={showAnswer ? codeThemes.secondary : codeThemes.primary}
+            key={showAnswer ? 'solution' : 'problem'}
           >
-            <SandpackCodeEditor showLineNumbers showTabs={!showAnswer} />
+            <SandpackCodeEditor showLineNumbers showTabs={!showAnswer} initMode="user-visible" />
             <div
               className={clsx(
                 'border-t border-gray-100 dark:border-zinc-600',
