@@ -1,13 +1,21 @@
 ---
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { init as initLexer, parse } from 'es-module-lexer';
 import MarkdownIt from 'markdown-it';
-import path from 'node:path';
+import { markdownItShikiTwoslashSetup } from 'markdown-it-shiki-twoslash';
 import { Node, Project } from 'ts-morph';
 
-import { fileURLToPath } from 'node:url';
 import { ExerciseBox } from './ExerciseBox';
 
 const markdownParser = new MarkdownIt();
+
+const shiki = await markdownItShikiTwoslashSetup({
+  theme: 'nord', // for some reason when providing multiple themes it throws error
+});
+
+markdownParser.use(shiki);
 
 const modules = import.meta.glob('../exercise/**/*.js', {
   as: 'raw',
