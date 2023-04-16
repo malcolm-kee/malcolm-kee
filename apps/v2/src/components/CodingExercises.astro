@@ -1,8 +1,13 @@
 ---
-import path from 'node:path';
 import { init as initLexer, parse } from 'es-module-lexer';
+import MarkdownIt from 'markdown-it';
+import path from 'node:path';
+import { Node, Project } from 'ts-morph';
 
+import { fileURLToPath } from 'node:url';
 import { ExerciseBox } from './ExerciseBox';
+
+const markdownParser = new MarkdownIt();
 
 const modules = import.meta.glob('../exercise/**/*.js', {
   as: 'raw',
@@ -56,6 +61,7 @@ async function groupModules(modules: Map<string, () => Promise<string>>) {
       test: string;
       solution: string;
       extension: string;
+      docs: string;
     }
   >();
 
@@ -76,11 +82,46 @@ async function groupModules(modules: Map<string, () => Promise<string>>) {
         }
       });
 
+      const project = new Project({
+        compilerOptions: {
+          allowJs: true,
+        },
+      });
+
+      const source = project.createSourceFile(
+        path.resolve(fileURLToPath(import.meta.url), '..', `problem.${extension}`),
+        question
+      );
+
+      const defaultExportedSymbol = source.getDefaultExportSymbol();
+
+      let docs = '';
+
+      if (defaultExportedSymbol) {
+        const declarations = defaultExportedSymbol.getDeclarations();
+
+        declarations.forEach((declaration) => {
+          if (Node.isFunctionDeclaration(declaration)) {
+            const jsDocs = declaration.getJsDocs();
+
+            jsDocs.forEach((doc) => {
+              const commentText = doc.getCommentText();
+
+              if (commentText) {
+                docs += `${commentText}\r\n`;
+                question = question.substring(0, doc.getPos()) + question.substring(doc.getEnd());
+              }
+            });
+          }
+        });
+      }
+
       result.set(key, {
-        question,
+        question: question.trim(),
         test,
         solution,
         extension,
+        docs: docs && markdownParser.render(docs),
       });
     }
   }

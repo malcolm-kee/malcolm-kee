@@ -11,11 +11,17 @@ export interface ExerciseBoxProps {
     test: string;
     solution: string;
     extension: string;
+    docs: string;
   };
   heading: string;
+  headingTag?: 'h2' | 'h3' | 'h4';
 }
 
-export const ExerciseBox = ({ exercise, heading }: ExerciseBoxProps) => {
+export const ExerciseBox = ({
+  exercise,
+  heading,
+  headingTag: Heading = 'h2',
+}: ExerciseBoxProps) => {
   const { extension } = exercise;
 
   const [showAnswer, toggleShowAnswer] = React.useReducer((x) => !x, false);
@@ -37,8 +43,7 @@ export const ExerciseBox = ({ exercise, heading }: ExerciseBoxProps) => {
   }, [siteTheme]);
 
   const headingNode = (
-    <div className="flex justify-between items-center py-1">
-      <div>{heading}</div>
+    <div className="flex justify-end items-center py-1">
       <button
         className="inline-flex items-center gap-1 px-3 py-1 text-sm rounded shadow active:shadow-inner"
         type="button"
@@ -64,6 +69,8 @@ export const ExerciseBox = ({ exercise, heading }: ExerciseBoxProps) => {
 
     return (
       <div>
+        <Heading>{heading}</Heading>
+        {exercise.docs && <div dangerouslySetInnerHTML={{ __html: exercise.docs }} />}
         {headingNode}
         <div className="overflow-hidden rounded-xl border border-gray-100 dark:border-zinc-600">
           <SandpackProvider
@@ -98,6 +105,8 @@ export const ExerciseBox = ({ exercise, heading }: ExerciseBoxProps) => {
 
   return (
     <div>
+      <Heading>{heading}</Heading>
+      {exercise.docs && <div dangerouslySetInnerHTML={{ __html: exercise.docs }} />}
       {headingNode}
       <pre>{exercise.question}</pre>
       <pre>{exercise.test}</pre>
