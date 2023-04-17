@@ -7,6 +7,7 @@ import MarkdownIt from 'markdown-it';
 import { markdownItShikiTwoslashSetup } from 'markdown-it-shiki-twoslash';
 import { Node, Project } from 'ts-morph';
 
+import { ChevronLeftIcon, ChevronRightIcon } from './icons';
 import { ExerciseBox } from './ExerciseBox';
 
 const markdownParser = new MarkdownIt();
@@ -142,13 +143,169 @@ const questionGroup = await groupModules(applicableModules);
 const [firstExercise, ...exercises] = [...questionGroup];
 ---
 
-<section>
+<section class="CodingExercises border-t border-gray-100 dark:border-zinc-600">
+  <script is:inline>
+    var savedMode =
+      localStorage.getItem('exerciseMode') ||
+      (URLSearchParams && new URLSearchParams(location.search).get('exerciseStep') && 'step');
+    var mode = savedMode === 'step' ? 'step' : 'all';
+    document.querySelectorAll('.CodingExercises').forEach(function (section) {
+      section.dataset.exerciseMode = mode;
+    });
+  </script>
+  <div class="flex justify-between items-center pt-2">
+    <div class="flex gap-3">
+      <button
+        type="button"
+        class="ShowAllButton button px-3 py-1 sm:text-sm rounded-2xl transition border border-current"
+        >Show all</button
+      >
+      <button
+        type="button"
+        class="StepByStepButton button px-3 py-1 sm:text-sm rounded-2xl transition border border-current"
+        >Step-by-step</button
+      >
+    </div>
+    <nav aria-label="exercise navigation" class="gap-3 hidden">
+      <button type="button" aria-label="Previous exercise" class="PrevExerciseButton">
+        <ChevronLeftIcon width={20} height={20} />
+      </button>
+      <button type="button" aria-label="Next exercise" class="NextExerciseButton">
+        <ChevronRightIcon width={20} height={20} />
+      </button>
+    </nav>
+  </div>
   <div class="flex flex-col gap-10">
-    {firstExercise && <ExerciseBox exercise={firstExercise[1]} heading="Exercise 1" client:load />}
+    {
+      firstExercise && (
+        <div class="Exercise">
+          <ExerciseBox exercise={firstExercise[1]} heading="Exercise 1" client:load />
+        </div>
+      )
+    }
     {
       exercises.map(([, exercise], index) => (
-        <ExerciseBox exercise={exercise} heading={`Exercise ${index + 2}`} client:visible />
+        <div class="Exercise">
+          <ExerciseBox exercise={exercise} heading={`Exercise ${index + 2}`} client:visible />
+        </div>
       ))
     }
   </div>
+  <div class="ExerciseBottomNavigation hidden pt-3">
+    <nav aria-label="exercise bottom navigation" class="flex justify-between gap-3">
+      <button type="button" aria-label="Previous exercise" class="PrevExerciseButton">
+        <ChevronLeftIcon width={20} height={20} />
+      </button>
+      <button type="button" aria-label="Next exercise" class="NextExerciseButton">
+        <ChevronRightIcon width={20} height={20} />
+      </button>
+    </nav>
+  </div>
 </section>
+
+<style>
+  [data-exercise-mode='all'] .ShowAllButton,
+  [data-exercise-mode='step'] .StepByStepButton {
+    @apply bg-primary-600 text-zinc-100 cursor-default shadow-inner border-primary-600;
+  }
+
+  [data-exercise-mode='step'] [aria-label='exercise navigation'] {
+    @apply flex;
+  }
+  [data-exercise-mode='step'] .ExerciseBottomNavigation {
+    @apply block;
+  }
+  [data-exercise-mode='step'] .Exercise {
+    @apply hidden;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.CodingExercises').forEach((section) => {
+    const showAllButton = section.querySelector('.ShowAllButton');
+    const stepByStepButton = section.querySelector('.StepByStepButton');
+
+    const initialMode = section.dataset.exerciseMode === 'step' ? 'step' : 'all';
+
+    const setMode = (mode: 'all' | 'step') => {
+      section.dataset.exerciseMode = mode;
+      localStorage.setItem('exerciseMode', mode);
+    };
+
+    if (showAllButton && stepByStepButton) {
+      showAllButton.addEventListener('click', () => {
+        setMode('all');
+        if (history && URLSearchParams) {
+          const params = new URLSearchParams(location.search);
+          params.delete('exerciseStep');
+          const paramsString = params.toString();
+          history.replaceState(
+            {},
+            '',
+            `${location.pathname}${paramsString ? `?${paramsString}` : ''}`
+          );
+        }
+      });
+      stepByStepButton.addEventListener('click', () => {
+        setMode('step');
+        setStep(
+          Number(
+            section.dataset.step ||
+              (URLSearchParams && new URLSearchParams(location.search).get('exerciseStep')) ||
+              '0'
+          )
+        );
+      });
+    }
+
+    const exercises = section.querySelectorAll<HTMLElement>('.Exercise');
+
+    const setStep = (step: number) => {
+      exercises.forEach((exercise) => {
+        exercise.style.removeProperty('display');
+      });
+      section.dataset.step = `${step}`;
+      const targetExercise = exercises[step];
+      if (targetExercise) {
+        targetExercise.style.setProperty('display', 'block');
+      }
+      if (history && URLSearchParams) {
+        const params = new URLSearchParams(location.search);
+        params.set('exerciseStep', `${step}`);
+        history.replaceState({}, '', `${location.pathname}?${params}`);
+      }
+    };
+
+    if (initialMode === 'step') {
+      if (typeof URLSearchParams != null) {
+        const params = new URLSearchParams(location.search);
+        const currentStep = Number(params.get('exerciseStep') || '0');
+        if (!Number.isNaN(currentStep)) {
+          setStep(currentStep);
+        } else {
+          setStep(0);
+        }
+      } else {
+        setStep(0);
+      }
+    }
+
+    section.querySelectorAll('.NextExerciseButton').forEach((nextButton) => {
+      nextButton.addEventListener('click', () => {
+        const currentStep = Number(section.dataset.step || '0');
+        if (currentStep < exercises.length - 1) {
+          setStep(currentStep + 1);
+        }
+      });
+    });
+
+    section.querySelectorAll('.PrevExerciseButton').forEach((prevButton) => {
+      prevButton.addEventListener('click', () => {
+        const currentStep = Number(section.dataset.step || '0');
+        if (currentStep > 0) {
+          setStep(currentStep - 1);
+        }
+      });
+    });
+  });
+</script>

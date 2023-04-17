@@ -15,12 +15,14 @@ export interface ExerciseBoxProps {
   };
   heading: string;
   headingTag?: 'h2' | 'h3' | 'h4';
+  className?: string;
 }
 
 export const ExerciseBox = ({
   exercise,
   heading,
   headingTag: Heading = 'h2',
+  className,
 }: ExerciseBoxProps) => {
   const { extension } = exercise;
 
@@ -68,7 +70,7 @@ export const ExerciseBox = ({
     const files = filesMap[extension];
 
     return (
-      <div>
+      <div className={className}>
         <Heading>{heading}</Heading>
         {exercise.docs && <div dangerouslySetInnerHTML={{ __html: exercise.docs }} />}
         {headingNode}
@@ -104,7 +106,7 @@ export const ExerciseBox = ({
   }
 
   return (
-    <div>
+    <div className={className}>
       <Heading>{heading}</Heading>
       {exercise.docs && <div dangerouslySetInnerHTML={{ __html: exercise.docs }} />}
       {headingNode}
