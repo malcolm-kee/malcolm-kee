@@ -590,6 +590,13 @@ declare module 'astro:content' {
   collection: "note",
   data: InferEntrySchema<"note">
 } & { render(): Render[".md"] },
+"react-server-component.md": {
+  id: "react-server-component.md",
+  slug: "react-server-component",
+  body: string,
+  collection: "note",
+  data: InferEntrySchema<"note">
+} & { render(): Render[".md"] },
 "webpack-federation.md": {
   id: "webpack-federation.md",
   slug: "webpack-federation",

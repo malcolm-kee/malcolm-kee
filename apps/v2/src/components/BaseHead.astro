@@ -169,6 +169,7 @@ const ogImage = getOgImageUrl({
 </style>
 <script>
   import { checkOnlineStatus } from '~/lib/check-online-status';
+  import { makeScrollableFocusable } from '~/lib/make-scrollable-focusable';
 
   checkOnlineStatus({
     onStatusChange: (isOnline) => {
@@ -176,6 +177,8 @@ const ogImage = getOgImageUrl({
     },
     initialOnline: undefined,
   });
+
+  makeScrollableFocusable('.code-container');
 </script>
 {!excludeServiceWorker && <ServiceWorkerRegister />}
 <script is:inline>
