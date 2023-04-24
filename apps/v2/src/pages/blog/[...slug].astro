@@ -34,15 +34,7 @@ interface Props {
 
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
-const {
-  title,
-  description,
-  pubDate,
-  updatedDate,
-  heroImagePublicId,
-  alt,
-  lang = 'en',
-} = entry.data;
+const { title, description, pubDate, updatedDate, heroImagePublicId, alt, lang } = entry.data;
 
 const relativePath = `blog/${entry.slug}`;
 
@@ -51,7 +43,7 @@ const related = await getBlogRelatedContents(entry);
 const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicId) : undefined;
 ---
 
-<html lang={lang}>
+<html lang="en">
   <head>
     <BaseHead
       title={title}
@@ -109,6 +101,7 @@ const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicI
           headings={headings}
           saveKey={relativePath}
           description={description}
+          lang={lang}
         >
           <Content />
         </MdContent>

@@ -84,7 +84,6 @@ export const removePage = async (pagePath: string) => {
   });
 
   if (resourcesToDelete && resourcesToDelete.length > 0) {
-    console.log('Deleting', resourcesToDelete);
     await Promise.all(resourcesToDelete.map((r) => offlinePagesCache.delete(r.resource)));
   }
 };
@@ -132,7 +131,6 @@ export const loadPageSaveCapability = async (
       });
 
       if (staledResources && staledResources.length > 0) {
-        console.log({ staledResources });
         const offlinePagesCache = await caches.open(cacheName);
         await Promise.all(staledResources.map((r) => offlinePagesCache.delete(r.resource)));
       }

@@ -8,6 +8,7 @@ import './shiki.css';
 
 export interface Props {
   title: string;
+  lang?: string;
   headings?: Array<MarkdownHeading>;
   publishDate?: Date;
   /** key used for offline saving. Required for supporting save for offline */
@@ -15,7 +16,7 @@ export interface Props {
   description?: string;
 }
 
-const { title, publishDate, headings, saveKey, description } = Astro.props;
+const { title, publishDate, headings, saveKey, description, lang = 'en-US' } = Astro.props;
 
 const isFutureContent = publishDate && isFuture(publishDate);
 
@@ -25,7 +26,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
 ---
 
 <div class="mb-12">
-  <article>
+  <article lang={lang}>
     <div class="flex items-end mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
       <header
         class={clsx('relative max-w-3xl w-full', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}
@@ -34,7 +35,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
           publishDate && (
             <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
               {isFutureContent ? `To be published on ` : null}
-              {formatDate(publishDate)}
+              {formatDate(publishDate, lang)}
             </p>
           )
         }
@@ -51,7 +52,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       }
     </div>
     <div
-      class="flex flex-col mb-3 gap-3 sm:flex-row justify-between sm:items-start sm:gap-3 sm:mb-6 xl:contents max-w-3xl mx-auto xl:max-w-none xl:mb-0"
+      class="flex flex-col gap-3 sm:flex-row justify-between sm:items-start sm:gap-3 xl:contents max-w-3xl mx-auto xl:max-w-none xl:mb-0"
     >
       {
         hasHeadings && (
@@ -62,19 +63,22 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       }
       {
         saveKey && (
-          <div class="py-2 xl:hidden offline:hidden">
+          <div class="xl:hidden offline:hidden sm:ml-auto">
             <SavePageButton
               saveKey={saveKey}
               pageTitle={title}
               pageDescription={description}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto my-2"
             />
           </div>
         )
       }
     </div>
     <div
-      class={clsx('max-w-3xl prose', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}
+      class={clsx(
+        'max-w-3xl prose mt-3 sm:mt-6 xl:mt-0',
+        hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
+      )}
       data-md-content
     >
       <slot />

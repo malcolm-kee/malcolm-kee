@@ -82,7 +82,13 @@ const { headings } = Astro.props;
       </span>
     </button>
   </div>
-  <ol class="toc flex flex-col gap-4 pb-3 px-7" id="toc-items">
+  <ol
+    class={clsx(
+      'toc flex group-data-[expanded=false]/mdtoc:hidden',
+      'flex-col gap-4 pb-3 px-7 overflow-hidden'
+    )}
+    id="toc-items"
+  >
     {
       headings.map((h, index) => {
         const indent = Math.max(0, h.depth - 2);
@@ -124,10 +130,6 @@ const { headings } = Astro.props;
 
   .MdToc[data-expanded='true'] {
     @apply bg-zinc-50 border-transparent shadow-sm;
-  }
-
-  .MdToc[data-expanded='false'] .toc {
-    display: none;
   }
 
   .toc-item {

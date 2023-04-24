@@ -357,6 +357,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 } & { render(): Render[".mdx"] },
+"ownership.mdx": {
+  id: "ownership.mdx",
+  slug: "ownership",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".mdx"] },
 "portal-to-subtree.mdx": {
   id: "portal-to-subtree.mdx",
   slug: "portal-to-subtree",

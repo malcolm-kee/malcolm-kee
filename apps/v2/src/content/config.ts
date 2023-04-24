@@ -31,7 +31,7 @@ export const collections = {
           .transform((date) => new Date(date))
           .optional(),
         description: z.string().optional(),
-        lang: z.union([z.literal('zh-Hans'), z.literal('en')]).optional(),
+        lang: z.union([z.literal('zh-Hans'), z.literal('en-US')]).default('en-US'),
         /** cloudinary public id for the hero image */
         heroImagePublicId: z.string().optional(),
         alt: z.string().optional(),
