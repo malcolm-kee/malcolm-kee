@@ -49,6 +49,7 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/line-clamp'),
+    require('@headlessui/tailwindcss'),
     plugin(function ({ addVariant, matchVariant }) {
       addVariant('online', ':root[data-online="true"] &');
       addVariant('offline', ':root[data-online="false"] &');
