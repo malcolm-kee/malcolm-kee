@@ -1,7 +1,6 @@
 ---
 import { clsx } from 'clsx';
 import BaseHead from '../components/BaseHead.astro';
-import { Link } from '../components/Link';
 import Layout from '../components/Layout.astro';
 import Container from '../components/Container';
 import SocialIcons from '../components/SocialIcons';
@@ -14,11 +13,7 @@ const title = 'Malcolm Kee - Web developer, front end engineer';
 
 <html lang="en">
   <head>
-    <BaseHead
-      title={title}
-      description="UI Builder and Tool Creator"
-      permalink={Astro.url.toString()}
-    />
+    <BaseHead title={title} description="UI Builder and Tool Creator" />
   </head>
 
   <body>
@@ -79,11 +74,10 @@ const title = 'Malcolm Kee - Web developer, front end engineer';
       </Container>
     </Layout>
     <script>
-      const image: HTMLImageElement | null = document.querySelector('.PortraitImage');
+      const image = document.querySelector<HTMLImageElement>('.PortraitImage');
 
       if (image) {
         if (!image.complete) {
-          console.log('image not complete');
           image.classList.remove('sm:rotate-3');
           image.classList.add('transition');
           image.classList.add('duration-700');

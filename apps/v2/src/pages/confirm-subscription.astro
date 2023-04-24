@@ -2,22 +2,18 @@
 import BaseHead from '~/components/BaseHead.astro';
 import { CheckCircleIcon } from '~/components/icons';
 import PageLayout from '~/components/PageLayout.astro';
-
-const permalink = Astro.url.toString();
 ---
 
 <html>
   <head>
-    <BaseHead title="Confirm Subscription" permalink={permalink} />
+    <BaseHead title="Confirm Subscription" />
   </head>
   <body>
     <PageLayout noHeader hideHeaderNav>
       <div class="mx-auto max-w-xl">
         <div class="text-center">
           <div class="flex justify-center items-end gap-3">
-            <h1
-              class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
-            >
+            <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
               Subscription confirmed
             </h1>
             <CheckCircleIcon className="w-12 h-12 text-teal-500" />
@@ -25,9 +21,7 @@ const permalink = Astro.url.toString();
           <p class="mt-4 text-lg text-gray-500">
             You're in! Thanks for subscribing to my newsletter.
           </p>
-          <p class="mt-2 text-lg text-gray-500">
-            You can close this window now.
-          </p>
+          <p class="mt-2 text-lg text-gray-500">You can close this window now.</p>
         </div>
       </div>
     </PageLayout>

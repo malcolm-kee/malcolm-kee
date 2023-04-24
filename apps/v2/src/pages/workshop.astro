@@ -11,11 +11,7 @@ const workshops = getWorkshops(await getCollection('workshop'));
 
 <html lang="en">
   <head>
-    <BaseHead
-      title="Workshops - Malcolm Kee"
-      description={description}
-      permalink={Astro.url.toString()}
-    />
+    <BaseHead title="Workshops - Malcolm Kee" description={description} />
   </head>
   <body>
     <PageLayout>

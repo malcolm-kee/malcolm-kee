@@ -7,14 +7,12 @@ const links = [
   {
     text: 'Blogs',
     url: '/blog',
-    description:
-      'My thoughts on technologies, books, or just any random stuffs.',
+    description: 'My thoughts on technologies, books, or just any random stuffs.',
   },
   {
     text: 'Today I Learnt',
     url: '/today-i-learnt',
-    description:
-      'Little facts I learnt in my daily life as a Frontend Engineer.',
+    description: 'Little facts I learnt in my daily life as a Frontend Engineer.',
   },
   {
     text: 'Programming Workshops',
@@ -22,33 +20,25 @@ const links = [
     description: `Free training materials that I've created`,
   },
 ];
-
-const permalink = Astro.url.toString();
 ---
 
 <html>
   <head>
-    <BaseHead title="Page Not Found (404)" permalink={permalink} />
+    <BaseHead title="Page Not Found (404)" />
   </head>
   <body>
     <PageLayout noHeader>
       <div class="mx-auto max-w-xl">
         <div class="text-center">
           <p class="text-base font-semibold text-primary-600">404</p>
-          <h1
-            class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
-          >
+          <h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             This page does not exist.
           </h1>
-          <p class="mt-2 text-lg text-gray-500">
-            The page you are looking for could not be found.
-          </p>
+          <p class="mt-2 text-lg text-gray-500">The page you are looking for could not be found.</p>
         </div>
         <div class="mt-12">
           <h2 class="text-base font-semibold text-gray-500">Popular pages</h2>
-          <ul
-            class="mt-4 divide-y divide-gray-200 border-t border-b border-gray-200"
-          >
+          <ul class="mt-4 divide-y divide-gray-200 border-t border-b border-gray-200">
             {
               links.map((link) => (
                 <li class="relative flex items-start space-x-4 py-6">

@@ -14,7 +14,10 @@ export const getTils = async ({
   );
 
   return tils
-    .slice(0)
+    .map((til) => ({
+      ...til,
+      isMarkdown: til.id.endsWith('.md'),
+    }))
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 };
 

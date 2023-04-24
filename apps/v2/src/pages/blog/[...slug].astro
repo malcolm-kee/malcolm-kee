@@ -51,7 +51,6 @@ const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicI
       publishedDate={pubDate}
       updatedDate={updatedDate}
       contentType="article"
-      permalink={Astro.url.toString()}
       ogBgImage={imageData && imageData.baseSrc}
       articleType="blog"
       themeColor={imageData && imageData.primaryColor}

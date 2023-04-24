@@ -19,16 +19,24 @@ export async function get(context) {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      content: sanitizeHtml(parser.render(post.body)),
       customData: `<language>${post.data.lang || 'en-US'}</language>`,
+      ...(post.isMarkdown
+        ? {
+            content: sanitizeHtml(parser.render(post.body)),
+          }
+        : {}),
     }))
     .concat(
       tils.map((post) => ({
-        link: `/today-i-learnt/${post.slug}`,
+        link: `/today-i-learnt/${post.slug}/`,
         title: post.data.title,
         pubDate: post.data.pubDate,
-        content: sanitizeHtml(parser.render(post.body)),
         customData: `<language>en-US</language>`,
+        ...(post.isMarkdown
+          ? {
+              content: sanitizeHtml(parser.render(post.body)),
+            }
+          : {}),
       }))
     )
     .sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());

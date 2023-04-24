@@ -20,19 +20,21 @@ export const getBlogs = async ({
   });
 
   const allBlogData = await Promise.all(
-    blogs.map(async (blog) =>
-      blog.data.heroImagePublicId
+    blogs.map(async (blog) => {
+      const isMarkdown = blog.id.endsWith('.md');
+
+      return blog.data.heroImagePublicId
         ? {
             ...blog,
-            heroImageInfo: await getTransformedImage(
-              blog.data.heroImagePublicId
-            ),
+            heroImageInfo: await getTransformedImage(blog.data.heroImagePublicId),
+            isMarkdown,
           }
-        : blog
-    )
+        : {
+            ...blog,
+            isMarkdown,
+          };
+    })
   );
 
-  return allBlogData.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
+  return allBlogData.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 };

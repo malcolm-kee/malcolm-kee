@@ -36,12 +36,7 @@ const related = await getTilRelatedContents(entry);
 
 <html lang="en-US">
   <head>
-    <BaseHead
-      title={title}
-      permalink={Astro.url.toString()}
-      publishedDate={pubDate}
-      articleType="til"
-    />
+    <BaseHead title={title} publishedDate={pubDate} articleType="til" />
   </head>
   <body>
     <Layout>

@@ -3,13 +3,11 @@ import BaseHead from '~/components/BaseHead.astro';
 import { Button } from '~/components/Button';
 import PageLayout from '~/components/PageLayout.astro';
 import { SavedPages } from '~/components/SavedPages';
-
-const permalink = Astro.url.toString();
 ---
 
 <html>
   <head>
-    <BaseHead title="No connection" permalink={permalink} excludeServiceWorker />
+    <BaseHead title="No connection" excludeServiceWorker />
   </head>
   <body>
     <PageLayout noHeader hideHeaderNav hideFooterNav hideAvatar>

@@ -5,7 +5,6 @@ import ServiceWorkerRegister from './ServiceWorkerRegister.astro';
 export interface Props {
   title?: string | undefined;
   description?: string | undefined;
-  permalink: string;
   themeColor?: string;
   contentType?: 'website' | 'article';
   publishedDate?: Date | undefined;
@@ -21,7 +20,6 @@ export interface Props {
 const {
   title = 'Malcolm Kee',
   description,
-  permalink,
   contentType = 'website',
   themeColor,
   publishedDate,
@@ -36,6 +34,8 @@ const {
   ogImageTitle = title,
   excludeServiceWorker,
 } = Astro.props;
+
+const permalink = Astro.url.toString();
 
 const ogBgImageUrl =
   ogBgImage && (ogBgImage.startsWith('/') ? new URL(ogBgImage, Astro.site).toString() : ogBgImage);

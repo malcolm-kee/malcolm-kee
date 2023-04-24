@@ -30,12 +30,7 @@ const { Content } = await entry.render();
 
 <html lang="en">
   <head>
-    <BaseHead
-      title={entry.data.title}
-      contentType="article"
-      articleType="note"
-      permalink={Astro.url.toString()}
-    />
+    <BaseHead title={entry.data.title} contentType="article" articleType="note" />
   </head>
   <body>
     <Layout>
