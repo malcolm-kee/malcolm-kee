@@ -9,6 +9,8 @@ const title = 'Blogs - Malcolm Kee';
 const description = 'My thoughts on technologies, books, or any other random topic.';
 
 const allPosts = await getBlogs();
+
+const [featuredPost, ...otherPosts] = allPosts;
 ---
 
 <html lang="en">
@@ -21,7 +23,10 @@ const allPosts = await getBlogs();
       <span slot="title">Blogs</span>
       <span slot="description">{description}</span>
       <BlogPostPreviewList aria-label="Blog post list">
-        {allPosts.map((p, index) => <BlogPostPreview post={p} isFeatured={index === 0} />)}
+        <BlogPostPreview post={featuredPost} isFeatured />
+        <div class="flex flex-col gap-10 @md/bloglist:border-l-2 @md/bloglist:border-l-zinc-100">
+          {otherPosts.map((p) => <BlogPostPreview post={p} />)}
+        </div>
       </BlogPostPreviewList>
     </PageLayout>
   </body>

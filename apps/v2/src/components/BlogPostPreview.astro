@@ -22,11 +22,11 @@ const hasImage = post.heroImageInfo;
 <article
   lang={post.data.lang}
   class={clsx(
-    'blog-article py-4',
+    'blog-article',
     hasImage && 'relative',
     isFeatured
-      ? 'z-10 -mx-2 py-4 bg-white min-h-[20rem] flex items-center'
-      : '@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6',
+      ? 'z-10 py-4 bg-white min-h-[20rem] flex items-center'
+      : 'pt-1 pb-3 @md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6',
     Astro.props.class
   )}
   data-shiny={!hasImage}
@@ -36,7 +36,7 @@ const hasImage = post.heroImageInfo;
       <div
         class={clsx(
           'blog-hero-image-container absolute inset-0 w-full h-full opacity-20 overflow-hidden transition-opacity',
-          isFeatured ? 'block' : 'hidden'
+          isFeatured ? 'block' : 'hidden @md/bloglist:rounded-r-2xl'
         )}
         aria-hidden
       >
@@ -88,8 +88,8 @@ const hasImage = post.heroImageInfo;
           !hideDate && (
             <time
               class={clsx(
-                'text-sm block mb-2 pl-3 border-l-2 border-l-zinc-100 text-zinc-400',
-                !isFeatured && '@md/bloglist:hidden'
+                'text-sm block mb-2 pl-3 border-l-2 text-zinc-400',
+                isFeatured ? 'border-l-transparent' : 'border-l-zinc-100 @md/bloglist:hidden'
               )}
             >
               {formatDate(post.data.pubDate)}
@@ -99,8 +99,8 @@ const hasImage = post.heroImageInfo;
         <header>
           <TitleElement
             class={clsx(
-              'blog-title font-semibold tracking-tight text-zinc-800 group-hover/bloglink:text-primary-500',
-              isFeatured ? 'text-3xl px-3 border-l-2 border-transparent' : 'text-base'
+              'blog-title font-techie font-semibold text-zinc-800 group-hover/bloglink:text-primary-500',
+              isFeatured ? 'text-4xl px-3' : 'text-lg'
             )}
           >
             {post.data.title}

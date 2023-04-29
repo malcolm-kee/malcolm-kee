@@ -1,5 +1,6 @@
 const colors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
         'square-diagonal': `${(Math.sqrt(2) * 100).toFixed(2)}%`,
       },
       fontFamily: {
-        handwrite: ['"EduNSWACTFoundation"', '"Brush Script MT"', 'cursive'],
+        techie: ['"Chakra Petch"', ...defaultTheme.fontFamily.mono],
       },
       typography: (theme) => ({
         DEFAULT: {
