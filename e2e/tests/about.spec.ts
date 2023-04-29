@@ -4,7 +4,7 @@ import { test } from './base';
 test('about page', async ({ page, axe }) => {
   await page.goto('/about');
 
-  await expect(page.getByText('UI builder and tool creator')).toBeVisible();
+  await expect(page.getByText('TOOL', { exact: true })).toBeVisible();
 
   const result = await axe.analyze();
 

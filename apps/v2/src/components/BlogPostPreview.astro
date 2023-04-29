@@ -25,8 +25,11 @@ const hasImage = post.heroImageInfo;
     'blog-article',
     hasImage && 'relative',
     isFeatured
-      ? 'z-10 py-4 bg-white min-h-[20rem] flex items-center'
-      : 'pt-1 pb-3 @md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6',
+      ? 'z-10 py-20 bg-white min-h-[20rem] flex items-center'
+      : [
+          '@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6',
+          roundedBg ? 'py-3' : 'pt-1 pb-3',
+        ],
     Astro.props.class
   )}
   data-shiny={!hasImage}
@@ -35,8 +38,11 @@ const hasImage = post.heroImageInfo;
     post.heroImageInfo && (
       <div
         class={clsx(
-          'blog-hero-image-container absolute inset-0 w-full h-full opacity-20 overflow-hidden transition-opacity',
-          isFeatured ? 'block' : 'hidden @md/bloglist:rounded-r-2xl'
+          'blog-hero-image-container absolute inset-y-0 h-full opacity-20 overflow-hidden transition-opacity',
+          isFeatured
+            ? 'block -inset-x-4 sm:-inset-x-8 lg:inset-x-0 rounded-2xl'
+            : 'hidden @md/bloglist:rounded-r-2xl inset-x-0 w-full',
+          roundedBg && 'rounded-2xl'
         )}
         aria-hidden
       >
@@ -55,11 +61,20 @@ const hasImage = post.heroImageInfo;
       </div>
     )
   }
-  {hasImage && <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-white" />}
+  {
+    hasImage && (
+      <div
+        class={clsx(
+          'absolute inset-y-0 h-full bg-gradient-to-br from-white',
+          isFeatured ? '-inset-x-4 sm:-inset-x-8 lg:inset-x-0' : 'inset-x-0 w-full'
+        )}
+      />
+    )
+  }
   {
     !isFeatured && !hideDate && (
       <time class="hidden relative @md/bloglist:block pl-3 text-sm leading-6 text-zinc-400">
-        {formatDate(post.data.pubDate)}
+        {formatDate(post.data.pubDate, post.data.lang)}
       </time>
     )
   }
@@ -88,8 +103,8 @@ const hasImage = post.heroImageInfo;
           !hideDate && (
             <time
               class={clsx(
-                'text-sm block mb-2 pl-3 border-l-2 text-zinc-400',
-                isFeatured ? 'border-l-transparent' : 'border-l-zinc-100 @md/bloglist:hidden'
+                'text-sm block mb-2 pl-3 border-l-2 text-zinc-400 border-l-zinc-100',
+                isFeatured ? '@md/bloglist:border-l-transparent' : '@md/bloglist:hidden'
               )}
             >
               {formatDate(post.data.pubDate)}
@@ -100,7 +115,9 @@ const hasImage = post.heroImageInfo;
           <TitleElement
             class={clsx(
               'blog-title font-techie font-semibold text-zinc-800 group-hover/bloglink:text-primary-500',
-              isFeatured ? 'text-4xl px-3' : 'text-lg'
+              isFeatured
+                ? 'text-3xl @md/bloglist:text-4xl @md/bloglist:px-3'
+                : 'text-lg @2xl/bloglist:text-2xl'
             )}
           >
             {post.data.title}
@@ -111,7 +128,7 @@ const hasImage = post.heroImageInfo;
             <p
               class={clsx(
                 'text-zinc-600 mt-2',
-                isFeatured ? 'text-lg px-3 border-l-2 border-transparent' : 'text-sm'
+                isFeatured ? 'text-lg @md/bloglist:px-3 border-l-2 border-transparent' : 'text-sm'
               )}
             >
               {post.data.description}
@@ -124,8 +141,8 @@ const hasImage = post.heroImageInfo;
       post.data.topics && post.data.topics.length > 0 && (
         <ul
           class={clsx(
-            'relative mt-2 flex items-center flex-wrap gap-2 text-xs',
-            isFeatured && 'px-3'
+            'relative mt-4 flex items-center flex-wrap gap-2 text-xs',
+            isFeatured && '@md/bloglist:px-3'
           )}
         >
           {post.data.topics.map((topic) => (
@@ -133,8 +150,8 @@ const hasImage = post.heroImageInfo;
               <a
                 href={`/topic/${topic}`}
                 class={clsx(
-                  'topic-link block px-3 py-1.5 font-medium rounded-full transition-colors',
-                  'text-zinc-600 bg-zinc-50 hover:text-primary-500 focus:text-primary-500 shadow-sm hover:shadow-primary-100'
+                  'topic-link block px-3 py-1.5 font-medium rounded-full transition-colors uppercase',
+                  'text-zinc-600 bg-zinc-100 hover:text-primary-500 shadow-sm'
                 )}
               >
                 {topic}

@@ -13,7 +13,7 @@ export default function ProjectCard({ project, ...props }: ProjectCardProps) {
   return (
     <div {...props} className={clsx('flex flex-col justify-between gap-6', props.className)}>
       <div>
-        <h2>
+        <h2 className="font-techie text-lg font-medium">
           {firstLink ? (
             <a href={firstLink.href} className="transition-colors hover:text-primary-500">
               {project.name}

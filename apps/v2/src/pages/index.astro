@@ -1,7 +1,7 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
 import BlogPostPreview from '~/components/BlogPostPreview.astro';
-import { BlogPostPreviewList } from '~/components/BlogPostPreviewList';
+import { BlogPostPreviewList, BlogPostPreviewListItems } from '~/components/BlogPostPreviewList';
 import { Button } from '~/components/Button';
 import Container from '~/components/Container';
 import GenericSignupForm from '~/components/GenericSignupForm.astro';
@@ -28,8 +28,9 @@ const allPosts = blogPosts.slice(0, 10);
     <Layout isHomePage>
       <Container className="mt-9">
         <div class="max-w-2xl">
-          <h1 class="text-5xl sm:text-6xl font-techie font-bold tracking-tight text-zinc-800">
-            UI BUILDER {'&'}<br /> TOOL CREATOR
+          <h1 class="text-5xl sm:text-6xl font-techie tracking-tight text-zinc-800">
+            <span class="font-bold">UI</span> Builder {'&'}<br /><span class="font-bold">TOOL</span>
+            Creator
           </h1>
           <p class="mt-6 text-zinc-600">I'm Malcolm, a front end engineer based in Sydney.</p>
           <p class="mt-1 text-zinc-600">
@@ -41,7 +42,9 @@ const allPosts = blogPosts.slice(0, 10);
       <Container className="mt-24 md:mt-28">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-20">
           <BlogPostPreviewList>
-            {allPosts.map((p) => <BlogPostPreview post={p} />)}
+            <BlogPostPreviewListItems>
+              {allPosts.map((p) => <BlogPostPreview post={p} />)}
+            </BlogPostPreviewListItems>
           </BlogPostPreviewList>
           <div class="space-y-10 lg:pl-16 xl:pl-24">
             <GenericSignupForm />

@@ -29,14 +29,14 @@ const workshops = getWorkshops(await getCollection('workshop'));
                 <div class="flex items-center justify-center rounded-full bg-white ring-1 ring-zinc-100 h-12 w-12 group-hover/link:shadow-primary-100">
                   <img src={workshop.iconUrl} alt="" class="workshop-icon h-8 w-8" />
                 </div>
-                <h2 class="workshop-text mt-6 group-hover/link:text-primary-500">
+                <h2 class="workshop-text mt-6 font-techie text-lg font-medium group-hover/link:text-primary-500">
                   {workshop.name}
                 </h2>
                 <p class="workshop-text mt-2 text-sm text-zinc-600">{workshop.description}</p>
                 {workshop.underConstruction && (
                   <p class="workshop-text mt-2">
-                    <span class="inline-block text-xs leading-5 px-2 bg-rose-800 text-white rounded shadow">
-                      In Progress
+                    <span class="inline-block text-xs leading-5 px-2 bg-rose-800 text-white rounded tracking-wide shadow">
+                      IN PROGRESS
                     </span>
                   </p>
                 )}

@@ -5,8 +5,9 @@ export const HomeIconLink = (props: { iconClass?: string; hideAvatar?: boolean }
   <a href="/" className="inline-flex flex-row-reverse items-center gap-3 px-3 rounded group/link">
     <span
       className={clsx(
-        'hidden xl:block text-2xl text-primary-500',
+        'block text-2xl text-primary-500',
         !props.hideAvatar && [
+          'sr-only',
           'opacity-0 group-hover/link:opacity-100 group-focus/link:opacity-100 transition',
           '-translate-x-1/2 group-hover/link:translate-x-0 group-focus/link:translate-x-0',
         ]

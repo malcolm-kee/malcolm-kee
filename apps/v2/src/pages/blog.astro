@@ -2,7 +2,7 @@
 import { getBlogs } from '~/data/blog-helpers';
 import BaseHead from '../components/BaseHead.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
-import { BlogPostPreviewList } from '../components/BlogPostPreviewList';
+import { BlogPostPreviewList, BlogPostPreviewListItems } from '../components/BlogPostPreviewList';
 import PageLayout from '../components/PageLayout.astro';
 
 const title = 'Blogs - Malcolm Kee';
@@ -24,9 +24,9 @@ const [featuredPost, ...otherPosts] = allPosts;
       <span slot="description">{description}</span>
       <BlogPostPreviewList aria-label="Blog post list">
         <BlogPostPreview post={featuredPost} isFeatured />
-        <div class="flex flex-col gap-10 @md/bloglist:border-l-2 @md/bloglist:border-l-zinc-100">
+        <BlogPostPreviewListItems>
           {otherPosts.map((p) => <BlogPostPreview post={p} />)}
-        </div>
+        </BlogPostPreviewListItems>
       </BlogPostPreviewList>
     </PageLayout>
   </body>
