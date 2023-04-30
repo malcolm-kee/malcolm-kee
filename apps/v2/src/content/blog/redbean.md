@@ -3,6 +3,8 @@ title: '红豆'
 pubDate: 30 Mar 2019
 description: '小学时期种红豆的故事'
 lang: zh-Hans
+topics:
+  - life
 ---
 
 小学一年级。

@@ -2,6 +2,8 @@
 title: 'The best way is to Improve Yourself'
 pubDate: 7 May 2018
 description: 'Note to remind myself of my working philosophy'
+topics:
+  - life
 ---
 
 ## Opportunity

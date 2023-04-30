@@ -2,6 +2,8 @@
 title: 迷信
 pubDate: 24 Nov 2019
 lang: zh-Hans
+topics:
+  - life
 ---
 
 家里都会为过世的家人的忌日拜拜。

@@ -11,6 +11,7 @@ export const TopicLabel: Record<Topic, string> = {
   typescript: 'TypeScript',
   javascript: 'JavaScript',
   'frontend-tooling': 'Frontend Tooling',
+  life: 'Life',
 };
 
 export interface RelatedContents {
@@ -23,10 +24,33 @@ export const getBlogRelatedContents = async (
   totalCount = 3
 ): Promise<RelatedContents> => {
   if (blogPost.data.topics) {
-    const relatedBlogs = (
-      await getBlogs({ topics: blogPost.data.topics })
-    ).filter((blog) => blog.id !== blogPost.id);
+    const relatedBlogs = (await getBlogs({ topics: blogPost.data.topics })).filter(
+      (blog) => blog.id !== blogPost.id
+    );
     if (relatedBlogs.length >= totalCount) {
+      const preferredBlogs = relatedBlogs.filter((blog) => blog.data.lang === blogPost.data.lang);
+
+      if (preferredBlogs.length) {
+        if (preferredBlogs.length >= totalCount) {
+          return {
+            blogs: pickRandomItems(preferredBlogs, totalCount),
+            tils: [],
+          };
+        } else {
+          const otherBlogs: Array<CollectionEntry<'blog'>> = pickRandomItems(
+            relatedBlogs.filter(
+              (blog) => !preferredBlogs.some((preferredBlog) => preferredBlog.id === blog.id)
+            ),
+            totalCount - preferredBlogs.length
+          );
+
+          return {
+            blogs: pickRandomItems([...preferredBlogs, ...otherBlogs], totalCount),
+            tils: [],
+          };
+        }
+      }
+
       return {
         blogs: pickRandomItems(relatedBlogs, totalCount),
         tils: [],
@@ -44,16 +68,12 @@ export const getBlogRelatedContents = async (
 
     const anyOtherBlogs = (await getBlogs()).filter(
       (blog) =>
-        blog.id !== blogPost.id &&
-        relatedBlogs.every((relatedBlog) => relatedBlog.id !== blog.id)
+        blog.id !== blogPost.id && relatedBlogs.every((relatedBlog) => relatedBlog.id !== blog.id)
     );
 
     return {
       blogs: relatedBlogs.concat(
-        pickRandomItems(
-          anyOtherBlogs,
-          totalCount - relatedBlogs.length - tils.length
-        )
+        pickRandomItems(anyOtherBlogs, totalCount - relatedBlogs.length - tils.length)
       ),
       tils,
     };
@@ -93,17 +113,12 @@ export const getTilRelatedContents = async (
     }
 
     const anyOtherTils = (await getTils()).filter(
-      (item) =>
-        item.id !== til.id &&
-        relatedTils.every((relatedTil) => relatedTil.id !== item.id)
+      (item) => item.id !== til.id && relatedTils.every((relatedTil) => relatedTil.id !== item.id)
     );
 
     return {
       tils: relatedTils.concat(
-        pickRandomItems(
-          anyOtherTils,
-          totalCount - relatedTils.length - blogs.length
-        )
+        pickRandomItems(anyOtherTils, totalCount - relatedTils.length - blogs.length)
       ),
       blogs,
     };
