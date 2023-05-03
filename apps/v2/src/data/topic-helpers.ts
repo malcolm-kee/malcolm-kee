@@ -1,18 +1,7 @@
-import type { Topic } from './topic-types';
-import { getBlogs } from './blog-helpers';
-import { getTils } from './til-helpers';
 import type { CollectionEntry } from 'astro:content';
 import { pickRandomItems } from '~/lib/array';
-
-export const TopicLabel: Record<Topic, string> = {
-  'module-federation': 'Module Federation',
-  react: 'React',
-  css: 'CSS',
-  typescript: 'TypeScript',
-  javascript: 'JavaScript',
-  'frontend-tooling': 'Frontend Tooling',
-  life: 'Life',
-};
+import { getBlogs } from './blog-helpers';
+import { getTils } from './til-helpers';
 
 export interface RelatedContents {
   blogs: Array<CollectionEntry<'blog'>>;

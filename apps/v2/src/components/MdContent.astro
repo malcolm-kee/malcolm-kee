@@ -77,6 +77,8 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
     <div
       class={clsx(
         'max-w-3xl prose mt-3 sm:mt-6 xl:mt-0',
+        'prose-headings:font-techie',
+        'prose-a:no-underline prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-300 hover:prose-a:text-primary-600',
         hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
       )}
       data-md-content

@@ -9,8 +9,7 @@ import PageLayout from '~/components/PageLayout.astro';
 import { TodayILearnt } from '~/components/TodayILearnt';
 import { getBlogs } from '~/data/blog-helpers';
 import { getTils } from '~/data/til-helpers';
-import { TopicLabel } from '~/data/topic-helpers';
-import { TOPICS } from '~/data/topic-types';
+import { TOPICS, TopicLabel } from '~/data/topic-types';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return Promise.all(
@@ -56,9 +55,9 @@ const hasTwoColumns = blogs.length > 0 && tils.length > 0;
   <body>
     <PageLayout>
       <span slot="title"
-        ><span class="block text-xl font-sans font-medium tracking-wide pl-1">TOPIC:</span><span
-          class="block [view-transition-name:topic-title]">{label}</span
-        ></span
+        ><span class="block text-xl font-sans font-medium tracking-wide pl-1 text-zinc-400"
+          >TOPIC:</span
+        ><span class="block [view-transition-name:topic-title]">{label}</span></span
       >
       <div class={clsx('grid gap-12', hasTwoColumns && 'lg:grid-cols-2 lg:gap-4')}>
         {

@@ -58,12 +58,7 @@ What are the things that `interface` can do but `type` can't?
 ```ts live
 type RecursiveArray<T> = Array<T | RecursiveArray<T>>;
 
-const texts: RecursiveArray<string> = [
-  'hi',
-  'I',
-  'am',
-  ['in', ['another'], 'array'],
-];
+const texts: RecursiveArray<string> = ['hi', 'I', 'am', ['in', ['another'], 'array']];
 ```
 
 </aside>
@@ -164,18 +159,16 @@ let updatedDetails: PersonDetails = {
 
 Note that we have duplicated the address type in two places. We can remove that duplication by creating a type for the address:
 
-```ts
-// highlight-start
+```ts twoslash {1-5,9,21}
 type Address = {
   unit: string;
   streetOrBuilding: string;
   street: string;
 };
-// highlight-end
 
 type PersonDetails = {
   name: string;
-  address: Address; // highlight-line
+  address: Address;
 };
 
 let oldDetails: PersonDetails = {
@@ -188,7 +181,6 @@ let oldDetails: PersonDetails = {
 };
 
 let newAddress: Address = {
-  // highlight-line
   unit: '13A',
   streetOrBuilding: 'Bangunan Duta',
   street: 'Jalan Duta',
@@ -204,7 +196,7 @@ However, sometimes this is not possible because you don't have control over type
 
 The solution is to extract the type of the property like this:
 
-```ts
+```ts twoslash {19}
 type PersonDetails = {
   name: string;
   address: {
@@ -224,7 +216,6 @@ let oldDetails: PersonDetails = {
 };
 
 let newAddress: PersonDetails['address'] = {
-  // highlight-line
   unit: '13A',
   streetOrBuilding: 'Bangunan Duta',
   street: 'Jalan Duta',
@@ -242,7 +233,7 @@ One of the implicit understanding of TypeScript is that there are two types of d
 
 Following are a few type declarations:
 
-```ts noWrapper
+```ts
 interface Animal {
   name: string;
   greet: () => void;
@@ -256,7 +247,7 @@ type Person = {
 
 Which means you can use them as type annotation:
 
-```ts noWrapper
+```ts
 const animal: Animal = {
   name: 'dog',
   greet: () => {
@@ -326,7 +317,8 @@ Sometimes, some values are really dynamic that there are no ways for TypeScript 
 
 Consider the following example:
 
-```ts live
+```ts twoslash
+// @errors: 18047 2339
 const profileImage = document.querySelector('#profile');
 
 console.log(profileImage.src); // Error because `src` property may not be there
@@ -334,10 +326,10 @@ console.log(profileImage.src); // Error because `src` property may not be there
 
 If we really sure that the `document.querySelector` call returns an image, we can make a type assertion to tell TypeScript:
 
-```ts noWrapper
+```ts twoslash {3}
 const profileImage = document.querySelector('#profile');
 
-console.log((profileImage as HTMLImageElement).src); // highlight-line
+console.log((profileImage as HTMLImageElement).src);
 ```
 
 Note that type assertion does nothing in runtime; if the `document.querySelector` calls above returns a `div` instead of a `img`, the call could cause error.

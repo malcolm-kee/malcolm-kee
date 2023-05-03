@@ -30,7 +30,7 @@ export const SandBoxConsole = () => {
         <div className="flex justify-between items-center px-3 py-1 text-gray-700 dark:text-zinc-100">
           <div className="inline-flex items-center gap-2">
             <MiniTerminalIcon className="w-5 h-5 text-gray-400" />
-            <span className="text-xs">Console</span>
+            <span className="text-xs font-techie tracking-widest">CONSOLE</span>
           </div>
           <button
             onClick={() => reset()}

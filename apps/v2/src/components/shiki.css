@@ -22,6 +22,7 @@ figure pre.shiki {
 
 :root.dark .shiki.github-dark {
   display: block;
+  --highlight-bg: theme(colors.gray.800);
 }
 
 [data-editor-code] pre.shiki {
@@ -31,6 +32,7 @@ figure pre.shiki {
 pre.shiki {
   --code-color: theme(colors.gray.100);
   --code-text-color: theme(colors.gray.800);
+  --highlight-bg: #f1f8ff;
   border-color: var(--code-color);
   @apply relative overflow-x-auto border;
 }
@@ -47,7 +49,7 @@ pre.shiki div.highlight {
 }
 pre.shiki div.highlight {
   opacity: 1;
-  background-color: #f1f8ff;
+  background-color: var(--highlight-bg);
 }
 pre.shiki div.line {
   min-height: 1rem;

@@ -24,7 +24,7 @@ However, this approach has a downside: if there is any error logged during the t
 
 To make sure that will not happen, the closest thing you can do is to assert how many the console method has been called.
 
-```js
+```js {10}
 beforeAll(() => {
   jest.spyOn(global.console, 'error').mockImplementation(() => {});
 });
@@ -35,7 +35,7 @@ afterAll(() => {
 
 test('my test case title', () => {
   // the tests
-  expect(console.error).toHaveBeenCallTimes(2); // highlight-line
+  expect(console.error).toHaveBeenCallTimes(2);
 });
 ```
 

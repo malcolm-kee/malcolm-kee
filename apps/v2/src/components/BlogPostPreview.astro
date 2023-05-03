@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { ImageData } from '~/lib/cloudinary';
 import { formatDate } from '~/lib/date';
 import { CloudinaryImage } from './CloudinaryImage';
+import { Tag } from './tag';
 
 export interface Props {
   post: CollectionEntry<'blog'> & { heroImageInfo?: ImageData };
@@ -32,7 +33,6 @@ const hasImage = post.heroImageInfo;
         ],
     Astro.props.class
   )}
-  data-shiny={!hasImage}
 >
   {
     post.heroImageInfo && (
@@ -107,7 +107,7 @@ const hasImage = post.heroImageInfo;
                 isFeatured ? '@md/bloglist:border-l-transparent' : '@md/bloglist:hidden'
               )}
             >
-              {formatDate(post.data.pubDate)}
+              {formatDate(post.data.pubDate, post.data.lang)}
             </time>
           )
         }
@@ -138,24 +138,16 @@ const hasImage = post.heroImageInfo;
       </div>
     </a>
     {
-      post.data.topics && post.data.topics.length > 0 && (
+      post.data.displayedTopics && post.data.displayedTopics.length > 0 && (
         <ul
           class={clsx(
-            'relative mt-4 flex items-center flex-wrap gap-2 text-xs',
+            'relative mt-4 flex items-center flex-wrap gap-2',
             isFeatured && '@md/bloglist:px-3'
           )}
         >
-          {post.data.topics.map((topic) => (
+          {post.data.displayedTopics.map((topic) => (
             <li>
-              <a
-                href={`/topic/${topic}`}
-                class={clsx(
-                  'topic-link block px-3 py-1.5 font-medium rounded-full transition-colors uppercase',
-                  'text-zinc-600 bg-zinc-100 hover:text-primary-500 shadow-sm'
-                )}
-              >
-                {topic}
-              </a>
+              <Tag href={`/topic/${topic.value}/`}>{topic.label}</Tag>
             </li>
           ))}
         </ul>
@@ -164,22 +156,6 @@ const hasImage = post.heroImageInfo;
   </div>
 </article>
 <script>
-  import { setupShinyEffect } from '~/lib/shiny-effect';
-
-  document.querySelectorAll('.blog-article[data-shiny]').forEach((previewElement) => {
-    const link = previewElement.querySelector('.blog-link');
-    const coverElement = previewElement.querySelector('.blog-content-bg');
-
-    if (
-      link &&
-      link instanceof HTMLElement &&
-      coverElement &&
-      coverElement instanceof HTMLElement
-    ) {
-      setupShinyEffect(coverElement, link);
-    }
-  });
-
   document.querySelectorAll('.blog-link').forEach((blogLink) => {
     if (blogLink instanceof HTMLElement) {
       blogLink.addEventListener(

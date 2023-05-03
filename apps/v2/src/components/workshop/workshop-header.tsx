@@ -59,7 +59,7 @@ export const WorkshopHeader = ({
         />
       </div>
       <div className="hidden sm:block relative px-3 overflow-hidden">
-        <span className="block w-full text-slate-700 dark:text-sky-100 truncate sm:text-center">
+        <span className="block w-full font-techie text-slate-700 dark:text-sky-100 truncate sm:text-center">
           {workshop.name}
         </span>
       </div>

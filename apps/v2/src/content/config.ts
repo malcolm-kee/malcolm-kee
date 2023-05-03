@@ -1,18 +1,28 @@
 import { defineCollection, z } from 'astro:content';
-import { topic } from '../data/topic-types';
+import { TopicLabel, topic } from '../data/topic-types';
 import { isFuture } from '../lib/date';
 
 export const collections = {
   note: defineCollection({
-    schema: z.object({
-      title: z.string(),
-      topics: z.array(topic).optional(),
-      /**
-       * when true, the note page will be created
-       * but it will not be listed
-       */
-      preview: z.boolean().optional(),
-    }),
+    schema: z
+      .object({
+        title: z.string(),
+        topics: z.array(topic).optional(),
+        /**
+         * when true, the note page will be created
+         * but it will not be listed
+         */
+        preview: z.boolean().optional(),
+      })
+      .transform((values) => ({
+        ...values,
+        displayedTopics:
+          values.topics &&
+          values.topics.map((topic) => ({
+            value: topic,
+            label: TopicLabel[topic],
+          })),
+      })),
   }),
   workshop: defineCollection({
     schema: z.object({
@@ -50,6 +60,12 @@ export const collections = {
       .transform((values) => ({
         ...values,
         preview: values.preview || isFuture(values.pubDate),
+        displayedTopics:
+          values.topics &&
+          values.topics.map((topic) => ({
+            value: topic,
+            label: TopicLabel[topic],
+          })),
       })),
   }),
   'today-i-learnt': defineCollection({
@@ -72,6 +88,12 @@ export const collections = {
       .transform((values) => ({
         ...values,
         preview: values.preview || isFuture(values.pubDate),
+        displayedTopics:
+          values.topics &&
+          values.topics.map((topic) => ({
+            value: topic,
+            label: TopicLabel[topic],
+          })),
       })),
   }),
 };

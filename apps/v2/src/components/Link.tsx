@@ -6,9 +6,8 @@ export const Link = (props: React.ComponentPropsWithoutRef<'a'>) => {
     <a
       {...props}
       className={clsx(
-        'no-underline',
-        'shadow-[inset_0_-2px_0_0_#fff,inset_0_calc(-1*(var(--tw-prose-underline-size,4px)+2px))_0_0_var(--tw-prose-underline,theme(colors.primary.200))]',
-        'hover:[--tw-prose-underline-size:6px]',
+        'no-underline border-b border-dashed border-zinc-600/50',
+        'hover:border-solid hover:border-primary-300 hover:text-primary-600',
         props.className
       )}
     />

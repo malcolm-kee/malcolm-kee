@@ -2,36 +2,28 @@ import type { MarkdownHeading } from 'astro';
 import * as React from 'react';
 import { isNotNil } from '~/lib/type-guard';
 
-export const WorkshopHeadings = ({
-  headings,
-}: {
-  headings: Array<MarkdownHeading>;
-}) => {
+export const WorkshopHeadings = ({ headings }: { headings: Array<MarkdownHeading> }) => {
   const [activeId, setActiveId] = React.useState(() => headings[0]?.slug);
 
-  const getHeadingsTop = React.useCallback(
-    (headings: Array<MarkdownHeading>) => {
-      return headings
-        .map(({ slug }) => {
-          const el = document.getElementById(slug);
+  const getHeadingsTop = React.useCallback((headings: Array<MarkdownHeading>) => {
+    return headings
+      .map(({ slug }) => {
+        const el = document.getElementById(slug);
 
-          if (!el) return null;
+        if (!el) return null;
 
-          const style = window.getComputedStyle(el);
-          const scrollMt = parseFloat(style.scrollMarginTop);
+        const style = window.getComputedStyle(el);
+        const scrollMt = parseFloat(style.scrollMarginTop);
 
-          const top =
-            window.scrollY + el.getBoundingClientRect().top - scrollMt;
+        const top = window.scrollY + el.getBoundingClientRect().top - scrollMt;
 
-          return {
-            slug,
-            top,
-          };
-        })
-        .filter(isNotNil);
-    },
-    []
-  );
+        return {
+          slug,
+          top,
+        };
+      })
+      .filter(isNotNil);
+  }, []);
 
   React.useEffect(() => {
     if (headings.length === 0) return;
@@ -64,7 +56,7 @@ export const WorkshopHeadings = ({
           <>
             <h2
               id="on-this-page-title"
-              className="font-display text-sm font-medium text-slate-900 dark:text-white"
+              className="font-techie uppercase tracking-wide text-sm font-medium text-slate-900 dark:text-white"
             >
               On this page
             </h2>
