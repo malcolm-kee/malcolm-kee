@@ -22,7 +22,7 @@ const title = 'Malcolm Kee - Web developer, front end engineer';
       <Container className="sm:mt-32">
         <div class="lg:grid lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
           <div class="mb-12 md:mb-0 md:float-right md:p-4 lg:p-0 lg:float-none lg:pl-20">
-            <div class="-mx-4 -mt-[4.5rem] sm:m-0 sm:px-2.5 sm:max-w-xs lg:max-w-none">
+            <div class="relative -mx-4 -mt-[4.5rem] sm:m-0 sm:px-2.5 sm:max-w-xs lg:max-w-none">
               <Image
                 src={portraitImage}
                 alt=""
@@ -33,6 +33,10 @@ const title = 'Malcolm Kee - Web developer, front end engineer';
                 )}
                 loading="eager"
               />
+              <div
+                class="sm:hidden absolute -bottom-1 inset-x-0 top-1/2 bg-gradient-to-t from-white via-transparent to-transparent"
+              >
+              </div>
             </div>
           </div>
           <div class="lg:order-first lg:row-span-2">

@@ -20,7 +20,7 @@ const { pathname } = Astro.url;
   data-pagetitle={pageTitle}
   data-pagedescription={pageDescription}
   data-path={pathname}
-  className={clsx('SavePageButton hidden', className)}
+  className={clsx('SavePageButton hidden saveable:inline-flex', className)}
 >
   <BookmarkIcon checkMarkClass="SavePageButtonCheckmark transition opacity-0" />
   <span class="SavePageButtonLabel text-xl sm:text-sm">Save</span>
@@ -33,10 +33,19 @@ const { pathname } = Astro.url;
     requestPersistentStorage,
     savePageDependencies,
   } from '~/data/offline-helpers';
+  import { onOnlineStatusChange } from '~/lib/check-online-status';
 
   const saveStateByPage = new Map<string, boolean>();
 
-  document.querySelectorAll<HTMLButtonElement>('.SavePageButton').forEach((button) => {
+  const saveButtons = document.querySelectorAll<HTMLButtonElement>('.SavePageButton');
+
+  onOnlineStatusChange((isOnline) =>
+    saveButtons.forEach((button) => {
+      button.disabled = !isOnline;
+    })
+  );
+
+  saveButtons.forEach((button) => {
     const { dataset } = button;
 
     if (
@@ -109,6 +118,8 @@ const { pathname } = Astro.url;
               });
             });
           });
+        } else {
+          button.classList.add('!hidden');
         }
       });
     }

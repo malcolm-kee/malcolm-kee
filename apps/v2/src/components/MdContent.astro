@@ -45,7 +45,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       </header>
       {
         saveKey && (
-          <div class="hidden xl:block xl:offline:hidden">
+          <div class="hidden xl:block">
             <SavePageButton saveKey={saveKey} pageTitle={title} pageDescription={description} />
           </div>
         )
@@ -63,7 +63,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       }
       {
         saveKey && (
-          <div class="xl:hidden offline:hidden sm:ml-auto">
+          <div class="xl:hidden sm:ml-auto">
             <SavePageButton
               saveKey={saveKey}
               pageTitle={title}

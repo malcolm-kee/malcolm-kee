@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url';
 
 import { extractDependencies } from '@mkee/extract-html-resources';
+import { parse } from 'node-html-parser';
 import type { AstroIntegration } from 'astro';
 import fs from 'fs-extra';
 
@@ -26,10 +27,15 @@ export const depsExtraction = (options: {
         for (const { pathname } of pagesToCheck) {
           const pagePath = trimSlash(pathname);
 
-          const result = await extractDependencies(new URL(`${pagePath}/index.html`, dir), {
-            excludes: options.excludes,
-            root: dir,
-          });
+          const htmlFilePath = new URL(`${pagePath}/index.html`, dir);
+
+          const [result, originalHtml] = await Promise.all([
+            extractDependencies(htmlFilePath, {
+              excludes: options.excludes,
+              root: dir,
+            }),
+            fs.readFile(htmlFilePath, 'utf-8'),
+          ]);
 
           const serializedResult = {
             css: Array.from(result.css),
@@ -43,6 +49,11 @@ export const depsExtraction = (options: {
             JSON.stringify(serializedResult),
             'utf-8'
           );
+
+          const root = parse(originalHtml);
+          root.querySelector('html')?.setAttribute('data-cansave', 'true');
+
+          await fs.writeFile(htmlFilePath, root.toString(), 'utf-8');
         }
 
         if (options.serviceWorker) {

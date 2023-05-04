@@ -4,12 +4,16 @@ import path from 'node:path';
 import { URL, fileURLToPath } from 'node:url';
 
 import { init, parse as parseEsModule } from 'es-module-lexer';
-import type { Plugin as PostcssPlugin, PluginCreator as PostcssPluginCreator } from 'postcss';
+import type {
+  Plugin as PostcssPlugin,
+  PluginCreator as PostcssPluginCreator,
+  Postcss,
+} from 'postcss';
 import { request } from 'undici';
 
 const require = createRequire(import.meta.url);
 
-const postcss = require('postcss');
+const postcss: Postcss = require('postcss');
 
 export interface ExtractDependenciesOptions {
   excludes: Array<RegExp>;

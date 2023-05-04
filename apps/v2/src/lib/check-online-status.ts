@@ -27,6 +27,11 @@ export const checkOnlineStatus = ({
       // considered as offline when no response after timeout
     ]).then((isOnline) => {
       if (lastStatus !== isOnline) {
+        document.documentElement.dispatchEvent(
+          new CustomEvent(ONLINE_STATUS, {
+            detail: isOnline,
+          })
+        );
         onStatusChange(isOnline);
         lastStatus = isOnline;
       }
@@ -49,4 +54,14 @@ export const checkOnlineStatus = ({
     window.removeEventListener('online', onOnlineEvent);
     window.removeEventListener('offline', onOnlineEvent);
   };
+};
+
+const ONLINE_STATUS = 'onlineStatus';
+
+export const onOnlineStatusChange = (onStatusChange: (isOnline: boolean) => void) => {
+  const onEvent = (customEvent: CustomEvent<boolean>) => {
+    onStatusChange(!!customEvent.detail);
+  };
+
+  document.documentElement.addEventListener(ONLINE_STATUS, onEvent as EventListener);
 };
