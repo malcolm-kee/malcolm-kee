@@ -115,7 +115,7 @@ export default defineConfig({
           },
           properties: {
             class:
-              'inline-flex items-center ml-2 text-zinc-300 hover:text-primary-500 focus:text-primary-500 dark:!text-slate-500 dark:hover:!text-primary-500 transition !border-none',
+              'inline-flex items-center ml-2 !text-zinc-300 hover:!text-primary-500 dark:!text-slate-500 dark:hover:!text-primary-500 transition !border-none',
             tabindex: '-1',
             'aria-hidden': 'true',
           },

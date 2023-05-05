@@ -39,7 +39,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
             </p>
           )
         }
-        <h1 class="content-title font-techie text-4xl sm:text-5xl font-bold w-full">
+        <h1 class="content-title font-techie text-4xl sm:text-5xl font-bold w-full bg-transparent">
           {title}
         </h1>
       </header>
@@ -78,7 +78,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       class={clsx(
         'max-w-3xl prose mt-3 sm:mt-6 xl:mt-0',
         'prose-headings:font-techie',
-        'prose-a:no-underline prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-300 hover:prose-a:text-primary-600',
+        'prose-a:no-underline prose-a:text-primary-600 prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-500 hover:prose-a:text-primary-700',
         hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
       )}
       data-md-content

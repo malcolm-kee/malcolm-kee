@@ -1,5 +1,5 @@
 ---
-import { CodeIcon, PlayIcon } from './icons';
+import { PlayIcon, StopIcon } from './icons';
 import { LiveEditor } from './LiveEditor';
 
 interface Props {
@@ -25,7 +25,15 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
   data-readonly={readOnly && 'true'}
 >
   <div class="flex justify-between items-center px-2 py-1 offline:hidden">
-    <span class="font-techie text-sm uppercase font-medium tracking-widest" data-editor-mode></span>
+    <span class="inline-flex items-center gap-2">
+      <span class="font-techie text-sm uppercase font-medium tracking-widest" data-editor-mode
+      ></span>
+      <span class="relative h-2 w-2 hidden" aria-hidden data-running-indicator>
+        <span class="animate-ping absolute h-full w-full bg-primary-400 opacity-50 rounded-full"
+        ></span>
+        <span class="relative block w-2 h-2 bg-primary-500 rounded-full"></span>
+      </span>
+    </span>
     <div class="inline-flex gap-2">
       <button
         type="button"
@@ -41,7 +49,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         aria-label="Cancel"
         class="p-1 bg-white dark:bg-zinc-400 rounded-full hidden"
       >
-        <CodeIcon aria-hidden className="w-6 h-6 text-gray-500 dark:text-zinc-700" />
+        <StopIcon aria-hidden className="w-6 h-6 text-gray-500 dark:text-zinc-700" />
       </button>
     </div>
   </div>
@@ -76,7 +84,10 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
     const cancelButtonElement = editorSectionElement.querySelector('[data-cancel-button]');
     const codeElement = editorSectionElement.querySelector('[data-editor-code]');
     const editorElement = editorSectionElement.querySelector('[data-editor]');
-    const modeElement = editorSectionElement.querySelector('[data-editor-mode]');
+    const modeElement = editorSectionElement.querySelector<HTMLSpanElement>('[data-editor-mode]');
+    const runningIndicator = editorSectionElement.querySelector<HTMLSpanElement>(
+      '[data-running-indicator]'
+    );
     const allCodeSnippetElements = Array.from(editorSectionElement.querySelectorAll('pre'));
 
     const langBySnippet = new WeakMap<HTMLPreElement, string>();
@@ -118,13 +129,22 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
       }
     };
 
-    if (codeElement && editButtonElement && cancelButtonElement && editorElement && modeElement) {
+    if (
+      codeElement &&
+      editButtonElement &&
+      cancelButtonElement &&
+      editorElement &&
+      modeElement &&
+      runningIndicator
+    ) {
       const currentEditorElement = editorElement as HTMLElement;
 
       const showLiveEditor = () => {
         editButtonElement.classList.add('hidden');
         cancelButtonElement.classList.remove('hidden');
         modeElement.textContent = editorSectionElement.dataset.readonly ? 'Running' : 'Editing';
+        runningIndicator.style.display = 'block';
+
         const codeStyle = window.getComputedStyle(codeElement);
         const codeHeight = codeStyle.getPropertyValue('height');
         codeElement.classList.add('hidden');
@@ -136,6 +156,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         cancelButtonElement.classList.add('hidden');
         editButtonElement.classList.remove('hidden');
         modeElement.textContent = null;
+        runningIndicator.style.display = 'none';
 
         currentEditorElement.classList.add('hidden');
         codeElement.classList.remove('hidden');
