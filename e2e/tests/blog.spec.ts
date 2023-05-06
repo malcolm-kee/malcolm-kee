@@ -48,7 +48,7 @@ test('save blog and view offline', async ({ page, context }) => {
 
   await page.goto('/about/');
 
-  await expect(page.getByText('No connection')).toBeVisible();
+  await expect(page.getByText('Disconnected')).toBeVisible();
 
   await page.getByText(/OpenAPI: A backend/).click();
 
