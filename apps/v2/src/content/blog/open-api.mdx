@@ -9,8 +9,9 @@ heroImagePublicId: malcolm-kee/OpenAPI_rl2rzm
 
 import { Image } from 'astro:assets';
 import Figure from '~/components/Figure.tsx';
-import apiGateway from './_open-api/api-gateway.excalidraw.png';
-import breakingChange from './_open-api/breaking-change.excalidraw.png';
+import { ShapedFloat } from '~/components/ShapedFloat.tsx';
+import apiGateway from './_open-api/api-gateway.png';
+import breakingChange from './_open-api/breaking-change.png';
 import clientSdk from './_open-api/client-sdk.excalidraw.png';
 import edgeFunction from './_open-api/edge-fn.excalidraw.png';
 import mockServer from './_open-api/mock-server.excalidraw.png';
@@ -64,9 +65,9 @@ Similar to SDK generation, mock server generation is another types of code gener
 
 ### API Gateway configuration
 
-<Figure caption="OpenAPI doc from API configures API gateway">
+<ShapedFloat float="right" shapeSrc={apiGateway.src} shapeMargin="16px">
   <Image src={apiGateway} alt="OpenAPI doc from API configures API gateway" />
-</Figure>
+</ShapedFloat>
 
 API gateway is a common component in microservice architectures, where it sits between the client and all the backend services.
 
@@ -84,9 +85,9 @@ As authorization requirements and request body schema could be described in Open
 
 ### Breaking change detection
 
-<Figure caption="OpenAPI doc used to detect breaking change">
+<ShapedFloat float="right" shapeSrc={breakingChange.src}>
   <Image src={breakingChange} alt="OpenAPI doc used to detect breaking change" />
-</Figure>
+</ShapedFloat>
 
 When an API is used by many clients, such as in a large company or the API is released to external parties, it is crucial to avoid breaking changes without proper planning and announcement. As it is easy to parse OpenAPI spec, there are libraries (such as this [`openapi-diff`](https://bitbucket.org/atlassian/openapi-diff/src/master/) package) to detect breaking changes of the API such as:
 

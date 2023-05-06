@@ -38,5 +38,10 @@
     "*.excalidrawlib": "json",
     "*.css": "css",
     "greet.h": "c"
+  },
+  "excalidraw.image": {
+    "exportScale": 1,
+    "exportWithBackground": false,
+    "exportWithDarkMode": false
   }
 }
