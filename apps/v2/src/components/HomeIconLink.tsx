@@ -2,10 +2,18 @@ import { clsx } from 'clsx';
 import * as React from 'react';
 
 export const HomeIconLink = (props: { iconClass?: string; hideAvatar?: boolean }) => (
-  <a href="/" className="inline-flex flex-row-reverse items-center gap-3 px-3 rounded group/link">
+  <a
+    href="/"
+    className={clsx(
+      'inline-flex items-center gap-3 -ml-3 group/link',
+      props.hideAvatar
+        ? 'justify-center w-20 h-20 bg-white/10 rounded-xl'
+        : 'rounded px-3 flex-row-reverse'
+    )}
+  >
     <span
       className={clsx(
-        'block text-2xl text-primary-500',
+        'block text-4xl font-techie font-bold drop-shadow text-zinc-900 hover:text-primary-600 transition',
         !props.hideAvatar && [
           'sr-only',
           'opacity-0 group-hover/link:opacity-100 group-focus/link:opacity-100 transition',
@@ -13,7 +21,7 @@ export const HomeIconLink = (props: { iconClass?: string; hideAvatar?: boolean }
         ]
       )}
     >
-      Malcolm Kee
+      MK
     </span>
     {!props.hideAvatar && (
       <IconContainer className="group-focus-visible/link:bg-transparent group-focus-visible/link:ring-0 group-hover/link:bg-transparent group-hover/link:ring-0">

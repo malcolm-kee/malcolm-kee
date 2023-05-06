@@ -18,7 +18,7 @@ const { blogs, tils } = Astro.props;
       blogs.map((post, index) => (
         <>
           {index !== 0 && <hr class="@3xl/suggestions:hidden" />}
-          <BlogPostPreview post={post} hideDate TitleElement="h3" class="px-2" roundedBg />
+          <BlogPostPreview post={post} hideDate TitleElement="h3" class="px-2" />
         </>
       ))
     }

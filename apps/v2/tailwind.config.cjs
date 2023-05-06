@@ -51,7 +51,7 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/line-clamp'),
     require('@headlessui/tailwindcss'),
-    plugin(function ({ addVariant, matchVariant }) {
+    plugin(function ({ addVariant, matchVariant, addUtilities, matchUtilities, theme }) {
       addVariant('online', ':root[data-online="true"] &');
       addVariant('offline', ':root[data-online="false"] &');
       addVariant('installable', ':root[data-installable="true"] &');
@@ -64,6 +64,43 @@ module.exports = {
           browser: 'browser',
         },
       });
+      addUtilities({
+        '.cut-tr': {
+          '--_corner-x-size': 'var(--corner-x-size, calc(2 * var(--corner-size)))',
+          '--_corner-y-size': 'var(--corner-y-size, var(--corner-size))',
+          'clip-path': `polygon(0% 0%, calc(100% - var(--_corner-x-size)) 0%, 100% var(--_corner-y-size), 100% 100%, 0% 100%)`,
+        },
+        '.cut-all': {
+          '--_corner-x-size': 'var(--corner-x-size, var(--corner-size))',
+          '--_corner-y-size': 'var(--corner-y-size, var(--corner-size))',
+          'clip-path': `polygon(
+            var(--_corner-x-size) 0%,
+            calc(100% - var(--_corner-x-size)) 0%,
+            100% var(--_corner-y-size),
+            100% calc(100% - var(--_corner-y-size)),
+            calc(100% - var(--_corner-x-size)) 100%,
+            var(--_corner-x-size) 100%,
+            0% calc(100% - var(--_corner-y-size)),
+            0% var(--_corner-y-size)
+          )`,
+        },
+      });
+      matchUtilities(
+        {
+          cut: (value) => ({
+            '--corner-size': value,
+          }),
+          'cut-x': (value) => ({
+            '--corner-x-size': value,
+          }),
+          'cut-y': (value) => ({
+            '--corner-y-size': value,
+          }),
+        },
+        {
+          values: theme('spacing'),
+        }
+      );
     }),
   ],
 };

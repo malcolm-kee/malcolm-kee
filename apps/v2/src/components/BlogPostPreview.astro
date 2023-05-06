@@ -12,10 +12,9 @@ export interface Props {
   TitleElement?: 'h1' | 'h2' | 'h3' | 'h4';
   hideDate?: boolean;
   class?: string;
-  roundedBg?: boolean;
 }
 
-const { post, isFeatured, TitleElement = 'h2', hideDate, roundedBg } = Astro.props;
+const { post, isFeatured, TitleElement = 'h2', hideDate } = Astro.props;
 
 const hasImage = post.heroImageInfo;
 ---
@@ -23,14 +22,11 @@ const hasImage = post.heroImageInfo;
 <article
   lang={post.data.lang}
   class={clsx(
-    'blog-article',
+    'blog-article @container/article',
     hasImage && 'relative',
     isFeatured
       ? 'z-10 py-20 bg-white min-h-[20rem] flex items-center'
-      : [
-          '@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6',
-          roundedBg ? 'py-3' : 'pt-1 pb-3',
-        ],
+      : ['@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6', 'pt-1 pb-3'],
     Astro.props.class
   )}
 >
@@ -39,10 +35,10 @@ const hasImage = post.heroImageInfo;
       <div
         class={clsx(
           'blog-hero-image-container absolute inset-y-0 h-full opacity-20 overflow-hidden transition-opacity',
+          'cut-tr',
           isFeatured
-            ? 'block -inset-x-4 sm:-inset-x-8 lg:inset-x-0 rounded-2xl'
-            : 'hidden @md/bloglist:rounded-r-2xl inset-x-0 w-full',
-          roundedBg && 'rounded-2xl'
+            ? 'block -inset-x-4 sm:-inset-x-8 lg:inset-x-0 cut-10'
+            : 'hidden inset-x-0 w-full cut-x-4 cut-y-8 @md/article:cut-x-8 @md/article:cut-y-4'
         )}
         aria-hidden
       >
@@ -78,24 +74,30 @@ const hasImage = post.heroImageInfo;
       </time>
     )
   }
-  <div class="@md/bloglist:col-span-3 h-full w-full relative">
+  <div
+    class={clsx(
+      '@md/bloglist:col-span-3 h-full w-full relative',
+      hasImage && (isFeatured ? 'pr-8' : 'pr-4 @md/article:pr-8')
+    )}
+  >
     <a href={`/blog/${post.slug}/`} class="block group/bloglink blog-link">
       {
         !hasImage && (
           <div
             class={clsx(
-              'blog-content-bg absolute -inset-y-6 -inset-x-4 z-0',
-              '@md/bloglist:-inset-x-6 @md/bloglist:rounded-2xl',
+              'blog-content-bg absolute -inset-y-3 -inset-x-4 z-0',
+              '@md/bloglist:-inset-x-6',
               'scale-95 bg-zinc-50 opacity-0 transition',
               'group-hover/bloglink:scale-100 group-hover/bloglink:opacity-100',
-              roundedBg && 'rounded-2xl'
+              'cut-tr',
+              isFeatured ? 'cut-10' : 'cut-x-4 cut-y-8 @md/article:cut-x-8 @md/article:cut-y-4'
             )}
           />
         )
       }
       <div
         class={clsx(
-          'blog-content-preview relative transition-all pr-2',
+          'blog-content-preview relative transition-all',
           hasImage && (isFeatured ? 'drop-shadow-sm' : 'backdrop-blur-sm')
         )}
       >

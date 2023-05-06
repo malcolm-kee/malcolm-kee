@@ -1,0 +1,80 @@
+---
+import BaseHead from '~/components/BaseHead.astro';
+import PageLayout from '~/components/PageLayout.astro';
+import BlogPostPreview from '~/components/BlogPostPreview.astro';
+import { Tag } from '~/components/tag';
+import { getEntryBySlug } from 'astro:content';
+import { getTransformedImage } from '~/lib/cloudinary';
+import { BlogPostPreviewList, BlogPostPreviewListItems } from '~/components/BlogPostPreviewList';
+import ContentSuggestions from '~/components/ContentSuggestions.astro';
+
+const viewTransitionApiData = await getEntryBySlug('blog', 'automating-refactoring-with-codemod');
+const viewTransitionApiPost = {
+  ...viewTransitionApiData,
+  heroImageInfo: viewTransitionApiData.data.heroImagePublicId
+    ? await getTransformedImage(viewTransitionApiData.data.heroImagePublicId)
+    : undefined,
+};
+const htmlCvData = await getEntryBySlug('blog', 'how-to-create-cv-using-html');
+const htmlCvPost = {
+  ...htmlCvData,
+  heroImageInfo: htmlCvData.data.heroImagePublicId
+    ? await getTransformedImage(htmlCvData.data.heroImagePublicId)
+    : undefined,
+};
+const flutterPost = await getEntryBySlug('blog', 'flutter-for-react-developers');
+---
+
+<html>
+  <head>
+    <BaseHead title="Design of malcolmkee.com" />
+  </head>
+  <body>
+    <PageLayout>
+      <span slot="title">Design</span>
+      <span slot="description">design of this site</span>
+      <div class="px-3">
+        <div class="flex flex-col gap-40">
+          <section>
+            <h2 class="mb-6 text-zinc-300 font-medium uppercase">Typography</h2>
+            <div class="prose">
+              <p>
+                <span class="inline-block w-24">Display:</span><span class="font-techie text-4xl"
+                  >Chakra Petch</span
+                >
+              </p>
+              <p><span class="inline-block w-24">Body:</span><span>System UI</span></p>
+            </div>
+          </section>
+          <section>
+            <h2 class="mb-6 text-zinc-300 font-medium uppercase">Components</h2>
+            <div class="grid gap-3 lg:grid-cols-[max-content_1fr] lg:gap-y-20">
+              <h3 class="font-techie text-lg">Tag</h3>
+              <div class="pb-8 lg:p-0">
+                <Tag href="#">design</Tag>
+                <Tag href="#">development</Tag>
+                <Tag href="#">reading</Tag>
+              </div>
+              <h3 class="font-techie text-lg">BlogPostPreview</h3>
+              <div class="pb-8 lg:p-0">
+                <BlogPostPreviewList>
+                  <BlogPostPreview post={viewTransitionApiPost} isFeatured={true} />
+                  <BlogPostPreviewListItems>
+                    <BlogPostPreview post={htmlCvPost} />
+                  </BlogPostPreviewListItems>
+                </BlogPostPreviewList>
+              </div>
+              <h3 class="font-techie text-lg">ContentSuggestions</h3>
+              <div class="pb-8 lg:p-0">
+                <ContentSuggestions
+                  blogs={[viewTransitionApiPost, htmlCvPost, flutterPost]}
+                  tils={[]}
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </PageLayout>
+  </body>
+</html>
