@@ -1,7 +1,7 @@
 ---
 import type { MarkdownHeading } from 'astro';
-import { MdToc } from './MdToc';
 import { clsx } from 'clsx';
+import { CollapsibleMdToc } from './collapsible-md-toc';
 
 export interface Props {
   headings: Array<MarkdownHeading>;
@@ -10,7 +10,7 @@ export interface Props {
 const { headings } = Astro.props;
 ---
 
-<MdToc headings={headings} className="xl:hidden" client:load />
+<CollapsibleMdToc headings={headings} className="xl:hidden" client:visible />
 <nav
   class="StickyMdToc hidden xl:flex gap-3 float-right sticky top-14 -mr-12 w-[calc(1072px-768px-16px)]"
   aria-labelledby="mdtoc-label"

@@ -5,7 +5,7 @@ import * as React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { CloseIcon } from './icons';
 
-export const MdToc = (props: {
+export const CollapsibleMdToc = (props: {
   headings: Array<MarkdownHeading>;
   id?: string;
   className?: string;
@@ -24,56 +24,69 @@ export const MdToc = (props: {
     >
       {({ open }) => (
         <>
-          <div className="absolute top-0 right-0 scale-y-50 bottom-0 left-0 bg-white rounded-none transition duration-200 delay-[var(--collapse-duration)] ui-open:rounded-xl ui-open:bg-zinc-50 ui-open:delay-0 ui-open:scale-y-100" />
+          <div
+            className={clsx(
+              'absolute top-0 right-0 scale-y-50 bottom-0 left-0',
+              'transition-all duration-200 delay-[var(--collapse-duration)] ui-open:delay-0 ',
+              'bg-white rounded-none ui-open:rounded-xl ui-open:bg-zinc-50 ui-open:scale-y-100',
+              'ui-open:shadow-inner'
+            )}
+          />
           <div className="relative">
-            <div
-              id={labelId}
-              className="px-6 text-xl transition-transform duration-300 delay-[calc(var(--collapse-duration)+300ms)] ui-open:delay-0"
-            >
-              Contents
-            </div>
-            <Disclosure.Button className="group/toggle flex items-center absolute top-0 right-0 bottom-0 left-0 w-full px-4">
+            <Disclosure.Button className="group/toggle flex w-full">
               <span
                 className={clsx(
-                  'transition-all duration-200 text-start flex-1 delay-[var(--collapse-duration)]',
-                  'sm:flex-initial sm:ui-open:flex-1 ui-open:duration-500 ui-open:delay-0'
+                  'flex-1 sm:flex-initial sm:ui-open:flex-1',
+                  'block',
+                  'duration-200 delay-[var(--collapse-duration)]',
+                  'ui-open:duration-500 ui-open:delay-0'
                 )}
               >
                 <span
-                  aria-hidden
                   className={clsx(
-                    'block -ml-4 px-3 py-2 sm:pl-2 sm:pr-0 sm:py-0 text-zinc-500 text-xl bg-zinc-50 duration-300 delay-[calc(var(--collapse-duration)+100ms)] rounded-l-md shadow',
-                    'ui-open:ml-0 ui-open:text-zinc-900 ui-open:shadow-none',
-                    'group-hover/toggle:bg-zinc-100',
-                    'ui-open:delay-0 ui-open:group-hover/toggle:bg-zinc-50'
+                    'flex justify-between items-center gap-1',
+                    'text-start px-3',
+                    'transition-all duration-200 delay-[var(--collapse-duration)]',
+                    'ui-open:duration-0 ui-open:delay-0',
+                    'bg-white hover:bg-zinc-50 ui-open:bg-zinc-50 text-zinc-500 ui-open:text-zinc-900',
+                    'rounded-md',
+                    'shadow ui-open:shadow-none'
                   )}
                 >
                   <span
                     className={clsx(
-                      'block text-start origin-left font-light duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
-                      'sm:scale-[0.8] sm:ui-open:scale-100 ui-open:font-normal ui-open:delay-0'
+                      'block py-2 sm:pr-0 sm:py-0 text-xl transition duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
+                      'translate-x-0 ui-open:translate-x-4',
+                      'ui-open:delay-0'
                     )}
                   >
-                    Contents
+                    <span
+                      className={clsx(
+                        'block text-start origin-left font-light duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
+                        'sm:text-sm sm:leading-7 sm:ui-open:text-xl ui-open:font-normal ui-open:delay-0'
+                      )}
+                      id={labelId}
+                    >
+                      Contents
+                    </span>
+                  </span>
+                  <span
+                    className={clsx(
+                      'block py-3 sm:py-1',
+                      'translate-x-0 ui-open:-translate-x-4',
+                      'duration-300 delay-[var(--collapse-duration)] ui-open:delay-0'
+                    )}
+                    aria-hidden
+                  >
+                    <CloseIcon
+                      className={clsx(
+                        'w-5 h-5 stroke-zinc-500 transition delay-[var(--collapse-duration)]',
+                        '-rotate-[135deg] scale-75 sm:scale-[0.6]',
+                        'ui-open:rotate-0 ui-open:scale-100 sm:ui-open:scale-100 ui-open:duration-500 ui-open:delay-0'
+                      )}
+                    />
                   </span>
                 </span>
-              </span>
-              <span
-                className={clsx(
-                  'block pr-2 py-3 sm:py-1 bg-zinc-50 shadow rounded-r-md duration-300 ui-open:shadow-none',
-                  '-mr-4 ui-open:mr-0 sm:mr-0 [clip-path:inset(-3px_-3px_-3px_0)]',
-                  'group-hover/toggle:bg-zinc-100 ui-open:group-hover/toggle:bg-zinc-50',
-                  'delay-[var(--collapse-duration)] ui-open:delay-0'
-                )}
-              >
-                <CloseIcon
-                  aria-hidden
-                  className={clsx(
-                    'w-5 h-5 stroke-zinc-500 transition delay-[var(--collapse-duration)]',
-                    '-rotate-[135deg] scale-[0.6]',
-                    'ui-open:rotate-0 ui-open:scale-100 ui-open:duration-500 ui-open:delay-0'
-                  )}
-                />
               </span>
             </Disclosure.Button>
           </div>
