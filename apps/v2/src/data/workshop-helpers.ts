@@ -41,7 +41,10 @@ export const groupWorkshopLessons = (workshopLessonEntries: ReadonlyArray<Worksh
   );
 
   const workshopTocMap = new Map(
-    workshopSlugs.map((slug) => [slug, new Map<string, Array<WorkshopTocLink>>()])
+    workshopSlugs.map((slug) => [
+      slug,
+      new Map<string, Array<WorkshopTocLink & { order: number | undefined }>>(),
+    ])
   );
 
   workshopLessonEntries
@@ -75,6 +78,7 @@ export const groupWorkshopLessons = (workshopLessonEntries: ReadonlyArray<Worksh
         const entryLink = {
           text: entry.data.title,
           url: `/${entrySlug}/`,
+          order: entry.data.order,
         };
 
         if (items) {
@@ -97,7 +101,20 @@ export const groupWorkshopLessons = (workshopLessonEntries: ReadonlyArray<Worksh
           tocMap.forEach((items, section) =>
             tocItems.push({
               label: section,
-              items,
+              items: items.slice(0).sort((a, b) => {
+                if (a.order != null) {
+                  if (b.order != null) {
+                    return a.order - b.order;
+                  }
+                  return -1;
+                }
+
+                if (b.order != null) {
+                  return 1;
+                }
+
+                return 0;
+              }),
             })
           );
         }

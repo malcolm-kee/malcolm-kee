@@ -29,6 +29,7 @@ export const collections = {
       title: z.string(),
       description: z.string().optional(),
       section: z.string().optional(),
+      order: z.number().optional(),
     }),
   }),
   blog: defineCollection({

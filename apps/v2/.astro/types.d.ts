@@ -713,6 +713,13 @@ declare module 'astro:content' {
   collection: "workshop",
   data: InferEntrySchema<"workshop">
 } & { render(): Render[".mdx"] },
+"becoming-js-data-wrangler/02-for-loop/for-loop-summarizing.mdx": {
+  id: "becoming-js-data-wrangler/02-for-loop/for-loop-summarizing.mdx",
+  slug: "becoming-js-data-wrangler/02-for-loop/for-loop-summarizing",
+  body: string,
+  collection: "workshop",
+  data: InferEntrySchema<"workshop">
+} & { render(): Render[".mdx"] },
 "becoming-js-data-wrangler/02-for-loop/for-loop-transforming.mdx": {
   id: "becoming-js-data-wrangler/02-for-loop/for-loop-transforming.mdx",
   slug: "becoming-js-data-wrangler/02-for-loop/for-loop-transforming",
