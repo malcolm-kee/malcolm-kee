@@ -15,7 +15,7 @@ module.exports = {
         'square-diagonal': `${(Math.sqrt(2) * 100).toFixed(2)}%`,
       },
       fontFamily: {
-        techie: ['"Chakra Petch"', ...defaultTheme.fontFamily.mono],
+        techie: ['"Chakra Petch"', '"Chakra Petch-fallback"', ...defaultTheme.fontFamily.sans],
       },
       typography: (theme) => ({
         DEFAULT: {

@@ -20,7 +20,7 @@ const { pathname } = Astro.url;
   data-pagetitle={pageTitle}
   data-pagedescription={pageDescription}
   data-path={pathname}
-  className={clsx('SavePageButton hidden saveable:inline-flex', className)}
+  className={clsx('SavePageButton hidden saveable:inline-flex min-w-[90px]', className)}
 >
   <BookmarkIcon checkMarkClass="SavePageButtonCheckmark transition opacity-0" />
   <span class="SavePageButtonLabel text-xl sm:text-sm">Save</span>
@@ -81,41 +81,44 @@ const { pathname } = Astro.url;
 
           saveStateByPage.set(saveKey, capability.saved);
 
+          let isBusy = false;
           button.addEventListener('click', () => {
-            const sameKeyButtons = document.querySelectorAll<HTMLButtonElement>(
-              `.SavePageButton[data-savekey="${saveKey}"]`
-            );
+            if (isBusy) {
+              return;
+            }
+
+            isBusy = true;
 
             const isSaving = !saveStateByPage.get(saveKey);
 
-            sameKeyButtons.forEach((sameKeyButton) => {
-              sameKeyButton.disabled = true;
+            const operation = isSaving
+              ? requestPersistentStorage().then(() =>
+                  savePageDependencies(saveKey, pageInfo, capability.dependencies)
+                )
+              : removePage(saveKey);
 
-              const checkIcon = sameKeyButton.querySelector('.SavePageButtonCheckmark');
-              const buttonLabel = sameKeyButton.querySelector('.SavePageButtonLabel');
+            operation.then(() => {
+              isBusy = false;
+              saveStateByPage.set(saveKey, isSaving);
 
-              const operation = isSaving
-                ? requestPersistentStorage().then(() =>
-                    savePageDependencies(saveKey, pageInfo, capability.dependencies)
-                  )
-                : removePage(saveKey);
+              document
+                .querySelectorAll<HTMLButtonElement>(`.SavePageButton[data-savekey="${saveKey}"]`)
+                .forEach((sameKeyButton) => {
+                  const checkIcon = sameKeyButton.querySelector('.SavePageButtonCheckmark');
+                  const buttonLabel = sameKeyButton.querySelector('.SavePageButtonLabel');
 
-              operation.then(() => {
-                sameKeyButton.disabled = false;
-                saveStateByPage.set(saveKey, isSaving);
-
-                if (checkIcon) {
-                  checkIcon.classList.toggle('opacity-0');
-                }
-                if (buttonLabel) {
-                  buttonLabel.textContent = isSaving ? 'Saved' : 'Save';
-                }
-                if (isSaving) {
-                  sameKeyButton.dataset.success = 'true';
-                } else {
-                  delete sameKeyButton.dataset.success;
-                }
-              });
+                  if (checkIcon) {
+                    checkIcon.classList.toggle('opacity-0');
+                  }
+                  if (buttonLabel) {
+                    buttonLabel.textContent = isSaving ? 'Saved' : 'Save';
+                  }
+                  if (isSaving) {
+                    sameKeyButton.dataset.success = 'true';
+                  } else {
+                    delete sameKeyButton.dataset.success;
+                  }
+                });
             });
           });
         } else {

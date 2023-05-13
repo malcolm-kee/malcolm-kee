@@ -46,7 +46,12 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       {
         saveKey && (
           <div class="hidden xl:block">
-            <SavePageButton saveKey={saveKey} pageTitle={title} pageDescription={description} />
+            <SavePageButton
+              saveKey={saveKey}
+              pageTitle={title}
+              pageDescription={description}
+              className="sm:justify-start"
+            />
           </div>
         )
       }
@@ -68,7 +73,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
               saveKey={saveKey}
               pageTitle={title}
               pageDescription={description}
-              className="w-full sm:w-auto my-2"
+              className="w-full sm:w-auto sm:justify-start my-2"
             />
           </div>
         )
