@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "es-module-lexer": "^1.2.1",
-    "htmlparser2": "^8.0.2",
+    "htmlparser2": "^9.0.0",
     "postcss": "^8.4.23",
-    "undici": "^5.22.0"
+    "undici": "^5.22.1"
   },
   "devDependencies": {
     "tsup": "^6.7.0",
