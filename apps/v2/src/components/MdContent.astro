@@ -27,7 +27,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
 
 <div class="mb-12">
   <article lang={lang}>
-    <div class="flex items-end mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
+    <div class="flex items-start mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
       <header
         class={clsx('relative max-w-3xl w-full', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}
       >
@@ -45,7 +45,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       </header>
       {
         saveKey && (
-          <div class="hidden xl:block">
+          <div class="hidden xl:block xl:-translate-y-2">
             <SavePageButton
               saveKey={saveKey}
               pageTitle={title}
@@ -57,7 +57,7 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       }
     </div>
     <div
-      class="flex flex-col gap-3 sm:flex-row justify-between sm:items-start sm:gap-3 xl:contents max-w-3xl mx-auto xl:max-w-none xl:mb-0"
+      class="flex gap-3 justify-between sm:items-start sm:gap-3 xl:contents relative max-w-3xl mx-auto xl:max-w-none xl:mb-0"
     >
       {
         hasHeadings && (
@@ -68,12 +68,12 @@ const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
       }
       {
         saveKey && (
-          <div class="xl:hidden sm:ml-auto">
+          <div class="fixed z-20 top-0 right-1/3 -translate-y-2 sm:block xl:hidden sm:ml-auto sm:-translate-y-10 sm:absolute sm:right-0 sm:top-0">
             <SavePageButton
               saveKey={saveKey}
               pageTitle={title}
               pageDescription={description}
-              className="w-full sm:w-auto sm:justify-start my-2"
+              className="w-full sm:w-auto sm:justify-start"
             />
           </div>
         )

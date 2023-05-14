@@ -40,8 +40,8 @@ test('save blog and view offline', async ({ page, context }) => {
   await serviceWorkerPromise;
   await page.getByText(/OpenAPI: A backend/).click();
   await expect(page.getByLabel('Contents').locator('visible=true')).toBeVisible();
-  await page.getByText('Save').locator('visible=true').click();
-  await expect(page.getByText('Saved').locator('visible=true')).toBeVisible();
+  await page.getByLabel('Save this page').locator('visible=true').click();
+  await expect(page.getByLabel('Unsave this page').locator('visible=true')).toBeVisible();
 
   await context.route(/online/, (route) => route.abort());
   await context.setOffline(true);
