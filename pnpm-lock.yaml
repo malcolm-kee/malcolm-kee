@@ -23,8 +23,8 @@ importers:
         specifier: ^2.0.21
         version: 2.0.21
       '@floating-ui/dom':
-        specifier: ^1.2.7
-        version: 1.2.7
+        specifier: ^1.2.8
+        version: 1.2.8
       '@formkit/auto-animate':
         specifier: 1.0.0-beta.6
         version: 1.0.0-beta.6
@@ -79,7 +79,7 @@ importers:
         version: 2.2.0(astro@2.4.5)
       '@astrojs/mdx':
         specifier: ^0.19.1
-        version: 0.19.1(astro@2.4.5)(rollup@3.21.6)
+        version: 0.19.1(astro@2.4.5)(rollup@3.21.7)
       '@astrojs/netlify':
         specifier: ^2.2.2
         version: 2.2.2(astro@2.4.5)
@@ -348,14 +348,14 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/mdx@0.19.1(astro@2.4.5)(rollup@3.21.6):
+  /@astrojs/mdx@0.19.1(astro@2.4.5)(rollup@3.21.7):
     resolution: {integrity: sha512-9GNNZbGT+lGvbRkQK/NaEJcnjj1T94/ne0KwPjJgNCBQrJuskX5IW1hKiE5bRSOFvkAOrBGneYKg0GXYArBOQQ==}
     engines: {node: '>=16.12.0'}
     dependencies:
       '@astrojs/markdown-remark': 2.2.0(astro@2.4.5)
       '@astrojs/prism': 2.1.1
       '@mdx-js/mdx': 2.3.0
-      '@mdx-js/rollup': 2.3.0(rollup@3.21.6)
+      '@mdx-js/rollup': 2.3.0(rollup@3.21.7)
       acorn: 8.8.2
       es-module-lexer: 1.2.1
       estree-util-visit: 1.2.1
@@ -1135,8 +1135,8 @@ packages:
     resolution: {integrity: sha512-EvYTiXet5XqweYGClEmpu3BoxmsQ4hkj3QaYA6qEnigCWffTP3vNRwBReTdrwDwo7OoJ3wM8Uoe9Uk4n+d4hfg==}
     dev: false
 
-  /@floating-ui/dom@1.2.7:
-    resolution: {integrity: sha512-DyqylONj1ZaBnzj+uBnVfzdjjCkFCL2aA9ESHLyUOGSqb03RpbLMImP1ekIQXYs4KLk9jAjJfZAU8hXfWSahEg==}
+  /@floating-ui/dom@1.2.8:
+    resolution: {integrity: sha512-XLwhYV90MxiHDq6S0rzFZj00fnDM+A1R9jhSioZoMsa7G0Q0i+Q4x40ajR8FHSdYDE1bgjG45mIWe6jtv9UPmg==}
     dependencies:
       '@floating-ui/core': 1.2.6
     dev: false
@@ -1281,14 +1281,14 @@ packages:
       - supports-color
     dev: true
 
-  /@mdx-js/rollup@2.3.0(rollup@3.21.6):
+  /@mdx-js/rollup@2.3.0(rollup@3.21.7):
     resolution: {integrity: sha512-wLvRfJS/M4UmdqTd+WoaySEE7q4BIejYf1xAHXYvtT1du/1Tl/z2450Gg2+Hu7fh05KwRRiehiTP9Yc/Dtn0fA==}
     peerDependencies:
       rollup: '>=2'
     dependencies:
       '@mdx-js/mdx': 2.3.0
-      '@rollup/pluginutils': 5.0.2(rollup@3.21.6)
-      rollup: 3.21.6
+      '@rollup/pluginutils': 5.0.2(rollup@3.21.7)
+      rollup: 3.21.7
       source-map: 0.7.4
       vfile: 5.3.7
     transitivePeerDependencies:
@@ -1411,7 +1411,7 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
-  /@rollup/pluginutils@5.0.2(rollup@3.21.6):
+  /@rollup/pluginutils@5.0.2(rollup@3.21.7):
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1423,7 +1423,7 @@ packages:
       '@types/estree': 1.0.1
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 3.21.6
+      rollup: 3.21.7
     dev: true
 
   /@sideway/address@4.1.4:
@@ -6364,6 +6364,14 @@ packages:
 
   /rollup@3.21.6:
     resolution: {integrity: sha512-SXIICxvxQxR3D4dp/3LDHZIJPC8a4anKMHd4E3Jiz2/JnY+2bEjqrOokAauc5ShGVNFHlEFjBXAXlaxkJqIqSg==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /rollup@3.21.7:
+    resolution: {integrity: sha512-KXPaEuR8FfUoK2uHwNjxTmJ18ApyvD6zJpYv9FOJSqLStmt6xOY84l1IjK2dSolQmoXknrhEFRaPRgOPdqCT5w==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:

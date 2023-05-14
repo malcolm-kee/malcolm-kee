@@ -1,5 +1,6 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
+import { Button } from '~/components/Button';
 import PageLayout from '~/components/PageLayout.astro';
 import BlogPostPreview from '~/components/BlogPostPreview.astro';
 import { Tag } from '~/components/tag';
@@ -49,6 +50,17 @@ const flutterPost = await getEntryBySlug('blog', 'flutter-for-react-developers')
           <section>
             <h2 class="mb-6 text-zinc-300 font-medium uppercase">Components</h2>
             <div class="grid gap-3 lg:grid-cols-[max-content_1fr] lg:gap-y-20">
+              <h3 class="font-techie text-lg">Button</h3>
+              <div class="pb-8 lg:p-0">
+                <div class="flex gap-3 flex-wrap">
+                  <Button>Primary</Button>
+                  <Button variant="secondary">Secondary</Button>
+                  <Button flat>Primary Flat</Button>
+                  <Button variant="secondary" flat>Secondary Flat</Button>
+                  <Button disabled>Primary Disabled</Button>
+                  <Button variant="secondary" disabled>Secondary Disabled</Button>
+                </div>
+              </div>
               <h3 class="font-techie text-lg">Tag</h3>
               <div class="pb-8 lg:p-0">
                 <Tag href="#">design</Tag>
