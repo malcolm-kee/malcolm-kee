@@ -34,7 +34,18 @@ const { pathname } = Astro.url;
       class={clsx(
         'bookmark-path transition-all group-hover/savebutton:fill-zinc-50 group-active/savebutton:fill-zinc-100',
         'group-data-[state=success]/savebutton:fill-teal-600'
-      )}></path>
+      )}
+    >
+      <animate
+        attributeName="d"
+        values="M51 5H29V46L40 30L51 46V5Z;M51 5H29V76L40 60L51 76V5Z"
+        dur="250ms"
+        begin="indefinite"
+        repeatCount="1"
+        fill="freeze"
+      >
+      </animate>
+    </path>
   </svg>
   <span class="relative">
     <span class="SavePageButtonLabel sr-only">Save</span>
@@ -50,11 +61,6 @@ const { pathname } = Astro.url;
   } from '~/data/offline-helpers';
   import { onOnlineStatusChange } from '~/lib/check-online-status';
 
-  const svgPathsD = {
-    saved: 'M51 5H29V76L40 60L51 76V5Z',
-    unsaved: 'M51 5H29V46L40 30L51 46V5Z',
-  };
-
   const saveStateByPage = new Map<string, boolean>();
 
   const saveButtons = document.querySelectorAll<HTMLButtonElement>('.SavePageButton');
@@ -64,6 +70,33 @@ const { pathname } = Astro.url;
       button.disabled = !isOnline;
     })
   );
+
+  const updateButton = (button: HTMLButtonElement, state: 'saved' | 'unsaved') => {
+    const svgPathsD = {
+      saved: 'M51 5H29V76L40 60L51 76V5Z',
+      unsaved: 'M51 5H29V46L40 30L51 46V5Z',
+    };
+    const label = button.querySelector('.SavePageButtonLabel');
+    const pathAnimate = button.querySelector<SVGAnimateElement>('.bookmark-path animate');
+
+    if (state === 'saved') {
+      if (label) label.textContent = 'Saved';
+      if (pathAnimate) {
+        pathAnimate.setAttribute('values', `${svgPathsD.unsaved};${svgPathsD.saved}`);
+        pathAnimate.beginElement();
+      }
+      button.dataset.state = 'success';
+      button.ariaLabel = 'Unsave this page';
+    } else {
+      delete button.dataset.state;
+      if (label) label.textContent = 'Save';
+      if (pathAnimate) {
+        pathAnimate.setAttribute('values', `${svgPathsD.saved};${svgPathsD.unsaved}`);
+        pathAnimate.beginElement();
+      }
+      button.ariaLabel = 'Save this page';
+    }
+  };
 
   saveButtons.forEach((button) => {
     const { dataset } = button;
@@ -90,14 +123,8 @@ const { pathname } = Astro.url;
         if (capability.allowed) {
           button.classList.remove('hidden');
 
-          const label = button.querySelector('.SavePageButtonLabel');
-          const bookmarkPath = button.querySelector<SVGPathElement>('.bookmark-path');
-
           if (capability.saved) {
-            if (label) label.textContent = 'Saved';
-            if (bookmarkPath) bookmarkPath.setAttribute('d', svgPathsD.saved);
-            button.dataset.state = 'success';
-            button.ariaLabel = 'Unsave this page';
+            updateButton(button, 'saved');
           }
 
           saveStateByPage.set(saveKey, capability.saved);
@@ -131,23 +158,9 @@ const { pathname } = Astro.url;
               isBusy = false;
               saveStateByPage.set(saveKey, isSaving);
 
-              getSameKeyButtons().forEach((sameKeyButton) => {
-                const buttonLabel = sameKeyButton.querySelector('.SavePageButtonLabel');
-                const bookmarkPath = sameKeyButton.querySelector<SVGPathElement>('.bookmark-path');
-
-                if (buttonLabel) {
-                  buttonLabel.textContent = isSaving ? 'Saved' : 'Save';
-                }
-                if (isSaving) {
-                  sameKeyButton.dataset.state = 'success';
-                  bookmarkPath && bookmarkPath.setAttribute('d', svgPathsD.saved);
-                  sameKeyButton.ariaLabel = 'Unsave this page';
-                } else {
-                  delete sameKeyButton.dataset.state;
-                  bookmarkPath && bookmarkPath.setAttribute('d', svgPathsD.unsaved);
-                  sameKeyButton.ariaLabel = 'Save this page';
-                }
-              });
+              getSameKeyButtons().forEach((sameKeyButton) =>
+                updateButton(sameKeyButton, isSaving ? 'saved' : 'unsaved')
+              );
             });
           });
         } else {

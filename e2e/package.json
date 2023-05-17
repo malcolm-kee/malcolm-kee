@@ -7,10 +7,10 @@
     "test-report": "playwright show-report"
   },
   "dependencies": {
-    "axe-core": "^4.7.0"
+    "axe-core": "^4.7.1"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.7.0",
+    "@axe-core/playwright": "^4.7.1",
     "@playwright/test": "^1.33.0",
     "cross-env": "^7.0.3",
     "typescript": "^5.0.4"
