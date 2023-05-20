@@ -3,7 +3,7 @@ import * as React from 'react';
 
 export const variantStyles = {
   primary:
-    'bg-primary-800 font-semibold text-white border-transparent hover:bg-primary-900/90 disabled:bg-[#6cbeb8]',
+    'bg-primary-600 font-semibold text-white border-transparent hover:bg-primary-700/90 disabled:bg-[#6cbeb8]',
   secondary:
     'bg-white font-medium text-primary-800 border-transparent hover:bg-zinc-50/90 active:bg-zinc-50 active:text-primary-900 disabled:bg-white disabled:text-[#83aeac]',
 };

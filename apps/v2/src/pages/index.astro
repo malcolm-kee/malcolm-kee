@@ -92,7 +92,7 @@ const allPosts = blogPosts.slice(0, 10);
                 }
               </ol>
               <div class="flex mt-6 rounded-md shadow">
-                <Button variant="secondary" href="/cv/" className="flex-1 rounded-r-none">
+                <Button variant="secondary" href="/cv/" flat className="flex-1 rounded-r-none">
                   View CV
                 </Button>
                 <Button
@@ -100,6 +100,7 @@ const allPosts = blogPosts.slice(0, 10);
                   aria-label="Download"
                   href={`/${fileName}`}
                   download
+                  flat
                 >
                   <CloudArrowDownIcon />
                 </Button>
