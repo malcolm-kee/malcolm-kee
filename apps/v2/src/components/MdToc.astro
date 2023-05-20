@@ -26,7 +26,7 @@ const { headings } = Astro.props;
             <a
               href={`#${h.slug}`}
               class={clsx(
-                'StickyLink block text-sm text-zinc-500 transition hover:text-primary-600',
+                'StickyLink block text-sm text-zinc-500 transition hover:text-primary-700',
                 {
                   '1': 'pl-4',
                   '2': 'pl-8',
@@ -104,11 +104,11 @@ const { headings } = Astro.props;
       if (current) {
         links.forEach((link) => {
           if (link === current.element) {
-            link.classList.add('text-primary-500');
+            link.classList.add('text-primary-600');
             link.classList.remove('text-zinc-500');
           } else {
             link.classList.add('text-zinc-500');
-            link.classList.remove('text-primary-500');
+            link.classList.remove('text-primary-600');
           }
         });
       }
@@ -129,7 +129,7 @@ const { headings } = Astro.props;
         if (cleanup) cleanup();
         links.forEach((link) => {
           link.classList.add('text-zinc-500');
-          link.classList.remove('text-primary-500');
+          link.classList.remove('text-primary-600');
         });
       }
     }
