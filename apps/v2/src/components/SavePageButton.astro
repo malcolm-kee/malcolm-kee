@@ -6,9 +6,10 @@ export interface Props {
   pageTitle: string;
   pageDescription?: string;
   className?: string;
+  _static?: boolean;
 }
 
-const { className, saveKey, pageTitle, pageDescription } = Astro.props;
+const { className, saveKey, pageTitle, pageDescription, _static } = Astro.props;
 
 const { pathname } = Astro.url;
 ---
@@ -18,9 +19,10 @@ const { pathname } = Astro.url;
   data-pagetitle={pageTitle}
   data-pagedescription={pageDescription}
   data-path={pathname}
+  data-static={_static}
   class={clsx(
     'SavePageButton hidden saveable:inline-flex rounded-full group/savebutton',
-    'text-zinc-500 data-[state=success]:text-teal-700 active:translate-y-px data-[state=loading]:active:translate-y-0',
+    'text-zinc-400 data-[state=success]:text-teal-700 active:translate-y-px data-[state=loading]:active:translate-y-0',
     className
   )}
   type="button"
@@ -28,11 +30,11 @@ const { pathname } = Astro.url;
 >
   <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor">
     <path
-      d="M51 5H29V46L40 30L51 46V5Z"
+      d="M51 5H29V46L40 35L51 46V5Z"
       stroke-width="2"
       fill="white"
       class={clsx(
-        'bookmark-path transition-all group-hover/savebutton:fill-zinc-50 group-active/savebutton:fill-zinc-100',
+        'bookmark-path transition-colors group-hover/savebutton:fill-zinc-100 group-active/savebutton:fill-zinc-200/70',
         'group-data-[state=success]/savebutton:fill-teal-600'
       )}
     >
@@ -43,6 +45,34 @@ const { pathname } = Astro.url;
         begin="indefinite"
         repeatCount="1"
         fill="freeze"
+        calcMode="spline"
+        keySplines="0.42 0 1 1"
+      >
+      </animate>
+    </path>
+    <path d="M29 48L40 37L51 48" stroke-width="1" class="shadow-path stroke-zinc-300">
+      <animate
+        attributeName="d"
+        values="M29 48L40 37L51 48;M29 78L40 67L51 78"
+        dur="250ms"
+        begin="indefinite"
+        repeatCount="1"
+        fill="freeze"
+        calcMode="spline"
+        keySplines="0.42 0 1 1"
+      >
+      </animate>
+    </path>
+    <path d="M29 49L40 38L51 49" stroke-width="1" class="shadow-blur-path stroke-zinc-100">
+      <animate
+        attributeName="d"
+        values="M29 49L40 38L51 49;M29 79L40 68L51 79"
+        dur="250ms"
+        begin="indefinite"
+        repeatCount="1"
+        fill="freeze"
+        calcMode="spline"
+        keySplines="0.42 0 1 1"
       >
       </animate>
     </path>
@@ -73,17 +103,38 @@ const { pathname } = Astro.url;
 
   const updateButton = (button: HTMLButtonElement, state: 'saved' | 'unsaved') => {
     const svgPathsD = {
-      saved: 'M51 5H29V76L40 60L51 76V5Z',
-      unsaved: 'M51 5H29V46L40 30L51 46V5Z',
+      saved: 'M51 5H29V76L40 65L51 76V5Z',
+      unsaved: 'M51 5H29V46L40 35L51 46V5Z',
+    };
+    const shadowPathsD = {
+      saved: 'M29 78L40 67L51 78',
+      unsaved: 'M29 48L40 37L51 48',
+    };
+    const shadowBlurPathsD = {
+      saved: 'M29 79L40 68L51 79',
+      unsaved: 'M29 49L40 38L51 49',
     };
     const label = button.querySelector('.SavePageButtonLabel');
     const pathAnimate = button.querySelector<SVGAnimateElement>('.bookmark-path animate');
+    const shadowAnimate = button.querySelector<SVGAnimateElement>('.shadow-path animate');
+    const shadowBlurAnimate = button.querySelector<SVGAnimateElement>('.shadow-blur-path animate');
 
     if (state === 'saved') {
       if (label) label.textContent = 'Saved';
       if (pathAnimate) {
         pathAnimate.setAttribute('values', `${svgPathsD.unsaved};${svgPathsD.saved}`);
         pathAnimate.beginElement();
+      }
+      if (shadowAnimate) {
+        shadowAnimate.setAttribute('values', `${shadowPathsD.unsaved};${shadowPathsD.saved}`);
+        shadowAnimate.beginElement();
+      }
+      if (shadowBlurAnimate) {
+        shadowBlurAnimate.setAttribute(
+          'values',
+          `${shadowBlurPathsD.unsaved};${shadowBlurPathsD.saved}`
+        );
+        shadowBlurAnimate.beginElement();
       }
       button.dataset.state = 'success';
       button.ariaLabel = 'Unsave this page';
@@ -93,6 +144,17 @@ const { pathname } = Astro.url;
       if (pathAnimate) {
         pathAnimate.setAttribute('values', `${svgPathsD.saved};${svgPathsD.unsaved}`);
         pathAnimate.beginElement();
+      }
+      if (shadowAnimate) {
+        shadowAnimate.setAttribute('values', `${shadowPathsD.saved};${shadowPathsD.unsaved}`);
+        shadowAnimate.beginElement();
+      }
+      if (shadowBlurAnimate) {
+        shadowBlurAnimate.setAttribute(
+          'values',
+          `${shadowBlurPathsD.saved};${shadowBlurPathsD.unsaved}`
+        );
+        shadowBlurAnimate.beginElement();
       }
       button.ariaLabel = 'Save this page';
     }
@@ -107,6 +169,11 @@ const { pathname } = Astro.url;
       dataset.pagetitle &&
       dataset.path
     ) {
+      if (dataset.static != null) {
+        button.classList.remove('hidden');
+        return;
+      }
+
       const saveKey = dataset.savekey;
 
       const pageInfo = {
