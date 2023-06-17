@@ -1,4 +1,4 @@
-import { rehypeHeadingIds } from '@astrojs/markdown-remark';
+import { rehypeHeadingIds, type RemarkPlugin } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
@@ -69,7 +69,7 @@ export default defineConfig({
       remarkCodeImportPlugin,
       [
         // @ts-expect-error
-        remarkShikiTwoSlash,
+        remarkShikiTwoSlash as RemarkPlugin,
         {
           themes: ['github-light', 'github-dark'],
         },
