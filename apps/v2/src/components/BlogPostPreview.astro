@@ -22,13 +22,13 @@ const hasImage = post.heroImageInfo;
 <article
   lang={post.data.lang}
   class={clsx(
-    'blog-article @container/article',
-    hasImage && 'relative',
+    'blog-article @container/article relative',
     isFeatured
       ? 'z-10 py-20 bg-white min-h-[20rem] flex items-center'
       : ['@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6', 'pt-1 pb-3'],
     Astro.props.class
   )}
+  data-shiny={!hasImage}
 >
   {
     post.heroImageInfo && (
@@ -158,6 +158,22 @@ const hasImage = post.heroImageInfo;
   </div>
 </article>
 <script>
+  import { setupShinyEffect } from '~/lib/shiny-effect';
+
+  document.querySelectorAll('.blog-article[data-shiny]').forEach((shinyPreview) => {
+    const link = shinyPreview.querySelector('.blog-link');
+    const coverElement = shinyPreview.querySelector('.blog-content-bg');
+
+    if (
+      link &&
+      link instanceof HTMLElement &&
+      coverElement &&
+      coverElement instanceof HTMLElement
+    ) {
+      setupShinyEffect(coverElement, link);
+    }
+  });
+
   document.querySelectorAll('.blog-link').forEach((blogLink) => {
     if (blogLink instanceof HTMLElement) {
       blogLink.addEventListener(

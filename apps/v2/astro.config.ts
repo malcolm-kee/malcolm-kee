@@ -15,7 +15,6 @@ import { rehypeCodeImportPlugin, remarkCodeImportPlugin } from './plugin/code-im
 import { depsExtraction } from './plugin/deps-extraction';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://malcolmkee.com',
   integrations: [

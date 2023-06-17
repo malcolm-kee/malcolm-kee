@@ -49,11 +49,13 @@ const allPosts = blogPosts.slice(0, 10);
           <div class="space-y-10 lg:pl-16 xl:pl-24">
             <GenericSignupForm />
             <div class="rounded-2xl border border-zinc-100 p-6">
-              <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                <BriefcaseIcon className="h-6 w-6 flex-none" />
-                <span class="ml-3 leading-6">Work</span>
+              <h2 class="flex text-sm font-semibold text-zinc-500">
+                <span class="inline-block px-2">
+                  <BriefcaseIcon className="h-6 w-6 flex-none" />
+                </span>
+                <span class="ml-3 leading-6 tracking-wider">WORK</span>
               </h2>
-              <ol class="mt-6 space-y-4">
+              <ol class="mt-6 space-y-6">
                 {
                   workExperiences.map((role) => (
                     <li class="flex gap-4">
@@ -72,11 +74,9 @@ const allPosts = blogPosts.slice(0, 10);
                       </div>
                       <dl class="flex flex-auto flex-wrap gap-x-2">
                         <dt class="sr-only">Company</dt>
-                        <dd class="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                        <dd class="flex-none text-sm font-techie font-medium text-zinc-900 dark:text-zinc-100">
                           {role.company}
                         </dd>
-                        <dt class="sr-only">Role</dt>
-                        <dd class="text-xs text-zinc-500 dark:text-zinc-400">{role.title}</dd>
                         <dt class="sr-only">Date</dt>
                         <dd
                           class="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
@@ -85,6 +85,10 @@ const allPosts = blogPosts.slice(0, 10);
                           <time datetime={role.start}>{role.start}</time>{' '}
                           <span aria-hidden="true">—</span>{' '}
                           <time datetime={role.end}>{role.end}</time>
+                        </dd>
+                        <dt class="sr-only">Role</dt>
+                        <dd class="w-full text-xs text-zinc-500 dark:text-zinc-400">
+                          {role.title}
                         </dd>
                       </dl>
                     </li>

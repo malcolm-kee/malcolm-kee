@@ -42,7 +42,8 @@ export default function Footer(props: { hideNav?: boolean }): React.ReactElement
                   </a>
                 )}
                 <p className="text-sm text-center text-zinc-400">
-                  &copy; 2018-{year} Copyright Malcolm Kee. All rights reserved.
+                  &copy; 2018-{year} Copyright Malcolm Kee.{' '}
+                  <span className="inline-block">All rights reserved.</span>
                 </p>
               </div>
             </div>

@@ -5,7 +5,7 @@ export const Tag = ({ children, className, ...props }: React.ComponentPropsWitho
   <a
     {...props}
     className={clsx(
-      'group/tag inline-block px-3 py-1.5 text-xs font-medium relative transition-colors uppercase',
+      'group/tag inline-block px-3 py-1.5 text-xs font-medium tracking-wider relative transition-colors uppercase',
       'text-zinc-500 hover:text-primary-500 bg-white border border-dashed border-zinc-300',
       'hover:border-primary-200 hover:border-solid cut-all cut-2',
       className
