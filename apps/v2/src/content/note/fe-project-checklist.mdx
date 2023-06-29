@@ -1,0 +1,39 @@
+---
+title: 'Frontend Project Checklist'
+---
+
+This is a checklist that I use when evaluating frontend projects. Although it is not exhaustive, it is meant to provide a good starting point for evaluating the quality of a frontend project.
+
+## What Matters
+
+### Fulfilling Requirements
+
+If not fulfilled, it could be fine if a justification is provided.
+
+### Idiomatic TypeScript
+
+### Project Structure
+
+### Tests
+
+### Development Automation
+
+- Linting, formatting
+- Add `scripts` to `package.json` to automate common tasks
+- Setup CI/CD to automate deployment
+
+### Documentation
+
+A good README.
+
+## What Doesn't Matter
+
+### The use of a high-level tool
+
+When I say "high-level tool", what I mean is the library or meta-framework that abstract away the tedious configuration and plumbing to stitch multiple low level tools together. Choosing a specific high-level tool is mostly a matter of preference, and it is not a good indicator of the quality of a project. However, it does matter if you choose a **type of tool** to achieve specific requirements, e.g. choosing a SSR framework itself is a plus point when requirements includes SEO, but choosing NextJS over Remix is not.
+
+For examples:
+
+- Create React App versus Vite,
+- Jest versus Vitest,
+- NextJS versus Remix

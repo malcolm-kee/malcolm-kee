@@ -642,6 +642,13 @@ declare module 'astro:content' {
   collection: "note";
   data: InferEntrySchema<"note">
 } & { render(): Render[".md"] };
+"fe-project-checklist.mdx": {
+	id: "fe-project-checklist.mdx";
+  slug: "fe-project-checklist";
+  body: string;
+  collection: "note";
+  data: InferEntrySchema<"note">
+} & { render(): Render[".mdx"] };
 "freelancing.md": {
 	id: "freelancing.md";
   slug: "freelancing";
