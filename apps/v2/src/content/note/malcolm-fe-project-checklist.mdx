@@ -1,0 +1,133 @@
+---
+title: "Malcolm's Frontend Project Assignment Checklist"
+---
+
+import Aside from '~/components/Aside';
+
+One of the most common ways to evaluate candidates for frontend engineer role is to give them a frontend project assignment. Although it is not an ideal process for candidate because it is time-consuming [^1], it is a closer simulation of the actual works of the role compared to other processes like live coding.
+
+This is a checklist that I use when evaluating frontend project assignments.
+
+## Disclaimers:
+
+- The list is not adopted by any of my employers (past or current). It is a mental checklist that I use to evaluate frontend project assignments, when no criteria is provided by the hiring manager.
+- This list is based on my experience evaluating frontend project assignments for junior to mid-level frontend product engineers, whose responsibilities are mainly adding UI for features by using UI components that are created by others (third-party or in-house). How relevant it is to other roles, I'll leave it to you for judgement.
+
+<Aside>
+
+Naming the checklist after myself is a bit narcissistic, but I like that it emphasizes that this is a personal checklist, and not a guideline from any company. ~~Also, it's every physics nerd's dream to have something named after themselves.~~
+
+</Aside>
+
+## What Matters
+
+Below is the items that I look for in a frontend project assignment. I provide points for each of them to represent the relative weight I give to each of them.
+
+### Fulfilling Requirements (20 points)
+
+This seems obvious, but it happened more than I expected. Common mistakes include:
+
+1. Project cannot be started at all, usually due to dependency issues or missing environment variables.
+1. If a design spec (e.g. Figma file) is given, the implementation is missing many design details, such as wrong spacing, wrong color etc.
+1. Missing deliverables, e.g. not including any test or documentation when they are explicitly stated.
+
+It is understandable if you as a candidate is time-poor and cannot complete all the requirements, but it is important to at least mention the missing requirements in your `README.md` to show that it is intentional instead of entirely missing it out due to carelessness.
+
+### Good Abstraction (20 points)
+
+One of the most important skill for a software engineer is to be able to abstract away the complexity of the problem, and provide a simple interface for other engineers to use.
+
+Things that I look for:
+
+1. Abstraction of components, e.g. a `DataTable` component that can be used to render any data table, instead of a `UserDataTable` component that is specific to user data. It is also important to wrap the component library that you use (e.g. Material UI) instead of importing it everywhere in the codebase.
+1. Abstraction of underlying operations, e.g. a `copy` function that abstract the usage of `document.execCommand('copy')` and `navigator.clipboard.writeText` to copy text to clipboard.
+
+### Idiomatic TypeScript (20 points)
+
+In my opinion, using TypeScript in a frontend project that involves more than one engineers is a no-brainer as of today (July 2023), and I would enforce the usage of it, if I owns the power to decide tech stack.
+
+With such opinion on TypeScript, I would expect candidates to be familiar with it and able to write idiomatic code with it, such as reasonable usage of generics and type inference, `as const` assertion etc.
+
+It may seems that I'm giving a lot of weight to TypeScript, but I believe that it is a good indicator of a candidate's ability to write good JavaScript code, as it requires you to think type-first and balancing between writing code that are too dynamic (less repetitive but hard to infer type) versus code that are too constrained (easy to infer type but tedious to write).
+
+### Documentation (15 points)
+
+Software engineers are not just about writing code, it is also about communicating with others. Putting effort into crafting a good `README.md` shows that you care about that part of the job, and understand its import
+
+Things that I look for:
+
+1. A screenshot of the UI that is inserted into the `README.md` file.
+1. Instruction to run the projects, e.g. `npm install` and `npm start`. It is good to mention other dependencies, such as the version of Node.js and npm that you use, as it helps to reduce the chance of dependency issues.
+1. Technical decision made, e.g. the library and tools that you use. Justification is not mandatory (especially those being specified in the requirements), but it would be good for those library/tools that you decide to add. For example, if you choose to use `react-hook-form` instead of `formik`, it would be good to explain why with a short description. Sometimes, I even choose a library over another just because I want to learn the library, and I would mention it here.
+
+### Project Structure and File Convention (15 points)
+
+As JavaScript is an un-opinionated language, it is important to have a consistent project structure and file convention to make it easier for other engineers to navigate the project and understand the context.
+
+Things that I look for:
+
+1. Separate between generic and business-specific code. For example, don't put all the components inside `components` folder. Use `components` folder for generic UI components like `Button` and use `modules/user` folder for business-logic components like `UserList`.
+1. A file naming convention that optimizes developer experience, e.g. minimal code in `index.ts(x)` and unique file names (e.g. `data-table.tsx` and `user-data-table.tsx` instead of both `data-table.tsx`, just in different folder).
+
+<Aside>
+
+If you use an opinionated framework like Angular, this is less important as the framework itself provides a project structure and file convention. Just be aware that being organized in an opinionated framework is not a plus point, the credit belongs to the framework, not you.
+
+</Aside>
+
+It is important that you lean slightly towards over-organization when it comes to project assignment. Although in your actual project with a small codebase you probably would not have a organized folder structure, but be mindful that a project assignment is a simulation of a real large project, and it is important to show that you know how to organize code.
+
+### Tests (10 points)
+
+Although testing tools for JavaScript ecosystem has improved tremendously in last few years, I still see many frontend projects without any tests. I would expect a frontend engineer to be familiar with testing tools and write tests for their code. It don't have to be 100% coverage, but at least write a few test to shows the quality of your test code.
+
+<Aside>
+
+My pet peeves: candidates giving excuse that they didn't write any tests because they are time-constraint. For someone that is familiar with testing tools, it takes less than an hour to setup a testing framework and write a few tests.
+
+If you don't know, just admit it.
+
+</Aside>
+
+### Development Automation (5 points)
+
+JavaScript ecosystem is notorious for its lack of standardization, and to have a good developer experience usually requires you to stitch together multiple tools. Therefore, it is beneficial to show that you are familiar with the tools and able to configure and use them effectively.
+
+Things that I look for:
+
+- Usage of `eslint` and `prettier` for linting and auto code formatting.
+- Add `scripts` to `package.json` for the command required for this project.
+- Setup CI/CD to automate deployment
+
+Compared to other items in this list, this is the least important one, because in most companies there is usually senior engineers that will be tweaking those stuffs. However, it is still a plus point as a software engineer to shows that you care about your work and find ways to make it more efficient.
+
+## What Doesn't Matter
+
+### The choice among compatible tools
+
+When I say "compatible tools", what I mean are the tools that have mostly similar APIs and choosing one over another has minimal impact to how you write your code.
+
+For examples:
+
+- Create React App versus Vite,
+- Jest versus Vitest
+
+Choosing a specific tool from a few compatible tools is mostly a matter of preference and whether you heard of them, so it is not very useful when evaluating a frontend engineer. However, it does matter if you include a **type of tool** to achieve specific requirements, e.g. adding a testing framework itself is a plus point when requirements includes testing, but choosing Vitest over Jest is not.
+
+## Summary
+
+| Item                                  | Points |
+| ------------------------------------- | ------ |
+| Fulfilling Requirements               | 20     |
+| Good Abstraction                      | 20     |
+| Idiomatic TypeScript                  | 20     |
+| Documentation                         | 15     |
+| Project Structure and File Convention | 10     |
+| Tests                                 | 10     |
+| Development Automation                | 5      |
+
+One thing that you may realize is that I'm missing some important skills of frontend engineer, such as CSS and accessibility. The reason is that although I think they are important, but based on my previous experience they are not something that impacts the output for a frontend product engineer significantly. If you are applying for a frontend engineer role that are responsible for the frontend architecture and design system, then it would be a different story.
+
+What do you think of this checklist? [Let me know](https://twitter.com/intent/tweet?text=@malcolmkee) if you have any feedback.
+
+[^1]: It does't have to be time-consuming though. [Tweet at me](https://twitter.com/intent/tweet?text=@malcolmkee) if this is something you want to learn more.

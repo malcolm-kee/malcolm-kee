@@ -642,13 +642,6 @@ declare module 'astro:content' {
   collection: "note";
   data: InferEntrySchema<"note">
 } & { render(): Render[".md"] };
-"fe-project-checklist.mdx": {
-	id: "fe-project-checklist.mdx";
-  slug: "fe-project-checklist";
-  body: string;
-  collection: "note";
-  data: InferEntrySchema<"note">
-} & { render(): Render[".mdx"] };
 "freelancing.md": {
 	id: "freelancing.md";
   slug: "freelancing";
@@ -666,6 +659,13 @@ declare module 'astro:content' {
 "jscodeshift.mdx": {
 	id: "jscodeshift.mdx";
   slug: "jscodeshift";
+  body: string;
+  collection: "note";
+  data: InferEntrySchema<"note">
+} & { render(): Render[".mdx"] };
+"malcolm-fe-project-checklist.mdx": {
+	id: "malcolm-fe-project-checklist.mdx";
+  slug: "malcolm-fe-project-checklist";
   body: string;
   collection: "note";
   data: InferEntrySchema<"note">
