@@ -79,7 +79,7 @@ It is important that you lean slightly towards over-organization when it comes t
 
 ### Tests (10 points)
 
-Although testing tools for JavaScript ecosystem has improved tremendously in last few years, I still see many frontend projects without any tests. I would expect a frontend engineer to be familiar with testing tools and write tests for their code. It don't have to be 100% coverage, but at least write a few test to shows the quality of your test code.
+Although testing tools for JavaScript ecosystem has improved tremendously in last few years, I still see many frontend projects without any tests. I would expect a frontend engineer to be familiar with testing tools and write tests for their code. It doesn't have to be 100% coverage, but at least write a few test to shows the quality of your test code.
 
 <Aside>
 
@@ -103,16 +103,27 @@ Compared to other items in this list, this is the least important one, because i
 
 ## What Doesn't Matter
 
-### The choice among compatible tools
+To me, the following items are not important when evaluating a frontend project assignments, although they seems to be popular suggestions when someone ask about feedbacks of their code.
 
-When I say "compatible tools", what I mean are the tools that have mostly similar APIs and choosing one over another has minimal impact to how you write your code.
+### The choice between equivalent tools
+
+Equivalent tools are the tools that have mostly similar APIs and choosing one over another has minimal impact to how you write your code.
 
 For examples:
 
-- Create React App versus Vite,
-- Jest versus Vitest
+- [Create React App](https://create-react-app.dev/) versus [Vite](https://vitejs.dev/),
+- [Jest](https://jestjs.io/) versus [Vitest](https://vitest.dev/)
+- [Puppeteer](https://pptr.dev/) vs [Playwright](https://playwright.dev/)
 
 Choosing a specific tool from a few compatible tools is mostly a matter of preference and whether you heard of them, so it is not very useful when evaluating a frontend engineer. However, it does matter if you include a **type of tool** to achieve specific requirements, e.g. adding a testing framework itself is a plus point when requirements includes testing, but choosing Vitest over Jest is not.
+
+### Whether you use the "latest" library or language feature
+
+Many junior engineers that mainly learn from YouTube or social media like Twitter tends to see new library/tools as a way to show that they are "up-to-date" with the latest trend. However, in a real-world project, it is not always a good idea to use the latest library/tools, as it may not be stable enough or have enough documentation to support it.
+
+Unless listed as assignment requirement, I don't care whether you use the latest library/tools or not when evaluating a project assignment. I only care if the code is easy to understand to me. In other words, using latest library/tools could be detrimental, as the interviewer may not be familiar with it, and it may take more time for them to understand your code.
+
+The key takeaway is that, feel free to choose a library or use certain language feature because you are familiar with it or you want to learn it, but don't do it because you think it would help to improve the rating of the assignment.
 
 ## Summary
 
@@ -126,8 +137,9 @@ Choosing a specific tool from a few compatible tools is mostly a matter of prefe
 | Tests                                 | 10     |
 | Development Automation                | 5      |
 
-One thing that you may realize is that I'm missing some important skills of frontend engineer, such as CSS and accessibility. The reason is that although I think they are important, but based on my previous experience they are not something that impacts the output for a frontend product engineer significantly. If you are applying for a frontend engineer role that are responsible for the frontend architecture and design system, then it would be a different story.
+One thing that you may realize is that I'm missing some important skills of frontend engineer, such as CSS and accessibility. The reason is that although I think they are important, but based on my previous experience, once you learnt the fundamentals[^2] they are not something that impacts the output for a frontend product engineer significantly. If you are applying for a frontend engineer role that are responsible for the frontend architecture and design system, then it would be a different story.
 
 What do you think of this checklist? [Let me know](https://twitter.com/intent/tweet?in_reply_to=1674997629682581506) if you have any feedback.
 
 [^1]: It does't have to be time-consuming though. [Tweet at me](https://twitter.com/intent/tweet?in_reply_to=1674997629682581506) if this is something you want to learn more.
+[^2]: For CSS, you should know how to implement responsive design. For accessibility, understand the importance of using the right HTML elements, and spend some time to learn how to provide sufficient attributes to HTML elements for them to be reasonably accessible.
