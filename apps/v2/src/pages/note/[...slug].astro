@@ -1,11 +1,13 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { getCollection, CollectionEntry } from 'astro:content';
-import BaseHead from '~/components/BaseHead.astro';
-import MdContent from '~/components/MdContent.astro';
-import Container from '~/components/Container';
-import Layout from '~/components/Layout.astro';
+import { CollectionEntry, getCollection } from 'astro:content';
 import { BackButton } from '~/components/BackButton';
+import BaseHead from '~/components/BaseHead.astro';
+import Container from '~/components/Container';
+import InstallPrompt from '~/components/InstallPrompt.astro';
+import Layout from '~/components/Layout.astro';
+import MdContent from '~/components/MdContent.astro';
+import SignupForm from '~/components/SignupForm.astro';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const notes = await getCollection('note');
@@ -45,6 +47,8 @@ const { Content } = await entry.render();
         <MdContent title={entry.data.title}>
           <Content />
         </MdContent>
+        <SignupForm class="mb-12 offline:hidden" />
+        <InstallPrompt class="mb-12" />
       </Container>
     </Layout>
   </body>
