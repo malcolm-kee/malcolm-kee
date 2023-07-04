@@ -27,7 +27,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 ---
 
 <html lang="en">
@@ -44,7 +44,7 @@ const { Content } = await entry.render();
             aria-label="Back to all notes"
           />
         </div>
-        <MdContent title={entry.data.title}>
+        <MdContent title={entry.data.title} headings={headings}>
           <Content />
         </MdContent>
         <SignupForm class="mb-12 offline:hidden" />

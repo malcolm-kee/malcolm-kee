@@ -8,7 +8,7 @@ One of the most common ways to evaluate candidates for frontend engineer role is
 
 This is a checklist that I use when evaluating frontend project assignments.
 
-## Disclaimers:
+## Disclaimers
 
 - The list is not adopted by any of my employers (past or current). It is a mental checklist that I use to evaluate frontend project assignments, when no criteria is provided by the hiring manager.
 - This list is based on my experience evaluating frontend project assignments for junior to mid-level frontend product engineers, whose responsibilities are mainly adding UI for features by using UI components that are created by others (third-party or in-house). How relevant it is to other roles, I'll leave it to you for judgement.
@@ -23,7 +23,9 @@ Naming the checklist after myself is a bit narcissistic, but I like that it emph
 
 Below is the items that I look for in a frontend project assignment. I provide points for each of them to represent the relative weight I give to each of them.
 
-### It Works According to Requirements (20 points)
+### It Works According to Requirements
+
+_Weight: 20 points_
 
 This seems obvious, but failure to do it happened more than I expected. Common mistakes include:
 
@@ -33,7 +35,9 @@ This seems obvious, but failure to do it happened more than I expected. Common m
 
 It is understandable if you as a candidate is time-poor and cannot complete all the requirements, but it is important to at least mention the missing requirements in your `README.md` to show that it is intentional instead of entirely missing it out due to carelessness.
 
-### Good Abstraction (20 points)
+### Good Abstraction
+
+_Weight: 20 points_
 
 One of the most important skill for a software engineer is to be able to abstract away the complexity of the problem, and provide a simple interface for other engineers to use.
 
@@ -42,7 +46,9 @@ Things that I look for:
 1. Abstraction of components, e.g. a `DataTable` component that can be used to render any data table, instead of a `UserDataTable` component that is specific to user data. It is also important to wrap the component library that you use (e.g. Material UI) instead of importing it everywhere in the codebase.
 1. Abstraction of underlying operations, e.g. a `copy` function that abstract the usage of `document.execCommand('copy')` and `navigator.clipboard.writeText` to copy text to clipboard.
 
-### Idiomatic TypeScript (20 points)
+### Idiomatic TypeScript
+
+_Weight: 20 points_
 
 In my opinion, using TypeScript in a frontend project that involves more than one engineers is a no-brainer as of today (July 2023), and I would enforce the usage of it if I owns the authority to decide tech stack.
 
@@ -50,7 +56,9 @@ With such opinion on TypeScript, I would expect candidates to be familiar and ab
 
 It may seems that I'm giving a lot of weight to TypeScript, but I believe that it is a good indicator of a candidate's ability to write good JavaScript code, as it requires you to think type-first and balancing between writing code that are too dynamic (less repetitive but hard to infer type) versus code that are too constrained (easy to infer type but tedious to write).
 
-### Documentation (15 points)
+### Documentation
+
+_Weight: 15 points_
 
 Software engineers are not just about writing code, it is also about communicating with others. Putting effort into crafting a good `README.md` shows that you care about that part of the job, and understand its importance.
 
@@ -60,7 +68,9 @@ Things that I look for:
 1. Instruction to run the projects, e.g. `npm install` and `npm start`. It is good to mention other dependencies, such as the version of Node.js and npm that you use, as it helps to reduce the chance of dependency issues.
 1. Technical decision made, e.g. the library and tools that you use. Justification is not mandatory (especially those being specified in the requirements), but it would be good for those library/tools that you decide to add. For example, if you choose to use `react-hook-form` instead of `formik`, it would be good to explain why with a short description. Sometimes, I even choose a library over another just because I want to learn the library, and I would mention it here.
 
-### Project Structure and File Convention (15 points)
+### Project Structure and File Convention
+
+_Weight: 15 points_
 
 As JavaScript is an un-opinionated language, it is important to have a consistent project structure and file convention to make it easier for other engineers to navigate the project and understand the context.
 
@@ -77,7 +87,9 @@ If you use an opinionated framework like Angular, this is less important as the 
 
 It is important that you lean slightly towards over-organization when it comes to project assignment. Although in your actual project with a small codebase you probably can get away with a flat folder structure, but be mindful that a project assignment is a simulation of a real large project, so it is important to show that you know how to organize code.
 
-### Tests (10 points)
+### Tests
+
+_Weight: 10 points_
 
 Although testing tools for JavaScript ecosystem has improved tremendously in last few years, I still see many frontend projects without any tests. I would expect a frontend engineer to be familiar with testing tools and write tests for their code. It doesn't have to be 100% coverage, but at least write a few test to shows the quality of your test code.
 
@@ -89,7 +101,9 @@ If you don't know, just admit it.
 
 </Aside>
 
-### Development Automation (5 points)
+### Development Automation
+
+_Weight: 5 points_
 
 JavaScript ecosystem is notorious for its lack of standardization, and to have a good developer experience usually requires you to stitch together multiple tools. Therefore, it is beneficial to show that you are familiar with the tools and able to configure and use them effectively.
 
@@ -99,7 +113,7 @@ Things that I look for:
 - Add `scripts` to `package.json` for the command required for this project.
 - Setup CI/CD to automate deployment
 
-Compared to other items in this list, this is the least important one, because in most companies there is usually senior engineers that will be tweaking those stuffs. However, it is still a plus point as a software engineer to shows that you care about your work and find ways to make it more efficient.
+Compared to other items in this list, this is the least important one, because in most companies there is usually senior engineers that will be responsible for them. However, it is still a plus point as a software engineer to shows that you care about your work and find ways to make it more efficient.
 
 ## What Doesn't Matter
 
@@ -125,7 +139,7 @@ Unless listed as assignment requirement, I don't care whether you use the latest
 
 The key takeaway is that, feel free to choose a library or use certain language feature because you are familiar with it or you want to learn it, but don't do it because you think it would help to improve the rating of the assignment.
 
-## Summary
+## Checklist Summary
 
 | Item                                  | Points |
 | ------------------------------------- | ------ |
