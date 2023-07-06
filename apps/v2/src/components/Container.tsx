@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { clsx } from 'clsx';
 
-type DivProps = React.ComponentPropsWithoutRef<'div'>;
+type DivProps = React.ComponentPropsWithoutRef<'div'> & { wideContent?: boolean };
 
-const ContainerInner = ({ children, ...props }: DivProps) => (
+const ContainerInner = ({ children, wideContent, ...props }: DivProps) => (
   <div
     {...props}
-    className={clsx('relative px-4 sm:px-8 lg:px-12', props.className)}
+    className={clsx('relative px-4', !wideContent && 'sm:px-8 lg:px-12', props.className)}
   >
-    <div className="mx-auto max-w-2xl lg:max-w-5xl">{children}</div>
+    <div className={clsx(!wideContent && 'mx-auto max-w-2xl lg:max-w-5xl')}>{children}</div>
   </div>
 );
 
 const ContainerOuter = React.forwardRef(function ContainerOuter(
-  { children, className, ...props }: DivProps,
+  { children, className, wideContent, ...props }: DivProps,
   forwardedRef: React.ForwardedRef<HTMLDivElement>
 ): React.ReactElement {
   return (
     <div className={clsx('sm:px-8', className)} {...props} ref={forwardedRef}>
-      <div className="max-w-7xl mx-auto lg:px-8">{children}</div>
+      <div className={clsx('max-w-7xl mx-auto', !wideContent && 'lg:px-8')}>{children}</div>
     </div>
   );
 });
@@ -30,7 +30,7 @@ export const Container = Object.assign(
   ): React.ReactElement {
     return (
       <ContainerOuter {...props} className={className} ref={forwardedRef}>
-        <ContainerInner>{children}</ContainerInner>
+        <ContainerInner wideContent={props.wideContent}>{children}</ContainerInner>
       </ContainerOuter>
     );
   }),
