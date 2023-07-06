@@ -153,7 +153,72 @@ The key takeaway is that, feel free to choose a library or use certain language 
 
 One thing that you may realize is that I'm missing some important skills of frontend engineer, such as CSS and accessibility. The reason is that although I think they are important, but based on my previous experience, once you learnt the fundamentals[^2] they are not something that impacts the output for a frontend product engineer significantly. If you are applying for a frontend engineer role that are responsible for the frontend architecture and design system, then it would be a different story.
 
-What do you think of this checklist? [Let me know](https://twitter.com/intent/tweet?in_reply_to=1674997629682581506) if you have any feedback.
+## Improving Scores
+
+Here are my suggestions on how to improve each of them. Note that the suggestions are what worked for me (instead of what I think what could work), and they may not be the best resource today. But they did help me to improve those items in the checklist.
+
+### How to Ensure You Fulfill Requirements
+
+1. Reread the requirements and make a checklist. Make sure you go through each of them and check it off once you have done it, or added a comment to explain why you didn't do it.
+1. Ask friends to review the project. Your friends don't have to be expert, by just trying to setup the project, they could discover basic issues like missing dependencies or unclear documentation.
+
+### How to Create Good Abstractions
+
+This is not a skill that you can learn overnight, but here are what worked for me:
+
+1. Read good technical books. [Refactoring version 1](https://www.goodreads.com/en/book/show/44936) and [Code Complete](https://www.goodreads.com/book/show/4845.Code_Complete) are two books that I enjoyed with plenty of tips and suggestions that are actionable.
+1. Read what abstractions are created in open source projects and see how they abstract their code. I used to read [fbjs](https://github.com/facebook/fbjs/tree/main/packages/fbjs) and peek into utilities packages of popular libraries like Material UI (its utility package code is available [here](https://github.com/mui/material-ui/tree/master/packages/mui-utils)).
+
+### How to Write Idiomatic TypeScript
+
+Similar to creating good abstractions, this is not something that you can learn overnight. Here are what worked for me:
+
+1. Refactor code from JavaScript to TypeScript, or removing `any` from your codebase, one file at a time. In my opinion, this is the best way to learn TypeScript, as you will learn the language features when you need them, and you will learn how to use them in a real-world project.
+1. Read [Effective TypeScript](https://effectivetypescript.com/) and start applying them.
+1. Subscribe to [TypeScript blog](https://devblogs.microsoft.com/typescript/) and read everything they posted. They are well written and with good examples. I have to admit that I don't understand everything they posted, but they often gave me a new perspective on how to use TypeScript, and pitfalls of different approaches.
+
+### How to Improve Documentation
+
+This is relatively simpler for project assignment. Find a template and fill in the blanks. [This gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) is one of the example, but feel free to shop around.
+
+### How to Have a Good Project Structure and File Convention
+
+This is also something that you need to shop around and find one and stick with it. Being intentional about your project structure and file convention is more important than the actual structure and convention you choose.
+
+For React projects, my go-to project structure is implemented [here](https://github.com/malcolm-kee/dine-in-app), which I may tweak slightly based on the framework I use. Key highlights of the structure:
+
+1. `src/modules/` folder to store the business logic for a specific domain. The modules folder mirrors the root `src` folder, i.e. it could have `components` and `lib` folder as well.
+1. Unique name for each file. For example, `src/modules/owner/components/owner-overview.tsx` instead of `src/modules/owner/components/overview.tsx`. The reason? I can use file search of my IDE to find the file easily, without multiple similar file names in different folder appear in the result.
+1. `kebab-case` for all file names, including React components. PascalCase for React components come from Facebook if I remember correctly, but I really dislike it after being bitten by the issue of Windows OS not being case-sensitive.
+1. Avoid default export unless required by the framework. Why? Read the article [Why I've stopped exporting defaults from my JavaScript modules](https://humanwhocodes.com/blog/2019/01/stop-using-default-exports-javascript-module/).
+
+<Aside>
+
+If you've worked with Angular before, you would realize that almost everything in my structure is similar to the Angular structure.
+
+</Aside>
+
+### How to Write Tests
+
+There are many resources, Kent C. Dodds's [Testing JavaScript](https://testingjavascript.com/) is the best resource that I know, but it's paid course.
+
+If you not willing to spend money on it and short of time, learn [Cypress](https://docs.cypress.io/). It's a tool that allows you to write end-to-end tests that run on all major browsers, and it has fantastic docs that are beginner friendly.
+
+<Aside>
+
+In my opinion, [Playwright](https://playwright.dev/) is a better end-to-end testing tool as it has more features, but its docs is not as beginner friendly as Cypress. If you don't mind spending more time to learn, then go for Playwright.
+
+</Aside>
+
+### How to Automate Development
+
+As this is not as important as others, and it is a rabbit hole that could get as deep as you want, I won't go into too much details.
+
+As starter, install [`prettier`](https://prettier.io/) and configure your IDE so it auto-format your code on save. This is the most basic automation that you should have.
+
+## Conclusion
+
+That are all I could think of about this topic. As this note is something that I would update over time, please [let me know](https://twitter.com/intent/tweet?in_reply_to=1674997629682581506) if you have any suggestions, or if you have any questions.
 
 [^1]: It does't have to be time-consuming though. [Tweet at me](https://twitter.com/intent/tweet?in_reply_to=1674997629682581506) if this is something you want to learn more.
 [^2]: For CSS, you should know how to implement responsive design. For accessibility, understand the importance of using the right HTML elements, and spend some time to learn how to provide sufficient attributes to HTML elements for them to be reasonably accessible.
