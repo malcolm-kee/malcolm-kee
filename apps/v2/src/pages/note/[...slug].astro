@@ -3,9 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { CollectionEntry, getCollection } from 'astro:content';
 import { BackButton } from '~/components/BackButton';
 import BaseHead from '~/components/BaseHead.astro';
-import Container from '~/components/Container';
 import InstallPrompt from '~/components/InstallPrompt.astro';
-import Layout from '~/components/Layout.astro';
 import MdContent from '~/components/MdContent.astro';
 import SignupForm from '~/components/SignupForm.astro';
 
@@ -35,21 +33,17 @@ const { Content, headings } = await entry.render();
     <BaseHead title={entry.data.title} contentType="article" articleType="note" />
   </head>
   <body>
-    <Layout>
-      <Container>
-        <div class="relative lg:-left-5 mt-12 mb-6">
-          <BackButton
-            className="hidden sm:flex left-0 md:-left-12 md:absolute -top-4"
-            href="/note/"
-            aria-label="Back to all notes"
-          />
-        </div>
-        <MdContent title={entry.data.title} headings={headings}>
-          <Content />
-        </MdContent>
+    <MdContent
+      title={entry.data.title}
+      headings={headings}
+      backUrl="/note/"
+      backButtonLabel="Back to all notes"
+    >
+      <Content />
+      <div slot="content-footer">
         <SignupForm class="mb-12 offline:hidden" />
         <InstallPrompt class="mb-12" />
-      </Container>
-    </Layout>
+      </div>
+    </MdContent>
   </body>
 </html>

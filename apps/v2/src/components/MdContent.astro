@@ -2,6 +2,9 @@
 import type { MarkdownHeading } from 'astro';
 import { clsx } from 'clsx';
 import { formatDate, isFuture } from '~/lib/date';
+import { BackButton } from './BackButton';
+import Footer from './Footer';
+import Header from './Header';
 import MdToc from './MdToc.astro';
 import SavePageButton from './SavePageButton.astro';
 import './shiki.css';
@@ -11,91 +14,134 @@ export interface Props {
   lang?: string;
   headings?: Array<MarkdownHeading>;
   publishDate?: Date;
+  backUrl?: string;
+  backButtonLabel?: string;
   /** key used for offline saving. Required for supporting save for offline */
   saveKey?: string;
   description?: string;
 }
 
-const { title, publishDate, headings, saveKey, description, lang = 'en-US' } = Astro.props;
+const {
+  title,
+  publishDate,
+  headings,
+  backUrl,
+  backButtonLabel = 'Go back',
+  saveKey,
+  description,
+  lang = 'en-US',
+} = Astro.props;
 
 const isFutureContent = publishDate && isFuture(publishDate);
 
 const levelTwoHeadings = headings && headings.filter((h) => h.slug !== 'footnote-label');
 
 const hasHeadings = levelTwoHeadings && levelTwoHeadings.length > 0;
+
+const currentPath = new URL(Astro.request.url).pathname;
 ---
 
-<div class="mb-12">
-  <article lang={lang}>
-    <div class="flex items-start mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
-      <header
-        class={clsx('relative max-w-3xl w-full', hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto')}
-      >
-        {
-          publishDate && (
-            <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
-              {isFutureContent ? `To be published on ` : null}
-              {formatDate(publishDate, lang)}
-            </p>
-          )
-        }
-        <h1
-          class="content-title font-techie text-4xl sm:text-5xl font-bold w-full bg-transparent [text-wrap:balance]"
-        >
-          {title}
-        </h1>
-      </header>
-      {
-        saveKey && (
-          <div class="hidden xl:block xl:-translate-y-2">
-            <SavePageButton
-              saveKey={saveKey}
-              pageTitle={title}
-              pageDescription={description}
-              className="sm:justify-start"
-            />
+<div class="relative">
+  <Header currentPath={currentPath} client:load />
+  <main>
+    <slot name="layout-header">
+      <div class="pt-12"></div>
+    </slot>
+    <div class="sm:px-8">
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-20 xl:max-w-none xl:px-0">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+          {
+            backUrl && (
+              <div class="relative lg:-left-5">
+                <BackButton
+                  className={clsx('hidden sm:flex left-0 md:-left-12', 'md:absolute -top-4')}
+                  href={backUrl}
+                  aria-label={backButtonLabel}
+                />
+              </div>
+            )
+          }
+          <div class="mb-12">
+            <article lang={lang}>
+              <div class="flex items-start mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
+                <header
+                  class={clsx(
+                    'relative max-w-3xl w-full',
+                    hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
+                  )}
+                >
+                  {
+                    publishDate && (
+                      <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
+                        {isFutureContent ? `To be published on ` : null}
+                        {formatDate(publishDate, lang)}
+                      </p>
+                    )
+                  }
+                  <h1
+                    class="content-title font-techie text-4xl sm:text-5xl font-bold w-full bg-transparent [text-wrap:balance]"
+                  >
+                    {title}
+                  </h1>
+                </header>
+                {
+                  saveKey && (
+                    <div class="hidden xl:block xl:-translate-y-2">
+                      <SavePageButton
+                        saveKey={saveKey}
+                        pageTitle={title}
+                        pageDescription={description}
+                        className="sm:justify-start"
+                      />
+                    </div>
+                  )
+                }
+              </div>
+              <div
+                class="flex gap-3 justify-between sm:items-start sm:gap-3 xl:contents relative max-w-3xl mx-auto xl:max-w-none xl:mb-0"
+              >
+                {
+                  hasHeadings && (
+                    <div class="flex-1 xl:contents">
+                      <MdToc headings={levelTwoHeadings} />
+                    </div>
+                  )
+                }
+                {
+                  saveKey && (
+                    <div class="fixed z-20 top-0 right-1/3 -translate-y-2 sm:block xl:hidden sm:ml-auto sm:-translate-y-10 sm:absolute sm:right-0 sm:top-0">
+                      <SavePageButton
+                        saveKey={saveKey}
+                        pageTitle={title}
+                        pageDescription={description}
+                        className="w-full sm:w-auto sm:justify-start"
+                      />
+                    </div>
+                  )
+                }
+              </div>
+              <div
+                class={clsx(
+                  'Content',
+                  'max-w-3xl prose mt-3 sm:mt-6 xl:mt-0',
+                  'prose-headings:font-techie prose-headings:scroll-mt-20',
+                  'prose-a:no-underline prose-a:text-primary-600 prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-500 hover:prose-a:text-primary-700',
+                  'prose-a:scroll-mt-20',
+                  'prose-code:break-words',
+                  hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
+                )}
+                data-md-content
+              >
+                <slot />
+              </div>
+            </article>
           </div>
-        )
-      }
+          <slot name="content-footer" />
+        </div>
+      </div>
     </div>
-    <div
-      class="flex gap-3 justify-between sm:items-start sm:gap-3 xl:contents relative max-w-3xl mx-auto xl:max-w-none xl:mb-0"
-    >
-      {
-        hasHeadings && (
-          <div class="flex-1 xl:contents">
-            <MdToc headings={levelTwoHeadings} />
-          </div>
-        )
-      }
-      {
-        saveKey && (
-          <div class="fixed z-20 top-0 right-1/3 -translate-y-2 sm:block xl:hidden sm:ml-auto sm:-translate-y-10 sm:absolute sm:right-0 sm:top-0">
-            <SavePageButton
-              saveKey={saveKey}
-              pageTitle={title}
-              pageDescription={description}
-              className="w-full sm:w-auto sm:justify-start"
-            />
-          </div>
-        )
-      }
-    </div>
-    <div
-      class={clsx(
-        'Content',
-        'max-w-3xl prose mt-3 sm:mt-6 xl:mt-0',
-        'prose-headings:font-techie prose-headings:scroll-mt-20',
-        'prose-a:no-underline prose-a:text-primary-600 prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-500 hover:prose-a:text-primary-700',
-        'prose-a:scroll-mt-20',
-        'prose-code:break-words',
-        hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
-      )}
-      data-md-content
-    >
-      <slot />
-    </div>
-  </article>
+  </main>
+  <Footer />
 </div>
 
 <style lang="scss">

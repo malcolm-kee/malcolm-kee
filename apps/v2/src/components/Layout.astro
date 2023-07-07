@@ -1,22 +1,20 @@
 ---
 import Header from './Header';
 import Footer from './Footer';
-import { clsx } from 'clsx';
 
 export interface Props {
   isHomePage?: boolean;
   hideAvatar?: boolean;
   hideHeaderNav?: boolean;
   hideFooterNav?: boolean;
-  wideContent?: boolean;
 }
 
-const { isHomePage, hideAvatar, hideHeaderNav, hideFooterNav, wideContent } = Astro.props;
+const { isHomePage, hideAvatar, hideHeaderNav, hideFooterNav } = Astro.props;
 const currentPath = new URL(Astro.request.url).pathname;
 ---
 
 <div class="fixed inset-0 flex justify-center sm:px-8">
-  <div class={clsx('flex w-full lg:px-8', !wideContent && 'max-w-7xl')}>
+  <div class="flex w-full lg:px-8 max-w-7xl">
     <div class="w-full bg-white ring-1 ring-zinc-100"></div>
   </div>
 </div>

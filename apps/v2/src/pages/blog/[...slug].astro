@@ -1,14 +1,10 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { CollectionEntry } from 'astro:content';
-import { clsx } from 'clsx';
-import { BackButton } from '~/components/BackButton';
 import BaseHead from '~/components/BaseHead.astro';
 import { CloudinaryImage } from '~/components/CloudinaryImage';
-import Container from '~/components/Container';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
 import InstallPrompt from '~/components/InstallPrompt.astro';
-import Layout from '~/components/Layout.astro';
 import MdContent from '~/components/MdContent.astro';
 import SignupForm from '~/components/SignupForm.astro';
 import { getBlogs } from '~/data/blog-helpers';
@@ -68,48 +64,40 @@ const imageData = heroImagePublicId ? await getTransformedImage(heroImagePublicI
   </head>
 
   <body>
-    <Layout>
-      {
-        imageData && (
-          <div class="sm:px-8">
-            <div class="heroImgContainer mt-[-72px] max-w-7xl mx-auto lg:px-8">
-              <CloudinaryImage
-                data={imageData}
-                alt={alt || ''}
-                loading="eager"
-                className="heroImg max-w-full object-cover"
-              />
+    <MdContent
+      title={title}
+      publishDate={pubDate}
+      headings={headings}
+      saveKey={relativePath}
+      description={description}
+      lang={lang}
+      backUrl="/blog/"
+      backButtonLabel="Back to all blogs"
+    >
+      <div slot="layout-header">
+        {
+          imageData && (
+            <div class="sm:px-8">
+              <div class="heroImgContainer mt-[-72px] max-w-7xl mx-auto lg:px-8">
+                <CloudinaryImage
+                  data={imageData}
+                  alt={alt || ''}
+                  loading="eager"
+                  className="heroImg max-w-full object-cover"
+                />
+              </div>
             </div>
-          </div>
-        )
-      }
-      <Container>
-        <div class={clsx('relative lg:-left-5', !imageData && 'mt-12')}>
-          <BackButton
-            className={clsx(
-              'hidden sm:flex left-0 md:-left-12',
-              imageData ? 'absolute -top-12 lg:top-1' : 'md:absolute -top-4'
-            )}
-            href="/blog/"
-            aria-label="Back to all blogs"
-          />
-        </div>
-        <MdContent
-          title={title}
-          publishDate={pubDate}
-          headings={headings}
-          saveKey={relativePath}
-          description={description}
-          lang={lang}
-        >
-          <Content />
-        </MdContent>
+          )
+        }
+      </div>
+      <Content />
+      <div slot="content-footer">
         <SignupForm class="mb-12 offline:hidden" />
         <InstallPrompt class="mb-12" />
         <div class="border-t border-gray-100 pt-8">
           <ContentSuggestions blogs={related.blogs} tils={related.tils} />
         </div>
-      </Container>
-    </Layout>
+      </div>
+    </MdContent>
   </body>
 </html>

@@ -3,9 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { CollectionEntry } from 'astro:content';
 import { BackButton } from '~/components/BackButton';
 import BaseHead from '~/components/BaseHead.astro';
-import Container from '~/components/Container';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
-import Layout from '~/components/Layout.astro';
 import MdContent from '~/components/MdContent.astro';
 import { getTils } from '~/data/til-helpers';
 import { getTilRelatedContents } from '~/data/topic-helpers';
@@ -39,41 +37,35 @@ const related = await getTilRelatedContents(entry);
     <BaseHead title={title} publishedDate={pubDate} articleType="til" />
   </head>
   <body>
-    <Layout>
-      <Container>
-        <div class="relative lg:-left-5 mt-12 mb-6">
-          <BackButton
-            className="hidden sm:flex left-0 md:-left-12 md:absolute -top-4"
-            href="/today-i-learnt/"
-            aria-label="Back to all TILs"
-          />
-        </div>
-        <MdContent title={title} publishDate={pubDate}>
-          {
-            youtubeVideoId ? (
-              <figure class="border-b border-gray-200">
-                <figcaption class="mb-3">
-                  The content of this article is also available in video format.
-                </figcaption>
-                <div class="w-full aspect-[16/9] relative">
-                  <div class="bg-gradient-to-b from-gray-700 via-gray-900 to-black animate-pulse absolute inset-0" />
-                  <div class="relative w-full h-0 pb-[56.25%] overflow-hidden mb-[50px]">
-                    <iframe
-                      class="w-full h-full absolute top-0 left-0"
-                      sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
-                      src={`https://youtube.com/embed/${youtubeVideoId}?cc_load_policy=1`}
-                    />
-                  </div>
-                </div>
-              </figure>
-            ) : null
-          }
-          <Content />
-        </MdContent>
-        <div class="border-t border-gray-100 pt-8">
-          <ContentSuggestions blogs={related.blogs} tils={related.tils} />
-        </div>
-      </Container>
-    </Layout>
+    <MdContent
+      title={title}
+      publishDate={pubDate}
+      backUrl="/today-i-learnt/"
+      backButtonLabel="Back to all TILs"
+    >
+      {
+        youtubeVideoId ? (
+          <figure class="border-b border-gray-200">
+            <figcaption class="mb-3">
+              The content of this article is also available in video format.
+            </figcaption>
+            <div class="w-full aspect-[16/9] relative">
+              <div class="bg-gradient-to-b from-gray-700 via-gray-900 to-black animate-pulse absolute inset-0" />
+              <div class="relative w-full h-0 pb-[56.25%] overflow-hidden mb-[50px]">
+                <iframe
+                  class="w-full h-full absolute top-0 left-0"
+                  sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
+                  src={`https://youtube.com/embed/${youtubeVideoId}?cc_load_policy=1`}
+                />
+              </div>
+            </div>
+          </figure>
+        ) : null
+      }
+      <Content />
+      <div class="border-t border-gray-100 pt-8" slot="content-footer">
+        <ContentSuggestions blogs={related.blogs} tils={related.tils} />
+      </div>
+    </MdContent>
   </body>
 </html>
