@@ -6,6 +6,7 @@ import { BackButton } from './BackButton';
 import Footer from './Footer';
 import Header from './Header';
 import MdToc from './MdToc.astro';
+import MdTocSticky from './MdTocSticky.astro';
 import SavePageButton from './SavePageButton.astro';
 import './shiki.css';
 
@@ -49,12 +50,12 @@ const currentPath = new URL(Astro.request.url).pathname;
     </slot>
     <div class="sm:px-8">
       <div class="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-20 xl:max-w-none xl:px-0">
-        <div class="mx-auto max-w-2xl lg:max-w-5xl">
+        <div class="mx-auto max-w-2xl lg:max-w-5xl 2xl:max-w-none">
           {
             backUrl && (
               <div class="relative lg:-left-5">
                 <BackButton
-                  className={clsx('hidden sm:flex left-0 md:-left-12', 'md:absolute -top-4')}
+                  className="hidden sm:flex left-0 md:-left-12 md:absolute -top-4"
                   href={backUrl}
                   aria-label={backButtonLabel}
                 />
@@ -64,52 +65,57 @@ const currentPath = new URL(Astro.request.url).pathname;
           <div class="mb-12">
             <article lang={lang}>
               <div class="flex items-start mb-8 sm:pb-8 sm:border-b sm:border-gray-100">
-                <header
-                  class={clsx(
-                    'relative max-w-3xl w-full',
-                    hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
-                  )}
-                >
+                <div class="contents 2xl:flex-1 2xl:grid 2xl:grid-cols-[1fr_48em_1fr] 2xl:gap-3">
+                  <div class="hidden 2xl:block 2xl:justify-self-end 2xl:pr-5">
+                    {backUrl ? <BackButton href={backUrl} aria-label={backButtonLabel} /> : <div />}
+                  </div>
+                  <header
+                    class={clsx(
+                      'relative max-w-3xl w-full 2xl:col-span-2 2xl:w-auto 2xl:max-w-4xl',
+                      hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto 2xl:ml-0'
+                    )}
+                  >
+                    {
+                      publishDate && (
+                        <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
+                          {isFutureContent ? `To be published on ` : null}
+                          {formatDate(publishDate, lang)}
+                        </p>
+                      )
+                    }
+                    <h1
+                      class="content-title font-techie text-4xl sm:text-5xl font-bold w-full bg-transparent [text-wrap:balance]"
+                    >
+                      {title}
+                    </h1>
+                  </header>
                   {
-                    publishDate && (
-                      <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
-                        {isFutureContent ? `To be published on ` : null}
-                        {formatDate(publishDate, lang)}
-                      </p>
+                    saveKey && (
+                      <div class="hidden xl:block xl:-translate-y-2 2xl:hidden">
+                        <SavePageButton
+                          saveKey={saveKey}
+                          pageTitle={title}
+                          pageDescription={description}
+                          className="sm:justify-start"
+                        />
+                      </div>
                     )
                   }
-                  <h1
-                    class="content-title font-techie text-4xl sm:text-5xl font-bold w-full bg-transparent [text-wrap:balance]"
-                  >
-                    {title}
-                  </h1>
-                </header>
-                {
-                  saveKey && (
-                    <div class="hidden xl:block xl:-translate-y-2">
-                      <SavePageButton
-                        saveKey={saveKey}
-                        pageTitle={title}
-                        pageDescription={description}
-                        className="sm:justify-start"
-                      />
-                    </div>
-                  )
-                }
+                </div>
               </div>
               <div
-                class="flex gap-3 justify-between sm:items-start sm:gap-3 xl:contents relative max-w-3xl mx-auto xl:max-w-none xl:mb-0"
+                class="flex gap-3 justify-between sm:items-start sm:gap-3 xl:contents relative max-w-3xl mx-auto xl:max-w-none xl:mb-0 2xl:block 2xl:max-w-3xl 2xl:mb-auto"
               >
                 {
                   hasHeadings && (
-                    <div class="flex-1 xl:contents">
+                    <div class="flex-1 xl:contents 2xl:hidden">
                       <MdToc headings={levelTwoHeadings} />
                     </div>
                   )
                 }
                 {
                   saveKey && (
-                    <div class="fixed z-20 top-0 right-1/3 -translate-y-2 sm:block xl:hidden sm:ml-auto sm:-translate-y-10 sm:absolute sm:right-0 sm:top-0">
+                    <div class="fixed z-20 top-0 right-1/3 -translate-y-2 sm:block xl:hidden sm:ml-auto sm:-translate-y-10 sm:absolute sm:right-0 sm:top-0 2xl:block 2xl:translate-x-full">
                       <SavePageButton
                         saveKey={saveKey}
                         pageTitle={title}
@@ -120,19 +126,28 @@ const currentPath = new URL(Astro.request.url).pathname;
                   )
                 }
               </div>
-              <div
-                class={clsx(
-                  'Content',
-                  'max-w-3xl prose mt-3 sm:mt-6 xl:mt-0',
-                  'prose-headings:font-techie prose-headings:scroll-mt-20',
-                  'prose-a:no-underline prose-a:text-primary-600 prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-500 hover:prose-a:text-primary-700',
-                  'prose-a:scroll-mt-20',
-                  'prose-code:break-words',
-                  hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
-                )}
-                data-md-content
-              >
-                <slot />
+              <div class="2xl:grid 2xl:grid-cols-[1fr_48em_1fr] 2xl:gap-3">
+                <div class="hidden 2xl:flex 2xl:justify-center 2xl:pt-1">
+                  {
+                    levelTwoHeadings && (
+                      <MdTocSticky headings={levelTwoHeadings} class="2xl:w-auto px-2" />
+                    )
+                  }
+                </div>
+                <div
+                  class={clsx(
+                    'Content',
+                    'max-w-3xl prose mt-3 sm:mt-6 xl:mt-0',
+                    'prose-headings:font-techie prose-headings:scroll-mt-20',
+                    'prose-a:no-underline prose-a:text-primary-600 prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-500 hover:prose-a:text-primary-700',
+                    'prose-a:scroll-mt-20',
+                    'prose-code:break-words',
+                    hasHeadings ? 'mx-auto xl:ml-0' : 'mx-auto'
+                  )}
+                  data-md-content
+                >
+                  <slot />
+                </div>
               </div>
             </article>
           </div>

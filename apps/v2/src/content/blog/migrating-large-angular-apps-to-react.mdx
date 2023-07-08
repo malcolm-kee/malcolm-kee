@@ -65,13 +65,7 @@ The plan is to :
 <figure>
 
 ```tsx
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -112,9 +106,7 @@ export class MyAngularComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-<figcaption>
-  Code snippet of how to render React component in Angular
-</figcaption>
+<figcaption>Code snippet of how to render React component in Angular</figcaption>
 
 </figure>
 
@@ -155,7 +147,7 @@ For my use case I would think that they are worthwhile tradeoffs.
 
 </Aside>
 
-<Aside heading="Progress tracking">
+<Aside heading="Progress tracking" static>
 
 Progress tracking of migration do not need to be fancy or requires library or tools, it can be a simple table like below that get updated by a shell script as part of CI/CD.
 

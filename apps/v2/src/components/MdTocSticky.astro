@@ -1,0 +1,143 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { clsx } from 'clsx';
+
+export interface Props {
+  headings: Array<MarkdownHeading>;
+  class?: string;
+}
+
+const { headings } = Astro.props;
+---
+
+<nav
+  class={clsx(
+    'StickyMdToc hidden xl:flex gap-3 sticky top-14 w-[calc(1072px-768px-16px)] max-h-[calc(100vh-64px)] overflow-y-auto',
+    Astro.props.class
+  )}
+  aria-labelledby="mdtoc-label"
+>
+  <div class="sr-only" id="mdtoc-label">Contents</div>
+  <ol class="flex flex-col gap-4">
+    {
+      headings.map((h) => {
+        const indent = Math.max(0, h.depth - 2);
+
+        return (
+          <li style={`--indent: ${indent}`}>
+            <a
+              href={`#${h.slug}`}
+              class={clsx(
+                'StickyLink block text-sm text-zinc-500 transition hover:text-primary-700',
+                {
+                  '1': 'pl-4',
+                  '2': 'pl-8',
+                  '3': 'pl-12',
+                  '4': 'pl-16',
+                }[indent]
+              )}
+              data-target={h.slug}
+            >
+              {h.text}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+
+<script>
+  import { listen } from '~/lib/event-helper';
+
+  document.querySelectorAll('.StickyMdToc').forEach((tocSection) => {
+    // TODO: handle window height too long for sticky nav
+    highlightCurrentActiveHeading(tocSection);
+  });
+
+  function highlightCurrentActiveHeading(tocSection: Element) {
+    const links = tocSection.querySelectorAll<HTMLElement>('li > a');
+
+    const headings: Array<{
+      element: HTMLElement;
+      top: number;
+    }> = [];
+
+    links.forEach((element) => {
+      const target = element.dataset.target;
+
+      const targetElement = target && document.getElementById(target);
+
+      if (targetElement) {
+        const scrollMt = parseFloat(window.getComputedStyle(targetElement).scrollMarginTop);
+
+        const top =
+          window.scrollY +
+          targetElement.getBoundingClientRect().top -
+          scrollMt -
+          window.innerHeight / 2;
+
+        headings.push({
+          top,
+          element,
+        });
+      }
+    });
+
+    if (headings.length === 0) {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia('(min-width: 1280px)');
+
+    let cleanup: () => void | undefined;
+
+    function syncLinks() {
+      let top = window.scrollY;
+      let current = headings[0];
+
+      for (let heading of headings) {
+        if (top >= heading.top) {
+          current = heading;
+        } else {
+          break;
+        }
+      }
+      if (current) {
+        links.forEach((link) => {
+          if (link === current.element) {
+            link.classList.add('text-primary-600');
+            link.classList.remove('text-zinc-500');
+          } else {
+            link.classList.add('text-zinc-500');
+            link.classList.remove('text-primary-600');
+          }
+        });
+      }
+    }
+
+    function setupScrollListener() {
+      if (mediaQuery.matches) {
+        if (cleanup) cleanup();
+
+        syncLinks();
+
+        if ('onscrollend' in window) {
+          cleanup = listen(window, 'scrollend', syncLinks);
+        } else {
+          cleanup = listen(window, 'scroll', syncLinks, { passive: true });
+        }
+      } else {
+        if (cleanup) cleanup();
+        links.forEach((link) => {
+          link.classList.add('text-zinc-500');
+          link.classList.remove('text-primary-600');
+        });
+      }
+    }
+
+    setupScrollListener();
+
+    listen(mediaQuery, 'change', setupScrollListener);
+  }
+</script>
