@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { flushSync } from 'react-dom';
 import { useHref, useLinkClickHandler, useNavigate } from 'react-router-dom';
 
 export interface LinkProps extends Omit<React.ComponentPropsWithoutRef<'a'>, 'href'> {
@@ -26,7 +27,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link
         if (!ev.defaultPrevented) {
           if (typeof document.startViewTransition === 'function' && animateNavigation) {
             ev.preventDefault();
-            document.startViewTransition(() => navigate(to));
+            document.startViewTransition(() => flushSync(() => navigate(to)));
           } else {
             handleClick(ev);
           }

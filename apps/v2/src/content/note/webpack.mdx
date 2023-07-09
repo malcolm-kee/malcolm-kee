@@ -3,14 +3,8 @@ title: Webpack
 ---
 
 import basicWebpackBootstrap from './_webpack/bootstrap-walkthrough.ts?raw';
-
-## Webpack Runtime
-
-### Basic
-
-### With Lazy Loading
-
-### With Module Federation
+import webpackBootstrapWithDynamicImport from './_webpack/bootstrap-with-dynamic-import.ts?raw';
+import lazyLoadedChunk from './_webpack/dynamic-imported-module.ts?raw';
 
 <link href="https://www.unpkg.com/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 
@@ -27,6 +21,20 @@ All using ES modules.
 
 <pre>
   <code class="language-typescript">{basicWebpackBootstrap}</code>
+</pre>
+
+## Bootstrap with dynamic import
+
+The entry (main) chunk:
+
+<pre>
+  <code class="language-typescript">{webpackBootstrapWithDynamicImport}</code>
+</pre>
+
+The lazy-loaded chunk:
+
+<pre>
+  <code class="language-typescript">{lazyLoadedChunk}</code>
 </pre>
 
 <script src="https://www.unpkg.com/prismjs@v1.x/components/prism-core.min.js"></script>

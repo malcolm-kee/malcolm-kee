@@ -4,10 +4,14 @@ import { clsx } from 'clsx';
 
 export interface Props {
   headings: Array<MarkdownHeading>;
+  /**
+   * id for the label. Must be unique in the page.
+   */
+  labelId: string;
   class?: string;
 }
 
-const { headings } = Astro.props;
+const { headings, labelId } = Astro.props;
 ---
 
 <nav
@@ -15,9 +19,9 @@ const { headings } = Astro.props;
     'StickyMdToc hidden xl:flex gap-3 sticky top-14 w-[calc(1072px-768px-16px)] max-h-[calc(100vh-64px)] overflow-y-auto',
     Astro.props.class
   )}
-  aria-labelledby="mdtoc-label"
+  aria-labelledby={labelId}
 >
-  <div class="sr-only" id="mdtoc-label">Contents</div>
+  <div class="sr-only" id={labelId}>Contents</div>
   <ol class="flex flex-col gap-4">
     {
       headings.map((h) => {

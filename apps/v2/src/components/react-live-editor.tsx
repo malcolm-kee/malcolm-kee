@@ -3,12 +3,12 @@ import type { SupportedLang } from './Sandbox';
 
 const Sandbox = React.lazy(() => import('./Sandbox'));
 
-export type LiveEditorProps = {
+export type ReactLiveEditorProps = {
   children: React.ReactNode;
   readOnly?: boolean;
 };
 
-export function LiveEditor(props: LiveEditorProps) {
+export function ReactLiveEditor(props: ReactLiveEditorProps) {
   const divRef = React.useRef<HTMLDivElement>(null);
   const [state, setState] = React.useState<LiveEditorState>({
     mode: 'initializing',

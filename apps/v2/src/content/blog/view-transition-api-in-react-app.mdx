@@ -8,6 +8,7 @@ topics:
 heroImagePublicId: malcolm-kee/view_transition_api_react_o1tdys
 ---
 
+import Aside from '~/components/Aside';
 import LiveEditor from '~/components/LiveEditor.astro';
 import { AnimatedDialog } from '~/components/demo/animated-dialog';
 import { ViewTransitionBlogOnboardingButton } from '~/components/demo/onboarding';
@@ -23,7 +24,7 @@ In the example below, when the Move button is clicked, the cat image will switch
 
 <p className="offline:hidden">Use the play button on the right to run the example.</p>
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem" readOnly>
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem" readOnly >
 
 ```js
 document.getElementById('moveBtn').addEventListener('click', () => {
@@ -315,16 +316,13 @@ createRoot(document.getElementById('root')).render(<App />);
 
 ## Using View Transition API with React Router
 
-Using View Transition API with [React Router](https://reactrouter.com/), however, doesn't require the `flushSync` call if you don't use its [Data APIs](https://reactrouter.com/en/main/routers/picking-a-router#using-v64-data-apis).
-
-The reason that it doesn't require the `flushSync` hook because React Router's current implementation use the [`useSyncExternalStore`](https://beta.reactjs.org/reference/react/useSyncExternalStore) API, which perform rerendering synchronously.
-
-On the other hand, using the Data APIs switches the rendering during route change to become asynchronous, which would need React Router to introduce additional hooks or options to work with View Transition API correctly.
+Using View Transition API with [React Router](https://reactrouter.com/) is about the same, except that you call hook `useNavigate` to navigate to the new page instead of setState in the callback of `document.startViewTransition`.
 
 <LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
 
 ```jsx
 import * as React from 'react';
+import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { useNavigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
 
@@ -337,7 +335,9 @@ const AnimatedLink = ({ to, children }) => {
       onClick={(ev) => {
         ev.preventDefault();
         document.startViewTransition(() => {
-          navigate(to);
+          flushSync(() => {
+            navigate(to);
+          });
         });
       }}
     >
@@ -441,6 +441,14 @@ createRoot(document.getElementById('root')).render(<RouterProvider router={route
 ```
 
 </LiveEditor>
+
+<Aside heading="React Router Support of View Transition API May Change" className="mt-5">
+
+When I first write this article, there is no need to call `flushSync` before calling `navigate`. Somehow, the implementation changes and now it requires calling `flushSync`.
+
+The key takeaway is that since there is no official statement from React Router on how to use View Transition API with it, use this cautiously. Create a wrapper component or utility function so any change of integration can be updated easily in future.
+
+</Aside>
 
 ## Practical Use Cases
 

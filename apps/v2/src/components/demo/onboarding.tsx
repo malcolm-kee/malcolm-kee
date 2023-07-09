@@ -30,7 +30,12 @@ const onBoarding = (steps: Array<OnboardingStep>) => {
     const currentStep = steps[currentStepIndex];
 
     if (currentStep) {
-      const target = document.querySelector(currentStep.targetSelector);
+      const target = Array.from(document.querySelectorAll(currentStep.targetSelector)).filter(
+        (element) => {
+          const styles = window.getComputedStyle(element);
+          return styles.display !== 'none' && styles.visibility !== 'hidden';
+        }
+      )[0];
 
       if (target) {
         tooltip.classList.remove('hidden');
