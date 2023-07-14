@@ -11,30 +11,50 @@ const props = Astro.props;
 
 <div
   class={clsx(
-    'hidden installable:mode-browser:block max-w-2xl mx-auto p-4 sm:p-10 rounded shadow text-center',
+    'hidden subscribable:block',
+    'max-w-2xl mx-auto p-4 sm:p-10 rounded shadow text-center',
     props.class
   )}
 >
   <p class="text-2xl font-medium text-zinc-600 mb-3">Prefer to get updates in your phone?</p>
-  <p class="text-zinc-600 mb-3">
-    Install this website locally and get notified when a new blog is published <span
-      class="line-through">after I figure out how to do web push</span
-    >.
-  </p>
-  <div>
-    <Button className="installBtn w-full" data-success>
-      <span class="text-lg px-3">Install</span>
-    </Button>
+  <p class="text-zinc-600 mb-3">Get notified when new content is published.</p>
+  <div class="flex gap-3">
+    <div class="flex-1">
+      <Button className="subscribeBtn w-full" data-success>
+        <span class="text-lg px-3">Subscribe</span>
+      </Button>
+    </div>
+    <div class="hidden installable:mode-browser:block flex-1">
+      <Button className="installBtn w-full" data-success>
+        <span class="text-lg px-3">Install and Subscribe</span>
+      </Button>
+    </div>
   </div>
 </div>
 <script>
+  import { subscribeUserToNotification } from '~/lib/notification';
+
+  const subscribe = () => {
+    subscribeUserToNotification().then((result) => {
+      if (result === 'granted') {
+        delete document.documentElement.dataset.subscribable;
+      }
+    });
+  };
+
+  document.querySelectorAll('.subscribeBtn').forEach((subscribeBtn) => {
+    subscribeBtn.addEventListener('click', subscribe);
+  });
+
   document.querySelectorAll('.installBtn').forEach((installBtn) => {
     installBtn.addEventListener('click', () => {
-      if (promptInstall && typeof promptInstall.prompt === 'function') {
+      if (typeof promptInstall !== 'undefined' && typeof promptInstall.prompt === 'function') {
         promptInstall.prompt();
         promptInstall = undefined;
         delete document.documentElement.dataset.installable;
       }
+
+      subscribe();
     });
   });
 </script>
