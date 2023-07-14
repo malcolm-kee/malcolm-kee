@@ -22,7 +22,7 @@ const { headings, labelId } = Astro.props;
   aria-labelledby={labelId}
 >
   <div class="sr-only" id={labelId}>Contents</div>
-  <ol class="flex flex-col gap-4">
+  <ol class="flex flex-col">
     {
       headings.map((h) => {
         const indent = Math.max(0, h.depth - 2);
@@ -32,13 +32,14 @@ const { headings, labelId } = Astro.props;
             <a
               href={`#${h.slug}`}
               class={clsx(
-                'StickyLink block text-sm text-zinc-500 transition hover:text-primary-700',
+                'StickyLink block py-2 text-sm text-zinc-500 transition hover:text-primary-700',
                 {
                   '1': 'pl-4',
                   '2': 'pl-8',
                   '3': 'pl-12',
                   '4': 'pl-16',
-                }[indent]
+                }[indent],
+                indent && 'border-l border-l-zinc-100'
               )}
               data-target={h.slug}
             >
@@ -111,10 +112,14 @@ const { headings, labelId } = Astro.props;
         links.forEach((link) => {
           if (link === current.element) {
             link.classList.add('text-primary-600');
+            link.classList.add('border-l-primary-500');
             link.classList.remove('text-zinc-500');
+            link.classList.remove('border-l-zinc-100');
           } else {
             link.classList.add('text-zinc-500');
+            link.classList.add('border-l-zinc-100');
             link.classList.remove('text-primary-600');
+            link.classList.remove('border-l-primary-500');
           }
         });
       }

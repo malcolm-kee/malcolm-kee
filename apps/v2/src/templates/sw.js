@@ -87,6 +87,63 @@ function initWorker(worker) {
 
     fetchEvent.respondWith(networkFirstAndFallbackOffline());
   });
+
+  worker.addEventListener('push', (pushEvent) => {
+    if (pushEvent.data) {
+      try {
+        /**
+         * @type {{
+         *  notification?: {
+         *    title?: string;
+         *    body?: string;
+         *    url?: string;
+         *    tag?: string;
+         *    badge?: string;
+         *    icon?: string;
+         *    image?: string;
+         *  }
+         * }}
+         */
+        const pushData = pushEvent.data.json();
+
+        // do a very tedious check to ensure not showing empty notification
+        if (
+          pushData &&
+          typeof pushData === 'object' &&
+          'notification' in pushData &&
+          typeof pushData.notification === 'object' &&
+          pushData.notification.title
+        ) {
+          const notificationPromise = worker.registration.showNotification(
+            pushData.notification.title,
+            {
+              body: pushData.notification.body,
+              tag: pushData.notification.tag,
+              icon: pushData.notification.icon,
+              badge: pushData.notification.badge,
+              image: pushData.notification.image,
+              data: {
+                url: pushData.notification.url,
+              },
+            }
+          );
+
+          return pushEvent.waitUntil(notificationPromise);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    console.log('push event without data');
+  });
+
+  worker.addEventListener('notificationclick', (clickEvent) => {
+    clickEvent.notification.close();
+
+    if (clickEvent.notification.data && clickEvent.notification.data.url) {
+      clickEvent.waitUntil(clients.openWindow(clickEvent.notification.data.url));
+    }
+  });
 }
 
 initWorker(self);

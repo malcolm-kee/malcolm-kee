@@ -16,3 +16,12 @@ declare var promptInstall:
       userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
     }
   | undefined;
+
+interface ImportMetaEnv {
+  PUBLIC_WEBPUSH_KEY: string;
+  PUBLIC_API_BASE_URL: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}

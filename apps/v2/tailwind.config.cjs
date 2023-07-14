@@ -54,6 +54,7 @@ module.exports = {
       addVariant('online', ':root[data-online="true"] &');
       addVariant('offline', ':root[data-online="false"] &');
       addVariant('installable', ':root[data-installable="true"] &');
+      addVariant('subscribable', ':root[data-subscribable="true"] &');
       addVariant('saveable', ':root[data-cansave="true"] &');
       matchVariant('mode', (value) => `@media (display-mode: ${value})`, {
         values: {

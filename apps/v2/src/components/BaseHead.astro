@@ -189,6 +189,10 @@ const ogImage = getOgImageUrl({
 
     document.documentElement.dataset.installable = 'true';
   });
+
+  if (Notification.permission === 'default') {
+    document.documentElement.dataset.subscribable = 'true';
+  }
 </script>
 <style>
   @font-face {
