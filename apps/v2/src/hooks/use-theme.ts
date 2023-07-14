@@ -10,17 +10,12 @@ const eventBus = mitt<{
 }>();
 
 export const useThemeToggle = () => {
-  const [selectedTheme, _setSelectedTheme] = React.useState<
-    undefined | ThemeValue
-  >();
+  const [selectedTheme, _setSelectedTheme] = React.useState<undefined | ThemeValue>();
 
-  const setSelectedTheme = React.useCallback(
-    (nextTheme: ThemeValue | undefined) => {
-      _setSelectedTheme(nextTheme);
-      eventBus.emit('themeChange', nextTheme);
-    },
-    []
-  );
+  const setSelectedTheme = React.useCallback((nextTheme: ThemeValue | undefined) => {
+    _setSelectedTheme(nextTheme);
+    eventBus.emit('themeChange', nextTheme);
+  }, []);
 
   React.useEffect(() => {
     if (selectedTheme) {
@@ -71,9 +66,5 @@ export const useThemeValue = () => {
     return () => eventBus.off('themeChange', setThemeValue);
   }, []);
 
-  return themeValue === 'system'
-    ? systemIsDarkMode
-      ? 'dark'
-      : 'light'
-    : themeValue;
+  return themeValue === 'system' ? (systemIsDarkMode ? 'dark' : 'light') : themeValue;
 };

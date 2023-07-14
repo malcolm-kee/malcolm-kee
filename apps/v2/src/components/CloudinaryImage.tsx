@@ -1,8 +1,7 @@
 import type { ImageData } from '~/lib/cloudinary';
 import * as React from 'react';
 
-export interface CloudinaryImageProps
-  extends Omit<React.ComponentPropsWithoutRef<'img'>, 'src'> {
+export interface CloudinaryImageProps extends Omit<React.ComponentPropsWithoutRef<'img'>, 'src'> {
   data: ImageData;
 }
 

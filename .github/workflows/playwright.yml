@@ -30,6 +30,8 @@ jobs:
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          PUBLIC_WEBPUSH_KEY: ${{ secrets.PUBLIC_WEBPUSH_KEY }}
+          PUBLIC_API_BASE_URL: ${{ secrets.PUBLIC_API_BASE_URL }}
           CI: true
 
       - name: Install Playwright Browsers

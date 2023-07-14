@@ -38,11 +38,7 @@ export const WorkshopMobileNavigation = (props: {
         >
           <Dialog.Panel className="flex flex-col h-full w-full overflow-hidden max-w-xs bg-slate-50 dark:bg-slate-900">
             <div className="flex items-center px-4 sm:px-6 py-5">
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                aria-label="Close navigation"
-              >
+              <button type="button" onClick={() => setIsOpen(false)} aria-label="Close navigation">
                 <CloseIcon className="h-6 w-6 stroke-slate-500" />
               </button>
               <div className="ml-6">{props.icon}</div>

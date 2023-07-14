@@ -1,7 +1,4 @@
-export const groupArrayBy = <T, KeyValue>(
-  array: T[],
-  getGroupByKey: (item: T) => KeyValue[]
-) => {
+export const groupArrayBy = <T, KeyValue>(array: T[], getGroupByKey: (item: T) => KeyValue[]) => {
   const result = new Map<KeyValue, T[]>();
 
   array.forEach((item) => {

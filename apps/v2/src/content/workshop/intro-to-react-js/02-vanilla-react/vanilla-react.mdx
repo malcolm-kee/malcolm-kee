@@ -8,16 +8,13 @@ import Exercise from '~/components/Exercise';
 We will start learning React by using React with vanilla JS - which means we will not include any tooling first, and only code with a simple HTML file and a script tag.
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://codepen.io/malcolmkee/pen/xmvMNY.css"
-    />
+    <link rel="stylesheet" href="https://codepen.io/malcolmkee/pen/xmvMNY.css" />
     <title>React Movie App</title>
   </head>
 
@@ -48,11 +45,7 @@ In the `<script>` tag, add the following code
 
 ```javascript
 const App = function () {
-  return React.createElement(
-    'div',
-    {},
-    React.createElement('h1', {}, 'React Movie App')
-  );
+  return React.createElement('div', {}, React.createElement('h1', {}, 'React Movie App'));
 };
 
 ReactDOM.render(React.createElement(App), document.getElementById('root'));

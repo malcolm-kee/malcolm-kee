@@ -129,11 +129,7 @@ import { stream } from 'undici';
 (async function exportCvToPdf() {
   const writeStream = fs.createWriteStream('build/cv.pdf');
 
-  await stream(
-    'https://page-to-pdf-service.com/screenshot',
-    {},
-    () => writeStream
-  );
+  await stream('https://page-to-pdf-service.com/screenshot', {}, () => writeStream);
 })();
 ```
 

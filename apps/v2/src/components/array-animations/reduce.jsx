@@ -11,12 +11,7 @@ export function ReduceAnimation() {
   return (
     <div>
       <div className={styles.container}>
-        <div
-          className={clsx(
-            styles.innerContainer,
-            runState !== 'not_run' && styles.activated
-          )}
-        >
+        <div className={clsx(styles.innerContainer, runState !== 'not_run' && styles.activated)}>
           <Box />
           <Box />
           <Box />
@@ -25,11 +20,7 @@ export function ReduceAnimation() {
       </div>
       <div className="my-2 h-12 flex justify-center items-center">
         {runState !== 'running' && (
-          <Button
-            onClick={() =>
-              setRunState(runState === 'not_run' ? 'running' : 'not_run')
-            }
-          >
+          <Button onClick={() => setRunState(runState === 'not_run' ? 'running' : 'not_run')}>
             {runState === 'complete' ? 'Restart' : 'Run'}
           </Button>
         )}

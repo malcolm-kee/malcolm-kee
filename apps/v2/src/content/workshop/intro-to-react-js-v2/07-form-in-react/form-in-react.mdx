@@ -47,9 +47,7 @@ Create a `createMovie` function in `api.js` that will make the request
 
 ```javascript title="src/api.js"
 export const createMovie = (movie) =>
-  axios
-    .post('https://react-intro-movies.herokuapp.com/movies', movie)
-    .then((res) => res.data);
+  axios.post('https://react-intro-movies.herokuapp.com/movies', movie).then((res) => res.data);
 ```
 
 - axios allows you to makes API call with specific method, e.g. `get`, `post`, `put` etc., corresponding to our REST call methods.
@@ -218,18 +216,12 @@ We can achieve this by passing a callback from `App` to `MovieForm`.
           <div className="container">
             <div>
               <div className="button-container">
-                <Button onClick={toggleShowMovies}>
-                  {moviesShown ? 'Hide' : 'Show'} Movies
-                </Button>
+                <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
               </div>
               {moviesShown && (
                 <BusyContainer isLoading={isLoading}>
                   {movies.map((movie) => (
-                    <Movie
-                      name={movie.name}
-                      releaseDate={movie.releaseDate}
-                      key={movie.id}
-                    />
+                    <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
                   ))}
                 </BusyContainer>
               )}

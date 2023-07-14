@@ -19,10 +19,7 @@ In short, instead of this:
 Design your API like this:
 
 ```tsx noWrapper
-<Button
-  color="primary"
-  renderContainer={(buttonProps) => <a href="/hello" {...buttonProps} />}
->
+<Button color="primary" renderContainer={(buttonProps) => <a href="/hello" {...buttonProps} />}>
   Hello
 </Button>
 ```

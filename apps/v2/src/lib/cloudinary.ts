@@ -9,12 +9,10 @@ cloudinary.config({
   secure: true,
 });
 
-export const getCloudinaryHelpers = (options: {
-  cloudinaryUsername: string;
-}) => {
+export const getCloudinaryHelpers = (options: { cloudinaryUsername: string }) => {
   const regex = new RegExp(
-    /^https:\/\/res\.cloudinary\.com\/\w+\/image\/upload\/([\w_,]+\/)?\w+\//
-      .source + options.cloudinaryUsername
+    /^https:\/\/res\.cloudinary\.com\/\w+\/image\/upload\/([\w_,]+\/)?\w+\//.source +
+      options.cloudinaryUsername
   );
 
   const checkIsCloudinaryImage = (imageSrc: unknown): imageSrc is string =>
@@ -91,9 +89,7 @@ async function getImageData(imagePublicId: string) {
   return info;
 }
 
-export const getTransformedImage = async (
-  imagePublicId: string
-): Promise<ImageData> => {
+export const getTransformedImage = async (imagePublicId: string): Promise<ImageData> => {
   const jpgUrl = cloudinary.url(imagePublicId, {
     resource_type: 'image',
     format: 'jpg',

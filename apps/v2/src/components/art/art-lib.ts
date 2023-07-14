@@ -75,9 +75,7 @@ export function usePoints({
         for (let j = 0; j < count; j++) {
           const u = count <= 1 ? 0.5 : i / (count - 1);
           const v = count <= 1 ? 0.5 : j / (count - 1);
-          const dif = withNoise
-            ? amplitude * random.noise2D(u * frequency, v * frequency)
-            : 0;
+          const dif = withNoise ? amplitude * random.noise2D(u * frequency, v * frequency) : 0;
           const x = u + dif;
           const y = v + dif;
           points.push({
@@ -102,9 +100,7 @@ export function getContrastTextColor(hex: string) {
   const hBlue = hexToB(hex);
 
   const cBrightness = (hRed * 299 + hGreen * 587 + hBlue * 114) / 1000;
-  return cBrightness > threshold
-    ? 'rgba(0, 0, 0, 0.87)'
-    : 'rgba(255, 255, 255, 0.88)';
+  return cBrightness > threshold ? 'rgba(0, 0, 0, 0.87)' : 'rgba(255, 255, 255, 0.88)';
 }
 
 function cutHex(h: string) {

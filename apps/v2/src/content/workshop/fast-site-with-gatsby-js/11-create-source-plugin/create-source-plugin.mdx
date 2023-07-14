@@ -93,9 +93,9 @@ exports.sourceNodes = async ({ reporter }, configOptions) => {
   reporter.info(`In gatsby-source-pokemon with the following configOptions`);
   reporter.info(JSON.stringify(configOptions));
 
-  const pokemons = await fetch(
-    'https://pokemon-json.herokuapp.com/api/pokedex'
-  ).then((res) => res.json());
+  const pokemons = await fetch('https://pokemon-json.herokuapp.com/api/pokedex').then((res) =>
+    res.json()
+  );
 
   console.log(pokemons);
 };
@@ -115,9 +115,9 @@ exports.sourceNodes = async (
   reporter.info(`In gatsby-source-pokemon with the following configOptions`);
   reporter.info(JSON.stringify(configOptions));
 
-  const pokemons = await fetch(
-    'https://pokemon-json.herokuapp.com/api/pokedex'
-  ).then((res) => res.json());
+  const pokemons = await fetch('https://pokemon-json.herokuapp.com/api/pokedex').then((res) =>
+    res.json()
+  );
 
   pokemons.forEach((pokemon) => {
     const nodeId = createNodeId(`pokemon-${pokemon.id}`);

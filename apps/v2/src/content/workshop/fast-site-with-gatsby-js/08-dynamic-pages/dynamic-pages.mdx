@@ -70,12 +70,7 @@ touch gatsby-node.js
 
 ```javascript title="gatsby-node.js"
 const path = require('path');
-const blogTemplate = path.resolve(
-  __dirname,
-  'src',
-  'templates',
-  'blog-template.jsx'
-);
+const blogTemplate = path.resolve(__dirname, 'src', 'templates', 'blog-template.jsx');
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;

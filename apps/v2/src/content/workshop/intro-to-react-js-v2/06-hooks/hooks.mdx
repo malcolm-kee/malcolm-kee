@@ -99,10 +99,7 @@ function App() {
         <>
           <Movie name="Aquaman" releaseDate="2018-12-07" />
           <Movie name="Bumblebee" releaseDate="2018-12-15" />
-          <Movie
-            name="Fantastic Beasts: The Crimes of Grindelwald"
-            releaseDate="2018-11-14"
-          />
+          <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
         </>
       )}
     </div>
@@ -258,9 +255,7 @@ To load data from backend API:
     import axios from 'axios';
 
     export const loadMovies = () =>
-      axios('https://react-intro-movies.herokuapp.com/movies').then(
-        (res) => res.data
-      );
+      axios('https://react-intro-movies.herokuapp.com/movies').then((res) => res.data);
     ```
 
 1.  add `useEffect` hook and another `useState` hook in `App` component as below:
@@ -366,18 +361,12 @@ To show loading indicator when waiting API response:
             <h1>React Movie App</h1>
           </TitleBar>
           <div className="button-container">
-            <Button onClick={toggleShowMovies}>
-              {moviesShown ? 'Hide' : 'Show'} Movies
-            </Button>
+            <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
           </div>
           {moviesShown && (
             <BusyContainer isLoading={isLoading}>
               {movies.map((movie) => (
-                <Movie
-                  name={movie.name}
-                  releaseDate={movie.releaseDate}
-                  key={movie.id}
-                />
+                <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
               ))}
             </BusyContainer>
           )}
@@ -419,18 +408,12 @@ function App() {
         <h1>React Movie App</h1>
       </TitleBar>
       <div className="button-container">
-        <Button onClick={toggleShowMovies}>
-          {moviesShown ? 'Hide' : 'Show'} Movies
-        </Button>
+        <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
       </div>
       {moviesShown && (
         <BusyContainer isLoading={isLoading}>
           {movies.map((movie) => (
-            <Movie
-              name={movie.name}
-              releaseDate={movie.releaseDate}
-              key={movie.id}
-            />
+            <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
           ))}
         </BusyContainer>
       )}

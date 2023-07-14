@@ -87,12 +87,7 @@ class CommentListContainer extends React.Component {
   }
 
   render() {
-    return (
-      <CommentList
-        comments={this.state.comments}
-        isLoading={this.state.isLoading}
-      />
-    );
+    return <CommentList comments={this.state.comments} isLoading={this.state.isLoading} />;
   }
 }
 ```

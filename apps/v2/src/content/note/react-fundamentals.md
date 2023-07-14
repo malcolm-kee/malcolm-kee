@@ -63,9 +63,7 @@ Data can flows from parent to children with props. But how do we pass the data f
 - To allows that to happen, we pass function as props. Then the children component can call the function.
 
 ```jsx
-const PrimaryButton = (props) => (
-  <button onClick={() => props.onClick()}>{props.children}</button>
-);
+const PrimaryButton = (props) => <button onClick={() => props.onClick()}>{props.children}</button>;
 
 <PrimaryButton onClick={() => console.log('button has been clicked')}>
   <FaPlus />

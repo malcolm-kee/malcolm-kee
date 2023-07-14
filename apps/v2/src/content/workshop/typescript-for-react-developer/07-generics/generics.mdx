@@ -58,7 +58,7 @@ What you want is a way to say, whatever type of the item in the array will be th
 Generics allows us to do so:
 
 ```ts live
-const forEach = <Item>(array: Item[], callBack: (element: Item) => void) => {
+const forEach = <Item,>(array: Item[], callBack: (element: Item) => void) => {
   for (let item of array) {
     callBack(item);
   }

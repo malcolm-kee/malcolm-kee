@@ -106,12 +106,10 @@ module.exports = function transformer(fileInfo, { j }, options) {
   const allFunctionDeclarations = collection.filter(j.FunctionDeclaration);
 
   // exclude function declaration with name specialFunction
-  const filteredFunctionDeclarations = allFunctionDeclarations.filter(
-    (path) => {
-      const { node } = path;
-      return node.id.name !== 'specialFunction';
-    }
-  );
+  const filteredFunctionDeclarations = allFunctionDeclarations.filter((path) => {
+    const { node } = path;
+    return node.id.name !== 'specialFunction';
+  });
 
   return collection.toSource();
 };
@@ -156,10 +154,7 @@ module.exports = function transformer(fileInfo, { j }, options) {
   allFunctionDeclarations.replaceWith((path) => {
     const { node } = path;
     return j.variableDeclaration('const', [
-      j.variableDeclarator(
-        node.id,
-        j.arrowFunctionExpression(node.params, node.body)
-      ),
+      j.variableDeclarator(node.id, j.arrowFunctionExpression(node.params, node.body)),
     ]);
   });
 

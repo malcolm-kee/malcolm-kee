@@ -347,12 +347,8 @@ function announceParticipants(event, participants) {
   var secondStudent = students[1] || 'N/A';
 
   console.log('Announcing participants for ' + event);
-  console.log(
-    'The first two teachers are: ' + firstTeacher + ' and ' + secondTeacher
-  );
-  console.log(
-    'The first two students are: ' + firstStudent + ' and ' + secondStudent
-  );
+  console.log('The first two teachers are: ' + firstTeacher + ' and ' + secondTeacher);
+  console.log('The first two students are: ' + firstStudent + ' and ' + secondStudent);
 }
 
 announceParticipants('Kung Fu Competition', [
@@ -695,8 +691,7 @@ function getPersons() {
   ];
 }
 
-var [{ name: heroName, age: heroAge }, { name: villainName, age: villainAge }] =
-  getPersons();
+var [{ name: heroName, age: heroAge }, { name: villainName, age: villainAge }] = getPersons();
 ```
 
 </LiveEditor>

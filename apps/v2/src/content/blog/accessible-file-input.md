@@ -11,9 +11,7 @@ Disclaimer: no testing had been done via screen reader. It would be great if you
 ```html
 <div class="file-input">
   <input type="file" class="file-input--input" id="my-file-input" />
-  <label for="my-file-input" class="file-input--label button" tabindex="-1"
-    >Upload</label
-  >
+  <label for="my-file-input" class="file-input--label button" tabindex="-1">Upload</label>
   <!-- setting for attribute of label to the id of the file input so clicking
     it would simulate click on the file input  -->
   <!-- setting tabindex to -1 so that label will not be tab target  -->

@@ -17,11 +17,7 @@ export default function ProductsPage() {
   return (
     <div>
       <NavBar>
-        <Link
-          to="/"
-          animateNavigation
-          className="inline-flex items-center gap-2 text-gray-500"
-        >
+        <Link to="/" animateNavigation className="inline-flex items-center gap-2 text-gray-500">
           <ChevronLeftIcon className="w-5 h-5" /> Home
         </Link>
       </NavBar>
