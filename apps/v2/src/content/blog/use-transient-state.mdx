@@ -36,19 +36,13 @@ const useTransientState = <StateValue extends unknown>(
 ) => {
   const [state, setState] = React.useState(steadyState);
 
-  const setTemporaryState = React.useCallback(function setTemporaryState(
-    newValue: StateValue
-  ) {
+  const setTemporaryState = React.useCallback(function setTemporaryState(newValue: StateValue) {
     setState(newValue);
-  },
-  []);
+  }, []);
 
   React.useEffect(() => {
     if (state !== steadyState && restorationTime) {
-      const timeoutId = setTimeout(
-        () => setState(steadyState),
-        restorationTime
-      );
+      const timeoutId = setTimeout(() => setState(steadyState), restorationTime);
 
       return () => clearTimeout(timeoutId);
     }
@@ -99,20 +93,14 @@ const useTransientState = <StateValue extends unknown>(
   const [state, setState] = React.useState(steadyState);
   const [calledTimes, setCallTimes] = React.useState(0);
 
-  const setTemporaryState = React.useCallback(function setTemporaryState(
-    newValue: StateValue
-  ) {
+  const setTemporaryState = React.useCallback(function setTemporaryState(newValue: StateValue) {
     setState(newValue);
     setCallTimes((t) => t + 1);
-  },
-  []);
+  }, []);
 
   React.useEffect(() => {
     if (state !== steadyState && restorationTime) {
-      const timeoutId = setTimeout(
-        () => setState(steadyState),
-        restorationTime
-      );
+      const timeoutId = setTimeout(() => setState(steadyState), restorationTime);
 
       return () => clearTimeout(timeoutId);
     }

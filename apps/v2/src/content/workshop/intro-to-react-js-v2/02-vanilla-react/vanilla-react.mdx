@@ -15,16 +15,13 @@ This would allows us to understand React directly without distracted by all the 
 Following is a html page for us to start learn React.
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://codepen.io/malcolmkee/pen/xmvMNY.css"
-    />
+    <link rel="stylesheet" href="https://codepen.io/malcolmkee/pen/xmvMNY.css" />
     <title>React Movie App</title>
   </head>
 
@@ -55,11 +52,7 @@ In the `<script>` tag, add the following code
 
 ```js
 function App() {
-  return React.createElement(
-    'div',
-    {},
-    React.createElement('h1', {}, 'React Movie App')
-  );
+  return React.createElement('div', {}, React.createElement('h1', {}, 'React Movie App'));
 }
 
 const appElement = React.createElement(App);
@@ -94,11 +87,7 @@ Let's change our code slightly:
 
 ```js
 function App(props) {
-  return React.createElement(
-    'div',
-    {},
-    React.createElement('h1', {}, props.appTitle)
-  );
+  return React.createElement('div', {}, React.createElement('h1', {}, props.appTitle));
 }
 
 const appElement = React.createElement(App, { appTitle: 'React Movie App' });

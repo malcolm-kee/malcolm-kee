@@ -48,10 +48,7 @@ export const Page = () => {
   usePreloadImage('http://placecorgi.com/200/200');
 
   // this image only load when you hover over the button
-  const loadLargeImage = usePreloadImage(
-    'http://placecorgi.com/300/300',
-    false
-  );
+  const loadLargeImage = usePreloadImage('http://placecorgi.com/300/300', false);
 
   return (
     <div>
@@ -96,10 +93,7 @@ const Page = () => {
   usePreloadImage('http://placecorgi.com/200/200');
 
   // this image only load when you hover over the button
-  const loadLargeImage = usePreloadImage(
-    'http://placecorgi.com/300/300',
-    false
-  );
+  const loadLargeImage = usePreloadImage('http://placecorgi.com/300/300', false);
 
   return (
     <div>
@@ -120,10 +114,7 @@ const Container = () => {
 
   return (
     <div>
-      <button
-        onClick={() => setKey(key + 1)}
-        className="btn btn-raised btn-primary"
-      >
+      <button onClick={() => setKey(key + 1)} className="btn btn-raised btn-primary">
         Reload App
       </button>
       <Page key={key} />

@@ -22,10 +22,7 @@ export const Field = ({
         type="text"
         {...props}
         onChange={(ev) => onChangeValue(ev.target.value)}
-        className={clsx(
-          'text-lg border border-gray-400 px-3 py-1 rounded',
-          props.className
-        )}
+        className={clsx('text-lg border border-gray-400 px-3 py-1 rounded', props.className)}
       />
     </div>
   );

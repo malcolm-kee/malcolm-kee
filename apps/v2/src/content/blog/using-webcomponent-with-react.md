@@ -22,19 +22,13 @@ export class WebComponentWrapper extends React.Component {
     const { eventHandlers } = this.props;
     Object.keys(eventHandlers).forEach((eventType) => {
       this.eventCallbacks[eventType] = this.onEvent(eventType);
-      this.componentRef.current.addEventListener(
-        eventType,
-        this.eventCallbacks[eventType]
-      );
+      this.componentRef.current.addEventListener(eventType, this.eventCallbacks[eventType]);
     });
   }
 
   componentWillUnmount() {
     Object.keys(this.eventCallbacks).forEach((eventType) => {
-      this.componentRef.current.removeEventListener(
-        eventType,
-        this.eventCallbacks[eventType]
-      );
+      this.componentRef.current.removeEventListener(eventType, this.eventCallbacks[eventType]);
     });
   }
 
@@ -97,11 +91,7 @@ const MyComponent = ({ customEventHandler, specialEventHandler }) => {
   const webComponentRef = React.useRef(null);
 
   useEventListener('customEvent', customEventHandler, webComponentRef.current);
-  useEventListener(
-    'specialEvent',
-    specialEventHandler,
-    webComponentRef.current
-  );
+  useEventListener('specialEvent', specialEventHandler, webComponentRef.current);
 
   return <complex-date-field ref={webComponentRef} />;
 };

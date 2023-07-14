@@ -124,9 +124,7 @@ The callback that you provide will receive three parameters: element, index, and
 
 ```js
 const numbers = [1, 2, 3];
-const doubleAfterSecond = numbers.map((num, index) =>
-  index >= 2 ? num * 2 : num
-);
+const doubleAfterSecond = numbers.map((num, index) => (index >= 2 ? num * 2 : num));
 
 console.log(doubleAfterSecond); // [1, 2, 6];
 ```
@@ -204,9 +202,7 @@ const afterFourth = numbers.filter((num, index) => index >= 4); // this will kee
 
 console.log(afterFourth); // [5, 6];
 
-const half = numbers.filter(
-  (num, index, allNumbers) => index >= Math.round(allNumbers.length / 2)
-); // this will keep second half of array
+const half = numbers.filter((num, index, allNumbers) => index >= Math.round(allNumbers.length / 2)); // this will keep second half of array
 
 console.log(half); // [4, 5, 6]
 ```
@@ -429,9 +425,7 @@ By using `reduce` method, get an object with two properties `paid` and `unPaid`,
 ```js
 const numbers = [1, 4, 7];
 
-numbers.forEach((num, index) =>
-  console.log(`Item at index ${index} is ${num}`)
-); /* This will logs:
+numbers.forEach((num, index) => console.log(`Item at index ${index} is ${num}`)); /* This will logs:
 Item at index 0 is 1
 Item at index 1 is 4
 Item at index 2 is 7

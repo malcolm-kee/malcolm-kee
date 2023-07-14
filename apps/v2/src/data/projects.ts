@@ -36,8 +36,7 @@ export const projects = [
   },
   {
     name: 'react-json-friendly-viewer',
-    description:
-      'A react component to beautifully display your JSON data for everyone.',
+    description: 'A react component to beautifully display your JSON data for everyone.',
     links: [
       {
         href: 'https://github.com/malcolm-kee/react-json-friendly-viewer/blob/main/packages/react-json-friendly-viewer/README.md',

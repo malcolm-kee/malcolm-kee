@@ -145,11 +145,7 @@ export class Button extends React.Component {
   };
 
   render() {
-    return (
-      <button onClick={this.handleToggleOn}>
-        {this.state.on ? 'On' : 'Off'}
-      </button>
-    );
+    return <button onClick={this.handleToggleOn}>{this.state.on ? 'On' : 'Off'}</button>;
   }
 }
 ```
@@ -173,11 +169,7 @@ export class Button extends React.Component<{}, ButtonState> {
   };
 
   render() {
-    return (
-      <button onClick={this.handleToggleOn}>
-        {this.state.on ? 'On' : 'Off'}
-      </button>
-    );
+    return <button onClick={this.handleToggleOn}>{this.state.on ? 'On' : 'Off'}</button>;
   }
 }
 ```

@@ -276,10 +276,7 @@ import { Router } from 'react-router-dom'; // highlight-line
 import { rootReducer } from '../modules/root-reducer';
 
 // highlight-next-line
-export const renderWithStateMgmtAndRouter = (
-  ui,
-  { actions = [], route = '/' } = {}
-) => {
+export const renderWithStateMgmtAndRouter = (ui, { actions = [], route = '/' } = {}) => {
   const store = configureStore({
     reducer: rootReducer,
   });

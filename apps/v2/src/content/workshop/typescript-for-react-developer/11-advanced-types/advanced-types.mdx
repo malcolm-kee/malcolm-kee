@@ -65,8 +65,7 @@ This is because TypeScript will not go into the implementation of `isDefined` to
 We can restore the previous typechecking ability by making the `isDefined` function as custom type guard:
 
 ```ts live
-const isDefined = <T>(value: T | undefined): value is T =>
-  typeof value !== 'undefined';
+const isDefined = <T,>(value: T | undefined): value is T => typeof value !== 'undefined';
 
 const findEvenNumberAndDivideIt = (numbers: number[]): number => {
   const evenNumber = numbers.find((num) => num % 2 === 0);

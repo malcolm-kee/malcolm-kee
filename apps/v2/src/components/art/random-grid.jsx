@@ -12,10 +12,7 @@ import { board, box, container } from './random-grid.module.scss';
 const radius = 0.005;
 
 const ColorBox = ({ color }) => (
-  <span
-    className={box}
-    style={{ background: color, color: getContrastTextColor(color) }}
-  >
+  <span className={box} style={{ background: color, color: getContrastTextColor(color) }}>
     {color}
   </span>
 );
@@ -69,22 +66,12 @@ export const RandomGrid = ({ width = 500, height = 500 }) => {
     <div>
       <div className={container}>
         <div className="pb-6">
-          <h2 className="py-4 text-gray-700 dark:text-gray-300 text-2xl">
-            Random Grid
-          </h2>
-          <canvas
-            className={board}
-            ref={canvasRef}
-            width={width}
-            height={height}
-          />
+          <h2 className="py-4 text-gray-700 dark:text-gray-300 text-2xl">Random Grid</h2>
+          <canvas className={board} ref={canvasRef} width={width} height={height} />
         </div>
         <div className="flex flex-col gap-5">
           <div>
-            <Button
-              onClick={() => setSeed(random.getRandomSeed())}
-              className="text-gray-200"
-            >
+            <Button onClick={() => setSeed(random.getRandomSeed())} className="text-gray-200">
               <LightBulbIcon
                 aria-hidden="true"
                 focusable="false"

@@ -114,9 +114,7 @@ function App() {
       <div className="container">
         <div>
           <div className="button-container">
-            <Button onClick={toggleShowMovies}>
-              {moviesShown ? 'Hide' : 'Show'} Movies
-            </Button>
+            <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
           </div>
           {moviesShown && (
             <BusyContainer isLoading={isLoading}>

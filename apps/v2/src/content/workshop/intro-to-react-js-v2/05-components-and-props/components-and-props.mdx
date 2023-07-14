@@ -39,10 +39,7 @@ function App() {
       </div>
       <Movie name="Aquaman" releaseDate="2018-12-07" />
       <Movie name="Bumblebee" releaseDate="2018-12-15" />
-      <Movie
-        name="Fantastic Beasts: The Crimes of Grindelwald"
-        releaseDate="2018-11-14"
-      />
+      <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
     </div>
   );
 }
@@ -83,9 +80,7 @@ Let's extract the title section in our `App` to a `TitleBar` component.
 ```jsx title="src/components/title-bar.js"
 import * as React from 'react';
 
-export const TitleBar = (props) => (
-  <div className="title-bar">{props.children}</div>
-);
+export const TitleBar = (props) => <div className="title-bar">{props.children}</div>;
 ```
 
 - `children` is a special props for React components. It's the contents within the JSX tags (if you remember, the third parameters to `React.createElement`). By using `children`, we're allowing the user of the components to insert any content they wish.

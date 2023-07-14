@@ -43,9 +43,9 @@ import { classNames } from './lib.js';
 
 test('classNames', () => {
   expect(classNames('btn', 'btn--default')).toBe('btn btn--default');
-  expect(
-    classNames('btn', true && 'btn--default', false && 'btn--raised', null)
-  ).toBe('btn btn--default');
+  expect(classNames('btn', true && 'btn--default', false && 'btn--raised', null)).toBe(
+    'btn btn--default'
+  );
   expect(classNames(['btn', null, 'btn--default'])).toBe('btn btn--default');
 });
 ```
@@ -167,9 +167,7 @@ describe('BusyContainer', () => {
       div
     );
 
-    const loadingIndicator = div.querySelector(
-      '[data-testid="loading-indicator"]'
-    );
+    const loadingIndicator = div.querySelector('[data-testid="loading-indicator"]');
 
     expect(loadingIndicator).toBeDefined();
 
@@ -189,9 +187,7 @@ describe('BusyContainer', () => {
       div
     );
 
-    const loadingIndicator = div.querySelector(
-      '[data-testid="loading-indicator"]'
-    );
+    const loadingIndicator = div.querySelector('[data-testid="loading-indicator"]');
 
     expect(loadingIndicator).toBe(null);
 
@@ -322,9 +318,7 @@ describe('<App />', () => {
   });
 
   it('displays movies list when show button is clicked and data is loaded', async () => {
-    jest
-      .spyOn(api, 'loadMovies')
-      .mockImplementation(() => Promise.resolve(mockMovieData));
+    jest.spyOn(api, 'loadMovies').mockImplementation(() => Promise.resolve(mockMovieData));
 
     const { getByText, getAllByTestId } = render(<App />);
 

@@ -33,25 +33,16 @@ const TodoItemView = (props: ParentProps & StoreProps & DispatchProps) => {
   return <div>...</div>;
 };
 
-const mapStatesToProps = (
-  state: RootState,
-  ownProps: ParentProps
-): StoreProps => ({
+const mapStatesToProps = (state: RootState, ownProps: ParentProps): StoreProps => ({
   status: selectTodoStatus(state, ownProps.id),
   description: selectTodoDescription(state, ownProps.id),
 });
 
-const mapDispatchToProps = (
-  dispatch: any,
-  ownProps: ParentProps
-): DispatchProps => ({
+const mapDispatchToProps = (dispatch: any, ownProps: ParentProps): DispatchProps => ({
   toggle: () => dispatch(toggleTodo(ownProps.id)),
 });
 
-export const TodoItem = connect(
-  mapStatesToProps,
-  mapDispatchToProps
-)(TodoItemView);
+export const TodoItem = connect(mapStatesToProps, mapDispatchToProps)(TodoItemView);
 ```
 
 And that's a pain-in-the-ass, as your selectors and actions are already properly typed, now you need to duplicate it. In addition, everytime you want to inject a new props/new actions, you need to update both the typing and the mapProps function.
@@ -73,11 +64,9 @@ const toggleTodo = (id: string) => ({
   id,
 });
 
-const selectTodoStatus = (state: RootState, id: string) =>
-  state.todos[id].status;
+const selectTodoStatus = (state: RootState, id: string) => state.todos[id].status;
 
-const selectTodoDescription = (state: RootState, id: string) =>
-  state.todos[id].description;
+const selectTodoDescription = (state: RootState, id: string) => state.todos[id].description;
 
 interface ParentProps {
   id: string;
@@ -101,10 +90,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: ParentProps) => ({
   toggle: () => dispatch(toggleTodo(ownProps.id)),
 });
 
-export const TodoItem = connect(
-  mapStatesToProps,
-  mapDispatchToProps
-)(TodoItemView);
+export const TodoItem = connect(mapStatesToProps, mapDispatchToProps)(TodoItemView);
 ```
 
 Now you doesn't need to type `StoreProps` and `DispatchProps` manually, Typescript will infer them from your selectors and actions.
@@ -130,11 +116,9 @@ const toggleTodo = (id: string) => ({
   id,
 });
 
-const selectTodoStatus = (state: RootState, id: string) =>
-  state.todos[id].status;
+const selectTodoStatus = (state: RootState, id: string) => state.todos[id].status;
 
-const selectTodoDescription = (state: RootState, id: string) =>
-  state.todos[id].description;
+const selectTodoDescription = (state: RootState, id: string) => state.todos[id].description;
 
 interface ParentProps {
   id: string;

@@ -9,10 +9,7 @@ export function FilterAnimation() {
 
   return (
     <div>
-      <div
-        className={runState !== 'not_run' ? 'activated' : undefined}
-        id="filter-demo"
-      >
+      <div className={runState !== 'not_run' ? 'activated' : undefined} id="filter-demo">
         <div className="box-container">
           <Box className="box" />
           <Circle className="box filtered" />
@@ -20,19 +17,13 @@ export function FilterAnimation() {
           <Box className="box" />
           <Circle
             className="box filtered"
-            onTransitionEnd={() =>
-              runState === 'running' && setRunState('complete')
-            }
+            onTransitionEnd={() => runState === 'running' && setRunState('complete')}
           />
         </div>
       </div>
       <div className="my-2 h-12 flex justify-center items-center">
         {runState !== 'running' && (
-          <Button
-            onClick={() =>
-              setRunState(runState === 'not_run' ? 'running' : 'not_run')
-            }
-          >
+          <Button onClick={() => setRunState(runState === 'not_run' ? 'running' : 'not_run')}>
             {runState === 'complete' ? 'Restart' : 'Run'}
           </Button>
         )}

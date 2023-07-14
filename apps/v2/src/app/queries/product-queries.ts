@@ -7,8 +7,7 @@ export const productQueryOptions = {
   products() {
     return {
       queryKey: [queryKey],
-      queryFn: ({ signal }: { signal?: AbortSignal }) =>
-        productService.getProducts({ signal }),
+      queryFn: ({ signal }: { signal?: AbortSignal }) => productService.getProducts({ signal }),
     };
   },
   productDetails(productId: string) {

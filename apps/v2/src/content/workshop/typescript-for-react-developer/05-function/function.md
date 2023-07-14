@@ -44,9 +44,7 @@ function sendEmail(to: WithEmail): { recipient: string; body: string } {
   };
 }
 
-const sendTextMessage = (
-  to: WithPhoneNumber
-): { recipient: string; body: string } => {
+const sendTextMessage = (to: WithPhoneNumber): { recipient: string; body: string } => {
   return {
     recipient: `${to.name} <${to.phone}>`,
     body: "You're pre-qualified for the job!",

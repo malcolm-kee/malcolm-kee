@@ -22,9 +22,7 @@ export default function IndexPage() {
             animateNavigation
           >
             <ChevronRightIcon className="w-5 h-5" />
-            <span className="text-lg [view-transition-name:product-page-title]">
-              Products
-            </span>
+            <span className="text-lg [view-transition-name:product-page-title]">Products</span>
           </Link>
         </li>
       </ul>

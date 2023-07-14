@@ -103,13 +103,9 @@ const getAllRemotes = () =>
 getAllRemotes()
   .then((mods) => mods.map((mod) => mod.default))
   .then((remotes) => {
-    const router = createBrowserRouter(
-      remotes.map((remote) => remote.routes).flat()
-    );
+    const router = createBrowserRouter(remotes.map((remote) => remote.routes).flat());
 
-    createRoot(document.getElementById('app')!).render(
-      <RouterProvider router={router} />
-    );
+    createRoot(document.getElementById('app')!).render(<RouterProvider router={router} />);
   });
 ```
 

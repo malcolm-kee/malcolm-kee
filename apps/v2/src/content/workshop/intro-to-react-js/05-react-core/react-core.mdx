@@ -43,10 +43,7 @@ class App extends React.Component {
         </div>
         <Movie name="Aquaman" releaseDate="2018-12-07" />
         <Movie name="Bumblebee" releaseDate="2018-12-15" />
-        <Movie
-          name="Fantastic Beasts: The Crimes of Grindelwald"
-          releaseDate="2018-11-14"
-        />
+        <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
       </div>
     );
   }
@@ -125,10 +122,7 @@ class App extends React.Component {
         <React.Fragment>
           <Movie name="Aquaman" releaseDate="2018-12-07" />
           <Movie name="Bumblebee" releaseDate="2018-12-15" />
-          <Movie
-            name="Fantastic Beasts: The Crimes of Grindelwald"
-            releaseDate="2018-11-14"
-          />
+          <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
         </React.Fragment>
       );
     }
@@ -200,10 +194,7 @@ class App extends React.Component {
           <>
             <Movie name="Aquaman" releaseDate="2018-12-07" />
             <Movie name="Bumblebee" releaseDate="2018-12-15" />
-            <Movie
-              name="Fantastic Beasts: The Crimes of Grindelwald"
-              releaseDate="2018-11-14"
-            />
+            <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
           </>
         )}
       </div>
@@ -286,12 +277,7 @@ Currently ESLint is having parsing error. Let's configure ESLint before proceed 
 
 ```json title=".eslintrc"
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "prettier",
-    "prettier/react"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier", "prettier/react"],
   "plugins": ["react"],
   "rules": {
     "react/prop-types": 0
@@ -364,10 +350,7 @@ class App extends React.Component {
           <>
             <Movie name="Aquaman" releaseDate="2018-12-07" />
             <Movie name="Bumblebee" releaseDate="2018-12-15" />
-            <Movie
-              name="Fantastic Beasts: The Crimes of Grindelwald"
-              releaseDate="2018-11-14"
-            />
+            <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
           </>
         )}
       </div>
@@ -452,9 +435,7 @@ To load data from backend API:
    import axios from 'axios';
 
    export const loadMovies = () =>
-     axios('https://react-intro-movies.herokuapp.com/movies').then(
-       (res) => res.data
-     );
+     axios('https://react-intro-movies.herokuapp.com/movies').then((res) => res.data);
    ```
 
 1. modify your `App` constructor and define a `componentDidMount` method as below:
@@ -562,9 +543,7 @@ To show loading indicator when waiting API response:
      };
 
      componentDidMount() {
-       loadMovies().then((movies) =>
-         this.setState({ movies, isLoading: false })
-       ); // highlight-line
+       loadMovies().then((movies) => this.setState({ movies, isLoading: false })); // highlight-line
      }
 
      toggleMovies = () => {
@@ -588,11 +567,7 @@ To show loading indicator when waiting API response:
              // highlight-next-line
              <BusyContainer isLoading={this.state.isLoading}>
                {this.state.movies.map((movie) => (
-                 <Movie
-                   name={movie.name}
-                   releaseDate={movie.releaseDate}
-                   key={movie.id}
-                 />
+                 <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
                ))}
                {/* highlight-next-line */}
              </BusyContainer>

@@ -3,7 +3,7 @@ type WebpackModuleExports = Record<string, any>;
 export type ChunkData = [
   chunkIds: Array<string>,
   moreModules: Record<string, WebpackModuleFactory>,
-  runtime?: (webpackRequire: WebpackRequire) => void
+  runtime?: (webpackRequire: WebpackRequire) => void,
 ];
 
 interface WebpackModule {
@@ -267,7 +267,7 @@ export function webpackBootstrap() {
     type LoadingChunkData = [
       resolve: (value?: unknown) => void,
       reject: (reason: any) => void,
-      promise: Promise<unknown>
+      promise: Promise<unknown>,
     ];
 
     var installedChunks: Record<string, 0 | LoadingChunkData | undefined> = {

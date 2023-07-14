@@ -1,3 +1,11 @@
+const applicationServerKey = import.meta.env.PUBLIC_WEBPUSH_KEY;
+const apiBaseUrl = import.meta.env.PUBLIC_API_BASE_URL;
+
+console.log({
+  applicationServerKey,
+  apiBaseUrl,
+});
+
 export const subscribeUserToNotification = async (): Promise<
   NotificationPermission | 'unknown'
 > => {
@@ -10,9 +18,6 @@ export const subscribeUserToNotification = async (): Promise<
   if (window.__swRegistration == null) {
     return 'unknown';
   }
-
-  const applicationServerKey = import.meta.env.PUBLIC_WEBPUSH_KEY;
-  const apiBaseUrl = import.meta.env.PUBLIC_API_BASE_URL;
 
   const subscriptionResult = await window.__swRegistration.pushManager.subscribe({
     userVisibleOnly: true,
