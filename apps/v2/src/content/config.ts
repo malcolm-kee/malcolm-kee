@@ -2,12 +2,21 @@ import { defineCollection, z } from 'astro:content';
 import { TopicLabel, topic } from '../data/topic-types';
 import { isFuture } from '../lib/date';
 
+const pubDate = z.string().transform((v) => new Date(v));
+const updatedDate = z
+  .string()
+  .transform((date) => new Date(date))
+  .optional();
+
 export const collections = {
   note: defineCollection({
     schema: z
       .object({
         title: z.string(),
         topics: z.array(topic).optional(),
+        pubDate,
+        updatedDate,
+        description: z.string().optional(),
         /**
          * when true, the note page will be created
          * but it will not be listed
@@ -36,11 +45,8 @@ export const collections = {
     schema: z
       .object({
         title: z.string(),
-        pubDate: z.string().transform((date) => new Date(date)),
-        updatedDate: z
-          .string()
-          .transform((date) => new Date(date))
-          .optional(),
+        pubDate,
+        updatedDate,
         description: z.string().optional(),
         lang: z.union([z.literal('zh-Hans'), z.literal('en-US')]).default('en-US'),
         /** cloudinary public id for the hero image */
@@ -73,11 +79,8 @@ export const collections = {
     schema: z
       .object({
         title: z.string(),
-        pubDate: z.string().transform((v) => new Date(v)),
-        updatedDate: z
-          .string()
-          .transform((v) => new Date(v))
-          .optional(),
+        pubDate,
+        updatedDate,
         topics: z.array(topic),
         /**
          * when true, the til page will be created

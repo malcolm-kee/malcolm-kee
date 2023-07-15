@@ -13,7 +13,7 @@ config();
   const writeStream = fs.createWriteStream(filePath);
 
   await stream(
-    'https://page-to-pdf.fly.dev/screenshot',
+    `${process.env.PUBLIC_API_BASE_URL}/screenshot`,
     {
       method: 'POST',
       body: JSON.stringify({

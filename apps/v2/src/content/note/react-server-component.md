@@ -1,5 +1,6 @@
 ---
 title: 'React Server Component'
+pubDate: 1 Jan 2023
 ---
 
 What matters to user is the final HTML, not the intermediate data structure.
