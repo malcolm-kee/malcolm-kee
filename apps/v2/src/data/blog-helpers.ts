@@ -1,5 +1,5 @@
-import { getCollection } from 'astro:content';
-import { getTransformedImage } from '~/lib/cloudinary';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getTransformedImage, type ImageData } from '~/lib/cloudinary';
 import type { Topic } from './topic-types';
 
 export const getBlogs = async ({
@@ -10,7 +10,9 @@ export const getBlogs = async ({
   includePreview?: boolean;
   includeDraft?: boolean;
   topics?: Array<Topic>;
-} = {}) => {
+} = {}): Promise<
+  Array<CollectionEntry<'blog'> & { isMarkdown: boolean; heroImageInfo?: ImageData }>
+> => {
   const blogs = await getCollection('blog', ({ data }) => {
     return (
       (includePreview || !data.preview) &&

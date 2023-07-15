@@ -1,5 +1,6 @@
 ---
 title: Bash & Linux
+pubDate: 1 Jan 2023
 ---
 
 The following two formats of check file are the same:

@@ -10,6 +10,7 @@
     "format": "prettier --write \"src/**/*.{astro,js,jsx,ts,tsx,json,md,mdx}\"",
     "generate-cv": "tsx scripts/generate-cv.ts",
     "extract-deps": "tsx plugin/deps-extraction.ts",
+    "notify": "tsx scripts/notify-updates.ts",
     "test": "vitest",
     "test:coverage": "vitest --run --coverage"
   },

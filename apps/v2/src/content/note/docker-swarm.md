@@ -1,5 +1,6 @@
 ---
 title: Docker Swarm
+pubDate: 1 Jan 2023
 ---
 
 ## Initialize a Docker Swarm

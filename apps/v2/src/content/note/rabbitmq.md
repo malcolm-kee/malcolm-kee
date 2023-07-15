@@ -1,5 +1,6 @@
 ---
 title: RabbitMQ
+pubDate: 1 Jan 2023
 ---
 
 RabbitMQ follows the AMQP (Advanced Message Queueing Protocol) specification.

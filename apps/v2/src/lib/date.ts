@@ -26,3 +26,9 @@ export const formatDate = (date: Date, lang = 'en-US') => {
 export const isFuture = (date: Date) => {
   return new Date(date).setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
 };
+
+export const isValidDate = (maybeDate: unknown): maybeDate is Date =>
+  !!maybeDate &&
+  typeof maybeDate === 'object' &&
+  maybeDate instanceof Date &&
+  !isNaN(maybeDate.getTime());
