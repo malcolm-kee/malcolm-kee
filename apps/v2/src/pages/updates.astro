@@ -1,0 +1,18 @@
+---
+import BaseHead from '~/components/BaseHead.astro';
+import PageLayout from '~/components/PageLayout.astro';
+import { getContents } from '~/data/get-contents';
+import { ContentUpdates } from '~/components/content-updates';
+
+const contents = await getContents();
+---
+
+<html>
+  <head>
+    <BaseHead title="Updates" />
+  </head>
+  <PageLayout>
+    <span slot="title" class="block">Updates</span>
+    <ContentUpdates contents={contents} client:load />
+  </PageLayout>
+</html>

@@ -23,6 +23,14 @@ async function notifyUpdate(data: {
   });
 }
 
+function findFirstImage(items: Array<{ image?: string }>) {
+  for (const item of items) {
+    if (item.image) {
+      return item.image;
+    }
+  }
+}
+
 (async function notifyUpdates(providedDate: Date | string = new Date()) {
   const formatter = new Intl.ListFormat('en-US', { style: 'long', type: 'conjunction' });
 
@@ -47,36 +55,38 @@ async function notifyUpdate(data: {
   if (newContents.length === 1) {
     const content = newContents[0];
     await notifyUpdate({
+      tag: 'new-content',
       title: content.title,
       body: content.description,
       url: content.url,
       image: content.image,
-      tag: 'new-content',
     });
   } else if (newContents.length) {
     await notifyUpdate({
+      tag: 'new-content',
       title: `${newContents.length} new posts!`,
       body: formatter.format(newContents.map((c) => c.title)),
-      url: '/', // to home page for now
-      tag: 'new-content',
+      url: `/updates/?after=${encodeURIComponent(date.toISOString())}`,
+      image: findFirstImage(newContents),
     });
   }
 
   if (updatedContents.length === 1) {
     const content = updatedContents[0];
     await notifyUpdate({
+      tag: 'updated-content',
       title: content.title,
       body: content.description,
       url: content.url,
       image: content.image,
-      tag: 'updated-content',
     });
   } else if (updatedContents.length) {
     await notifyUpdate({
+      tag: 'updated-content',
       title: `${updatedContents.length} new posts!`,
       body: formatter.format(updatedContents.map((c) => c.title)),
-      url: '/', // to home page for now
-      tag: 'updated-content',
+      url: `/updates/?after=${encodeURIComponent(date.toISOString())}`,
+      image: findFirstImage(updatedContents),
     });
   }
 })(argv[2]);
