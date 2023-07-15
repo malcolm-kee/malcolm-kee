@@ -28,6 +28,7 @@ async function notifyUpdate(data: {
 
   const date = new Date(providedDate);
 
+  // @ts-ignore
   const allContents = (await import('../dist/content.json')).default;
 
   type Content = (typeof allContents)[number];
