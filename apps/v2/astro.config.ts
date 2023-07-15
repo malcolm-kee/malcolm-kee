@@ -28,7 +28,7 @@ export default defineConfig({
     }),
     sitemap(),
     depsExtraction({
-      routes: [/^blog\/[\w|-]+/],
+      routes: [/^blog\/[\w|-]+/, /^note\/[\w|-]+/],
       excludes: [/^https:\/\/www.googletagmanager.com/, /^https:\/\/f\.convertkit\.com/],
       serviceWorker: {
         templateUrl: new URL('src/templates/sw.js', import.meta.url),

@@ -25,6 +25,7 @@ interface Props {
 
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
+const relativePath = `note/${entry.slug}`;
 ---
 
 <html lang="en">
@@ -37,6 +38,7 @@ const { Content, headings } = await entry.render();
       headings={headings}
       backUrl="/note/"
       backButtonLabel="Back to all notes"
+      saveKey={relativePath}
     >
       <Content />
       <div slot="content-footer">
