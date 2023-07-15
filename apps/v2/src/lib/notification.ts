@@ -10,11 +10,15 @@ export const subscribeUserToNotification = async (): Promise<
     return permissionResult;
   }
 
-  if (window.__swRegistration == null) {
-    return 'unknown';
+  const isAlreadySubscribed = await checkIsAlreadySubscribed();
+
+  if (isAlreadySubscribed) {
+    return 'granted';
   }
 
-  const subscriptionResult = await window.__swRegistration.pushManager.subscribe({
+  const swRegistration = await getSwRegistration();
+
+  const subscriptionResult = await swRegistration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey,
   });
@@ -57,7 +61,7 @@ export const requestNotificationPermission = async (): Promise<
 };
 
 /**
- * Normalize `Notification.requestPermission` as its spec changes.
+ * Normalize `Notification.requestPermission` as its spec changed.
  */
 const requestPermission = (): Promise<NotificationPermission> =>
   new Promise((fulfill, reject) => {
@@ -69,6 +73,43 @@ const requestPermission = (): Promise<NotificationPermission> =>
       maybePermissionResult.then(fulfill, reject);
     }
   });
+
+export async function toggleSubscription() {
+  const isAlreadySubscribed = await checkIsAlreadySubscribed();
+
+  if (isAlreadySubscribed) {
+    await unsubscribe();
+    return false;
+  } else {
+    const result = await subscribeUserToNotification();
+
+    if (result === 'granted') {
+      delete document.documentElement.dataset.subscribable;
+    }
+
+    return true;
+  }
+}
+
+export async function checkIsAlreadySubscribed() {
+  const subscription = await getCurrentSubscription();
+
+  return subscription != null;
+}
+
+export async function unsubscribe() {
+  const subscription = await getCurrentSubscription();
+
+  if (subscription) {
+    await subscription.unsubscribe();
+    document.documentElement.dataset.subscribable = 'true';
+  }
+}
+
+const getSwRegistration = () => navigator.serviceWorker.ready;
+
+const getCurrentSubscription = () =>
+  getSwRegistration().then((reg) => reg.pushManager.getSubscription());
 
 export const isPushNotificationSupported = () =>
   typeof navigator !== 'undefined' &&

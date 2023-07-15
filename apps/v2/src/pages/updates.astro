@@ -1,8 +1,9 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
+import NotificationSubscribeButton from '~/components/NotificationSubscribeButton.astro';
 import PageLayout from '~/components/PageLayout.astro';
-import { getContents } from '~/data/get-contents';
 import { ContentUpdates } from '~/components/content-updates';
+import { getContents } from '~/data/get-contents';
 
 const contents = await getContents();
 ---
@@ -13,6 +14,7 @@ const contents = await getContents();
   </head>
   <PageLayout>
     <span slot="title" class="block">Updates</span>
+    <NotificationSubscribeButton slot="action" />
     <ContentUpdates contents={contents} client:load />
   </PageLayout>
 </html>

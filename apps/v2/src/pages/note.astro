@@ -1,5 +1,6 @@
 ---
 import BaseHead from '~/components/BaseHead.astro';
+import NotificationSubscribeButton from '~/components/NotificationSubscribeButton.astro';
 import PageLayout from '~/components/PageLayout.astro';
 import { getNotes } from '~/data/note-helpers';
 
@@ -16,6 +17,7 @@ const description = 'Learning notes on topics, which will be updated over time.'
   <body>
     <PageLayout>
       <span slot="title">{title}</span>
+      <NotificationSubscribeButton slot="action" />
       <span slot="description">{description}</span>
       <ul class="flex flex-col gap-6 xl:grid xl:grid-cols-2">
         {

@@ -194,8 +194,14 @@ const ogImage = getOgImageUrl({
     document.documentElement.dataset.installable = 'true';
   });
 
-  if (Notification.permission === 'default') {
-    document.documentElement.dataset.subscribable = 'true';
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready
+      .then((reg) => reg.pushManager.getSubscription())
+      .then((maybeSubscription) => {
+        if (!maybeSubscription) {
+          document.documentElement.dataset.subscribable = 'true';
+        }
+      });
   }
 </script>
 <style>

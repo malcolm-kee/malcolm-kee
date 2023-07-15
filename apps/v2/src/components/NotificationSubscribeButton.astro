@@ -1,0 +1,29 @@
+---
+import { Button } from './Button';
+import { BellAlertIcon, BellSlashIcon } from './icons';
+---
+
+<Button variant="secondary" flat data-notification-subscribe-btn>
+  <span class="hidden subscribable:inline" title="Subscribe Notification">
+    <span class="sr-only">Subscribe Notification</span>
+    <BellSlashIcon />
+  </span>
+  <span class="subscribable:hidden" title="Unsubscribe Notification">
+    <span class="sr-only">Unsubscribe Notification</span>
+    <BellAlertIcon />
+  </span>
+</Button>
+<script>
+  import { toggleSubscription } from '~/lib/notification';
+
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-notification-subscribe-btn]')
+    .forEach((btn) => {
+      btn.addEventListener('click', () => {
+        btn.disabled = true;
+        toggleSubscription().then(() => {
+          btn.disabled = false;
+        });
+      });
+    });
+</script>

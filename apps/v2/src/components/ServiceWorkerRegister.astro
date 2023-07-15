@@ -4,10 +4,6 @@
 
 <script is:inline>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('/sw.js') // in public folder
-      .then((registration) => {
-        window.__swRegistration = registration;
-      });
+    navigator.serviceWorker.register('/sw.js'); // in public folder
   }
 </script>

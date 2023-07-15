@@ -1,17 +1,5 @@
-declare global {
-  interface Window {
-    __swRegistration: ServiceWorkerRegistration;
-  }
-}
-
 export const register = () => {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('/sw.js') // in public folder
-      .then((registration) => {
-        window.__swRegistration = registration;
-      });
+    navigator.serviceWorker.register('/sw.js'); // in public folder
   }
 };
-
-export const getServiceWorkerRegistration = () => window.__swRegistration;

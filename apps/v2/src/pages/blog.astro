@@ -4,6 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
 import { BlogPostPreviewList, BlogPostPreviewListItems } from '../components/BlogPostPreviewList';
 import PageLayout from '../components/PageLayout.astro';
+import NotificationSubscribeButton from '~/components/NotificationSubscribeButton.astro';
 
 const title = 'Blogs - Malcolm Kee';
 const description = 'My thoughts on technologies, books, or any other random topic.';
@@ -21,6 +22,7 @@ const [featuredPost, ...otherPosts] = allPosts;
   <body>
     <PageLayout>
       <span slot="title">Blogs</span>
+      <NotificationSubscribeButton slot="action" />
       <span slot="description">{description}</span>
       <BlogPostPreviewList aria-label="Blog post list">
         <BlogPostPreview post={featuredPost} isFeatured />
