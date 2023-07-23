@@ -12,8 +12,8 @@ import Figure from '~/components/Figure.tsx';
 import { ShapedFloat } from '~/components/ShapedFloat.tsx';
 import apiGateway from './_open-api/api-gateway.png';
 import breakingChange from './_open-api/breaking-change.png';
-import clientSdk from './_open-api/client-sdk.excalidraw.png';
-import edgeFunction from './_open-api/edge-fn.excalidraw.png';
+import clientSdk from './_open-api/client-sdk.png';
+import edgeFunction from './_open-api/edge-fn.png';
 import mockServer from './_open-api/mock-server.excalidraw.png';
 
 I find TypeScript valuable for my development workflow. It prevents bugs by recognizing inconsistent assumptions in my code and highlighting them, giving me more confidence of my code.
@@ -47,9 +47,9 @@ There are more opportunities to use OpenAPI docs that are lesser used, but still
 
 ### Client SDK generation
 
-<Figure caption="OpenAPI doc from API generates client SDK">
+<ShapedFloat float="right" shapeSrc={clientSdk.src} shapeMargin="32px">
   <Image src={clientSdk} alt="OpenAPI doc from API generates client SDK" />
-</Figure>
+</ShapedFloat>
 
 SDK (software development kit) is a set of tools that is provided by a service that you uses. For example, AWS provides AWS SDK to developers as a convenient way to access AWS functionalities in different programming languages. A SDK of an API is usually referred to a class or package that calls the API under the hood, but implemented in the client programming language to improve the developer experience, as it would supports the features of the language such as type checking.
 
@@ -57,9 +57,7 @@ There are many [open-source tools](https://openapi.tools/#sdk) to convert OpenAP
 
 ### Mock server generation
 
-<Figure caption="OpenAPI doc from API generates mock server for testing">
-  <Image src={mockServer} alt="OpenAPI doc from API generates mock server for testing" />
-</Figure>
+<Image src={mockServer} alt="OpenAPI doc from API generates mock server for testing" />
 
 Similar to SDK generation, mock server generation is another types of code generation from OpenAPI spec, but for different purpose. Mock server code generated from OpenAPI spec is usually used for testing, where developer can start a server to simulate API behavior when running test for frontend application that call the API. In practice, how useful of this would hugely depends on the quality of the OpenAPI spec, e.g. the examples included in the spec, because the response returned by the mock server relies on that.
 
@@ -75,9 +73,9 @@ With OpenAPI doc, we can include certain requirements of our API operation, whic
 
 ### Edge function generation
 
-<Figure caption="OpenAPI doc from API generates edge function">
+<ShapedFloat float="right" shapeSrc={edgeFunction.src} shapeMargin="32px">
   <Image src={edgeFunction} alt="OpenAPI doc from API generates edge function" />
-</Figure>
+</ShapedFloat>
 
 Edge functions are lambda functions that run at the “edge”, somewhere near to your users. If you're not familiar with edge functions, one way to think about it is that it is like CDN, but for lambda functions. Edge functions allows us to run code closer to our users, provide faster response.
 

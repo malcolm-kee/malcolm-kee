@@ -1,3 +1,17 @@
 .shaped > * {
   margin: 0 !important;
 }
+
+.shaped > img {
+  shape-outside: var(--shape-outside);
+  shape-image-threshold: var(--shape-image-threshold);
+  shape-margin: var(--shape-margin);
+}
+
+.left > img {
+  float: left;
+}
+
+.right > img {
+  float: right;
+}

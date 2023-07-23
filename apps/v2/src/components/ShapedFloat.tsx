@@ -16,21 +16,25 @@ export const ShapedFloat = ({
   shapeMargin = '6px',
   className,
   ...props
-}: ShapedFloatProps) => (
-  <div
-    {...props}
-    className={clsx(
-      {
-        left: 'float-left pr-2',
-        right: 'float-right pl-2',
-      }[float],
-      styles.shaped,
-      className
-    )}
-    style={{
-      shapeOutside: `url("${shapeSrc}")`,
-      shapeImageThreshold: shapeThreshold,
-      shapeMargin,
-    }}
-  />
-);
+}: ShapedFloatProps) => {
+  return (
+    <div
+      {...props}
+      className={clsx(
+        {
+          left: styles.left,
+          right: styles.right,
+        }[float],
+        styles.shaped,
+        className
+      )}
+      style={
+        {
+          '--shape-outside': `url("${shapeSrc}")`,
+          '--shape-image-threshold': shapeThreshold,
+          '--shape-margin': shapeMargin,
+        } as React.CSSProperties
+      }
+    />
+  );
+};
