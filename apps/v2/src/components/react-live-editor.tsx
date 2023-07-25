@@ -1,7 +1,8 @@
+import { includes } from '@mkee/helpers';
 import * as React from 'react';
-import type { SupportedLang } from './Sandbox';
+import { type SupportedLang } from './code-sandbox-helpers';
 
-const Sandbox = React.lazy(() => import('./Sandbox'));
+const Sandbox = React.lazy(() => import('./code-sandbox'));
 
 export type ReactLiveEditorProps = {
   children: React.ReactNode;
@@ -39,12 +40,7 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
         if ($code && currentLang) {
           language = reduceLang(language, currentLang);
 
-          if (
-            currentLang === 'js' ||
-            currentLang === 'jsx' ||
-            currentLang === 'ts' ||
-            currentLang === 'tsx'
-          ) {
+          if (includes(['js', 'jsx', 'ts', 'tsx'], currentLang)) {
             const importString = preEl.getAttribute('data-code-imports');
 
             if (importString) {

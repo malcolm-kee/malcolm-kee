@@ -8,10 +8,11 @@ import { githubLight, nightOwl } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { useThemeValue } from '~/hooks/use-theme';
+import { type SupportedLang } from './code-sandbox-helpers';
+import styles from './code-sandbox.module.css';
 import { editorLoadedEvent } from './editor-event';
-import styles from './Sandbox.module.css';
-import { SandBoxConsole } from './SandboxConsole';
-import { SandboxCodeViewer } from './SandboxCodeViewer';
+import { SandboxCodeViewer } from './sandbox-code-viewer';
+import { SandBoxConsole } from './sandbox-console';
 
 const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
 
@@ -193,10 +194,6 @@ const getVanillaHtml = (htmlSnippet: string, entryFilePath: string) => /* html *
     <script src="${entryFilePath}"></script>
   </body>
 </html>`;
-
-const supportedLangs = ['js', 'jsx', 'ts', 'tsx', 'html'] as const;
-
-export type SupportedLang = (typeof supportedLangs)[number];
 
 const templates = {
   js: 'vanilla',

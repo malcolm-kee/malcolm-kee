@@ -9,8 +9,9 @@
  *   dependencies must be included.
  */
 
+import { includes } from '@mkee/helpers';
 import { init, parse } from 'es-module-lexer';
-import { initialize, transformSync, type Loader } from 'esbuild';
+import { transformSync, type Loader } from 'esbuild';
 import type { Root as HastRoot } from 'hast';
 import type { Root as MdastRoot } from 'mdast';
 import type { Transformer } from 'unified';
@@ -21,11 +22,8 @@ type ImportData = Record<number, Array<string>>;
 const languagesToParse = ['js', 'jsx', 'ts', 'tsx'] satisfies ReadonlyArray<Loader>;
 const dataKey = 'malcolm-code-imports';
 
-const esbuildInitialized = initialize({});
-
 export const remarkCodeImportPlugin = (): Transformer<MdastRoot> => {
   return async function transformer(tree, file) {
-    await esbuildInitialized;
     await init;
     let codeIndex = 0;
 
@@ -39,13 +37,11 @@ export const remarkCodeImportPlugin = (): Transformer<MdastRoot> => {
         // @ts-expect-error
         parent.name === 'LiveEditor' &&
         lang &&
-        // @ts-expect-error
-        languagesToParse.includes(lang)
+        includes(languagesToParse, lang)
       ) {
         try {
           const transformResult = transformSync(value, {
             format: 'esm',
-            // @ts-expect-error
             loader: lang,
             target: 'es2020',
           });
