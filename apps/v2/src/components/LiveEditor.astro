@@ -17,6 +17,16 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
     --preview-min-height: var(--previewMinHeight);
     --code-max-height: var(--codeMaxHeight);
   }
+
+  @keyframes highlight-icon {
+    50% {
+      color: theme('colors.primary.400');
+    }
+  }
+
+  [data-play-button-highlight] + [data-play-icon] > svg {
+    animation: highlight-icon 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
 </style>
 <div
   class="bg-gray-100 text-zinc-900 dark:bg-zinc-600 dark:text-zinc-200 rounded-xl"
@@ -39,12 +49,12 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         {
           !autoPlay && (
             <span
-              class="animate-ping absolute left-1.5 top-1.5 w-5 h-5 bg-primary-400 opacity-50 rounded-full"
+              class="animate-ping absolute left-[5px] top-[5px] w-[22px] h-[22px] bg-primary-400 opacity-50 rounded-full"
               data-play-button-highlight
             />
           )
         }
-        <span class="relative block p-1 bg-white dark:bg-zinc-400 rounded-full">
+        <span class="relative block p-1 bg-white dark:bg-zinc-400 rounded-full" data-play-icon>
           <PlayIcon aria-hidden className="w-6 h-6 text-gray-500 dark:text-zinc-700" />
         </span>
       </button>

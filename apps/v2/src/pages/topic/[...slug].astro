@@ -6,7 +6,7 @@ import BaseHead from '~/components/BaseHead.astro';
 import BlogPostPreview from '~/components/BlogPostPreview.astro';
 import { BlogPostPreviewList, BlogPostPreviewListItems } from '~/components/BlogPostPreviewList';
 import PageLayout from '~/components/PageLayout.astro';
-import { TodayILearnt } from '~/components/TodayILearnt';
+import { TilList } from '~/components/til-list';
 import { getBlogs } from '~/data/blog-helpers';
 import { getTils } from '~/data/til-helpers';
 import { TOPICS, TopicLabel } from '~/data/topic-types';
@@ -78,11 +78,11 @@ const hasTwoColumns = blogs.length > 0 && tils.length > 0;
           tils.length > 0 && (
             <section>
               <h2 class="text-2xl mb-5 font-bold text-zinc-400">Today I Learnt</h2>
-              <TodayILearnt className="border-l-2 border-l-zinc-100">
+              <TilList className="border-l-2 border-l-zinc-100">
                 {tils.map((til) => (
-                  <TodayILearnt.Item til={til} />
+                  <TilList.Item til={til} />
                 ))}
-              </TodayILearnt>
+              </TilList>
             </section>
           )
         }

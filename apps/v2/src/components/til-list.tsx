@@ -26,6 +26,6 @@ const TodayILearntItem = ({
   </li>
 );
 
-export const TodayILearnt = Object.assign(TodayILearntImpl, {
+export const TilList = Object.assign(TodayILearntImpl, {
   Item: TodayILearntItem,
 });
