@@ -1,0 +1,32 @@
+{
+  "name": "lox",
+  "version": "0.1.0",
+  "private": true,
+  "bin": {
+    "lox": "dist/lox-bin.js"
+  },
+  "types": "dist/lox.d.ts",
+  "module": "dist/lox.mjs",
+  "main": "dist/lox.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/lox.d.mts",
+        "default": "./dist/lox.mjs"
+      },
+      "require": {
+        "types": "./dist/lox.d.ts",
+        "default": "./dist/lox.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6"
+  }
+}

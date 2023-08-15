@@ -12,7 +12,8 @@
     "extract-deps": "tsx plugin/deps-extraction.ts",
     "notify": "tsx scripts/notify-updates.ts",
     "test": "vitest",
-    "test:coverage": "vitest --run --coverage"
+    "test:coverage": "vitest --run --coverage",
+    "lox": "lox"
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^2.2.1",
@@ -46,6 +47,7 @@
     "esbuild": "^0.18.18",
     "fs-extra": "^11.1.1",
     "hastscript": "^7.2.0",
+    "lox": "workspace:*",
     "markdown-it": "^13.0.1",
     "markdown-it-shiki-twoslash": "^2.1.3",
     "node-html-parser": "^6.1.5",

@@ -109,7 +109,7 @@ export class Scanner {
         } else if (this.isAlpha(char)) {
           this.identifier();
         } else {
-          this.onError(this.line, 'Unexpected character.');
+          this.onError(this.line, `Unexpected character "${char}". `);
         }
 
         break;
