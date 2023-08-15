@@ -35,12 +35,17 @@ public class Parser {
    }
  }
 
-
-
+ /**
+  * expression   -> equality ;
+  */
  private Expr expression() {
     return equality();
  }
 
+ /**
+  * equality     -> comparison ( ( "!=" | "==" ) comparison )* ;
+  * 
+  */
  private Expr equality() {
     Expr expr = comparison();
 
@@ -53,6 +58,10 @@ public class Parser {
     return expr;
  }
 
+ /**
+  * comparison   -> term ( ( ">" | ">=" | "<" | "<=" ) term )* ;
+  * 
+  */
  private Expr comparison() {
     Expr expr = term();
 
@@ -65,6 +74,10 @@ public class Parser {
     return expr;
  }
 
+ /**
+  * term         -> factor ( ( "-" | "+" ) factor )* ;
+  * 
+  */
  private Expr term() {
     Expr expr = factor();
 
@@ -77,6 +90,10 @@ public class Parser {
     return expr;
  }
 
+ /**
+  * factor       -> unary ( ( "/" | "*" ) unary )* ;
+  * 
+  */
  private Expr factor() {
     Expr expr = unary();
 
@@ -89,6 +106,10 @@ public class Parser {
     return expr;
  }
 
+ /**
+  * unary        -> ( "!" | "-" ) unary | primary ;
+  * 
+  */
  private Expr unary() {
     if (match(BANG, MINUS)) {
         Token operator = previous();
@@ -99,6 +120,10 @@ public class Parser {
     return primary();
  }
 
+ /**
+  * primary      -> NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" ;
+  * 
+  */
  private Expr primary() {
     if (match(FALSE)) return new Expr.Literal(false);
     if (match(TRUE)) return new Expr.Literal(true);
