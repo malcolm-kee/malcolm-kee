@@ -7,7 +7,7 @@ interface Visitor<R> {
   visitUnaryExpr(expr: Unary): R;
 }
 
-interface Expr {
+export interface Expr {
   accept<R>(visitor: Visitor<R>): R;
 }
 
