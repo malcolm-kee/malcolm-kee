@@ -103,7 +103,7 @@ public class Interpreter implements Expr.Visitor<Object> {
 
     @Override
     public Object visitGroupingExpr(Grouping expr) {
-        return this.evaluate(expr);
+        return this.evaluate(expr.expression);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class Interpreter implements Expr.Visitor<Object> {
     private void checkNumberOperands(Token operator, Object a, Object b) {
         if (a instanceof Double && b instanceof Double) return;
 
-        throw new RuntimeError(operator, "Operands must be numbers");
+        throw new RuntimeError(operator, "Operands must be numbers.");
     }
 
     private Object evaluate(Expr expr) {

@@ -1,5 +1,6 @@
-import { Scanner } from './scanner';
+import { Interpreter } from './interpreter';
 import { Parser } from './parser';
+import { Scanner } from './scanner';
 import { TokenType } from './token-type';
 
 export const run = (source: string) => {
@@ -16,8 +17,6 @@ export const run = (source: string) => {
 
   const tokens = scanner.scanTokens();
 
-  console.log(tokens);
-
   const parser = new Parser(tokens, (token, message) => {
     if (token.type === TokenType.EOF) {
       report(token.line, ' at end', message);
@@ -28,7 +27,10 @@ export const run = (source: string) => {
 
   const expression = parser.parse();
 
-  if (hasError) return;
+  if (hasError || !expression) return;
 
-  console.log(expression);
+  const interpreter = new Interpreter((error) => {
+    report(error.token.line, `at '${error.token.lexeme}'`, error.message);
+  });
+  interpreter.interpret(expression);
 };
