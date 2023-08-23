@@ -14,6 +14,8 @@ public class Lox {
     static boolean hadError = false;
     static boolean hadRuntimeError = false;
 
+    // Compile with `javac com/craftinginterpreters/lox/Lox.java`
+    // Run with `java com.craftinginterpreters.lox.Lox test`
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
