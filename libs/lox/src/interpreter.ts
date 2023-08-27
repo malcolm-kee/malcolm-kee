@@ -1,23 +1,39 @@
-import type { Visitor, Expr, Binary, Grouping, Literal, Unary } from './expr';
+import { Environment } from './environment';
+import type {
+  AssignExpr,
+  BinaryExpr,
+  Expr,
+  ExprVisitor,
+  GroupingExpr,
+  LiteralExpr,
+  LogicalExpr,
+  UnaryExpr,
+  VariableExpr,
+} from './expr';
+import { RuntimeError } from './runtime-error';
+import type {
+  BlockStmt,
+  ExpressionStmt,
+  IfStmt,
+  PrintStmt,
+  Stmt,
+  StmtVisitor,
+  VarStmt,
+  WhileStmt,
+} from './stmt';
 import type { Token } from './token';
 import { TokenType } from './token-type';
 
-class RuntimeError extends Error {
-  constructor(
-    public readonly token: Token,
-    message: string
-  ) {
-    super(message);
-  }
-}
+export class Interpreter implements ExprVisitor<any>, StmtVisitor<void> {
+  private environment = new Environment();
 
-export class Interpreter implements Visitor<any> {
   constructor(private readonly onError: (error: RuntimeError) => void) {}
 
-  interpret(expression: Expr) {
+  interpret(statements: Array<Stmt>) {
     try {
-      const value = this.evaluate(expression);
-      console.log(value);
+      for (const statement of statements) {
+        this.execute(statement);
+      }
     } catch (err) {
       if (err instanceof RuntimeError) {
         this.onError(err);
@@ -27,7 +43,50 @@ export class Interpreter implements Visitor<any> {
     }
   }
 
-  visitBinaryExpr(expr: Binary) {
+  visitBlockStmt(stmt: BlockStmt): void {
+    this.executeBlock(stmt.statements, new Environment(this.environment));
+  }
+
+  visitExpressionStmt(stmt: ExpressionStmt): void {
+    this.evaluate(stmt.expression);
+  }
+
+  visitIfStmt(stmt: IfStmt): void {
+    if (this.isTruthy(this.evaluate(stmt.condition))) {
+      this.execute(stmt.thenBranch);
+    } else if (stmt.elseBranch != null) {
+      this.execute(stmt.elseBranch);
+    }
+  }
+
+  visitPrintStmt(stmt: PrintStmt): void {
+    const value = this.evaluate(stmt.expression);
+    console.log(value);
+  }
+
+  visitVarStmt(stmt: VarStmt): void {
+    let value: any = null;
+
+    if (stmt.initializer != null) {
+      value = this.evaluate(stmt.initializer);
+    }
+
+    this.environment.define(stmt.name.lexeme, value);
+  }
+
+  visitWhileStmt(stmt: WhileStmt): void {
+    while (this.isTruthy(this.evaluate(stmt.condition))) {
+      this.execute(stmt.body);
+    }
+  }
+
+  visitAssignExpr(expr: AssignExpr) {
+    const value = this.evaluate(expr.value);
+    this.environment.assign(expr.name, value);
+    return value;
+  }
+
+  visitBinaryExpr(expr: BinaryExpr) {
     const left = this.evaluate(expr.left);
     const right = this.evaluate(expr.right);
 
@@ -84,15 +143,27 @@ export class Interpreter implements Visitor<any> {
     }
   }
 
-  visitGroupingExpr(expr: Grouping) {
+  visitGroupingExpr(expr: GroupingExpr) {
     return this.evaluate(expr.expression);
   }
 
-  visitLiteralExpr(expr: Literal) {
+  visitLiteralExpr(expr: LiteralExpr) {
     return expr.value;
   }
 
-  visitUnaryExpr(expr: Unary) {
+  visitLogicalExpr(expr: LogicalExpr) {
+    const left = this.evaluate(expr.left);
+
+    if (expr.operator.type === TokenType.OR) {
+      if (this.isTruthy(left)) return left;
+    } else {
+      if (!this.isTruthy(left)) return left;
+    }
+
+    return this.evaluate(expr.right);
+  }
+
+  visitUnaryExpr(expr: UnaryExpr) {
     const right = this.evaluate(expr.right);
 
     switch (expr.operator.type) {
@@ -108,6 +179,28 @@ export class Interpreter implements Visitor<any> {
     }
 
     throw new Error('Should not reachable.');
+  }
+
+  visitVariableExpr(expr: VariableExpr) {
+    return this.environment.get(expr.name);
+  }
+
+  private executeBlock(statements: Array<Stmt>, environment: Environment) {
+    const previous = this.environment;
+
+    try {
+      this.environment = environment;
+
+      for (const statement of statements) {
+        this.execute(statement);
+      }
+    } finally {
+      this.environment = previous;
+    }
+  }
+
+  private execute(statement: Stmt) {
+    return statement.accept(this);
   }
 
   private evaluate(expr: Expr): any {
