@@ -25,12 +25,12 @@ export const run = (source: string) => {
     }
   });
 
-  const expression = parser.parse();
+  const statements = parser.parse();
 
-  if (hasError || !expression) return;
+  if (hasError || !statements) return;
 
   const interpreter = new Interpreter((error) => {
     report(error.token.line, `at '${error.token.lexeme}'`, error.message);
   });
-  interpreter.interpret(expression);
+  interpreter.interpret(statements);
 };

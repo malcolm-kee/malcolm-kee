@@ -1,5 +1,13 @@
 import type { Expr } from './expr';
-import { BinaryExpr, GroupingExpr, LiteralExpr, UnaryExpr } from './expr';
+import {
+  AssignExpr,
+  BinaryExpr,
+  GroupingExpr,
+  LiteralExpr,
+  LogicalExpr,
+  UnaryExpr,
+  VariableExpr,
+} from './expr';
 import type { Stmt } from './stmt';
 import { BlockStmt, ExpressionStmt, IfStmt, PrintStmt, VarStmt, WhileStmt } from './stmt';
 import type { Token } from './token';
@@ -21,7 +29,7 @@ export class Parser {
   parse(): Array<Stmt> {
     const statements: Array<Stmt> = [];
 
-    while (this.isAtEnd()) {
+    while (!this.isAtEnd()) {
       const declaration = this.declaration();
 
       if (declaration) {
@@ -181,6 +189,8 @@ export class Parser {
       }
     }
 
+    this.consume(TokenType.RIGHT_BRACE, "Expect '}' after block.");
+
     return statements;
   }
 
@@ -194,10 +204,61 @@ export class Parser {
   }
 
   /**
-   * expression   -> equality ;
+   * expression   -> assignment ;
    */
   private expression(): Expr {
-    return this.equality();
+    return this.assignment();
+  }
+
+  /**
+   * assignment   -> IDENTIFIER "=" assignment | logic_or
+   */
+  private assignment(): Expr {
+    const expr = this.or();
+
+    if (this.match(TokenType.EQUAL)) {
+      const equals = this.previous();
+      const value = this.assignment();
+
+      if (expr instanceof VariableExpr) {
+        const name = expr.name;
+        return new AssignExpr(name, value);
+      }
+
+      throw this.error(equals, 'Invalid assignment target.');
+    }
+
+    return expr;
+  }
+
+  /**
+   * logic_or   -> logic_and ( "or" logic_and )* ;
+   */
+  private or(): Expr {
+    let expr = this.and();
+
+    while (this.match(TokenType.OR)) {
+      const operator = this.previous();
+      const right = this.and();
+      expr = new LogicalExpr(expr, operator, right);
+    }
+
+    return expr;
+  }
+
+  /**
+   * logic_and  -> equality ( "and" equality )* ;
+   */
+  private and(): Expr {
+    let expr = this.equality();
+
+    while (this.match(TokenType.AND)) {
+      const operator = this.previous();
+      const right = this.equality();
+      expr = new LogicalExpr(expr, operator, right);
+    }
+
+    return expr;
   }
 
   /**
@@ -284,7 +345,7 @@ export class Parser {
   }
 
   /**
-   * primary      -> NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" ;
+   * primary      -> NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" | IDENTIFIER ;
    *
    */
   private primary(): Expr {
@@ -299,6 +360,10 @@ export class Parser {
 
       this.consume(TokenType.RIGHT_PAREN, "Expect ')' after expression.");
       return new GroupingExpr(expr);
+    }
+
+    if (this.match(TokenType.IDENTIFIER)) {
+      return new VariableExpr(this.previous());
     }
 
     throw this.error(this.peek(), 'Expect expression.');
