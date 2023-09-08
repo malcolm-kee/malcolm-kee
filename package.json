@@ -2,7 +2,7 @@
   "name": "malcolm-kee-workspace",
   "private": true,
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "dev": "pnpm --filter v2 run dev",
