@@ -444,7 +444,7 @@ createRoot(document.getElementById('root')).render(<RouterProvider router={route
 
 <Aside heading="React Router Support of View Transition API May Change" className="mt-5">
 
-When I first write this article, there is no need to call `flushSync` before calling `navigate`. Somehow, the implementation changes and now it requires calling `flushSync`.
+When I first wrote this article, there is no need to call `flushSync` before calling `navigate`. Somehow, the implementation of `navigate` changes and now it requires calling `flushSync`.
 
 The key takeaway is that since there is no official statement from React Router on how to use View Transition API with it, use this cautiously. Create a wrapper component or utility function so any change of integration can be updated easily in future.
 
