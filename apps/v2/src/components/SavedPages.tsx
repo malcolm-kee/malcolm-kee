@@ -1,8 +1,8 @@
+import { clsx } from 'clsx';
 import * as React from 'react';
 import type { BlogData } from '~/data/offline-db';
-import { PageInfo, loadSavedPages } from '~/data/offline-helpers';
+import { loadSavedPages, type PageInfo } from '~/data/offline-helpers';
 import { setupShinyEffect } from '~/lib/shiny-effect';
-import { clsx } from 'clsx';
 
 export const SavedPages = () => {
   const [savedBlogs, setSavedBlogs] = React.useState<BlogData[]>([]);

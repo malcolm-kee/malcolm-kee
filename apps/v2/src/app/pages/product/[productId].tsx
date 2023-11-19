@@ -5,8 +5,8 @@ import { Link } from '../../components/link';
 import { NavBar } from '../../components/nav-bar';
 import { ProductDetails } from '../../components/product-details';
 import { productQueryOptions } from '../../queries/product-queries';
-import { getOneProduct, getProducts, Product } from '../../services/product-service';
-import { GetStaticData, StaticData } from '../../types';
+import { getOneProduct, getProducts, type Product } from '../../services/product-service';
+import type { GetStaticData, StaticData } from '../../types';
 
 export const getStaticData = async function getStaticData() {
   const products = await getProducts();

@@ -10,6 +10,8 @@ test('blog live editor is working', async ({ page }) => {
 
   await page.getByText('React Portal to Subtree').click();
 
+  await page.waitForTimeout(500);
+
   await page.getByLabel('Edit').locator('visible=true').click();
 
   const preview = page.frameLocator('[title="Sandpack Preview"]');
@@ -40,6 +42,7 @@ test('save blog and view offline', async ({ page, context }) => {
   await serviceWorkerPromise;
   await page.getByText(/OpenAPI: A backend/).click();
   await expect(page.getByLabel('Contents').locator('visible=true')).toBeVisible();
+  await page.waitForTimeout(500);
   await page.getByLabel('Save this page').locator('visible=true').click();
   await expect(page.getByLabel('Unsave this page').locator('visible=true')).toBeVisible();
 

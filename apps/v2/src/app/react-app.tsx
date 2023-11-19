@@ -1,4 +1,4 @@
-import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { createBrowserRouter, createMemoryRouter, RouterProvider } from 'react-router-dom';
@@ -54,9 +54,9 @@ export const ReactApp = (props: ReactAppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Helmet titleTemplate="%s - SPA Demo" defaultTitle="SPA Demo" />
-      <Hydrate state={props.dehydratedState}>
+      <HydrationBoundary state={props.dehydratedState}>
         <RouterProvider router={router} />
-      </Hydrate>
+      </HydrationBoundary>
     </QueryClientProvider>
   );
 };

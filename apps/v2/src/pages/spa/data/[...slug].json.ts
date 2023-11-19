@@ -15,7 +15,7 @@ export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   return paths;
 };
 
-export const get: APIRoute = async ({ params }) => {
+export const GET: APIRoute = async ({ params }) => {
   const data = await getStaticRouteData();
 
   const titleByPath: Record<string, string> = {};
@@ -52,11 +52,11 @@ export const get: APIRoute = async ({ params }) => {
     await prefetchData(prefetchQueries);
   }
 
-  return {
-    body: JSON.stringify({
+  return new Response(
+    JSON.stringify({
       titleByPath,
       title,
       dehydratedState: dehydrate(queryClient),
-    }),
-  };
+    })
+  );
 };

@@ -2,7 +2,7 @@ import {
   SandpackCodeEditor,
   SandpackPreview,
   SandpackProvider,
-  SandpackTheme,
+  type SandpackTheme,
 } from '@codesandbox/sandpack-react';
 import { githubLight, nightOwl } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';

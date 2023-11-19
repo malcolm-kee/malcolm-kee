@@ -1,16 +1,16 @@
 ---
 import type { GetStaticPaths, GetStaticPathsItem } from 'astro';
-import { CollectionEntry, getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseHead from '~/components/BaseHead.astro';
 import '~/components/shiki.css';
 import WorkshopContent from '~/components/workshop/WorkshopContent.astro';
 import WorkshopLayout from '~/components/workshop/WorkshopLayout.astro';
+import type { WorkshopMetadata } from '~/data/workshop-data';
 import {
   groupWorkshopLessons,
-  type WorkshopTocItem,
   type WorkshopRenderData,
+  type WorkshopTocItem,
 } from '~/data/workshop-helpers';
-import type { WorkshopMetadata } from '~/data/workshop-data';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const workshopLessons = await getCollection('workshop');

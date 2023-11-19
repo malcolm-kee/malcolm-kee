@@ -123,7 +123,5 @@ export default defineConfig({
     ],
     syntaxHighlight: false,
   },
-  experimental: {
-    assets: true,
-  },
+  experimental: {},
 });

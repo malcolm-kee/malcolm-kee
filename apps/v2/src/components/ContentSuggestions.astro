@@ -1,7 +1,7 @@
 ---
-import { CollectionEntry } from 'astro:content';
-import BlogPostPreview from './BlogPostPreview.astro';
+import type { CollectionEntry } from 'astro:content';
 import { clsx } from 'clsx';
+import BlogPostPreview from './BlogPostPreview.astro';
 
 export interface Props {
   blogs: Array<CollectionEntry<'blog'>>;
