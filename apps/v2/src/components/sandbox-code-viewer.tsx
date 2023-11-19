@@ -1,9 +1,9 @@
+import { EditorSelection } from '@codemirror/state';
 import {
-  CodeViewerProps,
   SandpackCodeViewer as OriginalViewer,
   useSandpack,
+  type CodeViewerProps,
 } from '@codesandbox/sandpack-react';
-import { EditorSelection } from '@codemirror/state';
 import * as React from 'react';
 
 type ViewerRef = React.ElementRef<typeof OriginalViewer>;

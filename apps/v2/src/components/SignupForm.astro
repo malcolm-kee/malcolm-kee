@@ -162,7 +162,7 @@ const { class: className } = Astro.props;
         button &&
           button.addEventListener('click', () => {
             const parent = button.parentNode;
-            if (parent) {
+            if (parent && parent instanceof HTMLElement) {
               window.localStorage.setItem(isSubscribedKey, 'true');
               parent.removeChild(button);
               parent.innerHTML = '<p>Thank you! I will stop bothering you.</p>';

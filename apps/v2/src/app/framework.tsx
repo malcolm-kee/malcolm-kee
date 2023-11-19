@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { RouteObject, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Outlet, useLocation, type RouteObject } from 'react-router-dom';
 import type * as types from './types';
 
 /** './pages/something/else.tsx' -> 'something/else' */

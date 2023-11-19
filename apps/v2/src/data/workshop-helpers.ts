@@ -1,5 +1,10 @@
 import type { CollectionEntry } from 'astro:content';
-import { getWorkshopData, WorkshopMetadata, WorkshopSlug, workshopSlugs } from './workshop-data';
+import {
+  getWorkshopData,
+  workshopSlugs,
+  type WorkshopMetadata,
+  type WorkshopSlug,
+} from './workshop-data';
 
 type WorkshopData = CollectionEntry<'workshop'>;
 
@@ -159,8 +164,8 @@ export const getWorkshops = (workshopLessonEntries: ReadonlyArray<WorkshopData>)
       entryUrl: lesson
         ? `/${lesson.slug}/`
         : 'entryUrl' in workshop
-        ? (workshop.entryUrl as string)
-        : '/',
+          ? (workshop.entryUrl as string)
+          : '/',
       workshop,
     };
   });

@@ -11,7 +11,6 @@
     // Enable stricter transpilation for better output.
     "isolatedModules": true,
     "noEmit": true,
-    "importsNotUsedAsValues": "preserve",
     "jsx": "react",
     "allowJs": true,
     "checkJs": false,
@@ -20,5 +19,6 @@
     "paths": {
       "~/*": ["src/*"]
     }
-  }
+  },
+  "include": ["src"]
 }

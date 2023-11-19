@@ -1,5 +1,4 @@
 ---
-import type * as React from 'react';
 import BaseHead from '../components/BaseHead.astro';
 import PageLayout from '../components/PageLayout.astro';
 import ProjectCard from '../components/ProjectCard';
@@ -24,7 +23,7 @@ const description =
         {
           projects.map((project, index) => (
             <li
-              style={{ '--i': index } as React.CSSProperties}
+              style={{ '--i': index }}
               class="item relative px-5 py-3 border border-zinc-100 rounded-2xl transition-colors hover:bg-zinc-50"
             >
               <div class="hover-target absolute top-0 left-0 right-0 bottom-0 rounded-2xl" />

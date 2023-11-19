@@ -1,7 +1,5 @@
 import type { APIRoute } from 'astro';
 
-export const get: APIRoute = async () => {
-  return {
-    body: 'yes',
-  };
+export const GET: APIRoute = async () => {
+  return new Response('yes');
 };
