@@ -24,12 +24,12 @@
   },
   "dependencies": {
     "es-module-lexer": "^1.4.1",
-    "htmlparser2": "^9.0.0",
-    "postcss": "^8.4.31",
+    "htmlparser2": "^9.1.0",
+    "postcss": "^8.4.33",
     "undici": "^5.27.2"
   },
   "devDependencies": {
-    "tsup": "^8.0.0",
+    "tsup": "^8.0.1",
     "tsx": "^4.1.4",
     "typescript": "^5.2.2"
   }
