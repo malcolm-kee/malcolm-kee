@@ -68,7 +68,7 @@
     "tailwindcss": "^3.4.1",
     "tinycolor2": "^1.6.0",
     "ts-morph": "^20.0.0",
-    "tsx": "^4.1.4",
+    "tsx": "^4.7.0",
     "typescript": "^5.2.2",
     "undici": "^5.27.2",
     "unified": "^10.1.2",
