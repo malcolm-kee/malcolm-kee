@@ -2,18 +2,18 @@
   "name": "malcolm-kee-workspace",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "dev": "pnpm --filter v2 run dev",
     "build": "pnpm -r run build",
     "v2": "pnpm --filter v2",
-    "preview": "pnpm  --no-bail --filter=v2 run preview",
+    "preview": "pnpm --no-bail --filter=v2 run preview",
     "test": "pnpm --filter=e2e run test",
     "e2e": "start-server-and-test preview http://localhost:8989 test"
   },
   "devDependencies": {
-    "@types/node": "^20.9.2",
+    "@types/node": "^20.11.27",
     "start-server-and-test": "^2.0.3"
   }
 }
