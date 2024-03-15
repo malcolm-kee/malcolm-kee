@@ -7,7 +7,7 @@
     "test-report": "playwright show-report"
   },
   "dependencies": {
-    "axe-core": "^4.8.3"
+    "axe-core": "^4.8.4"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.8.1",
