@@ -101,7 +101,8 @@ And our test still passes!
 The next test will be filling up the form. Before we do that, let's check the rendered UI by using the `debug` helper:
 
 ```jsx title="payment-form.spec.jsx"
-...
+// ... other tests
+
 test(`PaymentForm can be filled`, () => {
   const { debug } = renderWithStateMgmt(<PaymentForm />);
 
@@ -147,7 +148,7 @@ import { renderWithStateMgmt } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice'; // highlight-line
 import { PaymentForm } from './payment-form';
 
-...
+// ... other tests
 
 test(`PaymentForm can be filled`, () => {
   // highlight-start
@@ -175,7 +176,7 @@ import { renderWithStateMgmt } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice'; // highlight-line
 import { PaymentForm } from './payment-form';
 
-...
+// ... other tests
 
 test(`PaymentForm can be filled`, () => {
   // highlight-next-line
@@ -202,7 +203,8 @@ import * as React from 'react';
 import { renderWithStateMgmt } from '../../../lib/test-util';
 import { cartActions } from '../cart.slice';
 import { PaymentForm } from './payment-form';
-...
+
+// ... other tests
 
 test(`PaymentForm can be filled`, () => {
   // highlight-next-line
@@ -252,10 +254,11 @@ test(`PaymentForm can be filled`, () => {
 Let's continue the last test by clicking the Pay button:
 
 ```jsx title="payment-form.spec.jsx"
-...
+// ... other tests
 
 test(`PaymentForm can be filled`, () => {
-  ...
+  // ... existing code
+
   expect(getByText('Pay').disabled).toBe(false);
 
   fireEvent.click(getByText('Pay')); // highlight-line
@@ -308,11 +311,10 @@ export const renderWithStateMgmtAndRouter = (ui, { actions = [], route = '/' } =
 Then we can test the behavior after click:
 
 ```jsx title="payment-form.spec.jsx"
-...
 import { renderWithStateMgmtAndRouter } from '../../../lib/test-util'; // highlight-line
-...
 
-// highlight-next-line
+// ... other tests
+// [!code highlight:2]
 test(`PaymentForm can be filled`, async () => {
   // highlight-next-line
   const { getByText, getByLabelText, findByText } = renderWithStateMgmtAndRouter(<PaymentForm />, {
@@ -325,7 +327,9 @@ test(`PaymentForm can be filled`, async () => {
       }),
     ],
   });
-  ...
+
+  // ...existing code
+
   expect(getByText('Pay').disabled).toBe(false);
 
   fireEvent.click(getByText('Pay'));
@@ -340,15 +344,17 @@ test(`PaymentForm can be filled`, async () => {
 Let's change the code for `PaymentForm`:
 
 ```jsx title="payment-form.jsx"
-...
+// ...existing code
 
 const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
-  ...
+  // ...existing code
 
-  return return paid ? (
+  return paid ? (
     <Alert color="success">
       {/* highlight-next-line */}
-      <p className="text-xl text-center" data-testid="success-msg">Paid</p>
+      <p className="text-xl text-center" data-testid="success-msg">
+        Paid
+      </p>
       <div className="text-center py-3">
         <Link to="/" className="text-blue-500">
           Back to Home
@@ -356,33 +362,35 @@ const PaymentFormView = ({ defaultName, totalAmount, pay }) => {
       </div>
     </Alert>
   ) : (
-    <React.Suspense fallback={<Spinner />}>
-    ...
-    </React.Suspense>
+    <React.Suspense fallback={<Spinner />}>...</React.Suspense>
   );
-}
+};
 ```
 
 Then in the test:
 
 ```jsx title="payment-form.spec.jsx"
-...
 import { renderWithStateMgmtAndRouter } from '../../../lib/test-util';
-...
+// ...other tests
 
 test(`PaymentForm can be filled`, async () => {
   // highlight-next-line
-  const { getByText, getByLabelText, findByTestId } = renderWithStateMgmtAndRouter(<PaymentForm />, {
-    actions: [
-      cartActions.addItem({
-        product: {
-          id: 1,
-          price: 200,
-        },
-      }),
-    ],
-  });
-  ...
+  const { getByText, getByLabelText, findByTestId } = renderWithStateMgmtAndRouter(
+    <PaymentForm />,
+    {
+      actions: [
+        cartActions.addItem({
+          product: {
+            id: 1,
+            price: 200,
+          },
+        }),
+      ],
+    }
+  );
+
+  // ...existing code
+
   expect(getByText('Pay').disabled).toBe(false);
 
   fireEvent.click(getByText('Pay'));

@@ -113,18 +113,15 @@ function App() {
       <div className="container">
         <div>
           <div className="button-container">
-            <Button onClick={toggleShowMovies}>
-              {moviesShown ? 'Hide' : 'Show'} Movies
-            </Button>
+            <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
           </div>
           {moviesShown && (
             <BusyContainer isLoading={isLoading}>
-              {movies.map(movie => (
+              {movies.map((movie) => (
                 <Movie
                   name={movie.name}
                   releaseDate={movie.releaseDate}
-                  {/* highlight-next-line */}
-                  onClick={() => setIsEdit(true)}
+                  onClick={() => setIsEdit(true)} // [!code highlight]
                   key={movie.id}
                 />
               ))}
@@ -134,10 +131,8 @@ function App() {
         <div>
           <MovieForm
             onSubmitSuccess={loadMoviesData}
-            {/* highlight-start */}
-            onReset={resetForm}
+            onReset={resetForm} // [!code highlight:2]
             isEdit={isEdit}
-            {/* highlight-end */}
           />
         </div>
       </div>
@@ -149,12 +144,11 @@ function App() {
 Let's update `Movie` component to call the `onClick` props:
 
 ```jsx
-export const Movie = props => (
+export const Movie = (props) => (
   <div
-    {/* highlight-start */}
-    className="movie-container selectable"
+    className="movie-container selectable" // [!code highlight:11]
     onClick={props.onClick}
-    onKeyDown={e => {
+    onKeyDown={(e) => {
       if (
         e.keyCode === 32 || // space
         e.keyCode === 13 // enter
@@ -162,8 +156,8 @@ export const Movie = props => (
         props.onClick();
       }
     }}
-    tabIndex={0} >
-    {/* highlight-end */}
+    tabIndex={0}
+  >
     <h1>{props.name}</h1>
     <h2>{props.releaseDate}</h2>
   </div>
@@ -176,15 +170,15 @@ export const Movie = props => (
 And update `MovieForm` component to show different text and ability to resetForm:
 
 ```jsx
-import { Button } from './components/button'; // highlight-line
+import { Button } from './components/button'; // [!code highlight]
 
-...
+// existing code
 
-// highlight-next-line
 export const MovieForm = ({ isEdit, onSubmitSuccess, onReset }) => {
+  // [!code highlight]
   const { values, setName, setReleaseDate } = useMovieFormData();
 
-  const handleSubmit = ev => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
     createMovie(values).then(() => {
       onSubmitSuccess();
@@ -196,7 +190,6 @@ export const MovieForm = ({ isEdit, onSubmitSuccess, onReset }) => {
   return (
     <div className="movie-form">
       <form onSubmit={handleSubmit}>
-        {/* highlight-next-line */}
         <legend>{isEdit ? 'Edit' : 'Create'} Movie</legend>
         <div className="field">
           <label htmlFor="name" className="label">
@@ -207,7 +200,7 @@ export const MovieForm = ({ isEdit, onSubmitSuccess, onReset }) => {
             value={values.name}
             id="name"
             name="name"
-            onChange={ev => setName(ev.target.value)}
+            onChange={(ev) => setName(ev.target.value)}
             required
           />
         </div>
@@ -221,16 +214,14 @@ export const MovieForm = ({ isEdit, onSubmitSuccess, onReset }) => {
             id="releaseDate"
             name="releaseDate"
             type="date"
-            onChange={ev => setReleaseDate(ev.target.value)}
+            onChange={(ev) => setReleaseDate(ev.target.value)}
             required
           />
         </div>
         <div className="button-container">
           <button type="submit" className="submit-button">
-            {/* highlight-next-line */}
             {isEdit ? 'Save' : 'Create'}
           </button>
-          {/* highlight-next-line */}
           <Button onClick={onReset}>Cancel</Button>
         </div>
       </form>
@@ -267,7 +258,7 @@ For us to achieve updating form data in App, the solution is **raising state up*
 
 ```jsx
 // src/app.js
-...
+// existing code
 
 // highlight-start
 // the following code is just cut and paste from movie-form.js
@@ -279,8 +270,8 @@ const useMovieForm = () => {
     setReleaseDate,
     values: {
       name,
-      releaseDate
-    }
+      releaseDate,
+    },
   };
 };
 // highlight-end
@@ -292,7 +283,7 @@ function App() {
   // highlight-start
   const { setName, setReleaseDate, values } = useMovieForm();
 
-  const selectMovie = movie => {
+  const selectMovie = (movie) => {
     setIsEdit(true);
     setName(movie.name);
     setReleaseDate(movie.releaseDate);
@@ -315,17 +306,14 @@ function App() {
       <div className="container">
         <div>
           <div className="button-container">
-            <Button onClick={toggleShowMovies}>
-              {moviesShown ? 'Hide' : 'Show'} Movies
-            </Button>
+            <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
           </div>
           {moviesShown && (
             <BusyContainer isLoading={isLoading}>
-              {movies.map(movie => (
+              {movies.map((movie) => (
                 <Movie
                   name={movie.name}
                   releaseDate={movie.releaseDate}
-                  {/* highlight-next-line */}
                   onClick={() => selectMovie(movie)}
                   key={movie.id}
                 />
@@ -338,11 +326,9 @@ function App() {
             onSubmitSuccess={loadMoviesData}
             onReset={resetForm}
             isEdit={isEdit}
-            {/* highlight-start */}
             values={values}
             setName={setName}
             setReleaseDate={setReleaseDate}
-            {/* highlight-end */}
           />
         </div>
       </div>
@@ -361,13 +347,13 @@ export const MovieForm = ({
   // highlight-start
   values,
   setName,
-  setReleaseDate
+  setReleaseDate,
   // highlight-end
 }) => {
   // highlight-next-line
   // const { values, setName, setReleaseDate } = useMovieFormData();
 
-  const handleSubmit = ev => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
     createMovie(values).then(() => {
       onSubmitSuccess();
@@ -376,7 +362,7 @@ export const MovieForm = ({
     });
   };
 
-  ...
+  // existing code
 };
 ```
 
@@ -393,9 +379,7 @@ Our current status:
 Let's update our `MovieForm` component:
 
 ```jsx
-// highlight-next-line
-import { createMovie, saveMovie } from './api';
-...
+import { createMovie, saveMovie } from './api'; // [!code highlight]
 
 export const MovieForm = ({
   isEdit,
@@ -403,29 +387,26 @@ export const MovieForm = ({
   resetForm,
   values,
   setName,
-  setReleaseDate
+  setReleaseDate,
 }) => {
-
-  const handleSubmit = ev => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
     // highlight-start
     const req = isEdit ? saveMovie(values) : createMovie(values);
     req.then(() => {
-    // highlight-end
+      // highlight-end
       onSubmitSuccess();
       resetForm();
     });
   };
 
-  ...
+  // existing code
 };
 ```
 
 If you try it now, you may realize the save movie doesn't work. This is because saveMovie call actually require id properties in your movie data. Let's update the required code in `App` component:
 
 ```jsx
-...
-
 const useMovieForm = () => {
   const [name, setName] = React.useState('');
   const [releaseDate, setReleaseDate] = React.useState('');
@@ -433,36 +414,35 @@ const useMovieForm = () => {
   return {
     setName,
     setReleaseDate,
-    setId,  // highlight-line
+    setId, // highlight-line
     values: {
       id, // highlight-line
       name,
-      releaseDate
-    }
+      releaseDate,
+    },
   };
 };
 
 function App() {
-  ...
-  const { setName, setReleaseDate, setId, values } = useMovieForm(); // highlight-line
+  // existing code
 
-  const selectMovie = movie => {
+  const { setName, setReleaseDate, setId, values } = useMovieForm(); // [!code highlight]
+
+  const selectMovie = (movie) => {
     setIsEdit(true);
     setName(movie.name);
     setReleaseDate(movie.releaseDate);
-    setId(movie.id); // highlight-line
+    setId(movie.id); // [!code highlight]
   };
 
   const resetForm = () => {
     setIsEdit(false);
     setName('');
     setReleaseDate('');
-    setId(undefined); // highlight-line
+    setId(undefined); // [!code highlight]
   };
 
-  return (
-    ...
-  );
+  // existing code
 }
 ```
 

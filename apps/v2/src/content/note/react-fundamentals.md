@@ -98,10 +98,10 @@ To use the state hooks in React, this is how you do it:
 import * as React from 'react';
 
 const Component = () => {
-  // highlight-next-line
-  const [value, setValue] = React.useState(5)
-  ...
-}
+  const [value, setValue] = React.useState(5); // [!code highlight]
+
+  // ... other code
+};
 ```
 
 The line can be actually broken down to:
@@ -138,11 +138,11 @@ Let's try to think how UI development is without React.
 Instead of deriving a UI from the state, let's try to update it ourselves by updating it manually.
 
 ```jsx
-const element =  document.getElementById('some-id');
+const element = document.getElementById('some-id');
 element.innerText = message.length;
 
-...
-<span id="some-id" />
+// ... other code
+<span id="some-id" />;
 ```
 
 But in React we usually don't hardcode id in our component, because it is invalid if there are multiple instance of the components.
@@ -150,11 +150,13 @@ But in React we usually don't hardcode id in our component, because it is invali
 Instead, we use a ref.
 
 ```jsx
-const msgLengthRef = React.useRef(null);
-msgLengthRef.current.innerText = message.length;
+const Component = () => {
+  const msgLengthRef = React.useRef(null);
+  msgLengthRef.current.innerText = message.length;
 
-...
-<span ref={msgLengthRef}>
+  // ... other code
+  return <span ref={msgLengthRef} />;
+};
 ```
 
 There is a problem with this imperative approach. If message is updated via other mean, the length will be incorrect.
@@ -211,8 +213,7 @@ const [value, setValue] = React.useState(undefined);
 
 React.useEffect(() => {
   apiCalls(id).then((res) => setValue(res));
-  // highlight-next-line
-}, [id]);
+}, [id]); // [!code highlight]
 ```
 
 We still have another problem here, but this time it's more subtle.

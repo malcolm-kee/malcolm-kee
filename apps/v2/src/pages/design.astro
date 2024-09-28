@@ -5,26 +5,26 @@ import PageLayout from '~/components/PageLayout.astro';
 import BlogPostPreview from '~/components/BlogPostPreview.astro';
 import SavePageButton from '~/components/SavePageButton.astro';
 import { Tag } from '~/components/tag';
-import { getEntryBySlug } from 'astro:content';
+import { getEntry } from 'astro:content';
 import { getTransformedImage } from '~/lib/cloudinary';
 import { BlogPostPreviewList, BlogPostPreviewListItems } from '~/components/BlogPostPreviewList';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
 
-const viewTransitionApiData = await getEntryBySlug('blog', 'automating-refactoring-with-codemod');
+const viewTransitionApiData = await getEntry('blog', 'automating-refactoring-with-codemod');
 const viewTransitionApiPost = {
   ...viewTransitionApiData,
   heroImageInfo: viewTransitionApiData.data.heroImagePublicId
     ? await getTransformedImage(viewTransitionApiData.data.heroImagePublicId)
     : undefined,
 };
-const htmlCvData = await getEntryBySlug('blog', 'how-to-create-cv-using-html');
+const htmlCvData = await getEntry('blog', 'how-to-create-cv-using-html');
 const htmlCvPost = {
   ...htmlCvData,
   heroImageInfo: htmlCvData.data.heroImagePublicId
     ? await getTransformedImage(htmlCvData.data.heroImagePublicId)
     : undefined,
 };
-const flutterPost = await getEntryBySlug('blog', 'flutter-for-react-developers');
+const flutterPost = await getEntry('blog', 'flutter-for-react-developers');
 ---
 
 <html>

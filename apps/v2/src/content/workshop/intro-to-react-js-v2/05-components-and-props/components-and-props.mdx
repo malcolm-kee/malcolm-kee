@@ -86,9 +86,9 @@ export const TitleBar = (props) => <div className="title-bar">{props.children}</
 - `children` is a special props for React components. It's the contents within the JSX tags (if you remember, the third parameters to `React.createElement`). By using `children`, we're allowing the user of the components to insert any content they wish.
 
 ```jsx title="src/app.js"
-...
+// existing code
 import { TitleBar } from './components/title-bar';
-...
+
 function App() {
   return (
     <div>
@@ -97,10 +97,7 @@ function App() {
       </TitleBar>
       <Movie name="Aquaman" releaseDate="2018-12-07" />
       <Movie name="Bumblebee" releaseDate="2018-12-15" />
-      <Movie
-        name="Fantastic Beasts: The Crimes of Grindelwald"
-        releaseDate="2018-11-14"
-      />
+      <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
     </div>
   );
 }
@@ -120,10 +117,13 @@ export const TitleBar = (props) => (
 ```jsx title="src/app.js"
 function App() {
   return (
-    ...
-    <TitleBar title="React Movie App" />
-    ...
-  )
+    <div>
+      <TitleBar title="React Movie App" />
+      <Movie name="Aquaman" releaseDate="2018-12-07" />
+      <Movie name="Bumblebee" releaseDate="2018-12-15" />
+      <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
+    </div>
+  );
 }
 ```
 

@@ -44,16 +44,15 @@ export const loadMovies = (searchKey) =>
 Update `useMovieData` hook in `app.js`:
 
 ```js {3,5}
-...
 function useMovieData() {
-    ...
-    const loadMoviesData = searchKey => {
-        setIsLoading(true);
-        loadMovies(searchKey).then(movieData => {
-            setMovies(movieData);
-            setIsLoading(false);
-        });
-    };
+  // ... existing code
+  const loadMoviesData = (searchKey) => {
+    setIsLoading(true);
+    loadMovies(searchKey).then((movieData) => {
+      setMovies(movieData);
+      setIsLoading(false);
+    });
+  };
 }
 ```
 
@@ -69,26 +68,34 @@ function App() {
   const { movies, isLoading, loadMoviesData } = useMovieData();
   const { setName, setReleaseDate, setId, values } = useMovieForm();
   const [isEdit, setIsEdit] = React.useState(false);
-  const [searchKey, setSearchKey] = React.useState(''); // highlight-line
+  const [searchKey, setSearchKey] = React.useState(''); // [!code highlight]
 
-  ...
+  // ... existing code
 
   return (
-      ...
-        {moviesShown && (
+    <div>
+      <TitleBar>
+        <h1>React Movie App</h1>
+      </TitleBar>
+      <div className="container">
+        <div>
+          <div className="button-container">
+            <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
+          </div>
+          {moviesShown && (
             <BusyContainer isLoading={isLoading}>
               {/* highlight-start */}
               <div className="field">
                 <input
                   value={searchKey}
-                  onChange={ev => setSearchKey(ev.target.value)}
+                  onChange={(ev) => setSearchKey(ev.target.value)}
                   className="input"
                   placeholder="Search for movie..."
                 />
               </div>
               {/* highlight-end */}
               <React.Suspense fallback={<span className="spinner" />}>
-                {movies.map(movie => (
+                {movies.map((movie) => (
                   <Movie
                     name={movie.name}
                     releaseDate={movie.releaseDate}
@@ -98,8 +105,10 @@ function App() {
                 ))}
               </React.Suspense>
             </BusyContainer>
-        )}
-      ...
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 ```
@@ -112,7 +121,6 @@ function App() {
 Currently we can type our search key in the input, but that doesn't update the movie list. To do that, let's move the ajax call effects from `useMovieData` hook into `App` component:
 
 ```javascript
-...
 function useMovieData() {
     const [movies, setMovies] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
@@ -123,8 +131,7 @@ function useMovieData() {
             setIsLoading(false);
         });
     };
-    // highlight-next-line
-    // React.useEffect(loadMoviesData, []);
+    // React.useEffect(loadMoviesData, []); // [!code highlight]
 
     return {
        movies,
@@ -140,8 +147,7 @@ function App() {
   const [isEdit, setIsEdit] = React.useState(false);
   const [searchKey, setSearchKey] = React.useState('');
 
-  // highlight-next-line
-  React.useEffect(() => loadMoviesData(searchKey), [searchKey]);
+  React.useEffect(() => loadMoviesData(searchKey), [searchKey]); // [!code highlight]
 
   ...
 }
@@ -177,14 +183,13 @@ export const useDebouncedEffect = (effect, deps, timeout = 500) => {
 In our `App` component, let's use `useDebouncedEffect` instead of `useEffect` hook:
 
 ```javascript
-...
 import { useDebouncedEffect } from './hooks/use-debounced-effect';
-...
+// ... existing code
 
 function App() {
-  ...
+  // ... existing code
   useDebouncedEffect(() => loadMoviesData(searchKey), [searchKey]);
-  ...
+  // ... existing code
 }
 ```
 

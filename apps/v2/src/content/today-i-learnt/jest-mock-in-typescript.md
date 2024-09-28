@@ -12,7 +12,7 @@ import { readFile } from './fs-util';
 jest.mock('./fs-util');
 
 (readFile as jest.MockInstance).mockImplementation((path: string) => {
-    ...
+  // mock implementation
 });
 ```
 
@@ -24,8 +24,7 @@ import { readFile } from './fs-util';
 
 jest.mock('./fs-util');
 
-mocked(readFile).mockImplementation(path => {
-    ...
+mocked(readFile).mockImplementation((path) => {
+  // mock implementation
 });
-
 ```

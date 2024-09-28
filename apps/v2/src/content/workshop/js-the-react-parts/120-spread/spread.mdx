@@ -235,17 +235,19 @@ A use case of object spread is to wrap a third-party function which you like to 
 For example, a `formatMoney` function that will format a number so it's in the common money format. Its signature could be:
 
 ```js
-function formatMoney(value, options) {}
+function formatMoney(value, options) {
+  // implementation
+}
 ```
 
 where options is an optional parameters, and is an object with following properties:
 
-```js
+```json
 {
-    prefix: '$',
-    thousandSeparator: ',',
-    decimalSeparator: '.',
-    decimalPlaces: 2
+  "prefix": "$",
+  "thousandSeparator": ",",
+  "decimalSeparator": ".",
+  "decimalPlaces": 2
 }
 ```
 
@@ -296,27 +298,27 @@ Now `myFormatMoney` works similar to `formatMoney`, just the default is customiz
 
    - Expected `result`:
 
-     ```js
+     ```json
      {
-         theme: 'dark',
-         fontFamily: 'Tahoma',
-         mediaQuery: {
-            mobile: 500
-         }
+       "theme": "dark",
+       "fontFamily": "Tahoma",
+       "mediaQuery": {
+         "mobile": 500
+       }
      }
      ```
 
    - Expected `result`:
 
-     ```js
+     ```json
      {
-         theme: 'dark',
-         fontFamily: 'Tahoma',
-         mediaQuery: {
-             mobile: 500,
-             tablet: 720,
-             desktop: 1020
-         }
+       "theme": "dark",
+       "fontFamily": "Tahoma",
+       "mediaQuery": {
+         "mobile": 500,
+         "tablet": 720,
+         "desktop": 1020
+       }
      }
      ```
 

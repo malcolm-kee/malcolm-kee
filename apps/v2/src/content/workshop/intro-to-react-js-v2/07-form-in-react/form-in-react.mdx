@@ -131,7 +131,7 @@ Now import `MovieForm` and include it in `App` component:
 ```jsx title="src/app.js" {0,34}
 import { MovieForm } from './movie-form';
 
-...
+// existing code
 
 function App() {
   const [moviesShown, toggleShowMovies] = useToggle(false);
@@ -145,18 +145,12 @@ function App() {
       <div className="container">
         <div>
           <div className="button-container">
-            <Button onClick={toggleShowMovies}>
-              {moviesShown ? 'Hide' : 'Show'} Movies
-            </Button>
+            <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
           </div>
           {moviesShown && (
             <BusyContainer isLoading={isLoading}>
-              {movies.map(movie => (
-                <Movie
-                  name={movie.name}
-                  releaseDate={movie.releaseDate}
-                  key={movie.id}
-                />
+              {movies.map((movie) => (
+                <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
               ))}
             </BusyContainer>
           )}
@@ -242,11 +236,11 @@ We can achieve this by passing a callback from `App` to `MovieForm`.
       const [name, setName] = React.useState('');
       const [releaseDate, setReleaseDate] = React.useState('');
 
-      const handleSubmit = ev => {
+      const handleSubmit = (ev) => {
         ev.preventDefault();
         createMovie({
           name,
-          releaseDate
+          releaseDate,
         }).then(() => {
           onSubmitSuccess();
           setName('');
@@ -254,10 +248,8 @@ We can achieve this by passing a callback from `App` to `MovieForm`.
         });
       };
 
-      return (
-        ...
-      );
-    }
+      // existing code
+    };
     ```
 
 Now the movie list should be updated once you submit create movie!

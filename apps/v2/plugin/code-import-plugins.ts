@@ -33,7 +33,7 @@ export const codeImportTransformer = async (): Promise<ShikiTransformer> => {
             // there are relative imports
             const match = n.match(/^((@[\w|-]+\/)?[\w|.-]+)/);
 
-            if (match) {
+            if (match && match[1] !== '.') {
               importedPkgs.add(match[1]);
             }
           }

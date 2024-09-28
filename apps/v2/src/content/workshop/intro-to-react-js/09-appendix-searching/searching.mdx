@@ -39,26 +39,23 @@ export const loadMovies = (searchKey) =>
 Update `app.js`:
 
 ```jsx
-...
-const loadCodeAndMovies = searchKey =>
-  import(/* webpackChunkName: "api" */ './api').then(({ loadMovies }) =>
-    loadMovies(searchKey)
-  );
+const loadCodeAndMovies = (searchKey) =>
+  import(/* webpackChunkName: "api" */ './api').then(({ loadMovies }) => loadMovies(searchKey));
 
 class App extends React.Component {
-    ...
-    componentDidMount() {
-        this.updateMovieList();
-    }
+  componentDidMount() {
+    this.updateMovieList();
+  }
 
-    updateMovieList = searchKey =>
-        loadCodeAndMovies(searchKey).then(movies =>
-            this.setState({
-                movies,
-                isLoading: false
-            }));
+  updateMovieList = (searchKey) =>
+    loadCodeAndMovies(searchKey).then((movies) =>
+      this.setState({
+        movies,
+        isLoading: false,
+      })
+    );
 
-    ...
+  // other code
 }
 ```
 
@@ -70,55 +67,50 @@ class App extends React.Component {
 Now we need to add an input to our App to capture searchKey.
 
 ```jsx
-...
 class App extends React.Component {
-    state = {
-        showMovies: false,
-        isLoading: true,
-        movies: [],
-        searchTerm: ''
-    };
-    ...
-    handleSearchTermChange = ev =>
-        this.setState(
-            {
-                searchTerm: ev.target.value
-            },
-            () => {
-                this.setState({ isLoading: true });
-                this.updateMovieList(this.state.searchTerm);
-            }
-        );
-    ...
-    render() {
-        return (
-            <div>
-                ...
-                    {this.state.showMovies && (
-                        <React.Suspense fallback={<span>Loading Component...</span>}>
-                            <div className="field">
-                                <input
-                                    value={this.state.searchTerm}
-                                    onChange={this.handleSearchTermChange}
-                                    className="input"
-                                    placeholder="Search for movie..."
-                                />
-                            </div>
-                            <BusyContainer isLoading={this.state.isLoading}>
-                                {this.state.movies.map(movie => (
-                                    <Movie
-                                        name={movie.name}
-                                        releaseDate={movie.releaseDate}
-                                        key={movie.id}
-                                    />
-                                ))}
-                            </BusyContainer>
-                        </React.Suspense>
-                    )}
-                ...
+  state = {
+    showMovies: false,
+    isLoading: true,
+    movies: [],
+    searchTerm: '',
+  };
+  // existing code
+  handleSearchTermChange = (ev) =>
+    this.setState(
+      {
+        searchTerm: ev.target.value,
+      },
+      () => {
+        this.setState({ isLoading: true });
+        this.updateMovieList(this.state.searchTerm);
+      }
+    );
+
+  render() {
+    return (
+      <div>
+        {/* existing code */}
+        {this.state.showMovies && (
+          <React.Suspense fallback={<span>Loading Component...</span>}>
+            <div className="field">
+              <input
+                value={this.state.searchTerm}
+                onChange={this.handleSearchTermChange}
+                className="input"
+                placeholder="Search for movie..."
+              />
             </div>
-        );
-    }
+            <BusyContainer isLoading={this.state.isLoading}>
+              {this.state.movies.map((movie) => (
+                <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
+              ))}
+            </BusyContainer>
+          </React.Suspense>
+        )}
+        {/* existing code */}
+      </div>
+    );
+  }
 }
 ```
 
@@ -144,12 +136,11 @@ Our current code works, but it is unoptimal because we make an AJAX call for eve
 To do that, we need to use a common Javascript helper function, debounce. Let's add `debounce` function to our `lib.js`:
 
 ```js title="src/lib.js"
-...
 export function debounce(func, wait) {
   let timeout;
-  return function(...args) {
+  return function (...args) {
     const context = this;
-    const later = function() {
+    const later = function () {
       timeout = null;
       func.apply(context, args);
     };
@@ -165,26 +156,24 @@ export function debounce(func, wait) {
 Let's use `debounce` in our `App`:
 
 ```jsx
-...
 import { debounce } from './lib';
-...
 
 class App extends React.Component {
-    ...
-    handleSearchTermChange = ev => {
-        this.setState(
-        {
-            searchTerm: ev.target.value
-        },
-        () => {
-            this.setState({ isLoading: true });
-            this.debouncedUpdateMovieList(this.state.searchTerm);
-        }
-        );
-    };
-    ...
-    debouncedUpdateMovieList = debounce(this.updateMovieList, 200);
-    ...
+  // existing code
+  handleSearchTermChange = (ev) => {
+    this.setState(
+      {
+        searchTerm: ev.target.value,
+      },
+      () => {
+        this.setState({ isLoading: true });
+        this.debouncedUpdateMovieList(this.state.searchTerm);
+      }
+    );
+  };
+  // existing code
+  debouncedUpdateMovieList = debounce(this.updateMovieList, 200);
+  // existing code
 }
 ```
 

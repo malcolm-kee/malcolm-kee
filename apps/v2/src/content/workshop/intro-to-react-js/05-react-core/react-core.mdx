@@ -212,17 +212,17 @@ Convert your `App` component as below:
 ```jsx title="src/app.js"
 class App extends React.Component {
   state = {
-    showMovies: false
+    showMovies: false,
   };
 
   showMovies = () => {
     this.setState({
-      showMovies: true
+      showMovies: true,
     });
-  }
+  };
 
   render() {
-    ...
+    // current code
   }
 }
 ```
@@ -365,17 +365,17 @@ class App extends React.Component {
 In short, you can pass `setState` either of the following:
 
 1. the change that you wish React to apply (use this if the new value doesn't depends on previous value), OR
-   ```javascript noWrapper
+   ```js
    this.setState({ show: true });
    ```
 1. a function that returns the change (use this if the new value depends on previous value)
-   ```javascript noWrapper
+   ```js
    this.setState((prevState) => ({ show: !prevState.show }));
    ```
 
 Another things about `setState` that may surprise React beginner is that it is asynchronous, which means that when you call `setState`, the state will not be updated straight-away (you can verify this by adding `console.log(this.state)` after `setState` call). If you want to perform some action whenever state is updated, you can provide a callback as second parameter to `setState`:
 
-```javascript noWrapper
+```js
 this.setState({ show: true }, () => {
   // this will only be called after React apply the state change
   console.log(this.state);
@@ -396,16 +396,11 @@ Commit: [`100-toggle-movies`](https://github.com/malcolm-kee/react-movie-app/tre
 Currently our movies data are hardcoded in our `App`:
 
 ```jsx title="src/app.js"
-...
 <>
   <Movie name="Aquaman" releaseDate="2018-12-07" />
   <Movie name="Bumblebee" releaseDate="2018-12-15" />
-  <Movie
-    name="Fantastic Beasts: The Crimes of Grindelwald"
-    releaseDate="2018-11-14"
-  />
+  <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
 </>
-...
 ```
 
 Let's load these data from backend API instead.
@@ -447,17 +442,16 @@ To load data from backend API:
 
    class App extends React.Component {
      state = {
-         showMovies: false,
-         movies: [] // highlight-line
+       showMovies: false,
+       movies: [], // highlight-line
      };
 
-    // highlight-start
+     // highlight-start
      componentDidMount() {
-       loadMovies().then(movies => this.setState({ movies }));
+       loadMovies().then((movies) => this.setState({ movies }));
      }
      // highlight-end
-
-     ...
+   }
    ```
 
    - `componentDidMount` is one of the [React component lifecycle methods][react-docs-lifecycle-methods]. `componentDidMount` will be called immediately after a component is mounted (inserted into DOM).
@@ -468,29 +462,24 @@ To load data from backend API:
 
    ```jsx
    class App extends React.Component {
-     ...
-      render() {
-        return (
-          <div>
-            <div className="title-bar">
-              <h1>React Movie App</h1>
-            </div>
-            <div className="button-container">
-              <button onClick={this.toggleMovies} className="button">
-                {this.state.showMovies ? 'Hide' : 'Show'} Movies
-              </button>
-            </div>
-            {this.state.showMovies &&
-              this.state.movies.map(movie => (
-                <Movie
-                  name={movie.name}
-                  releaseDate={movie.releaseDate}
-                  key={movie.id}
-                />
-              ))}
-          </div>
-        );
-      }
+     render() {
+       return (
+         <div>
+           <div className="title-bar">
+             <h1>React Movie App</h1>
+           </div>
+           <div className="button-container">
+             <button onClick={this.toggleMovies} className="button">
+               {this.state.showMovies ? 'Hide' : 'Show'} Movies
+             </button>
+           </div>
+           {this.state.showMovies &&
+             this.state.movies.map((movie) => (
+               <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
+             ))}
+         </div>
+       );
+     }
    }
    ```
 

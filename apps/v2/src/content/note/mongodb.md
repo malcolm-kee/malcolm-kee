@@ -17,7 +17,7 @@ Aggregation in MongoDB works like Unix pipeline, one stage will pass to next sta
 
 We can map value using the syntax:
 
-```js
+```
 {$project: {
     "newFieldName": "$firstLevel.second_level"
 }}

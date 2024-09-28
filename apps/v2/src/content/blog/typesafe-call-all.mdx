@@ -36,15 +36,17 @@ It is commonly used in React when you want to wrap some component to have additi
 
 ```jsx
 // instead of this
-<input onChange={ev => {
+<input
+  onChange={(ev) => {
     if (props.onChange) {
-        props.onChange(ev);
+      props.onChange(ev);
     }
     onChangeValue(ev);
-}} />
+  }}
+/>;
 
 // we can do this!
-<input onChange={callAll(props.onChange, onChangeValue)} />
+<input onChange={callAll(props.onChange, onChangeValue)} />;
 ```
 
 Its implementation in javascript is pretty simple:

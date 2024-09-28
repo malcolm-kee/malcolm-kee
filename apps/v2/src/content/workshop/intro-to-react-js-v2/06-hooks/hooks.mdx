@@ -24,9 +24,8 @@ Let's assume the design of our app is to display "React Movie App" title and a "
 To achieve that, let's modify our `App` component to:
 
 ```jsx
-...
+// existing code
 import { Button } from './components/button';
-...
 
 function App() {
   const [moviesShown, setShowMovies] = React.useState(false);
@@ -36,13 +35,10 @@ function App() {
   if (moviesShown) {
     movies = (
       <React.Fragment>
-          <Movie name="Aquaman" releaseDate="2018-12-07" />
-          <Movie name="Bumblebee" releaseDate="2018-12-15" />
-          <Movie
-            name="Fantastic Beasts: The Crimes of Grindelwald"
-            releaseDate="2018-11-14"
-          />
-        </React.Fragment>
+        <Movie name="Aquaman" releaseDate="2018-12-07" />
+        <Movie name="Bumblebee" releaseDate="2018-12-15" />
+        <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
+      </React.Fragment>
     );
   }
 
@@ -52,9 +48,7 @@ function App() {
         <h1>React Movie App</h1>
       </TitleBar>
       <div className="button-container">
-        <Button onClick={() => setShowMovies(true)}>
-          Show Movies
-        </Button>
+        <Button onClick={() => setShowMovies(true)}>Show Movies</Button>
       </div>
       {movies}
     </div>
@@ -112,11 +106,9 @@ Our current hide-show functionality only allow us to show, but we can't hide it 
 Update the `Button` properties in `App` component:
 
 ```jsx
-...
-<Button onClick={() => setShowMovies(wasShown => !wasShown)}>
+<Button onClick={() => setShowMovies((wasShown) => !wasShown)}>
   {moviesShown ? 'Hide' : 'Show'} Movies
 </Button>
-...
 ```
 
 - There are two ways to call the `setState` function:
@@ -194,12 +186,10 @@ function App() {
   const [moviesShown, toggleShowMovies] = useToggle(false);
 
   return (
-    ...
-    <Button onClick={toggleShowMovies}>
-      {moviesShown ? 'Hide' : 'Show'} Movies
-    </Button>
-    ...
-  )
+    // existing code
+    <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
+    // existing code
+  );
 }
 ```
 
@@ -216,16 +206,13 @@ Commit: [`custom hook`](https://github.com/malcolm-kee/react-movie-app-v2/commit
 Currently our movies data are hardcoded in our `App`:
 
 ```jsx
-...
+// existing code
 <>
   <Movie name="Aquaman" releaseDate="2018-12-07" />
   <Movie name="Bumblebee" releaseDate="2018-12-15" />
-  <Movie
-    name="Fantastic Beasts: The Crimes of Grindelwald"
-    releaseDate="2018-11-14"
-  />
+  <Movie name="Fantastic Beasts: The Crimes of Grindelwald" releaseDate="2018-11-14" />
 </>
-...
+// existing code
 ```
 
 Let's load these data from backend API instead.
@@ -261,42 +248,35 @@ To load data from backend API:
 1.  add `useEffect` hook and another `useState` hook in `App` component as below:
 
     ```jsx
-    ...
+    // existing code
     import { loadMovies } from './api';
 
     function App() {
       const [moviesShown, toggleShowMovies] = useToggle(false);
       const [movies, setMovies] = React.useState([]);
       React.useEffect(() => {
-       loadMovies().then(movieData => {
-         setMovies(movieData);
-       })
+        loadMovies().then((movieData) => {
+          setMovies(movieData);
+        });
       }, []);
 
       return (
         <div>
-           <TitleBar>
-             <h1>React Movie App</h1>
-           </TitleBar>
-           <div className="button-container">
-             <Button onClick={toggleShowMovies}>
-               {moviesShown ? 'Hide' : 'Show'} Movies
-             </Button>
-           </div>
-           {moviesShown &&
-             movies.map(movie => (
-                 <Movie
-                   name={movie.name}
-                   releaseDate={movie.releaseDate}
-                   key={movie.id}
-                 />
-               ))
-           }
-         </div>
+          <TitleBar>
+            <h1>React Movie App</h1>
+          </TitleBar>
+          <div className="button-container">
+            <Button onClick={toggleShowMovies}>{moviesShown ? 'Hide' : 'Show'} Movies</Button>
+          </div>
+          {moviesShown &&
+            movies.map((movie) => (
+              <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
+            ))}
+        </div>
       );
     }
 
-    ...
+    // existing code
     ```
 
 We declare a state as `movies` with `useState` hook, which is an empty array by default.
