@@ -41,7 +41,7 @@ export const SandboxCodeViewer = ({ highlightedLines, ...props }: SandboxCodeVie
 
       codeMirror.update([
         codeMirror.state.update({
-          selection: EditorSelection.single(line.from),
+          selection: EditorSelection.single(line.from) as any,
           scrollIntoView: true,
         }),
       ]);

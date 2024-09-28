@@ -22,26 +22,18 @@ import * as React from 'react';
 import { BusyContainer } from './busy-container';
 import Movie from './movie';
 
-// highlight-start
-const loadCodeAndMovies = () =>
-  import('./api').then(({ loadMovies }) => loadMovies());
-// highlight-end
+const loadCodeAndMovies = () => import('./api').then(({ loadMovies }) => loadMovies()); // [!code highlight]
 
 class App extends React.Component {
   state = {
     showMovies: false,
     movies: [],
-    isLoading: true
+    isLoading: true,
   };
 
   componentDidMount() {
-    // highlight-next-line
-    loadCodeAndMovies().then(movies =>
-      this.setState({ movies, isLoading: false })
-    );
+    loadCodeAndMovies().then((movies) => this.setState({ movies, isLoading: false })); // [!code highlight]
   }
-
-  ...
 }
 
 export default App;
@@ -105,18 +97,12 @@ Let's lazy load our `Movie` components by modify `app.js`:
 import * as React from 'react';
 import { BusyContainer } from './busy-container';
 
-const Movie = React.lazy(() =>
-  import(/* webpackChunkName: "Movie" */ './movie')
-);
+const Movie = React.lazy(() => import(/* webpackChunkName: "Movie" */ './movie'));
 
 const loadCodeAndMovies = () =>
-  import(/* webpackChunkName: "api" */ './api').then(({ loadMovies }) =>
-    loadMovies()
-  );
+  import(/* webpackChunkName: "api" */ './api').then(({ loadMovies }) => loadMovies());
 
 class App extends React.Component {
-  ...
-
   render() {
     return (
       <div>
@@ -131,12 +117,8 @@ class App extends React.Component {
         {this.state.showMovies && (
           <React.Suspense fallback={<span>Loading Component...</span>}>
             <BusyContainer isLoading={this.state.isLoading}>
-              {this.state.movies.map(movie => (
-                <Movie
-                  name={movie.name}
-                  releaseDate={movie.releaseDate}
-                  key={movie.id}
-                />
+              {this.state.movies.map((movie) => (
+                <Movie name={movie.name} releaseDate={movie.releaseDate} key={movie.id} />
               ))}
             </BusyContainer>
           </React.Suspense>

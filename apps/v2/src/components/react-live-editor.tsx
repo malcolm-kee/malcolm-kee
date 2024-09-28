@@ -1,6 +1,6 @@
 import { includes } from '@mkee/helpers';
 import * as React from 'react';
-import { type SupportedLang } from './code-sandbox-helpers';
+import { type SupportedLang, supportedLangs } from './code-sandbox-helpers';
 
 const Sandbox = React.lazy(() => import('./code-sandbox'));
 
@@ -21,8 +21,7 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
 
   React.useEffect(() => {
     if (state.mode === 'mounted' && divRef.current) {
-      // only get light theme elements, as dark theme has similar content
-      const preElements = divRef.current.querySelectorAll('pre.github-light');
+      const preElements = divRef.current.querySelectorAll<HTMLPreElement>('pre.astro-code');
 
       const codeLines: Array<string> = [];
       const highlightedLines: Array<number> = [];
@@ -33,15 +32,14 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
       let language: SupportedLang | undefined;
 
       preElements.forEach((preEl) => {
-        const $languageId = preEl.querySelector('.language-id');
-        const $code = preEl.querySelector('.code-container code');
-        const currentLang = $languageId && getLang($languageId.textContent);
+        const $code = preEl.querySelector('code');
+        const currentLang = preEl.dataset.language;
 
-        if ($code && currentLang) {
+        if ($code && currentLang && includes(supportedLangs, currentLang)) {
           language = reduceLang(language, currentLang);
 
           if (includes(['js', 'jsx', 'ts', 'tsx'], currentLang)) {
-            const importString = preEl.getAttribute('data-code-imports');
+            const importString = $code.getAttribute('data-code-imports');
 
             if (importString) {
               importString.split(',').forEach((pkgName) => {
@@ -74,7 +72,7 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
           }
         }
 
-        if ($code && $languageId && isHtml($languageId.textContent)) {
+        if ($code && currentLang && isHtml(currentLang)) {
           $code.childNodes.forEach((child, childIndex) => {
             const content = child.textContent;
 
@@ -155,12 +153,6 @@ const reduceLang = (
   }
 
   return newLang === 'html' ? currentLang : newLang;
-};
-
-const getLang = (langText: string | null) => {
-  const lowerText = langText && langText.toLowerCase();
-
-  return lowerText && /(j|t)sx?|html/.test(lowerText) ? (lowerText as SupportedLang) : undefined;
 };
 
 const isHtml = (langText: string | null) => {

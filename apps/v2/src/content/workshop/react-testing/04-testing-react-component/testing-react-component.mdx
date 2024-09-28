@@ -126,7 +126,7 @@ test(`renders without props will show instantly`, () => {
 Now let's add a test to verify that is `delayShow` is provided, nothing will be shown in the beginning.
 
 ```jsx title="src/components/spinner.spec.jsx"
-...
+// ... other tests
 
 test(`renders with delay will show after wait`, () => {
   const { getByRole } = render(<Spinner delayShow={200} />);
@@ -142,7 +142,7 @@ This is because all `getBy*` queries will throw error if not elements match it, 
 Luckily, there are another set of queries that will not fail if no elements match, which starts with `queryBy*`. Let's replace our `getByRole` accordingly:
 
 ```jsx title="src/components/spinner.spec.jsx"
-...
+// ... other tests
 
 test(`renders with delay will show after wait`, () => {
   const { queryByRole } = render(<Spinner delayShow={200} />); // highlight-line
@@ -160,9 +160,10 @@ Fortunately (again!), there is (yet) another set of queries starts with `findBy*
 Let's use it in our test and change our test to an `async` function.
 
 ```jsx title="src/components/spinner.spec.jsx"
-...
+// ... other tests
 
-test(`renders with delay will show after wait`, async () => { // highlight-line
+test(`renders with delay will show after wait`, async () => {
+  // highlight-line
   const { queryByRole, findByRole } = render(<Spinner delayShow={200} />); // highlight-line
 
   expect(queryByRole('progressbar')).toBeNull();

@@ -92,9 +92,11 @@ We would like to lazy load our `Movie` component.
 1.  We need to export `Movie` component with `default export`
 
 ```js
-export const Movie = props => ();
+export const Movie = (props) => {
+  // existing code
+};
 
-export default Movie; // highlight-line
+export default Movie; // [!code highlight]
 ```
 
 2.  Modify `app.js`:
@@ -103,7 +105,7 @@ export default Movie; // highlight-line
 import * as React from 'react';
 import { BusyContainer } from './busy-container';
 
-const Movie = React.lazy(() => import('./components/movie')); // highlight-line
+const Movie = React.lazy(() => import('./components/movie')); // [!code highlight]
 
 function App() {
   return (
@@ -118,7 +120,6 @@ function App() {
           </div>
           {moviesShown && (
             <BusyContainer isLoading={isLoading}>
-              {/* highlight-next-line */}
               <React.Suspense fallback={<span className="spinner" />}>
                 {movies.map((movie) => (
                   <Movie
@@ -128,12 +129,10 @@ function App() {
                     key={movie.id}
                   />
                 ))}
-                {/* highlight-next-line */}
               </React.Suspense>
             </BusyContainer>
           )}
         </div>
-        ...
       </div>
     </div>
   );

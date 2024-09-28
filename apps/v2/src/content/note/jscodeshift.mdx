@@ -38,7 +38,7 @@ The transformer function is called once for each file that will be transformed. 
 
 Because there are few flavors of JavaScript with syntax difference between them, `jscodeshift` allows us to specify which parser should be used when parsing our source code by exporting a `parser` property.
 
-```js twoslash {9}
+```js twoslash
 module.exports = function transformer(fileInfo, api, options) {
   const source = fileInfo.source;
 
@@ -47,7 +47,7 @@ module.exports = function transformer(fileInfo, api, options) {
   return source; // return changed code
 };
 
-module.exports.parser = 'ts';
+module.exports.parser = 'ts'; // [!code highlight]
 ```
 
 The value of `parser` could be `babel`, `babylon`, `flow`, `ts`, or `tsx`.
@@ -62,13 +62,13 @@ When using `jscodeshift`, the main data structure that we you interact with most
 
 In the snippet below, we get a collection object that represent the source code, and return them.
 
-```js {1,5}
+```js
 module.exports = function transformer(fileInfo, { j }, options) {
-  const collection = j(fileInfo.source);
+  const collection = j(fileInfo.source); // [!code highlight]
 
   // change source code here
 
-  return collection.toSource(); // return changed code
+  return collection.toSource(); // return changed code // [!code highlight]
 };
 ```
 
@@ -100,13 +100,13 @@ Returns a new `Collection` object containing all the nodes in the collection tha
 
 Example:
 
-```js {5-11}
+```js
 module.exports = function transformer(fileInfo, { j }, options) {
   const collection = j(fileInfo.source);
 
   const allFunctionDeclarations = collection.filter(j.FunctionDeclaration);
 
-  // exclude function declaration with name specialFunction
+  // exclude function declaration with name specialFunction // [!code highlight:5]
   const filteredFunctionDeclarations = allFunctionDeclarations.filter((path) => {
     const { node } = path;
     return node.id.name !== 'specialFunction';
@@ -122,11 +122,11 @@ Invokes the given callback function for each node in the current collection.
 
 Example:
 
-```js {4-8}
+```js
 module.exports = function transformer(fileInfo, { j }, options) {
   const collection = j(fileInfo.source);
 
-  const allVariableDeclarations = collection.filter(j.VariableDeclaration);
+  const allVariableDeclarations = collection.filter(j.VariableDeclaration); // [!code highlight:6]
   // Log the name of each variable declaration in a file
   allVariableDeclarations.forEach((path) => {
     const { node } = path;
@@ -145,13 +145,13 @@ The callback function will be called with a Path object as its first parameter. 
 
 Example:
 
-```js {5-14}
+```js
 module.exports = function transformer(fileInfo, { j }, options) {
   const collection = j(fileInfo.source);
 
   const allFunctionDeclarations = collection.filter(j.FunctionDeclaration);
 
-  // Replace all function declarations with arrow function expressions
+  // Replace all function declarations with arrow function expressions // [!code highlight:7]
   allFunctionDeclarations.replaceWith((path) => {
     const { node } = path;
     return j.variableDeclaration('const', [

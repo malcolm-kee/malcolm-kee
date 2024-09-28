@@ -51,33 +51,33 @@ Take a `Profile` component that shows username and email address as an example:
 ```jsx
 import * as React from 'react';
 
-export const Profile = props => {
-    return (
-        <div>
-            <h1>{props.username}<h1>
-            <p>{props.email}</p>
-        </div>
-    );
+export const Profile = (props) => {
+  return (
+    <div>
+      <h1>{props.username}</h1>
+      <p>{props.email}</p>
+    </div>
+  );
 };
 ```
 
 Creating similar version in typescript with typing for the `props` would be:
 
-```ts
+```tsx
 import * as React from 'react';
 
 interface ProfileProps {
-    username: string;
-    email: string;
+  username: string;
+  email: string;
 }
 
-export const Profile: React.SFC<ProfileProps> = props => {
-    return (
-        <div>
-            <h1>{props.username}<h1>
-            <p>{props.email}</p>
-        </div>
-    );
+export const Profile = (props: ProfileProps) => {
+  return (
+    <div>
+      <h1>{props.username}</h1>
+      <p>{props.email}</p>
+    </div>
+  );
 };
 ```
 
@@ -90,35 +90,35 @@ Note that:
 Reusing the previous `Profile` example, but making it as Class Component:
 
 ```jsx
-export class Profile extends React.Component{
-    render() {
-        return (
-            <div>
-                <h1>{this.props.username}<h1>
-                <p>{this.props.email}</p>
-            </div>
-        );
-    }
+export class Profile extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>{this.props.username}</h1>
+        <p>{this.props.email}</p>
+      </div>
+    );
+  }
 }
 ```
 
 Typescript version:
 
-```ts
+```tsx
 interface ProfileProps {
-    username: string;
-    email: string;
+  username: string;
+  email: string;
 }
 
-export class Profile extends React.Component<ProfileProps>{
-    render() {
-        return (
-            <div>
-                <h1>{this.props.username}<h1>
-                <p>{this.props.email}</p>
-            </div>
-        );
-    }
+export class Profile extends React.Component<ProfileProps> {
+  render() {
+    return (
+      <div>
+        <h1>{this.props.username}</h1>
+        <p>{this.props.email}</p>
+      </div>
+    );
+  }
 }
 ```
 
@@ -152,7 +152,7 @@ export class Button extends React.Component {
 
 Including typing of the state in Typescript version:
 
-```ts
+```tsx
 interface ButtonState {
   on: boolean;
 }

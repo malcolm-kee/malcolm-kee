@@ -27,6 +27,7 @@ And here I present to you the custom hook: `useTransientState`.
 <LiveEditor>
 
 ```tsx twoslash
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 
@@ -68,7 +69,7 @@ createRoot(document.getElementById('root')!).render(<TemporaryMessage />);
 </LiveEditor>
 
 - `useCallback` hook is used because I want to make the return stateSetter callback identity is always the same, just like `useState`. As everyone using React hooks know `useState`, I want to make this custom hook to be like `useState` as much as possible.
-- The effect hook will be run everytime the state is changed. It will set up a timeout which will set the state back to `steadState`.
+- The effect hook will be run each time the state is changed. It will set up a timeout which will set the state back to `steadState`.
 
 ## Improvement
 
@@ -76,13 +77,14 @@ While writing this blog I realize there is a problem with the code above, which 
 
 You can reproduce this behavior if you click on the button above multiple times, and the message will auto hide 1 seconds after the first time you click it. This is because the effect hooks will not rerun if `state`, `steadyState`, and `restorationTime` is unchanged.
 
-This may or may not be what you want, but for me it's unintuitive. The more intuitive behavior would be the timeout will be reset everytime the `setTemporaryState` callback is invoked.
+This may or may not be what you want, but for me it's unintuitive. The more intuitive behavior would be the timeout will be reset each time the `setTemporaryState` callback is invoked.
 
-To have that reset timeout behavior, we can create another state to make sure the effect is run everytime `setTemporaryState` is invoked.
+To have that reset timeout behavior, we can create another state to make sure the effect is run each time `setTemporaryState` is invoked.
 
 <LiveEditor>
 
-```tsx twoslash {9,15,28}
+```tsx twoslash
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 
@@ -91,11 +93,11 @@ const useTransientState = <StateValue extends unknown>(
   restorationTime = 2000
 ) => {
   const [state, setState] = React.useState(steadyState);
-  const [calledTimes, setCallTimes] = React.useState(0);
+  const [calledTimes, setCallTimes] = React.useState(0); // [!code highlight]
 
   const setTemporaryState = React.useCallback(function setTemporaryState(newValue: StateValue) {
     setState(newValue);
-    setCallTimes((t) => t + 1);
+    setCallTimes((t) => t + 1); // [!code highlight]
   }, []);
 
   React.useEffect(() => {
@@ -104,7 +106,7 @@ const useTransientState = <StateValue extends unknown>(
 
       return () => clearTimeout(timeoutId);
     }
-  }, [state, steadyState, restorationTime, calledTimes]);
+  }, [state, steadyState, restorationTime, calledTimes]); // [!code highlight]
 
   return [state, setTemporaryState] as const;
 };

@@ -35,7 +35,8 @@ Now looking at `index.js` file:
 ```js title="src/index.js"
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-...
+
+// other code
 ```
 
 - the two `import` statements states that this file depends on the two packages, `react` and `react-dom`. When the tools see the statement above, it will look into the `node_modules` folder for `react` and `react-dom`, which you should be able to see.
@@ -102,23 +103,35 @@ The code should still works as before.
 
 - Our code is now split into smaller modules and the dependencies of each code is clearer while still produce a single bundled output.
 - There are two ways to use `export`:
+
   1.  named export: we expose to code with a specific name. When other module import it, they need to use the name, e.g. Movie component.
+
       ```js
-      // movie.js
-      export const Movie = props =>
-      ...
+      // components/movie.js
+      export const Movie = (props) => {
+        // implementation
+      };
+      ```
+
+      ```js
       // app.js
       import { Movie } from './components/movie';
       ```
+
   1.  default export: we expose to code without a specific name. When other module import it, they can name it as they wish, e.g. App component.
+
       ```js
       // app.js
       export default App;
-      ...
+      ```
+
+      ```js
       // index.js
       import App from './app';
       ```
+
   1.  Personally in my own project I always use named export (except due to limitation of library/tools, e.g. `React.lazy` only support default export), because I doesn't like to juggle between two syntax and named export works better for VS Code Intellisense. People use both out there, so you need to know both.
+
 - It is common practice to have a `components` folder which consists of reusable UI components without business logic.
 - Even though it's still not common practice in React projects, but I recommend to keep your file as [kebab-case], consistent with Angular CLI defaults. This is because file resolution in Windows are case-insensitive, while in Unix is case-sensitive. When you mistype file name, it would works in Windows but breaks in Unix, so better to avoid that possibility with kebab-case convention.
 

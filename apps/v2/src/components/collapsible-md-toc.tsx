@@ -1,4 +1,4 @@
-import { Disclosure } from '@headlessui/react';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import type { MarkdownHeading } from 'astro';
 import { clsx } from 'clsx';
 import * as React from 'react';
@@ -33,7 +33,7 @@ export const CollapsibleMdToc = (props: {
             )}
           />
           <div className="relative">
-            <Disclosure.Button className="group/toggle flex w-full">
+            <DisclosureButton className="group/toggle flex w-full">
               <span
                 className={clsx(
                   'flex-1 sm:flex-initial sm:ui-open:flex-1',
@@ -88,7 +88,7 @@ export const CollapsibleMdToc = (props: {
                   </span>
                 </span>
               </span>
-            </Disclosure.Button>
+            </DisclosureButton>
           </div>
           <AnimateHeight
             height={open ? 'auto' : 0}
@@ -96,7 +96,7 @@ export const CollapsibleMdToc = (props: {
             easing={open ? 'ease' : 'cubic-bezier(0.33, 1, 0.68, 1)'}
             className="relative"
           >
-            <Disclosure.Panel static>
+            <DisclosurePanel static>
               <ol className="flex flex-col gap-4 py-3 px-7">
                 {props.headings.map((h, index) => {
                   const indent = Math.max(0, h.depth - 2);
@@ -128,7 +128,7 @@ export const CollapsibleMdToc = (props: {
                   );
                 })}
               </ol>
-            </Disclosure.Panel>
+            </DisclosurePanel>
           </AnimateHeight>
         </>
       )}

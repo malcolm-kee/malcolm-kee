@@ -159,7 +159,8 @@ let updatedDetails: PersonDetails = {
 
 Note that we have duplicated the address type in two places. We can remove that duplication by creating a type for the address:
 
-```ts twoslash {1-5,9,21}
+```ts twoslash
+// [!code highlight:6]
 type Address = {
   unit: string;
   streetOrBuilding: string;
@@ -168,7 +169,7 @@ type Address = {
 
 type PersonDetails = {
   name: string;
-  address: Address;
+  address: Address; // [!code highlight]
 };
 
 let oldDetails: PersonDetails = {
@@ -179,7 +180,7 @@ let oldDetails: PersonDetails = {
     street: 'Jalan',
   },
 };
-
+// [!code highlight:2]
 let newAddress: Address = {
   unit: '13A',
   streetOrBuilding: 'Bangunan Duta',
@@ -196,7 +197,7 @@ However, sometimes this is not possible because you don't have control over type
 
 The solution is to extract the type of the property like this:
 
-```ts twoslash {19}
+```ts
 type PersonDetails = {
   name: string;
   address: {
@@ -214,7 +215,7 @@ let oldDetails: PersonDetails = {
     street: 'Jalan',
   },
 };
-
+// [!code highlight:2]
 let newAddress: PersonDetails['address'] = {
   unit: '13A',
   streetOrBuilding: 'Bangunan Duta',
@@ -326,10 +327,10 @@ console.log(profileImage.src); // Error because `src` property may not be there
 
 If we really sure that the `document.querySelector` call returns an image, we can make a type assertion to tell TypeScript:
 
-```ts twoslash {3}
+```ts twoslash
 const profileImage = document.querySelector('#profile');
 
-console.log((profileImage as HTMLImageElement).src);
+console.log((profileImage as HTMLImageElement).src); // [!code highlight]
 ```
 
 Note that type assertion does nothing in runtime; if the `document.querySelector` calls above returns a `div` instead of a `img`, the call could cause error.

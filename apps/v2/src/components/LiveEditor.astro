@@ -18,6 +18,10 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
     --code-max-height: var(--codeMaxHeight);
   }
 
+  [data-editor-code] :global(pre) {
+    margin: 0;
+  }
+
   @keyframes highlight-icon {
     50% {
       color: theme('colors.primary.400');
@@ -108,10 +112,15 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
     const langBySnippet = new WeakMap<HTMLPreElement, string>();
 
     allCodeSnippetElements.forEach((codeSnippetElement) => {
-      const languageIdElement = codeSnippetElement.querySelector('.language-id');
-      const language = languageIdElement && languageIdElement.textContent;
+      const language = codeSnippetElement.dataset.language;
       if (language) {
         langBySnippet.set(codeSnippetElement, language);
+
+        const $language = document.createElement('span');
+        $language.className = 'absolute text-xs top-1 right-1 text-[--code-text-color] opacity-60';
+        $language.textContent = language;
+
+        codeSnippetElement.appendChild($language);
       }
     });
 

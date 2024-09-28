@@ -1,13 +1,14 @@
 import type { Element, Properties, Root } from 'hast';
 import type { Transformer } from 'unified';
 import { visit } from 'unist-util-visit';
-import {
-  getCloudinaryHelpers,
-  getCloudinaryImageInfo,
-} from '../src/lib/cloudinary';
+import { getCloudinaryHelpers, getCloudinaryImageInfo } from '../src/lib/cloudinary';
 
 type ImageElement = Element & { properties: Properties };
 
+/**
+ * Enhance image element with width and height info
+ * if image is hosted on cloudinary
+ */
 export const rehypeCloudinaryImageEnhance = (options: {
   cloudinaryUsername: string;
 }): Transformer<Root> => {
@@ -22,11 +23,7 @@ export const rehypeCloudinaryImageEnhance = (options: {
       if (element.tagName === 'img' && element.properties) {
         const imageSrc = element.properties.src;
         const isCloudinaryImage = checkIsCloudinaryImage(imageSrc);
-        if (
-          isCloudinaryImage &&
-          !element.properties.height &&
-          !element.properties.width
-        ) {
+        if (isCloudinaryImage && !element.properties.height && !element.properties.width) {
           imageElements.push(element as ImageElement);
         }
       }

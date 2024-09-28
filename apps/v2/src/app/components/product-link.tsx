@@ -14,7 +14,6 @@ export const ProductLink = ({ data }: { data: Product }) => {
       onClick={() => {
         navigateProduct(data._id);
         if (imageRef.current) {
-          // @ts-expect-error
           imageRef.current.style.viewTransitionName = `product-${data._id}`;
         }
       }}
