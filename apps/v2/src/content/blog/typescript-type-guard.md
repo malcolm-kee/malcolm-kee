@@ -1,9 +1,13 @@
 ---
-title: 'Using Typescript Type Guard to Narrow Down Type'
+title: 'Using TypeScript Type Guard to Narrow Down Type'
 pubDate: 26 Nov 2018
 description: 'Using custom type guard allow us to create reusable checking that narrow down the type of a variable'
 topics:
   - typescript
+---
+
+**_Update: This article is outdated. With the introduction of [inferred type predicate in TypeScript 5.5](https://devblogs.microsoft.com/typescript/announcing-typescript-5-5/#inferred-type-predicates), TypeScript can correctly infer the type predicate without us needing to explicitly type it._**
+
 ---
 
 Typescript is aware of usage of the Javascript `instanceof` and `typeof` operators, and will narrow down the type accordingly when you use those operators in conditional block.
@@ -25,9 +29,7 @@ Usually, those typechecking are used frequently, and you may want to create some
 
 ```ts twoslash
 // @errors: 2339
-function isString(value: any) {
-  return typeof value === 'string';
-}
+const isString = (value: any) => typeof value === 'string';
 
 function doSomething(x: number | string) {
   if (isString(x)) {

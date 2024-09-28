@@ -1,8 +1,9 @@
 ---
+import '@shikijs/twoslash/style-rich.css';
 import type { GetStaticPaths, GetStaticPathsItem } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseHead from '~/components/BaseHead.astro';
-import '~/components/shiki.css';
+import '~/components/shiki-v2.css';
 import WorkshopContent from '~/components/workshop/WorkshopContent.astro';
 import WorkshopLayout from '~/components/workshop/WorkshopLayout.astro';
 import type { WorkshopMetadata } from '~/data/workshop-data';

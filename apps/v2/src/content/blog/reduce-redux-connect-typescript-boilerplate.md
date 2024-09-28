@@ -47,9 +47,12 @@ export const TodoItem = connect(mapStatesToProps, mapDispatchToProps)(TodoItemVi
 
 And that's a pain-in-the-ass, as your selectors and actions are already properly typed, now you need to duplicate it. In addition, everytime you want to inject a new props/new actions, you need to update both the typing and the mapProps function.
 
-Recently, I've stumble upon `ReturnType` in Typescript, and that's the solution to fix the boiletplate:
+Recently, I've stumble upon `ReturnType` in Typescript, and that's the solution to fix the boilerplate:
 
-```tsx twoslash {24-26}
+<!-- prettier-ignore-start -->
+
+```tsx twoslash
+import * as React from 'react';
 import { connect } from 'react-redux';
 import type { Dispatch } from 'redux';
 
@@ -73,10 +76,8 @@ interface ParentProps {
 }
 
 const TodoItemView = (
-  props: ParentProps &
-    // ^?
-    ReturnType<typeof mapStatesToProps> &
-    ReturnType<typeof mapDispatchToProps>
+   props: ParentProps & ReturnType<typeof mapStatesToProps> & ReturnType<typeof mapDispatchToProps> // [!code highlight]
+// ^^^^^
 ) => {
   return <div>...</div>;
 };
@@ -93,6 +94,8 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: ParentProps) => ({
 export const TodoItem = connect(mapStatesToProps, mapDispatchToProps)(TodoItemView);
 ```
 
+<!-- prettier-ignore-end -->
+
 Now you doesn't need to type `StoreProps` and `DispatchProps` manually, Typescript will infer them from your selectors and actions.
 
 ## Update on 26th Jan 2020
@@ -101,8 +104,11 @@ I've learnt recently that `react-redux` actually exports a `ConnectedProps` type
 
 Final version:
 
-```tsx twoslash {1,24,25,39,41}
-import { connect, ConnectedProps } from 'react-redux';
+<!-- prettier-ignore-start -->
+
+```tsx twoslash
+import * as React from 'react';
+import { connect, ConnectedProps } from 'react-redux'; // [!code highlight]
 import type { Dispatch } from 'redux';
 
 type TodoStatus = 'not_started' | 'in_progress' | 'done';
@@ -125,9 +131,8 @@ interface ParentProps {
 }
 
 const TodoItemView = (
-  props: ParentProps &
-    // ^?
-    ConnectedProps<typeof connector>
+   props: ParentProps & ConnectedProps<typeof connector> // [!code highlight]
+// ^^^^^
 ) => {
   return <div>...</div>;
 };
@@ -141,7 +146,9 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: ParentProps) => ({
   toggle: () => dispatch(toggleTodo(ownProps.id)),
 });
 
-const connector = connect(mapStatesToProps, mapDispatchToProps);
+const connector = connect(mapStatesToProps, mapDispatchToProps); // [!code highlight]
 
-export const TodoItem = connector(TodoItemView);
+export const TodoItem = connector(TodoItemView); // [!code highlight]
 ```
+
+<!-- prettier-ignore-end -->

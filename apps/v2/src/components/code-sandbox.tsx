@@ -4,7 +4,7 @@ import {
   SandpackProvider,
   type SandpackTheme,
 } from '@codesandbox/sandpack-react';
-import { githubLight, nightOwl } from '@codesandbox/sandpack-themes';
+import { githubLight as oriGithubLight, nightOwl } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { useThemeValue } from '~/hooks/use-theme';
@@ -15,6 +15,14 @@ import { SandboxCodeViewer } from './sandbox-code-viewer';
 import { SandBoxConsole } from './sandbox-console';
 
 const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
+
+const githubLight: typeof oriGithubLight = {
+  ...oriGithubLight,
+  syntax: {
+    ...oriGithubLight.syntax,
+    property: '#6F42C1', // make it consistent with shiki
+  },
+};
 
 export interface SandboxProps {
   lang: SupportedLang;
@@ -44,7 +52,7 @@ export default function Sandbox(props: SandboxProps) {
       ...defaultTheme,
       font: {
         ...defaultTheme.font,
-        size: '0.875em',
+        size: '14px',
         lineHeight: '1.7142857',
       },
     };
@@ -55,36 +63,45 @@ export default function Sandbox(props: SandboxProps) {
   );
 
   const editorContainerRef = React.useRef<HTMLDivElement>(null);
+  const onEditorLoaded = React.useCallback(() => {
+    if (editorContainerRef.current) {
+      editorContainerRef.current.dispatchEvent(new CustomEvent(editorLoadedEvent));
+    }
+    setEditorLoaded(true);
+  }, []);
 
   React.useEffect(() => {
     if (editorContainerRef.current && !editorLoaded) {
-      const observer = new MutationObserver((mutationList) => {
-        for (const mutation of mutationList) {
-          if (mutation.type === 'childList') {
-            if (mutation.addedNodes.length > 0) {
-              for (const node of mutation.addedNodes) {
-                if (node instanceof HTMLElement && node.classList.contains('cm-editor')) {
-                  if (editorContainerRef.current) {
-                    editorContainerRef.current.dispatchEvent(new CustomEvent(editorLoadedEvent));
+      const sandboxEditor = editorContainerRef.current.querySelector('.sp-code-editor');
+
+      if (sandboxEditor) {
+        onEditorLoaded();
+      } else {
+        const observer = new MutationObserver((mutationList) => {
+          for (const mutation of mutationList) {
+            if (mutation.type === 'childList') {
+              if (mutation.addedNodes.length > 0) {
+                for (const node of mutation.addedNodes) {
+                  if (node instanceof HTMLElement && node.classList.contains('sp-code-editor')) {
+                    onEditorLoaded();
+
+                    observer.disconnect();
+
+                    return;
                   }
-                  setEditorLoaded(true);
-
-                  observer.disconnect();
-
-                  return;
                 }
               }
             }
           }
-        }
-      });
+        });
 
-      observer.observe(editorContainerRef.current, {
-        childList: true,
-        subtree: true,
-      });
+        observer.observe(editorContainerRef.current, {
+          childList: true,
+          subtree: true,
+        });
 
-      return () => observer.disconnect();
+        return () => observer.disconnect();
+      }
     }
   }, []);
 

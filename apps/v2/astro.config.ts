@@ -1,17 +1,23 @@
-import { rehypeHeadingIds, type RemarkPlugin } from '@astrojs/markdown-remark';
+import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import {
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+} from '@shikijs/transformers';
+import { transformerTwoslash } from '@shikijs/twoslash';
 import robotsTxt from 'astro-robots-txt';
 import webmanifest from 'astro-webmanifest';
 import { defineConfig } from 'astro/config';
 import { s } from 'hastscript';
 import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
-import remarkShikiTwoSlash from 'remark-shiki-twoslash';
-import { rehypeCodeImportPlugin, remarkCodeImportPlugin } from './plugin/code-import-plugins';
+import { codeImportTransformer } from './plugin/code-import-plugins';
 import { depsExtraction } from './plugin/deps-extraction';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 
@@ -64,18 +70,23 @@ export default defineConfig({
     port: 8989,
   },
   markdown: {
-    remarkPlugins: [
-      remarkCodeImportPlugin,
-      [
-        // @ts-expect-error
-        remarkShikiTwoSlash as RemarkPlugin,
-        {
-          themes: ['github-light', 'github-dark'],
-        },
+    shikiConfig: {
+      transformers: [
+        transformerTwoslash({
+          explicitTrigger: true,
+        }),
+        transformerMetaHighlight(),
+        transformerMetaWordHighlight(),
+        transformerNotationHighlight(),
+        transformerNotationWordHighlight(),
+        await codeImportTransformer(),
       ],
-    ],
+      themes: {
+        light: 'github-light',
+        dark: 'night-owl',
+      },
+    },
     rehypePlugins: [
-      rehypeCodeImportPlugin,
       [
         rehypeCloudinaryImageEnhance,
         {
@@ -121,7 +132,6 @@ export default defineConfig({
         } satisfies Options,
       ],
     ],
-    syntaxHighlight: false,
   },
   experimental: {},
 });
