@@ -74,10 +74,11 @@ export default defineConfig({
       transformers: [
         transformerTwoslash({
           explicitTrigger: true,
+          // TODO: research how to create react renderer for twoslash
         }),
         transformerMetaHighlight(),
         transformerMetaWordHighlight(),
-        transformerNotationHighlight(),
+        transformerNotationHighlight(), // TODO: check why this transformer is not working
         transformerNotationWordHighlight(),
         await codeImportTransformer(),
       ],
