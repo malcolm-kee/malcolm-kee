@@ -247,7 +247,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
             // the editor is initialized lazily, so we force it to initialize by
             // showing it then hide again, and to reduce UI jank we set it a low
             // opacity during this process
-            // currentEditorElement.style.setProperty('opacity', '0.01');
+            currentEditorElement.style.setProperty('opacity', '0.01');
             showLiveEditor();
 
             function onEditorLoaded() {
