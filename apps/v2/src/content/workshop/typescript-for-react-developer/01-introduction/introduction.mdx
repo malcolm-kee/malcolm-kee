@@ -90,8 +90,8 @@ Using TypeScript, we can document our code explicitly, like below. (Don't worry 
 <LiveEditor>
 
 ```ts
-const append = <T,>(array: T[], item: T): T[] => array.concat(item);
-const excludeUndefined = <T,>(array: Array<T | undefined>): T[] =>
+const append = <T>(array: T[], item: T): T[] => array.concat(item);
+const excludeUndefined = <T>(array: Array<T | undefined>): T[] =>
   array.filter((item) => typeof item !== 'undefined');
 
 const newList = append([1, 2, undefined, 6], undefined);

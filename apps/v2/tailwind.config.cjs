@@ -50,6 +50,7 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
     require('@headlessui/tailwindcss'),
+    require('tailwindcss-animate'),
     plugin(function ({ addVariant, matchVariant, addUtilities, matchUtilities, theme }) {
       addVariant('online', ':root[data-online="true"] &');
       addVariant('offline', ':root[data-online="false"] &');

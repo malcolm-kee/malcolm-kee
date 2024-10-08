@@ -64,6 +64,7 @@ const editorOptions = {
   minimap: {
     enabled: false,
   },
-};
+  lineNumbers: 'off',
+} satisfies React.ComponentPropsWithoutRef<typeof Editor>['options'];
 
 export default MonacoEditor;

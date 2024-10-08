@@ -177,7 +177,7 @@ export default function Sandbox(props: SandboxProps) {
             showTabs={hasUi}
           />
         ) : (
-          <SandpackCodeEditor style={editorStyle} showTabs={hasUi} showLineNumbers />
+          <SandpackCodeEditor style={editorStyle} showTabs={hasUi} />
         )}
       </div>
       <SandBoxConsole />

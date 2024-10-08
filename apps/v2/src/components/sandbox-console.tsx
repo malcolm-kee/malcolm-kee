@@ -26,12 +26,12 @@ export const SandBoxConsole = () => {
 
   return (
     <div className="not-prose" ref={rootRef}>
-      {logs.length > 0 && (
-        <div className="flex justify-between items-center px-3 py-1 text-gray-700 dark:text-zinc-100">
-          <div className="inline-flex items-center gap-2">
-            <MiniTerminalIcon className="w-5 h-5 text-gray-400" />
-            <span className="text-xs font-techie tracking-widest">CONSOLE</span>
-          </div>
+      <div className="flex justify-between items-center px-3 py-1 text-gray-700 dark:text-zinc-100">
+        <div className="inline-flex items-center gap-2">
+          <MiniTerminalIcon className="w-5 h-5 text-gray-400" />
+          <span className="text-xs font-techie tracking-widest">CONSOLE</span>
+        </div>
+        {logs.length > 0 && (
           <button
             onClick={() => reset()}
             type="button"
@@ -41,11 +41,11 @@ export const SandBoxConsole = () => {
           >
             <MiniNoSymbolIcon />
           </button>
-        </div>
-      )}
+        )}
+      </div>
       <div role="log">
         <ul
-          className="flex flex-col bg-zinc-800 text-white max-h-[40vh] overflow-y-auto"
+          className="flex flex-col bg-zinc-800 text-white max-h-[40vh] overflow-y-auto min-h-[29px]"
           ref={parent}
           data-element="log-list"
         >
