@@ -10,42 +10,55 @@ export const SandBoxConsole = () => {
     resetOnPreviewRestart: true,
   });
 
+  const logsCount = logs.length;
+
+  const [shown, setShown] = React.useState(() => logsCount > 0);
+
   const rootRef = React.useRef<HTMLDivElement>(null); // we use root ref and then query as I not sure how to merge with auto-animate properly
 
   React.useEffect(() => {
-    if (logs.length > 0 && rootRef.current) {
-      const listElement = rootRef.current.querySelector('[data-element="log-list"]');
+    if (logsCount > 0) {
+      setShown(true);
 
-      if (listElement) {
-        listElement.scrollTop = listElement.scrollHeight;
+      if (rootRef.current) {
+        const listElement = rootRef.current.querySelector('[data-element="log-list"]');
+
+        if (listElement) {
+          listElement.scrollTop = listElement.scrollHeight;
+        }
       }
     }
-  }, [logs.length]);
+  }, [logsCount]);
 
   const [parent] = useAutoAnimate<HTMLUListElement>();
 
   return (
     <div className="not-prose" ref={rootRef}>
-      <div className="flex justify-between items-center px-3 py-1 text-gray-700 dark:text-zinc-100">
-        <div className="inline-flex items-center gap-2">
-          <MiniTerminalIcon className="w-5 h-5 text-gray-400" />
-          <span className="text-xs font-techie tracking-widest">CONSOLE</span>
+      {(shown || logsCount > 0) && (
+        <div className="flex justify-between items-center px-3 py-1 text-gray-700 dark:text-zinc-100">
+          <div className="inline-flex items-center gap-2">
+            <MiniTerminalIcon className="w-5 h-5 text-gray-400" />
+            <span className="text-xs font-techie tracking-widest">CONSOLE</span>
+          </div>
+          {logsCount > 0 && (
+            <button
+              onClick={() => reset()}
+              type="button"
+              className="text-gray-500 hover:text-gray-700 dark:text-zinc-400 dark:hover:text-zinc-500"
+              aria-label="Clear"
+              title="Clear"
+            >
+              <MiniNoSymbolIcon />
+            </button>
+          )}
         </div>
-        {logs.length > 0 && (
-          <button
-            onClick={() => reset()}
-            type="button"
-            className="text-gray-500 hover:text-gray-700 dark:text-zinc-400 dark:hover:text-zinc-500"
-            aria-label="Clear"
-            title="Clear"
-          >
-            <MiniNoSymbolIcon />
-          </button>
-        )}
-      </div>
+      )}
       <div role="log">
         <ul
-          className="flex flex-col bg-zinc-800 text-white max-h-[40vh] overflow-y-auto min-h-[29px]"
+          className={clsx(
+            'flex flex-col bg-zinc-800 text-white max-h-[40vh] overflow-y-auto',
+            shown && 'min-h-[29px]'
+          )}
           ref={parent}
           data-element="log-list"
         >
