@@ -22,91 +22,8 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
   React.useEffect(() => {
     if (state.mode === 'mounted' && divRef.current) {
       const preElements = divRef.current.querySelectorAll<HTMLPreElement>('pre.astro-code');
-
-      const codeLines: Array<string> = [];
-      const highlightedLines: Array<number> = [];
-      const htmlCodeLines: Array<string> = [];
-      const highlightedHtmlLines: Array<number> = [];
-      const dependencies: Record<string, string> = {};
-
-      let language: SupportedLang | undefined;
-
-      preElements.forEach((preEl) => {
-        const $code = preEl.querySelector('code');
-        const currentLang = preEl.dataset.language;
-
-        if ($code && currentLang && includes(supportedLangs, currentLang)) {
-          language = reduceLang(language, currentLang);
-
-          if (includes(['js', 'jsx', 'ts', 'tsx'], currentLang)) {
-            const importString = $code.getAttribute('data-code-imports');
-
-            if (importString) {
-              importString.split(',').forEach((pkgName) => {
-                dependencies[pkgName] = 'latest';
-              });
-            }
-
-            $code.childNodes.forEach((child, childIndex) => {
-              if (child instanceof HTMLElement) {
-                if (child.classList.contains('line')) {
-                  const content = child.textContent;
-                  if (content != null) {
-                    codeLines.push(whiteSpacePattern.test(content) ? '' : content);
-                    if (child.classList.contains('highlight')) {
-                      highlightedLines.push(childIndex);
-                    }
-                  }
-                }
-              }
-            });
-
-            if ((currentLang === 'jsx' || currentLang === 'tsx') && !dependencies.react) {
-              codeLines.unshift(`import * as React from 'react';`);
-            }
-          }
-
-          // add a new line at end if not there
-          if (codeLines[codeLines.length - 1]) {
-            codeLines.push('');
-          }
-        }
-
-        if ($code && currentLang && isHtml(currentLang)) {
-          $code.childNodes.forEach((child, childIndex) => {
-            const content = child.textContent;
-
-            if (content != null) {
-              htmlCodeLines.push(whiteSpacePattern.test(content) ? '' : content);
-
-              if (child instanceof HTMLElement && child.classList.contains('highlight')) {
-                highlightedHtmlLines.push(childIndex);
-              }
-            }
-          });
-        }
-      });
-
-      if (language === 'html' && codeLines.length === 0) {
-        codeLines.push(...htmlCodeLines);
-        highlightedLines.push(...highlightedHtmlLines);
-      }
-
-      if (codeLines.length > 0 && language) {
-        setState({
-          mode: 'ready',
-          code: codeLines.join('\r\n'),
-          highlightedLines,
-          language,
-          html:
-            htmlCodeLines.length > 0
-              ? { content: htmlCodeLines.join('\r\n'), highlightedLines: highlightedHtmlLines }
-              : undefined,
-          dependencies,
-        });
-      } else {
-        setState({ mode: 'error' });
-      }
+      const result = processPreElements(preElements);
+      setState(result);
     }
   }, [state]);
 
@@ -130,6 +47,93 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
       <p>Failed to load code editor.</p>
     </div>
   ) : null;
+}
+
+function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditorState {
+  const codeLines: Array<string> = [];
+  const highlightedLines: Array<number> = [];
+  const htmlCodeLines: Array<string> = [];
+  const highlightedHtmlLines: Array<number> = [];
+  const dependencies: Record<string, string> = {};
+
+  let language: SupportedLang | undefined;
+
+  preElements.forEach((preEl) => {
+    const $code = preEl.querySelector('code');
+    const currentLang = preEl.dataset.language;
+
+    if ($code && currentLang && includes(supportedLangs, currentLang)) {
+      language = reduceLang(language, currentLang);
+
+      if (includes(['js', 'jsx', 'ts', 'tsx'], currentLang)) {
+        const importString = $code.getAttribute('data-code-imports');
+
+        if (importString) {
+          importString.split(',').forEach((pkgName) => {
+            dependencies[pkgName] = 'latest';
+          });
+        }
+
+        $code.childNodes.forEach((child, childIndex) => {
+          if (child instanceof HTMLElement) {
+            if (child.classList.contains('line')) {
+              const content = child.textContent;
+              if (content != null) {
+                codeLines.push(whiteSpacePattern.test(content) ? '' : content);
+                if (child.classList.contains('highlight')) {
+                  highlightedLines.push(childIndex);
+                }
+              }
+            }
+          }
+        });
+
+        if ((currentLang === 'jsx' || currentLang === 'tsx') && !dependencies.react) {
+          codeLines.unshift(`import * as React from 'react';`);
+        }
+      }
+
+      // add a new line at end if not there
+      if (codeLines[codeLines.length - 1]) {
+        codeLines.push('');
+      }
+    }
+
+    if ($code && currentLang && isHtml(currentLang)) {
+      $code.childNodes.forEach((child, childIndex) => {
+        const content = child.textContent;
+
+        if (content != null) {
+          htmlCodeLines.push(whiteSpacePattern.test(content) ? '' : content);
+
+          if (child instanceof HTMLElement && child.classList.contains('highlight')) {
+            highlightedHtmlLines.push(childIndex);
+          }
+        }
+      });
+    }
+  });
+
+  if (language === 'html' && codeLines.length === 0) {
+    codeLines.push(...htmlCodeLines);
+    highlightedLines.push(...highlightedHtmlLines);
+  }
+
+  if (codeLines.length > 0 && language) {
+    return {
+      mode: 'ready',
+      code: codeLines.join('\r\n'),
+      highlightedLines,
+      language,
+      html:
+        htmlCodeLines.length > 0
+          ? { content: htmlCodeLines.join('\r\n'), highlightedLines: highlightedHtmlLines }
+          : undefined,
+      dependencies,
+    };
+  } else {
+    return { mode: 'error' };
+  }
 }
 
 const reduceLang = (

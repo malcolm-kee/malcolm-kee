@@ -38,11 +38,15 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
   data-autoplay={autoPlay && 'true'}
   data-readonly={readOnly && 'true'}
 >
-  <div class="flex justify-between items-center px-2 py-1 offline:hidden">
+  <div class="flex justify-between items-center px-4 py-1 offline:hidden">
     <span class="inline-flex items-center gap-2">
       <span class="font-techie text-sm uppercase font-medium tracking-widest" data-editor-mode
       ></span>
-      <span class="relative h-2 w-2 hidden" aria-hidden data-running-indicator>
+      <span
+        class="relative h-2 w-2 animate-in duration-500 delay-200 fade-in fill-mode-both hidden"
+        aria-hidden
+        data-running-indicator
+      >
         <span class="animate-ping absolute h-full w-full bg-primary-400 opacity-50 rounded-full"
         ></span>
         <span class="relative block w-2 h-2 bg-primary-500 rounded-full"></span>
@@ -174,7 +178,8 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
 
         cancelButtonElement.classList.remove('hidden');
         modeElement.textContent = editorSectionElement.dataset.readonly ? 'Running' : 'Editing';
-        runningIndicator.style.display = 'block';
+        modeElement.classList.add('animate-in', 'duration-1000', 'fade-in');
+        runningIndicator.classList.remove('hidden');
 
         const codeStyle = window.getComputedStyle(codeElement);
         const codeHeight = codeStyle.getPropertyValue('height');
@@ -187,7 +192,8 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         cancelButtonElement.classList.add('hidden');
         editButtonElement.classList.remove('hidden');
         modeElement.textContent = null;
-        runningIndicator.style.display = 'none';
+        modeElement.classList.remove('animate-in', 'duration-1000', 'fade-in');
+        runningIndicator.classList.add('hidden');
 
         currentEditorElement.classList.add('hidden');
         codeElement.classList.remove('hidden');
@@ -200,6 +206,22 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         duration: 250,
       };
 
+      const getEditorTextbox = (): HTMLElement | null => {
+        const possibleTextBoxes = currentEditorElement.querySelectorAll(
+          '.sp-code-editor, .monaco-editor'
+        );
+
+        for (let index = 0; index < possibleTextBoxes.length; index++) {
+          const element = possibleTextBoxes[index];
+
+          if (element instanceof HTMLElement && isVisible(element)) {
+            return element;
+          }
+        }
+
+        return null;
+      };
+
       const showLiveEditorWithTransition = (fallbackElementToTransition: HTMLElement) => {
         const elementToTransition = getEditorActiveLanguageSnippet() || fallbackElementToTransition;
 
@@ -210,9 +232,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         if ('animate' in elementToTransition) {
           prevElement = elementToTransition;
           requestAnimationFrame(() => {
-            const target = currentEditorElement.querySelector(
-              '.sp-code-editor, .editor-scrollable'
-            );
+            const target = getEditorTextbox();
             if (target && target instanceof HTMLElement) {
               const after = target.getBoundingClientRect();
 
@@ -269,9 +289,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
       };
 
       const cancelEdit = () => {
-        const currentElement = currentEditorElement.querySelector(
-          '.sp-code-editor, .editor-scrollable'
-        );
+        const currentElement = getEditorTextbox();
 
         if (prevElement && currentElement && currentElement instanceof HTMLElement) {
           const elementToTransition = getEditorActiveLanguageSnippet() || prevElement;
@@ -292,7 +310,9 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
             elementToTransition.style.setProperty('z-index', '9999');
             const animation = elementToTransition.animate(
               [
-                { transform: `translate(${invertDiff.x}px, ${invertDiff.y}px)` },
+                {
+                  transform: `translate(${invertDiff.x}px, ${invertDiff.y}px)`,
+                },
                 { transform: `translate(0px, 0px)` },
               ],
               animationSettings

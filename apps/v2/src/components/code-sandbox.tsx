@@ -14,7 +14,7 @@ import { editorLoadedEvent } from './editor-event';
 import { SandboxCodeViewer } from './sandbox-code-viewer';
 import { SandBoxConsole } from './sandbox-console';
 
-const MonacoEditor = React.lazy(() => import('./SandboxMonacoEditor'));
+const MonacoEditor = React.lazy(() => import('./sandbox-monaco-editor'));
 
 const githubLight: typeof oriGithubLight = {
   ...oriGithubLight,
@@ -177,7 +177,7 @@ export default function Sandbox(props: SandboxProps) {
             showTabs={hasUi}
           />
         ) : (
-          <SandpackCodeEditor style={editorStyle} showTabs={hasUi} showLineNumbers />
+          <SandpackCodeEditor style={editorStyle} showTabs={hasUi} />
         )}
       </div>
       <SandBoxConsole />
