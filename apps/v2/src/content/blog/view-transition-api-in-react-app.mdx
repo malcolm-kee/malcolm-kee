@@ -448,7 +448,7 @@ Since React Router version 6.27.0, using View Transition API requires only [addi
 
 <LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
 
-```jsx {21,37}
+```jsx {22,43}
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { useNavigate, createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
@@ -469,7 +469,11 @@ const router = createBrowserRouter([
     element: (
       <div>
         <TopBar
-          link={<Link to="/details" viewTransition>Details</Link>}
+          link={
+            <Link to="/details" viewTransition>
+              Details
+            </Link>
+          }
           rightContent={
             <img
               src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
@@ -485,7 +489,13 @@ const router = createBrowserRouter([
     path: '/details',
     element: (
       <div>
-        <TopBar link={<Link to="/" viewTransition>Home</Link>} />
+        <TopBar
+          link={
+            <Link to="/" viewTransition>
+              Home
+            </Link>
+          }
+        />
         <div className="cat-details">
           <img
             src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
