@@ -19,6 +19,7 @@ import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import { codeImportTransformer } from './plugin/code-import-plugins';
 import { depsExtraction } from './plugin/deps-extraction';
+import { hiddenMetaTransformer } from './plugin/hidden-meta-transformer';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 
 export default defineConfig({
@@ -80,6 +81,7 @@ export default defineConfig({
         transformerMetaWordHighlight(),
         transformerNotationHighlight(), // TODO: check why this transformer is not working
         transformerNotationWordHighlight(),
+        hiddenMetaTransformer(),
         await codeImportTransformer(),
       ],
       themes: {

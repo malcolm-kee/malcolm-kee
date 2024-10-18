@@ -1,7 +1,7 @@
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import * as React from 'react';
-import { Dialog, Transition } from '@headlessui/react';
 import type { WorkshopTocItem } from '~/data/workshop-helpers';
-import { MenuIcon, CloseIcon, ChevronLeftIcon } from '../icons';
+import { ChevronLeftIcon, CloseIcon, MenuIcon } from '../icons';
 import { WorkshopNavigation } from './workshop-navigation';
 
 export const WorkshopMobileNavigation = (props: {
@@ -36,14 +36,14 @@ export const WorkshopMobileNavigation = (props: {
           className="fixed inset-0 z-50 flex items-start overflow-y-auto bg-slate-900/50 pr-10 lg:hidden"
           aria-label="Navigation"
         >
-          <Dialog.Panel className="flex flex-col h-full w-full overflow-hidden max-w-xs bg-slate-50 dark:bg-slate-900">
+          <DialogPanel className="flex flex-col h-full w-full overflow-hidden max-w-xs bg-slate-50 dark:bg-slate-900">
             <div className="flex items-center px-4 sm:px-6 py-5">
               <button type="button" onClick={() => setIsOpen(false)} aria-label="Close navigation">
                 <CloseIcon className="h-6 w-6 stroke-slate-500" />
               </button>
               <div className="ml-6">{props.icon}</div>
             </div>
-            <Transition.Child
+            <TransitionChild
               enter="transition duration-100 ease-out"
               enterFrom="transform -translate-x-full"
               enterTo="transform translate-x-0"
@@ -58,7 +58,7 @@ export const WorkshopMobileNavigation = (props: {
                 className="px-5 sm:px-7 flex-1 overflow-x-auto"
                 headingClass="top-0"
               />
-            </Transition.Child>
+            </TransitionChild>
             <div className="pt-3 pb-6 px-4 sm:px-6">
               <a
                 className="flex items-center gap-2 text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
@@ -67,7 +67,7 @@ export const WorkshopMobileNavigation = (props: {
                 <ChevronLeftIcon className="w-5 h-5" /> All Workshops
               </a>
             </div>
-          </Dialog.Panel>
+          </DialogPanel>
         </Dialog>
       </Transition>
     </>

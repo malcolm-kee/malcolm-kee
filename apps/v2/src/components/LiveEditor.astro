@@ -333,9 +333,9 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
   });
 
   liveEditors.forEach((editorSection) => {
-    editorSection.querySelectorAll('.code-container').forEach((codeContainer) => {
+    editorSection.querySelectorAll('.astro-code').forEach((codeContainer) => {
       if (isVisible(codeContainer as HTMLElement)) {
-        const highlightedLine = codeContainer.querySelector('.line.highlight');
+        const highlightedLine = codeContainer.querySelector('.line.highlighted');
 
         if (highlightedLine) {
           scrollIntoView(highlightedLine, {

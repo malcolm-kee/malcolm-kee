@@ -1,7 +1,5 @@
-import * as React from 'react';
 import { useProduct } from '../queries/product-queries';
 import { ProductLink } from './product-link';
-import { isProductNavigated } from './product-navigation';
 
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   year: 'numeric',
@@ -24,26 +22,10 @@ export const ProductDetails = ({ productId }: { productId: string }) => {
                 src={data.images.webp}
                 width={600}
                 height={600}
-                className="w-80 h-80"
-                style={
-                  isProductNavigated(productId)
-                    ? ({
-                        viewTransitionName: `product-${data._id}`,
-                      } as any)
-                    : undefined
-                }
+                className="w-80 h-80 [view-transition-name:product-image]"
               />
             ) : (
-              <div
-                className="flex justify-center items-center w-80 h-80 bg-gray-100"
-                style={
-                  isProductNavigated(productId)
-                    ? ({
-                        viewTransitionName: `product-${data._id}`,
-                      } as any)
-                    : undefined
-                }
-              >
+              <div className="flex justify-center items-center w-80 h-80 bg-gray-100 [view-transition-name:product-image]">
                 <p className="text-gray-800">No preview</p>
               </div>
             )}

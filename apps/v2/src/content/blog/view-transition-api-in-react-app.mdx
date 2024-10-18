@@ -442,13 +442,122 @@ createRoot(document.getElementById('root')).render(<RouterProvider router={route
 
 </LiveEditor>
 
-<Aside heading="React Router Support of View Transition API May Change" className="mt-5">
+### Update: React Router First-Class Support
 
-When I first wrote this article, there is no need to call `flushSync` before calling `navigate`. Somehow, the implementation of `navigate` changes and now it requires calling `flushSync`.
+Since React Router version 6.27.0, using View Transition API requires only [adding `viewTransition` prop to `Link` component](https://reactrouter.com/en/6.27.0/components/link#viewtransition).
 
-The key takeaway is that since there is no official statement from React Router on how to use View Transition API with it, use this cautiously. Create a wrapper component or utility function so any change of integration can be updated easily in future.
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
 
-</Aside>
+```jsx {22,43}
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
+import { useNavigate, createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
+
+const TopBar = ({ link, rightContent }) => (
+  <div className="top-bar">
+    <div className="top-bar-content">
+      <h1>Move Cat</h1>
+      {link}
+    </div>
+    {rightContent}
+  </div>
+);
+
+const router = createBrowserRouter([
+  {
+    index: true,
+    element: (
+      <div>
+        <TopBar
+          link={
+            <Link to="/details" viewTransition>
+              Details
+            </Link>
+          }
+          rightContent={
+            <img
+              src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
+              alt="cat"
+              className="cat-img thumbnail"
+            />
+          }
+        />
+      </div>
+    ),
+  },
+  {
+    path: '/details',
+    element: (
+      <div>
+        <TopBar
+          link={
+            <Link to="/" viewTransition>
+              Home
+            </Link>
+          }
+        />
+        <div className="cat-details">
+          <img
+            src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
+            alt="cat"
+            className="cat-img detailed-img"
+          />
+          <div className="cat-desc">
+            <h2>Cat Details</h2>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+]);
+
+createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
+```
+
+```html hidden
+<div id="root"></div>
+<style>
+  .cat-img {
+    view-transition-name: meow-image;
+  }
+
+  .cat-details {
+    display: flex;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cat-desc {
+    flex: 1;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+
+  .detailed-img {
+    width: 50vw;
+    height: auto;
+  }
+</style>
+```
+
+</LiveEditor>
 
 ## Practical Use Cases
 

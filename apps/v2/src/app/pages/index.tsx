@@ -1,6 +1,5 @@
-import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '~/components/icons';
-import { Link } from '../components/link';
 import type { GetStaticData } from '../types';
 
 export const getStaticData = async function getStaticData() {
@@ -19,7 +18,7 @@ export default function IndexPage() {
           <Link
             to="/product"
             className="inline-flex items-center gap-1 text-gray-500 hover:text-gray-700"
-            animateNavigation
+            viewTransition
           >
             <ChevronRightIcon className="w-5 h-5" />
             <span className="text-lg [view-transition-name:product-page-title]">Products</span>

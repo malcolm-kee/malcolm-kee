@@ -1,12 +1,19 @@
 /* jsxImportSource: react */
-import { Popover, Transition } from '@headlessui/react';
+import {
+  Popover,
+  PopoverBackdrop,
+  PopoverButton,
+  PopoverPanel,
+  Transition,
+  TransitionChild,
+} from '@headlessui/react';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { navItems } from '../data/nav';
 import { Container } from './Container';
+import styles from './Header.module.css';
 import { HomeIconLink, Icon, IconContainer } from './HomeIconLink';
 import { CloseIcon, TinyChevronDownIcon } from './icons';
-import styles from './Header.module.css';
 
 export default function Header({
   isHomePage,
@@ -284,12 +291,12 @@ function MobileNavItem({
 function MobileNavigation({ currentPath, ...props }: { className?: string; currentPath: string }) {
   return (
     <Popover {...props}>
-      <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur">
+      <PopoverButton className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur">
         Menu
         <TinyChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700" />
-      </Popover.Button>
-      <Transition.Root>
-        <Transition.Child
+      </PopoverButton>
+      <Transition>
+        <TransitionChild
           as={React.Fragment}
           enter="duration-150 ease-out"
           enterFrom="opacity-0"
@@ -298,9 +305,9 @@ function MobileNavigation({ currentPath, ...props }: { className?: string; curre
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Popover.Overlay className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm" />
-        </Transition.Child>
-        <Transition.Child
+          <PopoverBackdrop className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm" />
+        </TransitionChild>
+        <TransitionChild
           as={React.Fragment}
           enter="duration-150 ease-out"
           enterFrom="opacity-0 scale-95"
@@ -309,14 +316,14 @@ function MobileNavigation({ currentPath, ...props }: { className?: string; curre
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <Popover.Panel
+          <PopoverPanel
             focus
             className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white px-6 py-8 ring-1 ring-zinc-900/5"
           >
             <div className="float-right pr-4">
-              <Popover.Button aria-label="Close menu" className="-m-1 p-1">
+              <PopoverButton aria-label="Close menu" className="-m-1 p-1">
                 <CloseIcon className="h-6 w-6 stroke-zinc-500" />
-              </Popover.Button>
+              </PopoverButton>
               <h2 className="sr-only" id="mobile-nav-label">
                 Navigation
               </h2>
@@ -334,9 +341,9 @@ function MobileNavigation({ currentPath, ...props }: { className?: string; curre
                 ))}
               </ul>
             </nav>
-          </Popover.Panel>
-        </Transition.Child>
-      </Transition.Root>
+          </PopoverPanel>
+        </TransitionChild>
+      </Transition>
     </Popover>
   );
 }
