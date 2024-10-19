@@ -193,6 +193,13 @@ const currentPath = new URL(Astro.request.url).pathname;
     }
   }
 
+  @supports (initial-letter: 2) {
+    .Content > :global(p:first-child):first-letter {
+      initial-letter: 2;
+      @apply font-serif pr-2;
+    }
+  }
+
   @media (min-width: theme('screens.md')) {
     .Content {
       :global(h1:target::before, h2:target::before, h3:target::before, h4:target::before) {

@@ -20,13 +20,14 @@ import rehypeExternalLinks from 'rehype-external-links';
 import { codeImportTransformer } from './plugin/code-import-plugins';
 import { depsExtraction } from './plugin/deps-extraction';
 import { hiddenMetaTransformer } from './plugin/hidden-meta-transformer';
+import { titleMetaTransformer } from './plugin/title-meta-transformer';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 
 export default defineConfig({
   site: 'https://malcolmkee.com',
   integrations: [
     react(),
-    mdx(),
+    mdx({}),
     tailwind(),
     partytown({
       config: {
@@ -82,6 +83,7 @@ export default defineConfig({
         transformerNotationHighlight(), // TODO: check why this transformer is not working
         transformerNotationWordHighlight(),
         hiddenMetaTransformer(),
+        titleMetaTransformer(),
         await codeImportTransformer(),
       ],
       themes: {
