@@ -1,4 +1,5 @@
 import type { MarkdownHeading } from 'astro';
+import { clsx } from 'clsx';
 import * as React from 'react';
 import { isNotNil } from '~/lib/type-guard';
 
@@ -60,9 +61,21 @@ export const WorkshopHeadings = ({ headings }: { headings: Array<MarkdownHeading
             >
               On this page
             </h2>
-            <ol className="mt-4 space-y-3 text-sm">
+            <ol className="mt-4 text-sm">
               {headings.map((heading) => (
-                <li key={heading.slug}>
+                <li
+                  className={clsx(
+                    'py-2',
+                    {
+                      3: 'pl-4',
+                      4: 'pl-8',
+                      5: 'pl-12',
+                      6: 'pl-16',
+                    }[heading.depth],
+                    heading.depth >= 3 && 'border-l border-slate-200 dark:border-slate-600'
+                  )}
+                  key={heading.slug}
+                >
                   <h3>
                     <a
                       href={`#${heading.slug}`}
