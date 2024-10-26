@@ -12,14 +12,28 @@ import styles from './create-tooltip.module.css';
 export const createTooltip = ({
   anchor,
   tooltip,
+  placement,
+  strategy = 'absolute',
+  withStyles,
+  minWidthPx,
+  offsetPx,
   arrow,
 }: {
   anchor: Element;
   tooltip: HTMLElement;
-  arrow: HTMLElement;
+  placement: Placement;
+  withStyles?: boolean;
+  minWidthPx?: number;
+  offsetPx?: number;
+  strategy?: 'absolute' | 'fixed';
+  arrow?: HTMLElement;
 }) => {
-  tooltip.classList.add(styles.tooltip!);
-  arrow.classList.add(styles.arrow!);
+  if (withStyles) {
+    tooltip.classList.add(styles.tooltip!);
+    if (arrow) {
+      arrow.classList.add(styles.arrow!);
+    }
+  }
 
   (
     [
@@ -33,18 +47,22 @@ export const createTooltip = ({
   function showTooltip() {
     tooltip.style.display = 'block';
     computePosition(anchor, tooltip, {
-      placement: 'right-start',
+      placement,
+      strategy,
       middleware: [
-        offset(8),
+        offsetPx ? offset(offsetPx) : null,
         flip(),
         shift(),
-        arrowMiddleware({
-          element: arrow,
-        }),
+        arrow &&
+          arrowMiddleware({
+            element: arrow,
+          }),
         size({
           apply({ availableHeight, availableWidth, elements }) {
             Object.assign(elements.floating.style, {
-              maxWidth: `min(400px, 50vw, ${availableWidth}px)`,
+              maxWidth: minWidthPx
+                ? `min(${minWidthPx}px, 50vw, ${availableWidth}px)`
+                : `${availableWidth}px`,
               maxHeight: `${availableHeight}px`,
             });
           },
@@ -56,22 +74,24 @@ export const createTooltip = ({
         top: `${y}px`,
       });
 
-      const { x: arrowX, y: arrowY } = middlewareData.arrow ?? {};
+      if (arrow) {
+        const { x: arrowX, y: arrowY } = middlewareData.arrow ?? {};
 
-      const staticSide = {
-        top: 'bottom',
-        right: 'left',
-        bottom: 'top',
-        left: 'right',
-      }[getSide(placement)];
+        const staticSide = {
+          top: 'bottom',
+          right: 'left',
+          bottom: 'top',
+          left: 'right',
+        }[getSide(placement)];
 
-      Object.assign(arrow.style, {
-        left: arrowX != null ? `${arrowX}px` : '',
-        top: arrowY != null ? `${arrowY}px` : '',
-        right: '',
-        bottom: '',
-        [staticSide]: '-4px',
-      });
+        Object.assign(arrow.style, {
+          left: arrowX != null ? `${arrowX}px` : '',
+          top: arrowY != null ? `${arrowY}px` : '',
+          right: '',
+          bottom: '',
+          [staticSide]: '-4px',
+        });
+      }
     });
   }
 

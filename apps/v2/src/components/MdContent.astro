@@ -257,10 +257,64 @@ const currentPath = new URL(Astro.request.url).pathname;
               anchor: el,
               tooltip: tooltipEl,
               arrow: arrowEl,
+              offsetPx: 8,
+              minWidthPx: 400,
+              placement: 'right-start',
+              withStyles: true,
             });
           }
         }
       }
     });
+
+    const twoSlashElements = mdContent.querySelectorAll('span.twoslash-hover');
+
+    const { container, portalTarget } = createTooltipContainer();
+
+    let hasTooltip = false;
+
+    twoSlashElements.forEach((twoSlashElement) => {
+      const popupElement = twoSlashElement.querySelector('.twoslash-popup-container');
+
+      if (popupElement && popupElement instanceof HTMLElement) {
+        Object.assign(popupElement.style, {
+          position: 'fixed',
+          display: 'none',
+          opacity: '1',
+          transform: 'none',
+        });
+
+        // portal the popup element to avoid it to be clipped by the parent element
+        // see https://floating-ui.com/docs/misc#clipping
+        portalTarget.appendChild(popupElement);
+        hasTooltip = true;
+
+        createTooltip({
+          anchor: twoSlashElement,
+          tooltip: popupElement,
+          placement: 'top-start',
+          strategy: 'fixed',
+        });
+      }
+    });
+
+    if (hasTooltip) {
+      document.documentElement.appendChild(container);
+    }
   });
+
+  function createTooltipContainer() {
+    const container = document.createElement('div');
+    container.ariaHidden = 'true';
+    container.classList.add('prose', 'prose-code:break-words');
+    const preElement = document.createElement('pre');
+    preElement.classList.add('astro-code', 'twoslash', 'p-0');
+    container.appendChild(preElement);
+
+    const portalTarget = document.createElement('span');
+    portalTarget.classList.add('twoslash-hover');
+    preElement.appendChild(portalTarget);
+
+    return { container, portalTarget };
+  }
 </script>
