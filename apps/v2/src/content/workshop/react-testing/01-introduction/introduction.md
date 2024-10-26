@@ -8,11 +8,6 @@ objectives:
   - alternatives of automated testing
 ---
 
-<!-- Testing is an important part of software development, but the effective approach to testing depends on the type and size of the application you're building.
-
-- For a simple application that is maintained by a small team and unlikely to change much, manual testing would be sufficient.
-- For a complex application that is maintained by a large team and likely to change, having automated tests paired with manual testing is essential to maintain the quality of the application. -->
-
 Every React developer's journey follows a similar path. We start by building UI, manually clicking through them to ensure everything works. As the project grows in complexity, we find ourselves spending more time testing and investigating bugs than coding new features. That's when we wonder if there is a better way. Enter automated testing - a skill that separates novice React developers from the competent ones.
 
 ## Automated Testing: Why or Why Not

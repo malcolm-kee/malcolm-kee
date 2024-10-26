@@ -2,12 +2,20 @@
 title: Test Framework
 description: 'Understand the basic building blocks of test framework: test runner and assertion'
 date: '2020-01-26'
+updated_at: '2024-10-26'
 objectives:
   - understand the concept of test runner by writing a simple version from scratch
   - understand the concept of assertion by writing a simple version from scratch
 ---
 
-Before we dive into how to write a test, let's discuss what tools are required for us to have automated tests.
+import LiveEditor from '~/components/LiveEditor.astro';
+
+Before diving into specific testing framework like Vitest, it's important to understand the fundamental building blocks of any test framework.
+
+At its core, a test framework needs two main components:
+
+1. A test runner that executes tests and reports results.
+1. An assertion system that verifies expected outcomes.
 
 ## Test Runner
 
@@ -21,7 +29,9 @@ const add = (a, b) => a + b;
 
 Let's write a test for it. What is a test? _A test is a piece of code that throws error when your code does not behave as expected._
 
-```js live
+<LiveEditor>
+
+```js
 const add = (a, b) => a + b;
 
 function testAdd() {
@@ -57,11 +67,9 @@ try {
 }
 ```
 
-<aside>
+</LiveEditor>
 
-Change the `add` function to make the test fail and verify the error is shown.
-
-</aside>
+> Change the `add` function to make the test fail and verify the error is shown.
 
 As you may already realize, the message now is not very helpful, and there is many duplication in our code, let's create a utility `test` function:
 
