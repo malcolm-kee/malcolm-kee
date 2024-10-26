@@ -26,8 +26,16 @@ const proseClass = clsx(
 ---
 
 <article>
-  <div class={proseClass}>
+  <div class={proseClass} data-workshop-content>
     <h1 class="text-4xl font-bold">{title}</h1>
     <slot />
   </div>
 </article>
+
+<script>
+  import { createTwoslashTooltips } from '~/lib/create-twoslash-tooltips';
+
+  document.querySelectorAll('[data-workshop-content]').forEach((mdContent) => {
+    createTwoslashTooltips(mdContent);
+  });
+</script>
