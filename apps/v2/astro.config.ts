@@ -18,10 +18,11 @@ import { s } from 'hastscript';
 import rehypeAutolinkHeadings, { type Options } from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import { codeImportTransformer } from './plugin/code-import-plugins';
+import { codeWalkthroughTransformer } from './plugin/code-walkthrough-transformer';
 import { depsExtraction } from './plugin/deps-extraction';
 import { hiddenMetaTransformer } from './plugin/hidden-meta-transformer';
-import { titleMetaTransformer } from './plugin/title-meta-transformer';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
+import { titleMetaTransformer } from './plugin/title-meta-transformer';
 
 export default defineConfig({
   site: 'https://malcolmkee.com',
@@ -84,6 +85,7 @@ export default defineConfig({
         transformerNotationWordHighlight(),
         hiddenMetaTransformer(),
         titleMetaTransformer(),
+        codeWalkthroughTransformer(),
         await codeImportTransformer(),
       ],
       themes: {

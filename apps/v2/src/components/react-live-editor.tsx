@@ -49,6 +49,7 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
   ) : null;
 }
 
+// TODO: handle twoslash code
 function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditorState {
   const codeLines: Array<string> = [];
   const highlightedLines: Array<number> = [];

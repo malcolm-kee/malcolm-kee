@@ -14,6 +14,10 @@ export function createTwoslashTooltips(container: Element) {
   let hasTooltip = false;
 
   twoSlashElements.forEach((twoSlashElement) => {
+    if (twoSlashElement.classList.contains('twoslash-query-presisted')) {
+      return;
+    }
+
     const popupElement = twoSlashElement.querySelector('.twoslash-popup-container');
 
     if (popupElement && popupElement instanceof HTMLElement) {

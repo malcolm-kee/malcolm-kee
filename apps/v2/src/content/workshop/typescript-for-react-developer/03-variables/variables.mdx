@@ -11,57 +11,44 @@ objectives:
   - explain what are any and unknown types, and why unknown type is preferred than any
 ---
 
+import CodeWalkthrough from '~/components/CodeWalkthrough.astro';
+
 Before we learn to use TypeScript in our React projects, let's have an overview of TypeScript types and syntax.
 
 ## Basic Variable and Type Declaration
 
-```ts twoslash
-// @errors: 2551
-
-/**
- * x is a string (inferred)
- */
-let x = 'hello js';
-
-/**
- * with type annotation, we know what we can do with the variable.
- */
-console.log(x.toUpperCase()); // so this is fine
-console.log(x.toFixed(2)); // this is not fine, because there is no `toFixed` method on string
-
-/**
- * reassignment is fine
- */
-x = 'hello ts';
-```
+<CodeWalkthrough>
 
 ```ts twoslash
-// @errors: 2322
+// @errors: 2551 2322 2367
+let x = 'hello js'; //<- x is a string (by inference)
 
-declare var x: string;
-// ---cut---
+//=====
 
-/**
- * but it will error if we try to change type
- */
-x = 42; // Error
-```
+// with type annotation, we know what we can do with the variable.
+console.log(x.toUpperCase()); //<- so this is fine
+console.log(x.toFixed(2)); //<- this is not fine, because there is no `toFixed` method on string
 
-```ts twoslash
-// @errors: 2367
-/**
- * let's look at const. The type is literally 'hello'
- */
-const y = 'hello';
+//=====
+
+x = 'hello ts'; //<- reassignment is fine
+
+//=====
+
+x = 42; //<- but it will error if we try to change type
+
+//=====
+
+const y = 'hello'; //<- The type is literally 'hello' when it is declared with const. This is known as a 'literal type'.
 //    ^?
 
-/**
- * This is called a 'literal type'. y can never be reassigned since it's a const,
- * so its value will only be literally the string 'hello world' and no other possible value
- */
+//=====
+
 if (y === 'whurt') {
 } // this check is unnecessary
 ```
+
+</CodeWalkthrough>
 
 ```ts twoslash
 // @errors: 2322

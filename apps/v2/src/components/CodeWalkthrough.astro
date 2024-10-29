@@ -1,0 +1,124 @@
+---
+import { TinyChevronDoubleDownIcon } from './icons';
+---
+
+<div class="relative group/walkthrough" data-code-walkthrough>
+  <div data-code-content>
+    <slot />
+  </div>
+  <button
+    type="button"
+    class="hidden absolute top-0 right-1 px-2 py-1 text-sm opacity-0 transition focus:opacity-100 group-hover/walkthrough:opacity-60"
+    data-show-all-button>Show All</button
+  >
+  <button type="button" class="hidden w-full py-1" data-show-more-button>
+    <span class="flex justify-center items-center gap-1 text-lg font-techie">
+      Show More <TinyChevronDoubleDownIcon width={20} height={20} className="animate-bounce" />
+    </span>
+  </button>
+</div>
+
+<script>
+  import {
+    extractCodeWalkthroughMarkers,
+    getCodeWalkthroughSectionIndex,
+  } from './code-walkthrough-helpers';
+
+  document.querySelectorAll('[data-code-walkthrough]').forEach((codeWalkThroughElement) => {
+    const preElement = codeWalkThroughElement.querySelector('pre');
+    const showAllButton = codeWalkThroughElement.querySelector('[data-show-all-button]');
+    const showMoreButton = codeWalkThroughElement.querySelector('[data-show-more-button]');
+    const codeContentElement = codeWalkThroughElement.querySelector('[data-code-content]');
+
+    if (preElement && codeContentElement instanceof HTMLElement) {
+      const codeElement = preElement.querySelector('code');
+      const language = preElement.dataset.language;
+
+      if (codeElement && language) {
+        const markers = extractCodeWalkthroughMarkers(codeElement, language);
+
+        if (
+          markers &&
+          showMoreButton instanceof HTMLElement &&
+          showAllButton instanceof HTMLElement
+        ) {
+          if (markers.separatorIndexes.length === 0) {
+            return;
+          }
+
+          codeElement.childNodes.forEach((child, index) => {
+            const sectionIndex = getCodeWalkthroughSectionIndex(index, markers.separatorIndexes);
+
+            if (sectionIndex === -1) {
+              if (child instanceof HTMLElement) {
+                child.classList.add('hidden');
+              }
+            } else {
+              if (child instanceof HTMLElement) {
+                child.classList.add('hidden');
+                child.dataset['section'] = sectionIndex.toString();
+              } else if (child instanceof Text) {
+                if (child.nodeValue === '\n') {
+                  const wrapperNode = hideTextNode(child);
+
+                  // add section index if the previous node is not a separator
+                  if (getCodeWalkthroughSectionIndex(index - 1, markers.separatorIndexes) !== -1) {
+                    wrapperNode.dataset['section'] = sectionIndex.toString();
+                  }
+                }
+              }
+            }
+          });
+
+          let currentSectionIndex = 0;
+
+          const updateSection = () => {
+            const elemensToShow = codeElement.querySelectorAll(
+              `[data-section="${currentSectionIndex}"]`
+            );
+
+            elemensToShow.forEach((element) => {
+              if (element instanceof HTMLElement && !element.hidden) {
+                element.classList.remove('hidden');
+                element.classList.add('animate-in', 'fade-in', 'slide-in-from-left');
+              }
+            });
+
+            preElement.scrollTop = preElement.scrollHeight;
+
+            if (currentSectionIndex >= markers.separatorIndexes.length) {
+              showMoreButton.classList.add('hidden');
+              showAllButton.classList.add('hidden');
+            }
+          };
+
+          showAllButton.addEventListener('click', () => {
+            while (currentSectionIndex < markers.separatorIndexes.length) {
+              currentSectionIndex++;
+              updateSection();
+            }
+          });
+          showMoreButton.classList.remove('hidden');
+          showAllButton.classList.remove('hidden');
+          preElement.classList.add('!mb-0');
+          showMoreButton.addEventListener('click', () => {
+            currentSectionIndex++;
+
+            updateSection();
+          });
+          updateSection();
+        }
+      }
+    }
+  });
+
+  /** Hide a text node by wrapping it in a span with the hidden class */
+  function hideTextNode(textNode: Text) {
+    const wrapper = document.createElement('span');
+    wrapper.classList.add('hidden');
+    textNode.parentNode?.insertBefore(wrapper, textNode);
+    wrapper.appendChild(textNode);
+
+    return wrapper;
+  }
+</script>

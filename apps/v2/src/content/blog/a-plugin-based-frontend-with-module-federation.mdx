@@ -73,29 +73,7 @@ export const register = (plugin: Plugin) => plugin;
 
 By knowing all remotes expose a `register` module with that interface, the host can render all routes that have registered across all remotes:
 
-```tsx twoslash title="app.tsx in host"
-// @filename: node_modules/@company/core-plugin/index.ts
-import { RouteObject } from 'react-router-dom';
-
-export interface Plugin {
-  routes: Array<RouteObject>;
-}
-
-export const register = (plugin: Plugin) => plugin;
-
-// @filename: node_modules/microfrontend1/register/index.d.ts
-export default any;
-
-// @filename: node_modules/microfrontend2/register/index.d.ts
-export default any;
-
-// @filename: node_modules/microfrontend3/register/index.d.ts
-export default any;
-
-// @filename: src/app.tsx
-
-// ---cut---
-// @lib: es2020,dom
+```tsx title="app.tsx in host"
 import { Plugin } from '@company/core-plugin';
 import * as React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
