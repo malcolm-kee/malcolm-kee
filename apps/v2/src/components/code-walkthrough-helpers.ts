@@ -53,6 +53,7 @@ export const extractCodeWalkthroughMarkers = (
           codeWalkthroughCommentNode.textContent =
             codeWalkthroughCommentNode.textContent?.replace(/^\<-/, '').trim() || null;
           codeWalkthroughCommentNode.classList.add('font-techie', 'text-lg');
+          codeWalkthroughCommentNode.style.color = 'hsl(212 8% 64%)';
         }
       }
     }

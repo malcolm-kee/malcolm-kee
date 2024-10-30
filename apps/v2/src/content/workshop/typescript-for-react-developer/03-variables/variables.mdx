@@ -71,16 +71,16 @@ zz = 'abc'; //<- ERROR, yay!
 
 Takeaways:
 
-1. Having type for variable tells us and TypeScript what we can do with that variable.
-1. TypeScript will try to infer type of a variable for you. It will be as strict as possible based on how JavaScript works, but not so strict that it makes you waste time on fighting the it.
-1. But TypeScript could not read your mind, so you would need to annotate the type explicitly in some case.
-1. You can annotate the type of a variable by using the following syntax:
+- Having type for variable tells us and TypeScript what we can do with that variable.
+- TypeScript will try to infer type of a variable for you. It will be as strict as possible based on how JavaScript works, but not so strict that it makes you waste time on fighting the it.
+- But TypeScript could not read your mind, so you would need to annotate the type explicitly in some case.
+- You can annotate the type of a variable by using the following syntax:
 
-   ```ts noWrapper
-   let variableName: Type;
-   ```
+  ```ts
+  let variableName: Type;
+  ```
 
-<aside>
+<aside className="pl-8 text-sm">
 
 What does _annotate_ means? Its meaning is like "declare", but for type.
 
@@ -103,16 +103,14 @@ luckyNumbers.push('abc'); // !ERROR
 /* array type will be inferred as well if you provide initial value */
 let luckyPersons = ['Steve', 'Bill'];
 //  ^?
+
 luckyPersons.push('Elon');
 luckyPersons.push(66); // ERROR
 ```
 
 ```ts twoslash
 // @errors: 2345
-/**
- * Array<> works too
- */
-const frameworks: Array<string> = [];
+const frameworks: Array<string> = []; // Array<> works too
 frameworks.push('react');
 frameworks.push(true); // !ERROR
 ```
@@ -136,8 +134,8 @@ const yy: [number, number] = [32, 31];
 
 Takeaways:
 
-1. Two ways to declare array, `Type[]` or `Array<Type>` syntax. Personally I prefer the former as it is shorter.
-1. TypeScript inference will give preference to the most common usage pattern in JavaScript, e.g. prefer Array over Tuple.
+- Two ways to declare array, `Type[]` or `Array<Type>` syntax. Personally I prefer the former as it is shorter.
+- TypeScript inference will give preference to the most common usage pattern in JavaScript, e.g. prefer Array over Tuple.
 
 ## Object
 

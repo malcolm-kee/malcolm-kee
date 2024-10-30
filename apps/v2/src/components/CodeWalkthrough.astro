@@ -1,5 +1,24 @@
 ---
+/**
+ * This component is used to create a code walkthrough. Use it in mdx files by wrapping with code fenced
+ * code block (```). Currently, it only supports JavaScript, TypeScript, JSX, and TSX.
+ *
+ * Supported syntax:
+ *
+ * - `//=====` to separate code, that will be revealed step by step
+ * - `//<-` to add comment to the code
+ *
+ * This component requires [code-walkthrough-transformer](../../plugin/code-walkthrough-transformer.ts)
+ * to be enabled.
+ */
+
 import { TinyChevronDoubleDownIcon } from './icons';
+
+interface Props {
+  showMoreLabel?: string;
+}
+
+const { showMoreLabel = 'Show More' } = Astro.props;
 ---
 
 <div class="relative group/walkthrough" data-code-walkthrough>
@@ -13,7 +32,8 @@ import { TinyChevronDoubleDownIcon } from './icons';
   >
   <button type="button" class="hidden w-full py-1" data-show-more-button>
     <span class="flex justify-center items-center gap-1 text-lg font-techie">
-      Show More <TinyChevronDoubleDownIcon width={20} height={20} className="animate-bounce" />
+      {showMoreLabel}
+      <TinyChevronDoubleDownIcon width={20} height={20} className="animate-bounce" />
     </span>
   </button>
 </div>
