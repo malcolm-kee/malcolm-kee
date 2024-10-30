@@ -1,3 +1,4 @@
+import type { ElementContent, Element as HastElement } from 'hast';
 import type { ShikiTransformer } from 'shiki';
 
 export const codeWalkthroughTransformer = (): ShikiTransformer => {
@@ -21,13 +22,14 @@ export const codeWalkthroughTransformer = (): ShikiTransformer => {
 
           if (/=====/.test(text.value)) {
             const prevChild = line.children[i - 1];
-            if (
-              prevChild &&
-              prevChild.type === 'element' &&
-              prevChild.children[0].type === 'text' &&
-              prevChild.children[0].value === '//'
-            ) {
+            if (isInlineCommentStart(prevChild)) {
               this.addClassToHast(line, 'code-separator');
+            }
+          } else if (/^\<-/.test(text.value)) {
+            const prevChild = line.children[i - 1];
+            if (isInlineCommentStart(prevChild)) {
+              this.addClassToHast(prevChild, 'code-comment-start');
+              this.addClassToHast(child, 'code-walkthrough-comment');
             }
           }
         }
@@ -35,3 +37,11 @@ export const codeWalkthroughTransformer = (): ShikiTransformer => {
     },
   };
 };
+
+const isInlineCommentStart = (element: ElementContent | undefined): element is HastElement =>
+  !!(
+    element &&
+    element.type === 'element' &&
+    element.children[0]?.type === 'text' &&
+    element.children[0].value.trim() === '//'
+  );

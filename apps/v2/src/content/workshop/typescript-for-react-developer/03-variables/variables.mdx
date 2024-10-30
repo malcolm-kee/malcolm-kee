@@ -25,7 +25,7 @@ let x = 'hello js'; //<- x is a string (by inference)
 
 //=====
 
-// with type annotation, we know what we can do with the variable.
+//<- With type, TypeScript knows what we are allowed to do with the variable.
 console.log(x.toUpperCase()); //<- so this is fine
 console.log(x.toFixed(2)); //<- this is not fine, because there is no `toFixed` method on string
 
@@ -45,34 +45,29 @@ const y = 'hello'; //<- The type is literally 'hello' when it is declared with c
 //=====
 
 if (y === 'whurt') {
-} // this check is unnecessary
+  //<- TypeScript marks this check as error because it is always false
+}
+
+//=====
+
+//<- Sometimes we need to declare a variable without initializing it
+let z;
+z = 41;
+z = 'abc'; //<- Oh no! TypeScript doesn't error
+
+//=====
+
+//<- If we look at the type of z, it's `any`. This is the most flexible (and dangerous) type in TypeScript
+
+//=====
+
+//<- We could improve this situation by providing a type annotation when we declare our variable
+let zz: number;
+zz = 41;
+zz = 'abc'; //<- ERROR, yay!
 ```
 
 </CodeWalkthrough>
-
-```ts twoslash
-// @errors: 2322
-
-/**
- * sometimes we need to declare a variable without initializing it
- */
-let z;
-z = 41;
-z = 'abc'; // oh no! TypeScript didn't error
-
-/**
- * If we look at the type of z, it's `any`. This is the most flexible type
-in TypeScript
- */
-
-/**
- * we could improve this situation by providing a type annotation
- * when we declare our variable
- */
-let zz: number;
-zz = 41;
-zz = 'abc'; // ERROR, yay!
-```
 
 Takeaways:
 

@@ -80,11 +80,14 @@ import { TinyChevronDoubleDownIcon } from './icons';
             elemensToShow.forEach((element) => {
               if (element instanceof HTMLElement && !element.hidden) {
                 element.classList.remove('hidden');
-                element.classList.add('animate-in', 'fade-in', 'slide-in-from-left');
+                element.classList.add(
+                  'animate-in',
+                  'fade-in',
+                  'slide-in-from-left',
+                  'duration-1000'
+                );
               }
             });
-
-            preElement.scrollTop = preElement.scrollHeight;
 
             if (currentSectionIndex >= markers.separatorIndexes.length) {
               showMoreButton.classList.add('hidden');
@@ -101,6 +104,7 @@ import { TinyChevronDoubleDownIcon } from './icons';
           showMoreButton.classList.remove('hidden');
           showAllButton.classList.remove('hidden');
           preElement.classList.add('!mb-0');
+          preElement.style.maxHeight = 'none';
           showMoreButton.addEventListener('click', () => {
             currentSectionIndex++;
 
@@ -116,6 +120,7 @@ import { TinyChevronDoubleDownIcon } from './icons';
   function hideTextNode(textNode: Text) {
     const wrapper = document.createElement('span');
     wrapper.classList.add('hidden');
+    wrapper.dataset.purpose = 'hide';
     textNode.parentNode?.insertBefore(wrapper, textNode);
     wrapper.appendChild(textNode);
 
