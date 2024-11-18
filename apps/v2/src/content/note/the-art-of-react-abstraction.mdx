@@ -1,0 +1,96 @@
+---
+title: 'The Art of React Abstraction'
+pubDate: 12 Nov 2024
+---
+
+## What is a good abstraction
+
+We create abstraction to:
+
+- **reduce cognitive cost** by hiding complexity from end users
+- provide **stable interfaces** while allowing internal implementation to change
+
+We judge the quality of abstraction based on how much they achieve these goals.
+
+## Why it is an art
+
+- Sometimes pursuing one goal of abstraction sacrifices other goal
+- Sometimes making good abstraction sacrifices other goals of software engineering, e.g. maintenance effort and performance.
+
+---
+
+### Conflict #1: Flexibility vs Simplicity (Long-term cognitive cost vs short-term cognitive cost)
+
+- Flexibility: powerful, more options/parameters, more capable but higher learning curve
+- Simplicity: easier to understand, lower learning curve
+
+```tsx
+// Simple
+const asyncState = useAsync(() => apiCall(), []);
+
+asyncState.loading;
+asyncState.error;
+asyncState.value;
+
+// Flexible
+const queryState = useQuery({
+  queryFn: () => apiCall(),
+  queryKey: ['queryKey'],
+  staleTime: 1000,
+});
+```
+
+### Conflict #2: Generality and Specificity
+
+- General - more reusable but harder to optimize. Also encapsulates less complexities.
+- Specificity - less reusable, but can encapsulates more complexities. Easier to optimize as well.
+
+### Conflict #3: Effort of Maintainer vs Consumer
+
+---
+
+## Mechanisms
+
+### Components
+
+- Recommended: Once you have components that can be composed together, abstract the most common composition as component.
+- Recommended: props naming should follow abstraction of component
+- If appropriate: Don't provide props when there is no use case for it.
+- If appropriate: Spread props to "main" component. When in doubt, don't spread.
+- If appropriate: Use render props
+
+### Hooks
+
+- Recommended: Use object options mostly, unless you're modeling after built-in hook.
+- Recommended: Returns an object or a tuple, but never single value as you can't change single value without a breaking change.
+
+### General
+
+- Recommended: Prefer single variant value instead of multiple booleans
+- Recommended: When increasing flexibility of an abstraction (adding more options), add docs to illustrate the use case (comments, storybook, tests, or markdown).
+- If appropriate: Use factory function to enforces conventions and for more aggressive abstractions.
+
+---
+
+## General advices
+
+- Account for Conway's law when understanding abstraction: "Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure."
+- It is okay to be imperfect or wrong, and be forgiving when others get it wrong. The law of leaky abstraction: All non-trivial abstractions, to some degree, are leaky.
+
+---
+
+## Abstraction is like a business
+
+- A business can be highly focused (solve one problem really well) vs broad platform (one-stop business).
+- A business aims to hide the complexity and expose a friendly interface to end users
+- A business could delegates to other businesses for certain parts of the operations, and being a coordinator between them for the customers.
+- Don't create a business and then find customers later. Identify customers first before start a business. Similarly, don't create an abstraction and then find how to use it. Instead, abstract only when you identify the common problems of your domain.
+- A business model that succeeds in an environment may not survive in another one. So don't simply copy whatever big tech is doing.
+
+---
+
+## Summary
+
+- Abstraction is an art. The goals are clear, but because those goals may be in conflict of each others, at certain point abstraction may not be improved any further, but just a tradeoff of one quality over another.
+- Common abstraction in React are component, hook, and factory function. There are several common approaches to improve those abstractions.
+- It's okay to get it wrong. "Most models are wrong, some are useful."
