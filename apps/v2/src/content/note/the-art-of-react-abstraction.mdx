@@ -1,9 +1,11 @@
 ---
 title: 'The Art of React Abstraction'
-pubDate: 12 Nov 2024
+pubDate: 20 Nov 2024
 ---
 
-import CodeWalkthrough from '~/components/CodeWalkthrough.astro';
+Following are notes that I wrote to prepare for my talk in KL React Meetup. There is no certain point that I want to make, but more like a collection of thoughts that I have about abstraction in React.
+
+Or you can see it as my attempt to defend my abstraction to my colleagues that are annoyed by my abstraction.
 
 ## What is a good abstraction
 
@@ -14,21 +16,31 @@ We create abstraction to:
 
 We judge the quality of abstraction based on how much they achieve these goals.
 
-## Why it is an art
+<aside className="block text-sm bg-gray-100 px-4 py-1 rounded-md">
 
-Because it requires tradeoff.
+Some would argue that code reuse should be another goal of abstraction. However I choose to omit it because code reuse at the cost of the two mentioned goals is rarely a good trade off.
+
+Instead, I like to look at code reuse as a good side effect of a good abstraction. It's nice, but that's not the point.
+
+</aside>
+
+## Why abstraction is an art
+
+Because abstraction requires balancing between multiple qualities.
 
 - Sometimes pursuing one goal of abstraction sacrifices other goal
 - Sometimes making good abstraction sacrifices other goals of software engineering, e.g. maintenance effort and performance.
 
 ---
 
-### Conflict #1: Flexibility vs Simplicity (Long-term cognitive cost vs short-term cognitive cost)
+Let's look at a few trade-offs that we often face when creating abstraction in React.
 
-- Flexibility: powerful, more options/parameters, more capable but higher learning curve
-- Simplicity: easier to understand, lower learning curve
+### Tradeoff #1: Flexibility vs Simplicity
 
-<CodeWalkthrough>
+I also like to call this tradeoff as tradeoff between short-term and long-term cognitive cost.
+
+- Flexibility: powerful, more options/parameters, more capable but higher learning curve, in other words, higher short-term cognitive cost but probably lower long-term cognitive cost as once you understand it, you can use it to model more use cases.
+- Simplicity: easier to understand, lower learning curve. In other words, lower short-term cognitive cost.
 
 ```tsx
 // Simple
@@ -52,14 +64,10 @@ queryState.error;
 queryState.data;
 ```
 
-</CodeWalkthrough>
-
 ### Conflict #2: Generality and Specificity
 
 - General - more reusable but harder to optimize. Also encapsulates less complexities.
 - Specificity - less reusable, but can encapsulates more complexities. Easier to optimize as well.
-
-<CodeWalkthrough>
 
 ```tsx
 import * as React from 'react';
@@ -71,8 +79,6 @@ const Button = (props: React.ComponentProps<'button'>) => {
     <button {...props} className={clsx('px-3 py-1 rounded-md', props.className)} type="button" />
   );
 };
-
-//=====
 
 // Specificity: specific - encapsulates logic of auth and permission
 const ResourceButton = ({
@@ -93,21 +99,23 @@ const ResourceButton = ({
 };
 ```
 
-</CodeWalkthrough>
-
 ### Conflict #3: Effort of Maintainer vs Consumer
 
 To provide better experience for consumer (less mandatory data, better type inference) often requires maintainer to invest more efforts into creating the abstraction.
 
 ---
 
-## Mechanisms
+## Patterns
+
+Now that I have discussed the common trade-offs, I would like to share a few patterns that I use to create abstraction in React.
+
+I mark them as "recommended" when I think they are good patterns to follow most of the time. Else, I mark them as "if appropriate" when the pattern is only useful in certain situations.
+
+I am not attempting to cover all patterns here, but only the ones that I used to ignore previously. Think of the list as "patterns I wish I knew" instead.
 
 ### Components
 
 - Recommended: Once you have components that can be composed together, abstract the most common composition as component.
-
-<CodeWalkthrough>
 
 ```tsx
 // Having those components working together is good
@@ -115,8 +123,6 @@ To provide better experience for consumer (less mandatory data, better type infe
   <Label>Field label</Label>
   <TextInput />
 </Field>;
-
-//=====
 
 // Since it's so common, create a component for that!
 const TextField = ({
@@ -132,15 +138,12 @@ const TextField = ({
 };
 ```
 
-</CodeWalkthrough>
-
 - Recommended: Create wrapper component that integrates with library that you choose:
-
-<CodeWalkthrough>
 
 ```tsx
 import { useForm } from 'react-hook-form';
 
+// Instead of sprinkle "register" everywhere when you use react-hook-form...
 const CommonExample = () => {
   const { register } = useForm({});
 
@@ -151,8 +154,6 @@ const CommonExample = () => {
     </form>
   );
 };
-
-//=====
 
 // Create component that integrate with react-hook-form automatically
 import { FormProvider, useController, type UseFormReturnType } from 'react-hook-form';
@@ -169,6 +170,7 @@ const FormTextField = ({ name, ...props }: TextFieldProps & { name: string }) =>
   return <TextField {...controller.field} />;
 };
 
+// Then the noise are mostly gone
 const AbstractedExample = () => {
   const form = useForm({});
 
@@ -180,8 +182,6 @@ const AbstractedExample = () => {
   );
 };
 ```
-
-</CodeWalkthrough>
 
 - If appropriate: Don't provide props when there is no use case for it.
 - If appropriate: Spread props to "main" component. When in doubt, don't spread.
@@ -226,11 +226,51 @@ const Button = ({
 ### Hooks
 
 - Recommended: Use object options mostly, unless you're modeling after built-in hook.
-- Recommended: Returns an object or a tuple, but never single value as you can't change single value without a breaking change.
+
+```ts
+// Nope
+const useTheme = (defaultTheme?: string) => {};
+
+// Yes
+const useThemeValue = (options: { defaultTheme?: string }) => {};
+
+// Maybe yes, since we try to model after useState
+const usePersistedState = <Value>(defaultValue: Value, options: { storageKey: string }) => {};
+```
+
+- Recommended: Returns an object or a tuple, but never single value because you can't add additional properties without a breaking change.
 
 ### General
 
+Following are patterns that apply to both components and hooks.
+
 - Recommended: Prefer single variant value instead of multiple booleans
+
+```ts
+// Instead of this...
+type AsyncState<Value> = {
+  isLoading: boolean;
+  isError: boolean;
+  isLoaded: boolean;
+  value: Value | undefined;
+  error: Error | undefined;
+};
+
+// Prefer this
+type AsyncStateV2<Value> =
+  | {
+      state: 'loading';
+    }
+  | {
+      state: 'error';
+      error: Error;
+    }
+  | {
+      state: 'loaded';
+      value: Value;
+    };
+```
+
 - Recommended: When increasing flexibility of an abstraction (adding more options), add docs to illustrate the use case (comments, storybook, tests, or markdown).
 - If appropriate: Use factory function to enforces conventions and for more aggressive abstractions.
 
@@ -257,7 +297,7 @@ const createResourceQueries = <
         queryKey: [resourceKey, 'getAll'],
         queryFn: () => api.getAll(),
       }),
-    useMutation: () => {
+    useCreateOne: () => {
       const queryClient = useQueryClient();
 
       return useMutation({
@@ -274,12 +314,15 @@ const createResourceQueries = <
 
 ---
 
-## General advices
+## Additional thoughts about abstractions
 
-- Account for Conway's law when understanding abstraction: "Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure."
-- It is okay to be imperfect or wrong, and be forgiving when others get it wrong. The law of leaky abstraction: All non-trivial abstractions, to some degree, are leaky.
+- Account for [Conway's law](https://en.wikipedia.org/wiki/Conway%27s_law) when understanding abstraction: "Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure."
+- It is okay to be imperfect or wrong, and be forgiving when others get it wrong. Remember [the law of leaky abstraction:](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/) All non-trivial abstractions, to some degree, are leaky.
+- Since all abstractions are leaky, don't be annoyed when you see abstractions that you find imperfect. Instead, read the code and understand the trade-offs, which would results in either you coming up with a better abstraction, or a deeper understanding of the problem.
 
 ---
+
+A metaphor for abstraction.
 
 <details>
   
@@ -298,5 +341,5 @@ const createResourceQueries = <
 ## Summary
 
 - Abstraction is an art. The goals are clear, but because those goals may be in conflict of each others, at certain point abstraction may not be improved any further, but just a tradeoff of one quality over another.
-- Common abstraction in React are component, hook, and factory function. There are several common approaches to improve those abstractions.
-- It's okay to get it wrong. "Most models are wrong, some are useful."
+- Common abstraction in React are component, hook, and factory function. There are few patterns that I find useful to improve those abstractions.
+- It's okay to get it wrong. As a very smart person once said, "most models are wrong, some are useful."
