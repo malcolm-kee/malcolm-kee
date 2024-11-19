@@ -3,6 +3,8 @@ title: 'The Art of React Abstraction'
 pubDate: 12 Nov 2024
 ---
 
+import CodeWalkthrough from '~/components/CodeWalkthrough.astro';
+
 ## What is a good abstraction
 
 We create abstraction to:
@@ -14,6 +16,8 @@ We judge the quality of abstraction based on how much they achieve these goals.
 
 ## Why it is an art
 
+Because it requires tradeoff.
+
 - Sometimes pursuing one goal of abstraction sacrifices other goal
 - Sometimes making good abstraction sacrifices other goals of software engineering, e.g. maintenance effort and performance.
 
@@ -24,6 +28,8 @@ We judge the quality of abstraction based on how much they achieve these goals.
 - Flexibility: powerful, more options/parameters, more capable but higher learning curve
 - Simplicity: easier to understand, lower learning curve
 
+<CodeWalkthrough>
+
 ```tsx
 // Simple
 const asyncState = useAsync(() => apiCall(), []);
@@ -32,20 +38,66 @@ asyncState.loading;
 asyncState.error;
 asyncState.value;
 
-// Flexible
+//=====
+
+// Flexible and more powerful
 const queryState = useQuery({
   queryFn: () => apiCall(),
   queryKey: ['queryKey'],
   staleTime: 1000,
 });
+
+queryState.isLoading;
+queryState.error;
+queryState.data;
 ```
+
+</CodeWalkthrough>
 
 ### Conflict #2: Generality and Specificity
 
 - General - more reusable but harder to optimize. Also encapsulates less complexities.
 - Specificity - less reusable, but can encapsulates more complexities. Easier to optimize as well.
 
+<CodeWalkthrough>
+
+```tsx
+import * as React from 'react';
+import { clsx } from 'clsx';
+
+// General: encapsulates styling
+const Button = (props: React.ComponentProps<'button'>) => {
+  return (
+    <button {...props} className={clsx('px-3 py-1 rounded-md', props.className)} type="button" />
+  );
+};
+
+//=====
+
+// Specificity: specific - encapsulates logic of auth and permission
+const ResourceButton = ({
+  resourceName,
+  action,
+  disabled,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof Button> & {
+  resourceName: string;
+  action: 'create' | 'update' | 'delete';
+}) => {
+  const { isAllowed, isLoading } = useResourcePermission({
+    resourceName,
+    action,
+  });
+
+  return <Button {...props} disabled={disabled || isLoading || !isAllowed} />;
+};
+```
+
+</CodeWalkthrough>
+
 ### Conflict #3: Effort of Maintainer vs Consumer
+
+To provide better experience for consumer (less mandatory data, better type inference) often requires maintainer to invest more efforts into creating the abstraction.
 
 ---
 
@@ -54,10 +106,122 @@ const queryState = useQuery({
 ### Components
 
 - Recommended: Once you have components that can be composed together, abstract the most common composition as component.
-- Recommended: props naming should follow abstraction of component
+
+<CodeWalkthrough>
+
+```tsx
+// Having those components working together is good
+<Field>
+  <Label>Field label</Label>
+  <TextInput />
+</Field>;
+
+//=====
+
+// Since it's so common, create a component for that!
+const TextField = ({
+  label,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof TextInput> & { label: string }) => {
+  return (
+    <Field>
+      <Label>{label}</Label>
+      <TextInput {...props} />
+    </Field>
+  );
+};
+```
+
+</CodeWalkthrough>
+
+- Recommended: Create wrapper component that integrates with library that you choose:
+
+<CodeWalkthrough>
+
+```tsx
+import { useForm } from 'react-hook-form';
+
+const CommonExample = () => {
+  const { register } = useForm({});
+
+  return (
+    <form>
+      <TextField {...register('name')} />
+      <TextField {...register('email')} />
+    </form>
+  );
+};
+
+//=====
+
+// Create component that integrate with react-hook-form automatically
+import { FormProvider, useController, type UseFormReturnType } from 'react-hook-form';
+
+const Form = (props: { form: UseFormReturnType; children: React.ReactNode }) => {
+  return <FormProvider {...props} />;
+};
+
+const FormTextField = ({ name, ...props }: TextFieldProps & { name: string }) => {
+  const controller = useController({
+    name,
+  });
+
+  return <TextField {...controller.field} />;
+};
+
+const AbstractedExample = () => {
+  const form = useForm({});
+
+  return (
+    <Form form={form}>
+      <FormTextField name="name" />
+      <FormTextField name="email" />
+    </Form>
+  );
+};
+```
+
+</CodeWalkthrough>
+
 - If appropriate: Don't provide props when there is no use case for it.
 - If appropriate: Spread props to "main" component. When in doubt, don't spread.
-- If appropriate: Use render props
+- If appropriate: Use render props to increase flexibility.
+
+```tsx
+import { clsx } from 'clsx';
+
+const Button = ({
+  variant,
+  render,
+  className: providedClass,
+  children,
+  ...btnProps
+}: React.ComponentProps<'button'> & {
+  variant: 'primary' | 'secondary';
+  render: (btnProps: { className: string; children: React.ReactNode }) => React.ReactElement;
+}) => {
+  const className = clsx(
+    {
+      primary: 'bg-blue-500',
+      secondary: 'bg-white border-blue-500 border',
+    }[variant],
+    providedClass
+  );
+
+  if (render) {
+    return render({
+      className,
+      children,
+    });
+  }
+
+  return (
+    <button type="button" className={className} {...btnProps}>
+      {children}
+    </button>
+  );
+};
+```
 
 ### Hooks
 
@@ -70,6 +234,44 @@ const queryState = useQuery({
 - Recommended: When increasing flexibility of an abstraction (adding more options), add docs to illustrate the use case (comments, storybook, tests, or markdown).
 - If appropriate: Use factory function to enforces conventions and for more aggressive abstractions.
 
+```ts twoslash
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+
+const createResourceQueries = <
+  Resource extends object,
+  CreateInput extends object = Omit<Resource, 'id'>,
+>({
+  resourceKey,
+  api,
+}: {
+  resourceKey: string;
+  api: {
+    getAll: () => Promise<{ items: Resource[] }>;
+    getOne: (resourceId: string) => Promise<Resource>;
+    createOne: (input: CreateInput) => Promise<Resource>;
+  };
+}) => {
+  return {
+    useGetAll: () =>
+      useQuery({
+        queryKey: [resourceKey, 'getAll'],
+        queryFn: () => api.getAll(),
+      }),
+    useMutation: () => {
+      const queryClient = useQueryClient();
+
+      return useMutation({
+        mutationFn: (input: CreateInput) => api.createOne(input),
+        onSuccess: () =>
+          queryClient.invalidateQueries({
+            queryKey: [resourceKey],
+          }),
+      });
+    },
+  };
+};
+```
+
 ---
 
 ## General advices
@@ -79,13 +281,17 @@ const queryState = useQuery({
 
 ---
 
-## Abstraction is like a business
+<details>
+  
+<summary>Abstraction is like a business</summary>
 
-- A business can be highly focused (solve one problem really well) vs broad platform (one-stop business).
-- A business aims to hide the complexity and expose a friendly interface to end users
-- A business could delegates to other businesses for certain parts of the operations, and being a coordinator between them for the customers.
+- A business can be **highly focused** (solve one problem really well) vs **all-in-one platform** (one-stop business).
+- A business aims to **hide the complexity** and expose **a friendly interface** to end users
+- A business could **delegates to other businesses** for certain parts of the operations, and being a coordinator between them for the customers.
 - Don't create a business and then find customers later. Identify customers first before start a business. Similarly, don't create an abstraction and then find how to use it. Instead, abstract only when you identify the common problems of your domain.
-- A business model that succeeds in an environment may not survive in another one. So don't simply copy whatever big tech is doing.
+- A business model that succeeds in an environment may not survive in another one. So, get inspired by what others are doing, but don't simply copy them.
+
+</details>
 
 ---
 
