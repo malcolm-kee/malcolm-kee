@@ -3,7 +3,7 @@ title: 'The Art of React Abstraction'
 pubDate: 20 Nov 2024
 ---
 
-Following are notes that I wrote to prepare for my talk in KL React Meetup. There is no certain point that I want to make, but more like a collection of thoughts that I have about abstraction in React.
+Following are notes for my talk in KL React Meetup. There is no certain point that I want to make, this is more like a collection of thoughts that I have about abstraction in React.
 
 Or you can see it as my attempt to defend my abstraction to my colleagues that are annoyed by my abstraction.
 
@@ -18,7 +18,7 @@ We judge the quality of abstraction based on how much they achieve these goals.
 
 <aside className="block text-sm bg-gray-100 px-4 py-1 rounded-md">
 
-Some would argue that code reuse should be another goal of abstraction. However I choose to omit it because code reuse at the cost of the two mentioned goals is rarely a good trade off.
+Some would argue that code reuse should be another goal of abstraction. However I choose to omit it because code reuse at the cost of the two mentioned goals is rarely a good tradeoff.
 
 Instead, I like to look at code reuse as a good side effect of a good abstraction. It's nice, but that's not the point.
 
@@ -33,7 +33,7 @@ Because abstraction requires balancing between multiple qualities.
 
 ---
 
-Let's look at a few trade-offs that we often face when creating abstraction in React.
+Let's look at a few tradeoffs that we often face when creating abstraction in React.
 
 ### Tradeoff #1: Flexibility vs Simplicity
 
@@ -50,8 +50,6 @@ asyncState.loading;
 asyncState.error;
 asyncState.value;
 
-//=====
-
 // Flexible and more powerful
 const queryState = useQuery({
   queryFn: () => apiCall(),
@@ -64,7 +62,7 @@ queryState.error;
 queryState.data;
 ```
 
-### Conflict #2: Generality and Specificity
+### Tradeoff #2: Generality and Specificity
 
 - General - more reusable but harder to optimize. Also encapsulates less complexities.
 - Specificity - less reusable, but can encapsulates more complexities. Easier to optimize as well.
@@ -99,23 +97,23 @@ const ResourceButton = ({
 };
 ```
 
-### Conflict #3: Effort of Maintainer vs Consumer
+### Tradeoff #3: Effort of Maintainer vs Consumer
 
-To provide better experience for consumer (less mandatory data, better type inference) often requires maintainer to invest more efforts into creating the abstraction.
+To provide better experience for consumer (less mandatory data, better type inference) often requires maintainer to invest more efforts into creating and maintaining the abstraction.
 
 ---
 
 ## Patterns
 
-Now that I have discussed the common trade-offs, I would like to share a few patterns that I use to create abstraction in React.
+Now that I have discussed the common tradeoffs, I would like to share a few patterns that I use to create abstraction in React.
 
 I mark them as "recommended" when I think they are good patterns to follow most of the time. Else, I mark them as "if appropriate" when the pattern is only useful in certain situations.
 
-I am not attempting to cover all patterns here, but only the ones that I used to ignore previously. Think of the list as "patterns I wish I knew" instead.
+I am not attempting to cover all patterns here, but only the ones that I used to ignore. Think of the list as "patterns I wish I knew" instead.
 
 ### Components
 
-- Recommended: Once you have components that can be composed together, abstract the most common composition as component.
+- Recommended: Once you have components that can be composed together, abstract the most common composition as a component.
 
 ```tsx
 // Having those components working together is good
@@ -318,7 +316,7 @@ const createResourceQueries = <
 
 - Account for [Conway's law](https://en.wikipedia.org/wiki/Conway%27s_law) when understanding abstraction: "Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure."
 - It is okay to be imperfect or wrong, and be forgiving when others get it wrong. Remember [the law of leaky abstraction:](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/) All non-trivial abstractions, to some degree, are leaky.
-- Since all abstractions are leaky, don't be annoyed when you see abstractions that you find imperfect. Instead, read the code and understand the trade-offs, which would results in either you coming up with a better abstraction, or a deeper understanding of the problem.
+- Since all abstractions are leaky, don't get annoyed when you see abstractions that you find imperfect. Instead, read the code and understand the tradeoffs, which would results in either you coming up with a better abstraction, or a deeper understanding of the problem.
 
 ---
 
@@ -340,6 +338,6 @@ A metaphor for abstraction.
 
 ## Summary
 
-- Abstraction is an art. The goals are clear, but because those goals may be in conflict of each others, at certain point abstraction may not be improved any further, but just a tradeoff of one quality over another.
+- Abstraction is an art. The goals are clear, but because those goals may be in conflict of each others, at certain point abstraction may not be improved any further, but just tradeoff of one quality over another.
 - Common abstraction in React are component, hook, and factory function. There are few patterns that I find useful to improve those abstractions.
-- It's okay to get it wrong. As a very smart person once said, "most models are wrong, some are useful."
+- It's okay to get it wrong. As a very smart person once said, "most models are wrong, but some are useful."
