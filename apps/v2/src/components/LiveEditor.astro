@@ -88,7 +88,6 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
 
 <script>
   import scrollIntoView from 'scroll-into-view-if-needed';
-  import { editorLoadedEvent } from '~/components/editor-event';
   import { isVisible } from '~/lib/dom-helpers';
 
   const languagePriority: Record<string, number> = {
@@ -257,31 +256,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         const elementToTransition = getElementToTransition();
 
         if (elementToTransition) {
-          const lazyEditor = currentEditorElement.querySelector('[data-editorloaded]');
-
-          if (
-            lazyEditor &&
-            lazyEditor instanceof HTMLElement &&
-            lazyEditor.dataset.editorloaded === 'false'
-          ) {
-            // the editor is initialized lazily, so we force it to initialize by
-            // showing it then hide again, and to reduce UI jank we set it a low
-            // opacity during this process
-            currentEditorElement.style.setProperty('opacity', '0.01');
-            showLiveEditor();
-
-            function onEditorLoaded() {
-              currentEditorElement.style.removeProperty('opacity');
-              hideLiveEditor();
-              lazyEditor && lazyEditor.removeEventListener(editorLoadedEvent, onEditorLoaded);
-              requestAnimationFrame(() => {
-                showLiveEditorWithTransition(elementToTransition);
-              });
-            }
-            lazyEditor.addEventListener(editorLoadedEvent, onEditorLoaded);
-          } else {
-            showLiveEditorWithTransition(elementToTransition);
-          }
+          showLiveEditorWithTransition(elementToTransition);
         } else {
           prevElement = null;
           showLiveEditor();

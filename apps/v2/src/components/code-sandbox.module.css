@@ -10,6 +10,10 @@
   font-size: 14px;
 }
 
+.editorWrapper {
+  --highlight-bg: #f1f8ff;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

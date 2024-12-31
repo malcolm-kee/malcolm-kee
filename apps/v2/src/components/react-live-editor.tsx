@@ -49,6 +49,15 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
   ) : null;
 }
 
+/**
+ * A manually maintained version for libraries whose
+ * latest version is not working as expected.
+ */
+const librarySupportedVersion: Record<string, string> = {
+  // Not working due to https://github.com/remix-run/react-router/issues/12475
+  'react-router-dom': '^6.28.1',
+};
+
 // TODO: handle twoslash code
 function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditorState {
   const codeLines: Array<string> = [];
@@ -71,23 +80,24 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
 
         if (importString) {
           importString.split(',').forEach((pkgName) => {
-            dependencies[pkgName] = 'latest';
+            dependencies[pkgName] = librarySupportedVersion[pkgName] || 'latest';
           });
         }
 
-        $code.childNodes.forEach((child, childIndex) => {
-          if (child instanceof HTMLElement) {
-            if (child.classList.contains('line')) {
-              const content = child.textContent;
-              if (content != null) {
-                codeLines.push(whiteSpacePattern.test(content) ? '' : content);
-                if (child.classList.contains('highlight')) {
-                  highlightedLines.push(childIndex);
-                }
+        Array.from($code.childNodes)
+          .filter(
+            (node): node is HTMLElement =>
+              node instanceof HTMLElement && node.classList.contains('line')
+          )
+          .forEach((child, childIndex) => {
+            const content = child.textContent;
+            if (content != null) {
+              codeLines.push(whiteSpacePattern.test(content) ? '' : content);
+              if (child.classList.contains('highlighted')) {
+                highlightedLines.push(childIndex);
               }
             }
-          }
-        });
+          });
 
         if ((currentLang === 'jsx' || currentLang === 'tsx') && !dependencies.react) {
           codeLines.unshift(`import * as React from 'react';`);
@@ -101,17 +111,24 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
     }
 
     if ($code && currentLang && isHtml(currentLang)) {
-      $code.childNodes.forEach((child, childIndex) => {
-        const content = child.textContent;
+      Array.from($code.childNodes)
+        .filter(
+          (node): node is HTMLElement =>
+            node instanceof HTMLElement && node.classList.contains('line')
+        )
+        .forEach((child, childIndex) => {
+          const content = child.textContent;
 
-        if (content != null) {
-          htmlCodeLines.push(whiteSpacePattern.test(content) ? '' : content);
+          if (content != null) {
+            htmlCodeLines.push(whiteSpacePattern.test(content) ? '' : content);
 
-          if (child instanceof HTMLElement && child.classList.contains('highlight')) {
-            highlightedHtmlLines.push(childIndex);
+            // TODO: change to highlighted to properly parse this, but would cause sandpack error
+            // when switching from main file to html file and back to main file, no idea why
+            if (child.classList.contains('highlight')) {
+              highlightedHtmlLines.push(childIndex);
+            }
           }
-        }
-      });
+        });
     }
   });
 

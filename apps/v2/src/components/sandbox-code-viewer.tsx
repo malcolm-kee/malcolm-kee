@@ -5,6 +5,7 @@ import {
   type CodeViewerProps,
 } from '@codesandbox/sandpack-react';
 import * as React from 'react';
+import './sandbox-code-viewer.css';
 
 type ViewerRef = React.ElementRef<typeof OriginalViewer>;
 
@@ -17,7 +18,12 @@ export const SandboxCodeViewer = ({ highlightedLines, ...props }: SandboxCodeVie
 
   const { sandpack } = useSandpack();
 
-  const highlighted = highlightedLines && highlightedLines[sandpack.activeFile];
+  const activeFile = sandpack.activeFile;
+
+  const highlighted = React.useMemo(
+    () => highlightedLines && highlightedLines[activeFile],
+    [activeFile]
+  );
 
   React.useEffect(() => {
     const codeMirror = viewerRef.current?.getCodemirror();
@@ -46,19 +52,17 @@ export const SandboxCodeViewer = ({ highlightedLines, ...props }: SandboxCodeVie
         }),
       ]);
     }
-  }, [sandpack.activeFile]);
+  }, [activeFile]);
 
-  return (
-    <OriginalViewer
-      decorators={
-        highlighted &&
-        highlighted.map((line) => ({
-          line: line + 1,
-          className: 'highlight',
-        }))
-      }
-      ref={viewerRef}
-      {...props}
-    />
+  const viewerDecorators = React.useMemo(
+    () =>
+      highlighted &&
+      highlighted.map((line) => ({
+        line: line + 1,
+        className: 'highlight',
+      })),
+    [highlighted]
   );
+
+  return <OriginalViewer decorators={viewerDecorators} ref={viewerRef} {...props} />;
 };
