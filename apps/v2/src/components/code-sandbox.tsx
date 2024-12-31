@@ -4,13 +4,12 @@ import {
   SandpackProvider,
   type SandpackTheme,
 } from '@codesandbox/sandpack-react';
-import { githubLight as oriGithubLight, nightOwl } from '@codesandbox/sandpack-themes';
+import { nightOwl, githubLight as oriGithubLight } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { useThemeValue } from '~/hooks/use-theme';
 import { type SupportedLang } from './code-sandbox-helpers';
 import styles from './code-sandbox.module.css';
-import { editorLoadedEvent } from './editor-event';
 import { SandboxCodeViewer } from './sandbox-code-viewer';
 import { SandBoxConsole } from './sandbox-console';
 
@@ -58,53 +57,6 @@ export default function Sandbox(props: SandboxProps) {
     };
   }, [siteTheme]);
 
-  const [editorLoaded, setEditorLoaded] = React.useState(() =>
-    props.lang === 'ts' || !window.MutationObserver ? true : false
-  );
-
-  const editorContainerRef = React.useRef<HTMLDivElement>(null);
-  const onEditorLoaded = React.useCallback(() => {
-    if (editorContainerRef.current) {
-      editorContainerRef.current.dispatchEvent(new CustomEvent(editorLoadedEvent));
-    }
-    setEditorLoaded(true);
-  }, []);
-
-  React.useEffect(() => {
-    if (editorContainerRef.current && !editorLoaded) {
-      const sandboxEditor = editorContainerRef.current.querySelector('.sp-code-editor');
-
-      if (sandboxEditor) {
-        onEditorLoaded();
-      } else {
-        const observer = new MutationObserver((mutationList) => {
-          for (const mutation of mutationList) {
-            if (mutation.type === 'childList') {
-              if (mutation.addedNodes.length > 0) {
-                for (const node of mutation.addedNodes) {
-                  if (node instanceof HTMLElement && node.classList.contains('sp-code-editor')) {
-                    onEditorLoaded();
-
-                    observer.disconnect();
-
-                    return;
-                  }
-                }
-              }
-            }
-          }
-        });
-
-        observer.observe(editorContainerRef.current, {
-          childList: true,
-          subtree: true,
-        });
-
-        return () => observer.disconnect();
-      }
-    }
-  }, []);
-
   return (
     <SandpackProvider
       template={templates[props.lang]}
@@ -148,8 +100,6 @@ export default function Sandbox(props: SandboxProps) {
           'border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70 not-prose',
           styles.editorWrapper
         )}
-        data-editorloaded={editorLoaded}
-        ref={editorContainerRef}
         style={codeViewerStyle}
       >
         {props.readOnly ? (

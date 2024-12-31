@@ -1,0 +1,119 @@
+---
+title: Debug
+layout: ~/layouts/SimplePage.astro
+---
+
+import LiveEditor from '~/components/LiveEditor.astro';
+
+# Debug
+
+This is a page for debugging this website.
+
+## LiveEditor
+
+### First example
+
+<LiveEditor readOnly>
+
+```ts title="script.ts" {1}
+document.querySelector('#toggleBtn')?.addEventListener('click', () => {
+  document.querySelector('#content')?.classList.toggle('text-red');
+});
+```
+
+```html {2}
+<div>
+  <p id="content">Content</p>
+  <button id="toggleBtn" type="button">Toggle</button>
+</div>
+<style>
+  .text-red {
+    color: red;
+  }
+</style>
+```
+
+</LiveEditor>
+
+### Second example
+
+<LiveEditor>
+
+```js {2,6}
+document.getElementById('moveBtn').addEventListener('click', () => {
+  document.startViewTransition(() => {
+    document
+      .querySelectorAll('.thumbnail, .cat-details')
+      .forEach((target) => target.classList.toggle('hidden'));
+  });
+});
+```
+
+```html {27-29}
+<div class="top-bar">
+  <div class="top-bar-content">
+    <h1>Move Cat</h1>
+    <button id="moveBtn">Move</button>
+  </div>
+  <img
+    src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
+    alt="cat"
+    width="300"
+    height="300"
+    class="cat-img thumbnail"
+  />
+</div>
+<div class="cat-details hidden">
+  <img
+    src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
+    alt="cat"
+    width="500"
+    height="500"
+    class="cat-img detailed-img"
+  />
+  <div class="cat-desc">
+    <h2>Cat Details</h2>
+  </div>
+</div>
+<style>
+  .cat-img {
+    view-transition-name: meow-image;
+  }
+
+  .cat-details {
+    display: flex;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cat-desc {
+    flex: 1;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+
+  .detailed-img {
+    width: 50vw;
+    height: auto;
+  }
+</style>
+```
+
+</LiveEditor>
