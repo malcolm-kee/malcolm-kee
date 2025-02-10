@@ -15,6 +15,9 @@
     max-age=0,
     no-cache
     '''
+  for = "/~partytown/*"
+  [headers.values]
+    x-robots-tag = 'noindex'
 
 [dev]
   command = "pnpm run dev"
