@@ -38,7 +38,7 @@ jobs:
           CI: true
 
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.2
+        uses: nwtgck/actions-netlify@v3.0
         id: netlify-deploy
         with:
           publish-dir: './apps/v2/dist'
