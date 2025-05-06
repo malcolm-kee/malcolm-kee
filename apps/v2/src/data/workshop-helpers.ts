@@ -8,13 +8,7 @@ import {
 
 type WorkshopData = CollectionEntry<'workshop'>;
 
-type ExtractFirstPart<Pattern extends string> = Pattern extends `${infer FirstPart}/${string}`
-  ? FirstPart
-  : Pattern;
-
-type WorkshopInferredSlug = ExtractFirstPart<WorkshopData['slug']>;
-
-const getWorkshopSlug = (entry: WorkshopData) => entry.slug.split('/')[0] as WorkshopInferredSlug;
+const getWorkshopSlug = (entry: WorkshopData) => entry.slug.split('/')[0] as WorkshopSlug;
 
 const getRenderedSlug = (entry: WorkshopData) => {
   const workshopSlug = getWorkshopSlug(entry);

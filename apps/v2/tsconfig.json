@@ -20,5 +20,6 @@
       "~/*": ["src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", ".astro/types.d.ts"],
+  "exclude": ["dist"]
 }

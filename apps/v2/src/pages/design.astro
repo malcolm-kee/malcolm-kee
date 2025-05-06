@@ -11,6 +11,11 @@ import { BlogPostPreviewList, BlogPostPreviewListItems } from '~/components/Blog
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
 
 const viewTransitionApiData = await getEntry('blog', 'automating-refactoring-with-codemod');
+
+if (!viewTransitionApiData) {
+  throw new Error('viewTransitionApiData is undefined');
+}
+
 const viewTransitionApiPost = {
   ...viewTransitionApiData,
   heroImageInfo: viewTransitionApiData.data.heroImagePublicId
@@ -18,6 +23,11 @@ const viewTransitionApiPost = {
     : undefined,
 };
 const htmlCvData = await getEntry('blog', 'how-to-create-cv-using-html');
+
+if (!htmlCvData) {
+  throw new Error('htmlCvData is undefined');
+}
+
 const htmlCvPost = {
   ...htmlCvData,
   heroImageInfo: htmlCvData.data.heroImagePublicId
@@ -80,7 +90,9 @@ const flutterPost = await getEntry('blog', 'flutter-for-react-developers');
               <h3 class="font-techie text-lg">ContentSuggestions</h3>
               <div class="pb-8 lg:p-0">
                 <ContentSuggestions
-                  blogs={[viewTransitionApiPost, htmlCvPost, flutterPost]}
+                  blogs={[viewTransitionApiPost, htmlCvPost, flutterPost].filter(
+                    (val) => val != null
+                  )}
                   tils={[]}
                 />
               </div>
