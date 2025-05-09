@@ -1,7 +1,7 @@
 ---
 title: Using View Transition API in React App
 pubDate: 17 Mar 2023
-updatedDate: 19 Oct 2024
+updatedDate: 9 May 2025
 description: Discover how to use the View Transition API in your React apps to create engaging and fluid navigational experiences. This API simplifies the process of animating shared elements and can be used in various practical scenarios, such as showcasing product images, animating modals, and more.
 topics:
   - react
@@ -315,6 +315,253 @@ createRoot(document.getElementById('root')).render(<App />);
 
 </LiveEditor>
 
+### Coming soon: React first-class support with ViewTransition component
+
+React team is working on a new component, `ViewTransition` that will integrates with View Transition API, as announced in [this blog](https://react.dev/blog/2025/04/23/react-labs-view-transitions-activity-and-more).
+
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
+
+```jsx {5,11,24,35}
+import * as React from 'react'; // @version: react@0.0.0-experimental-38ef6550-20250508
+import { createRoot } from 'react-dom/client'; // @version: react-dom@0.0.0-experimental-38ef6550-20250508
+
+const { unstable_ViewTransition: ViewTransition } = React;
+
+const App = () => {
+  const [isThumbnail, setIsThumbnail] = React.useState(true);
+
+  const handleMove = () => {
+    React.startTransition(() => {
+      setIsThumbnail((prev) => !prev);
+    });
+  };
+
+  return (
+    <div>
+      <div className="top-bar">
+        <div className="top-bar-content">
+          <h1>Move Cat</h1>
+          <button onClick={handleMove}>Move</button>
+        </div>
+        {isThumbnail && (
+          <ViewTransition name="meow-image">
+            <img
+              src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
+              alt="cat"
+              className="thumbnail"
+            />
+          </ViewTransition>
+        )}
+      </div>
+      {!isThumbnail && (
+        <div className="cat-details">
+          <ViewTransition name="meow-image">
+            <img
+              src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
+              alt="cat"
+              className="detailed-img"
+            />
+          </ViewTransition>
+          <div className="cat-desc">
+            <h2>Cat Details</h2>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+createRoot(document.getElementById('root')).render(<App />);
+```
+
+```html hidden
+<div id="root"></div>
+<style>
+  .cat-details {
+    display: flex;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cat-desc {
+    flex: 1;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .top-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+
+  .detailed-img {
+    width: 50vw;
+    height: auto;
+  }
+</style>
+```
+
+</LiveEditor>
+
+With the `ViewTransition` component:
+
+- we no longer need to write custom CSS to define the `view-transition-name` property. Instead, we can use the `name` prop as a replacement.
+- we replace `flushSync` and `document.startViewTransition` with `React.startTransition`. Not only it's more concise, by allowing React to handle the view transition, the behavior integrates well with React's Suspense. For instance, we can use it with `useDeferredValue` to create animated list.
+
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
+
+```jsx
+import * as React from 'react'; // @version: react@0.0.0-experimental-38ef6550-20250508
+import { createRoot } from 'react-dom/client'; // @version: react-dom@0.0.0-experimental-38ef6550-20250508
+
+const { unstable_ViewTransition: ViewTransition } = React;
+
+const App = () => {
+  const [search, setSearch] = React.useState('');
+
+  const deferredSearch = React.useDeferredValue(search);
+
+  const displayedCats = deferredSearch
+    ? catData.filter((cat) => cat.name.toUpperCase().includes(deferredSearch.toUpperCase()))
+    : catData;
+
+  return (
+    <div>
+      <div className="search-container">
+        <input
+          type="text"
+          value={search}
+          onChange={(ev) => setSearch(ev.target.value)}
+          placeholder="Type to search"
+          className="search-input"
+        />
+      </div>
+      {displayedCats.length === 0 && (
+        <ViewTransition name="error-message">
+          <div className="error-message">
+            <p>No cats found</p>
+          </div>
+        </ViewTransition>
+      )}
+      <ul className="cat-list">
+        {displayedCats.map((cat) => (
+          <li key={cat.id}>
+            <ViewTransition name={`cat-${cat.id}`}>
+              <div className="cat-item">
+                <img src={cat.image} alt={cat.name} className="cat-thumbnail" />
+                <div className="cat-item-content">
+                  <p className="cat-name">{cat.name}</p>
+                </div>
+              </div>
+            </ViewTransition>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const catData = [
+  {
+    id: 'meow',
+    name: 'Meow',
+    image:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png',
+  },
+  {
+    id: 'angie',
+    name: 'Angie',
+    image:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/angry_cat.png',
+  },
+  {
+    id: 'milky',
+    name: 'Milky',
+    image:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/milky.png',
+  },
+  {
+    id: 'spinner',
+    name: 'Spinner',
+    image:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/spinning_cat.png',
+  },
+];
+
+createRoot(document.getElementById('root')).render(<App />);
+```
+
+```html hidden
+<link rel="stylesheet" href="https://unpkg.com/modern-normalize/modern-normalize.css" />
+<div id="root"></div>
+<style>
+  .search-container {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .search-input {
+    display: block;
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid #cecece;
+    border-radius: 0.25rem;
+  }
+
+  .cat-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .cat-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .cat-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+  }
+
+  .cat-item-content {
+    flex: 1;
+  }
+
+  .cat-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+</style>
+```
+
+</LiveEditor>
+
 ## Using View Transition API with React Router
 
 Using View Transition API with [React Router](https://reactrouter.com/) is about the same, except that you call hook `useNavigate` to navigate to the new page instead of setState in the callback of `document.startViewTransition`.
@@ -443,9 +690,9 @@ createRoot(document.getElementById('root')).render(<RouterProvider router={route
 
 </LiveEditor>
 
-### Update: React Router First-Class Support
+### Update: React Router first-class support of View Transition
 
-Since React Router version 6.27.0, using View Transition API requires only [adding `viewTransition` prop to `Link` component](https://reactrouter.com/en/6.27.0/components/link#viewtransition). However, the examples are not working right now with React Router version 7.x, I'm watching [this GitHub issue](https://github.com/remix-run/react-router/issues/12475) for further updates.
+Since React Router version 6.27.0, using View Transition API requires only [adding `viewTransition` prop to `Link` component](https://reactrouter.com/en/6.27.0/components/link#viewtransition).
 
 <LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
 

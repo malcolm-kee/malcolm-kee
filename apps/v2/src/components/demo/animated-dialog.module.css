@@ -2,6 +2,11 @@
   view-transition-name: animated-dialog-focus;
 }
 
+::view-transition-old(animated-dialog-focus),
+::view-transition-new(animated-dialog-focus) {
+  height: 100%;
+}
+
 @keyframes fade {
   from {
     opacity: 0;

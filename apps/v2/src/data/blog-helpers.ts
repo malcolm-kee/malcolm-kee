@@ -38,5 +38,10 @@ export const getBlogs = async ({
     })
   );
 
-  return allBlogData.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  return allBlogData.sort((a, b) => {
+    const aDate = a.data.updatedDate || a.data.pubDate;
+    const bDate = b.data.updatedDate || b.data.pubDate;
+
+    return bDate.valueOf() - aDate.valueOf();
+  });
 };

@@ -16,6 +16,7 @@ export interface Props {
   lang?: string;
   headings?: Array<MarkdownHeading>;
   publishDate?: Date;
+  updatedDate?: Date;
   backUrl?: string;
   backButtonLabel?: string;
   /** key used for offline saving. Required for supporting save for offline */
@@ -26,6 +27,7 @@ export interface Props {
 const {
   title,
   publishDate,
+  updatedDate,
   headings,
   backUrl,
   backButtonLabel = 'Go back',
@@ -78,9 +80,17 @@ const currentPath = new URL(Astro.request.url).pathname;
                   >
                     {
                       publishDate && (
-                        <p class="my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
-                          {isFutureContent ? `To be published on ` : null}
-                          {formatDate(publishDate, lang)}
+                        <p class="flex flex-col gap-1 my-3 text-zinc-400 pl-4 border-l-4 border-l-zinc-100">
+                          {isFutureContent ? (
+                            `To be published on ${formatDate(publishDate, lang)}`
+                          ) : updatedDate ? (
+                            <>
+                              {formatDate(updatedDate, lang)}{' '}
+                              <small>First publish on {formatDate(publishDate, lang)}</small>
+                            </>
+                          ) : (
+                            formatDate(publishDate, lang)
+                          )}
                         </p>
                       )
                     }

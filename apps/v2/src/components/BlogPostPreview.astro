@@ -70,7 +70,7 @@ const hasImage = post.heroImageInfo;
   {
     !isFeatured && !hideDate && (
       <time class="hidden relative @md/bloglist:block pl-3 text-sm leading-6 text-zinc-400">
-        {formatDate(post.data.pubDate, post.data.lang)}
+        {formatDate(post.data.updatedDate || post.data.pubDate, post.data.lang)}
       </time>
     )
   }
@@ -109,7 +109,7 @@ const hasImage = post.heroImageInfo;
                 isFeatured ? '@md/bloglist:border-l-transparent' : '@md/bloglist:hidden'
               )}
             >
-              {formatDate(post.data.pubDate, post.data.lang)}
+              {formatDate(post.data.updatedDate || post.data.pubDate, post.data.lang)}
             </time>
           )
         }

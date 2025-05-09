@@ -49,15 +49,6 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
   ) : null;
 }
 
-/**
- * A manually maintained version for libraries whose
- * latest version is not working as expected.
- */
-const librarySupportedVersion: Record<string, string> = {
-  // Not working due to https://github.com/remix-run/react-router/issues/12475
-  'react-router-dom': '^6.28.1',
-};
-
 // TODO: handle twoslash code
 function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditorState {
   const codeLines: Array<string> = [];
@@ -79,8 +70,10 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
         const importString = $code.getAttribute('data-code-imports');
 
         if (importString) {
-          importString.split(',').forEach((pkgName) => {
-            dependencies[pkgName] = librarySupportedVersion[pkgName] || 'latest';
+          importString.split(',').forEach((pkgNameImports) => {
+            const [pkgName, version] = pkgNameImports.split('@');
+
+            dependencies[pkgName] = version || 'latest';
           });
         }
 

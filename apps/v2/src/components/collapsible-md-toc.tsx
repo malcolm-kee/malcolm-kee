@@ -3,7 +3,7 @@ import type { MarkdownHeading } from 'astro';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import AnimateHeight from 'react-animate-height';
-import { CloseIcon } from './icons';
+import { CloseIcon, ListIcon } from './icons';
 
 export const CollapsibleMdToc = (props: {
   headings: Array<MarkdownHeading>;
@@ -20,7 +20,7 @@ export const CollapsibleMdToc = (props: {
     <Disclosure
       as="nav"
       aria-labelledby={labelId}
-      className={clsx('py-3 relative [--collapse-duration:100ms]', props.className)}
+      className={clsx('pb-3 relative [--collapse-duration:100ms]', props.className)}
     >
       {({ open }) => (
         <>
@@ -28,38 +28,43 @@ export const CollapsibleMdToc = (props: {
             className={clsx(
               'absolute top-0 right-0 scale-y-50 bottom-0 left-0',
               'transition-all duration-200 delay-[var(--collapse-duration)] ui-open:delay-0 ',
-              'bg-white rounded-none ui-open:rounded-xl ui-open:bg-zinc-50 ui-open:scale-y-100',
-              'ui-open:shadow-inner'
+              'bg-white rounded-none ui-open:rounded-xl ui-open:scale-y-100 ui-open:outline ui-open:outline-zinc-100'
             )}
           />
           <div className="relative">
-            <DisclosureButton className="group/toggle flex w-full">
+            <DisclosureButton
+              className={clsx(
+                'group/toggle w-full hover:bg-zinc-50 outline outline-1 outline-zinc-100 rounded ui-open:rounded-t-xl ui-open:rounded-b-none',
+                'cursor-s-resize ui-open:cursor-n-resize'
+              )}
+            >
               <span
                 className={clsx(
-                  'flex-1 sm:flex-initial sm:ui-open:flex-1',
                   'block',
                   'duration-200 delay-[var(--collapse-duration)]',
-                  'ui-open:duration-500 ui-open:delay-0'
+                  'ui-open:duration-500 ui-open:delay-0 ui-open:border-b-2 ui-open:border-zinc-100 ui-open:pb-2 ui-open:pt-3',
+                  'ui-open:bg-zinc-50'
                 )}
               >
                 <span
                   className={clsx(
                     'flex justify-between items-center gap-1',
-                    'text-start px-3',
+                    'text-start px-2',
                     'transition-all duration-200 delay-[var(--collapse-duration)]',
                     'ui-open:duration-0 ui-open:delay-0',
-                    'bg-white hover:bg-zinc-50 ui-open:bg-zinc-50 text-zinc-500 ui-open:text-zinc-900',
-                    'rounded-md',
-                    'shadow ui-open:shadow-none'
+                    'text-zinc-500 ui-open:text-zinc-900 group-hover/toggle:text-zinc-900',
+                    'rounded-md'
                   )}
                 >
                   <span
                     className={clsx(
-                      'block py-2 sm:pr-0 sm:py-0 text-xl transition duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
+                      'flex items-center gap-1',
+                      'px-1 py-2 sm:py-0 text-xl transition duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
                       'translate-x-0 ui-open:translate-x-4',
                       'ui-open:delay-0'
                     )}
                   >
+                    <ListIcon className="w-4 h-4 text-zinc-500 ui-open:opacity-0 ui-open:translate-y-full duration-300" />
                     <span
                       className={clsx(
                         'block text-start origin-left font-light duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
@@ -67,13 +72,15 @@ export const CollapsibleMdToc = (props: {
                       )}
                       id={labelId}
                     >
-                      Contents
+                      <span className="block ui-open:-translate-x-5 transition duration-300">
+                        Contents
+                      </span>
                     </span>
                   </span>
                   <span
                     className={clsx(
-                      'block py-3 sm:py-1',
-                      'translate-x-0 ui-open:-translate-x-4',
+                      'block p-3 sm:p-1 rounded-full',
+                      'translate-x-0 ui-open:-translate-x-2',
                       'duration-300 delay-[var(--collapse-duration)] ui-open:delay-0'
                     )}
                     aria-hidden
@@ -82,7 +89,8 @@ export const CollapsibleMdToc = (props: {
                       className={clsx(
                         'w-5 h-5 stroke-zinc-500 transition delay-[var(--collapse-duration)]',
                         '-rotate-[135deg] scale-75 sm:scale-[0.6]',
-                        'ui-open:rotate-0 ui-open:scale-100 sm:ui-open:scale-100 ui-open:duration-500 ui-open:delay-0'
+                        'ui-open:rotate-0 ui-open:scale-100 sm:ui-open:scale-100 ui-open:duration-500 ui-open:delay-0',
+                        'opacity-0 ui-open:opacity-100'
                       )}
                     />
                   </span>
