@@ -3,48 +3,37 @@ import type { MarkdownHeading } from 'astro';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import AnimateHeight from 'react-animate-height';
+import { listen } from '~/lib/event-helper';
 import { ChevronDownIcon, ListIcon } from './icons';
 
-export const CollapsibleMdToc = (props: {
+export const StickyMdToc = (props: {
   headings: Array<MarkdownHeading>;
-  id?: string;
+  labelId: string;
   className?: string;
 }) => {
-  const defaultId = React.useId();
+  const tocRef = React.useRef<HTMLDivElement>(null);
 
-  const id = props.id || defaultId;
-
-  const labelId = `${id}-label`;
+  React.useEffect(() => {
+    if (tocRef.current) {
+      return setupAutoHighlightActiveHeading(tocRef.current);
+    }
+  }, []);
 
   return (
     <Disclosure
-      as="nav"
-      aria-labelledby={labelId}
-      className={clsx('pb-3 relative [--collapse-duration:100ms]', props.className)}
+      as="div"
+      className={clsx('relative w-full [--collapse-duration:100ms]', props.className)}
+      ref={tocRef}
     >
       {({ open }) => (
         <>
-          <div
-            className={clsx(
-              'absolute top-0 right-0 scale-y-50 bottom-0 left-0',
-              'transition-all duration-200 delay-[var(--collapse-duration)] ui-open:delay-0 ',
-              'bg-white rounded-none ui-open:rounded-2xl ui-open:scale-y-100 ui-open:outline ui-open:outline-zinc-100 ui-open:shadow-sm'
-            )}
-          />
           <div className="relative">
-            <DisclosureButton
-              className={clsx(
-                'group/toggle w-full hover:bg-zinc-50 rounded-xl ui-open:rounded-t-2xl ui-open:rounded-b-none',
-                'outline outline-1 outline-zinc-200 ui-open:outline-zinc-100 shadow-sm ui-open:shadow-none',
-                'cursor-s-resize ui-open:cursor-n-resize'
-              )}
-            >
+            <DisclosureButton className={clsx('group/toggle w-full hover:bg-zinc-200')}>
               <span
                 className={clsx(
                   'block',
                   'duration-200 delay-[var(--collapse-duration)]',
-                  'ui-open:duration-500 ui-open:delay-0 ui-open:border-b ui-open:border-zinc-100 ui-open:pb-2 ui-open:pt-3',
-                  'ui-open:bg-zinc-50 rounded-none ui-open:rounded-t-2xl'
+                  'ui-open:duration-500 ui-open:delay-0 ui-open:bg-zinc-50'
                 )}
               >
                 <span
@@ -53,7 +42,7 @@ export const CollapsibleMdToc = (props: {
                     'text-start px-2',
                     'transition-all duration-200 delay-[var(--collapse-duration)]',
                     'ui-open:duration-0 ui-open:delay-0',
-                    'text-zinc-500 rounded-md'
+                    'text-zinc-500'
                   )}
                 >
                   <span
@@ -68,9 +57,9 @@ export const CollapsibleMdToc = (props: {
                     <span
                       className={clsx(
                         'block text-start origin-left font-light duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
-                        'sm:text-sm sm:leading-7 sm:ui-open:text-xl ui-open:font-normal ui-open:delay-0'
+                        'sm:text-sm sm:leading-7 ui-open:delay-0'
                       )}
-                      id={labelId}
+                      id={props.labelId}
                     >
                       <span className="block ui-open:-translate-x-5 transition duration-300">
                         Contents
@@ -106,27 +95,22 @@ export const CollapsibleMdToc = (props: {
           >
             <DisclosurePanel static>
               <ol className="flex flex-col gap-4 py-3 px-7">
-                {props.headings.map((h, index) => {
+                {props.headings.map((h) => {
                   const indent = Math.max(0, h.depth - 2);
 
                   return (
-                    <li
-                      className={
-                        {
-                          '1': 'pl-4 md:pl-8',
-                          '2': 'pl-8 md:pl-16',
-                          '3': 'pl-12 md:pl-24',
-                          '4': 'pl-16 md:pl-32',
-                        }[indent]
-                      }
-                      style={{ '--index': `${index}` } as React.CSSProperties}
-                      key={h.slug}
-                    >
+                    <li key={h.slug}>
                       <a
                         href={`#${h.slug}`}
                         className={clsx(
-                          'text-zinc-500 underline md:no-underline transition hover:text-primary-600',
-                          indent > 0 && 'text-sm'
+                          'block text-sm text-zinc-500 underline md:no-underline transition hover:text-primary-600',
+                          {
+                            '1': 'pl-4',
+                            '2': 'pl-8',
+                            '3': 'pl-12',
+                            '4': 'pl-16',
+                          }[indent],
+                          indent > 0 && 'border-l border-l-zinc-100'
                         )}
                         data-target={h.slug}
                       >
@@ -143,3 +127,101 @@ export const CollapsibleMdToc = (props: {
     </Disclosure>
   );
 };
+
+function setupAutoHighlightActiveHeading(tocSection: Element) {
+  const links = tocSection.querySelectorAll<HTMLElement>('li > a');
+
+  const headings: Array<{
+    element: HTMLElement;
+    top: number;
+  }> = [];
+
+  links.forEach((element) => {
+    const target = element.dataset.target;
+
+    const targetElement = target && document.getElementById(target);
+
+    if (targetElement) {
+      const scrollMt = parseFloat(window.getComputedStyle(targetElement).scrollMarginTop);
+
+      const top =
+        window.scrollY +
+        targetElement.getBoundingClientRect().top -
+        scrollMt -
+        window.innerHeight / 2;
+
+      headings.push({
+        top,
+        element,
+      });
+    }
+  });
+
+  if (headings.length === 0) {
+    return;
+  }
+
+  const mediaQuery = window.matchMedia('(min-width: 1280px)');
+
+  let cleanup: () => void | undefined;
+
+  function syncLinks() {
+    let top = window.scrollY;
+    let current = headings[0];
+
+    for (let heading of headings) {
+      if (top >= heading.top) {
+        current = heading;
+      } else {
+        break;
+      }
+    }
+    if (current) {
+      links.forEach((link) => {
+        if (link === current.element) {
+          link.classList.add('text-primary-600');
+          link.classList.add('border-l-primary-500');
+          link.classList.remove('text-zinc-500');
+          link.classList.remove('border-l-zinc-100');
+        } else {
+          link.classList.add('text-zinc-500');
+          link.classList.add('border-l-zinc-100');
+          link.classList.remove('text-primary-600');
+          link.classList.remove('border-l-primary-500');
+        }
+      });
+    }
+  }
+
+  function setupScrollListener() {
+    if (mediaQuery.matches) {
+      if (cleanup) cleanup();
+
+      syncLinks();
+
+      if ('onscrollend' in window) {
+        cleanup = listen(window, 'scrollend', syncLinks);
+      } else {
+        cleanup = listen(window, 'scroll', syncLinks, { passive: true });
+      }
+    } else {
+      if (cleanup) cleanup();
+      links.forEach((link) => {
+        link.classList.add('text-zinc-500');
+        link.classList.remove('text-primary-600');
+      });
+    }
+  }
+
+  setupScrollListener();
+
+  const cleanupMediaQuery = listen(mediaQuery, 'change', setupScrollListener);
+
+  return function cleanupAll() {
+    if (typeof cleanup === 'function') {
+      cleanup();
+    }
+
+    cleanupMediaQuery();
+  };
+}

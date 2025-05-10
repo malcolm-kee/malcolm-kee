@@ -17,6 +17,9 @@ module.exports = {
       fontFamily: {
         techie: ['"Chakra Petch"', '"Chakra Petch-fallback"', ...defaultTheme.fontFamily.sans],
       },
+      gridTemplateColumns: {
+        center: '15vw 65ch 1fr',
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -26,6 +29,18 @@ module.exports = {
             },
             'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]': {
               position: 'relative',
+            },
+            ol: {
+              marginTop: '0',
+            },
+            p: {
+              marginTop: '0',
+            },
+            '> ul > li > p:first-child': {
+              marginTop: '0',
+            },
+            '> ol > li > p:first-child': {
+              marginTop: '0',
             },
             '.footnotes': {
               paddingTop: theme('spacing.4'),
@@ -84,6 +99,14 @@ module.exports = {
             0% calc(100% - var(--_corner-y-size)),
             0% var(--_corner-y-size)
           )`,
+        },
+      });
+      addUtilities({
+        '.full-blend': {
+          maxWidth: 'none !important',
+          '@media (min-width: 1280px)': {
+            gridColumn: '1 / 4 !important',
+          },
         },
       });
       matchUtilities(

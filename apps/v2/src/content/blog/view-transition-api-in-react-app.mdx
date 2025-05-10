@@ -25,7 +25,7 @@ In the example below, when the Move button is clicked, the cat image will switch
 
 <p className="offline:hidden">Use the play button on the right to run the example.</p>
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem" readOnly >
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem" readOnly fullBleed >
 
 ```js
 document.getElementById('moveBtn').addEventListener('click', () => {
@@ -112,9 +112,7 @@ If you're using latest version of Chrome, you'll see the following changes when 
 1. The cat image will transition between two positions with smooth animation.
 2. There is a subtle fade animation for the "Cat Details" text.
 
-If you're not using latest version of Chrome, the example is broken now, I'll discuss how to handle that [later](#using-progressive-enhancement-technique-with-view-transition).
-
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="11rem" readOnly>
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="11rem" autoPlay readOnly>
 
 ```js {2,6}
 document.getElementById('moveBtn').addEventListener('click', () => {
@@ -319,18 +317,19 @@ createRoot(document.getElementById('root')).render(<App />);
 
 React team is working on a new component, `ViewTransition` that will integrates with View Transition API, as announced in [this blog](https://react.dev/blog/2025/04/23/react-labs-view-transitions-activity-and-more).
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly fullBleed="when-preview">
 
-```jsx {5,11,24,35}
+```jsx
 import * as React from 'react'; // @version: react@0.0.0-experimental-38ef6550-20250508
 import { createRoot } from 'react-dom/client'; // @version: react-dom@0.0.0-experimental-38ef6550-20250508
 
-const { unstable_ViewTransition: ViewTransition } = React;
+const { unstable_ViewTransition: ViewTransition } = React; // [!code highlight]
 
 const App = () => {
   const [isThumbnail, setIsThumbnail] = React.useState(true);
 
   const handleMove = () => {
+    // [!code highlight:1]
     React.startTransition(() => {
       setIsThumbnail((prev) => !prev);
     });
@@ -344,6 +343,7 @@ const App = () => {
           <button onClick={handleMove}>Move</button>
         </div>
         {isThumbnail && (
+          // [!code highlight:1]
           <ViewTransition name="meow-image">
             <img
               src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
@@ -355,6 +355,7 @@ const App = () => {
       </div>
       {!isThumbnail && (
         <div className="cat-details">
+          {/* [!code highlight:1] */}
           <ViewTransition name="meow-image">
             <img
               src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
@@ -420,7 +421,7 @@ With the `ViewTransition` component:
 - we no longer need to write custom CSS to define the `view-transition-name` property. Instead, we can use the `name` prop as a replacement.
 - we replace `flushSync` and `document.startViewTransition` with `React.startTransition`. Not only it's more concise, by allowing React to handle the view transition, the behavior integrates well with React's Suspense. For instance, we can use it with `useDeferredValue` to create animated list.
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly autoPlay>
 
 ```jsx
 import * as React from 'react'; // @version: react@0.0.0-experimental-38ef6550-20250508
@@ -431,8 +432,9 @@ const { unstable_ViewTransition: ViewTransition } = React;
 const App = () => {
   const [search, setSearch] = React.useState('');
 
-  const deferredSearch = React.useDeferredValue(search);
+  const deferredSearch = React.useDeferredValue(search); // [!code highlight]
 
+  // [!code word:deferredSearch]
   const displayedCats = deferredSearch
     ? catData.filter((cat) => cat.name.toUpperCase().includes(deferredSearch.toUpperCase()))
     : catData;
@@ -458,6 +460,7 @@ const App = () => {
       <ul className="cat-list">
         {displayedCats.map((cat) => (
           <li key={cat.id}>
+            {/* [!code highlight:1] */}
             <ViewTransition name={`cat-${cat.id}`}>
               <div className="cat-item">
                 <img src={cat.image} alt={cat.name} className="cat-thumbnail" />
@@ -694,7 +697,7 @@ createRoot(document.getElementById('root')).render(<RouterProvider router={route
 
 Since React Router version 6.27.0, using View Transition API requires only [adding `viewTransition` prop to `Link` component](https://reactrouter.com/en/6.27.0/components/link#viewtransition).
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly autoPlay>
 
 ```jsx {22,43}
 import * as React from 'react';

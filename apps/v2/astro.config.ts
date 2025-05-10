@@ -81,7 +81,7 @@ export default defineConfig({
         }),
         transformerMetaHighlight(),
         transformerMetaWordHighlight(),
-        transformerNotationHighlight(), // TODO: check why this transformer is not working
+        transformerNotationHighlight(),
         transformerNotationWordHighlight(),
         hiddenMetaTransformer(),
         titleMetaTransformer(),

@@ -2,6 +2,21 @@
   max-height: var(--code-max-height, none);
 }
 
+.editorWrapper :global(.sp-editor-viewer) {
+  /* should be the same as editorStyle object */
+  height: calc(var(--editor-height, 100%) + 40px + 16px);
+}
+
+@container sandbox (min-width: 72rem) {
+  .editorWrapper :global(.cm-editor) {
+    max-height: none;
+  }
+
+  .sandboxConsole {
+    height: calc(var(--editor-height) + 40px + 16px - var(--preview-min-height));
+  }
+}
+
 .editorWrapper :global(.cm-editor .cm-scroller) {
   padding-block: 0.5rem;
 }

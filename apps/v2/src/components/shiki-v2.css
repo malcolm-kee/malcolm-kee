@@ -31,6 +31,7 @@ html.dark .astro-code {
   /* --twoslash-popup-bg: theme(colo) */
 }
 
-.astro-code span.highlighted {
+.astro-code span.highlighted,
+.astro-code span.highlighted-word {
   background-color: var(--highlight-bg);
 }

@@ -21,7 +21,8 @@ const { pathname } = Astro.url;
   data-path={pathname}
   data-static={_static}
   class={clsx(
-    'SavePageButton hidden saveable:inline-flex rounded-full group/savebutton',
+    // 'SavePageButton hidden saveable:inline-flex rounded-full group/savebutton',
+    'SavePageButton inline-flex rounded-full group/savebutton',
     'text-zinc-400 data-[state=success]:text-teal-700 active:translate-y-px data-[state=loading]:active:translate-y-0',
     className
   )}
@@ -231,7 +232,7 @@ const { pathname } = Astro.url;
             });
           });
         } else {
-          button.classList.add('!hidden');
+          // button.classList.add('!hidden');
         }
       });
     }
