@@ -7,7 +7,7 @@ import {
 import * as React from 'react';
 import './sandbox-code-viewer.css';
 
-type ViewerRef = React.ElementRef<typeof OriginalViewer>;
+type ViewerRef = React.ComponentRef<typeof OriginalViewer>;
 
 export interface SandboxCodeViewerProps extends CodeViewerProps {
   highlightedLines?: Record<string, Array<number>>;

@@ -1,4 +1,5 @@
 ---
+import { clsx } from 'clsx';
 import { PlayIcon, StopIcon } from './icons';
 import { ReactLiveEditor } from './react-live-editor';
 
@@ -7,9 +8,16 @@ interface Props {
   codeMaxHeight?: string;
   autoPlay?: boolean;
   readOnly?: boolean;
+  fullBleed?: boolean | 'when-preview';
 }
 
-const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } = Astro.props;
+const {
+  previewMinHeight = 'auto',
+  codeMaxHeight = 'auto',
+  autoPlay,
+  readOnly,
+  fullBleed = autoPlay,
+} = Astro.props;
 ---
 
 <style define:vars={{ previewMinHeight, codeMaxHeight }}>
@@ -33,10 +41,14 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
   }
 </style>
 <div
-  class="bg-gray-100 text-zinc-900 dark:bg-zinc-600 dark:text-zinc-200 rounded-xl"
+  class={clsx(
+    'bg-gray-100 text-zinc-900 dark:bg-zinc-600 dark:text-zinc-200 rounded-xl',
+    fullBleed === true && 'full-blend'
+  )}
   data-live-editor
   data-autoplay={autoPlay && 'true'}
   data-readonly={readOnly && 'true'}
+  data-fullbleedwhenpreview={fullBleed === 'when-preview' && 'true'}
 >
   <div class="flex justify-between items-center px-4 py-1 offline:hidden">
     <span class="inline-flex items-center gap-2">
@@ -53,7 +65,7 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
       </span>
     </span>
     <div class="inline-flex gap-2">
-      <button type="button" class="relative" data-edit-button aria-label="Edit">
+      <button type="button" class={clsx('relative')} data-edit-button aria-label="Edit">
         {
           !autoPlay && (
             <span
@@ -185,6 +197,10 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
         codeElement.classList.add('hidden');
         currentEditorElement.classList.remove('hidden');
         currentEditorElement.style.setProperty('--editor-height', codeHeight);
+
+        if (editorSectionElement.dataset.fullbleedwhenpreview === 'true') {
+          editorSectionElement.classList.add('full-blend');
+        }
       };
 
       const hideLiveEditor = () => {
@@ -196,6 +212,10 @@ const { previewMinHeight = 'auto', codeMaxHeight = 'auto', autoPlay, readOnly } 
 
         currentEditorElement.classList.add('hidden');
         codeElement.classList.remove('hidden');
+
+        if (editorSectionElement.dataset.fullbleedwhenpreview === 'true') {
+          editorSectionElement.classList.remove('full-blend');
+        }
       };
 
       let prevElement: HTMLElement | null = null;

@@ -33,7 +33,7 @@ export const SandBoxConsole = () => {
   const [parent] = useAutoAnimate<HTMLUListElement>();
 
   return (
-    <div className="not-prose" ref={rootRef}>
+    <div className="flex flex-col not-prose max-h-[40vh]" ref={rootRef}>
       {(shown || logsCount > 0) && (
         <div className="flex justify-between items-center px-3 py-1 text-gray-700 dark:text-zinc-100">
           <div className="inline-flex items-center gap-2">
@@ -53,10 +53,10 @@ export const SandBoxConsole = () => {
           )}
         </div>
       )}
-      <div role="log">
+      <div className="flex-1" role="log">
         <ul
           className={clsx(
-            'flex flex-col bg-zinc-800 text-white max-h-[40vh] overflow-y-auto',
+            'flex flex-col bg-zinc-800 text-white overflow-y-auto h-full',
             shown && 'min-h-[29px]'
           )}
           ref={parent}
@@ -84,7 +84,8 @@ const SandboxConsoleLogItem = React.memo(function SandboxConsoleLogItem({
     <li
       className={clsx(
         'flex items-start gap-3 px-3 py-1.5 border-b border-b-zinc-700 last:border-b-0 border-l-4',
-        logLeftBorder[log.method] || 'border-l-transparent'
+        logLeftBorder[log.method] || 'border-l-transparent',
+        'log-item' // used by Sandbox :has selector
       )}
       data-element="log-item"
     >

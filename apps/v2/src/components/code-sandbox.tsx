@@ -92,45 +92,68 @@ export default function Sandbox(props: SandboxProps) {
       }}
       theme={codeTheme}
     >
-      <div className={!hasUi ? 'hidden' : styles.editorPreview}>
-        <SandpackPreview style={previewStyle} />
+      <div className="@container/sandbox">
+        <div
+          className={clsx(
+            hasUi && '@6xl/sandbox:grid @6xl/sandbox:grid-cols-2 @6xl/sandbox:gap-px'
+          )}
+        >
+          <div
+            className={
+              !hasUi
+                ? 'hidden'
+                : clsx(styles.editorPreview, '@6xl/sandbox:col-start-2 @6xl/sandbox:*:h-full')
+            }
+          >
+            <SandpackPreview style={previewStyle} />
+          </div>
+          <div
+            className={clsx(
+              'border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70 not-prose',
+              hasUi &&
+                '@6xl/sandbox:col-start-1 @6xl/sandbox:row-start-1 @6xl/sandbox:row-span-2 @6xl/sandbox:*:h-full',
+              styles.editorWrapper
+            )}
+            style={codeViewerStyle}
+          >
+            {props.readOnly ? (
+              <SandboxCodeViewer
+                showTabs={hasUi}
+                highlightedLines={{
+                  [entryFileName]: props.highlightedLines,
+                  ...(props.htmlEntry
+                    ? isReactProject
+                      ? {
+                          '/public/index.html': props.htmlEntry.highlightedLines,
+                        }
+                      : {
+                          '/index.html': props.htmlEntry.highlightedLines.map(plusTwo),
+                          // because we inject additional lines with getVanillaHtml
+                        }
+                    : {}),
+                }}
+              />
+            ) : props.lang === 'ts' ? (
+              <MonacoEditor
+                style={editorStyle}
+                theme={siteTheme === 'dark' ? 'dark' : 'light'}
+                lang={props.lang}
+                showTabs={hasUi}
+              />
+            ) : (
+              <SandpackCodeEditor style={editorStyle} showTabs={hasUi} />
+            )}
+          </div>
+          <div
+            className={clsx(
+              '@6xl/sandbox:col-start-2 @6xl/sandbox:row-start-2 @6xl/sandbox:*:h-full @6xl/sandbox:*:max-h-none',
+              styles.sandboxConsole
+            )}
+          >
+            <SandBoxConsole />
+          </div>
+        </div>
       </div>
-      <div
-        className={clsx(
-          'border-t border-gray-100 focus-within:ring-2 focus-within:ring-primary-300 focus-within:ring-opacity-70 not-prose',
-          styles.editorWrapper
-        )}
-        style={codeViewerStyle}
-      >
-        {props.readOnly ? (
-          <SandboxCodeViewer
-            showTabs={hasUi}
-            highlightedLines={{
-              [entryFileName]: props.highlightedLines,
-              ...(props.htmlEntry
-                ? isReactProject
-                  ? {
-                      '/public/index.html': props.htmlEntry.highlightedLines,
-                    }
-                  : {
-                      '/index.html': props.htmlEntry.highlightedLines.map(plusTwo),
-                      // because we inject additional lines with getVanillaHtml
-                    }
-                : {}),
-            }}
-          />
-        ) : props.lang === 'ts' ? (
-          <MonacoEditor
-            style={editorStyle}
-            theme={siteTheme === 'dark' ? 'dark' : 'light'}
-            lang={props.lang}
-            showTabs={hasUi}
-          />
-        ) : (
-          <SandpackCodeEditor style={editorStyle} showTabs={hasUi} />
-        )}
-      </div>
-      <SandBoxConsole />
     </SandpackProvider>
   );
 }
