@@ -13,7 +13,7 @@ interface Props {
 
 const {
   previewMinHeight = 'auto',
-  codeMaxHeight = 'auto',
+  codeMaxHeight,
   autoPlay,
   readOnly,
   fullBleed = autoPlay,
@@ -192,11 +192,21 @@ const {
         modeElement.classList.add('animate-in', 'duration-1000', 'fade-in');
         runningIndicator.classList.remove('hidden');
 
-        const codeStyle = window.getComputedStyle(codeElement);
-        const codeHeight = codeStyle.getPropertyValue('height');
+        const tallestCodeSnippetHeightPx = Array.from(codeElement.querySelectorAll('pre')).reduce(
+          (maxHeight, currentElement) => {
+            const { height } = currentElement.getBoundingClientRect();
+
+            return height > maxHeight ? height : maxHeight;
+          },
+          0
+        );
+
         codeElement.classList.add('hidden');
         currentEditorElement.classList.remove('hidden');
-        currentEditorElement.style.setProperty('--editor-height', codeHeight);
+        currentEditorElement.style.setProperty(
+          '--editor-height',
+          `${tallestCodeSnippetHeightPx}px`
+        );
 
         if (editorSectionElement.dataset.fullbleedwhenpreview === 'true') {
           editorSectionElement.classList.add('full-blend');

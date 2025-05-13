@@ -25,7 +25,7 @@ In the example below, when the Move button is clicked, the cat image will switch
 
 <p className="offline:hidden">Use the play button on the right to run the example.</p>
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem" readOnly fullBleed >
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="40rem" fullBleed >
 
 ```js
 document.getElementById('moveBtn').addEventListener('click', () => {
@@ -112,7 +112,7 @@ If you're using latest version of Chrome, you'll see the following changes when 
 1. The cat image will transition between two positions with smooth animation.
 2. There is a subtle fade animation for the "Cat Details" text.
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="11rem" autoPlay readOnly>
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
 
 ```js {2,6}
 document.getElementById('moveBtn').addEventListener('click', () => {
@@ -218,8 +218,9 @@ Because React renders state changes asynchronously, we need to wrap the state-se
 
 <LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
 
-```jsx {1, 9-11}
+```jsx
 import * as React from 'react';
+// [!code highlight:1]
 import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
 
@@ -227,6 +228,7 @@ const App = () => {
   const [isThumbnail, setIsThumbnail] = React.useState(true);
 
   const handleMove = () => {
+    // [!code highlight:2]
     document.startViewTransition(() => {
       flushSync(() => {
         setIsThumbnail((prev) => !prev);
@@ -567,137 +569,9 @@ createRoot(document.getElementById('root')).render(<App />);
 
 ## Using View Transition API with React Router
 
-Using View Transition API with [React Router](https://reactrouter.com/) is about the same, except that you call hook `useNavigate` to navigate to the new page instead of setState in the callback of `document.startViewTransition`.
+Since React Router version 6.27.0, using View Transition API requires only [adding `viewTransition` prop to `Link` component](https://reactrouter.com/en/6.27.0/components/link#viewtransition). Note that the View Transition API support of React Router is not based on the React's `ViewTransition` component, therefore you can use it today as long as your React Router version is 6.27.0 or above.
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly>
-
-```jsx
-import * as React from 'react';
-import { flushSync } from 'react-dom';
-import { createRoot } from 'react-dom/client';
-import { useNavigate, createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-const AnimatedLink = ({ to, children }) => {
-  const navigate = useNavigate();
-
-  return (
-    <a
-      href={to}
-      onClick={(ev) => {
-        ev.preventDefault();
-        document.startViewTransition(() => {
-          flushSync(() => {
-            navigate(to);
-          });
-        });
-      }}
-    >
-      {children}
-    </a>
-  );
-};
-
-const TopBar = ({ link, rightContent }) => (
-  <div className="top-bar">
-    <div className="top-bar-content">
-      <h1>Move Cat</h1>
-      {link}
-    </div>
-    {rightContent}
-  </div>
-);
-
-const router = createBrowserRouter([
-  {
-    index: true,
-    element: (
-      <div>
-        <TopBar
-          link={<AnimatedLink to="/details">Details</AnimatedLink>}
-          rightContent={
-            <img
-              src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
-              alt="cat"
-              className="cat-img thumbnail"
-            />
-          }
-        />
-      </div>
-    ),
-  },
-  {
-    path: '/details',
-    element: (
-      <div>
-        <TopBar link={<AnimatedLink to="/">Home</AnimatedLink>} />
-        <div className="cat-details">
-          <img
-            src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
-            alt="cat"
-            className="cat-img detailed-img"
-          />
-          <div className="cat-desc">
-            <h2>Cat Details</h2>
-          </div>
-        </div>
-      </div>
-    ),
-  },
-]);
-
-createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
-```
-
-```html hidden
-<div id="root"></div>
-<style>
-  .cat-img {
-    view-transition-name: meow-image;
-  }
-
-  .cat-details {
-    display: flex;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .cat-desc {
-    flex: 1;
-  }
-
-  .top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-  }
-
-  .top-bar-content {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .thumbnail {
-    width: 100px;
-    height: 100px;
-  }
-
-  .detailed-img {
-    width: 50vw;
-    height: auto;
-  }
-</style>
-```
-
-</LiveEditor>
-
-### Update: React Router first-class support of View Transition
-
-Since React Router version 6.27.0, using View Transition API requires only [adding `viewTransition` prop to `Link` component](https://reactrouter.com/en/6.27.0/components/link#viewtransition).
-
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly autoPlay>
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly fullBleed="when-preview">
 
 ```jsx {22,43}
 import * as React from 'react';

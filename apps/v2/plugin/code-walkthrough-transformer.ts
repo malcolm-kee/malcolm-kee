@@ -20,28 +20,14 @@ export const codeWalkthroughTransformer = (): ShikiTransformer => {
             continue;
           }
 
-          if (/=====/.test(text.value)) {
-            const prevChild = line.children[i - 1];
-            if (isInlineCommentStart(prevChild)) {
-              this.addClassToHast(line, 'code-separator');
-            }
-          } else if (/^\<-/.test(text.value)) {
-            const prevChild = line.children[i - 1];
-            if (isInlineCommentStart(prevChild)) {
-              this.addClassToHast(prevChild, 'code-comment-start');
-              this.addClassToHast(child, 'code-walkthrough-comment');
-            }
+          if (text.value.startsWith('//=====')) {
+            this.addClassToHast(line, 'code-separator');
+          } else if (text.value.startsWith('//<-')) {
+            // this.addClassToHast(prevChild, 'code-comment-start');
+            this.addClassToHast(child, 'code-walkthrough-comment');
           }
         }
       });
     },
   };
 };
-
-const isInlineCommentStart = (element: ElementContent | undefined): element is HastElement =>
-  !!(
-    element &&
-    element.type === 'element' &&
-    element.children[0]?.type === 'text' &&
-    element.children[0].value.trim() === '//'
-  );

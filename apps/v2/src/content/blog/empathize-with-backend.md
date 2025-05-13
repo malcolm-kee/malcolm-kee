@@ -2,6 +2,8 @@
 title: Empathize with Backend Developer
 pubDate: 17 Jan 2020
 updatedDate: 20 Jan 2020
+topics:
+  - software-engineering
 ---
 
 As someone that code primarily in JavaScript (with a little bit Unix scripting here and there), the ceremonies of many backend programming language seems overkill.

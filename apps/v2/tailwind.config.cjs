@@ -33,9 +33,6 @@ module.exports = {
             ol: {
               marginTop: '0',
             },
-            p: {
-              marginTop: '0',
-            },
             '> ul > li > p:first-child': {
               marginTop: '0',
             },

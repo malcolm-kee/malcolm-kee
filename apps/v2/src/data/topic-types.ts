@@ -8,6 +8,7 @@ export const TOPICS = [
   'javascript',
   'frontend-tooling',
   'life',
+  'software-engineering',
 ] as const;
 
 export const topic = z.enum(TOPICS);
@@ -22,4 +23,5 @@ export const TopicLabel: Record<Topic, string> = {
   javascript: 'JavaScript',
   'frontend-tooling': 'Frontend Tooling',
   life: 'Life',
+  'software-engineering': 'Software Engineering',
 };

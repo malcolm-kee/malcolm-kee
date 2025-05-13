@@ -128,7 +128,7 @@ export default function Sandbox(props: SandboxProps) {
                         }
                       : {
                           '/index.html': props.htmlEntry.highlightedLines.map(plusTwo),
-                          // because we inject additional lines with getVanillaHtml
+                          // because we inject two additional lines (html>body) with getVanillaHtml
                         }
                     : {}),
                 }}
@@ -161,7 +161,7 @@ export default function Sandbox(props: SandboxProps) {
 const plusTwo = (n: number) => n + 2;
 
 const editorStyle: React.CSSProperties = {
-  height: 'calc(var(--editor-height, 100%) + 40px + 16px)', // toolbar (40px), editor y padding (16px)
+  height: 'calc(var(--editor-content-height, 100%) + 40px + 16px)', // toolbar (40px), editor y padding (16px)
 };
 
 const previewStyle: React.CSSProperties = {

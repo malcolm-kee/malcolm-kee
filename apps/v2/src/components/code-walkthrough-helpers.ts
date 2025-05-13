@@ -22,18 +22,10 @@ export const extractCodeWalkthroughMarkers = (
       if (child.classList.contains('code-separator')) {
         separatorIndexes.push(childIndex);
       } else if (child.classList.contains('line')) {
-        let codeCommentStartNode: HTMLElement | undefined;
         let codeWalkthroughCommentNode: HTMLElement | undefined;
 
         child.childNodes.forEach((lineChild) => {
           if (lineChild instanceof HTMLElement) {
-            if (lineChild.classList.contains('code-comment-start')) {
-              if (!codeCommentStartNode) {
-                codeCommentStartNode = lineChild;
-              } else {
-                console.error('multiple code-comment-start nodes found', lineChild);
-              }
-            }
             if (lineChild.classList.contains('code-walkthrough-comment')) {
               if (!codeWalkthroughCommentNode) {
                 codeWalkthroughCommentNode = lineChild;
@@ -44,14 +36,9 @@ export const extractCodeWalkthroughMarkers = (
           }
         });
 
-        if (
-          codeCommentStartNode &&
-          codeWalkthroughCommentNode &&
-          codeCommentStartNode.nextSibling === codeWalkthroughCommentNode
-        ) {
-          codeCommentStartNode.classList.add('hidden');
+        if (codeWalkthroughCommentNode) {
           codeWalkthroughCommentNode.textContent =
-            codeWalkthroughCommentNode.textContent?.replace(/^\<-/, '').trim() || null;
+            codeWalkthroughCommentNode.textContent?.replace(/^\/\/\<-/, '').trim() || null;
           codeWalkthroughCommentNode.classList.add('font-techie', 'text-lg');
           codeWalkthroughCommentNode.style.color = 'hsl(212 8% 64%)';
         }

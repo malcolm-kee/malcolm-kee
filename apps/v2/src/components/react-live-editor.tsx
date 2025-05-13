@@ -115,8 +115,8 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
           if (content != null) {
             htmlCodeLines.push(whiteSpacePattern.test(content) ? '' : content);
 
-            // TODO: change to highlighted to properly parse this, but would cause sandpack error
-            // when switching from main file to html file and back to main file, no idea why
+            // TODO: change from 'highlight' to 'highlighted' to correctly parse this, currently it would cause
+            // sandpack error to crash when switching from main file to html file and back to main file, no idea why
             if (child.classList.contains('highlight')) {
               highlightedHtmlLines.push(childIndex);
             }
