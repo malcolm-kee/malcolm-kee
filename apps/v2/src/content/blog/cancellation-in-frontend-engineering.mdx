@@ -1,6 +1,6 @@
 ---
 title: 'Rethinking Cancellation in Frontend Engineering'
-pubDate: 14 May 2025
+pubDate: 13 May 2025
 description: Explore why cancellation is crucial, not optional, in modern frontend engineering. Learn how to manage asynchronous JavaScript, prevent race conditions, and improve UI stability by rethinking request cancellation.
 topics:
   - software-engineering
@@ -104,7 +104,7 @@ const reason = abortSignal.reason;
 
 You can pass the `AbortSignal` to `fetch` and `addEventListener` to make them cancellable:
 
-```ts twoslash
+```ts
 async function fetchDashboardData({ abortSignal }: { abortSignal?: AbortSignal }) {
   const response = await fetch('/dashboard-data', {
     // [!code highlight:1]
@@ -175,10 +175,7 @@ We want to support cancellation for both `readClipboardText` and `showClipboardT
 
 To do that, we can start by accepting `AbortSignal` as an optional parameter in both functions:
 
-```ts twoslash
-async function displayText(text: string) {}
-
-// ---cut---
+```ts
 // [!code highlight:1]
 async function readClipboardText({ abortSignal }: { abortSignal?: AbortSignal }) {
   return navigator.clipboard.readText();
@@ -193,7 +190,7 @@ async function showClipboardText(options: { abortSignal?: AbortSignal }) {
 
 Then, we can use the `AbortSignal` in `readClipboardText`:
 
-```ts twoslash
+```ts
 async function readClipboardText({ abortSignal }: { abortSignal?: AbortSignal }) {
   abortSignal?.throwIfAborted();
 
@@ -209,6 +206,6 @@ Note that even though `navigator.clipboard.readText` could not be cancelled, we 
 
 ## Conclusion
 
-Just like error handling, cancellation is a often overlooked in frontend engineering. However, it's a crucial component of building a reliable and performant application. By understanding the nature of cancellation and how it works in JavaScript, you can make your code more robust without adding much complexity.
+Cancellation in frontend engineering is more than just stopping network requests - it's about maintaining control over your application's state and user experience. While it may seem like an optional optimization, proper cancellation handling is essential for preventing race conditions, reducing unnecessary processing, and ensuring UI consistency. The good news is that modern JavaScript provides robust tools like `AbortController` and `AbortSignal` that make implementing cancellation straightforward. By treating cancellation as a first-class concern alongside error handling, you can build more reliable and responsive applications without significantly increasing code complexity.
 
 [^1]: Technically, you can make a synchronous function cancellable by checking for the cancellation signal within the function. However, it is seldom done in practice because checking for cancellation signal introduces additional overhead.
