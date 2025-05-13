@@ -1,6 +1,6 @@
 ---
-title: 'Rethinking Cancellation in Frontend'
-pubDate: 15 May 2025
+title: 'Rethinking Cancellation in Frontend Engineering'
+pubDate: 14 May 2025
 description: Explore why cancellation is crucial, not optional, in modern frontend engineering. Learn how to manage asynchronous JavaScript, prevent race conditions, and improve UI stability by rethinking request cancellation.
 topics:
   - software-engineering
@@ -85,7 +85,7 @@ abortController.abort();
 
 //=====
 
-// Use AbortSignal to read/listen for cancellation
+//<- AbortSignal to read/listen for cancellation
 const abortSignal = abortController.signal;
 
 // How to check if the operation is cancelled
@@ -99,5 +99,116 @@ const reason = abortSignal.reason;
 ```
 
 </CodeWalkthrough>
+
+### JS API that supports cancellation
+
+You can pass the `AbortSignal` to `fetch` and `addEventListener` to make them cancellable:
+
+```ts twoslash
+async function fetchDashboardData({ abortSignal }: { abortSignal?: AbortSignal }) {
+  const response = await fetch('/dashboard-data', {
+    // [!code highlight:1]
+    signal: abortSignal,
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch dashboard data');
+  }
+
+  return response.json();
+}
+
+async function listenForVisibilityChange({ abortSignal }: { abortSignal?: AbortSignal }) {
+  document.addEventListener(
+    'visibilitychange',
+    (ev) => {
+      fetchDashboardData({});
+    },
+    {
+      // [!code highlight:1]
+      signal: abortSignal,
+    }
+  );
+}
+```
+
+Many NodeJS API also start supporting `AbortSignal` as an optional parameter, e.g.
+
+```ts twoslash
+import { createReadStream } from 'node:fs';
+
+const abortController = new AbortController();
+
+const readStream = createReadStream('file.txt', {
+  signal: abortController.signal,
+});
+
+abortController.abort();
+```
+
+### Supporting cancellation in your code
+
+It's straightforward to support cancellation in your code if the underlying implementation supports it - you just need to start accepting `AbortSignal` as an optional parameter and pass it to the underlying implementation.
+
+However, what if the underlying implementation doesn't support cancellation?
+
+In that case, you can't cancel the operation, but you can stop the chain of events that follow.
+
+As an example, consider the following snippet:
+
+```ts twoslash
+async function displayText(text: string) {}
+
+// ---cut---
+
+async function readClipboardText() {
+  return navigator.clipboard.readText();
+}
+
+async function showClipboardText() {
+  const text = await readClipboardText();
+  await displayText(text);
+}
+```
+
+We want to support cancellation for both `readClipboardText` and `showClipboardText` functions.
+
+To do that, we can start by accepting `AbortSignal` as an optional parameter in both functions:
+
+```ts twoslash
+async function displayText(text: string) {}
+
+// ---cut---
+// [!code highlight:1]
+async function readClipboardText({ abortSignal }: { abortSignal?: AbortSignal }) {
+  return navigator.clipboard.readText();
+}
+
+// [!code highlight:2]
+async function showClipboardText(options: { abortSignal?: AbortSignal }) {
+  const text = await readClipboardText(options);
+  await displayText(text);
+}
+```
+
+Then, we can use the `AbortSignal` in `readClipboardText`:
+
+```ts twoslash
+async function readClipboardText({ abortSignal }: { abortSignal?: AbortSignal }) {
+  abortSignal?.throwIfAborted();
+
+  return new Promise<string>((fulfill, reject) => {
+    abortSignal?.addEventListener('abort', () => reject(abortSignal.reason));
+
+    navigator.clipboard.readText().then(fulfill).catch(reject);
+  });
+}
+```
+
+Note that even though `navigator.clipboard.readText` could not be cancelled, we can still cancel the chain of events that follow (execute `displayText`) if the `AbortSignal` is aborted before `readClipboardText` is completed.
+
+## Conclusion
+
+Just like error handling, cancellation is a often overlooked in frontend engineering. However, it's a crucial component of building a reliable and performant application. By understanding the nature of cancellation and how it works in JavaScript, you can make your code more robust without adding much complexity.
 
 [^1]: Technically, you can make a synchronous function cancellable by checking for the cancellation signal within the function. However, it is seldom done in practice because checking for cancellation signal introduces additional overhead.

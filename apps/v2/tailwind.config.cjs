@@ -18,7 +18,7 @@ module.exports = {
         techie: ['"Chakra Petch"', '"Chakra Petch-fallback"', ...defaultTheme.fontFamily.sans],
       },
       gridTemplateColumns: {
-        center: '15vw 65ch 1fr',
+        center: '15vw 40rem 1fr',
       },
       typography: (theme) => ({
         DEFAULT: {

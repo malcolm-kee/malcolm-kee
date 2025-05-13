@@ -106,7 +106,7 @@ const currentPath = new URL(Astro.request.url).pathname;
               >
                 {
                   hasHeadings && (
-                    <div class="max-w-[65ch] flex-1 xl:contents">
+                    <div class="max-w-[40rem] flex-1 xl:contents">
                       <MdToc headings={levelTwoHeadings} />
                     </div>
                   )
@@ -131,7 +131,7 @@ const currentPath = new URL(Astro.request.url).pathname;
                   'prose-headings:font-techie prose-headings:scroll-mt-20',
                   'prose-a:no-underline prose-a:text-primary-600 prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-500 hover:prose-a:text-primary-700',
                   'prose-a:scroll-mt-20',
-                  'prose-code:break-words *:max-w-[65ch]',
+                  'prose-code:break-words *:max-w-[40rem]',
                   'xl:max-w-none xl:col-span-full xl:row-start-1 xl:grid xl:grid-cols-center xl:gap-x-3 xl:*:col-start-2'
                 )}
                 data-md-content
