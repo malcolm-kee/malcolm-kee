@@ -1,6 +1,8 @@
 @use 'sass:math';
 
-@import '../../styles/variable';
+@use '../../styles/variable' as v;
+
+$space: v.$space;
 
 @mixin box-offset($index) {
   top: $space + (($space + 25px) * $index);
@@ -16,7 +18,7 @@
           filter: hue-rotate(0deg);
           opacity: 1;
         } @else {
-          top: $space + (($space + 25px) * floor(math.div($step, 2)));
+          top: $space + (($space + 25px) * math.floor(math.div($step, 2)));
           @if ($step % 2 == 0) {
             left: $space * 2;
           } @else {

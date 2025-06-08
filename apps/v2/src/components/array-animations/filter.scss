@@ -1,8 +1,8 @@
-@import '../../styles/variable';
+@use '../../styles/variable' as v;
 
 @mixin box-offset($index) {
-  top: $space + (($space + 25px) * $index);
-  left: $space * 2;
+  top: v.$space + ((v.$space + 25px) * $index);
+  left: v.$space * 2;
 }
 
 $indexes: 0, 1, 2, 3;

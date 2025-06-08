@@ -27,7 +27,7 @@ export const CollapsibleMdToc = (props: {
           <div
             className={clsx(
               'absolute top-0 right-0 scale-y-50 bottom-0 left-0',
-              'transition-all duration-200 delay-[var(--collapse-duration)] ui-open:delay-0 ',
+              'transition-all duration-200 [transition-delay:var(--collapse-duration)] ui-open:delay-0 ',
               'bg-white rounded-none ui-open:rounded-2xl ui-open:scale-y-100 ui-open:outline ui-open:outline-zinc-100 ui-open:shadow-sm'
             )}
           />
@@ -42,7 +42,7 @@ export const CollapsibleMdToc = (props: {
               <span
                 className={clsx(
                   'block',
-                  'duration-200 delay-[var(--collapse-duration)]',
+                  'duration-200 [transition-delay:var(--collapse-duration)]',
                   'ui-open:duration-500 ui-open:delay-0 ui-open:border-b ui-open:border-zinc-100 ui-open:pb-2 ui-open:pt-3',
                   'ui-open:bg-zinc-50 rounded-none ui-open:rounded-t-2xl'
                 )}
@@ -51,7 +51,7 @@ export const CollapsibleMdToc = (props: {
                   className={clsx(
                     'flex justify-between items-center gap-1',
                     'text-start px-2',
-                    'transition-all duration-200 delay-[var(--collapse-duration)]',
+                    'transition-all duration-200 [transition-delay:var(--collapse-duration)]',
                     'ui-open:duration-0 ui-open:delay-0',
                     'text-zinc-500 rounded-md'
                   )}
@@ -59,16 +59,18 @@ export const CollapsibleMdToc = (props: {
                   <span
                     className={clsx(
                       'flex items-center gap-1',
-                      'px-1 py-2 sm:py-0 text-xl transition duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
+                      'px-1 py-2 sm:py-0 text-xl transition duration-300',
                       'translate-x-0 ui-open:translate-x-4',
-                      'ui-open:delay-0'
+                      'ui-open:delay-0',
+                      '[transition-delay:calc(var(--collapse-duration)+100ms)]'
                     )}
                   >
                     <ListIcon className="w-4 h-4 text-zinc-400 ui-open:opacity-0 ui-open:translate-y-full duration-300" />
                     <span
                       className={clsx(
-                        'block text-start origin-left font-light duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
-                        'sm:text-sm sm:leading-7 sm:ui-open:text-xl ui-open:font-normal ui-open:delay-0'
+                        'block text-start origin-left font-light duration-300',
+                        'sm:text-sm sm:leading-7 sm:ui-open:text-xl ui-open:font-normal ui-open:delay-0',
+                        '[transition-delay:calc(var(--collapse-duration)+100ms)]'
                       )}
                       id={labelId}
                     >
@@ -88,7 +90,7 @@ export const CollapsibleMdToc = (props: {
                       width={16}
                       height={16}
                       className={clsx(
-                        'w-4 h-4 stroke-zinc-500 transition delay-[var(--collapse-duration)]',
+                        'w-4 h-4 stroke-zinc-500 transition [transition-delay:var(--collapse-duration)]',
                         'rotate-0 ui-open:-rotate-180',
                         'ui-open:duration-500 ui-open:delay-0'
                       )}
