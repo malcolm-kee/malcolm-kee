@@ -6,7 +6,7 @@ import { getTils } from '~/data/til-helpers';
 
 const parser = new MarkdownIt();
 
-export async function get(context) {
+export async function GET(context) {
   const blogs = await getBlogs();
   const tils = await getTils();
 

@@ -32,7 +32,7 @@ export const StickyMdToc = (props: {
               <span
                 className={clsx(
                   'block',
-                  'duration-200 delay-[var(--collapse-duration)]',
+                  'duration-200 [transition-delay:var(--collapse-duration)]',
                   'ui-open:duration-500 ui-open:delay-0 ui-open:bg-zinc-50'
                 )}
               >
@@ -40,7 +40,7 @@ export const StickyMdToc = (props: {
                   className={clsx(
                     'flex justify-between items-center gap-1',
                     'text-start px-2',
-                    'transition-all duration-200 delay-[var(--collapse-duration)]',
+                    'transition-all duration-200 [transition-delay:var(--collapse-duration)]',
                     'ui-open:duration-0 ui-open:delay-0',
                     'text-zinc-500'
                   )}
@@ -48,16 +48,18 @@ export const StickyMdToc = (props: {
                   <span
                     className={clsx(
                       'flex items-center gap-1',
-                      'px-1 py-2 sm:py-0 text-xl transition duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
+                      'px-1 py-2 sm:py-0 text-xl transition duration-300',
                       'translate-x-0 ui-open:translate-x-4',
-                      'ui-open:delay-0'
+                      'ui-open:delay-0',
+                      '[transition-delay:calc(var(--collapse-duration)+100ms)]'
                     )}
                   >
                     <ListIcon className="w-4 h-4 text-zinc-400 ui-open:opacity-0 ui-open:translate-y-full duration-300" />
                     <span
                       className={clsx(
-                        'block text-start origin-left font-light duration-300 delay-[calc(var(--collapse-duration)+100ms)]',
-                        'sm:text-sm sm:leading-7 ui-open:delay-0'
+                        'block text-start origin-left font-light duration-300',
+                        'sm:text-sm sm:leading-7 ui-open:delay-0',
+                        '[transition-delay:calc(var(--collapse-duration)+100ms)]'
                       )}
                       id={props.labelId}
                     >
@@ -69,7 +71,7 @@ export const StickyMdToc = (props: {
                   <span
                     className={clsx(
                       'block p-3 sm:p-1 rounded-full',
-                      'duration-300 delay-[var(--collapse-duration)] ui-open:delay-0'
+                      'duration-300 [transition-delay:var(--collapse-duration)] ui-open:delay-0'
                     )}
                     aria-hidden
                   >
@@ -77,7 +79,7 @@ export const StickyMdToc = (props: {
                       width={16}
                       height={16}
                       className={clsx(
-                        'w-4 h-4 stroke-zinc-500 transition delay-[var(--collapse-duration)]',
+                        'w-4 h-4 stroke-zinc-500 transition [transition-delay:var(--collapse-duration)]',
                         'rotate-0 ui-open:-rotate-180',
                         'ui-open:duration-500 ui-open:delay-0'
                       )}

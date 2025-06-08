@@ -1,6 +1,6 @@
-@import '../../styles/variable';
+@use '../../styles/variable' as v;
 
-$space: $space;
+$space: v.$space;
 
 @mixin box-offset($index) {
   top: $space + (($space + 25px) * $index);

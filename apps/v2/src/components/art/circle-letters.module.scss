@@ -1,27 +1,28 @@
-@import '../../styles/variable';
+@use '../../styles/variable' as v;
 
 .container {
-  padding: $space * 3 0;
-  border-bottom: 1px solid $grey-400;
+  padding: v.$space * 3 0;
+  border-bottom: 1px solid v.$grey-400;
 
-  @media screen and (min-width: $media-tablet) {
+  @media screen and (min-width: v.$media-tablet) {
     display: grid;
     grid-template-columns: 1fr 200px;
-    grid-column-gap: $space * 2;
+    grid-column-gap: v.$space * 2;
     justify-items: center;
   }
 
-  @media screen and (min-width: $media-desktop) {
+  @media screen and (min-width: v.$media-desktop) {
     grid-template-columns: 1fr 300px;
   }
 
-  @media screen and (min-width: $media-xlarge) {
+  @media screen and (min-width: v.$media-xlarge) {
     grid-template-columns: 1fr 500px;
   }
 }
 
 .board {
   max-width: 100%;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }

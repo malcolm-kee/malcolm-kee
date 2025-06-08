@@ -17,7 +17,8 @@ const shiki = await markdownItShikiTwoslashSetup({
 markdownParser.use(shiki);
 
 const modules = import.meta.glob('../exercise/**/*.js', {
-  as: 'raw',
+  query: 'raw',
+  import: 'default',
 }) as Record<string, () => Promise<string>>;
 
 export type ExerciseData = {
