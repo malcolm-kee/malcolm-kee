@@ -15,7 +15,7 @@ export async function GET(context) {
    */
   const allItems = blogs
     .map((post) => ({
-      link: `/blog/${post.slug}/`,
+      link: `/blog/${post.id}/`,
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
@@ -28,7 +28,7 @@ export async function GET(context) {
     }))
     .concat(
       tils.map((post) => ({
-        link: `/today-i-learnt/${post.slug}/`,
+        link: `/today-i-learnt/${post.id}/`,
         title: post.data.title,
         pubDate: post.data.pubDate,
         customData: `<language>en-US</language>`,
