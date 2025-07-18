@@ -15,7 +15,7 @@ const TodayILearntItem = ({
   <li>
     <a
       {...props}
-      href={`/today-i-learnt/${til.slug}/`}
+      href={`/today-i-learnt/${til.id}/`}
       className={clsx(
         'block px-2 border-l-4 border-transparent hover:border-primary-500 transition-colors',
         props.className

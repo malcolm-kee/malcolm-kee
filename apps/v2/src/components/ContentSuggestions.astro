@@ -28,7 +28,7 @@ const { blogs, tils } = Astro.props;
           {(index !== 0 || blogs.length > 0) && <hr class="@3xl/suggestions:hidden" />}
           <div class="TilItem h-full py-4">
             <div class="h-full relative flex justify-between items-center gap-4 @3xl/suggestions:flex-col @3xl/suggestions:justify-start @3xl/suggestions:items-start">
-              <a href={`/today-i-learnt/${til.slug}`} class="group/til TilLink">
+              <a href={`/today-i-learnt/${til.id}`} class="group/til TilLink">
                 <div
                   class={clsx(
                     'TilBg absolute -inset-y-6 -inset-x-4 z-0 rounded-2xl',

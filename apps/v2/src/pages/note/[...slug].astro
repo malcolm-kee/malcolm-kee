@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry, render } from 'astro:content';
 import BaseHead from '~/components/BaseHead.astro';
 import InstallPrompt from '~/components/InstallPrompt.astro';
 import MdContent from '~/components/MdContent.astro';
@@ -9,14 +9,16 @@ import SignupForm from '~/components/SignupForm.astro';
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const notes = await getCollection('note');
 
-  return notes.map((note) => ({
-    params: {
-      slug: note.slug,
-    },
-    props: {
-      entry: note,
-    } satisfies Props,
-  }));
+  return notes.map((note) => {
+    return {
+      params: {
+        slug: note.id,
+      },
+      props: {
+        entry: note,
+      } satisfies Props,
+    };
+  });
 };
 
 interface Props {
@@ -24,8 +26,8 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
-const relativePath = `note/${entry.slug}`;
+const { Content, headings } = await render(entry);
+const relativePath = `note/${entry.id}`;
 ---
 
 <html lang="en">

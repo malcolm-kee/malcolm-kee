@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import type { CollectionEntry } from 'astro:content';
+import { type CollectionEntry, render } from 'astro:content';
+
 import BaseHead from '~/components/BaseHead.astro';
 import { CloudinaryImage } from '~/components/CloudinaryImage';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
@@ -16,7 +17,7 @@ export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
 
   return blogs.map((blog) => ({
     params: {
-      slug: blog.slug,
+      slug: blog.id,
     },
     props: {
       entry: blog,
@@ -29,10 +30,10 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 const { title, description, pubDate, updatedDate, heroImagePublicId, alt, lang } = entry.data;
 
-const relativePath = `blog/${entry.slug}`;
+const relativePath = `blog/${entry.id}`;
 
 const related = await getBlogRelatedContents(entry);
 

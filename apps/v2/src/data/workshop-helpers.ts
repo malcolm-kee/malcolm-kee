@@ -8,12 +8,12 @@ import {
 
 type WorkshopData = CollectionEntry<'workshop'>;
 
-const getWorkshopSlug = (entry: WorkshopData) => entry.slug.split('/')[0] as WorkshopSlug;
+const getWorkshopSlug = (entry: WorkshopData) => entry.id.split('/')[0] as WorkshopSlug;
 
 const getRenderedSlug = (entry: WorkshopData) => {
   const workshopSlug = getWorkshopSlug(entry);
 
-  return `${workshopSlug}/${entry.slug.split('/').pop()}`;
+  return `${workshopSlug}/${entry.id.split('/').pop()}`;
 };
 
 export type WorkshopRenderData = {
@@ -48,7 +48,7 @@ export const groupWorkshopLessons = (workshopLessonEntries: ReadonlyArray<Worksh
 
   workshopLessonEntries
     .slice(0)
-    .sort((a, b) => comparator.compare(a.slug, b.slug))
+    .sort((a, b) => comparator.compare(a.id, b.id))
     .forEach((entry) => {
       const workshopSlug = getWorkshopSlug(entry);
       const entrySlug = getRenderedSlug(entry);
@@ -138,7 +138,7 @@ export const getWorkshops = (workshopLessonEntries: ReadonlyArray<WorkshopData>)
 
   workshopLessonEntries
     .slice(0)
-    .sort((a, b) => comparator.compare(a.slug, b.slug))
+    .sort((a, b) => comparator.compare(a.id, b.id))
     .forEach((entry) => {
       const workshopSlug = getWorkshopSlug(entry);
       const entrySlug = getRenderedSlug(entry);

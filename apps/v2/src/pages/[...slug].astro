@@ -1,7 +1,8 @@
 ---
 import '@shikijs/twoslash/style-rich.css';
 import type { GetStaticPaths, GetStaticPathsItem } from 'astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry, render } from 'astro:content';
+
 import BaseHead from '~/components/BaseHead.astro';
 import '~/components/shiki-v2.css';
 import WorkshopContent from '~/components/workshop/WorkshopContent.astro';
@@ -54,7 +55,7 @@ const {
   data: { title, description },
 } = entry;
 
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 ---
 
 <html lang="en">
@@ -125,6 +126,4 @@ const { Content, headings } = await entry.render();
       </WorkshopContent>
     </main>
   </WorkshopLayout>
-
-
 </html>

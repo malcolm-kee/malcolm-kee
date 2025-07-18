@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import type { CollectionEntry } from 'astro:content';
+import { type CollectionEntry, render } from 'astro:content';
+
 import BaseHead from '~/components/BaseHead.astro';
 import ContentSuggestions from '~/components/ContentSuggestions.astro';
 import MdContent from '~/components/MdContent.astro';
@@ -12,7 +13,7 @@ export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
 
   return tils.map((post) => ({
     params: {
-      slug: post.slug,
+      slug: post.id,
     },
     props: {
       entry: post,
@@ -25,7 +26,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const { title, pubDate, youtubeVideoId } = entry.data;
 
 const related = await getTilRelatedContents(entry);

@@ -24,7 +24,7 @@ const description = 'Learning notes on topics, which will be updated over time.'
           notes.map((note) => (
             <li>
               <a
-                href={`/note/${note.slug}/`}
+                href={`/note/${note.id}/`}
                 class="block px-2 border-l-4 border-transparent hover:border-primary-500 transition-colors"
               >
                 {note.data.title}
