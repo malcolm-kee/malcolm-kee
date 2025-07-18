@@ -25,7 +25,7 @@ export async function getContents(): Promise<Array<ContentData>> {
         updatedDate: d.data.updatedDate,
         description: d.data.description,
         lang: d.data.lang || 'en-US',
-        url: `/blog/${d.slug}/`,
+        url: `/blog/${d.id}/`,
         image: d.heroImageInfo && d.heroImageInfo.baseSrc,
         type: 'blog',
         id: d.id,
@@ -38,7 +38,7 @@ export async function getContents(): Promise<Array<ContentData>> {
         updatedDate: d.data.updatedDate,
         description: d.data.description,
         lang: 'en-US',
-        url: `/note/${d.slug}/`,
+        url: `/note/${d.id}/`,
         type: 'note',
         id: d.id,
       })
@@ -49,7 +49,7 @@ export async function getContents(): Promise<Array<ContentData>> {
         pubDate: d.data.pubDate,
         updatedDate: d.data.updatedDate,
         lang: 'en-US',
-        url: `/today-i-learnt/${d.slug}/`,
+        url: `/today-i-learnt/${d.id}/`,
         type: 'til',
         id: d.id,
       })

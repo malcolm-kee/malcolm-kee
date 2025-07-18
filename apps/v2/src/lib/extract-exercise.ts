@@ -16,7 +16,7 @@ const shiki = await markdownItShikiTwoslashSetup({
 
 markdownParser.use(shiki);
 
-const modules = import.meta.glob('../exercise/**/*.js', {
+const modules = import.meta.glob(['../exercise/**/*.[jt]s?(x)'], {
   query: 'raw',
   import: 'default',
 }) as Record<string, () => Promise<string>>;

@@ -96,7 +96,7 @@ export const StickyMdToc = (props: {
             className="relative"
           >
             <DisclosurePanel static>
-              <ol className="flex flex-col gap-4 py-3 px-7">
+              <ol className="flex flex-col gap-4 py-3 px-7" inert={!open}>
                 {props.headings.map((h) => {
                   const indent = Math.max(0, h.depth - 2);
 

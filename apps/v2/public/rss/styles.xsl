@@ -103,7 +103,7 @@ This file is in BETA. Please test and contribute to the discussion:
                 </a>
               </h3>
               <small class="text-gray">
-                Published: <xsl:value-of select="pubDate" />
+                Published: <xsl:value-of select="substring(pubDate, 6, 2)" />&#160;<xsl:value-of select="substring(pubDate, 9, 3)" />&#160;<xsl:value-of select="substring(pubDate, 13, 4)" />
               </small>
               <xsl:if test="description">
                 <p class="text-gray text-xs"><xsl:value-of select="description" /></p>
