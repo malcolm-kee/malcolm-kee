@@ -12,6 +12,8 @@ export interface Props {
 const { className, saveKey, pageTitle, pageDescription, _static } = Astro.props;
 
 const { pathname } = Astro.url;
+
+const id = crypto.randomUUID();
 ---
 
 <button
@@ -21,12 +23,13 @@ const { pathname } = Astro.url;
   data-path={pathname}
   data-static={_static}
   class={clsx(
-    'SavePageButton hidden saveable:inline-flex rounded-full group/savebutton',
+    'SavePageButton saveable:inline-flex rounded-full group/savebutton',
     'text-zinc-400 data-[state=success]:text-teal-700 active:translate-y-px data-[state=loading]:active:translate-y-0',
     className
   )}
   type="button"
   aria-label="Save this page"
+  id={id}
 >
   <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="currentColor">
     <path
@@ -81,6 +84,22 @@ const { pathname } = Astro.url;
     <span class="SavePageButtonLabel sr-only">Save</span>
   </span>
 </button>
+<div
+  class="save-page-button-popover animate-in fade-in slide-in-from-top pointer-events-none hidden"
+  data-anchor={id}
+>
+  <span
+    class="PopoverContent block min-w-24 text-sm text-center -translate-y-6 bg-gray-50 px-3 py-1 rounded shadow"
+    >Save for offline reading</span
+  >
+</div>
+
+<style>
+  .save-page-button-popover {
+    position: absolute;
+    position-area: end span-all;
+  }
+</style>
 
 <script>
   import {
@@ -101,7 +120,11 @@ const { pathname } = Astro.url;
     })
   );
 
-  const updateButton = (button: HTMLButtonElement, state: 'saved' | 'unsaved') => {
+  const updateButton = (
+    button: HTMLButtonElement,
+    state: 'saved' | 'unsaved',
+    popoverContent: HTMLSpanElement | undefined | null
+  ) => {
     const svgPathsD = {
       saved: 'M51 5H29V76L40 65L51 76V5Z',
       unsaved: 'M51 5H29V46L40 35L51 46V5Z',
@@ -138,6 +161,9 @@ const { pathname } = Astro.url;
       }
       button.dataset.state = 'success';
       button.ariaLabel = 'Unsave this page';
+      if (popoverContent) {
+        popoverContent.textContent = 'Unsave this page';
+      }
     } else {
       delete button.dataset.state;
       if (label) label.textContent = 'Save';
@@ -157,6 +183,9 @@ const { pathname } = Astro.url;
         shadowBlurAnimate.beginElement();
       }
       button.ariaLabel = 'Save this page';
+      if (popoverContent) {
+        popoverContent.textContent = 'Save for offline reading';
+      }
     }
   };
 
@@ -173,6 +202,10 @@ const { pathname } = Astro.url;
         button.classList.remove('hidden');
         return;
       }
+
+      const popover = document.querySelector<HTMLDivElement>(
+        `.save-page-button-popover[data-anchor="${button.id}"]`
+      );
 
       const saveKey = dataset.savekey;
 
@@ -191,7 +224,11 @@ const { pathname } = Astro.url;
           button.classList.remove('hidden');
 
           if (capability.saved) {
-            updateButton(button, 'saved');
+            updateButton(
+              button,
+              'saved',
+              popover?.querySelector<HTMLSpanElement>('.PopoverContent')
+            );
           }
 
           saveStateByPage.set(saveKey, capability.saved);
@@ -226,7 +263,11 @@ const { pathname } = Astro.url;
               saveStateByPage.set(saveKey, isSaving);
 
               getSameKeyButtons().forEach((sameKeyButton) =>
-                updateButton(sameKeyButton, isSaving ? 'saved' : 'unsaved')
+                updateButton(
+                  sameKeyButton,
+                  isSaving ? 'saved' : 'unsaved',
+                  popover?.querySelector<HTMLSpanElement>('.PopoverContent')
+                )
               );
             });
           });
@@ -234,6 +275,33 @@ const { pathname } = Astro.url;
           button.classList.add('!hidden');
         }
       });
+
+      if (popover) {
+        const $popover = popover;
+
+        const anchorName = `--save-page-button-${button.id.replace(/\W/g, '')}`;
+
+        button.style.setProperty('anchor-name', anchorName);
+        popover.style.setProperty('position-anchor', anchorName);
+
+        function showPopover() {
+          $popover.classList.remove('hidden');
+        }
+
+        function hidePopover() {
+          $popover.classList.add('hidden');
+        }
+
+        (
+          [
+            ['mouseenter', showPopover],
+            ['mouseleave', hidePopover],
+            ['focus', showPopover],
+            ['blur', hidePopover],
+            ['click', hidePopover],
+          ] as const
+        ).forEach(([event, cb]) => button.addEventListener(event, cb));
+      }
     }
   });
 </script>

@@ -27,6 +27,7 @@
     "@codemirror/state": "^6.5.2",
     "@headlessui/tailwindcss": "^0.2.2",
     "@mkee/extract-html-resources": "workspace:*",
+    "@oddbird/css-anchor-positioning": "^0.6.1",
     "@shikijs/transformers": "^3.8.1",
     "@shikijs/twoslash": "^3.8.1",
     "@tailwindcss/container-queries": "^0.1.1",

@@ -261,3 +261,8 @@ const ogImage = getOgImageUrl({
     navigation: auto;
   }
 </style>
+<script>
+  if (!('anchorName' in document.documentElement.style)) {
+    import('@oddbird/css-anchor-positioning/fn').then((m) => m.default());
+  }
+</script>
