@@ -1,0 +1,273 @@
+---
+title: 'How I Write Tests'
+pubDate: 22 Jul 2025
+description: How I write tests so that they are clean and maintainable
+topics:
+  - typescript
+  - javascript
+---
+
+When writing tests, I have a common pattern that I use to keep my tests clean and maintainable. This article explains the pattern, its benefits, and how a new JavaScript feature can make it even better.
+
+## Test terminologies
+
+Before we dive into the pattern, let's clarify some fundamental concepts when writing tests.
+
+Most tests, regardless of programming language or framework, consist of three main steps and an optional step:[^1]
+
+1. setup
+2. act
+3. assert
+4. cleanup (optional)
+
+Whether you're aware of it or not, you've probably already written tests like this:
+
+```tsx
+import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+it('displays success message when submit', async () => {
+  // setup
+  const cleanupApiMocks = setupApiMocks();
+  const user = userEvent.setup();
+  render(<Form />);
+
+  // act
+  user.click(await screen.findByRole('button', { name: 'Submit' }));
+
+  // assert
+  expect(await screen.findByText(/Success/)).toBeVisible();
+
+  // cleanup
+  cleanupApiMocks();
+});
+```
+
+## The pattern
+
+The pattern that I use is: **abstract tests with a `setupTest` function**.
+
+The idea is to abstract test code into a `setupTest` function, so we can make our tests more readable and maintainable.
+
+Applying this pattern, we can rewrite the test above as:
+
+```tsx
+import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+it('displays success message when submit', async () => {
+  const { submitForm, cleanup } = setupTest();
+
+  await submitForm();
+
+  expect(await screen.findByText(/Success/)).toBeVisible();
+
+  cleanup();
+});
+
+function setupTest() {
+  const cleanupApiMocks = setupApiMocks();
+  const user = userEvent.setup();
+  render(<Form />);
+
+  return {
+    submitForm: async () => user.click(await screen.findByRole('button', { name: 'Submit' })),
+    cleanup: () => cleanupApiMocks(),
+  };
+}
+```
+
+Few things to note:
+
+- The `setupTest` function isn't limited to the setup code (as in setup in setup-act-assert), it can also contains logic for other steps, like act (`submitForm`) and cleanup.
+- The name `setupTest` is just a convention. Feel free to use more accurate (`createTestHarness`) or descriptive ( `buildContactForm`) names.
+- This pattern is most valuable for tests that require some setup with some interactions. For truly trivial tests (e.g. running a function and checking the result), a simpler inline approach is usually sufficient.
+
+## Why is this useful?
+
+Having a `setupTest` function is useful for several reasons.
+
+### It makes our tests more readable
+
+Having a `setupTest` allows us to group related code together with descriptive function names.
+
+For example, consider a form that has a text field that is disabled until the form is ready. We can use the `setupTest` function to add a helper function to wait for the form to be ready.
+
+```tsx
+function setupTest() {
+  // ...existing code
+  return {
+    waitForFormToBeReady: async () => {
+      const textField = await screen.findByRole('textbox', { name: 'Name' });
+      await waitFor(() => expect(textField).toBeEnabled());
+    },
+  };
+}
+```
+
+Without this helper function, the intention of waiting for the form to be ready is unclear with just the `waitFor...toBeEnabled` assertion.
+
+### It is versatile
+
+We can use the `setupTest` function to:
+
+- setup mocks,
+- render components,
+- define how to cleanup the environment, or
+- create custom assertions etc.
+
+You can use it for any operation in your test code.
+
+### It is easy to reuse and extend
+
+Need similar setup for another test? Just call the function again.
+
+Need a slightly different setup? Add parameters to the `setupTest` function and call it with different arguments.
+
+```ts
+// [!code word:apiResult]
+function setupTest({ apiResult = 'success' }: { apiResult?: 'success' | 'error' } = {}) {
+  const cleanupApiMocks = apiResult === 'success' ? setupApiMocks() : setupApiMocksForError();
+  // ...other code
+
+  return {
+    // [!code word:buttonLabel]
+    submitForm: async (buttonLabel = 'Submit') =>
+      user.click(await screen.findByRole('button', { name: buttonLabel })),
+    // ...otherCode
+  };
+}
+```
+
+Want to handle more complex scenarios? Create more focused setup functions:
+
+```ts
+function setupTestForSuccess() {
+  return setupTest({ apiResult: 'success' });
+}
+
+function setupTestForError() {
+  return setupTest({ apiResult: 'error' });
+}
+```
+
+### It enables better static analysis
+
+For those using TypeScript and Eslint (which I believe is most of us), this pattern enables better static analysis by making data flow explicit. To understand this, let's compare it with the common alternative of using `beforeEach`.
+
+```ts
+import supertest from 'supertest';
+
+import { createServer } from './create-server';
+
+let server: ReturnType<typeof createServer>;
+let agent: ReturnType<typeof supertest.agent>;
+
+beforeEach(() => {
+  server = createServer();
+  agent = supertest.agent(server);
+});
+
+afterEach(async () => {
+  if (server) {
+    await server.close();
+  }
+});
+
+it('should works', async () => {
+  // ...test code
+});
+```
+
+In the example above, it is still fine as the test code is not too long. In longer tests, it becomes difficult to track where `server` and `agent` are defined and used. If you forget to set the variables in `beforeEach`, there would not be any type error.
+
+```ts
+import supertest from 'supertest';
+
+import { createServer } from './create-server';
+
+let server: ReturnType<typeof createServer>;
+let agent: ReturnType<typeof supertest.agent>;
+
+beforeEach(() => {
+  server = createServer();
+  // forget to set agent, but no type error!
+});
+
+afterEach(async () => {
+  if (server) {
+    await server.close();
+  }
+});
+
+it('should works', async () => {
+  // ...test code
+});
+```
+
+In contrast, with the `setupTest` pattern, we can make the test code more explicit:
+
+```ts
+function setupTest() {
+  const server = createServer();
+  const agent = supertest.agent(server);
+
+  return {
+    server,
+    agent,
+    cleanup: async () => {
+      if (server) {
+        await server.close();
+      }
+    },
+  };
+}
+
+it('should works', async () => {
+  // Type error if agent is not returned from setupTest!
+  const { server, agent, cleanup } = setupTest();
+
+  // ...test code
+
+  await cleanup();
+});
+```
+
+While this improves type safety, you may notice that we still have to manually manage the `cleanup` function. This reveals the awkwardness of this pattern, which we will address in the next section.
+
+## How setupTest pattern will be even better
+
+While the `setupTest` pattern is valuable, it remains awkward when manual cleanup is required, as the previous example showed.
+
+Thankfully, with a new JS feature known as [Explicit Resource Management](https://v8.dev/features/explicit-resource-management), we can make the `setupTest` pattern even better.
+
+Using explicit resource management, we can rewrite the `setupTest` function as:
+
+```ts
+function setupTest() {
+  const server = createServer();
+  const agent = supertest.agent(server);
+
+  return {
+    server,
+    agent,
+    async [Symbol.asyncDispose]() {
+      await server.close();
+    },
+  };
+}
+
+it('should works', async () => {
+  await using testHelpers = setupTest();
+
+  const { server, agent } = testHelpers;
+
+  // ...test code
+});
+```
+
+Now, even the cleanup code is defined in the `setupTest` function - there is no need to manage the `cleanup` function manually in the test code.
+
+Explicit resource management is already supported as of [TypeScript 5.2](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-2.html#using-declarations-and-explicit-resource-management) and [Babel](https://babeljs.io/docs/babel-plugin-transform-explicit-resource-management). If your project is using either of these, you can adopt this pattern today.
+
+[^1]: You may use slightly different terminologies, such as Given-When-Then and Arrange-Act-Assert, but they are essentially the same.
