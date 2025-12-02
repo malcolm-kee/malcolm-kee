@@ -16,13 +16,13 @@
     "lox": "lox"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/markdown-remark": "^6.3.3",
-    "@astrojs/mdx": "^4.3.1",
-    "@astrojs/netlify": "^6.5.1",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/markdown-remark": "^6.3.9",
+    "@astrojs/mdx": "^4.3.12",
+    "@astrojs/netlify": "^6.6.3",
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/react": "^4.3.0",
-    "@astrojs/sitemap": "^3.4.1",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^6.0.2",
     "@codemirror/state": "^6.5.2",
     "@headlessui/tailwindcss": "^0.2.2",
@@ -43,7 +43,7 @@
     "@types/serviceworker": "^0.0.133",
     "@types/tinycolor2": "^1.4.6",
     "@vitest/coverage-v8": "^3.2.4",
-    "astro": "5.12.0",
+    "astro": "5.16.3",
     "cacache": "~19.0.1",
     "cloudinary": "^2.7.0",
     "dotenv": "^16.6.1",
@@ -80,7 +80,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.12",
+    "@astrojs/rss": "^4.0.14",
     "@codesandbox/sandpack-react": "^2.20.0",
     "@codesandbox/sandpack-themes": "^2.0.21",
     "@floating-ui/dom": "^1.7.2",

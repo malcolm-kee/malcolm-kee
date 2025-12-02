@@ -2,3 +2,7 @@ packages:
   - apps/*
   - libs/*
   - e2e
+
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
