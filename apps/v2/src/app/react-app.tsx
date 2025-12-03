@@ -1,4 +1,9 @@
-import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+  type DehydratedState,
+} from '@tanstack/react-query';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { createBrowserRouter, createMemoryRouter, RouterProvider } from 'react-router-dom';
@@ -36,7 +41,7 @@ export interface ReactAppProps {
   basename: string;
   currentPath: string;
   titleByPath: Record<string, string | undefined>;
-  dehydratedState?: unknown;
+  dehydratedState?: DehydratedState;
 }
 
 export const ReactApp = (props: ReactAppProps) => {
