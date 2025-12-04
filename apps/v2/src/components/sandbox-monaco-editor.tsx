@@ -6,8 +6,8 @@ import {
   useSandpack,
 } from '@codesandbox/sandpack-react';
 import Editor from '@monaco-editor/react';
-import nightOwlTheme from 'monaco-themes/themes/Night Owl.json';
-import githubTheme from 'monaco-themes/themes/GitHub Light.json';
+import nightOwlTheme from './monaco-themes/night-owl.json';
+import githubTheme from './monaco-themes/github-light.json';
 import * as React from 'react';
 
 /**
