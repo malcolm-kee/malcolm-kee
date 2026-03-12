@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm run *)",
+      "Bash(pnpm --filter=* run *)",
+      "Bash(find *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(which *)",
+      "Bash(git status*)",
+      "Bash(git log *)",
+      "Bash(git log)",
+      "Bash(git diff *)",
+      "Bash(git diff)",
+      "Bash(git branch *)",
+      "Bash(git branch)",
+      "Bash(git show *)",
+      "Bash(git blame *)",
+      "Bash(pwd)",
+      "Bash(echo *)",
+      "Bash(env)",
+      "Bash(node -e *)",
+      "Bash(npx tsc *)",
+      "Bash(pnpm install *)",
+      "Bash(pnpm install)"
+    ]
+  }
+}
