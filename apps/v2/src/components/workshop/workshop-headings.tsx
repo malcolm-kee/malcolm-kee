@@ -1,7 +1,7 @@
 import type { MarkdownHeading } from 'astro';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { isNotNil } from '~/lib/type-guard';
+import { isNotNil } from '@app/lib/type-guard';
 
 export const WorkshopHeadings = ({ headings }: { headings: Array<MarkdownHeading> }) => {
   const [activeId, setActiveId] = React.useState(() => headings[0]?.slug);

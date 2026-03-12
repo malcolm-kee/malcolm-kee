@@ -7,7 +7,7 @@ import {
 import { nightOwl, githubLight as oriGithubLight } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { useThemeValue } from '~/hooks/use-theme';
+import { useThemeValue } from '@app/hooks/use-theme';
 import { type SupportedLang } from './code-sandbox-helpers';
 import styles from './code-sandbox.module.css';
 import { SandboxCodeViewer } from './sandbox-code-viewer';

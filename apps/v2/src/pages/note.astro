@@ -1,8 +1,8 @@
 ---
-import BaseHead from '~/components/BaseHead.astro';
-import NotificationSubscribeButton from '~/components/NotificationSubscribeButton.astro';
-import PageLayout from '~/components/PageLayout.astro';
-import { getNotes } from '~/data/note-helpers';
+import BaseHead from '@app/components/BaseHead.astro';
+import NotificationSubscribeButton from '@app/components/NotificationSubscribeButton.astro';
+import PageLayout from '@app/components/PageLayout.astro';
+import { getNotes } from '@app/data/note-helpers';
 
 const notes = await getNotes();
 

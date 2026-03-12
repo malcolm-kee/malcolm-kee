@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ChevronRightIcon } from '~/components/icons';
+import { ChevronRightIcon } from '@app/components/icons';
 import type { GetStaticData } from '../types';
 
 export const getStaticData = async function getStaticData() {

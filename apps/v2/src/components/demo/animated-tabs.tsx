@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { flushSync } from 'react-dom';
-import { viewTransition } from '~/lib/view-transition';
+import { viewTransition } from '@app/lib/view-transition';
 import styles from './animated-tabs.module.css';
 import { clsx } from 'clsx';
 

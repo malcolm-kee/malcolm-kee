@@ -2,14 +2,14 @@
 import type { GetStaticPaths } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { clsx } from 'clsx';
-import BaseHead from '~/components/BaseHead.astro';
-import BlogPostPreview from '~/components/BlogPostPreview.astro';
-import { BlogPostPreviewList, BlogPostPreviewListItems } from '~/components/BlogPostPreviewList';
-import PageLayout from '~/components/PageLayout.astro';
-import { TilList } from '~/components/til-list';
-import { getBlogs } from '~/data/blog-helpers';
-import { getTils } from '~/data/til-helpers';
-import { TOPICS, TopicLabel } from '~/data/topic-types';
+import BaseHead from '@app/components/BaseHead.astro';
+import BlogPostPreview from '@app/components/BlogPostPreview.astro';
+import { BlogPostPreviewList, BlogPostPreviewListItems } from '@app/components/BlogPostPreviewList';
+import PageLayout from '@app/components/PageLayout.astro';
+import { TilList } from '@app/components/til-list';
+import { getBlogs } from '@app/data/blog-helpers';
+import { getTils } from '@app/data/til-helpers';
+import { TOPICS, TopicLabel } from '@app/data/topic-types';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return Promise.all(

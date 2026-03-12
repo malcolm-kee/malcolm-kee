@@ -2,7 +2,7 @@ import { lerp } from 'canvas-sketch-util/math';
 import randomUtil from 'canvas-sketch-util/random';
 import palettes from 'nice-color-palettes';
 import * as React from 'react';
-import { LightBulbIcon } from '~/components/icons';
+import { LightBulbIcon } from '@app/components/icons';
 import { drawCircle, getContrastTextColor, usePoints } from './art-lib';
 import { Button } from './button';
 import { Checkbox } from './checkbox';

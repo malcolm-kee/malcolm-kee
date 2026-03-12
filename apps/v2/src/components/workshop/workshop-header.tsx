@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import * as React from 'react';
-import type { WorkshopMetadata } from '~/data/workshop-data';
-import type { WorkshopTocItem } from '~/data/workshop-helpers';
+import type { WorkshopMetadata } from '@app/data/workshop-data';
+import type { WorkshopTocItem } from '@app/data/workshop-helpers';
 import { HomeIcon, ChevronLeftIcon } from '../icons';
 import { ThemeSelector } from '../theme-selector';
 import { WorkshopMobileNavigation } from './workshop-mobile-navigation';

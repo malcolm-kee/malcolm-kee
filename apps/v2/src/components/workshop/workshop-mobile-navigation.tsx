@@ -1,6 +1,6 @@
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import * as React from 'react';
-import type { WorkshopTocItem } from '~/data/workshop-helpers';
+import type { WorkshopTocItem } from '@app/data/workshop-helpers';
 import { ChevronLeftIcon, CloseIcon, MenuIcon } from '../icons';
 import { WorkshopNavigation } from './workshop-navigation';
 

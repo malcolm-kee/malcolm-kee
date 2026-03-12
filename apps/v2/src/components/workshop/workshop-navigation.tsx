@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import * as React from 'react';
-import type { WorkshopTocItem } from '~/data/workshop-helpers';
+import type { WorkshopTocItem } from '@app/data/workshop-helpers';
 import styles from './workshop-styles.module.css';
 
 export interface WorkshopNavigationProps {

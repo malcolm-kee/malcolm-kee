@@ -27,7 +27,7 @@ const { threshold = 0.5 } = Astro.props;
   <slot />
 </div>
 <script>
-  import { onIntersectOnce } from '~/lib/intersection-observer';
+  import { onIntersectOnce } from '@app/lib/intersection-observer';
 
   const lazyLoadElements = document.querySelectorAll('.lazy-load') as NodeListOf<HTMLElement>;
 

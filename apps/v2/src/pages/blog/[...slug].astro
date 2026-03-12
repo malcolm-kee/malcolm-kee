@@ -2,15 +2,15 @@
 import type { GetStaticPaths } from 'astro';
 import { type CollectionEntry, render } from 'astro:content';
 
-import BaseHead from '~/components/BaseHead.astro';
-import { CloudinaryImage } from '~/components/CloudinaryImage';
-import ContentSuggestions from '~/components/ContentSuggestions.astro';
-import InstallPrompt from '~/components/InstallPrompt.astro';
-import MdContent from '~/components/MdContent.astro';
-import SignupForm from '~/components/SignupForm.astro';
-import { getBlogs } from '~/data/blog-helpers';
-import { getBlogRelatedContents } from '~/data/topic-helpers';
-import { getTransformedImage } from '~/lib/cloudinary';
+import BaseHead from '@app/components/BaseHead.astro';
+import { CloudinaryImage } from '@app/components/CloudinaryImage';
+import ContentSuggestions from '@app/components/ContentSuggestions.astro';
+import InstallPrompt from '@app/components/InstallPrompt.astro';
+import MdContent from '@app/components/MdContent.astro';
+import SignupForm from '@app/components/SignupForm.astro';
+import { getBlogs } from '@app/data/blog-helpers';
+import { getBlogRelatedContents } from '@app/data/topic-helpers';
+import { getTransformedImage } from '@app/lib/cloudinary';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const blogs = await getBlogs({ includePreview: true });

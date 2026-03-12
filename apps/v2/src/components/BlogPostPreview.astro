@@ -1,8 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { clsx } from 'clsx';
-import type { ImageData } from '~/lib/cloudinary';
-import { formatDate } from '~/lib/date';
+import type { ImageData } from '@app/lib/cloudinary';
+import { formatDate } from '@app/lib/date';
 import { CloudinaryImage } from './CloudinaryImage';
 import { Tag } from './tag';
 
@@ -158,7 +158,7 @@ const hasImage = post.heroImageInfo;
   </div>
 </article>
 <script>
-  import { setupShinyEffect } from '~/lib/shiny-effect';
+  import { setupShinyEffect } from '@app/lib/shiny-effect';
 
   document.querySelectorAll('.blog-article[data-shiny]').forEach((shinyPreview) => {
     const link = shinyPreview.querySelector('.blog-link');

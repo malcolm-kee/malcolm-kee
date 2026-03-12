@@ -32,7 +32,7 @@ const props = Astro.props;
   </div>
 </div>
 <script>
-  import { subscribeUserToNotification } from '~/lib/notification';
+  import { subscribeUserToNotification } from '@app/lib/notification';
 
   const subscribe = () => {
     subscribeUserToNotification().then((result) => {

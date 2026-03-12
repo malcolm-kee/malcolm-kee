@@ -3,7 +3,7 @@ import { githubLight, nightOwl } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { ChevronLeftIcon, LightBulbIcon } from './icons';
-import { useThemeValue } from '~/hooks/use-theme';
+import { useThemeValue } from '@app/hooks/use-theme';
 
 export interface ExerciseBoxProps {
   exercise: {

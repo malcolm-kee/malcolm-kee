@@ -5,8 +5,8 @@ import { flushSync } from 'react-dom';
 import scrollIntoView from 'scroll-into-view-if-needed';
 import { Button } from '../Button';
 import styles from './onboarding.module.css';
-import { viewTransition } from '~/lib/view-transition';
-import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from '~/components/icons';
+import { viewTransition } from '@app/lib/view-transition';
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from '@app/components/icons';
 
 export interface OnboardingStep {
   targetSelector: string;

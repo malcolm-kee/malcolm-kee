@@ -11,3 +11,8 @@
 **Main app stack:** Astro 5 + React 19 + Tailwind CSS + TypeScript (strict mode)
 
 **Deployment:** Netlify. Site URL is `https://malcolmkee.com`, dev/preview port is `8989`.
+
+**CI/CD:** GitHub Actions (`.github/workflows/`):
+
+- `build.yml` — Build, deploy, and run unit tests
+- `playwright.yml` — Run Playwright e2e tests

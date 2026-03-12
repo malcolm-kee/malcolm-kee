@@ -107,8 +107,8 @@ const id = crypto.randomUUID();
     removePage,
     requestPersistentStorage,
     savePageDependencies,
-  } from '~/data/offline-helpers';
-  import { onOnlineStatusChange } from '~/lib/check-online-status';
+  } from '@app/data/offline-helpers';
+  import { onOnlineStatusChange } from '@app/lib/check-online-status';
 
   const saveStateByPage = new Map<string, boolean>();
 

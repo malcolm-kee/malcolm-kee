@@ -3,7 +3,7 @@ import type { MarkdownHeading } from 'astro';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import AnimateHeight from 'react-animate-height';
-import { listen } from '~/lib/event-helper';
+import { listen } from '@app/lib/event-helper';
 import { ChevronDownIcon, ListIcon } from './icons';
 
 export const StickyMdToc = (props: {

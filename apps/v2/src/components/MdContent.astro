@@ -1,7 +1,7 @@
 ---
 import type { MarkdownHeading } from 'astro';
 import { clsx } from 'clsx';
-import { formatDate, isFuture } from '~/lib/date';
+import { formatDate, isFuture } from '@app/lib/date';
 import { BackButton } from './BackButton';
 import Footer from './Footer';
 import Header from './Header';
@@ -195,8 +195,8 @@ const currentPath = new URL(Astro.request.url).pathname;
 </style>
 
 <script>
-  import { createTooltip } from '~/lib/create-tooltip';
-  import { createTwoslashTooltips } from '~/lib/create-twoslash-tooltips';
+  import { createTooltip } from '@app/lib/create-tooltip';
+  import { createTwoslashTooltips } from '@app/lib/create-twoslash-tooltips';
 
   const mdContents = document.querySelectorAll('[data-md-content]');
 

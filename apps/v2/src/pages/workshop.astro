@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '~/components/BaseHead.astro';
-import PageLayout from '~/components/PageLayout.astro';
-import { getWorkshops } from '~/data/workshop-helpers';
+import BaseHead from '@app/components/BaseHead.astro';
+import PageLayout from '@app/components/PageLayout.astro';
+import { getWorkshops } from '@app/data/workshop-helpers';
 
 const description = `Free training materials that I've created`;
 
@@ -48,7 +48,7 @@ const workshops = getWorkshops(await getCollection('workshop'));
     </PageLayout>
 
     <script>
-      import { setupShinyEffect } from '~/lib/shiny-effect';
+      import { setupShinyEffect } from '@app/lib/shiny-effect';
 
       document.querySelectorAll('.workshop-item').forEach((item) => {
         if (item instanceof HTMLElement) {

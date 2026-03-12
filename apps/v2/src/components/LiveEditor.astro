@@ -100,7 +100,7 @@ const {
 
 <script>
   import scrollIntoView from 'scroll-into-view-if-needed';
-  import { isVisible } from '~/lib/dom-helpers';
+  import { isVisible } from '@app/lib/dom-helpers';
 
   const languagePriority: Record<string, number> = {
     tsx: 4,
@@ -361,7 +361,7 @@ const {
   });
 
   if (autoPlayEditors.length) {
-    import('~/lib/intersection-observer').then(({ onIntersectOnce }) => {
+    import('@app/lib/intersection-observer').then(({ onIntersectOnce }) => {
       onIntersectOnce({
         elements: autoPlayEditors,
         callback: (editorSectionElement) => {

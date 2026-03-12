@@ -3,16 +3,16 @@ import '@shikijs/twoslash/style-rich.css';
 import type { GetStaticPaths, GetStaticPathsItem } from 'astro';
 import { getCollection, type CollectionEntry, render } from 'astro:content';
 
-import BaseHead from '~/components/BaseHead.astro';
-import '~/components/shiki-v2.css';
-import WorkshopContent from '~/components/workshop/WorkshopContent.astro';
-import WorkshopLayout from '~/components/workshop/WorkshopLayout.astro';
-import type { WorkshopMetadata } from '~/data/workshop-data';
+import BaseHead from '@app/components/BaseHead.astro';
+import '@app/components/shiki-v2.css';
+import WorkshopContent from '@app/components/workshop/WorkshopContent.astro';
+import WorkshopLayout from '@app/components/workshop/WorkshopLayout.astro';
+import type { WorkshopMetadata } from '@app/data/workshop-data';
 import {
   groupWorkshopLessons,
   type WorkshopRenderData,
   type WorkshopTocItem,
-} from '~/data/workshop-helpers';
+} from '@app/data/workshop-helpers';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const workshopLessons = await getCollection('workshop');

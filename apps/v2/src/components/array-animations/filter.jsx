@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Circle } from '~/components/shapes';
+import { Box, Circle } from '@app/components/shapes';
 import './filter.scss';
 
 const Button = (props) => <button type="button" {...props} />;

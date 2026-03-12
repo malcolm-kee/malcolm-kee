@@ -5,9 +5,8 @@ Personal website and blog for malcolmkee.com — Astro 5 + React 19 + TypeScript
 **Package manager:** pnpm
 
 ```bash
-pnpm dev                    # Start dev server (port 8989)
-pnpm --filter v2 run build  # Build (runs astro check + tsc + astro build)
-pnpm --filter v2 run check  # Type check only
+pnpm dev        # Start dev server (port 8989)
+pnpm run build  # Build (runs astro check + tsc + astro build)
 ```
 
 ## More details

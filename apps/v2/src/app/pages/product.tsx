@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ChevronLeftIcon } from '~/components/icons';
+import { ChevronLeftIcon } from '@app/components/icons';
 import { NavBar } from '../components/nav-bar';
 import { ProductList } from '../components/product-list';
 import { productQueryOptions } from '../queries/product-queries';

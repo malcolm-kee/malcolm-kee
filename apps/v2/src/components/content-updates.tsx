@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { filterContents } from '~/data/filter-contents';
-import type { ContentData } from '~/data/get-contents';
-import { formatDate, isValidDate } from '~/lib/date';
+import { filterContents } from '@app/data/filter-contents';
+import type { ContentData } from '@app/data/get-contents';
+import { formatDate, isValidDate } from '@app/lib/date';
 import { clsx } from 'clsx';
-import { setupShinyEffect } from '~/lib/shiny-effect';
+import { setupShinyEffect } from '@app/lib/shiny-effect';
 
 export type ContentUpdatesProps = {
   contents: Array<ContentData>;

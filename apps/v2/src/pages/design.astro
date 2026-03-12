@@ -1,14 +1,14 @@
 ---
-import BaseHead from '~/components/BaseHead.astro';
-import { Button } from '~/components/Button';
-import PageLayout from '~/components/PageLayout.astro';
-import BlogPostPreview from '~/components/BlogPostPreview.astro';
-import SavePageButton from '~/components/SavePageButton.astro';
-import { Tag } from '~/components/tag';
+import BaseHead from '@app/components/BaseHead.astro';
+import { Button } from '@app/components/Button';
+import PageLayout from '@app/components/PageLayout.astro';
+import BlogPostPreview from '@app/components/BlogPostPreview.astro';
+import SavePageButton from '@app/components/SavePageButton.astro';
+import { Tag } from '@app/components/tag';
 import { getEntry } from 'astro:content';
-import { getTransformedImage } from '~/lib/cloudinary';
-import { BlogPostPreviewList, BlogPostPreviewListItems } from '~/components/BlogPostPreviewList';
-import ContentSuggestions from '~/components/ContentSuggestions.astro';
+import { getTransformedImage } from '@app/lib/cloudinary';
+import { BlogPostPreviewList, BlogPostPreviewListItems } from '@app/components/BlogPostPreviewList';
+import ContentSuggestions from '@app/components/ContentSuggestions.astro';
 
 const viewTransitionApiData = await getEntry('blog', 'automating-refactoring-with-codemod');
 

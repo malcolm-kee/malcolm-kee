@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { getTransformedImage, type ImageData } from '~/lib/cloudinary';
+import { getTransformedImage, type ImageData } from '@app/lib/cloudinary';
 import type { Topic } from './topic-types';
 
 export const getBlogs = async ({

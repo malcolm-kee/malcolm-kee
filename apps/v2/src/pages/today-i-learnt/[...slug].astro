@@ -2,11 +2,11 @@
 import type { GetStaticPaths } from 'astro';
 import { type CollectionEntry, render } from 'astro:content';
 
-import BaseHead from '~/components/BaseHead.astro';
-import ContentSuggestions from '~/components/ContentSuggestions.astro';
-import MdContent from '~/components/MdContent.astro';
-import { getTils } from '~/data/til-helpers';
-import { getTilRelatedContents } from '~/data/topic-helpers';
+import BaseHead from '@app/components/BaseHead.astro';
+import ContentSuggestions from '@app/components/ContentSuggestions.astro';
+import MdContent from '@app/components/MdContent.astro';
+import { getTils } from '@app/data/til-helpers';
+import { getTilRelatedContents } from '@app/data/topic-helpers';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const tils = await getTils({ includePreview: true });

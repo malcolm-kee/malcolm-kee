@@ -1,5 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
-import { pickRandomItems } from '~/lib/array';
+import { pickRandomItems } from '@app/lib/array';
 import { getBlogs } from './blog-helpers';
 import { getTils } from './til-helpers';
 

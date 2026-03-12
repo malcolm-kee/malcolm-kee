@@ -2,7 +2,7 @@ import { useSandpackConsole } from '@codesandbox/sandpack-react';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { clsx } from 'clsx';
 import * as React from 'react';
-import { isNotNil } from '~/lib/type-guard';
+import { isNotNil } from '@app/lib/type-guard';
 import { MiniNoSymbolIcon, MiniTerminalIcon } from './icons';
 
 export const SandBoxConsole = () => {

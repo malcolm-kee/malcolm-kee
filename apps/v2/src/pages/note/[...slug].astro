@@ -1,10 +1,10 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { getCollection, type CollectionEntry, render } from 'astro:content';
-import BaseHead from '~/components/BaseHead.astro';
-import InstallPrompt from '~/components/InstallPrompt.astro';
-import MdContent from '~/components/MdContent.astro';
-import SignupForm from '~/components/SignupForm.astro';
+import BaseHead from '@app/components/BaseHead.astro';
+import InstallPrompt from '@app/components/InstallPrompt.astro';
+import MdContent from '@app/components/MdContent.astro';
+import SignupForm from '@app/components/SignupForm.astro';
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   const notes = await getCollection('note');

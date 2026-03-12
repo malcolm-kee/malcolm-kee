@@ -1,8 +1,8 @@
 import rss from '@astrojs/rss';
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
-import { getBlogs } from '~/data/blog-helpers';
-import { getTils } from '~/data/til-helpers';
+import { getBlogs } from '@app/data/blog-helpers';
+import { getTils } from '@app/data/til-helpers';
 
 const parser = new MarkdownIt();
 

@@ -1,6 +1,6 @@
 import randomUtil from 'canvas-sketch-util/random';
 import * as React from 'react';
-import { RefreshIcon } from '~/components/icons';
+import { RefreshIcon } from '@app/components/icons';
 import { drawCircle } from './art-lib';
 import { Button } from './button';
 import { board, container } from './circle-letters.module.scss';

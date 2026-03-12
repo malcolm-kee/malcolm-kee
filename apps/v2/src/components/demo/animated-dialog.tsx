@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { createPortal, flushSync } from 'react-dom';
-import { viewTransition } from '~/lib/view-transition';
+import { viewTransition } from '@app/lib/view-transition';
 import { CloseIcon } from '../icons';
 import styles from './animated-dialog.module.css';
 

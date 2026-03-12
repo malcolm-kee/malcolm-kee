@@ -1,13 +1,13 @@
 ---
 import { clsx } from 'clsx';
-import BaseHead from '~/components/BaseHead.astro';
-import { Button } from '~/components/Button';
-import headerStyles from '~/components/Header.module.css';
-import { CloudArrowDownIcon, GlobeIcon, MailIcon } from '~/components/icons';
-import PageLayout from '~/components/PageLayout.astro';
-import { GitHubIcon, LinkedInIcon } from '~/components/SocialIcons';
-import { fileName, workExperiences } from '~/data/cv';
-import { socialMediaData } from '~/data/social-media';
+import BaseHead from '@app/components/BaseHead.astro';
+import { Button } from '@app/components/Button';
+import headerStyles from '@app/components/Header.module.css';
+import { CloudArrowDownIcon, GlobeIcon, MailIcon } from '@app/components/icons';
+import PageLayout from '@app/components/PageLayout.astro';
+import { GitHubIcon, LinkedInIcon } from '@app/components/SocialIcons';
+import { fileName, workExperiences } from '@app/data/cv';
+import { socialMediaData } from '@app/data/social-media';
 
 const shortenUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
 ---

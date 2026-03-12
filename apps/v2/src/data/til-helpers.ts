@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import { groupArrayBy } from '~/lib/array';
+import { groupArrayBy } from '@app/lib/array';
 import type { Topic } from './topic-types';
 
 export const getTils = async ({
