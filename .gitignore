@@ -16,3 +16,6 @@ yarn-error.log
 .netlify
 
 /apps/v2/dist/
+
+# Test outputs
+coverage/

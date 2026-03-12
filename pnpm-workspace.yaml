@@ -4,8 +4,4 @@ packages:
   - e2e
 
 onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - deasync
-  - es5-ext
-  - esbuild
-  - sharp
+  - msw

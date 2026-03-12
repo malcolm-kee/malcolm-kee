@@ -1,19 +1,10 @@
 import fs from 'node:fs/promises';
-import { createRequire } from 'node:module';
 import path from 'node:path';
 import { URL, fileURLToPath } from 'node:url';
 
-import { init, parse as parseEsModule } from 'es-module-lexer';
-import type {
-  Plugin as PostcssPlugin,
-  PluginCreator as PostcssPluginCreator,
-  Postcss,
-} from 'postcss';
-import { request } from 'undici';
-
-const require = createRequire(import.meta.url);
-
-const postcss: Postcss = require('postcss');
+import { extractCssFontUrls } from './extract-css-font-urls';
+import { parseHtmlResources } from './parse-html-resources';
+import { parseJsImports } from './parse-js-imports';
 
 export interface ExtractDependenciesOptions {
   excludes: Array<RegExp>;
@@ -40,65 +31,16 @@ export const extractDependencies = async (
     encoding: 'utf-8',
   });
 
-  const resources: Resources = {
-    css: new Set(),
-    js: new Set(),
-    images: new Set(),
-    fonts: new Set(),
-  };
-
-  const { Parser } = await import('htmlparser2');
-
-  const parser = new Parser({
-    onopentag(name, attributes) {
-      switch (name) {
-        case 'script':
-          if (attributes.src) {
-            if (!options.excludes.some((pattern) => pattern.test(attributes.src))) {
-              resources.js.add(attributes.src);
-            }
-          }
-          break;
-
-        case 'link':
-          if (attributes.rel === 'stylesheet' && attributes.href) {
-            if (!options.excludes.some((pattern) => pattern.test(attributes.href))) {
-              resources.css.add(attributes.href);
-            }
-          }
-          break;
-
-        case 'img':
-          if (attributes.src) {
-            if (!options.excludes.some((pattern) => pattern.test(attributes.src))) {
-              resources.images.add(attributes.src);
-            }
-          }
-          break;
-
-        case 'astro-island':
-          if (attributes['component-url']) {
-            resources.js.add(attributes['component-url']);
-          }
-          if (attributes['renderer-url']) {
-            resources.js.add(attributes['renderer-url']);
-          }
-
-          break;
-
-        default:
-          break;
-      }
-    },
-  });
-  parser.write(content);
-  parser.end();
+  const resources = parseHtmlResources(content, options);
 
   for (const cssFileUrl of resources.css) {
-    await getCssDependencies(cssFileUrl, options, resources);
-  }
+    const cssSource = await getResourceContent(cssFileUrl, options.root);
 
-  await init;
+    if (cssSource) {
+      const fontUrls = await extractCssFontUrls(cssSource);
+      fontUrls.forEach((url) => resources.fonts.add(url));
+    }
+  }
 
   for (const jsFileUrl of resources.js) {
     const additionalDeps = await getJsDependencies(jsFileUrl, options);
@@ -107,50 +49,6 @@ export const extractDependencies = async (
 
   return resources;
 };
-
-const urlRegex = /url\(["']?(.*?)["']?\)/gi;
-
-async function getCssDependencies(
-  cssResourceUrl: string,
-  options: { root: URL; excludes: Array<RegExp> },
-  resources: Resources
-): Promise<void> {
-  const cssSource = await getResourceContent(cssResourceUrl, options.root);
-
-  if (!cssSource) {
-    return;
-  }
-
-  const postcssExtractUrlPlugin: PostcssPluginCreator<{}> = Object.assign(
-    function postcssExtractUrlPlugin(): PostcssPlugin {
-      return {
-        postcssPlugin: 'extract-url',
-        AtRule: {
-          'font-face': (fontFaceAtRule) => {
-            fontFaceAtRule.walkDecls('src', (declaration) => {
-              if (urlRegex.test(declaration.value)) {
-                const regex = new RegExp(urlRegex.source, urlRegex.flags);
-
-                let match;
-
-                while ((match = regex.exec(declaration.value)) !== null) {
-                  if (match[1]) {
-                    resources.fonts.add(match[1]);
-                  }
-                }
-              }
-            });
-          },
-        },
-      };
-    },
-    { postcss: true as const }
-  );
-
-  const processer = postcss([postcssExtractUrlPlugin]);
-
-  await processer.process(cssSource, { from: undefined });
-}
 
 async function getJsDependencies(
   jsResourceUrl: string,
@@ -163,37 +61,13 @@ async function getJsDependencies(
     return output;
   }
 
-  try {
-    const [imports] = parseEsModule(jsSource);
+  const imports = await parseJsImports(jsSource, jsResourceUrl, options);
 
-    for (const { n } of imports) {
-      if (n) {
-        const importedFilePath = new URL(n, new URL(jsResourceUrl, options.root));
-
-        const resourceUrl =
-          importedFilePath.protocol === 'file:'
-            ? path.resolve(
-                '/',
-                path.relative(fileURLToPath(options.root), fileURLToPath(importedFilePath))
-              )
-            : importedFilePath.toString();
-
-        if (
-          !output.includes(resourceUrl) &&
-          !options.excludes.some((pattern) => pattern.test(resourceUrl))
-        ) {
-          output.push(resourceUrl);
-
-          await getJsDependencies(resourceUrl, options, output);
-        }
-      }
+  for (const resourceUrl of imports) {
+    if (!output.includes(resourceUrl)) {
+      output.push(resourceUrl);
+      await getJsDependencies(resourceUrl, options, output);
     }
-  } catch (err) {
-    console.error(err);
-    console.log({
-      options,
-      jsResourceUrl,
-    });
   }
 
   return output;
@@ -205,16 +79,11 @@ async function getResourceContent(contentUrl: string, root: URL): Promise<string
     return await fs.readFile(jsFilePath, 'utf-8');
   }
   if (/^https?:\/\//.test(contentUrl)) {
-    const response = await request(contentUrl);
+    const response = await fetch(contentUrl);
+    const contentType = response.headers.get('content-type');
 
-    if (
-      response.headers &&
-      response.headers['content-type'] &&
-      !response.headers['content-type'].includes('text/html')
-    ) {
-      const content = await response.body.text();
-
-      return content;
+    if (contentType && !contentType.includes('text/html')) {
+      return await response.text();
     }
   }
 }

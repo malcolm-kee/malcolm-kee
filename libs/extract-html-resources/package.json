@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "tsx src/test.ts"
+    "test": "vitest run"
   },
   "dependencies": {
     "es-module-lexer": "^2.0.0",
@@ -29,8 +29,11 @@
     "undici": "^7.23.0"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.18",
+    "msw": "^2.12.10",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   }
 }
