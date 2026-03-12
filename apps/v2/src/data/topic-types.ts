@@ -1,4 +1,4 @@
-import { z } from 'astro:content';
+import { z } from 'astro/zod';
 
 export const TOPICS = [
   'module-federation',
@@ -13,7 +13,7 @@ export const TOPICS = [
 
 export const topic = z.enum(TOPICS);
 
-export type Topic = z.infer<typeof topic>;
+export type Topic = (typeof TOPICS)[number];
 
 export const TopicLabel: Record<Topic, string> = {
   'module-federation': 'Module Federation',
