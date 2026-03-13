@@ -24,10 +24,10 @@ Long-form articles. Routed at `/blog/[slug]/`.
 | `heroImagePublicId` | string | no | Cloudinary public ID |
 | `alt` | string | no | Alt text for hero image |
 | `preview` | boolean | no | Creates page but hides from listings |
-| `draft` | boolean | no | Completely excluded |
+| `draft` | boolean | no | Included in dev, excluded from production builds |
 | `topics` | Topic[] | no | |
 
-**Filtering:** Posts with `draft: true` are excluded entirely. Posts with `preview: true` or future `pubDate` are unlisted but accessible. Related content suggestions prefer same language.
+**Filtering:** Posts with `draft: true` are included in dev but excluded from production builds. Posts with `preview: true` or future `pubDate` are unlisted but accessible. Related content suggestions prefer same language.
 
 **Helpers:** `getBlogs()` in `apps/v2/src/data/blog-helpers.ts`
 

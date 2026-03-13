@@ -4,7 +4,7 @@ import type { Topic } from './topic-types';
 
 export const getBlogs = async ({
   includePreview = false,
-  includeDraft = false,
+  includeDraft = import.meta.env.DEV,
   topics,
 }: {
   includePreview?: boolean;

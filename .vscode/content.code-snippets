@@ -1,0 +1,63 @@
+{
+  "Blog Post": {
+    "scope": "markdown,mdx",
+    "prefix": "blog",
+    "description": "Blog post frontmatter",
+    "body": [
+      "---",
+      "title: '${1:Title}'",
+      "pubDate: '${CURRENT_DATE} ${CURRENT_MONTH_NAME_SHORT} ${CURRENT_YEAR}'",
+      "description: '${2:Description}'",
+      "topics:",
+      "  - ${3|react,css,typescript,javascript,frontend-tooling,module-federation,life,software-engineering|}",
+      "---",
+      "",
+      "$0"
+    ]
+  },
+  "Note": {
+    "scope": "markdown,mdx",
+    "prefix": "note",
+    "description": "Note frontmatter",
+    "body": [
+      "---",
+      "title: '${1:Title}'",
+      "pubDate: '${CURRENT_DATE} ${CURRENT_MONTH_NAME_SHORT} ${CURRENT_YEAR}'",
+      "description: '${2:Description}'",
+      "topics:",
+      "  - ${3|react,css,typescript,javascript,frontend-tooling,module-federation,life,software-engineering|}",
+      "---",
+      "",
+      "$0"
+    ]
+  },
+  "Today I Learnt": {
+    "scope": "markdown,mdx",
+    "prefix": "til",
+    "description": "TIL post frontmatter",
+    "body": [
+      "---",
+      "title: '${1:Title}'",
+      "pubDate: '${CURRENT_DATE} ${CURRENT_MONTH_NAME_SHORT} ${CURRENT_YEAR}'",
+      "topics:",
+      "  - ${3|react,css,typescript,javascript,frontend-tooling,module-federation,life,software-engineering|}",
+      "---",
+      "",
+      "$0"
+    ]
+  },
+  "Workshop Lesson": {
+    "scope": "markdown,mdx",
+    "prefix": "workshop",
+    "description": "Workshop lesson frontmatter",
+    "body": [
+      "---",
+      "title: '${1:Title}'",
+      "description: '${2:Description}'",
+      "section: '${3:Section Name}'",
+      "---",
+      "",
+      "$0"
+    ]
+  }
+}
