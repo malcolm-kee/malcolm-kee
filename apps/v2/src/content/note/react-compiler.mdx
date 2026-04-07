@@ -1,0 +1,271 @@
+---
+title: React Compiler
+pubDate: 7 Apr 2026
+---
+
+import Sandbox from '@app/components/code-sandbox';
+import ReactCompilerPlayground from '@app/components/ReactCompilerPlayground.astro';
+
+React Compiler is a [build-time tool](https://react.dev/learn/react-compiler) that automatically optimizes your React app.
+
+## The simplest possible case
+
+A component with no props and constant JSX.
+
+```tsx data-id="simple-example"
+export default function MyApp() {
+  return <div>Hello World</div>;
+}
+```
+
+To optimize this in runtime, we can wrap the component with `memo`.
+
+```tsx
+import * as React from 'react';
+
+export default React.memo(function MyApp() {
+  return <div>Hello World</div>;
+});
+```
+
+Or we can let React compiler do it automatically:
+
+<ReactCompilerPlayground codeMaxHeight="400px" defaultSourceSelector='[data-id="simple-example"]' />
+
+The compiler wraps the `<div>` in a cache slot guarded by the `UNINITIALIZED` sentinel, so the JSX element is created exactly once and reused on every subsequent render.
+
+## Props as a cache key
+
+Once a component takes props, the cache slot needs something to key on.
+
+```tsx data-id="with-props"
+export default function MyApp(props: { name: string }) {
+  const { name = 'World' } = props;
+  return <div>Hello {name}</div>;
+}
+```
+
+The manual optimization is still `React.memo` — the default shallow comparison handles a primitive `name` prop just fine:
+
+```tsx
+import * as React from 'react';
+
+export default React.memo(function MyApp(props: { name: string }) {
+  const { name = 'World' } = props;
+  return <div>Hello {name}</div>;
+});
+```
+
+Here's what the compiler does:
+
+<ReactCompilerPlayground codeMaxHeight="420px" defaultSourceSelector='[data-id="with-props"]' />
+
+The `UNINITIALIZED` sentinel is gone — the cache is now keyed on `name` (`memoCache[0] !== name`). The JSX is rebuilt only when `name` changes; a re-render with the same `name` gets the same `<div>` reference back.
+
+## Inline callbacks
+
+Before the compiler, the arrow function on `onClick` would be a fresh reference every render — defeating memoization on any child that received it.
+
+```tsx data-id="inline-callback"
+import * as React from 'react';
+
+export default function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  return <button onClick={() => setCount(count + 1)}>Clicked {count} times</button>;
+}
+```
+
+The manual fix is `useCallback` with the right dependency array — one of the most common sources of "why is this hook stale" bugs in practice:
+
+```tsx
+import * as React from 'react';
+
+export default function Counter() {
+  const [count, setCount] = React.useState(0);
+  const handleClick = React.useCallback(() => setCount(count + 1), [count]);
+
+  return <button onClick={handleClick}>Clicked {count} times</button>;
+}
+```
+
+The compiler does it for you:
+
+<ReactCompilerPlayground codeMaxHeight="85vh" defaultSourceSelector='[data-id="inline-callback"]' />
+
+The handler is cached, keyed on `count`. Notice that `setCount` is _not_ in the dependencies — React guarantees state setters are stable, so the compiler can skip them. You'd have to remember that yourself when writing `useCallback` by hand.
+
+## Derived values get their own slot
+
+The compiler doesn't only cache JSX — it caches intermediate values too.
+
+```tsx data-id="derived-values"
+export default function Greeting({ name }: { name: string }) {
+  const greeting = 'Hello, ' + name + '!';
+  return <div>{greeting}</div>;
+}
+```
+
+The manual pattern: `React.memo` at the boundary, and `useMemo` if the derived value were expensive enough to be worth caching on its own. A string concat isn't, but for the sake of illustration:
+
+```tsx
+import * as React from 'react';
+
+export default React.memo(function Greeting({ name }: { name: string }) {
+  const greeting = React.useMemo(() => 'Hello, ' + name + '!', [name]);
+  return <div>{greeting}</div>;
+});
+```
+
+The compiler doesn't ask whether the derivation is expensive — it caches everything:
+
+<ReactCompilerPlayground codeMaxHeight="400px" defaultSourceSelector='[data-id="derived-values"]' />
+
+Both the `greeting` string and the `<div>` that wraps it get their own cache slots, both keyed off `name`. The mental model worth keeping: anything the compiler thinks is worth memoizing gets a slot.
+
+## Inline object props
+
+Object and array literals in JSX are the classic source of "memoized child still re-renders" bugs: `{ name, email }` is a new reference every render.
+
+```tsx data-id="inline-object-prop"
+import * as React from 'react';
+
+type UserCardProps = {
+  user: { name: string; email: string };
+  theme: { dark: boolean };
+};
+
+declare function UserCard(props: UserCardProps): React.JSX.Element;
+
+export default function Profile({ name, email }: { name: string; email: string }) {
+  const [dark, setDark] = React.useState(false);
+
+  return (
+    <>
+      <UserCard user={{ name, email }} theme={{ dark }} />
+      <button onClick={() => setDark(!dark)}>Toggle theme</button>
+    </>
+  );
+}
+```
+
+This is the section where the manual version starts to hurt. To correctly prevent wasted `UserCard` renders you need `useMemo` for each object literal, `useCallback` for the toggle, _and_ a `React.memo` wrapper on `UserCard` itself:
+
+```tsx
+import * as React from 'react';
+
+type UserCardProps = {
+  user: { name: string; email: string };
+  theme: { dark: boolean };
+};
+
+declare function UserCard(props: UserCardProps): React.JSX.Element;
+
+export default function Profile({ name, email }: { name: string; email: string }) {
+  const [dark, setDark] = React.useState(false);
+
+  const user = React.useMemo(() => ({ name, email }), [name, email]);
+  const theme = React.useMemo(() => ({ dark }), [dark]);
+  const toggle = React.useCallback(() => setDark((d) => !d), []);
+
+  return (
+    <>
+      <UserCard user={user} theme={theme} />
+      <button onClick={toggle}>Toggle theme</button>
+    </>
+  );
+}
+```
+
+Four extra hooks to get something equivalent to what the compiler does for free:
+
+<ReactCompilerPlayground
+  codeMaxHeight="400px"
+  defaultSourceSelector='[data-id="inline-object-prop"]'
+/>
+
+The `{ name, email }` literal gets a cache slot keyed on `name` and `email` separately — so toggling `dark` does not invalidate the `user` prop, and a memoized `UserCard` would correctly skip its render. This is the property that fixes the wasted-render problem.
+
+## Per-branch memoization
+
+Caching is per-statement, not per-component. The compiler memoizes across branches too.
+
+```tsx data-id="conditional-render"
+type User = { name: string; age: number };
+
+export default function UserBadge({ user }: { user: User | null }) {
+  if (!user) {
+    return <span className="empty">No user</span>;
+  }
+
+  const isAdult = user.age >= 18;
+
+  return (
+    <div className="badge">
+      <strong>{user.name}</strong>
+      {isAdult ? <em>adult</em> : <em>minor</em>}
+    </div>
+  );
+}
+```
+
+The best you can do manually is wrap the component in `React.memo`:
+
+```tsx
+import * as React from 'react';
+
+type User = { name: string; age: number };
+
+export default React.memo(function UserBadge({ user }: { user: User | null }) {
+  if (!user) {
+    return <span className="empty">No user</span>;
+  }
+
+  const isAdult = user.age >= 18;
+
+  return (
+    <div className="badge">
+      <strong>{user.name}</strong>
+      {isAdult ? <em>adult</em> : <em>minor</em>}
+    </div>
+  );
+});
+```
+
+This is strictly weaker than what the compiler produces. `React.memo` is all-or-nothing — if `user` changes at all, everything inside is rebuilt. You can't `useMemo` each JSX expression by hand either, because the early `return` before the conditional means any hooks after it would be a Rules of Hooks violation. Per-branch memoization is essentially impossible to write by hand within a single component body.
+
+The compiler has no such restriction:
+
+<ReactCompilerPlayground
+  codeMaxHeight="400px"
+  defaultSourceSelector='[data-id="conditional-render"]'
+/>
+
+Each JSX block gets its own slot with its own dependency set, so toggling `user` between `null` and a value only rebuilds the branch that actually changed. Notice the `UNINITIALIZED` sentinel reappear for the no-user `<span>` — it has zero dependencies, so it's cached once and reused forever, exactly like the very first example.
+
+## What about existing `useMemo`?
+
+A reader migrating an existing codebase will want to know — do my pre-compiler `useMemo` calls still work?
+
+```tsx data-id="use-memo"
+import * as React from 'react';
+
+export default function ExpensiveList({ items, query }: { items: string[]; query: string }) {
+  const filtered = React.useMemo(
+    () => items.filter((item) => item.includes(query)),
+    [items, query]
+  );
+
+  return (
+    <ul>
+      {filtered.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+<ReactCompilerPlayground codeMaxHeight="90vh" defaultSourceSelector='[data-id="use-memo"]' />
+
+Yes — but the compiler's own slots subsume them. The filter callback, the filtered array, the mapped `<li>` list, and the wrapping `<ul>` each get their own cache entry. The hand-written `useMemo` is just one of many entries the compiler would have made anyway. In code written _for_ the compiler, manual `useMemo` and `useCallback` are no longer needed.

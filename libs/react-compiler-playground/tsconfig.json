@@ -9,7 +9,10 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "types": ["react/experimental", "node"],
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "sourceMap": true,
+    "declarationMap": true,
+    "declaration": true
   },
   "include": ["src"]
 }

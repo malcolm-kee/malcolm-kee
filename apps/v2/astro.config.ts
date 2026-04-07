@@ -22,6 +22,7 @@ import { depsExtraction } from './plugin/deps-extraction';
 import { hiddenMetaTransformer } from './plugin/hidden-meta-transformer';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 import { titleMetaTransformer } from './plugin/title-meta-transformer';
+import { dataAttrMetaTransformer } from './plugin/data-attr-meta-transformer';
 
 export default defineConfig({
   site: 'https://malcolmkee.com',
@@ -82,6 +83,7 @@ export default defineConfig({
         transformerNotationHighlight(),
         transformerNotationWordHighlight(),
         hiddenMetaTransformer(),
+        dataAttrMetaTransformer(),
         titleMetaTransformer(),
         codeWalkthroughTransformer(),
         await codeImportTransformer(),

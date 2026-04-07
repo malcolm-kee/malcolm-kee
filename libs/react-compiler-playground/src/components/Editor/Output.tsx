@@ -20,6 +20,7 @@ import { ViewTransition, addTransitionType } from '../../lib/viewTransitionCompa
 import AccordionWindow from '../AccordionWindow';
 import { CodeIcon, DocumentAddIcon, InformationCircleIcon } from '../Icons/HeroIcons';
 import { useMonacoComponents } from '../MonacoComponentsContext';
+import { useEditorPaths } from '../StoreContext';
 import TabbedWindow from '../TabbedWindow';
 import { monacoOptions } from './monacoOptions';
 
@@ -329,6 +330,7 @@ function TextTabContent({
 }): JSX.Element {
   const [diffMode, setDiffMode] = useState(false);
   const { MonacoEditor, MonacoDiffEditor } = useMonacoComponents();
+  const { outputPath } = useEditorPaths();
   return (
     <div className="w-full h-monaco_small sm:h-monaco">
       {showInfoPanel ? (
@@ -380,7 +382,7 @@ function TextTabContent({
       ) : (
         <MonacoEditor
           language={language ?? 'javascript'}
-          path="index.jsx"
+          path={outputPath}
           value={output}
           loading={''}
           className="monaco-editor-output"

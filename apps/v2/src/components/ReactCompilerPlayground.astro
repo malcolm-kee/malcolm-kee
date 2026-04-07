@@ -1,14 +1,25 @@
 ---
-import { ReactCompilerPlayground as CompilerPlayground } from './react-compiler-playground';
+import { ReactCompilerPlaygroundBySelector } from './react-compiler-playground-by-selector';
 
 interface Props {
-  defaultSource: string;
+  /** CSS selector to find element that contains the source code */
+  defaultSourceSelector: string;
   codeMaxHeight: string;
 }
 
-const { defaultSource, codeMaxHeight } = Astro.props;
+const { defaultSourceSelector, codeMaxHeight } = Astro.props;
 ---
 
-<div class="relative full-blend border border-gray-200 rounded-md">
-  <CompilerPlayground height={codeMaxHeight} defaultSource={defaultSource} client:only="react" />
+<style define:vars={{ codeMaxHeight }}>
+  [data-react-compiler-playground] {
+    height: var(--codeMaxHeight);
+  }
+</style>
+
+<div class="full-blend border border-gray-200 rounded-md" data-react-compiler-playground>
+  <ReactCompilerPlaygroundBySelector
+    height={codeMaxHeight}
+    defaultSourceSelector={defaultSourceSelector}
+    client:only="react"
+  />
 </div>
