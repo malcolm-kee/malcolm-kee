@@ -10,7 +10,8 @@
         "default": "./dist/index.js"
       }
     },
-    "./styles.css": "./src/styles.css"
+    "./styles.css": "./src/styles.css",
+    "./fixtures/*": "./src/lib/__fixtures__/*"
   },
   "scripts": {
     "build": "tsup",

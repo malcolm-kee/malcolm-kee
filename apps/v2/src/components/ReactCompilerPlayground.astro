@@ -1,0 +1,15 @@
+---
+import { ReactCompilerPlayground as CompilerPlayground } from '@mkee/react-compiler-playground';
+import '@mkee/react-compiler-playground/styles.css';
+
+interface Props {
+  defaultSource: string;
+  codeMaxHeight: string;
+}
+
+const { defaultSource, codeMaxHeight } = Astro.props;
+---
+
+<div class="relative full-blend border border-gray-200 rounded-md">
+  <CompilerPlayground height={codeMaxHeight} defaultSource={defaultSource} client:only="react" />
+</div>

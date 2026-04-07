@@ -7,7 +7,9 @@ import { CompilerOutput, default as Output } from './Output';
 import { compile } from '../../lib/compilation';
 import { format as prettyFormat } from 'pretty-format';
 
-export default function Editor(): JSX.Element {
+export type EditorProps = { withConfigEditor?: boolean };
+
+export default function Editor(props: EditorProps): JSX.Element {
   const store = useStore();
   const deferredStore = useDeferredValue(store);
   const [compilerOutput, appliedOptions] = useMemo(
@@ -46,9 +48,11 @@ export default function Editor(): JSX.Element {
   return (
     <>
       <div className="relative flex top-[var(--rcp-header-height)]">
-        <div className="flex-shrink-0">
-          <ConfigEditor formattedAppliedConfig={formattedAppliedConfig} />
-        </div>
+        {props.withConfigEditor && (
+          <div className="flex-shrink-0">
+            <ConfigEditor formattedAppliedConfig={formattedAppliedConfig} />
+          </div>
+        )}
         <div className="flex flex-1 min-w-0">
           <Input errors={errors} />
           <Output store={deferredStore} compilerOutput={mergedOutput} />

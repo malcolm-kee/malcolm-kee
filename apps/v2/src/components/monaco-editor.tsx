@@ -1,16 +1,16 @@
+import { useThemeValue } from '@app/hooks/use-theme';
 import Editor from '@monaco-editor/react';
 import * as React from 'react';
 import githubTheme from './monaco-themes/github-light.json';
 import nightOwlTheme from './monaco-themes/night-owl.json';
 
 export function MonacoEditor({
-  theme,
   options,
   beforeMount,
   ...props
-}: React.ComponentProps<typeof Editor> & {
-  theme?: 'light' | 'dark';
-}) {
+}: React.ComponentProps<typeof Editor>) {
+  const theme = useThemeValue();
+
   const memoizedOptions = React.useMemo(
     () =>
       options

@@ -21,27 +21,46 @@ export const useStoreDispatch = StoreDispatchContext.useContext;
 /**
  * Make Store and dispatch function available to all sub-components in children.
  */
-export function StoreProvider({ children }: { children: ReactNode }): JSX.Element {
+export function StoreProvider({
+  children,
+  persistState,
+  defaultSource,
+}: {
+  children: ReactNode;
+  persistState?: boolean;
+  defaultSource?: string;
+}): JSX.Element {
   const [store, dispatch] = useReducer(storeReducer, emptyStore);
   const [isPageReady, setIsPageReady] = useState<boolean>(false);
 
   useEffect(() => {
-    let mountStore: Store;
-    try {
-      mountStore = initStoreFromUrlOrLocalStorage();
-    } catch (e) {
-      console.error('Failed to initialize store from URL or local storage', e);
-      mountStore = defaultStore;
+    let mountStore: Store | undefined = undefined;
+    if (persistState) {
+      try {
+        mountStore = initStoreFromUrlOrLocalStorage();
+      } catch (e) {
+        console.error('Failed to initialize store from URL or local storage', e);
+      }
     }
+
+    if (mountStore == null) {
+      mountStore = defaultSource
+        ? {
+            ...defaultStore,
+            source: defaultSource,
+          }
+        : defaultStore;
+    }
+
     dispatch({ type: 'setStore', payload: { store: mountStore } });
     setIsPageReady(true);
   }, []);
 
   useEffect(() => {
-    if (store !== emptyStore) {
+    if (store !== emptyStore && persistState) {
       saveStore(store);
     }
-  }, [store]);
+  }, [store, persistState]);
 
   return (
     <StoreContext.Provider value={store}>
