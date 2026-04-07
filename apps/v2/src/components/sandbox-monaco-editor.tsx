@@ -1,19 +1,17 @@
 import {
   FileTabs,
-  SandpackStack,
   SandpackCodeEditor,
+  SandpackStack,
   useActiveCode,
   useSandpack,
 } from '@codesandbox/sandpack-react';
-import Editor from '@monaco-editor/react';
-import nightOwlTheme from './monaco-themes/night-owl.json';
-import githubTheme from './monaco-themes/github-light.json';
 import * as React from 'react';
+import { MonacoEditor, type EditorOptions } from './monaco-editor';
 
 /**
  * MonacoEditor that do not support jsx/tsx currently.
  */
-function MonacoEditor({
+function SandboxMonacoEditor({
   lang,
   theme,
   showTabs,
@@ -34,18 +32,13 @@ function MonacoEditor({
         <SandpackCodeEditor style={props.style} />
       </div>
       <div className="hidden sm:block sm:flex-1">
-        <Editor
+        <MonacoEditor
           width="100%"
           height="100%"
           language={langMap[lang]}
-          theme={theme === 'dark' ? 'nightowl' : 'github'}
           key={sandpack.activeFile}
           defaultValue={code}
           onChange={(value) => updateCode(value || '')}
-          beforeMount={(monaco) => {
-            monaco.editor.defineTheme('github', githubTheme as any);
-            monaco.editor.defineTheme('nightowl', nightOwlTheme as any);
-          }}
           options={editorOptions}
         />
       </div>
@@ -59,12 +52,7 @@ const langMap = {
 };
 
 const editorOptions = {
-  fontSize: 14,
-  lineHeight: 24,
-  minimap: {
-    enabled: false,
-  },
   lineNumbers: 'off',
-} satisfies React.ComponentPropsWithoutRef<typeof Editor>['options'];
+} satisfies EditorOptions;
 
-export default MonacoEditor;
+export default SandboxMonacoEditor;

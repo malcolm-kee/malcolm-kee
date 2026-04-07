@@ -26,6 +26,7 @@
       "Bash(npx tsc *)",
       "Bash(pnpm install *)",
       "Bash(pnpm install)"
-    ]
+    ],
+    "additionalDirectories": ["../react"]
   }
 }

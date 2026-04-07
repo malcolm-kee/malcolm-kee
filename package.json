@@ -6,7 +6,7 @@
     "node": "24.x"
   },
   "scripts": {
-    "dev": "pnpm --filter v2 run dev",
+    "dev": "pnpm --filter v2 --filter react-compiler-playground --parallel --stream run dev",
     "build": "pnpm -r run build",
     "v2": "pnpm --filter v2",
     "preview": "pnpm --no-bail --filter=v2 run preview",
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.12.0",
-    "start-server-and-test": "^2.1.5"
+    "start-server-and-test": "^2.1.5",
+    "typescript": "catalog:"
   }
 }
