@@ -6,7 +6,8 @@ import {
   useSandpack,
 } from '@codesandbox/sandpack-react';
 import * as React from 'react';
-import { MonacoEditor, type EditorOptions } from './monaco-editor';
+import { MonacoEditor } from './monaco-editor';
+import type { EditorOptions } from './monaco-editor-options';
 
 /**
  * MonacoEditor that do not support jsx/tsx currently.

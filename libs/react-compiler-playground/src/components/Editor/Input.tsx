@@ -1,10 +1,11 @@
-import MonacoEditor, { type Monaco } from '@monaco-editor/react';
+import type { Monaco } from '@monaco-editor/react';
 import { CompilerErrorDetail, CompilerDiagnostic } from 'babel-plugin-react-compiler';
 import invariant from 'invariant';
 import type { editor } from 'monaco-editor';
 import { useEffect, useState, JSX } from 'react';
 import { ViewTransition } from '../../lib/viewTransitionCompat';
 import { renderReactCompilerMarkers } from '../../lib/reactCompilerMonacoDiagnostics';
+import { useMonacoComponents } from '../MonacoComponentsContext';
 import { useStore, useStoreDispatch } from '../StoreContext';
 import TabbedWindow from '../TabbedWindow';
 import { monacoOptions } from './monacoOptions';
@@ -21,6 +22,7 @@ export function Input({ errors }: Props): JSX.Element {
   const [monaco, setMonaco] = useState<Monaco | null>(null);
   const store = useStore();
   const dispatchStore = useStoreDispatch();
+  const { MonacoEditor } = useMonacoComponents();
 
   // Set tab width to 2 spaces for the selected input file.
   useEffect(() => {

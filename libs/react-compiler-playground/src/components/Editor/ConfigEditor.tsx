@@ -1,8 +1,9 @@
-import MonacoEditor, { type Monaco } from '@monaco-editor/react';
+import { type Monaco } from '@monaco-editor/react';
 import type { editor } from 'monaco-editor';
 import React, { useState, useRef, startTransition } from 'react';
 import { ViewTransition, addTransitionType } from '../../lib/viewTransitionCompat';
 import { Resizable } from 're-resizable';
+import { useMonacoComponents } from '../MonacoComponentsContext';
 import { useStore, useStoreDispatch } from '../StoreContext';
 import { monacoConfigOptions } from './monacoOptions';
 import { IconChevron } from '../Icons/IconChevron';
@@ -59,6 +60,7 @@ function ExpandedEditor({
 }): React.ReactElement {
   const store = useStore();
   const dispatchStore = useStoreDispatch();
+  const { MonacoEditor } = useMonacoComponents();
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleChange: (value: string | undefined) => void = (value: string | undefined) => {

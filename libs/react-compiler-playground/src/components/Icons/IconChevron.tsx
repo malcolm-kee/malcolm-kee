@@ -1,11 +1,4 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-import {memo} from 'react';
+import { memo, type JSX } from 'react';
 
 export const IconChevron = memo<
   JSX.IntrinsicElements['svg'] & {
@@ -14,9 +7,8 @@ export const IconChevron = memo<
      */
     displayDirection: 'right' | 'left';
   }
->(function IconChevron({className, displayDirection, ...props}) {
-  const rotationClass =
-    displayDirection === 'left' ? 'rotate-90' : '-rotate-90';
+>(function IconChevron({ className, displayDirection, ...props }) {
+  const rotationClass = displayDirection === 'left' ? 'rotate-90' : '-rotate-90';
   const classes = className ? `${rotationClass} ${className}` : rotationClass;
 
   return (
@@ -26,7 +18,8 @@ export const IconChevron = memo<
       width="20"
       height="20"
       viewBox="0 0 20 20"
-      {...props}>
+      {...props}
+    >
       <g fill="none" fillRule="evenodd" transform="translate(-446 -398)">
         <path
           fill="currentColor"

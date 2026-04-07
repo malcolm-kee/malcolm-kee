@@ -5,9 +5,9 @@ import type { types as T } from '@babel/core';
 /**
  * Babel plugin that rewrites compiler-generated variable names
  * to more readable alternatives:
- * - `_c` → `createMemoCache`
- * - `$` → `memoCache`
- * - `Symbol.for("react.memo_cache_sentinel")` → `IS_UNINITIALIZED` (hoisted to top-level const)
+ * - `_c` → `createCache`
+ * - `$` → `cache`
+ * - `Symbol.for("react.memo_cache_sentinel")` → `UNINITIALIZED` (hoisted to top-level const)
  */
 function readableNamesPlugin({ types: t }: { types: typeof T }): PluginObj {
   let needsSentinelDecl = false;
@@ -22,7 +22,7 @@ function readableNamesPlugin({ types: t }: { types: typeof T }): PluginObj {
             t.isIdentifier(spec.imported, { name: 'c' }) &&
             t.isIdentifier(spec.local, { name: '_c' })
           ) {
-            path.scope.rename('_c', 'createMemoCache');
+            path.scope.rename('_c', 'createCache');
           }
         }
       },
@@ -31,9 +31,9 @@ function readableNamesPlugin({ types: t }: { types: typeof T }): PluginObj {
         if (
           t.isIdentifier(path.node.id, { name: '$' }) &&
           t.isCallExpression(path.node.init) &&
-          t.isIdentifier(path.node.init.callee, { name: 'createMemoCache' })
+          t.isIdentifier(path.node.init.callee, { name: 'createCache' })
         ) {
-          path.scope.rename('$', 'memoCache');
+          path.scope.rename('$', 'cache');
         }
       },
 
@@ -48,7 +48,7 @@ function readableNamesPlugin({ types: t }: { types: typeof T }): PluginObj {
           })
         ) {
           needsSentinelDecl = true;
-          path.replaceWith(t.identifier('IS_UNINITIALIZED'));
+          path.replaceWith(t.identifier('UNINITIALIZED'));
         }
       },
     },
@@ -57,13 +57,13 @@ function readableNamesPlugin({ types: t }: { types: typeof T }): PluginObj {
       if (!needsSentinelDecl) return;
       const decl = t.variableDeclaration('const', [
         t.variableDeclarator(
-          t.identifier('IS_UNINITIALIZED'),
+          t.identifier('UNINITIALIZED'),
           t.callExpression(t.memberExpression(t.identifier('Symbol'), t.identifier('for')), [
             t.stringLiteral('react.memo_cache_sentinel'),
           ])
         ),
       ]);
-      // Append at the end of the module. References to IS_UNINITIALIZED
+      // Append at the end of the module. References to UNINITIALIZED
       // live inside function bodies which only run at render time, well
       // after the module has finished initializing — so the TDZ isn't an
       // issue. Appending (rather than inserting between existing nodes)

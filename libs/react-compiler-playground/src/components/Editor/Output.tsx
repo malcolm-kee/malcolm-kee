@@ -1,5 +1,5 @@
+import type { Monaco } from '@monaco-editor/react';
 import { BabelFileResult } from '@babel/core';
-import MonacoEditor, { DiffEditor } from '@monaco-editor/react';
 import {
   CompilerDiagnostic,
   CompilerErrorDetail,
@@ -19,6 +19,7 @@ import {
 import { ViewTransition, addTransitionType } from '../../lib/viewTransitionCompat';
 import AccordionWindow from '../AccordionWindow';
 import { CodeIcon, DocumentAddIcon, InformationCircleIcon } from '../Icons/HeroIcons';
+import { useMonacoComponents } from '../MonacoComponentsContext';
 import TabbedWindow from '../TabbedWindow';
 import { monacoOptions } from './monacoOptions';
 
@@ -327,6 +328,7 @@ function TextTabContent({
   language?: string;
 }): JSX.Element {
   const [diffMode, setDiffMode] = useState(false);
+  const { MonacoEditor, MonacoDiffEditor } = useMonacoComponents();
   return (
     <div className="w-full h-monaco_small sm:h-monaco">
       {showInfoPanel ? (
@@ -356,7 +358,7 @@ function TextTabContent({
         </div>
       ) : null}
       {diff != null && diffMode ? (
-        <DiffEditor
+        <MonacoDiffEditor
           original={diff}
           modified={output}
           loading={''}
@@ -378,9 +380,11 @@ function TextTabContent({
       ) : (
         <MonacoEditor
           language={language ?? 'javascript'}
+          path="index.jsx"
           value={output}
           loading={''}
           className="monaco-editor-output"
+          onMount={handleMount}
           options={{
             ...monacoOptions,
             readOnly: true,
@@ -394,3 +398,39 @@ function TextTabContent({
     </div>
   );
 }
+
+// @ts-expect-error Resolved by tsdown raw-dts plugin
+import React$Types from '@types/react/index.d.ts';
+
+const handleMount = (_: unknown, monaco: Monaco) => {
+  const tscOptions = {
+    allowNonTsExtensions: true,
+    target: monaco.languages.typescript.ScriptTarget.ES2015,
+    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    jsx: monaco.languages.typescript.JsxEmit.Preserve,
+    typeRoots: ['node_modules/@types'],
+    allowSyntheticDefaultImports: true,
+  };
+  monaco.languages.typescript.javascriptDefaults.setCompilerOptions(tscOptions);
+  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+    ...tscOptions,
+    checkJs: true,
+    allowJs: true,
+  });
+
+  // Add React type declarations to Monaco
+  if (typeof React$Types === 'string') {
+    const reactLib = [React$Types, 'file:///node_modules/@types/react/index.d.ts'] as [any, string];
+    const runTimeLib: [string, string] = [
+      `
+/** Create a cache with fixed size - same cache will be returned throughout the component lifecycle. */      
+export const c: (cacheSize: number) => Array<any>;`,
+      'file:///node_modules/@types/react/compiler-runtime/index.d.ts',
+    ];
+
+    [reactLib, runTimeLib].forEach((lib) => {
+      monaco.languages.typescript.javascriptDefaults.addExtraLib(...lib);
+      monaco.languages.typescript.typescriptDefaults.addExtraLib(...lib);
+    });
+  }
+};
