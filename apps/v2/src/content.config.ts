@@ -21,6 +21,11 @@ const note = defineCollection({
       updatedDate,
       description: z.string().optional(),
       /**
+       * TODO: When true, the note page would have presentation
+       * capabilities
+       */
+      presentable: z.string().optional(),
+      /**
        * when true, the note page will be created
        * but it will not be listed
        */

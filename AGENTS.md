@@ -15,3 +15,4 @@ pnpm run build  # Build (runs astro check + tsc + astro build)
 - [Content](.agents/content.md) — content collections, MDX features
 - [Content details](apps/v2/src/content/AGENTS.md) — per-collection schemas, conventions, and routing
 - [Development](.agents/development.md) — full command reference, formatting, testing
+- [React Compiler Playground](libs/react-compiler-playground/AGENTS.md) - instructions on working with the React Compiler Playground in this repo.

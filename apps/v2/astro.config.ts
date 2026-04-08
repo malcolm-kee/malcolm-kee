@@ -19,9 +19,10 @@ import rehypeExternalLinks from 'rehype-external-links';
 import { codeImportTransformer } from './plugin/code-import-plugins';
 import { codeWalkthroughTransformer } from './plugin/code-walkthrough-transformer';
 import { depsExtraction } from './plugin/deps-extraction';
-import { hiddenMetaTransformer } from './plugin/hidden-meta-transformer';
+import { codeMetaTransformer } from './plugin/code-meta-transformer';
 import { rehypeCloudinaryImageEnhance } from './plugin/rehype-cloudinary-image-enhance';
 import { titleMetaTransformer } from './plugin/title-meta-transformer';
+import { dataAttrMetaTransformer } from './plugin/data-attr-meta-transformer';
 
 export default defineConfig({
   site: 'https://malcolmkee.com',
@@ -81,7 +82,8 @@ export default defineConfig({
         transformerMetaWordHighlight(),
         transformerNotationHighlight(),
         transformerNotationWordHighlight(),
-        hiddenMetaTransformer(),
+        codeMetaTransformer(),
+        dataAttrMetaTransformer(),
         titleMetaTransformer(),
         codeWalkthroughTransformer(),
         await codeImportTransformer(),

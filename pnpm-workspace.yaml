@@ -5,3 +5,8 @@ packages:
 
 onlyBuiltDependencies:
   - msw
+
+catalog:
+  react: 19.3.0-canary-1b45e243-20260402
+  react-dom: 19.3.0-canary-1b45e243-20260402
+  typescript: ^5.9.3

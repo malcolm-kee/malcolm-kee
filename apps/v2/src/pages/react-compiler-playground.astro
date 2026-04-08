@@ -1,0 +1,17 @@
+---
+import { ReactCompilerPlayground as CompilerPlayground } from '@mkee/react-compiler-playground';
+import '@mkee/react-compiler-playground/styles.css';
+import BaseHead from '@app/components/BaseHead.astro';
+---
+
+<html>
+  <head>
+    <BaseHead
+      title="React Compiler Playground"
+      description="Interactive playground for the React Compiler"
+    />
+  </head>
+  <body>
+    <CompilerPlayground client:only="react" persistState withHeader withConfigEditor />
+  </body>
+</html>

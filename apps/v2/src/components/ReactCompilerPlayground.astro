@@ -1,0 +1,27 @@
+---
+import { ReactCompilerPlaygroundBySelector } from './react-compiler-playground-by-selector';
+
+interface Props {
+  /** CSS selector to find element that contains the source code */
+  defaultSourceSelector: string;
+  codeMaxHeight: string;
+  defaultOutputTab?: string;
+}
+
+const { defaultSourceSelector, codeMaxHeight, defaultOutputTab } = Astro.props;
+---
+
+<style define:vars={{ codeMaxHeight }}>
+  [data-react-compiler-playground] {
+    height: var(--codeMaxHeight);
+  }
+</style>
+
+<div class="full-blend border border-gray-200 rounded-md" data-react-compiler-playground>
+  <ReactCompilerPlaygroundBySelector
+    height={codeMaxHeight}
+    defaultSourceSelector={defaultSourceSelector}
+    defaultOutputTab={defaultOutputTab}
+    client:only="react"
+  />
+</div>

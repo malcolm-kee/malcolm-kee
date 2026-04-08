@@ -1,0 +1,53 @@
+{
+  "name": "@mkee/react-compiler-playground",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./styles.css": "./src/styles.css",
+    "./fixtures/*": "./src/lib/__fixtures__/*"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "clsx": "^2.1.1",
+    "notistack": "^3.0.0-alpha.7",
+    "re-resizable": "^6.9.16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/parser": "^7.18.9",
+    "@babel/types": "^7.29.0",
+    "@types/babel__core": "^7.20.5",
+    "@types/invariant": "^2.2.37",
+    "@types/react": "^19.2",
+    "@types/react-dom": "^19.2",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "invariant": "^2.2.4",
+    "json5": "^2.2.3",
+    "lru-cache": "^11.2.2",
+    "lz-string": "^1.5.0",
+    "monaco-editor": "^0.52.0",
+    "path-browserify": "^1.0.1",
+    "prettier": "^3.3.3",
+    "pretty-format": "^29.3.1",
+    "tsup": "^8.5.1",
+    "typescript": "catalog:",
+    "vitest": "^4.0.18"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
+  }
+}

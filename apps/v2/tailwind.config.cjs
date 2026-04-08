@@ -4,7 +4,11 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}', './astro.config.ts'],
+  content: [
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './astro.config.ts',
+    '../../libs/react-compiler-playground/src/**/*.{ts,tsx}',
+  ],
   darkMode: 'class',
   theme: {
     extend: {
@@ -13,6 +17,14 @@ module.exports = {
       },
       width: {
         'square-diagonal': `${(Math.sqrt(2) * 100).toFixed(2)}%`,
+        toast: 'min(900px, 100vw - 40px)',
+        'toast-body': 'calc(100% - 60px)',
+        'toast-title': 'calc(100% - 40px)',
+      },
+      height: {
+        content: 'calc(100vh - 45px)',
+        monaco: 'calc(100vh - 93px)',
+        monaco_small: 'calc(100vh - 129px)',
       },
       fontFamily: {
         techie: ['"Chakra Petch"', '"Chakra Petch-fallback"', ...defaultTheme.fontFamily.sans],
