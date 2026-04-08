@@ -24,5 +24,7 @@ export const editorOptions = {
   wordWrap: 'on',
   wrappingIndent: 'same',
 
+  fixedOverflowWidgets: true,
+
   tabSize: 2,
 } satisfies EditorOptions;

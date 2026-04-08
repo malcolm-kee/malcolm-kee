@@ -3,5 +3,13 @@
   "singleQuote": true,
   "trailingComma": "es5",
   "endOfLine": "lf",
-  "printWidth": 100
+  "printWidth": 100,
+  "overrides": [
+    {
+      "files": "*.mdx",
+      "options": {
+        "printWidth": 80
+      }
+    }
+  ]
 }

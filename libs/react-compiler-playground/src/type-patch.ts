@@ -1,3 +1,4 @@
 declare module 'react/compiler-runtime' {
-  const c: (cacheSize: number) => Array<any>;
+  /** useMemoCache returns slots for cache keys and cached values */
+  const c: (slotSize: number) => Array<any>;
 }

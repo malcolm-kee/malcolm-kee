@@ -1,5 +1,5 @@
 import type { Dispatch, ReactNode } from 'react';
-import { useState, useEffect, type JSX, useReducer } from 'react';
+import { useState, useEffect, type JSX, useId, useMemo, useReducer } from 'react';
 import createContext from '../lib/createContext';
 import { emptyStore, defaultStore } from '../lib/defaultStore';
 import { saveStore, initStoreFromUrlOrLocalStorage, type Store } from '../lib/stores';
@@ -18,6 +18,23 @@ const StoreDispatchContext = createContext<Dispatch<ReducerAction>>();
  */
 export const useStoreDispatch = StoreDispatchContext.useContext;
 
+type EditorPaths = {
+  /** Monaco model path for the input editor (unique per playground instance). */
+  inputPath: string;
+  /** Monaco model path for the output editor (unique per playground instance). */
+  outputPath: string;
+};
+
+const EditorPathsContext = createContext<EditorPaths>();
+
+/**
+ * Hook to access the per-instance Monaco editor paths. Each playground instance
+ * needs its own paths because Monaco models are global singletons keyed by URI;
+ * sharing a path causes multiple playgrounds on one page to bind to the same
+ * underlying model.
+ */
+export const useEditorPaths = EditorPathsContext.useContext;
+
 /**
  * Make Store and dispatch function available to all sub-components in children.
  */
@@ -32,6 +49,17 @@ export function StoreProvider({
 }): JSX.Element {
   const [store, dispatch] = useReducer(storeReducer, emptyStore);
   const [isPageReady, setIsPageReady] = useState<boolean>(false);
+  const instanceId = useId();
+  const editorPaths = useMemo<EditorPaths>(
+    () => ({
+      // Monaco URIs cannot contain `:` (used as the scheme separator), and React's
+      // `useId` returns ids like `:r0:`. Strip the colons so the resulting URI is
+      // valid (`file:///<id>/index.tsx`).
+      inputPath: `${instanceId.replace(/:/g, '')}/index.tsx`,
+      outputPath: `${instanceId.replace(/:/g, '')}/index.jsx`,
+    }),
+    [instanceId]
+  );
 
   useEffect(() => {
     let mountStore: Store | undefined = undefined;
@@ -65,7 +93,9 @@ export function StoreProvider({
   return (
     <StoreContext.Provider value={store}>
       <StoreDispatchContext.Provider value={dispatch}>
-        {isPageReady ? children : null}
+        <EditorPathsContext.Provider value={editorPaths}>
+          {isPageReady ? children : null}
+        </EditorPathsContext.Provider>
       </StoreDispatchContext.Provider>
     </StoreContext.Provider>
   );

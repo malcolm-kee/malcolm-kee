@@ -20,6 +20,7 @@ import { ViewTransition, addTransitionType } from '../../lib/viewTransitionCompa
 import AccordionWindow from '../AccordionWindow';
 import { CodeIcon, DocumentAddIcon, InformationCircleIcon } from '../Icons/HeroIcons';
 import { useMonacoComponents } from '../MonacoComponentsContext';
+import { useEditorPaths } from '../StoreContext';
 import TabbedWindow from '../TabbedWindow';
 import { monacoOptions } from './monacoOptions';
 
@@ -63,6 +64,7 @@ export type CompilerOutput =
 type Props = {
   store: Store;
   compilerOutput: CompilerOutput;
+  defaultTab?: string;
 };
 
 async function tabify(
@@ -134,7 +136,7 @@ async function tabify(
       JSON.stringify(transformOutput.sourceMaps)
     );
     const prettyCode = await formatCode(transformOutput.code, prettier);
-    const rewrittenCode = await formatCode(rewriteCompilerOutput(prettyCode), prettier);
+    const rewrittenCode = await formatCode(rewriteCompilerOutput(transformOutput.code), prettier);
 
     let output: string;
     let prettyOutput: string;
@@ -241,17 +243,20 @@ function getSourceMapUrl(code: string, map: string): string | null {
   )}`;
 }
 
-function Output({ store, compilerOutput }: Props): JSX.Element {
+function Output(props: Props): JSX.Element {
   return (
     <Suspense fallback={<Fallback />}>
-      <OutputContent store={store} compilerOutput={compilerOutput} />
+      <OutputContent {...props} />
     </Suspense>
   );
 }
 
-function OutputContent({ store, compilerOutput }: Props): JSX.Element {
+function OutputContent({ store, compilerOutput, defaultTab }: Props): JSX.Element {
   const [tabsOpen, setTabsOpen] = useState<Set<string>>(() => new Set(['Output']));
-  const [activeTab, setActiveTab] = useState<string>('Output');
+  const [activeTab, setActiveTab] = useState<string>(() =>
+    // @ts-expect-error
+    defaultTab && BASIC_OUTPUT_TAB_NAMES.includes(defaultTab) ? defaultTab : 'Output'
+  );
 
   const [previousOutputKind, setPreviousOutputKind] = useState(compilerOutput.kind);
   const isFailure = compilerOutput.kind !== 'ok';
@@ -329,6 +334,7 @@ function TextTabContent({
 }): JSX.Element {
   const [diffMode, setDiffMode] = useState(false);
   const { MonacoEditor, MonacoDiffEditor } = useMonacoComponents();
+  const { outputPath } = useEditorPaths();
   return (
     <div className="w-full h-monaco_small sm:h-monaco">
       {showInfoPanel ? (
@@ -380,7 +386,7 @@ function TextTabContent({
       ) : (
         <MonacoEditor
           language={language ?? 'javascript'}
-          path="index.jsx"
+          path={outputPath}
           value={output}
           loading={''}
           className="monaco-editor-output"
@@ -423,8 +429,8 @@ const handleMount = (_: unknown, monaco: Monaco) => {
     const reactLib = [React$Types, 'file:///node_modules/@types/react/index.d.ts'] as [any, string];
     const runTimeLib: [string, string] = [
       `
-/** Create a cache with fixed size - same cache will be returned throughout the component lifecycle. */      
-export const c: (cacheSize: number) => Array<any>;`,
+/** useMemoCache returns slots for cache keys and cached values */
+export const c: (slotSize: number) => Array<any>;`,
       'file:///node_modules/@types/react/compiler-runtime/index.d.ts',
     ];
 

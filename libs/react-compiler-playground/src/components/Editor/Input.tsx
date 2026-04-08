@@ -6,7 +6,7 @@ import { useEffect, useState, JSX } from 'react';
 import { ViewTransition } from '../../lib/viewTransitionCompat';
 import { renderReactCompilerMarkers } from '../../lib/reactCompilerMonacoDiagnostics';
 import { useMonacoComponents } from '../MonacoComponentsContext';
-import { useStore, useStoreDispatch } from '../StoreContext';
+import { useEditorPaths, useStore, useStoreDispatch } from '../StoreContext';
 import TabbedWindow from '../TabbedWindow';
 import { monacoOptions } from './monacoOptions';
 import { CONFIG_PANEL_TRANSITION } from '../../lib/transitionTypes';
@@ -22,12 +22,13 @@ export function Input({ errors }: Props): JSX.Element {
   const [monaco, setMonaco] = useState<Monaco | null>(null);
   const store = useStore();
   const dispatchStore = useStoreDispatch();
+  const { inputPath } = useEditorPaths();
   const { MonacoEditor } = useMonacoComponents();
 
   // Set tab width to 2 spaces for the selected input file.
   useEffect(() => {
     if (!monaco) return;
-    const uri = monaco.Uri.parse(`file:///index.tsx`);
+    const uri = monaco.Uri.parse(`file:///${inputPath}`);
     const model = monaco.editor.getModel(uri);
     invariant(model, 'Model must exist for the selected input file.');
     renderReactCompilerMarkers({
@@ -36,7 +37,7 @@ export function Input({ errors }: Props): JSX.Element {
       details: errors,
       source: store.source,
     });
-  }, [monaco, errors, store.source]);
+  }, [monaco, errors, store.source, inputPath]);
 
   useEffect(() => {
     /**
@@ -103,7 +104,7 @@ export function Input({ errors }: Props): JSX.Element {
 
   const editorContent = (
     <MonacoEditor
-      path="index.tsx"
+      path={inputPath}
       language="typescript"
       value={store.source}
       onMount={handleMount}

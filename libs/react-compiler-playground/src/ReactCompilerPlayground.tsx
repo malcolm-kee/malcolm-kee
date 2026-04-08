@@ -28,7 +28,7 @@ export function ReactCompilerPlayground({
   defaultSource,
   persistState,
   ...editorProps
-}: ReactCompilerPlaygroundProps & EditorProps = {}) {
+}: ReactCompilerPlaygroundProps & EditorProps) {
   const style = {
     '--rcp-height': height,
     '--rcp-header-height': withHeader ? '3.5rem' : '0px',

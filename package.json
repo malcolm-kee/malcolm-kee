@@ -16,7 +16,15 @@
   "pnpm": {
     "overrides": {
       "sharp": "^0.34.5"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "deasync",
+      "es5-ext",
+      "esbuild",
+      "msw",
+      "sharp"
+    ]
   },
   "devDependencies": {
     "@types/node": "^24.12.0",

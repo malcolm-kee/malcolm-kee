@@ -8,9 +8,6 @@ export function EditorSkeleton(): JSX.Element {
       aria-live="polite"
       aria-label="Loading editor"
     >
-      {/* Collapsed config rail — matches <CollapsedEditor /> width */}
-      <div className="flex-shrink-0 w-4 h-full" />
-
       <div className="flex flex-1 min-w-0">
         {/* Input pane — matches <Input /> */}
         <SkeletonPane title="Input" />
@@ -26,7 +23,7 @@ function SkeletonPane({ title, tabCount = 1 }: { title: string; tabCount?: numbe
     <div className="flex-1 min-w-[550px] sm:min-w-0 border-r border-gray-200 last:border-r-0">
       <div className="flex flex-col h-full">
         {/* Tab bar placeholder */}
-        <div className="flex items-center gap-4 px-3 h-12 border-b border-gray-200 bg-gray-50">
+        <div className="flex items-center gap-4 px-3 h-12">
           {Array.from({ length: tabCount }).map((_, index) => (
             <div className="h-8 w-16 rounded-full bg-gray-200 animate-pulse" key={index} />
           ))}

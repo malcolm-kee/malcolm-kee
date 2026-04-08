@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { c as createMemoCache } from 'react/compiler-runtime';
+import { c as useMemoCache } from 'react/compiler-runtime';
 type User = { name: string; age: number };
 
 /**
@@ -8,38 +8,38 @@ type User = { name: string; age: number };
  * `user` between null and a value only rebuilds the branch that changed.
  */
 export default function UserBadge(props) {
-  const memoCache = createMemoCache(8);
+  const slots = useMemoCache(8);
   const { user } = props;
   if (!user) {
     let t1;
-    if (memoCache[0] === IS_UNINITIALIZED) {
+    if (slots[0] === UNINITIALIZED) {
       t1 = <span className="empty">No user</span>;
-      memoCache[0] = t1;
+      slots[0] = t1;
     } else {
-      t1 = memoCache[0];
+      t1 = slots[0];
     }
     return t1;
   }
 
   const isAdult = user.age >= 18;
   let t1;
-  if (memoCache[1] !== user.name) {
+  if (slots[1] !== user.name) {
     t1 = <strong>{user.name}</strong>;
-    memoCache[1] = user.name;
-    memoCache[2] = t1;
+    slots[1] = user.name;
+    slots[2] = t1;
   } else {
-    t1 = memoCache[2];
+    t1 = slots[2];
   }
   let t2;
-  if (memoCache[3] !== isAdult) {
+  if (slots[3] !== isAdult) {
     t2 = isAdult ? <em>adult</em> : <em>minor</em>;
-    memoCache[3] = isAdult;
-    memoCache[4] = t2;
+    slots[3] = isAdult;
+    slots[4] = t2;
   } else {
-    t2 = memoCache[4];
+    t2 = slots[4];
   }
   let t3;
-  if (memoCache[5] !== t1 || memoCache[6] !== t2) {
+  if (slots[5] !== t1 || slots[6] !== t2) {
     t3 = (
       <div className="badge">
         {t1}
@@ -47,12 +47,14 @@ export default function UserBadge(props) {
       </div>
     );
 
-    memoCache[5] = t1;
-    memoCache[6] = t2;
-    memoCache[7] = t3;
+    slots[5] = t1;
+    slots[6] = t2;
+    slots[7] = t3;
   } else {
-    t3 = memoCache[7];
+    t3 = slots[7];
   }
   return t3;
 }
-const IS_UNINITIALIZED = Symbol.for('react.memo_cache_sentinel');
+const UNINITIALIZED = Symbol.for(
+  'react.memo_cache_sentinel'
+);

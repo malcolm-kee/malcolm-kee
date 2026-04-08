@@ -8,5 +8,6 @@ export const formatCode = (code: string, p: Pick<typeof prettier, 'format'>) =>
     singleQuote: true,
     trailingComma: 'es5',
     parser: 'babel-ts',
+    printWidth: 60,
     plugins: [parserBabel, prettierPluginEstree],
   });

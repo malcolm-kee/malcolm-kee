@@ -1,18 +1,20 @@
 import { transformSync } from '@babel/core';
-import type { NodePath, PluginObj } from '@babel/core';
-import type { types as T } from '@babel/core';
+import type { NodePath, PluginObj, types as T, BabelFileResult } from '@babel/core';
 
 /**
  * Babel plugin that rewrites compiler-generated variable names
  * to more readable alternatives:
- * - `_c` → `createCache`
- * - `$` → `cache`
+ * - `_c` → `useMemoCache`
+ * - `$` → `slots`
  * - `Symbol.for("react.memo_cache_sentinel")` → `UNINITIALIZED` (hoisted to top-level const)
  */
 function readableNamesPlugin({ types: t }: { types: typeof T }): PluginObj {
   let needsSentinelDecl = false;
 
   return {
+    pre() {
+      needsSentinelDecl = false;
+    },
     visitor: {
       ImportDeclaration(path) {
         if (path.node.source.value !== 'react/compiler-runtime') return;
@@ -22,7 +24,7 @@ function readableNamesPlugin({ types: t }: { types: typeof T }): PluginObj {
             t.isIdentifier(spec.imported, { name: 'c' }) &&
             t.isIdentifier(spec.local, { name: '_c' })
           ) {
-            path.scope.rename('_c', 'createCache');
+            path.scope.rename('_c', 'useMemoCache');
           }
         }
       },
@@ -31,9 +33,9 @@ function readableNamesPlugin({ types: t }: { types: typeof T }): PluginObj {
         if (
           t.isIdentifier(path.node.id, { name: '$' }) &&
           t.isCallExpression(path.node.init) &&
-          t.isIdentifier(path.node.init.callee, { name: 'createCache' })
+          t.isIdentifier(path.node.init.callee, { name: 'useMemoCache' })
         ) {
-          path.scope.rename('$', 'cache');
+          path.scope.rename('$', 'slots');
         }
       },
 
@@ -165,6 +167,7 @@ export function rewriteCompilerOutput(code: string): string {
     configFile: false,
     babelrc: false,
     retainLines: true,
+    highlightCode: false,
   });
   return result?.code ?? code;
 }

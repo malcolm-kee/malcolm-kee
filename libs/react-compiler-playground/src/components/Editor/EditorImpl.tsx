@@ -7,7 +7,7 @@ import { CompilerOutput, default as Output } from './Output';
 import { compile } from '../../lib/compilation';
 import { format as prettyFormat } from 'pretty-format';
 
-export type EditorProps = { withConfigEditor?: boolean };
+export type EditorProps = { withConfigEditor?: boolean; defaultOutputTab?: string };
 
 export default function Editor(props: EditorProps): JSX.Element {
   const store = useStore();
@@ -55,7 +55,11 @@ export default function Editor(props: EditorProps): JSX.Element {
         )}
         <div className="flex flex-1 min-w-0">
           <Input errors={errors} />
-          <Output store={deferredStore} compilerOutput={mergedOutput} />
+          <Output
+            store={deferredStore}
+            compilerOutput={mergedOutput}
+            defaultTab={props.defaultOutputTab}
+          />
         </div>
       </div>
     </>

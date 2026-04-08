@@ -45,9 +45,7 @@ const nodeShimsPlugin: Plugin = {
       path: pathBrowserifyPath,
     }));
     // Shim other Node builtins
-    const filter = new RegExp(
-      `^(${Object.keys(NODE_SHIMS).join('|')})$`
-    );
+    const filter = new RegExp(`^(${Object.keys(NODE_SHIMS).join('|')})$`);
     build.onResolve({ filter }, (args) => ({
       path: args.path,
       namespace: 'node-shim',
@@ -63,6 +61,7 @@ export default defineConfig({
   entry: ['src/index.ts'],
   format: ['esm'],
   dts: true,
+  sourcemap: true,
   clean: true,
   splitting: true,
   platform: 'browser',
