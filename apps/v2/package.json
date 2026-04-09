@@ -83,6 +83,7 @@
     "@astrojs/rss": "^4.0.18",
     "@codesandbox/sandpack-react": "^2.20.0",
     "@codesandbox/sandpack-themes": "^2.0.21",
+    "@faker-js/faker": "^10.4.0",
     "@floating-ui/dom": "^1.7.6",
     "@formkit/auto-animate": "1.0.0-beta.6",
     "@headlessui/react": "^2.2.9",
@@ -97,9 +98,15 @@
     "dexie": "^4.3.0",
     "mitt": "^3.0.1",
     "monaco-themes": "^0.4.8",
+    "msw": "^2.12.10",
     "nice-color-palettes": "^4.0.0",
     "react-animate-height": "^3.2.3",
     "react-helmet": "^6.1.0",
     "scroll-into-view-if-needed": "^3.1.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

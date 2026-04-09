@@ -3,7 +3,8 @@
   "compilerOptions": {
     "paths": {
       "@app/*": ["./src/*"]
-    }
+    },
+    "types": ["react/experimental", "node"]
   },
   "include": ["src", ".astro/types.d.ts"],
   "exclude": ["dist", "src/exercise/**/*.*", "src/templates/**/*.*"]

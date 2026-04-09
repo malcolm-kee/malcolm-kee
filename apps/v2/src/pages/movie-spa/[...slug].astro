@@ -1,0 +1,36 @@
+---
+import { MovieApp, getStaticPathsData } from '@app/app/movie-app';
+import BaseHead from '@app/components/BaseHead.astro';
+import PageLayout from '@app/components/PageLayout.astro';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
+  const result = await getStaticPathsData();
+
+  return result.map((d) => ({
+    params: {
+      slug: d.path,
+    },
+    props: {
+      title: d.title,
+    },
+  }));
+};
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} />
+  </head>
+  <body>
+    <PageLayout noHeader>
+      <MovieApp basename="/movie-spa" client:only="react" />
+    </PageLayout>
+  </body>
+</html>
