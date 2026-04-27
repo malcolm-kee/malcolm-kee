@@ -12,7 +12,7 @@ export function EditorSkeleton(): JSX.Element {
         {/* Input pane — matches <Input /> */}
         <SkeletonPane title="Input" />
         {/* Output pane — matches <Output /> */}
-        <SkeletonPane title="Output" tabCount={3} />
+        <SkeletonPane title="Output" tabCount={2} />
       </div>
     </div>
   );

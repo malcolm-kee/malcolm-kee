@@ -197,7 +197,6 @@ const currentPath = new URL(Astro.request.url).pathname;
 <script>
   import { createTooltip } from '@app/lib/create-tooltip';
   import { createTwoslashTooltips } from '@app/lib/create-twoslash-tooltips';
-  import { clone } from 'astro:schema';
 
   const mdContents = document.querySelectorAll('[data-md-content]');
 
@@ -220,10 +219,14 @@ const currentPath = new URL(Astro.request.url).pathname;
             if (childNode instanceof HTMLElement) {
               const cloned = childNode.cloneNode(true);
               if (cloned instanceof HTMLElement) {
+                // Remove the backRef element
                 if (cloned.hasAttribute('data-footnote-backref')) {
                   return;
                 }
                 cloned.querySelectorAll('[data-footnote-backref]').forEach((el) => el.remove());
+
+                // If there is any element with id, remove it to avoid invalid HTML
+                cloned.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
               }
               children.push(cloned);
             }
