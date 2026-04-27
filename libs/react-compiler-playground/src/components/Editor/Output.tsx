@@ -131,10 +131,9 @@ async function tabify(
   // Ensure that JS and the JS source map come first
   if (compilerOutput.kind === 'ok') {
     const { transformOutput } = compilerOutput;
-    const sourceMapUrl = getSourceMapUrl(
-      transformOutput.code,
-      JSON.stringify(transformOutput.sourceMaps)
-    );
+    const sourceMapUrl = showInternals
+      ? getSourceMapUrl(transformOutput.code, JSON.stringify(transformOutput.sourceMaps))
+      : null;
     const prettyCode = await formatCode(transformOutput.code, prettier);
     const rewrittenCode = await formatCode(rewriteCompilerOutput(transformOutput.code), prettier);
 
@@ -311,7 +310,7 @@ function OutputContent({ store, compilerOutput, defaultTab }: Props): JSX.Elemen
       }}
     >
       <AccordionWindow
-        defaultTab={store.showInternals ? 'HIR' : 'Output'}
+        defaultTab="HIR"
         setTabsOpen={setTabsOpen}
         tabsOpen={tabsOpen}
         tabs={tabs}

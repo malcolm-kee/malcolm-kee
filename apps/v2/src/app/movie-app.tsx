@@ -2,7 +2,6 @@ import {
   QueryClient,
   QueryClientProvider,
   useQuery,
-  useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import clsx from 'clsx';

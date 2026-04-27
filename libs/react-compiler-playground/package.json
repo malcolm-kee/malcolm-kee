@@ -36,15 +36,15 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "invariant": "^2.2.4",
     "json5": "^2.2.3",
-    "lru-cache": "^11.2.2",
+    "lru-cache": "^11.3.5",
     "lz-string": "^1.5.0",
-    "monaco-editor": "^0.52.0",
+    "monaco-editor": "^0.55.1",
     "path-browserify": "^1.0.1",
-    "prettier": "^3.3.3",
+    "prettier": "^3.8.3",
     "pretty-format": "^29.3.1",
     "tsup": "^8.5.1",
     "typescript": "catalog:",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.5"
   },
   "peerDependencies": {
     "react": ">=19.0.0",

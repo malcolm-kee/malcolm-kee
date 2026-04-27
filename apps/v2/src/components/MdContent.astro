@@ -197,6 +197,7 @@ const currentPath = new URL(Astro.request.url).pathname;
 <script>
   import { createTooltip } from '@app/lib/create-tooltip';
   import { createTwoslashTooltips } from '@app/lib/create-twoslash-tooltips';
+  import { clone } from 'astro:schema';
 
   const mdContents = document.querySelectorAll('[data-md-content]');
 
@@ -214,26 +215,23 @@ const currentPath = new URL(Astro.request.url).pathname;
       if (href) {
         const target = document.querySelector(href);
         if (target && target instanceof HTMLElement) {
-          const childs: Array<Node> = [];
+          const children: Array<Node> = [];
           target.childNodes.forEach((childNode) => {
             if (childNode instanceof HTMLElement) {
-              const cloned = document.createElement('div');
-              cloned.innerHTML = childNode.innerHTML;
-              cloned.childNodes.forEach((grandChild) => {
-                if (
-                  grandChild instanceof HTMLElement &&
-                  grandChild.hasAttribute('data-footnote-backref')
-                ) {
-                  grandChild.remove();
+              const cloned = childNode.cloneNode(true);
+              if (cloned instanceof HTMLElement) {
+                if (cloned.hasAttribute('data-footnote-backref')) {
+                  return;
                 }
-              });
-              childs.push(cloned);
+                cloned.querySelectorAll('[data-footnote-backref]').forEach((el) => el.remove());
+              }
+              children.push(cloned);
             }
           });
-          if (childs.length > 0) {
+          if (children.length > 0) {
             const tooltipEl = document.createElement('div');
             tooltipEl.role = 'tooltip';
-            childs.forEach((child) => tooltipEl.appendChild(child));
+            children.forEach((child) => tooltipEl.appendChild(child));
             const arrowEl = document.createElement('div');
             tooltipEl.appendChild(arrowEl);
             parentSupEl.insertAdjacentElement('afterend', tooltipEl);

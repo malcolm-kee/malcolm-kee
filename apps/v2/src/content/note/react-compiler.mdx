@@ -17,7 +17,7 @@ export default function MyApp() {
 }
 ```
 
-To optimize this in runtime, we can wrap the component with `memo`.
+To optimize this in runtime, we can wrap the component with `memo`[^1].
 
 ```tsx
 import * as React from 'react';
@@ -435,3 +435,20 @@ declare function UserCard(props: UserCardProps): React.JSX.Element;
 The main thing is you can stop hand-memoizing. Write components the obvious way and let the compiler handle references. But still keep the lint rules on, as following rules of React is the underlying assumption of the compiler.
 
 Audit the React lint error on in your codebase first, fix whatever it complains about, then flip the compiler on (use `'no memo'` to [opt out](https://react.dev/learn/react-compiler/incremental-adoption) if you must). You don't need have to update existing `useMemo` and `useCallback` uses, just delete them when you happen to be editing the file.
+
+[^1]: Actually, we can further optimize this by having a module level cache, like this:
+
+    ```tsx
+    import * as React from 'react';
+
+    let result: React.ReactNode = null;
+
+    export default React.memo(function MyApp() {
+      if (!result) {
+        result = <div>Hello World</div>;
+      }
+      return result;
+    });
+    ```
+
+    In practice it's very rare so `memo` is usually enough.
