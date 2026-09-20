@@ -1,7 +1,7 @@
 ---
 title: Using View Transition API in React App
 pubDate: 17 Mar 2023
-updatedDate: 9 May 2025
+updatedDate: 20 Sep 2026
 description: Discover how to use the View Transition API in your React apps to create engaging and fluid navigational experiences. This API simplifies the process of animating shared elements and can be used in various practical scenarios, such as showcasing product images, animating modals, and more.
 topics:
   - react
@@ -319,13 +319,11 @@ createRoot(document.getElementById('root')).render(<App />);
 
 As part of [React 19.3](https://react.dev/blog/2026/09/09/react-19-3), `ViewTransition` component is available from `React` directly.
 
-<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly fullBleed="when-preview">
+<LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly fullBleed="when-preview" autoPlay>
 
-```jsx
+```tsx
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-
-const { ViewTransition } = React; // [!code highlight]
 
 const App = () => {
   const [isThumbnail, setIsThumbnail] = React.useState(true);
@@ -346,25 +344,25 @@ const App = () => {
         </div>
         {isThumbnail && (
           // [!code highlight:1]
-          <ViewTransition name="meow-image">
+          <React.ViewTransition name="meow-image">
             <img
               src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png"
               alt="cat"
               className="thumbnail"
             />
-          </ViewTransition>
+          </React.ViewTransition>
         )}
       </div>
       {!isThumbnail && (
         <div className="cat-details">
           {/* [!code highlight:1] */}
-          <ViewTransition name="meow-image">
+          <React.ViewTransition name="meow-image">
             <img
               src="https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_500/v1678947391/malcolm-kee/meow_dtsn8h.png"
               alt="cat"
               className="detailed-img"
             />
-          </ViewTransition>
+          </React.ViewTransition>
           <div className="cat-desc">
             <h2>Cat Details</h2>
           </div>
@@ -429,8 +427,6 @@ With the `ViewTransition` component:
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 
-const { ViewTransition } = React;
-
 const App = () => {
   const [search, setSearch] = React.useState('');
 
@@ -453,24 +449,24 @@ const App = () => {
         />
       </div>
       {displayedCats.length === 0 && (
-        <ViewTransition name="error-message">
+        <React.ViewTransition name="error-message">
           <div className="error-message">
             <p>No cats found</p>
           </div>
-        </ViewTransition>
+        </React.ViewTransition>
       )}
       <ul className="cat-list">
         {displayedCats.map((cat) => (
           <li key={cat.id}>
             {/* [!code highlight:1] */}
-            <ViewTransition name={`cat-${cat.id}`}>
+            <React.ViewTransition name={`cat-${cat.id}`}>
               <div className="cat-item">
                 <img src={cat.image} alt={cat.name} className="cat-thumbnail" />
                 <div className="cat-item-content">
                   <p className="cat-name">{cat.name}</p>
                 </div>
               </div>
-            </ViewTransition>
+            </React.ViewTransition>
           </li>
         ))}
       </ul>
@@ -566,6 +562,211 @@ createRoot(document.getElementById('root')).render(<App />);
 ```
 
 </LiveEditor>
+
+### Shared elements must be in the viewport
+
+React only forms a shared-element pair when both the element being removed and the element being inserted are inside the viewport. If either side is outside the viewport, React treats each side as a regular enter or exit instead. This prevents an element from unexpectedly flying into or out of the screen when the page is scrolled.
+
+This often shows up in a listing-to-detail transition. Try opening the first cat without scrolling: the thumbnail and detail hero are both visible, so React forms a shared-element transition between them. Then go back, scroll to the last cat, and open it. The detail page keeps the scroll position, leaving its hero image above the viewport, so React does not pair the two images.
+
+<LiveEditor previewMinHeight="28rem" codeMaxHeight="28rem" readOnly autoPlay fullBleed="when-preview">
+
+```jsx
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
+
+const App = () => {
+  const [selectedCatId, setSelectedCatId] = React.useState(null);
+
+  const selectedCat = cats.find((cat) => cat.id === selectedCatId);
+
+  const openCat = (catId) => {
+    React.startTransition(() => setSelectedCatId(catId));
+  };
+
+  const goBack = () => {
+    React.startTransition(() => setSelectedCatId(null));
+  };
+
+  return (
+    <main>
+      <header className="demo-toolbar">
+        {selectedCat ? <button onClick={goBack}>← Back to cats</button> : <b>Cat directory</b>}
+        {selectedCat ? (
+          <small>The detail hero is at the top; your scroll position was preserved</small>
+        ) : (
+          <small>Try the first card, then scroll down and try the last one</small>
+        )}
+      </header>
+
+      {selectedCat ? (
+        <article className="cat-detail">
+          <div className="detail-header">
+            <div>
+              <p>Featured cat</p>
+              <h1>{selectedCat.name}</h1>
+            </div>
+            <React.ViewTransition name={`cat-image-${selectedCat.id}`}>
+              <img src={selectedCat.image} alt={selectedCat.name} className="detail-image" />
+            </React.ViewTransition>
+          </div>
+          <div className="detail-copy">
+            <h2>About {selectedCat.name}</h2>
+            <p>
+              This detail page is intentionally tall, like a real product or profile page. That lets
+              it preserve the listing's scroll position during navigation.
+            </p>
+          </div>
+        </article>
+      ) : (
+        <ul className="cat-list">
+          {cats.map((cat) => (
+            <li key={cat.id}>
+              <button className="cat-card" onClick={() => openCat(cat.id)}>
+                <React.ViewTransition name={`cat-image-${cat.id}`}>
+                  <img src={cat.image} alt="" />
+                </React.ViewTransition>
+                <span>
+                  <b>{cat.name}</b>
+                  <small>View profile →</small>
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+  );
+};
+
+const cats = [
+  {
+    id: 'meow',
+    name: 'Meow',
+    image:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/meow_dtsn8h.png',
+  },
+  {
+    id: 'angie',
+    name: 'Angie',
+    image:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/angry_cat.png',
+  },
+  {
+    id: 'milky',
+    name: 'Milky',
+    image:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/milky.png',
+  },
+  {
+    id: 'spinner',
+    name: 'Spinner',
+    image:
+      'https://res.cloudinary.com/djzsjzasg/image/upload/c_scale,w_300/v1678947391/malcolm-kee/spinning_cat.png',
+  },
+];
+
+createRoot(document.getElementById('root')).render(<App />);
+```
+
+```html hidden
+<div id="root"></div>
+<style>
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+  }
+
+  .demo-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: white;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .demo-toolbar small {
+    max-width: 22rem;
+    text-align: right;
+  }
+
+  .cat-list {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0;
+    list-style: none;
+  }
+
+  .cat-card {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    align-items: center;
+    width: 100%;
+    min-height: 210px;
+    padding: 1rem;
+    color: inherit;
+    text-align: left;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0.75rem;
+    cursor: pointer;
+  }
+
+  .cat-card img {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+  }
+
+  .cat-card span {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .cat-card b {
+    font-size: 1.5rem;
+  }
+
+  .cat-detail {
+    min-height: 180vh;
+    padding: 1rem;
+  }
+
+  .detail-header {
+    display: grid;
+    grid-template-columns: 1fr minmax(150px, 280px);
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .detail-header h1 {
+    margin-block: 0.25rem;
+    font-size: 2.5rem;
+  }
+
+  .detail-image {
+    width: 100%;
+    max-height: 280px;
+    object-fit: contain;
+  }
+
+  .detail-copy {
+    max-width: 36rem;
+    margin-top: 2rem;
+    line-height: 1.6;
+  }
+</style>
+```
+
+</LiveEditor>
+
+This viewport check applies specifically to a named `share` transition where one component is removed and another is inserted. If the same component instance changes position, React classifies it as an `update`, and it can still animate even when one position is outside the viewport. See the [`ViewTransition` documentation](https://react.dev/reference/react/ViewTransition#animating-enterexit-with-activity) for the full caveat.
 
 ## Using View Transition API with React Router
 
