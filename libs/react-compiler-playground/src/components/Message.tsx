@@ -31,7 +31,7 @@ export const Message = forwardRef<HTMLDivElement, MessageProps>(function Message
   return (
     <SnackbarContent
       ref={ref}
-      className="flex items-start justify-between gap-3 px-4 py-3 text-sm bg-white border rounded-md shadow w-toast"
+      className="flex items-start justify-between gap-3 px-4 py-3 text-sm bg-white border rounded-md shadow-sm w-toast"
     >
       <div className="flex gap-3 w-toast-body">
         {level === MessageLevel.Warning ? (
@@ -50,7 +50,7 @@ export const Message = forwardRef<HTMLDivElement, MessageProps>(function Message
         <div className="flex flex-col justify-center gap-1 w-toast-title">
           <p className="w-full">{title}</p>
           {codeframe ? (
-            <pre className="overflow-x-auto break-words whitespace-pre-wrap">
+            <pre className="overflow-x-auto wrap-break-word whitespace-pre-wrap">
               <code className="text-xs">{codeframe}</code>
             </pre>
           ) : null}

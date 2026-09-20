@@ -29,7 +29,7 @@ export const ProductDetails = ({ productId }: { productId: string }) => {
                 <p className="text-gray-800">No preview</p>
               </div>
             )}
-            <div className="flex-1 p-6 shadow">
+            <div className="flex-1 p-6 shadow-sm">
               <dl className="flex flex-col gap-6">
                 <div>
                   <dt>
@@ -74,7 +74,7 @@ export const ProductDetails = ({ productId }: { productId: string }) => {
               <h2 className="mt-12 mb-6 text-gray-500">Comments</h2>
               <div className="flex flex-wrap gap-6">
                 {data.comments.map((comment) => (
-                  <article key={comment._id} className="p-3 shadow rounded">
+                  <article key={comment._id} className="p-3 shadow-sm rounded-sm">
                     <p className="text-xs text-gray-500">{comment.userName} commented:</p>
                     <p>{comment.content}</p>
                     <div className="text-right">

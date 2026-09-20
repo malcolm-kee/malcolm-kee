@@ -47,7 +47,7 @@ export const ExerciseBox = ({
   const headingNode = (
     <div className="flex justify-end items-center py-1">
       <button
-        className="inline-flex items-center gap-1 px-3 py-1 text-sm rounded shadow active:shadow-inner"
+        className="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-sm shadow-sm active:shadow-inner"
         type="button"
         onClick={toggleShowAnswer}
       >

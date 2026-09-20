@@ -25,9 +25,9 @@ export const WorkshopMobileNavigation = (props: {
         show={isOpen}
         enter="transition duration-100 ease-out"
         enterFrom="transform backdrop-blur-none"
-        enterTo="transform backdrop-blur"
+        enterTo="transform backdrop-blur-sm"
         leave="transition duration-75 ease-out"
-        leaveFrom="transform backdrop-blur"
+        leaveFrom="transform backdrop-blur-sm"
         leaveTo="transform backdrop-blur-none"
         as={React.Fragment}
       >

@@ -1,3 +1,5 @@
+@reference '../styles/global.css';
+
 .avatar {
   view-transition-name: header-avatar;
 }

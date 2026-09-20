@@ -47,9 +47,9 @@ export default function Editor(props: EditorProps): JSX.Element {
 
   return (
     <>
-      <div className="relative flex top-[var(--rcp-header-height)]">
+      <div className="relative flex top-(--rcp-header-height)">
         {props.withConfigEditor && (
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <ConfigEditor formattedAppliedConfig={formattedAppliedConfig} />
           </div>
         )}

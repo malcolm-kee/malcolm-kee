@@ -24,7 +24,7 @@ const hasImage = post.heroImageInfo;
   class={clsx(
     'blog-article @container/article relative',
     isFeatured
-      ? 'z-10 py-20 bg-white min-h-[20rem] flex items-center'
+      ? 'z-10 py-20 bg-white min-h-80 flex items-center'
       : ['@md/bloglist:grid @md/bloglist:grid-cols-4 @md/bloglist:gap-6', 'pt-1 pb-3'],
     Astro.props.class
   )}
@@ -61,7 +61,7 @@ const hasImage = post.heroImageInfo;
     hasImage && (
       <div
         class={clsx(
-          'absolute inset-y-0 h-full bg-gradient-to-br from-white',
+          'absolute inset-y-0 h-full bg-linear-to-br from-white',
           isFeatured ? '-inset-x-4 sm:-inset-x-8 lg:inset-x-0' : 'inset-x-0 w-full'
         )}
       />
@@ -98,7 +98,7 @@ const hasImage = post.heroImageInfo;
       <div
         class={clsx(
           'blog-content-preview relative transition-all',
-          hasImage && (isFeatured ? 'drop-shadow-sm' : 'backdrop-blur-sm')
+          hasImage && (isFeatured ? 'drop-shadow-xs' : 'backdrop-blur-xs')
         )}
       >
         {

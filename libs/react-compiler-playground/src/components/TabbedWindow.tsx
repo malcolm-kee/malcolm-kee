@@ -25,7 +25,7 @@ export default function TabbedWindow({
   return (
     <div className="flex-1 min-w-[550px] sm:min-w-0">
       <div className="flex flex-col h-full max-w-full">
-        <div className="flex p-2 flex-shrink-0">
+        <div className="flex p-2 shrink-0">
           {Array.from(tabs.keys()).map((tab) => {
             const isActive = activeTab === tab;
             return (

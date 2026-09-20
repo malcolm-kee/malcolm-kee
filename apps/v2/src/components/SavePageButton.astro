@@ -89,7 +89,7 @@ const id = crypto.randomUUID();
   data-anchor={id}
 >
   <span
-    class="PopoverContent block min-w-24 text-sm text-center -translate-y-6 bg-gray-50 px-3 py-1 rounded shadow"
+    class="PopoverContent block min-w-24 text-sm text-center -translate-y-6 bg-gray-50 px-3 py-1 rounded-sm shadow-sm"
     >Save for offline reading</span
   >
 </div>
@@ -272,7 +272,7 @@ const id = crypto.randomUUID();
             });
           });
         } else {
-          button.classList.add('!hidden');
+          button.classList.add('hidden!');
         }
       });
 
@@ -297,7 +297,7 @@ const id = crypto.randomUUID();
             ['mouseenter', showPopover],
             ['mouseleave', hidePopover],
             ['focus', showPopover],
-            ['blur', hidePopover],
+            ['blur-sm', hidePopover],
             ['click', hidePopover],
           ] as const
         ).forEach(([event, cb]) => button.addEventListener(event, cb));

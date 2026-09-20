@@ -1,5 +1,7 @@
 @use '../../styles/variable' as v;
 
+@reference '../../styles/global.css';
+
 @mixin box-offset($index) {
   top: v.$space + ((v.$space + 25px) * $index);
   left: v.$space * 2;

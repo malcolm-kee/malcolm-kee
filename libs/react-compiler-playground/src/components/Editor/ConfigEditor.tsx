@@ -95,9 +95,9 @@ function ExpandedEditor({
         defaultSize={{ width: 350 }}
         enable={{ right: true, bottom: false }}
       >
-        <div className="bg-sky-50 relative flex flex-col !h-[calc(var(--rcp-height)_-_var(--rcp-header-height))] border border-gray-300">
+        <div className="bg-sky-50 relative flex flex-col h-[calc(var(--rcp-height)-var(--rcp-header-height))]! border border-gray-300">
           <div
-            className="absolute w-8 h-16 bg-sky-50 rounded-r-full flex items-center justify-center z-[2] cursor-pointer border border-l-0 border-gray-300"
+            className="absolute w-8 h-16 bg-sky-50 rounded-r-full flex items-center justify-center z-2 cursor-pointer border border-l-0 border-gray-300"
             title="Minimize config editor"
             onClick={onToggle}
             style={{
@@ -159,11 +159,11 @@ function ExpandedEditor({
 function CollapsedEditor({ onToggle }: { onToggle: () => void }): React.ReactElement {
   return (
     <div
-      className="w-4 !h-[calc(var(--rcp-height)_-_var(--rcp-header-height))]"
+      className="w-4 h-[calc(var(--rcp-height)-var(--rcp-header-height))]!"
       style={{ position: 'relative' }}
     >
       <div
-        className="absolute w-10 h-16 bg-sky-50 hover:translate-x-2 transition-transform rounded-r-full flex items-center justify-center z-[2] cursor-pointer border border-gray-300"
+        className="absolute w-10 h-16 bg-sky-50 hover:translate-x-2 transition-transform rounded-r-full flex items-center justify-center z-2 cursor-pointer border border-gray-300"
         title="Expand config editor"
         onClick={onToggle}
         style={{

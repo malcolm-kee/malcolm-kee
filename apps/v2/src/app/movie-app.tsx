@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-query';
 import clsx from 'clsx';
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { createBrowserRouter, Link, RouterProvider, useParams } from 'react-router-dom';
 import { movieData } from './mock/mock-movie-data';
 import { useCreateMovieComment, useDeleteMovieComment } from './queries/movie-mutations';
@@ -63,10 +63,12 @@ const MovieAppRoot = (props: MovieAppProps) => {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Helmet titleTemplate="%s - Movies" defaultTitle="Movies" />
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <Helmet titleTemplate="%s - Movies" defaultTitle="Movies" />
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 };
 
@@ -105,7 +107,7 @@ const MovieListPage = () => {
                     <img
                       src={movie.posterUrl}
                       alt={movie.title}
-                      className="aspect-[2/3] w-full rounded object-cover"
+                      className="aspect-2/3 w-full rounded-sm object-cover"
                     />
                   </React.ViewTransition>
                   <p className="mt-2 font-medium">{movie.title}</p>
@@ -120,9 +122,9 @@ const MovieListPage = () => {
 
 const MovieCardSkeleton = () => (
   <div className="animate-pulse">
-    <div className="aspect-[2/3] w-full rounded bg-gray-200" />
-    <div className="mt-2 h-4 w-3/4 rounded bg-gray-200" />
-    <div className="mt-2 h-3 w-1/2 rounded bg-gray-200" />
+    <div className="aspect-2/3 w-full rounded-sm bg-gray-200" />
+    <div className="mt-2 h-4 w-3/4 rounded-sm bg-gray-200" />
+    <div className="mt-2 h-3 w-1/2 rounded-sm bg-gray-200" />
   </div>
 );
 
@@ -155,7 +157,7 @@ const MovieDetailView = ({ movieId }: { movieId: string }) => {
               <img
                 src={movie.posterUrl}
                 alt={movie.title}
-                className="md:w-1/3 flex-shrink-0 rounded"
+                className="md:w-1/3 shrink-0 rounded-sm"
               />
             </React.ViewTransition>
             <div>
@@ -174,14 +176,14 @@ const MovieDetailView = ({ movieId }: { movieId: string }) => {
 const MovieDetailSkeleton = (props: { commentSection?: React.ReactNode }) => (
   <div className="mt-4 animate-pulse">
     <div className="flex flex-col md:flex-row gap-6">
-      <div className="aspect-[2/3] md:w-1/3 flex-shrink-0 rounded bg-gray-200" />
+      <div className="aspect-2/3 md:w-1/3 shrink-0 rounded-sm bg-gray-200" />
       <div className="flex-1 space-y-3">
-        <div className="h-8 w-3/4 rounded bg-gray-200" />
-        <div className="h-3 w-1/4 rounded bg-gray-200" />
+        <div className="h-8 w-3/4 rounded-sm bg-gray-200" />
+        <div className="h-3 w-1/4 rounded-sm bg-gray-200" />
         <div className="space-y-2 pt-2">
-          <div className="h-4 w-full rounded bg-gray-200" />
-          <div className="h-4 w-full rounded bg-gray-200" />
-          <div className="h-4 w-5/6 rounded bg-gray-200" />
+          <div className="h-4 w-full rounded-sm bg-gray-200" />
+          <div className="h-4 w-full rounded-sm bg-gray-200" />
+          <div className="h-4 w-5/6 rounded-sm bg-gray-200" />
         </div>
         {props.commentSection}
       </div>
@@ -190,12 +192,12 @@ const MovieDetailSkeleton = (props: { commentSection?: React.ReactNode }) => (
 );
 
 const CommentSkeleton = () => (
-  <li className="flex animate-pulse items-start justify-between gap-4 rounded border border-gray-200 p-3">
+  <li className="flex animate-pulse items-start justify-between gap-4 rounded-sm border border-gray-200 p-3">
     <div className="flex-1 space-y-2">
-      <div className="h-4 w-1/3 rounded bg-gray-200" />
-      <div className="h-4 w-5/6 rounded bg-gray-200" />
+      <div className="h-4 w-1/3 rounded-sm bg-gray-200" />
+      <div className="h-4 w-5/6 rounded-sm bg-gray-200" />
     </div>
-    <div className="h-4 w-12 rounded bg-gray-200" />
+    <div className="h-4 w-12 rounded-sm bg-gray-200" />
   </li>
 );
 
@@ -278,7 +280,7 @@ const MovieComments = ({
         <li
           key={comment._id}
           className={clsx(
-            'flex items-start justify-between gap-4 rounded border border-gray-200 p-3',
+            'flex items-start justify-between gap-4 rounded-sm border border-gray-200 p-3',
             comment.isPending && 'animate-pulse'
           )}
         >
@@ -333,7 +335,7 @@ const AddMovieCommentForm = ({
           max={10}
           value={rating}
           onChange={(event) => setRating(Number(event.target.value))}
-          className="mt-1 block w-24 rounded border border-gray-300 px-2 py-1"
+          className="mt-1 block w-24 rounded-sm border border-gray-300 px-2 py-1"
         />
       </label>
       <label className="block">
@@ -343,13 +345,13 @@ const AddMovieCommentForm = ({
           onChange={(event) => setContent(event.target.value)}
           required
           rows={3}
-          className="mt-1 block w-full rounded border border-gray-300 px-2 py-1"
+          className="mt-1 block w-full rounded-sm border border-gray-300 px-2 py-1"
         />
       </label>
       <button
         type="submit"
         disabled={isAdding}
-        className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+        className="rounded-sm bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
       >
         {isAdding ? 'Posting...' : 'Post comment'}
       </button>

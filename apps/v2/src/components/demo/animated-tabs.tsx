@@ -21,7 +21,7 @@ export const AnimatedTabs = ({ tabs }: AnimatedTabsProps) => {
   }, []);
 
   return (
-    <div className="shadow overflow-hidden">
+    <div className="shadow-sm overflow-hidden">
       <div className="flex overflow-y-auto w-full border-b border-zinc-100">
         {tabs.map((tab, index) => (
           <button

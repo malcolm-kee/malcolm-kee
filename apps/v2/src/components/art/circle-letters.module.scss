@@ -1,5 +1,7 @@
 @use '../../styles/variable' as v;
 
+@reference '../../styles/global.css';
+
 .container {
   padding: v.$space * 3 0;
   border-bottom: 1px solid v.$grey-400;

@@ -14,7 +14,7 @@ export const makeScrollableFocusable = (selector: string) => {
     if (element instanceof HTMLElement && isScrollable(element)) {
       element.setAttribute('tabindex', '0');
       element.classList.add(
-        'focus-visible:ring',
+        'focus-visible:ring-3',
         'focus-visible:ring-primary-100',
         'focus-visible:ring-inset'
       );

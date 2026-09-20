@@ -3,7 +3,7 @@ import type { JSX } from 'react';
 export function EditorSkeleton(): JSX.Element {
   return (
     <div
-      className="relative flex top-[var(--rcp-header-height)] !h-[calc(var(--rcp-height)_-_var(--rcp-header-height))]"
+      className="relative flex top-(--rcp-header-height) h-[calc(var(--rcp-height)-var(--rcp-header-height))]!"
       aria-busy="true"
       aria-live="polite"
       aria-label="Loading editor"
@@ -48,8 +48,8 @@ function SkeletonPane({ title, tabCount = 1 }: { title: string; tabCount?: numbe
 function SkeletonLine({ width, indent = false }: { width: string; indent?: boolean }): JSX.Element {
   return (
     <div className={`flex items-center gap-3 ${indent ? 'pl-6' : ''}`}>
-      <div className="h-3 w-6 rounded bg-gray-100 animate-pulse" aria-hidden />
-      <div className={`h-3 rounded bg-gray-200 animate-pulse ${width}`} />
+      <div className="h-3 w-6 rounded-sm bg-gray-100 animate-pulse" aria-hidden />
+      <div className={`h-3 rounded-sm bg-gray-200 animate-pulse ${width}`} />
     </div>
   );
 }

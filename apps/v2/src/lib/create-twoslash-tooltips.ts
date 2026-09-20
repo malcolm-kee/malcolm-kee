@@ -50,7 +50,7 @@ export function createTwoslashTooltips(container: Element) {
 
 function createTooltipContainer() {
   const tooltipContainer = document.createElement('pre');
-  tooltipContainer.classList.add('astro-code', 'twoslash', '!p-0', '!border-0');
+  tooltipContainer.classList.add('astro-code', 'twoslash', 'p-0!', 'border-0!');
 
   const portalTarget = document.createElement('span');
   portalTarget.classList.add('twoslash-hover');

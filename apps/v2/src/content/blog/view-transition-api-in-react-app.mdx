@@ -315,17 +315,17 @@ createRoot(document.getElementById('root')).render(<App />);
 
 </LiveEditor>
 
-### Coming soon: React first-class support with ViewTransition component
+### React first-class support: ViewTransition component
 
-React team is working on a new component, `ViewTransition` that will integrates with View Transition API, as announced in [this blog](https://react.dev/blog/2025/04/23/react-labs-view-transitions-activity-and-more).
+As part of [React 19.3](https://react.dev/blog/2026/09/09/react-19-3), `ViewTransition` component is available from `React` directly.
 
 <LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly fullBleed="when-preview">
 
 ```jsx
-import * as React from 'react'; // @version: react@0.0.0-experimental-38ef6550-20250508
-import { createRoot } from 'react-dom/client'; // @version: react-dom@0.0.0-experimental-38ef6550-20250508
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
 
-const { unstable_ViewTransition: ViewTransition } = React; // [!code highlight]
+const { ViewTransition } = React; // [!code highlight]
 
 const App = () => {
   const [isThumbnail, setIsThumbnail] = React.useState(true);
@@ -426,10 +426,10 @@ With the `ViewTransition` component:
 <LiveEditor previewMinHeight="20rem" codeMaxHeight="20rem" readOnly autoPlay>
 
 ```jsx
-import * as React from 'react'; // @version: react@0.0.0-experimental-38ef6550-20250508
-import { createRoot } from 'react-dom/client'; // @version: react-dom@0.0.0-experimental-38ef6550-20250508
+import * as React from 'react';
+import { createRoot } from 'react-dom/client';
 
-const { unstable_ViewTransition: ViewTransition } = React;
+const { ViewTransition } = React;
 
 const App = () => {
   const [search, setSearch] = React.useState('');

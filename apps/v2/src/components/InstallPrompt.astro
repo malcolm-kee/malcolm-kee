@@ -12,7 +12,7 @@ const props = Astro.props;
 <div
   class={clsx(
     'hidden subscribable:block',
-    'max-w-2xl mx-auto p-4 sm:p-10 rounded shadow text-center',
+    'max-w-2xl mx-auto p-4 sm:p-10 rounded-sm shadow-sm text-center',
     props.class
   )}
 >
@@ -24,7 +24,7 @@ const props = Astro.props;
         <span class="text-lg px-3">Subscribe</span>
       </Button>
     </div>
-    <div class="hidden installable:mode-browser:block flex-1">
+    <div class="hidden mode-browser:installable:block flex-1">
       <Button className="installBtn w-full" data-success>
         <span class="text-lg px-3">Install and Subscribe</span>
       </Button>

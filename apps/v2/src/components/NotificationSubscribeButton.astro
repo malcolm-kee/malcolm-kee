@@ -22,10 +22,10 @@ import { BellAlertIcon, BellSlashIcon } from './icons';
         btn.classList.remove('hidden');
         btn.addEventListener('click', () => {
           btn.disabled = true;
-          btn.classList.add('animate-pulse', '!text-primary-800', 'opacity-50');
+          btn.classList.add('animate-pulse', 'text-primary-800!', 'opacity-50');
           toggleSubscription().then(() => {
             btn.disabled = false;
-            btn.classList.remove('animate-pulse', '!text-primary-800', 'opacity-50');
+            btn.classList.remove('animate-pulse', 'text-primary-800!', 'opacity-50');
           });
         });
       });

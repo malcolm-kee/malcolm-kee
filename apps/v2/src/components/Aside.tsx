@@ -12,7 +12,7 @@ export default function Aside(props: {
       <div className="relative">
         <aside
           className={clsx(
-            'bg-sky-50 shadow max-w-2xl mx-auto p-6',
+            'bg-sky-50 shadow-sm max-w-2xl mx-auto p-6',
             !props.static &&
               '2xl:absolute 2xl:left-full 2xl:w-80 2xl:bottom-0 2xl:translate-y-1/2 2xl:bg-transparent 2xl:shadow-none'
           )}

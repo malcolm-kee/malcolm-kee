@@ -1,5 +1,7 @@
 @use '../../styles/variable' as v;
 
+@reference '../../styles/global.css';
+
 .box {
   display: inline-flex;
   box-sizing: content-box;

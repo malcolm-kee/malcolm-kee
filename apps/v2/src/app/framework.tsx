@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Outlet, useLocation, type RouteObject } from 'react-router-dom';
 import type * as types from './types';
 

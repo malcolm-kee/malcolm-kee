@@ -32,9 +32,9 @@ export function Button({
   const className = clsx(
     'inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none border',
     variantStyles[variant],
-    'data-[success]:bg-emerald-600 data-[success]:text-zinc-100 data-[success]:hover:bg-emerald-500 data-[success]:active:bg-emerald-600',
+    'data-success:bg-emerald-600 data-success:text-zinc-100 data-success:hover:bg-emerald-500 data-success:active:bg-emerald-600',
     !disabled && !flat && 'active:translate-y-px',
-    !flat && ['shadow active:shadow-none', raisedStyles[variant]],
+    !flat && ['shadow-sm active:shadow-none', raisedStyles[variant]],
     props.className
   );
 

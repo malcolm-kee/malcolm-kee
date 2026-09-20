@@ -1,4 +1,4 @@
-import { rehypeHeadingIds } from '@astrojs/markdown-remark';
+import { rehypeHeadingIds, unified } from '@astrojs/markdown-remark';
 import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
 import react from '@astrojs/react';
@@ -76,6 +76,11 @@ export default defineConfig({
       transformers: [
         transformerTwoslash({
           explicitTrigger: true,
+          twoslashOptions: {
+            compilerOptions: {
+              types: ['node'],
+            },
+          },
           // TODO: research how to create react renderer for twoslash
         }),
         transformerMetaHighlight(),
@@ -93,52 +98,54 @@ export default defineConfig({
         dark: 'night-owl',
       },
     },
-    rehypePlugins: [
-      [
-        rehypeCloudinaryImageEnhance,
-        {
-          cloudinaryUsername: 'malcolm-kee',
-        },
-      ],
-      [
-        rehypeExternalLinks,
-        {
-          target: '_blank',
-        },
-      ],
-      rehypeHeadingIds,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'append',
-          content() {
-            return s(
-              'svg',
-              {
-                viewBox: '0 0 24 24',
-                strokeWidth: '1.5',
-                stroke: 'currentColor',
-                fill: 'none',
-                width: 24,
-                height: 24,
-                class: 'inline-block w-5 h-5',
-              },
-              s('path', {
-                strokeLinecap: 'round',
-                strokeLinejoin: 'round',
-                d: 'M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244',
-              })
-            );
+    processor: unified({
+      rehypePlugins: [
+        [
+          rehypeCloudinaryImageEnhance,
+          {
+            cloudinaryUsername: 'malcolm-kee',
           },
-          properties: {
-            class:
-              'inline-flex items-center ml-2 !text-zinc-300 hover:!text-primary-500 dark:!text-slate-500 dark:hover:!text-primary-500 transition !border-none',
-            tabindex: '-1',
-            'aria-hidden': 'true',
+        ],
+        [
+          rehypeExternalLinks,
+          {
+            target: '_blank',
           },
-        } satisfies Options,
+        ],
+        rehypeHeadingIds,
+        [
+          rehypeAutolinkHeadings,
+          {
+            behavior: 'append',
+            content() {
+              return s(
+                'svg',
+                {
+                  viewBox: '0 0 24 24',
+                  strokeWidth: '1.5',
+                  stroke: 'currentColor',
+                  fill: 'none',
+                  width: 24,
+                  height: 24,
+                  class: 'inline-block w-5 h-5',
+                },
+                s('path', {
+                  strokeLinecap: 'round',
+                  strokeLinejoin: 'round',
+                  d: 'M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244',
+                })
+              );
+            },
+            properties: {
+              class:
+                'inline-flex items-center ml-2 text-zinc-300! hover:text-primary-500! dark:text-slate-500! dark:hover:text-primary-500! transition border-none!',
+              tabindex: '-1',
+              'aria-hidden': 'true',
+            },
+          } satisfies Options,
+        ],
       ],
-    ],
+    }),
   },
   experimental: {},
 });

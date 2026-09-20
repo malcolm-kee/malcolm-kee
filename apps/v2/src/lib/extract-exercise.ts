@@ -76,7 +76,7 @@ async function groupModules(modules: Map<string, () => Promise<string>>) {
 
   const result = new Map<string, ExerciseData>();
 
-  await initLexer;
+  await initLexer();
 
   for (const [key, [getQuestion, extension]] of questionModule) {
     const getTest = testModule.get(key);
@@ -180,8 +180,8 @@ function rewriteTestImports(testCode: string) {
   const [imports] = parse(test);
 
   imports.forEach((importSpecifier) => {
-    if (importSpecifier.n && importSpecifier.n.includes('.solution')) {
-      test = `${test.slice(0, importSpecifier.s)}${'./index'}${test.slice(importSpecifier.e)}`;
+    if (importSpecifier.specifier?.includes('.solution')) {
+      test = `${test.slice(0, importSpecifier.start)}${'./index'}${test.slice(importSpecifier.end)}`;
     }
   });
 

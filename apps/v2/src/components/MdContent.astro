@@ -82,7 +82,7 @@ const currentPath = new URL(Astro.request.url).pathname;
                   )
                 }
                 <h1
-                  class="content-title font-techie text-4xl sm:text-5xl font-bold w-full bg-transparent [text-wrap:balance]"
+                  class="content-title font-techie text-4xl sm:text-5xl font-bold w-full bg-transparent text-balance"
                 >
                   {title}
                 </h1>
@@ -106,7 +106,7 @@ const currentPath = new URL(Astro.request.url).pathname;
               >
                 {
                   hasHeadings && (
-                    <div class="max-w-[40rem] flex-1 xl:contents">
+                    <div class="max-w-160 flex-1 xl:contents">
                       <MdToc headings={levelTwoHeadings} />
                     </div>
                   )
@@ -129,9 +129,9 @@ const currentPath = new URL(Astro.request.url).pathname;
                   'Content',
                   'prose max-w-none',
                   'prose-headings:font-techie prose-headings:scroll-mt-20',
-                  'prose-a:no-underline prose-a:text-primary-600 prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 hover:prose-a:border-solid hover:prose-a:border-primary-500 hover:prose-a:text-primary-700',
+                  'prose-a:no-underline prose-a:text-primary-600 prose-a:font-normal prose-a:border-b prose-a:border-dashed prose-a:border-gray-700/50 prose-a:hover:border-solid prose-a:hover:border-primary-500 prose-a:hover:text-primary-700',
                   'prose-a:scroll-mt-20',
-                  'prose-code:break-words *:max-w-[40rem]',
+                  'prose-code:wrap-break-word *:max-w-160',
                   'xl:max-w-none xl:col-span-full xl:row-start-1 xl:grid xl:grid-cols-center xl:gap-x-3 xl:*:col-start-2'
                 )}
                 data-md-content
@@ -149,6 +149,8 @@ const currentPath = new URL(Astro.request.url).pathname;
 </div>
 
 <style lang="scss">
+  @reference '../styles/global.css';
+
   @keyframes twinkle {
     0% {
       opacity: 0%;

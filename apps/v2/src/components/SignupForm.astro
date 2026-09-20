@@ -75,7 +75,7 @@ const { class: className } = Astro.props;
 <form
   action="https://app.convertkit.com/forms/4940243/subscriptions"
   class={clsx(
-    'seva-form formkit-form SignupForm max-w-2xl mx-auto shadow rounded-lg sm:px-10 sm:pt-10',
+    'seva-form formkit-form SignupForm max-w-2xl mx-auto shadow-sm rounded-lg sm:px-10 sm:pt-10',
     className
   )}
   method="post"
@@ -112,7 +112,7 @@ const { class: className } = Astro.props;
             <input
               class={clsx(
                 'formkit-input text-lg rounded-md border border-zinc-200',
-                'bg-gradient-to-b from-zinc-50/70 via-white to-white'
+                'bg-linear-to-b from-zinc-50/70 via-white to-white'
               )}
               name="email_address"
               aria-label="Email address"

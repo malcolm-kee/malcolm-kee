@@ -35,7 +35,7 @@ const workshops = getWorkshops(await getCollection('workshop'));
                 <p class="workshop-text mt-2 text-sm text-zinc-600">{workshop.description}</p>
                 {workshop.underConstruction && (
                   <p class="workshop-text mt-2">
-                    <span class="inline-block text-xs leading-5 px-2 bg-rose-800 text-white rounded tracking-wide shadow">
+                    <span class="inline-block text-xs leading-5 px-2 bg-rose-800 text-white rounded-sm tracking-wide shadow-sm">
                       IN PROGRESS
                     </span>
                   </p>

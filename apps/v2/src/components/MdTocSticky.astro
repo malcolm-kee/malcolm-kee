@@ -18,7 +18,7 @@ const { headings, labelId } = Astro.props;
 <nav
   class={clsx(
     'StickyMdToc hidden xl:flex xl:z-10 gap-3 sticky xl:pointer-events-auto top-14 w-[calc(1072px-768px-16px)] max-h-[calc(100vh-64px)] overflow-y-auto',
-    'bg-white shadow rounded-xl overflow-hidden',
+    'bg-white shadow-sm rounded-xl overflow-hidden',
     Astro.props.class
   )}
   aria-labelledby={labelId}

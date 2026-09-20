@@ -21,6 +21,8 @@ const {
 ---
 
 <style define:vars={{ previewMinHeight, codeMaxHeight }}>
+  @reference '../styles/global.css';
+
   [data-live-editor] {
     --preview-min-height: var(--previewMinHeight);
     --code-max-height: var(--codeMaxHeight);
@@ -132,7 +134,7 @@ const {
         langBySnippet.set(codeSnippetElement, language);
 
         const $language = document.createElement('span');
-        $language.className = 'absolute text-xs top-1 right-1 text-[--code-text-color] opacity-60';
+        $language.className = 'absolute text-xs top-1 right-1 text-(--code-text-color) opacity-60';
         $language.textContent = language;
 
         codeSnippetElement.appendChild($language);

@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "strict": true,
     "moduleResolution": "node",
+    "types": ["node"],
     "outDir": "dist",
     "esModuleInterop": true,
     "target": "ES2020",

@@ -28,14 +28,14 @@ export const CollapsibleMdToc = (props: {
             className={clsx(
               'absolute top-0 right-0 scale-y-50 bottom-0 left-0',
               'transition-all duration-200 [transition-delay:var(--collapse-duration)] ui-open:delay-0 ',
-              'bg-white rounded-none ui-open:rounded-2xl ui-open:scale-y-100 ui-open:outline ui-open:outline-zinc-100 ui-open:shadow-sm'
+              'bg-white rounded-none ui-open:rounded-2xl ui-open:scale-y-100 ui-open:outline-solid ui-open:outline-zinc-100 ui-open:shadow-xs'
             )}
           />
           <div className="relative">
             <DisclosureButton
               className={clsx(
                 'group/toggle w-full hover:bg-zinc-50 rounded-xl ui-open:rounded-t-2xl ui-open:rounded-b-none',
-                'outline outline-1 outline-zinc-200 ui-open:outline-zinc-100 shadow-sm ui-open:shadow-none',
+                'outline-solid outline-1 outline-zinc-200 ui-open:outline-zinc-100 shadow-xs ui-open:shadow-none',
                 'cursor-s-resize ui-open:cursor-n-resize'
               )}
             >
@@ -82,7 +82,7 @@ export const CollapsibleMdToc = (props: {
                   <span
                     className={clsx(
                       'block p-3 sm:p-1 rounded-full',
-                      'duration-300 delay-[var(--collapse-duration)] ui-open:delay-0'
+                      'duration-300 delay-(--collapse-duration) ui-open:delay-0'
                     )}
                     aria-hidden
                   >

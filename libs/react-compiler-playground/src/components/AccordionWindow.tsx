@@ -104,7 +104,7 @@ function AccordionWindowItem({
               aria-label={`Expand compiler tab: ${name}`}
               style={{ transform: 'rotate(90deg) translate(-50%)' }}
               onClick={toggleTabs}
-              className={`flex-grow-0 w-5 transition-colors duration-150 ease-in ${
+              className={`grow-0 w-5 transition-colors duration-150 ease-in ${
                 hasChanged ? 'font-bold' : 'font-light'
               } text-gray-600 hover:text-sky-700`}
             >

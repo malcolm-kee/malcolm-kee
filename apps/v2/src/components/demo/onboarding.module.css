@@ -1,3 +1,5 @@
+@reference '../../styles/global.css';
+
 .tooltip {
   @apply absolute w-max top-0 left-0 p-3 bg-white rounded shadow-lg;
 

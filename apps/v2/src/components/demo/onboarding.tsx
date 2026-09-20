@@ -60,7 +60,7 @@ const onBoarding = (steps: Array<OnboardingStep>) => {
                       currentStepIndex--;
                       render();
                     }}
-                    className="w-8 h-8 inline-flex justify-center items-center shadow rounded-full"
+                    className="w-8 h-8 inline-flex justify-center items-center shadow-sm rounded-full"
                   >
                     <ChevronLeftIcon className="w-5 h-5 stroke-slate-500" />
                   </button>
@@ -77,7 +77,7 @@ const onBoarding = (steps: Array<OnboardingStep>) => {
                       render();
                     }
                   }}
-                  className="w-8 h-8 inline-flex justify-center items-center shadow rounded-full"
+                  className="w-8 h-8 inline-flex justify-center items-center shadow-sm rounded-full"
                 >
                   {isLastStep ? (
                     <CheckCircleIcon className="w-7 h-7 text-green-500" />

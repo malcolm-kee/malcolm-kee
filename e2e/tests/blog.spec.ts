@@ -24,6 +24,18 @@ test('blog live editor is working', async ({ page }) => {
   // await expect(preview.locator('h2')).toHaveText('Page 2');
 });
 
+test('blog live editor installs imported packages', async ({ page }) => {
+  await page.goto('/blog/view-transition-api-in-react-app/');
+
+  const playground = page.locator('[data-live-editor]').filter({ hasText: 'createBrowserRouter' });
+
+  await playground.getByRole('button', { name: 'Edit', exact: true }).click();
+
+  const preview = playground.frameLocator('[title="Sandpack Preview"]');
+  await expect(preview.getByText('Move Cat')).toBeVisible();
+  await expect(preview.getByText('Something went wrong')).not.toBeVisible();
+});
+
 test('blog live editor accessibility', async ({ page, axe }) => {
   await page.goto('/blog');
   await page.getByText('React Portal to Subtree').click();

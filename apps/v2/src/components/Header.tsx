@@ -141,14 +141,14 @@ export default function Header({
           <>
             <div
               ref={avatarRef}
-              className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
+              className="order-last mt-[calc(--spacing(16)-(--spacing(3)))]"
             />
             <Container
               className="top-0 order-last -mb-3 pt-3"
               style={{ position: 'var(--header-position)' } as object}
             >
               <div
-                className="top-[var(--avatar-top,theme(spacing.3))] w-full px-4"
+                className="top-(--avatar-top,--spacing(3)) w-full px-4"
                 style={{ position: 'var(--header-inner-position)' } as object}
               >
                 <div className="relative">
@@ -172,7 +172,7 @@ export default function Header({
           </>
         )}
         <div
-          className="top-0 z-10 h-[4.5rem] pt-6"
+          className="top-0 z-10 h-18 pt-6"
           style={
             {
               position: 'var(--header-position)',
@@ -237,7 +237,7 @@ function NavItem({
         {isActive && (
           <span
             className={clsx(
-              'absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0',
+              'absolute inset-x-1 -bottom-px h-px bg-linear-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0',
               styles.desktopNavActiveIndicator
             )}
           />
@@ -253,7 +253,7 @@ function DesktopNavigation({
 }: React.ComponentPropsWithoutRef<'div'> & { currentPath: string }) {
   return (
     <nav {...props}>
-      <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur">
+      <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm">
         {navItems.map((item) => (
           <NavItem currentPath={currentPath} href={item.href} key={item.href}>
             {item.label}
@@ -291,7 +291,7 @@ function MobileNavItem({
 function MobileNavigation({ currentPath, ...props }: { className?: string; currentPath: string }) {
   return (
     <Popover {...props}>
-      <PopoverButton className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur">
+      <PopoverButton className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-sm">
         Menu
         <TinyChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700" />
       </PopoverButton>
@@ -305,7 +305,7 @@ function MobileNavigation({ currentPath, ...props }: { className?: string; curre
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <PopoverBackdrop className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm" />
+          <PopoverBackdrop className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-xs" />
         </TransitionChild>
         <TransitionChild
           as={React.Fragment}

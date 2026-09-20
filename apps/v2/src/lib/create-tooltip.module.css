@@ -1,3 +1,5 @@
+@reference '../styles/global.css';
+
 .tooltip {
   width: max-content;
   @apply hidden absolute z-50 px-3 py-1 text-sm bg-gray-100 dark:bg-slate-800 rounded;

@@ -40,7 +40,7 @@ export const createTooltip = ({
       ['mouseenter', showTooltip],
       ['mouseleave', hideTooltip],
       ['focus', showTooltip],
-      ['blur', hideTooltip],
+      ['blur-sm', hideTooltip],
     ] as const
   ).forEach(([event, cb]) => anchor.addEventListener(event, cb));
 

@@ -3,10 +3,52 @@ packages:
   - libs/*
   - e2e
 
-onlyBuiltDependencies:
-  - msw
-
 catalog:
-  react: 19.3.0-canary-1b45e243-20260402
-  react-dom: 19.3.0-canary-1b45e243-20260402
-  typescript: ^5.9.3
+  react: 19.3.0
+  react-dom: 19.3.0
+  typescript: ^6.0.3
+
+# Keep pnpm 12's supply-chain delay, with a narrowly scoped migration exception.
+# These entries can be pruned after the next Rollup upgrade.
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+minimumReleaseAgeExcludePrune: true
+minimumReleaseAgeExclude:
+  - '@rollup/rollup-android-arm-eabi@4.63.4'
+  - '@rollup/rollup-android-arm64@4.63.4'
+  - '@rollup/rollup-darwin-arm64@4.63.4'
+  - '@rollup/rollup-darwin-x64@4.63.4'
+  - '@rollup/rollup-freebsd-arm64@4.63.4'
+  - '@rollup/rollup-freebsd-x64@4.63.4'
+  - '@rollup/rollup-linux-arm-gnueabihf@4.63.4'
+  - '@rollup/rollup-linux-arm-musleabihf@4.63.4'
+  - '@rollup/rollup-linux-arm64-gnu@4.63.4'
+  - '@rollup/rollup-linux-arm64-musl@4.63.4'
+  - '@rollup/rollup-linux-loong64-gnu@4.63.4'
+  - '@rollup/rollup-linux-loong64-musl@4.63.4'
+  - '@rollup/rollup-linux-ppc64-gnu@4.63.4'
+  - '@rollup/rollup-linux-ppc64-musl@4.63.4'
+  - '@rollup/rollup-linux-riscv64-gnu@4.63.4'
+  - '@rollup/rollup-linux-riscv64-musl@4.63.4'
+  - '@rollup/rollup-linux-s390x-gnu@4.63.4'
+  - '@rollup/rollup-linux-x64-gnu@4.63.4'
+  - '@rollup/rollup-linux-x64-musl@4.63.4'
+  - '@rollup/rollup-openbsd-x64@4.63.4'
+  - '@rollup/rollup-openharmony-arm64@4.63.4'
+  - '@rollup/rollup-win32-arm64-msvc@4.63.4'
+  - '@rollup/rollup-win32-ia32-msvc@4.63.4'
+  - '@rollup/rollup-win32-x64-gnu@4.63.4'
+  - '@rollup/rollup-win32-x64-msvc@4.63.4'
+  - rollup@4.63.4
+
+overrides:
+  sharp: ^0.35.4
+
+allowBuilds:
+  '@parcel/watcher': true
+  '@pnpm/exe': true
+  deasync: true
+  es5-ext: true
+  esbuild: true
+  msw: true
+  sharp: true

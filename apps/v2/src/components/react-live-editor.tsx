@@ -1,6 +1,7 @@
 import { includes } from '@mkee/helpers';
 import * as React from 'react';
 import { type SupportedLang, supportedLangs } from './code-sandbox-helpers';
+import { addReactImportIfNeeded } from './react-live-editor-helpers';
 
 const Sandbox = React.lazy(() => import('./code-sandbox'));
 
@@ -91,10 +92,6 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
               }
             }
           });
-
-        if ((currentLang === 'jsx' || currentLang === 'tsx') && !dependencies.react) {
-          codeLines.unshift(`import * as React from 'react';`);
-        }
       }
 
       // add a new line at end if not there
@@ -128,6 +125,10 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
   if (language === 'html' && codeLines.length === 0) {
     codeLines.push(...htmlCodeLines);
     highlightedLines.push(...highlightedHtmlLines);
+  }
+
+  if (language) {
+    addReactImportIfNeeded(codeLines, language, dependencies);
   }
 
   if (codeLines.length > 0 && language) {

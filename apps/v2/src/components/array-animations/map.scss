@@ -1,5 +1,7 @@
 @use '../../styles/variable' as v;
 
+@reference '../../styles/global.css';
+
 $space: v.$space;
 
 @mixin box-offset($index) {

@@ -1,3 +1,5 @@
+@reference '../styles/global.css';
+
 @supports (pointer-events: none) {
   .element {
     overflow: hidden;

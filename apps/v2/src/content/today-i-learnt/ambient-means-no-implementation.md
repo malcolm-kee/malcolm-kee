@@ -16,7 +16,7 @@ I learnt the concept of "ambient" in TypeScript from these two references. Read 
 Assuming you're writing a TypeScript code that depends on jquery available on global (included via `script` tag), how do you do that?
 
 ```ts twoslash
-// @errors: 2581
+// @errors: 2592
 $('.btn').toggleClass('active');
 ```
 

@@ -42,11 +42,11 @@ export const codeImportTransformer = async (): Promise<ShikiTransformer> => {
           versionMap.set(pkgName.trim(), version.trim());
         }
 
-        codeImports.forEach(({ n }) => {
-          if (n) {
+        codeImports.forEach(({ specifier }) => {
+          if (specifier) {
             // extract out npm package name, as it's possible that
             // there are relative imports
-            const match = n.match(/^((@[\w|-]+\/)?[\w|.-]+)/);
+            const match = specifier.match(/^((@[\w|-]+\/)?[\w|.-]+)/);
 
             if (match && match[1] !== '.') {
               const pkgName = match[1];

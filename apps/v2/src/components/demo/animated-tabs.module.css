@@ -1,3 +1,5 @@
+@reference '../../styles/global.css';
+
 .button {
   @apply flex-shrink-0 px-3 py-1 relative;
 }

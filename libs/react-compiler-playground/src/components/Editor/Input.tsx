@@ -126,7 +126,7 @@ export function Input({ errors }: Props): JSX.Element {
       }}
     >
       <div className="flex-1 min-w-[550px] sm:min-w-0">
-        <div className="flex flex-col !h-[calc(var(--rcp-height)_-_var(--rcp-header-height))] border-r border-gray-200">
+        <div className="flex flex-col h-[calc(var(--rcp-height)-var(--rcp-header-height))]! border-r border-gray-200">
           <TabbedWindow tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
       </div>

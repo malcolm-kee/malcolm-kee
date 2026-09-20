@@ -8,16 +8,16 @@ export async function parseJsImports(
   jsResourceUrl: string,
   options: { root: URL; excludes: Array<RegExp> }
 ): Promise<string[]> {
-  await init;
+  await init();
 
   const output: string[] = [];
 
   try {
     const [imports] = parseEsModule(jsSource);
 
-    for (const { n } of imports) {
-      if (n) {
-        const importedFilePath = new URL(n, new URL(jsResourceUrl, options.root));
+    for (const { specifier } of imports) {
+      if (specifier) {
+        const importedFilePath = new URL(specifier, new URL(jsResourceUrl, options.root));
 
         const resourceUrl =
           importedFilePath.protocol === 'file:'

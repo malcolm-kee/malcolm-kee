@@ -52,19 +52,19 @@ export const AnimatedDialog = () => {
       <button
         type="button"
         onClick={toggle}
-        className={clsx('relative inline-flex items-center px-3 py-1 rounded overflow-hidden')}
+        className={clsx('relative inline-flex items-center px-3 py-1 rounded-sm overflow-hidden')}
       >
-        <span className="absolute inset-0 bg-pink-600 rounded" ref={buttonBgRef}></span>
+        <span className="absolute inset-0 bg-pink-600 rounded-sm" ref={buttonBgRef}></span>
         <span className="relative text-white">Demo</span>
       </button>
       {shown &&
         createPortal(
           <div className="fixed inset-0 z-50 flex justify-center items-center p-6 pb-20">
             <div
-              className={clsx('fixed inset-0 bg-slate-900/50 backdrop-blur', styles.backdrop)}
+              className={clsx('fixed inset-0 bg-slate-900/50 backdrop-blur-sm', styles.backdrop)}
               onClick={toggle}
             />
-            <div className={clsx('relative bg-pink-50 rounded-xl shadow', styles.focus)}>
+            <div className={clsx('relative bg-pink-50 rounded-xl shadow-sm', styles.focus)}>
               <div className="flex justify-between items-center gap-5 p-3 border-b border-pink-200">
                 <h2 className={clsx('text-lg w-min whitespace-nowrap')}>Cute Stuff</h2>
                 <button onClick={toggle} type="button">

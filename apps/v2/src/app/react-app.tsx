@@ -5,7 +5,7 @@ import {
   type DehydratedState,
 } from '@tanstack/react-query';
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { createBrowserRouter, createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { getAllStaticData, getRoutes } from './framework';
 import './react-app.css';
@@ -57,11 +57,13 @@ export const ReactApp = (props: ReactAppProps) => {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Helmet titleTemplate="%s - SPA Demo" defaultTitle="SPA Demo" />
-      <HydrationBoundary state={props.dehydratedState}>
-        <RouterProvider router={router} />
-      </HydrationBoundary>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <Helmet titleTemplate="%s - SPA Demo" defaultTitle="SPA Demo" />
+        <HydrationBoundary state={props.dehydratedState}>
+          <RouterProvider router={router} />
+        </HydrationBoundary>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 };

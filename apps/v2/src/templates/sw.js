@@ -48,7 +48,10 @@ function initWorker(worker) {
       try {
         const offlineFirstCache = await caches.open(offlineFirstCacheName);
 
-        const offlineFirstResource = await offlineFirstCache.match(fetchEvent.request);
+        const offlineFirstResource = await offlineFirstCache.match(fetchEvent.request, {
+          ignoreSearch: true,
+          ignoreVary: true,
+        });
 
         if (offlineFirstResource) {
           console.log('use offline resource');
@@ -67,7 +70,10 @@ function initWorker(worker) {
       } catch (error) {
         // this error happens only when offline, not
         // "error" status code such as 404 or 500
-        const cachedResponse = await caches.match(fetchEvent.request);
+        const cachedResponse = await caches.match(fetchEvent.request, {
+          ignoreSearch: true,
+          ignoreVary: true,
+        });
 
         if (cachedResponse) {
           console.log('use cachedResponse', cachedResponse);
