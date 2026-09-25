@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interactive Learning Notes"
+  short_description: "Evolve a technical lesson one question at a time"
+  default_prompt: "Use $interactive-learning-notes to teach me a technical topic by evolving a repository note one question and focused example at a time."

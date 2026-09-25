@@ -31,6 +31,10 @@ export interface SandboxProps {
     content: string;
     highlightedLines: Array<number>;
   };
+  cssEntry?: {
+    content: string;
+    highlightedLines: Array<number>;
+  };
   dependencies?: Record<string, string>;
   readOnly?: boolean;
 }
@@ -39,6 +43,8 @@ export default function Sandbox(props: SandboxProps) {
   const entryFileName = entries[props.lang];
 
   const isReactProject = props.lang === 'jsx' || props.lang === 'tsx';
+
+  const stylesheetPath = isReactProject ? '/src/styles.css' : '/styles.css';
 
   const hasUi = props.lang === 'html' || isReactProject || !!props.htmlEntry;
 
@@ -67,7 +73,15 @@ export default function Sandbox(props: SandboxProps) {
                 code: props.code,
                 active: true,
               },
-              '/public/index.html': (props.htmlEntry && props.htmlEntry.content) || indexHtml,
+              '/public/index.html': {
+                code: (props.htmlEntry && props.htmlEntry.content) || indexHtml,
+                hidden: !props.htmlEntry,
+              },
+              ...(props.cssEntry
+                ? {
+                    [stylesheetPath]: props.cssEntry.content,
+                  }
+                : {}),
             }
           : {
               [entryFileName]: {
@@ -82,6 +96,11 @@ export default function Sandbox(props: SandboxProps) {
                         entryFileName.replace(/^\//, '')
                       ),
                     },
+                  }
+                : {}),
+              ...(props.cssEntry
+                ? {
+                    [stylesheetPath]: props.cssEntry.content,
                   }
                 : {}),
             }
@@ -130,6 +149,11 @@ export default function Sandbox(props: SandboxProps) {
                           '/index.html': props.htmlEntry.highlightedLines.map(plusTwo),
                           // because we inject two additional lines (html>body) with getVanillaHtml
                         }
+                    : {}),
+                  ...(props.cssEntry
+                    ? {
+                        [stylesheetPath]: props.cssEntry.highlightedLines,
+                      }
                     : {}),
                 }}
               />

@@ -1,0 +1,433 @@
+---
+title: View Transition CSS
+pubDate: 25 Sep 2026
+description: Learn View Transition CSS one small example at a time.
+topics:
+  - react
+  - css
+---
+
+import LiveEditor from '@app/components/LiveEditor.astro';
+import FadeThroughTimeline from './_view-transition-css/FadeThroughTimeline';
+
+View Transition CSS becomes easier to reason about once we stop imagining that it
+animates the DOM directly. During a transition, the browser creates temporary
+visual snapshots in an overlay above the page.
+
+We will build up the complete model gradually. For now, remember only these two
+pseudo-elements:
+
+```text
+::view-transition-old(...)  outgoing snapshot
+::view-transition-new(...)  incoming snapshot
+```
+
+## Example 1: fade the old snapshot out and the new snapshot in
+
+Press **Change message** and watch one card replace the other.
+
+<LiveEditor previewMinHeight="22rem" codeMaxHeight="46rem" fullBleed autoPlay>
+
+```tsx
+import { startTransition, useState, ViewTransition } from 'react';
+import { createRoot } from 'react-dom/client';
+
+const messages = [
+  { title: 'Before', text: 'I am the old snapshot.' },
+  { title: 'After', text: 'I am the new snapshot.' },
+];
+
+function App() {
+  const [messageIndex, setMessageIndex] = useState(0);
+  const message = messages[messageIndex];
+
+  function changeMessage() {
+    startTransition(() => {
+      setMessageIndex((current) => (current + 1) % messages.length);
+    });
+  }
+
+  return (
+    <main>
+      <ViewTransition update="message-change">
+        <article className={`card card-${messageIndex}`}>
+          <h1>{message.title}</h1>
+          <p>{message.text}</p>
+        </article>
+      </ViewTransition>
+
+      <button onClick={changeMessage}>Change message</button>
+    </main>
+  );
+}
+
+createRoot(document.getElementById('root')!).render(<App />);
+```
+
+```css
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+}
+
+main {
+  display: grid;
+  min-height: 20rem;
+  place-content: center;
+  gap: 1rem;
+}
+
+.card {
+  width: 16rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  color: white;
+}
+
+.card-0 {
+  background: #7c3aed;
+}
+
+.card-1 {
+  background: #0f766e;
+}
+
+button {
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+::view-transition-old(.message-change) {
+  animation: fade-out 800ms ease both;
+}
+
+::view-transition-new(.message-change) {
+  animation: fade-in 800ms ease both;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.message-change),
+  ::view-transition-new(.message-change) {
+    animation-duration: 1ms;
+  }
+}
+```
+
+</LiveEditor>
+
+The `ViewTransition` boundary stays mounted while its contents change, so React
+classifies this as an **update**. The value of the `update` prop,
+`message-change`, becomes the View Transition Class used by the CSS selectors.
+
+The selector argument looks like a regular class selector, but it does not select
+an element with `class="message-change"` in our DOM. It selects one of the
+temporary snapshots that React associated with that View Transition Class:
+
+- `::view-transition-old(.message-change)` is the purple card captured before
+  React commits the update.
+- `::view-transition-new(.message-change)` is the teal card captured after React
+  commits the update.
+
+The two snapshots briefly overlap, which lets one fade out while the other fades
+in. After the animation finishes, the browser removes both pseudo-elements. Only
+the current card remains in the real DOM.
+
+### Try one change
+
+Change both animation durations from `800ms` to `3000ms`. A slow transition makes
+the two overlapping snapshots much easier to perceive. For this first example,
+ignore the other View Transition pseudo-elements—we do not need them yet.
+
+## Why is the duration declared twice?
+
+There is a practical reason, but the first example does not show it. A simple
+cross-fade normally _should_ use the same duration for both snapshots.
+
+The useful case is a transition between two dense views, such as navigating
+from an inbox to a reports screen. If both views fade for the full duration,
+their text overlaps in the middle and briefly becomes a ghosted double image.
+A **fade-through** avoids that:
+
+<FadeThroughTimeline />
+
+The obsolete view clears quickly. The new view then gets the remaining time to
+become legible, while the directional movement continues for the whole
+transition. This is not just a hypothetical effect: the
+[View Transitions specification](https://www.w3.org/TR/css-view-transitions-1/#examples)
+demonstrates this choreography with a `90ms` old fade followed by a `210ms` new
+fade inside a `300ms` movement. The example below doubles those times so the
+sequence is easier to study.
+
+This is why `old` and `new` need independent animation settings. They sometimes
+occupy different parts of one timeline rather than performing equal halves of
+a cross-fade.
+
+Writing `800ms` twice in the first example only means that we chose matching
+durations for that particular cross-fade. It is not a View Transition
+requirement. The two pseudo-elements are siblings, so a value set on one does
+not carry over to the other. When the settings should match, group the selectors:
+
+```css
+::view-transition-old(.message-change) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(.message-change) {
+  animation-name: fade-in;
+}
+
+::view-transition-old(.message-change),
+::view-transition-new(.message-change) {
+  animation-duration: 800ms;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+```
+
+The animation names stay separate because the snapshots do different work, while
+the shared settings live in the grouped rule.
+
+## Example 2: cross-fade versus fade-through
+
+Switch between **Equal cross-fade** and **Staged fade-through**, then navigate a
+few times. Watch the text around the middle of the transition. The deliberately
+slow timing makes the difference visible.
+
+<LiveEditor previewMinHeight="27rem" codeMaxHeight="50rem" fullBleed autoPlay>
+
+```tsx
+import { startTransition, useState, ViewTransition } from 'react';
+import { createRoot } from 'react-dom/client';
+
+const pages = [
+  {
+    eyebrow: 'Workspace',
+    title: 'Inbox',
+    description: 'Review new messages and decide what needs attention.',
+    items: ['Design review notes', 'Quarterly planning', 'Customer feedback'],
+  },
+  {
+    eyebrow: 'Analytics',
+    title: 'Reports',
+    description: 'Compare activity and spot changes across the product.',
+    items: ['Weekly active teams', 'Response time', 'Feature adoption'],
+  },
+];
+
+function App() {
+  const [pageIndex, setPageIndex] = useState(0);
+  const [mode, setMode] = useState<'cross-fade' | 'fade-through'>(
+    'cross-fade',
+  );
+  const page = pages[pageIndex];
+
+  function navigate() {
+    startTransition(() => {
+      setPageIndex((current) => (current + 1) % pages.length);
+    });
+  }
+
+  const transitionCss =
+    mode === 'cross-fade'
+      ? `
+        ::view-transition-old(.route-content) {
+          animation: fade-out 600ms linear both,
+            slide-out 600ms ease both;
+        }
+
+        ::view-transition-new(.route-content) {
+          animation: fade-in 600ms linear both,
+            slide-in 600ms ease both;
+        }
+      `
+      : `
+        ::view-transition-old(.route-content) {
+          animation: fade-out 180ms ease-in both,
+            slide-out 600ms ease both;
+        }
+
+        ::view-transition-new(.route-content) {
+          animation: fade-in 420ms ease-out 180ms both,
+            slide-in 600ms ease both;
+        }
+      `;
+
+  return (
+    <main>
+      <style>{transitionCss}</style>
+
+      <div className="mode-picker" aria-label="Transition style">
+        <button
+          className={mode === 'cross-fade' ? 'selected' : ''}
+          aria-pressed={mode === 'cross-fade'}
+          onClick={() => setMode('cross-fade')}
+        >
+          Equal cross-fade
+        </button>
+        <button
+          className={mode === 'fade-through' ? 'selected' : ''}
+          aria-pressed={mode === 'fade-through'}
+          onClick={() => setMode('fade-through')}
+        >
+          Staged fade-through
+        </button>
+      </div>
+
+      <ViewTransition update="route-content">
+        <article className="page-card">
+          <span className="eyebrow">{page.eyebrow}</span>
+          <h1>{page.title}</h1>
+          <p>{page.description}</p>
+          <ul>
+            {page.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
+      </ViewTransition>
+
+      <button className="navigate" onClick={navigate}>
+        Go to {pages[(pageIndex + 1) % pages.length].title}
+      </button>
+    </main>
+  );
+}
+
+createRoot(document.getElementById('root')!).render(<App />);
+```
+
+```css
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+}
+
+main {
+  display: grid;
+  min-height: 25rem;
+  place-content: center;
+  gap: 1rem;
+}
+
+.page-card {
+  box-sizing: border-box;
+  width: min(25rem, calc(100vw - 2rem));
+  min-height: 14rem;
+  padding: 1.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 1rem 2rem rgb(15 23 42 / 8%);
+}
+
+.eyebrow {
+  color: #0369a1;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0.25rem 0;
+}
+
+p {
+  margin-top: 0;
+  color: #475569;
+}
+
+ul {
+  margin-bottom: 0;
+  padding-left: 1.25rem;
+}
+
+.mode-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+}
+
+button {
+  padding: 0.65rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: white;
+  cursor: pointer;
+}
+
+.mode-picker button {
+  font-size: 0.8rem;
+}
+
+.mode-picker .selected {
+  border-color: #0369a1;
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.navigate {
+  border-color: #0f172a;
+  background: #0f172a;
+  color: white;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out {
+  to {
+    transform: translateX(-1.5rem);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(1.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.route-content),
+  ::view-transition-new(.route-content) {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}
+```
+
+</LiveEditor>
+
+With **Equal cross-fade**, both text-heavy snapshots are visible at the same
+time. With **Staged fade-through**, the old snapshot uses the first `180ms` and
+the new snapshot uses the final `420ms` via an `180ms` delay. Their opacity
+animations never overlap, but both snapshots still participate in the same
+`600ms` movement.
+
+That choreography is the practical reason for separate durations: `old` and
+`new` can own different intervals of one transition timeline.

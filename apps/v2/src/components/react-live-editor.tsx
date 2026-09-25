@@ -35,6 +35,7 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
         code={state.code}
         highlightedLines={state.highlightedLines}
         htmlEntry={state.language === 'html' ? undefined : state.html}
+        cssEntry={state.css}
         dependencies={state.dependencies}
         readOnly={props.readOnly}
       />
@@ -56,6 +57,8 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
   const highlightedLines: Array<number> = [];
   const htmlCodeLines: Array<string> = [];
   const highlightedHtmlLines: Array<number> = [];
+  const cssCodeLines: Array<string> = [];
+  const highlightedCssLines: Array<number> = [];
   const dependencies: Record<string, string> = {};
 
   let language: SupportedLang | undefined;
@@ -120,6 +123,25 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
           }
         });
     }
+
+    if ($code && currentLang === 'css') {
+      Array.from($code.childNodes)
+        .filter(
+          (node): node is HTMLElement =>
+            node instanceof HTMLElement && node.classList.contains('line')
+        )
+        .forEach((child, childIndex) => {
+          const content = child.textContent;
+
+          if (content != null) {
+            cssCodeLines.push(whiteSpacePattern.test(content) ? '' : content);
+
+            if (child.classList.contains('highlighted')) {
+              highlightedCssLines.push(childIndex);
+            }
+          }
+        });
+    }
   });
 
   if (language === 'html' && codeLines.length === 0) {
@@ -129,6 +151,10 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
 
   if (language) {
     addReactImportIfNeeded(codeLines, language, dependencies);
+
+    if (language !== 'html' && cssCodeLines.length > 0) {
+      codeLines.unshift(`import './styles.css';`);
+    }
   }
 
   if (codeLines.length > 0 && language) {
@@ -140,6 +166,10 @@ function processPreElements(preElements: NodeListOf<HTMLPreElement>): LiveEditor
       html:
         htmlCodeLines.length > 0
           ? { content: htmlCodeLines.join('\r\n'), highlightedLines: highlightedHtmlLines }
+          : undefined,
+      css:
+        cssCodeLines.length > 0
+          ? { content: cssCodeLines.join('\r\n'), highlightedLines: highlightedCssLines }
           : undefined,
       dependencies,
     };
@@ -190,6 +220,12 @@ type LiveEditorState =
       language: SupportedLang;
       highlightedLines: Array<number>;
       html:
+        | {
+            content: string;
+            highlightedLines: Array<number>;
+          }
+        | undefined;
+      css:
         | {
             content: string;
             highlightedLines: Array<number>;
