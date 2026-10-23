@@ -8,6 +8,7 @@ interface Props {
   codeMaxHeight?: string;
   autoPlay?: boolean;
   readOnly?: boolean;
+  defaultCollapsedRegions?: readonly string[];
   fullBleed?: boolean | 'when-preview';
 }
 
@@ -16,6 +17,7 @@ const {
   codeMaxHeight,
   autoPlay,
   readOnly,
+  defaultCollapsedRegions,
   fullBleed = autoPlay,
 } = Astro.props;
 ---
@@ -54,28 +56,27 @@ const {
 >
   <div class="flex justify-between items-center px-4 py-1 offline:hidden">
     <span class="inline-flex items-center gap-2">
-      <span class="font-techie text-sm uppercase font-medium tracking-widest" data-editor-mode
+      <span
+        class="font-techie text-sm uppercase font-medium tracking-widest"
+        data-editor-mode
       ></span>
       <span
         class="relative h-2 w-2 animate-in duration-500 delay-200 fade-in fill-mode-both hidden"
         aria-hidden
         data-running-indicator
       >
-        <span class="animate-ping absolute h-full w-full bg-primary-400 opacity-50 rounded-full"
-        ></span>
+        <span class="animate-ping absolute h-full w-full bg-primary-400 opacity-50 rounded-full"></span>
         <span class="relative block w-2 h-2 bg-primary-500 rounded-full"></span>
       </span>
     </span>
     <div class="inline-flex gap-2">
       <button type="button" class={clsx('relative')} data-edit-button aria-label="Edit">
-        {
-          !autoPlay && (
-            <span
-              class="animate-ping absolute left-[5px] top-[5px] w-[22px] h-[22px] bg-primary-400 opacity-50 rounded-full"
-              data-play-button-highlight
-            />
-          )
-        }
+        {!autoPlay && (
+          <span
+            class="animate-ping absolute left-[5px] top-[5px] w-[22px] h-[22px] bg-primary-400 opacity-50 rounded-full"
+            data-play-button-highlight
+          />
+        )}
         <span class="relative block p-1 bg-white dark:bg-zinc-400 rounded-full" data-play-icon>
           <PlayIcon aria-hidden className="w-6 h-6 text-gray-500 dark:text-zinc-700" />
         </span>
@@ -94,7 +95,11 @@ const {
     <slot />
   </div>
   <div class="hidden border border-gray-100 dark:border-zinc-600" data-editor>
-    <ReactLiveEditor readOnly={readOnly} client:load>
+    <ReactLiveEditor
+      readOnly={readOnly}
+      defaultCollapsedRegions={defaultCollapsedRegions}
+      client:load
+    >
       <slot />
     </ReactLiveEditor>
   </div>

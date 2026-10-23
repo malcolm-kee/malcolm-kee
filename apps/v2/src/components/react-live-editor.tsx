@@ -8,6 +8,7 @@ const Sandbox = React.lazy(() => import('./code-sandbox'));
 export type ReactLiveEditorProps = {
   children: React.ReactNode;
   readOnly?: boolean;
+  defaultCollapsedRegions?: readonly string[];
 };
 
 export function ReactLiveEditor(props: ReactLiveEditorProps) {
@@ -38,6 +39,7 @@ export function ReactLiveEditor(props: ReactLiveEditorProps) {
         cssEntry={state.css}
         dependencies={state.dependencies}
         readOnly={props.readOnly}
+        defaultCollapsedRegions={props.defaultCollapsedRegions}
       />
     </React.Suspense>
   ) : state.mode === 'mounted' ? (

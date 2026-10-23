@@ -21,6 +21,16 @@
   font-size: 14px;
 }
 
+.editorWrapper :global(.cm-foldGutter) {
+  color: var(--sp-colors-clickable);
+}
+
+.editorWrapper :global(.cm-foldPlaceholder) {
+  color: var(--sp-syntax-color-comment);
+  background-color: var(--sp-colors-surface2);
+  border-color: var(--sp-colors-surface3);
+}
+
 .editorWrapper {
   --highlight-bg: #f1f8ff;
 }

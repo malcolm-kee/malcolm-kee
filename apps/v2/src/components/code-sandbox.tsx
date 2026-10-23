@@ -1,19 +1,12 @@
-import {
-  SandpackCodeEditor,
-  SandpackPreview,
-  SandpackProvider,
-  type SandpackTheme,
-} from '@codesandbox/sandpack-react';
+import { SandpackPreview, SandpackProvider, type SandpackTheme } from '@codesandbox/sandpack-react';
 import { nightOwl, githubLight as oriGithubLight } from '@codesandbox/sandpack-themes';
 import { clsx } from 'clsx';
 import * as React from 'react';
 import { useThemeValue } from '@app/hooks/use-theme';
 import { type SupportedLang } from './code-sandbox-helpers';
 import styles from './code-sandbox.module.css';
-import { SandboxCodeViewer } from './sandbox-code-viewer';
+import { SandboxEditor } from './sandbox-editor';
 import { SandBoxConsole } from './sandbox-console';
-
-const MonacoEditor = React.lazy(() => import('./sandbox-monaco-editor'));
 
 const githubLight: typeof oriGithubLight = {
   ...oriGithubLight,
@@ -37,6 +30,7 @@ export interface SandboxProps {
   };
   dependencies?: Record<string, string>;
   readOnly?: boolean;
+  defaultCollapsedRegions?: readonly string[];
 }
 
 export default function Sandbox(props: SandboxProps) {
@@ -135,38 +129,32 @@ export default function Sandbox(props: SandboxProps) {
             )}
             style={codeViewerStyle}
           >
-            {props.readOnly ? (
-              <SandboxCodeViewer
-                showTabs={hasUi}
-                highlightedLines={{
-                  [entryFileName]: props.highlightedLines,
-                  ...(props.htmlEntry
-                    ? isReactProject
-                      ? {
-                          '/public/index.html': props.htmlEntry.highlightedLines,
-                        }
-                      : {
-                          '/index.html': props.htmlEntry.highlightedLines.map(plusTwo),
-                          // because we inject two additional lines (html>body) with getVanillaHtml
-                        }
-                    : {}),
-                  ...(props.cssEntry
+            <SandboxEditor
+              lang={props.lang}
+              theme={siteTheme === 'dark' ? 'dark' : 'light'}
+              style={editorStyle}
+              readOnly={props.readOnly}
+              defaultCollapsedRegions={props.defaultCollapsedRegions}
+              showTabs={hasUi}
+              highlightedLines={{
+                [entryFileName]: props.highlightedLines,
+                ...(props.htmlEntry
+                  ? isReactProject
                     ? {
-                        [stylesheetPath]: props.cssEntry.highlightedLines,
+                        '/public/index.html': props.htmlEntry.highlightedLines,
                       }
-                    : {}),
-                }}
-              />
-            ) : props.lang === 'ts' ? (
-              <MonacoEditor
-                style={editorStyle}
-                theme={siteTheme === 'dark' ? 'dark' : 'light'}
-                lang={props.lang}
-                showTabs={hasUi}
-              />
-            ) : (
-              <SandpackCodeEditor style={editorStyle} showTabs={hasUi} />
-            )}
+                    : {
+                        '/index.html': props.htmlEntry.highlightedLines.map(plusTwo),
+                        // because we inject two additional lines (html>body) with getVanillaHtml
+                      }
+                  : {}),
+                ...(props.cssEntry
+                  ? {
+                      [stylesheetPath]: props.cssEntry.highlightedLines,
+                    }
+                  : {}),
+              }}
+            />
           </div>
           <div
             className={clsx(

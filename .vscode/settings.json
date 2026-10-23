@@ -13,6 +13,7 @@
     "editor.wordWrapColumn": 130
   },
   "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.quickSuggestions": {
       "comments": "on",
       "strings": "on",
